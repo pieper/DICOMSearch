@@ -19,10 +19,6 @@ class CouchUploader():
     self.couchDB_URL=couchDB_URL
     self.databaseName=databaseName
 
-    # find the database and delete the .site related
-    # documents if they already exist
-    self.couch = couchdb.Server(self.couchDB_URL)
-    self.db = self.couch[self.databaseName]
 
   def uploadDirectoryToDocument(self,directory,documentID):
     """Walk through directory for files and copy
@@ -31,6 +27,11 @@ class CouchUploader():
     Directories paths become attachment 'filenames' so there is
     a flat list like the output of the 'find' command.
     """
+
+    # find the database and delete the .site related
+    # documents if they already exist
+    self.couch = couchdb.Server(self.couchDB_URL)
+    self.db = self.couch[self.databaseName]
 
     # create the document
     document = self.db.get(documentID)
@@ -45,18 +46,20 @@ class CouchUploader():
     # put the attachments onto the document
     for root, dirs, files in os.walk(self.sitePath):
         for fileName in files:
+            if fileName.startswith('.'):
+                continue
             fileNamePath = os.path.join(root,fileName)
-        try:
-            relPath = os.path.relpath(fileNamePath, self.sitePath)
-            fp = open(fileNamePath, "rb")
-            self.db.put_attachment(documentJSON, fp, relPath)
-            fp.close()
+            try:
+                relPath = os.path.relpath(fileNamePath, self.sitePath)
+                fp = open(fileNamePath, "rb")
+                self.db.put_attachment(documentJSON, fp, relPath)
+                fp.close()
 
-        except Exception, e:
-            print ("Couldn't attach file %s" % fileNamePath)
-            print str(e)
-            traceback.print_exc()
-            continue
+            except Exception, e:
+                print ("Couldn't attach file %s" % fileNamePath)
+                print str(e)
+                traceback.print_exc()
+                continue
 
 
 # }}}
@@ -66,7 +69,7 @@ class CouchUploader():
 def usage():
     print ("couchSite [siteDirectory] <CouchDB_URL> <DatabaseName>")
     print (" CouchDB_URL default http:localhost:5984")
-    print (" DatabaseName default DICOMSearch")
+    print (" DatabaseName default dicom_search")
 
 def main ():
     global uploader
