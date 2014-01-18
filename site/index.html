@@ -20,13 +20,62 @@
 
 $(function() {
 
+  var getURLParameter = function(parameter) {
+      // from http://www.jquerybyexample.net/2012/06/get-url-parameters-using-jquery.html
+      var pageURL = window.location.search.substring(1);
+      var urlVariables = pageURL.split('&');
+      for (var i = 0; i < urlVariables.length; i++) {
+          var parameterName = urlVariables[i].split('=');
+          if (parameterName[0] == parameter) {
+              return parameterName[1];
+          }
+      }
+  };
+
+  var hitCountRequest, hitRequest;
+
   // clear the search results and issue an ajax query
   // to the database.  Populate the result are with
   // results of query.
-  var updateHits = function(startKey, limit) {
+  var updateHits = function(key) {
+
+    // clear previous results
+    $('#hitList p').remove();
     $('#resultTable h3').remove();
     $('#resultTable p').remove();
-    $.couch.db("dicom_search").view("search/paraByWord", {
+
+    // abort pending requests
+    if (hitCountRequest) { hitCountRequest.abort(); }
+    if (hitRequest) { hitRequest.abort(); }
+
+    if (key.length <= 4) { return; }
+    key = key.toLocaleLowerCase();
+
+    var limit = 10; // TODO: better version of this block
+    if ($('#limit20').attr('checked')) { limit = 20; }
+    if ($('#limit100').attr('checked')) { limit = 100; }
+    if ($('#limitAll').attr('checked')) { limit = 99999999; } // needs to be an int
+
+    // update the hit list
+    hitCountRequest = $.couch.db("dicom_search").view("search/paraByWord", {
+      success: function(data) {
+        // add a row with the current word count
+        var hits = 0;
+        if (data.rows.length > 0) {
+          hits = data.rows[0].value;
+        }
+        $('#hitList')
+          .append($("<p class='hitcount'>" + key + " (" + hits + " hits)<p>"));
+      },
+      error: function(status) {
+        console.log("Error: " + status);
+      },
+      key : key,
+      reduce : true,
+    });
+
+    // update the result table
+    hitRequest = $.couch.db("dicom_search").view("search/paraByWord", {
       success: function(data) {
         // add entries for each hit
         $.each(data.rows, function(index,value) {
@@ -36,31 +85,42 @@ $(function() {
         });
         // hightlight the search term
         $('.paragraph').html( function(index,currentContent) {
-          return(currentContent.replace( startKey, "<span class='highlight'>" + startKey + "</span>"));
+          return(currentContent.replace( key, "<span class='highlight'>" + key + "</span>"));
         });
       },
       error: function(status) {
         console.log(status);
       },
-      startkey : startKey,
+      startkey : key,
+      endkey : key,
       limit : limit,
-      reduce: false,
-      include_docs: true
+      reduce : false,
+      include_docs : true
     });
   };
 
+  // make the limit input into a jqui spinner
+  $('#limit').buttonset();
 
   // update result on key press
-  $('#searchWord').keydown(function(e) {
-    updateHits($(this).val(), 10);
+  $('#searchWord').keyup(function(e) {
+    updateHits($(this).val());
+  });
+  $('#limit input').click(function(e) {
+    updateHits($('#searchWord').val());
   });
 
-  // set up initial default search
-  $('#searchWord').val('DICOM');
-  updateHits('DICOM',10);
+  // set up initial search
+  var searchWord = 'DICOM';
+  var passedSearchWord = getURLParameter('search');
+  if (passedSearchWord) {
+    searchWord = passedSearchWord;
+  }
+  $('#searchWord').val(searchWord);
+  updateHits(searchWord);
   $('#searchWord').focus();
-
 });
+
 	</script>
 </head>
 
@@ -72,8 +132,19 @@ $(function() {
   <div class="main">
     <div class="left">
       <div id="searchBox" class="inputArea">
-        <label>Word to search for: </label>
+
+        <label for="limit">Results per query</label>
+        <div id="limit">
+          <input type="radio" id="limit10" name="limit" checked="checked"><label for="limit10">10</label>
+          <input type="radio" id="limit20" name="limit"><label for="limit20">20</label>
+          <input type="radio" id="limit100" name="limit"><label for="limit100">100</label>
+          <input type="radio" id="limitAll" name="limit"><label for="limitAll">All</label>
+        </div>
+
+        <label for="search">Word to search for: </label>
         <input id="searchWord">
+      </div>
+      <div id="hitList" class="hitList">
       </div>
     </div>
     <div class="right">

@@ -6,6 +6,11 @@ Add a view that maps all words to the section ids where they appear.
 
 Use --help to see options.
 
+This is a handy script for development. Paste it in a terminal window
+(on a mac with fswatch installed) and it will reupload the site
+and reload the browser tab each time you save a file.
+
+fswatch . "echo -n reload... ; ./couchSite.py site http://localhost:5984 dicom_search; osascript ~/Downloads/fswatch/reloadChrome.applescript; echo \"done \"; date
 
 TODO:
     Consider switching to elasticsearch or something similar
@@ -13,7 +18,10 @@ TODO:
 
     Maybe add DataTables for the output
     https://github.com/DataTables/DataTables
-"""
+
+
+
+""""
 
 import sys, os, traceback
 import json, couchdb
@@ -24,7 +32,7 @@ import xml.etree.ElementTree as ET
 class DICOMSearchParser():
   """Parse xml files in the dicom standard and create the database.
   """
-  
+
 
   def __init__(self,dicomStandardPath, couchDB_URL='http://localhost:5984', databaseName='dicom_search'):
     self.dicomStandardPath=dicomStandardPath
