@@ -9,3 +9,7 @@ in development and not publicly available).  The paragraphs are converted into c
 documents and pushed to the server.  Each word in the paragraph is also linked back
 to the paragraph so that it is easy (quick) to search the standard by keyword
 and get all matching instances.
+
+A utility couchSite copies the local site directory as attachments to a document
+called .site so that the site can be hosted directly from CouchDB.  The site
+allows you to type a keyword and get instant results.
