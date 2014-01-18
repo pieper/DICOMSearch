@@ -5,6 +5,14 @@ Create a CouchDB database with the contents of the DICOM Standard.
 Add a view that maps all words to the section ids where they appear.
 
 Use --help to see options.
+
+
+TODO:
+    Consider switching to elasticsearch or something similar
+    https://github.com/elasticsearch/elasticsearch
+
+    Maybe add DataTables for the output
+    https://github.com/DataTables/DataTables
 """
 
 import sys, os, traceback

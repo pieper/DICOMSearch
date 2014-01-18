@@ -6,50 +6,59 @@
 
 	<title>A Searchable Version of the DICOM Standard</title>
 
-  <div comment="Resources from CDN">
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
-
-  <div comment="These are provided by couchdb itself">
-  <script type="text/javascript" src="../../../_utils/script/json2.js"></script>
-  <script type="text/javascript" src="../../../_utils/script/sha1.js"></script>
-  <script src="/_utils/script/jquery.js?1.4.2"></script>
-  <script src="/_utils/script/jquery.couch.js?0.11.0"></script>
-  <script src="/_utils/script/jquery.dialog.js?0.11.0"></script>
+  <script src="./js/json2.js"></script>
+  <script src="./js/sha1.js"></script>
+  <script src="./js/jquery.js"></script>
+  <script src="./js/jquery.couch.js"></script>
+  <script src="./js/jquery.dialog.js"></script>
   <script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-  <link rel="stylesheet" href="../../../_utils/style/layout.css?0.11.0" type="text/css">
+
+  <link href="./css/dicom.css" rel="stylesheet" type="text/css" />
+  <link href="./css/dicom.search.css" rel="stylesheet" type="text/css" />
 
   <script>
 
 $(function() {
 
+  // clear the search results and issue an ajax query
+  // to the database.  Populate the result are with
+  // results of query.
   var updateHits = function(startKey, limit) {
-    $('#resultTable h2').remove();
+    $('#resultTable h3').remove();
     $('#resultTable p').remove();
-    $.couch.db("dicom_search").view("search/paraByWord", { 
-      success: function(data) { 
+    $.couch.db("dicom_search").view("search/paraByWord", {
+      success: function(data) {
+        // add entries for each hit
         $.each(data.rows, function(index,value) {
           $('#resultTable')
-            .append($("<h2>" + value.doc._id + "</h2>"))
-            .append($("<p>" + value.doc.text + "</p>"));
+            .append($("<p class='citation'>" + value.doc._id + "<p>"))
+            .append($("<p class='paragraph'>" + value.doc.text + "</p>"));
         });
-      }, 
-      error: function(status) { 
-        console.log(status); 
-      }, 
-      startkey : startKey, 
-      limit : limit, 
+        // hightlight the search term
+        $('.paragraph').html( function(index,currentContent) {
+          return(currentContent.replace( startKey, "<span class='highlight'>" + startKey + "</span>"));
+        });
+      },
+      error: function(status) {
+        console.log(status);
+      },
+      startkey : startKey,
+      limit : limit,
       reduce: false,
-      include_docs: true 
+      include_docs: true
     });
   };
 
-  $('#searchWord').focus();
 
+  // update result on key press
   $('#searchWord').keydown(function(e) {
     updateHits($(this).val(), 10);
   });
 
-  updateHits('dicom',10);
+  // set up initial default search
+  $('#searchWord').val('DICOM');
+  updateHits('DICOM',10);
+  $('#searchWord').focus();
 
 });
 	</script>
@@ -57,29 +66,35 @@ $(function() {
 
 <body>
 	<div class="header">
-			<h1>A Searchable Version of the DICOM Standard <span>- Interface</span></h1>
+			<h1>A Searchable Version of the DICOM Standard</h1>
   </div>
 
-	<div id="searchBox">
- <label for="autocomplete">Enter word to search for: </label>
- <input id="searchWord"> 
- </div>
+  <div class="main">
+    <div class="left">
+      <div id="searchBox" class="inputArea">
+        <label>Word to search for: </label>
+        <input id="searchWord">
+      </div>
+    </div>
+    <div class="right">
 
-	<div id="resultTable">
-  </div>
+      <div id="resultTable" class="results">
+      </div>
+    </div>
 
   <div class="footer">
-  <p class="copyright">This interface provided by <a href=
-  "http://qiicr.org">QIICR</a> &#169; 2014<br>
-  </p>
-<p>
-Related projects include:
-<li> <a href="http://slicer.org">3D Slicer</a>
-<li> <a href="http://na-mic.org">NA-MIC</a>
-<li> <a href="http://nac.spl.harvard.edu">NAC</a>
-<li> <a href="http://ncigt.org">NCIGT</a>
-<li> <a href="http://commontk.org">CTK</a>
-</p>
+    <p class="copyright">This interface provided by <a href=
+    "http://qiicr.org">QIICR</a> &#169; 2014<br>
+    </p>
+    <p>
+    Related projects include:
+    <a href="http://slicer.org">3D Slicer</a>
+    <a href="http://na-mic.org">NA-MIC</a>
+    <a href="http://nac.spl.harvard.edu">NAC</a>
+    <a href="http://ncigt.org">NCIGT</a>
+    <a href="http://commontk.org">CTK</a>
+    </p>
+  </div>
 </div>
 </body>
 </html>
