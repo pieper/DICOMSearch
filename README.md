@@ -9,6 +9,10 @@ documents and pushed to the server.  Each word in the paragraph is also linked b
 to the paragraph so that it is easy (quick) to search the standard by keyword
 and get all matching instances.
 
+A utility couchSite copies the local site directory as attachments to a document
+called .site so that the site can be hosted directly from CouchDB.  The site
+allows you to type a keyword and get instant results.
+
 You can search by passing commands with the URL like this:
 
 http://127.0.0.1:5984/dicom_search/.site/index.html?search=orientation
