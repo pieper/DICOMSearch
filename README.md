@@ -13,12 +13,15 @@ A utility couchSite copies the local site directory as attachments to a document
 called .site so that the site can be hosted directly from CouchDB.  The site
 allows you to type a keyword and get instant results.
 
-You can search by passing commands with the URL like this:
+You can search by passing commands with the URL like this go a local instance:
 
 http://127.0.0.1:5984/dicom_search/.site/index.html?search=orientation
 
 http://127.0.0.1:5984/dicom_search/.site/index.html?search=(0008,0008)
 
+Or, using the replicated version on cloudant.com:
+
+http://pieper.cloudant.com/dicom_search/.site/index.html?search=(0008,0008)
 
 Caveats
 =======
