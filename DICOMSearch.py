@@ -21,7 +21,7 @@ TODO:
 
 
 
-""""
+"""
 
 import sys, os, traceback
 import json, couchdb
@@ -117,6 +117,7 @@ class DICOMSearchParser():
       paraID= ','.join(self.ids) + ',para_%d' % self.paragraphNumber
       jsonDictionary['_id'] = paraID
       jsonDictionary['text'] = element.text
+      jsonDictionary['xml_id'] = paraID.split(',')[-2]
       self.paragraphNumber += 1
       self.save(jsonDictionary)
       if element.text:
@@ -128,6 +129,7 @@ class DICOMSearchParser():
                     jsonDictionary['_id'] = paraID + "," + word
                     jsonDictionary['paraID'] = paraID
                     jsonDictionary['word'] = word
+                    jsonDictionary['xml_id'] = paraID.split(',')[-2]
                     self.save(jsonDictionary)
         except UnicodeEncodeError:
             print ("Could not handle unicode")
@@ -190,7 +192,7 @@ def main ():
 
 forIPython = """
 import sys
-sys.argv = ('test', '/Users/pieper/Downloads/dicom/DICOMStandard')
+sys.argv = ('test', '/Users/fedorov/github/DICOMStandard')
 """
 
 if __name__ == '__main__':

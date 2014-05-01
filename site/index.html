@@ -17,6 +17,12 @@
   <link href="./css/dicom.search.css" rel="stylesheet" type="text/css" />
 
   <script>
+  // open the corresponding part of the standard on search result click
+  var linkHandler = function(link){
+    partFile = link.innerHTML.split(',')[0]
+    $('#dicomText').load('./html/'+partFile+'.html');
+  }
+
 
 $(function() {
 
@@ -80,7 +86,8 @@ $(function() {
         // add entries for each hit
         $.each(data.rows, function(index,value) {
           $('#resultTable')
-            .append($("<p class='citation'>" + value.doc._id + "<p>"))
+            .append($("<p class='citation'>" + value.doc._id + "</p>"))
+            .append($("<a href='#' onclick=\"linkHandler(this);return false;\">"+value.doc._id+"</a></p>"))
             .append($("<p class='paragraph'>" + value.doc.text + "</p>"));
         });
         // hightlight the search term
@@ -130,7 +137,7 @@ $(function() {
   </div>
 
   <div class="main">
-    <div class="left">
+    <div class="leftTop">
       <div id="searchBox" class="inputArea">
 
         <label for="limit">Results per query</label>
@@ -147,9 +154,16 @@ $(function() {
       <div id="hitList" class="hitList">
       </div>
     </div>
-    <div class="right">
+
+    <div class="leftBottom">
 
       <div id="resultTable" class="results">
+      </div>
+    </div>
+
+    <div class="right">
+
+      <div id="dicomText" class="results">
       </div>
     </div>
 
