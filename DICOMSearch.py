@@ -61,15 +61,15 @@ class DICOMSearchParser():
     for root, dirs, files in os.walk(self.dicomStandardPath):
         for fileName in files:
             fileNamePath = os.path.join(root,fileName)
-        try:
-            if fileNamePath.endswith('.xml'):
+            try:
+              if fileNamePath.endswith('.xml'):
                 print("Parsing %s" % fileNamePath)
                 self.parseDocBook(fileNamePath)
-        except Exception, e:
-            print ("Couldn't parse xml from %s" % fileNamePath)
-            print str(e)
-            traceback.print_exc()
-            continue
+            except Exception, e:
+              print ("Couldn't parse xml from %s" % fileNamePath)
+              print str(e)
+              traceback.print_exc()
+              continue
   def save(self,jsonDictionary):
     try:
         self.db.save(jsonDictionary)
