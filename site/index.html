@@ -12,16 +12,66 @@
   <script src="./js/jquery.couch.js"></script>
   <script src="./js/jquery.dialog.js"></script>
   <script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+  <script src="./js/jquery.scrollTo.min.js"></script>
+  <script src="./js/jquery.highlight.js"></script>
 
   <link href="./css/dicom.css" rel="stylesheet" type="text/css" />
   <link href="./css/dicom.search.css" rel="stylesheet" type="text/css" />
 
   <script>
-  // open the corresponding part of the standard on search result click
-  var linkHandler = function(link){
-    partFile = link.innerHTML.split(',')[0]
-    $('#dicomText').load('./html/'+partFile+'.html');
+
+
+  $(document).ready(function(){
+    $('a').click(function(){
+      console.log('No action');
+    });
+  });
+
+  var fileExists = function(url){
+    var http = new XMLHttpRequest();
+    http.open('HEAD', url, false);
+    http.send();
+    return http.status != 404;
   }
+
+  function jq( myid ) {
+    return "#" + myid.replace( /(:|\.|\[|\])/g, "\\$1" );
+  }
+
+  // open the corresponding part of the standard on search result click
+  /*
+  var linkHandler = function(link){
+    loc = link.innerHTML.split(',')
+    partFile = loc[0]
+    partSection = ''
+    dicomBaseURL = "ftp://medical.nema.org/medical/dicom/2013/output"
+    dicomBaseURL = "."
+    for(var idx=2;idx<loc.length;idx++){
+      partSection = loc[loc.length-idx]
+      url = dicomBaseURL+'/chtml/'+partFile+'/'+partSection+'.html';
+      if(fileExists(url)){
+        console.log('Will load this URL: '+url)
+        break;
+      }
+      partSection=''
+    }
+    if(partSection==''){
+      alert('Unable to resolve this reference: '+link);
+      return;
+    }
+
+    $('#dicomText').load(url,null,function(){
+      anchors = $(this).filter('a');
+      console.log(anchors);
+    });
+    //$('#dicomText').find('a').click(function(){console.log('Hello');return false;});
+    // test
+    // How to scroll to anchor? The below does not seem to work... 
+    //aTag=$('#dicomText,'+partSection)
+    //console.log('Will try to scroll to '+partSection)
+    //$('#dicomText').animate({scrollTop: aTag.offset.top},'slow')
+
+  }*/
 
 
 $(function() {
@@ -83,17 +133,84 @@ $(function() {
     // update the result table
     hitRequest = $.couch.db("dicom_search").view("search/paraByWord", {
       success: function(data) {
+        console.log('Searched')
+        $('#resultTable').empty()
         // add entries for each hit
         $.each(data.rows, function(index,value) {
-          $('#resultTable')
-            .append($("<p class='citation'>" + value.doc._id + "</p>"))
-            .append($("<a href='#' onclick=\"linkHandler(this);return false;\">"+value.doc._id+"</a></p>"))
-            .append($("<p class='paragraph'>" + value.doc.text + "</p>"));
+          console.log(value)
+          partID = value.doc._id.split(',')[1]
+          excerpt = "<div class='stickynote' data-location='"+value.doc._id+"'><p class='citation'>"+partID+"</p>"
+          //excerpt = "<div class='stickynote' data-location='"+value.doc._id+"'><p class='citation'>"+value.doc._id+"</p>"
+          excerpt = excerpt + "<p class='paragraph'>"+value.doc.text+"</p></div>"
+          elem = $(excerpt)
+          elem.on('click',function(){
+            console.log($(this))
+            citation = $(this).attr("data-location").split(',');
+            partFile = citation[0]
+            partSection = ''
+            dicomBaseURL = "ftp://medical.nema.org/medical/dicom/2013/output"
+            dicomBaseURL = "."
+            for(var idx=2;idx<citation.length;idx++){
+              partSection = citation[citation.length-idx]
+              url = dicomBaseURL+'/chtml/'+partFile+'/'+partSection+'.html';
+              if(fileExists(url)){
+                break;
+              }
+              partSection=''
+            }
+            if(partSection==''){
+              alert('Unable to resolve this reference: '+link);
+              return;
+            }
+
+            $('.stickynote-selected').removeClass('stickynote-selected');
+            $(this).addClass('stickynote-selected');
+
+            //$('#dicomText').load(url,null,function(){alert('load is over');});
+            //$('#dicomText').load(url);
+            $('#dicomText').load(url,null,function(){
+              $(this).highlight($('#searchWord').val());
+              dataLocation = $('.stickynote-selected').attr('data-location')
+              console.log('data-location = '+dataLocation);
+              whereToLocation = $('.stickynote-selected').attr("data-location").split(",")
+              whereToSect = jq(whereToLocation[whereToLocation.length-2]);
+              // this can be 'sect', 'table', 'chapter', anything else? ...
+              typeOfThing = whereToSect.split('_')[0].substring(1) // skip '#'
+              if(typeOfThing == 'sect'){
+                typeOfThing = 'section';
+              }
+              // elements with the actual id are not those that contain
+              // paragraphs. Instead, we look for the parent element of the same
+              // class that does not have id.
+              whereToSect = $(whereToSect).closest('.'+typeOfThing+':not([id])')
+              whereToPara = Number(whereToLocation[whereToLocation.length-1].split('_')[1])-1;
+              par = $(whereToSect).find('p')[whereToPara]
+              //console.log('Paragraph number is '+whereToPara);
+              //par = $('#dicomText #'+whereToSect+' p')[whereToPara];
+              $('.right').scrollTop(0);
+              $('.right').scrollTop($(par).position().top);
+
+              // would be nice to reload the next/prev page into the same div
+              //$(this).find('a').each(function(){
+              //base = $("<base target='_self' href='chtml/"+partFile+"/'>");
+              //$(this).before(base)
+            });
+            
+          });
+
+         $('#resultTable').append(elem)
+            //.append($("<p class='citation'>" + value.doc._id + "</p>"))
+            //.append($("<a href='#' onclick=\"linkHandler(this);return false;\">"+value.doc._id+"</a>"))
+            //.append($("<p class='paragraph' onclick=\"linkHandler(this);return false;\">" + value.doc.text + "</p>"));
         });
         // hightlight the search term
+        /*
         $('.paragraph').html( function(index,currentContent) {
-          return(currentContent.replace( key, "<span class='highlight'>" + key + "</span>"));
-        });
+          //return(currentContent.replace( key, "<span class='highlight'>" + key + "</span>"));
+          return(currentContent.highlight(key));
+          });
+        */
+        $('.paragraph').highlight(key);
       },
       error: function(status) {
         console.log(status);
@@ -151,22 +268,18 @@ $(function() {
         <label for="search">Word to search for: </label>
         <input id="searchWord">
       </div>
-      <div id="hitList" class="hitList">
-      </div>
+      <div id="hitList" class="hitList"></div>
     </div>
 
     <div class="leftBottom">
-
-      <div id="resultTable" class="results">
-      </div>
+      <div id="resultTable" class="results"></div>
     </div>
 
     <div class="right">
-
-      <div id="dicomText" class="results">
-      </div>
+      <div id="dicomText"></div>
     </div>
 
+</div>
   <div class="footer">
     <p class="copyright">
     This interface provided by <a href="http://qiicr.org">QIICR</a> &#169; 2014.<nbsp><nbsp><nbsp><nbsp>
@@ -181,7 +294,6 @@ $(function() {
     <a href="http://commontk.org">CTK</a>
     </p>
   </div>
-</div>
 </body>
 </html>
 
