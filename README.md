@@ -3,42 +3,36 @@ DICOMSearch
 
 A utility to put the DICOM standard into a searchable database with web app
 
-This uses python to parse a local copy of the DocBook xml version of the standard (still
-in development and not publicly available).  The paragraphs are converted into couchdb
-documents and pushed to the server.  Each word in the paragraph is also linked back
-to the paragraph so that it is easy (quick) to search the standard by keyword
-and get all matching instances.
+This uses python to parse a local copy of the DocBook xml version of the standard
+(see DICOM Standard status page for the most up-to-date version:
+http://www.dclunie.com/dicom-status/status.html#BaseStandard2013).  
+
+The paragraphs are converted into couchdb documents and pushed to the server.
+Text search is enabled by Lucene index over paragraph text. As such, this
+implementation, as is, is tied to the specific instance of Cloudant database.
 
 A utility couchSite copies the local site directory as attachments to a document
 called .site so that the site can be hosted directly from CouchDB.  The site
 allows you to type a keyword and get instant results.
 
-You can search by passing commands with the URL like this go a local instance:
-
-http://127.0.0.1:5984/dicom_search/.site/index.html?search=orientation
-
-http://127.0.0.1:5984/dicom_search/.site/index.html?search=(0008,0008)
-
-Or, using the replicated version on cloudant.com:
-
-http://pieper.cloudant.com/dicom_search/.site/index.html?search=(0008,0008)
-
 Caveats
 =======
-
-This is very much a quick and dirty prototype as a practice to get comfortable
-with the standard and play with couchdb as a web app back end.
 
 Some things that this doesn't support:
 
 - searches for words less than 5 letters long
 
-- multi-word searches
-
 - boolean operations or wildcards
-
-- linking into a full version of the standard
 
 - figures, tables, and other items from the standard
 
 - a DICOM data dictionary for quick lookup
+
+- search in the titles of the DocBook links (tables, sections, etc.)
+
+ACKNOWLEDGMENTS
+===============
+
+Development of this search index was supported in part by the Quantitative Image
+Informatics in Cancer Research (QIICR) project (http://qiicr.org) through the
+award U24 CA180918 from the National Cancer Institute.

@@ -23,9 +23,9 @@ TODO:
 
 """
 
-import sys, os, traceback
+import sys, os, traceback, re
 import json, couchdb
-import xml.etree.ElementTree as ET
+import lxml.etree as ET
 
 
 # {{{ DICOMSearchParser
@@ -34,17 +34,20 @@ class DICOMSearchParser():
   """
 
 
-  def __init__(self,dicomStandardPath, couchDB_URL='http://localhost:5984', databaseName='dicom_search'):
+  def __init__(self,dicomStandardPath, couchDB_URL='http://localhost:5984', databaseName='newparse'):
     self.dicomStandardPath=dicomStandardPath
     self.couchDB_URL=couchDB_URL
     self.databaseName=databaseName
 
     self.ids = []
     self.paragraphNumber = 0
+    self.paragraphNumberMap = {}
 
     self.nameMap = {
+            'para' : '{http://docbook.org/ns/docbook}para',
+            'term' : '{http://docbook.org/ns/docbook}term',
+            'chapter' : '{http://docbook.org/ns/docbook}chapter',
             'id' : '{http://www.w3.org/XML/1998/namespace}id',
-            'para' : '{http://www.w3.org/XML/1998/namespace}para',
             }
 
     # create a fresh database
@@ -72,10 +75,12 @@ class DICOMSearchParser():
               continue
   def save(self,jsonDictionary):
     try:
-        self.db.save(jsonDictionary)
-    except couchdb.ResourceConflict:
-        print ("Could not save document")
-        print (jsonDictionary)
+      self.db.save(jsonDictionary)
+    except:
+      e = sys.exc_info()[0]
+      print 'Failed to save: ',e
+      print jsonDictionary
+      sys.exit(0)
 
   def loadDesign(self):
       """Load the design documents for the search views
@@ -106,39 +111,127 @@ class DICOMSearchParser():
     self.etree =ET.parse(docBookPath)
     part = self.etree.getroot()
     self.ids = [os.path.splitext(os.path.split(docBookPath)[-1])[0]]
-    self.parseElement(part)
+
+    itemIds = {"para":1,"term":1}
+    path = []
+    print 'we are starting'
+    self.nChapters = 0
+    self.parseElementParagraphs(part,path,itemIds,0)
+
+    ##self.parseElement(part)
+
+  
+
+  def parseElementParagraphs(self,element,itemPath,itemIds,level):
+    # reset paragraph counter to facilitate finding of the paragraph
+    #  in HTML version within id'd element
+    resetCounter = self.nameMap['id'] in element.attrib
+    printId = None
+    if resetCounter:
+      printId = element.attrib[self.nameMap['id']]
+    #print ' '*level,element.tag,'level=',level,'id=',printId
+
+    if element.tag == self.nameMap['para'] or element.tag == self.nameMap['term']:
+      itemType = element.tag.split('}')[1]
+      currentNumber = itemIds[itemType]
+      thisText = ET.tostring(element,method="text",encoding="utf-8")
+      # remove duplicate spaces
+      thisText = re.sub("\s\s+"," ",thisText)
+      # ignore (almost) empty paragraphs
+      if len(thisText)>1:        
+        thisId = ','.join(itemPath)+','+itemType+'_%d' % currentNumber
+        jsonDictionary = {}
+        jsonDictionary['_id'] = thisId
+        jsonDictionary['text'] = unicode(thisText,'utf-8')
+        jsonDictionary['xml_id'] = thisId.split(',')[-2]
+        self.save(jsonDictionary)
+        #self.SendToDB(paraId, paraText)
+      itemIds[itemType] = itemIds[itemType]+1
+      #print ' '*level,'Added ID:',thisId
+      #print ' '*level,'Added text:',thisText
+      #print ' '*level,'New counters:',itemIds
+      # bump the counter even for empty paragraphs, since this will be needed
+      #  for locating them later
+    else:
+      if resetCounter:
+        resetItemIds = {"para":1,"term":1}
+        elementId = self.nameMap['id']
+        itemPath.append(element.attrib[elementId])        
+      '''
+      if element.tag == self.nameMap['chapter']:
+        self.nChapters = self.nChapters+1
+        if self.nChapters>60:
+          raise SystemExit
+      '''
+      for child in element:
+        #print ' parsing child, path: ',itemPath,' id: ',itemIds,' level: ',level
+        if resetCounter:
+          resetItemIds = self.parseElementParagraphs(child,itemPath,resetItemIds,level+1)
+        else:
+          itemIds = self.parseElementParagraphs(child,itemPath,itemIds,level+1)
+      if resetCounter:
+        itemIds['para'] = itemIds['para']+resetItemIds['para']
+        itemIds['term'] = itemIds['term']+resetItemIds['term']
+        itemPath.pop()
+
+    #print ' '*level,'/'+element.tag,'level=',level,'id=',printId
+    return itemIds
 
   def parseElement(self,element):
-    if self.nameMap['id'] in element.attrib:
-      self.ids.append(element.attrib[self.nameMap['id']])
-      self.paragraphNumber = 1
     if element.tag == "{http://docbook.org/ns/docbook}para":
-      jsonDictionary = {}
-      paraID= ','.join(self.ids) + ',para_%d' % self.paragraphNumber
-      jsonDictionary['_id'] = paraID
-      jsonDictionary['text'] = element.text
-      jsonDictionary['xml_id'] = paraID.split(',')[-2]
-      self.paragraphNumber += 1
-      self.save(jsonDictionary)
-      if element.text:
-        try:
-            words = set(map(str.lower, map(str,element.text.split())))
-            for word in words:
+      paraText = ET.tostring(element,method="text",encoding="utf-8")
+      #print self.paragraphNumber
+      #print paraText
+  
+      # remove duplicate spaces
+      paraText = re.sub("\s\s+"," ",paraText)
+      #paraText = paraText.replace('\n','')
+     
+      # Problem: if there is an id'd element inside id'd, it will reset the
+      # counter of paragraphs, and 
+      # Solution: keep the map of mapping from id (everything except para) to
+      #   the paragraph number
+      paraLocation = ','.join(self.ids)
+      paragraphNumber = 1
+      if paraLocation in self.paragraphNumberMap.keys():
+        paragraphNumber = self.paragraphNumberMap[paraLocation]
+        self.paragraphNumberMap[paraLocation] += 1
+      else:
+        self.paragraphNumberMap[paraLocation] = paragraphNumber+1
+
+      if len(paraText)>1:
+            jsonDictionary = {}
+            paraID= paraLocation + ',para_%d' % paragraphNumber
+            jsonDictionary['_id'] = paraID
+            jsonDictionary['text'] = unicode(paraText,'utf8')
+            jsonDictionary['xml_id'] = paraID.split(',')[-2]
+            ###self.paragraphNumber += 1
+            #print paraID
+            #print paraText
+            self.save(jsonDictionary)
+
+            if 0: 
+              words = set(map(str.lower, map(str,paraText.split())))
+              for word in words:
                 if len(word) > 4:
+                    #print 'Word is ',word
                     jsonDictionary = {}
-                    jsonDictionary['_id'] = paraID + "," + word
-                    jsonDictionary['paraID'] = paraID
-                    jsonDictionary['word'] = word
+                    jsonDictionary['_id'] = unicode(paraID,'utf8') + "," + unicode(word,'utf8')
+                    jsonDictionary['paraID'] = unicode(paraID,'utf8')
+                    jsonDictionary['word'] = unicode(word,'utf8')
                     jsonDictionary['xml_id'] = paraID.split(',')[-2]
                     self.save(jsonDictionary)
-        except UnicodeEncodeError:
-            print ("Could not handle unicode")
-            print (element.text)
+    # paragraphs can have id's, do not reset if this is the case
+    elif self.nameMap['id'] in element.attrib:
+      self.ids.append(element.attrib[self.nameMap['id']])
+      self.paragraphNumber = 1
 
-    for child in element:
+
+    if element.tag != "{http://docbook.org/ns/docbook}para":
+      for child in element:
         self.parseElement(child)
-    if self.nameMap['id'] in element.attrib:
-      self.ids.pop()
+      if self.nameMap['id'] in element.attrib:
+        self.ids.pop()
 
 
   def printElement(self,element, indent=0):
