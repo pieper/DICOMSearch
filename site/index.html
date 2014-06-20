@@ -14,17 +14,23 @@
   <script src="./js/sprintf.js"></script>
   <script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
   <script src="./js/jquery.highlight.js"></script>
+  <script src="./js/jquery.multiselect.min.js"></script>
 
   <link href="./css/dicom.css" rel="stylesheet" type="text/css" />
   <link href="./css/dicom.search.css" rel="stylesheet" type="text/css" />
+  <link href="./css/jquery.multiselect.css" rel="stylesheet" type="text/css" />
 
   <script>
 
     var searchResults = [];
   
   $(document).ready(function(){
-    $('a').click(function(){
-      console.log('No action');
+    $("#partSelector").multiselect();
+
+    $("#multiselect").multiselect({
+      click: function(event,ui){
+        updateHits($("searchWord").val());
+      }
     });
   });
 
@@ -189,8 +195,22 @@ $(function() {
         }
       }
     };
+    var partsSelected = $("#partSelector").val();
+    console.log(partsSelected);
     var searchURL = "https://fedorov.cloudant.com/dicom_search/_design/search/_search/textSearch";
-    searchURL = addURLParam(searchURL, "q", key);
+    var searchQuery = key;
+    if(partsSelected){
+      searchQuery = searchQuery + " AND (";
+      for(var i=0;i<partsSelected.length;i++){
+        searchQuery = searchQuery+"location:"+partsSelected[i];
+        if(i<partsSelected.length-1){
+          searchQuery = searchQuery + " OR ";
+        };
+      }
+      searchQuery = searchQuery+")";
+      }
+    searchURL = addURLParam(searchURL, "q", searchQuery);
+    console.log('Search URL: '+searchURL);
     // Lucene search will return at most 200 hits at a time
     // for now, no support for bookmarks, show just the first 200
     searchURL = addURLParam(searchURL, "limit", limit);
@@ -243,6 +263,28 @@ $(function() {
           <input type="radio" id="limit20" name="limit"><label for="limit20">20</label>
           <input type="radio" id="limit100" name="limit"><label for="limit100">100</label>
           <input type="radio" id="limitAll" name="limit"><label for="limitAll">200</label>
+        </div>
+        <div>
+          <select id="partSelector" name="partSelector" multiple="multiple">
+            <option value="PS3.1">PS3.1 Introduction and Overview </option>                                  
+            <option value="PS3.2">PS3.2 Conformance</option>
+            <option value="PS3.3">PS3.3 Information Object Definitions  </option>
+            <option value="PS3.4">PS3.4 Service Class Specifications  </option>
+            <option value="PS3.5">PS3.5 Data Structures and Encoding  </option>
+            <option value="PS3.6">PS3.6 Data Dictionary </option>
+            <option value="PS3.7">PS3.7 Message Exchange  </option>
+            <option value="PS3.8">PS3.8 Network Communication Support for Message Exchange</option>
+            <option value="PS3.10">PS3.10  Media Storage and File Format for Data Interchange</option>
+            <option value="PS3.11">PS3.11  Media Storage Application Profiles  </option>
+            <option value="PS3.12">PS3.12  Media Formats and Physical Media for Data Interchange</option>
+            <option value="PS3.14">PS3.14  Grayscale Standard Display Function </option>
+            <option value="PS3.15">PS3.15  Security Profiles </option>
+            <option value="PS3.16">PS3.16  Content Mapping Resource </option> 
+            <option value="PS3.17">PS3.17  Explanatory Information </option>
+            <option value="PS3.18">PS3.18  Web Access to DICOM Persistent Objects (WADO)</option>
+            <option value="PS3.19">PS3.19  Application Hosting </option>
+            <option value="PS3.20">PS3.20  Transformation of DICOM to and from HL7 Standards</option>
+          </select>
         </div>
       </div>
       <div id="hitList" class="hitList"></div>
