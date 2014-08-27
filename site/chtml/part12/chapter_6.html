@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>6 Relationship to the DICOM Media Storage Model</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.12.html" title="PS3.12" />
+      <link rel="up" href="PS3.12.html" title="PS3.12" />
+      <link rel="prev" href="chapter_5.html" title="5 Conventions" />
+      <link rel="next" href="chapter_A.html" title="A PC File System (Normative)" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">6 Relationship to the DICOM Media Storage Model</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_5.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_A.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_6" shape="rect"></a>6 Relationship to the DICOM Media Storage Model</h1>
+               </div>
+            </div>
+         </div>
+         <p>
+            <a href="../part10/PS3.10.html" class="olink" shape="rect">PS3.10</a> defines various media storage concepts. The implementation of these generic concepts on a specific medium and file system is defined in an annex. For each physical medium and file system a mapping is described between these media storage concepts and the specific physical media and file system facilities:</p>
+         <div class="orderedlist">
+            <ol class="orderedlist" type="a">
+               <li class="listitem">
+                  <p>File-set ID - The method for providing a File-set ID</p>
+               </li>
+               <li class="listitem">
+                  <p>File ID - The method for mapping a DICOM File ID into a specific file system</p>
+               </li>
+               <li class="listitem">
+                  <p>File creation/update date and time - The specific file system mechanisms used to provide this information</p>
+               </li>
+               <li class="listitem">
+                  <p>File-set location</p>
+               </li>
+            </ol>
+         </div>
+         <p>Processing of DICOM removable media requires that the DICOMDIR be in a known location. Most file systems provide a hierarchical directory structure with a root directory for an entire medium or medium partition. The annex defines where the DICOMDIR(s) are located. When only one File-set is permitted on one medium, the DICOMDIR shall be in the root directory of that medium. When multiple File-sets are permitted on a single medium, the annex will describe how File-sets are found and identified. When a File-set is permitted to span multiple pieces of physical media, the appropriate annex will describe how this is managed.</p>
+         <p>
+            <a class="xref" href="chapter_6.html#figure_6-1" title="Figure 6-1. Media Supporting a Single File-set" shape="rect">Figure 6-1</a> illustrates the structure of a DICOM removable medium that supports a single DICOM File-set per medium partition. <a class="xref" href="chapter_6.html#figure_6-2" title="Figure 6-2. Media Supporting Multiple File-sets" shape="rect">Figure 6-2</a> illustrates the structure of a DICOM medium that supports multiple File-sets per partition. DICOM File-sets shall not intersect when media permit multiple File-sets.</p>
+         <p>
+      </p>
+         <div class="figure">
+            <a id="figure_6-1" shape="rect"></a>
+            <div class="figure-contents">
+               <div class="mediaobject">
+                  <img src="figures/PS3.12_6-1.svg" alt="Media Supporting a Single File-set" />
+               </div>
+            </div>
+            <p class="title">
+               <strong>Figure 6-1. Media Supporting a Single File-set</strong>
+            </p>
+         </div>
+         <p>
+            <br class="figure-break" clear="none" />
+         </p>
+         <p>
+      </p>
+         <div class="figure">
+            <a id="figure_6-2" shape="rect"></a>
+            <div class="figure-contents">
+               <div class="mediaobject">
+                  <img src="figures/PS3.12_6-2.svg" alt="Media Supporting Multiple File-sets" />
+               </div>
+            </div>
+            <p class="title">
+               <strong>Figure 6-2. Media Supporting Multiple File-sets</strong>
+            </p>
+         </div>
+         <p>
+            <br class="figure-break" clear="none" />
+         </p>
+         <p>Media and file systems that do not utilize the directory concept will specify the equivalent usage in these annexes that describe these media.</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <p>Many applications will need to automatically create many image files and assign them unique File IDs. Maintaining File ID uniqueness without sacrificing performance will require some care. The approach of taking a basic name part, e.g., "IMAGE," and appending sequence numbers, e.g., "IMAGE001, IMAGE002, ..." can easily result in delays finding the next available File ID.</p>
+         </div>
+         <p>Some approaches that can rapidly generate unique File IDs include:</p>
+         <div class="orderedlist">
+            <ol class="orderedlist" type="a">
+               <li class="listitem">
+                  <p>Generating a unique sub-directory per sequence, then using increasing file numbering within the sub-directory</p>
+               </li>
+               <li class="listitem">
+                  <p>Using a random number generator and seed, then using a prime hash function with probes to find unused file names. An eight character File ID component permits a large prime value for the hash</p>
+               </li>
+               <li class="listitem">
+                  <p>Using the current time (in seconds, milliseconds) as a pseudo-random number to generate one of the File ID components, and resolving collisions with sequential or prime hash probes</p>
+               </li>
+            </ol>
+         </div>
+         <p>All of these approaches result in File IDs that are of limited semantic content. The semantic information that describes file contents is in the DICOMDIR and the file contents to which it points.</p>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_5.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_A.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">5 Conventions </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.12.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> A PC File System (Normative)</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>CC.3 UPS SOP Classes</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.4.html" title="PS3.4" />
+      <link rel="up" href="chapter_CC.html" title="CC Unified Procedure Step Service and SOP Classes (Normative)" />
+      <link rel="prev" href="sect_CC.2.html" title="CC.2 DIMSE Service Groups" />
+      <link rel="next" href="sect_CC.4.html" title="CC.4 Conformance Requirements" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">CC.3 UPS SOP Classes</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_CC.2.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">CC Unified Procedure Step Service and SOP Classes (Normative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_CC.4.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_CC.3" shape="rect"></a>CC.3 UPS SOP Classes</h2>
+               </div>
+            </div>
+         </div>
+         <p>There are four UPS SOP Classes associated with the Unified Procedure Step IOD. Each SOP Class supports different interactions with a UPS Instance (also referred to as a worklist item).</p>
+         <p>The UPS Push SOP Class allows SCU systems to:</p>
+         <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+               <li class="listitem">
+                  <p>create (push) a new worklist item (i.e., instance) onto a worklist</p>
+               </li>
+               <li class="listitem">
+                  <p>submit a cancellation request for a worklist item</p>
+               </li>
+            </ul>
+         </div>
+         <p>The UPS Pull SOP Class allows SCU systems to:</p>
+         <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+               <li class="listitem">
+                  <p>query a worklist for matching items</p>
+               </li>
+               <li class="listitem">
+                  <p>take responsibility for performing a worklist item</p>
+               </li>
+               <li class="listitem">
+                  <p>add/modify progress/status/result details for the worklist item</p>
+               </li>
+               <li class="listitem">
+                  <p>finalize a controlled worklist item as Completed or Canceled.</p>
+               </li>
+            </ul>
+         </div>
+         <p>The UPS Watch SOP Class allows SCU systems to:</p>
+         <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+               <li class="listitem">
+                  <p>query for worklist items of interest</p>
+               </li>
+               <li class="listitem">
+                  <p>subscribe/unsubscribe for event notifications of changes to a given worklist item</p>
+               </li>
+               <li class="listitem">
+                  <p>subscribe/unsubscribe for event notifications of all worklist items</p>
+               </li>
+               <li class="listitem">
+                  <p>get details for a given worklist item</p>
+               </li>
+               <li class="listitem">
+                  <p>submit a cancellation request for a given worklist item</p>
+               </li>
+            </ul>
+         </div>
+         <p>The UPS Event SOP Class allows SCU systems to:</p>
+         <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+               <li class="listitem">
+                  <p>receive event notifications of changes to a worklist item</p>
+               </li>
+            </ul>
+         </div>
+         <p>The DICOM AEs that claim conformance to one or more of these SOP Classes shall support all services listed as "M" in the corresponding <a class="xref" href="sect_CC.2.html#table_CC.2-1" title="Table CC.2-1. DIMSE Service Group - UPS Push" shape="rect">Table CC.2-1</a>, <a class="xref" href="sect_CC.2.html#table_CC.2-2" title="Table CC.2-2. DIMSE Service Group - UPS Pull" shape="rect">Table CC.2-2</a>, <a class="xref" href="sect_CC.2.html#table_CC.2-3" title="Table CC.2-3. DIMSE Service Group - UPS Watch" shape="rect">Table CC.2-3</a> and <a class="xref" href="sect_CC.2.html#table_CC.2-4" title="Table CC.2-4. DIMSE Service Group - UPS Event" shape="rect">Table CC.2-4</a>.</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_CC.3.1" shape="rect"></a>CC.3.1 Service Class and SOP Class UIDs</h3>
+                  </div>
+               </div>
+            </div>
+            <p>All UPS Instances shall be created with the value of SOP Class UID set to "1.2.840.10008.5.1.4.34.6.1" (i.e., that of the UPS Push SOP Class).</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>UPS Instances are all based on the Unified Procedure Step IOD and are all created either internally by the SCP, or in response to an N-CREATE issued as part of the UPS Push SOP Class.</p>
+            </div>
+            <p>Once created, UPS instances may be operated on by DIMSE services from any of the four UPS SOP Classes defined in the Unified Worklist and Procedure Step Service Class.</p>
+            <p>During association negotiation, the Abstract Syntax UID shall be the implemented SOP Class as shown in the following list:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>1.2.840.10008.5.1.4.34.6.1 (UPS Push SOP Class)</p>
+                  </li>
+                  <li class="listitem">
+                     <p>1.2.840.10008.5.1.4.34.6.2 (UPS Watch SOP Class)</p>
+                  </li>
+                  <li class="listitem">
+                     <p>1.2.840.10008.5.1.4.34.6.3 (UPS Pull SOP Class)</p>
+                  </li>
+                  <li class="listitem">
+                     <p>1.2.840.10008.5.1.4.34.6.4 (UPS Event SOP Class)</p>
+                  </li>
+               </ul>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_CC.3.1.1" shape="rect"></a>CC.3.1.1 DIMSE Implications for UPS (Informative)</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>A SOP Instance may be created with one SOP Class UID (UPS Push) and later DIMSE Services may refer to it over an association negotiated for a different SOP Class UID. Further details on this can be found in <a href="../part07/chapter_10.html" class="olink" shape="rect">Chapter 10 in <span class="olinkdocname">PS3.7</span>
+                  </a>.</p>
+               <p>For DIMSE-N Services, the Affected SOP Class UID (0000,0002) or Requested SOP Class UID (0000,0003), when present, will be the UID of the UPS Push SOP Class regardless of the negotiated Abstract Syntax UID. The SCU and SCP will not reject DIMSE-N messages on the basis of the Affected/Requested SOP Class UID being that of the UPS Push SOP Class, rather than one of the other three SOP Class UIDs as listed in the Abstract Syntax UID during association negotiation. The SCU and SCP may reject the DIMSE-N messages if the instance is not a UPS Push SOP Class Instance.</p>
+               <p>For DIMSE-C Services (C-FIND), the Affected SOP Class UID will always match the negotiated Abstract Syntax UID for the Presentation Context under which the request is made. This will be either UPS Watch or UPS Pull. Both of these SOP Classes represent the UPS Information Model described in <a class="xref" href="sect_CC.2.html#sect_CC.2.8.1" title="CC.2.8.1 Operation" shape="rect">Section CC.2.8.1</a>.</p>
+               <p>For example, in a typical "Pull Workflow" message exchange, the C-FIND query from a "performing SCU" would use the UPS Pull SOP Class UID for both the negotiated Abstract Syntax UID and the Affected SOP Class UID (0000,0002), however the SOP Class UID (0008,0016) of the C-FIND responses themselves will be set to the UPS Push SOP Class UID by the SCP. All the subsequent N-ACTION, N-SET, and N-GET messages, would then use the UPS Pull SOP Class UID for the negotiated Abstract Syntax UID, and the UPS Push SOP Class UID for the Affected SOP Class UID (0000,0002).</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_CC.3.1.2" shape="rect"></a>CC.3.1.2 Global Instance Subscription UID</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The well-known UID for subscribing/unsubscribing to events for all UPS Instances managed by an SCP shall have the value "1.2.840.10008.5.1.4.34.5".</p>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_CC.3.2" shape="rect"></a>CC.3.2 Association Negotiation</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Association establishment is the first phase of any instance of communication between peer DICOM AEs. The Association negotiation procedure specified in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a> shall be used to negotiate the supported SOP Classes.</p>
+            <p>See the Association Negotiation definition for the Basic Worklist Management Service Class (<a class="xref" href="sect_K.5.html" title="K.5 Association Negotiation" shape="rect">Section K.5</a>).</p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_CC.2.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_CC.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_CC.4.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">CC.2 DIMSE Service Groups </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.4.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> CC.4 Conformance Requirements</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

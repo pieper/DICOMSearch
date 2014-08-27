@@ -1,0 +1,504 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>10.2 Content Item Macro</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.3.html" title="PS3.3" />
+      <link rel="up" href="chapter_10.html" title="10 Miscellaneous Macros" />
+      <link rel="prev" href="chapter_10.html" title="10 Miscellaneous Macros" />
+      <link rel="next" href="sect_10.3.html" title="10.3 Image SOP Instance Reference Macro" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">10.2 Content Item Macro</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_10.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">10 Miscellaneous Macros</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_10.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_10.2" shape="rect"></a>10.2 Content Item Macro</h2>
+               </div>
+            </div>
+         </div>
+         <p>A Content Item is a flexible means of encoding attribute identifiers and attribute values using the Code Sequence Macro (see <a class="xref" href="chapter_8.html" title="8 Encoding of Coded Entry Data" shape="rect"> Section 8</a>) for coded terminology defined by a coding scheme. The Content Item provides a name-value pair, i.e., a Concept Name, encoded as a Code Sequence, and a Concept Value. The Concept Value may be encoded by any of a set of generic Attributes, as specified by a Value Type, including text, personal name, numeric, and coded concept (Code Sequence) values.</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="1">
+                  <li class="listitem">
+                     <p>Comparing a Content Item to a native DICOM Data Element, the Concept Name Code Sequence corresponds to the Data Element Tag and Attribute Name, the Value Type to the Value Representation, and the Concept Value to the Data Element Value Field. See <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>The IMAGE Value Type of this Macro does not include the Type 3 attributes of the IMAGE Value Type defined in <a class="xref" href="sect_C.17.html#sect_C.17.3" title="C.17.3 SR Document Content Module" shape="rect">Section C.17.3</a>, as they are not required for Acquisition Context or Protocol Context Content Items.</p>
+                  </li>
+               </ol>
+            </div>
+         </div>
+         <p>Specific uses of the Content Item may invoke the Content Item Macro defined in this Section, the Document Content Macro of <a class="xref" href="sect_C.17.html#sect_C.17.3" title="C.17.3 SR Document Content Module" shape="rect">Section C.17.3</a>, or another similar construct. An invocation of the Content Item Macro may constrain the allowed values of Value Type (0040,A040).</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="1">
+                  <li class="listitem">
+                     <p>The NUMERIC Value Type of this Macro differs from the NUM Value Type defined in <a class="xref" href="sect_C.17.html#sect_C.17.3" title="C.17.3 SR Document Content Module" shape="rect">Section C.17.3</a>, since the encoding of the Concept Value is different.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>The Value Type uses Enumerated Values so as to assure that non-standard Value Types are not used, and to prevent the nefarious use, for example, of a CONTAINER Value Type in an SR-like manner to create nested content, which is not the intent.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Some invocations of this macro may use the Content Item Modifier Sequence (0040,0441) to achieve a single level of "nesting". That Attribute is not included in this macro itself, to prevent recursive inclusion.</p>
+                  </li>
+               </ol>
+            </div>
+         </div>
+         <p>See <a class="xref" href="sect_5.4.html" title="5.4 Attribute Macros" shape="rect">Section 5.4</a> for the meaning of the Type column in this Macro when applied to Normalized IODs.</p>
+         <div class="table">
+            <a id="table_10-2" shape="rect"></a>
+            <p class="title">
+               <strong>Table 10-2. Content Item Macro Attributes Description</strong>
+            </p>
+            <div class="table-contents">
+               <table frame="box" rules="all">
+                  <thead>
+                     <tr valign="top">
+                        <th align="center" rowspan="1" colspan="1">
+                           <p>Attribute Name</p>
+                        </th>
+                        <th align="center" rowspan="1" colspan="1">
+                           <p>Tag</p>
+                        </th>
+                        <th align="center" rowspan="1" colspan="1">
+                           <p>Type</p>
+                        </th>
+                        <th align="center" rowspan="1" colspan="1">
+                           <p>Attribute Description</p>
+                        </th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Value Type</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>(0040,A040)</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>1</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>The type of the value encoded in this name-value Item.</p>
+                           <div class="variablelist">
+                              <p class="title">
+                                 <strong>Enumerated Values:</strong>
+                              </p>
+                              <dl class="variablelist compact">
+                                 <dt>
+                                    <span class="term">DATE</span>
+                                 </dt>
+                                 <dd>
+                                    <p></p>
+                                 </dd>
+                                 <dt>
+                                    <span class="term">TIME</span>
+                                 </dt>
+                                 <dd>
+                                    <p></p>
+                                 </dd>
+                                 <dt>
+                                    <span class="term">DATETIME</span>
+                                 </dt>
+                                 <dd>
+                                    <p></p>
+                                 </dd>
+                                 <dt>
+                                    <span class="term">PNAME</span>
+                                 </dt>
+                                 <dd>
+                                    <p></p>
+                                 </dd>
+                                 <dt>
+                                    <span class="term">UIDREF</span>
+                                 </dt>
+                                 <dd>
+                                    <p></p>
+                                 </dd>
+                                 <dt>
+                                    <span class="term">TEXT</span>
+                                 </dt>
+                                 <dd>
+                                    <p></p>
+                                 </dd>
+                                 <dt>
+                                    <span class="term">CODE</span>
+                                 </dt>
+                                 <dd>
+                                    <p></p>
+                                 </dd>
+                                 <dt>
+                                    <span class="term">NUMERIC</span>
+                                 </dt>
+                                 <dd>
+                                    <p></p>
+                                 </dd>
+                                 <dt>
+                                    <span class="term">COMPOSITE</span>
+                                 </dt>
+                                 <dd>
+                                    <p></p>
+                                 </dd>
+                                 <dt>
+                                    <span class="term">IMAGE</span>
+                                 </dt>
+                                 <dd>
+                                    <p></p>
+                                 </dd>
+                              </dl>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Concept Name Code Sequence</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>(0040,A043)</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>1</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Coded concept name of this name-value Item.</p>
+                           <p>Only a single Item shall be included in this Sequence.</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" colspan="3" rowspan="1">
+                           <p>
+                              <span class="italic">&gt;Include <a class="xref" href="sect_8.8.html#table_8.8-1" title="Table 8.8-1. Code Sequence Macro Attributes" shape="rect">Table 8.8-1 “Code Sequence Macro Attributes”</a>
+                              </span>
+                           </p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>
+                              <span class="italic">No Baseline CID is defined.</span>
+                           </p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>DateTime</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>(0040,A120)</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>1C</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>DateTime value for this name-value Item.</p>
+                           <p>Required if Value Type (0040,A040) is DATETIME.</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Date</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>(0040,A121)</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>1C</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Date value for this name-value Item.</p>
+                           <p>Required if Value Type (0040,A040) is DATE.</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Time</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>(0040,A122)</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>1C</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Time value for this name-value Item.</p>
+                           <p>Required if Value Type (0040,A040) is TIME.</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Person Name</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>(0040,A123)</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>1C</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Person name value for this name-value Item.</p>
+                           <p>Required if Value Type (0040,A040) is PNAME.</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>UID</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>(0040,A124)</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>1C</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>UID value for this name-value Item.</p>
+                           <p>Required if Value Type (0040,A040) is UIDREF.</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Text Value</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>(0040,A160)</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>1C</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Text value for this name-value Item.</p>
+                           <p>Required if Value Type (0040,A040) is TEXT.</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Concept Code Sequence</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>(0040,A168)</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>1C</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Coded concept value of this name-value Item.</p>
+                           <p>Only a single Item shall be included in this Sequence.</p>
+                           <p>Required if Value Type (0040,A040) is CODE.</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" colspan="3" rowspan="1">
+                           <p>
+                              <span class="italic">&gt;Include <a class="xref" href="sect_8.8.html#table_8.8-1" title="Table 8.8-1. Code Sequence Macro Attributes" shape="rect">Table 8.8-1 “Code Sequence Macro Attributes”</a>
+                              </span>
+                           </p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>
+                              <span class="italic">No Baseline CID is defined.</span>
+                           </p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Numeric Value</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>(0040,A30A)</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>1C</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Numeric value for this name-value Item. Only a single value shall be present.</p>
+                           <p>Required if Value Type (0040,A040) is NUMERIC.</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Floating Point Value</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>(0040,A161)</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>1C</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>The floating point representation of Numeric Value (0040,A30A). The same number of values as Numeric Value (0040,A30A) shall be present.</p>
+                           <p>Required if Numeric Value (0040,A30A) has insufficient precision to represent the value as a string. May be present otherwise.</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Rational Numerator Value</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>(0040,A162)</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>1C</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>The integer numerator of a rational representation of Numeric Value (0040,A30A). Encoded as a signed integer value. The same number of values as Numeric Value (0040,A30A) shall be present.</p>
+                           <p>Required if Numeric Value (0040,A30A) has insufficient precision to represent a rational value as a string. May be present otherwise.</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Rational Denominator Value</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>(0040,A163)</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>1C</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>The integer denominator of a rational representation of Numeric Value (0040,A30A). Encoded as a non-zero unsigned integer value. The same number of values as Numeric Value (0040,A30A) shall be present.</p>
+                           <p>Required if Rational Numerator Value (0040,A162) is present.</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Measurement Units Code Sequence</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>(0040,08EA)</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>1C</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Units of measurement for a numeric value in this name-value Item.</p>
+                           <p>Only a single Item shall be included in this Sequence.</p>
+                           <p>Required if Value Type (0040,A040) is NUMERIC.</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" colspan="3" rowspan="1">
+                           <p>
+                              <span class="italic">&gt;Include <a class="xref" href="sect_8.8.html#table_8.8-1" title="Table 8.8-1. Code Sequence Macro Attributes" shape="rect">Table 8.8-1 “Code Sequence Macro Attributes”</a>
+                              </span>
+                           </p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>
+                              <span class="italic">Baseline <a href="../part16/sect_CID_82.html" class="olink" shape="rect">CID 82 “Units of Measurement”</a>.</span>
+                           </p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Referenced SOP Sequence</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>(0008,1199)</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>1C</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Composite SOP Instance Reference value for this name-value Item.</p>
+                           <p>Only a single Item shall be included in this Sequence.</p>
+                           <p>Required if Value Type (0040,A040) is COMPOSITE or IMAGE.</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" colspan="3" rowspan="1">
+                           <p>
+                              <span class="italic">&gt;Include <a class="xref" href="sect_10.8.html#table_10-11" title="Table 10-11. SOP Instance Reference Macro Attributes" shape="rect">Table 10-11 “SOP Instance Reference Macro Attributes”</a>
+                              </span>
+                           </p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p></p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>&gt;Referenced Frame Number</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>(0008,1160)</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>1C</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Identifies the frame numbers within the Referenced SOP Instance to which the reference applies. The first frame shall be denoted as frame number 1.</p>
+                           <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                              <h3 class="title">Note</h3>
+                              <p>This Attribute may be multi-valued.</p>
+                           </div>
+                           <p>Required if the Referenced SOP Instance is a multi-frame image and the reference does not apply to all frames, and Referenced Segment Number (0062,000B) is not present.</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>&gt;Referenced Segment Number</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>(0062,000B)</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>1C</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Identifies the segments to which the reference applies identified by Segment Number (0062,0004).</p>
+                           <p>Required if the Referenced SOP Instance is a Segmentation or Surface Segmentation and the reference does not apply to all segments and Referenced Frame Number (0008,1160) is not present.</p>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <br class="table-break" clear="none" />
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_10.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_10.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_10.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">10 Miscellaneous Macros </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.3.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 10.3 Image SOP Instance Reference Macro</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

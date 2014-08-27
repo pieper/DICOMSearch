@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>AA.3 Use Cases</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="chapter_AA.html" title="AA Radiation Dose Reporting Use Cases (Informative)" />
+      <link rel="prev" href="sect_AA.2.html" title="AA.2 Definitions" />
+      <link rel="next" href="chapter_BB.html" title="BB Printing (Informative)" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">AA.3 Use Cases</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_AA.2.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">AA Radiation Dose Reporting Use Cases (Informative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_BB.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_AA.3" shape="rect"></a>AA.3 Use Cases</h2>
+               </div>
+            </div>
+         </div>
+         <p>The following use cases illustrate the information flow between participating roles and the possible capabilities of the equipment that is performing in those roles. Each case will include a use case diagram and denote the integration requirements. The diagrams will denote actors (persons in role or other systems involved in the process of data handling and/or storage). Furthermore, in certain cases it is assumed that the equipment (e.g., Acquisition Modality) is capable of displaying the contents of any dose reports it creates.</p>
+         <p>These use cases are only examples of possible uses for the Dose Report, and are by no means exhaustive.</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_AA.3.1" shape="rect"></a>AA.3.1 Basic Dose Reporting</h3>
+                  </div>
+               </div>
+            </div>
+            <p>This is the basic use case for electronic dose reporting. See <a class="xref" href="sect_AA.3.html#figure_AA.3-1" title="Figure AA.3-1. Basic Dose Reporting" shape="rect">Figure AA.3-1</a>.</p>
+            <p>
+          </p>
+            <div class="figure">
+               <a id="figure_AA.3-1" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.17_AA.3-1.svg" alt="Basic Dose Reporting" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure AA.3-1. Basic Dose Reporting</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+            <p>In this use case the user sets up the Acquisition Modality, and performs the study. The Modality captures the irradiation event exposure information, and encodes it together with the accumulated values in a Dose Report. The Modality may allow the user to review the dose report, and to add comments. The acquired images and Dose Report are sent to a Long-Term Storage system (e.g., PACS) that is capable of storing Dose Report objects.</p>
+            <p>A Display Station may retrieve the Dose Report from the Storage system, and display it. Because the X-Ray Radiation Dose SR object is a proper subset of the Enhanced SR object, the Display Station may render it using the same functionality as used for displaying any Enhanced SR object.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_AA.3.2" shape="rect"></a>AA.3.2 Dose Reporting For Non-digital Imaging</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The Dose Report may also be used for image acquisitions using non-digital Acquisition Modalities. See <a class="xref" href="sect_AA.3.html#figure_AA.3-2" title="Figure AA.3-2. Dose Reporting for Non-Digital Imaging" shape="rect">Figure AA.3-2</a>.</p>
+            <p>
+          </p>
+            <div class="figure">
+               <a id="figure_AA.3-2" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.17_AA.3-2.svg" alt="Dose Reporting for Non-Digital Imaging" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure AA.3-2. Dose Reporting for Non-Digital Imaging</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+            <p>In this use case the user may manually enter the irradiation event exposure information into a Dose Reporting Station, possibly transcribing it from a dosimeter read-out display. The station encodes the data in a Dose Report and sends it to a Storage system. The same Dose Reporting Station may be used to support several acquisition modalities.</p>
+            <p>This case may be useful in film-only radiography environments, or in mixed film and digital environments, where the DICOM X-Ray Radiation Dose SR Object provides a standard format for recording and storing irradiation events.</p>
+            <p>Note that in a non-PACS environment, the Dose Reports may be sent to a Long-Term Storage function built into a Radiation Safety workstation or information system.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_AA.3.3" shape="rect"></a>AA.3.3 Dose Reporting Post-processing</h3>
+                  </div>
+               </div>
+            </div>
+            <p>A specialized Radiation Safety workstation the may contribute to the process of dose reporting in terms of more elaborate calculations or graphical dose data displays, or by aggregating dose data over multiple studies. See <a class="xref" href="sect_AA.3.html#figure_AA.3-3" title="Figure AA.3-3. Dose Reporting Post-Processing" shape="rect">Figure AA.3-3</a>. The Radiation Safety workstation may or may not be integrated with the Long-Term Storage function in a single system; such application entity architectural decisions are outside the scope of DICOM, but DICOM services and information objects do facilitate a variety of possible architectures.</p>
+            <p>
+          </p>
+            <div class="figure">
+               <a id="figure_AA.3-3" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.17_AA.3-3.svg" alt="Dose Reporting Post-Processing" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure AA.3-3. Dose Reporting Post-Processing</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+            <p>The Radiation Safety workstation may be able to create specific reports to respond to dose registry requirements, as established by local regulatory authorities. These reports would generally not be in DICOM format, but would be generated from the data in DICOM X-Ray Radiation Dose SR objects.</p>
+            <p>The Radiation Safety workstation may also be used to generate more elaborate reports on patient applied dose. The workstation may retrieve the Dose Reports for multiple procedures performed on a particular patient. A report of the cumulative dose for a specified time period, or for a visit/admission, may be generated, encoded as a DICOM Dose Report, and stored in the Long-Term Storage system. Any such further reports will be stored in addition to the "basic report".</p>
+            <p>Note that such cumulative Dose Reports may describe irradiation events that are also documented in other Dose Reports. The assignment of a UID to each irradiation event allows the application to identify unique irradiation events that may be reported in multiple objects. The structure of the X-Ray Radiation Dose SR object also allows a cumulative report to reference the contributing report objects using the Predecessor Documents Sequence (0040,A360) attribute.</p>
+            <p>An advanced application may be able to use the Dose Report data, potentially supplemented by the data in the image objects referenced in the Dose Report, to create a Dose Map that visualizes applied dose. Such a Dose Map may be sent to the Long-Term Storage system using an appropriate object format.</p>
+            <p>Other purposes of the Radiation Safety workstation may include statistical analyses over all Dose Report Objects in order to gain information for educational or quality control purposes. This may include searches for Reports performed in certain time ranges, or with specific equipment, or using certain protocols.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_AA.3.4" shape="rect"></a>AA.3.4 Dose Reporting Workflow Management</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The dose reporting workflow may be managed using the same DICOM services used for managing the imaging workflow.</p>
+            <p>In particular, a Dose Report produced for an Acquisition Modality Performed Procedure Step can be identified in the MPPS Referenced Non-Image Composite SOP Instance Sequence (0040,0220).</p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_AA.2.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_AA.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_BB.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">AA.2 Definitions </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> BB Printing (Informative)</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

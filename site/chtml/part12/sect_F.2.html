@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>F.2 Media Formats</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.12.html" title="PS3.12" />
+      <link rel="up" href="chapter_F.html" title="F 120mm CD-R Medium (Normative)" />
+      <link rel="prev" href="chapter_F.html" title="F 120mm CD-R Medium (Normative)" />
+      <link rel="next" href="sect_F.3.html" title="F.3 Physical Media" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">F.2 Media Formats</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_F.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">F 120mm CD-R Medium (Normative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_F.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_F.2" shape="rect"></a>F.2 Media Formats</h2>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_F.2.1" shape="rect"></a>F.2.1 Physical Format</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The physical format of DICOM CD-R discs shall comply with the applicable definitions within ISO/IEC 10149, Part II: CD-WO in Orange Book and CD-ROM-XA (extended Architecture) (if Mode 1 sectors are not used), with the additional modifications described in <a class="xref" href="sect_F.2.html#sect_F.2.1.1" title="F.2.1.1 Sector Format" shape="rect">Section F.2.1.1</a> and <a class="xref" href="sect_F.2.html#sect_F.2.1.2" title="F.2.1.2 Multi-session Format" shape="rect">Section F.2.1.2</a>.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_F.2.1.1" shape="rect"></a>F.2.1.1 Sector Format</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>All DICOM files and all data that comprise the ISO 9660 file system of the DICOM CD-R disc shall be stored either:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>within Mode 1 sectors, or</p>
+                     </li>
+                     <li class="listitem">
+                        <p>within Mode 2, Form 1 sectors with CD-ROM-XA File Number = 0, Channel Number = 0 and Coding Information Byte = 0.</p>
+                     </li>
+                  </ul>
+               </div>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="1">
+                        <li class="listitem">
+                           <p>The physical storage capacity of a CD-R disc can be 74 minutes (630 MB) or 80 minutes (700 MB) when using the Mode 1 or Mode 2 Form 1 format. The capacity is fixed by the pre-grooved spiral track present on a blank CD-R. Some older CD players will not be able to read the 80 min capacity CD-R discs.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The DICOM standard prohibits the use of Mode 2 Form 2 sectors. This format is used to record data on CD-Rs that exceed 74 minute capacity and can also be used for smaller capacity CD-Rs. CD-ROM-XA Mode 2 Form 2 sectors do not have sector level error correction. This significantly decreases the reliability of the media and significantly increases the likelihood of data corruption.</p>
+                        </li>
+                     </ol>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_F.2.1.2" shape="rect"></a>F.2.1.2 Multi-session Format</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>An area on the disc consisting of a Lead-In area, a Program area, and a Lead-Out area, is called a "Session." If a disc contains or is able to contain more than one session then this disc is called a "Multi-session" disk. If the Lead-In area contains a pointer to the next session, then the disc is appendable. The Lead-In and Lead-Out areas are written at the conclusion of writing the program Area. The process of writing the Lead-In and Lead-Out areas is commonly referred to as "Finalizing the Session." The last recorded session contains all the information needed to access the entire disc.</p>
+               <p>DICOM CD-R disc may contain multiple sessions. Data are added to a disc by opening and writing a new session. A disc is non-appendable if the last recorded session is designated as the "Final Session," as defined in Part II: CD-WO version 2.0, Section 5.5.2.</p>
+               <p>CD-ROM readers shall support Multi-session CDs.</p>
+               <p>CD-R writers may choose to support Multi-session writing.</p>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_F.2.2" shape="rect"></a>F.2.2 Logical Format</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The logical format of CD-R shall conform to ISO 9660 level 1, with the extensions described in <a class="xref" href="sect_F.2.html#sect_F.2.2.1" title="F.2.2.1 System Identifier Field" shape="rect">Section F.2.2.1</a> through <a class="xref" href="sect_F.2.html#sect_F.2.2.2" title="F.2.2.2 System and Volume Descriptor Area" shape="rect">Section F.2.2.2</a>
+            </p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_F.2.2.1" shape="rect"></a>F.2.2.1 System Identifier Field</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The ISO 9660 System Identifier Field of the PVD (Primary Volume Descriptor) shall contain "CD-RTOS CD-BRIDGE" if a CD-I (Compact Disc-Interactive) application is present. If a CD-I application is not present, then this field shall be padded with space characters.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_F.2.2.2" shape="rect"></a>F.2.2.2 System and Volume Descriptor Area</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The ISO 9660 System and Volume Descriptor Area (SVD) from the last session points to the set of ISO 9660 Path Tables and Directory Records that describes the file system of the DICOM CD-R disc. The SVD area starts at the first logical sector of each session and continues through to the first instance of the Volume Descriptor Set Terminator.</p>
+               <p>Adding, replacing or deleting files from the disc is accomplished by opening a new session and writing within the new session new data (if any), a new set of Path Tables, and Directory Records that reflect the changes, and an SVD area that points to the new set of Path Tables and Directory records.</p>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_F.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_F.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_F.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">F 120mm CD-R Medium (Normative) </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.12.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> F.3 Physical Media</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

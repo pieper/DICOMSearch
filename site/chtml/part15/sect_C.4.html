@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>C.4 Structured Report RSA Digital Signature Profile</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.15.html" title="PS3.15" />
+      <link rel="up" href="chapter_C.html" title="C Digital Signature Profiles (Normative)" />
+      <link rel="prev" href="sect_C.3.html" title="C.3 Authorization RSA Digital Signature Profile" />
+      <link rel="next" href="chapter_D.html" title="D Media Storage Security Profiles (Normative)" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">C.4 Structured Report RSA Digital Signature Profile</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_C.3.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">C Digital Signature Profiles (Normative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_D.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_C.4" shape="rect"></a>C.4 Structured Report RSA Digital Signature Profile</h2>
+               </div>
+            </div>
+         </div>
+         <p>This profile defines a mechanism for adding Digital Signatures to Structured Reports or Key Object Selection Documents where there is no more than one Verifying Observer. Instances that follow this Digital Signature Profile shall include at least one Digital Signature at the top level of the Data Set.</p>
+         <p>All Digital Signatures that follow this profile shall include a Digital Signature Purpose Code Sequence Attribute (0400,0401).</p>
+         <p>As a minimum, an implementation shall include the following attributes in generating the Digital Signature required by this profile:</p>
+         <div class="orderedlist">
+            <ol class="orderedlist" type="a">
+               <li class="listitem">
+                  <p>the SOP Class UID</p>
+               </li>
+               <li class="listitem">
+                  <p>the Study and Series Instance UIDs</p>
+               </li>
+               <li class="listitem">
+                  <p>all attributes of the General Equipment Module that are present</p>
+               </li>
+               <li class="listitem">
+                  <p>the Current Requested Procedure Evidence Sequence</p>
+               </li>
+               <li class="listitem">
+                  <p>the Pertinent Other Evidence Sequence</p>
+               </li>
+               <li class="listitem">
+                  <p>the Predecessor Documents Sequence</p>
+               </li>
+               <li class="listitem">
+                  <p>the Observation DateTime</p>
+               </li>
+               <li class="listitem">
+                  <p>all attributes of the SR Document Content Module that are present</p>
+               </li>
+            </ol>
+         </div>
+         <p>If the Verification Flag is set to "VERIFIED" (and the SOP Instance UID can no longer change) at least one of the Digital Signatures profile shall have the purpose of (5,ASTM-sigpurpose,"Verification Signature") and shall also include the following Attributes in addition to the above attributes:</p>
+         <div class="orderedlist">
+            <ol class="orderedlist" type="a">
+               <li class="listitem">
+                  <p>the SOP Instance UID</p>
+               </li>
+               <li class="listitem">
+                  <p>the Verification Flag</p>
+               </li>
+               <li class="listitem">
+                  <p>the Verifying Observer Sequence</p>
+               </li>
+               <li class="listitem">
+                  <p>the Verification DateTime</p>
+               </li>
+            </ol>
+         </div>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <p>The system may also add a Creator RSA Digital Signature, which could cover other attributes that the machine can verify.</p>
+         </div>
+         <p>All occurrences of Referenced SOP Instance MAC Sequence (0400,0403) shall have the Value of MAC Algorithm (0400,0015) set to either "RIPEMD160", "MD5", "SHA1", "SHA256", "SHA384" or "SHA512"..</p>
+         <p>The Digital Signature shall be created using the methodology described in the Base RSA Digital Signature Profile. The Application Entity shall determine the identity of the signatories and obtain their certificate through an application-specific procedure such as a login mechanism or a smart card. The conformance statement shall specify how the application identifies signatories and obtains certificates.</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <p>Structured Report RSA Digital Signatures bear no direct relationship to other Digital Signatures. However, other Digital Signatures, such as the Creator RSA Digital Signature, may be used to corroborate the timestamp of a Structured Report RSA Digital Signature.</p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_C.3.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_C.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_D.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">C.3 Authorization RSA Digital Signature Profile </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.15.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> D Media Storage Security Profiles (Normative)</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

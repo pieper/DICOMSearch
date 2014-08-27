@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>6 Purpose of An Application Profile</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.11.html" title="PS3.11" />
+      <link rel="up" href="PS3.11.html" title="PS3.11" />
+      <link rel="prev" href="chapter_5.html" title="5 Conventions" />
+      <link rel="next" href="chapter_7.html" title="7 Conformance Requirements" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">6 Purpose of An Application Profile</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_5.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_7.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_6" shape="rect"></a>6 Purpose of An Application Profile</h1>
+               </div>
+            </div>
+         </div>
+         <p>An Application Profile is a mechanism for selecting an appropriate set of choices from the parts of DICOM for the support of a particular media interchange application. Application Profiles for commonly used interchange scenarios, such as inter-institutional exchange of X-Ray cardiac angiographic examinations, or printing ultrasound studies from recordable media, are meant to use the flexibility offered by DICOM without resulting in so many media and format choices that interchange is compromised.</p>
+         <p>Media interchange applications claim conformance to one or more Media Storage Application Profiles. Two implementations that conform to identical Application Profiles and support complementary File-set roles (e.g., an FSC interchanging media with an FSR) are able to exchange SOP Instances (pieces of DICOM information) on recorded media within the context of those Application Profiles.</p>
+         <p>A DICOM Application Profile specifies:</p>
+         <div class="orderedlist">
+            <ol class="orderedlist" type="a">
+               <li class="listitem">
+                  <p>which SOP Classes and options must be supported, including any required extensions, specializations, or privatizations</p>
+               </li>
+               <li class="listitem">
+                  <p>for each SOP Class, which Transfer Syntaxes may be used</p>
+               </li>
+               <li class="listitem">
+                  <p>what information should be included in the Basic Directory IOD</p>
+               </li>
+               <li class="listitem">
+                  <p>which Media Storage Service Class options may be utilized</p>
+               </li>
+               <li class="listitem">
+                  <p>which roles an application may take: File-set Creator, File-set Reader, and/or File-set Updater</p>
+               </li>
+               <li class="listitem">
+                  <p>which physical media and corresponding media formats must be supported</p>
+               </li>
+               <li class="listitem">
+                  <p>whether or not the DICOM Files in the File-set shall be Secure DICOM Files</p>
+               </li>
+               <li class="listitem">
+                  <p>which Media Storage Security Profile must be used for the creation of Secure DICOM Files</p>
+               </li>
+            </ol>
+         </div>
+         <p>and any additional conformance requirements.</p>
+         <p>The result of making the necessary choices means that the Application Profile can be thought of as a vertical path through the various parts of DICOM that begins with choices of information to be exchanged and ends at the physical medium. <a class="xref" href="chapter_6.html#figure_6-1" title="Figure 6-1. Relationship Between an Application Profile and Parts of DICOM" shape="rect">Figure 6-1</a> shows the relationship between the concepts used in an Application Profile and the parts of DICOM.</p>
+         <p>
+      </p>
+         <div class="figure">
+            <a id="figure_6-1" shape="rect"></a>
+            <div class="figure-contents">
+               <div class="mediaobject">
+                  <img src="figures/PS3.11_6-1.svg" alt="Relationship Between an Application Profile and Parts of DICOM" />
+               </div>
+            </div>
+            <p class="title">
+               <strong>Figure 6-1. Relationship Between an Application Profile and Parts of DICOM</strong>
+            </p>
+         </div>
+         <p>
+            <br class="figure-break" clear="none" />
+         </p>
+         <p>An Application Profile is organized into the following major parts:</p>
+         <div class="orderedlist">
+            <ol class="orderedlist" type="a">
+               <li class="listitem">
+                  <p>The name of the Application Profile, or the list of Application Profiles grouped in a related class</p>
+               </li>
+               <li class="listitem">
+                  <p>A description of the clinical context of the Application Profile</p>
+               </li>
+               <li class="listitem">
+                  <p>The definition of the Media Storage Service Class with the device Roles for the Application Profile and associated options</p>
+               </li>
+               <li class="listitem">
+                  <p>Informative section describing the operational requirements of the Application Profile</p>
+               </li>
+               <li class="listitem">
+                  <p>Specification of the SOP Classes and associated IODs supported and the Transfer Syntaxes to be used</p>
+               </li>
+               <li class="listitem">
+                  <p>The selection of Media Format and Physical Media to be used</p>
+               </li>
+               <li class="listitem">
+                  <p>If the Directory Information Module is used, the description of the minimum subset of the Information Model required</p>
+               </li>
+               <li class="listitem">
+                  <p>Other parameters that need to be specified to ensure interoperable media interchange</p>
+               </li>
+               <li class="listitem">
+                  <p>Security parameters that select the cryptographic techniques to be used with Secure Media Storage Application Profiles</p>
+               </li>
+            </ol>
+         </div>
+         <p>The structure of DICOM and the design of the Application Profile mechanism is such that extension to additional SOP Classes and new exchange media is straightforward.</p>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_5.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_7.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">5 Conventions </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.11.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 7 Conformance Requirements</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

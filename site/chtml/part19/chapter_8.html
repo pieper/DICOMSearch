@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>8 Interfaces</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.19.html" title="PS3.19" />
+      <link rel="up" href="PS3.19.html" title="PS3.19" />
+      <link rel="prev" href="sect_7.2.html" title="7.2 States" />
+      <link rel="next" href="sect_8.2.html" title="8.2 Host Interface" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">8 Interfaces</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_7.2.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_8.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_8" shape="rect"></a>8 Interfaces</h1>
+               </div>
+            </div>
+         </div>
+         <p>There are three base interfaces defined in this part, as shown in <a class="xref" href="chapter_8.html#figure_8-1" title="Figure 8-1. Diagram of the Interface Between the Hosting System and the Hosted Application" shape="rect">Figure 8-1</a>. One, named "Application", represents the Hosted Application, and is utilized by the Hosting System to control the Hosted Application. The second, named "Host", represents the Hosting System, and is utilized by the Hosted Application to request services from and to notify the Hosting System of events during the execution of the Hosted Application. The third, named "DataExchange" is an interface used by both the Hosting System and the Hosted Application to communicate information about the data to be exchanged. Thus, the entire Hosted Application ("ApplicationService") implementation consists of the combination of the "Application" and "DataExchange" base interfaces, while the entire Hosting System ("HostService") implementation consists of the combination of the "Host" and "DataExchange" base interfaces.</p>
+         <p>The interfaces are defined as a set of methods using Web Services Description Language (WSDL). The implementers shall change the end point references (i.e., the "location" XML Attribute within the "address" XML Element within the "port" XML Elements of a "service" XML Element) in the WSDL specification as needed to deploy Hosted Applications and Hosting Systems that utilize these interfaces.</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <p>The major (non-backward compatible) versions of the interfaces are reflected in the values of the "name" and "targetNamespace" XML Attributes of the "definitions" XML Element in the WSDL specification of the interfaces. Any changes to the interfaces that are not backward compatible will utilize new values for "name" and "targetNamespace" XML Attributes of the "definitions" XML Element.</p>
+         </div>
+         <p>Minor (backward compatible) versions of the interfaces may be reflected in the values of the "targetNamespace" XML Attribute of any new "schema" XML Element where new input or output data types are defined in the WSDL specifications, and/or in the values of the "name" XML Attributes of the "portType" and "service" XML Elements where new messages and operations are associated as new services in the WSDL specifications of the interfaces. To maintain backward compatibility, the names of existing elements, messages, and operations in the WSDL specification of the interfaces remain the same.</p>
+         <p>These methods utilize a set of basic data types and more complex data structures to communicate parameters, which are defined using XML Schemas. Later sections of this document provide more detailed descriptions of the interfaces and data structures, along with sequence diagrams illustrating how the interfaces are used.</p>
+         <p>The actual WSDL code and XML Schemas that specify this interface are defined in <a class="xref" href="chapter_B.html" title="B Interface Definitions" shape="rect"> Annex B</a>.</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="1">
+                  <li class="listitem">
+                     <p>WSDL is a platform and programming language independent means of specifying an interface between two cooperating applications. The applications need not be written in the same programming language.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>The interfaces do not directly address reporting of SOAP communications problems. If a problem occurs in the communications between the Hosting System and a Hosting Application during the execution of a WSDL interface call, this should be reported by the SOAP libraries utilized by an implementation, e.g., thrown as an exception.</p>
+                  </li>
+               </ol>
+            </div>
+         </div>
+         <p>
+      </p>
+         <div class="figure">
+            <a id="figure_8-1" shape="rect"></a>
+            <div class="figure-contents">
+               <div class="mediaobject">
+                  <img src="figures/PS3.19_8-1.svg" alt="Diagram of the Interface Between the Hosting System and the Hosted Application" />
+               </div>
+            </div>
+            <p class="title">
+               <strong>Figure 8-1. Diagram of the Interface Between the Hosting System and the Hosted Application</strong>
+            </p>
+         </div>
+         <p>
+            <br class="figure-break" clear="none" />
+         </p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_8.1" shape="rect"></a>8.1 Application Interface</h2>
+                  </div>
+               </div>
+            </div>
+            <p>The following sections describe the methods of the Application interface.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_8.1.1" shape="rect"></a>8.1.1 getState() : State</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>The Hosted Application returns its current state to the caller.</p>
+               <p>This method may be called at any time.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="1">
+                        <li class="listitem">
+                           <p>A Hosting System may use this method as an alternative to tracking Hosted Application state changes reported by the notifyStateChanged() method call.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>A Hosting System may use this method to determine if a Hosted Application is still in operation (i.e., did not die without calling the notifyStateChanged() method with an EXIT state).</p>
+                        </li>
+                     </ol>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_8.1.2" shape="rect"></a>8.1.2 setState(newState : State) : boolean</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>The Hosting System requests that the Hosted Application switch to the newState.</p>
+               <p>The Hosted Application returns TRUE from the method if the Hosted Application received the request, and the requested state change is allowed in the state diagram. Otherwise, the method returns FALSE. A return value of TRUE does not indicate that the state of the Hosted Application has changed to the newState; it merely indicates that the requested state change is valid, and will be made at the soonest opportunity. Once the Hosted Application switches to the requested state, it shall inform the Hosting System through the notifyStateChanged() method of the Host interface.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>The asynchronous response to a state change is intended to minimize blocking the Hosting System while waiting for a potentially time-consuming state change in the application.</p>
+               </div>
+               <p>The Hosted Application shall ignore any setState() and return TRUE when the Hosted Application is already in requested state (i.e., this is a repeated call with the same state).</p>
+               <p>If the Hosted Application receives a second setState() request for a different state prior to completing a previous request, then the Hosted Application shall abort or ignore the previous request, and begin processing the latest request.</p>
+               <p>This method may be called at any time, however may not have any effect (other than a return of FALSE) if the requested new state is not an allowed transition from the current state.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_8.1.3" shape="rect"></a>8.1.3 bringToFront(requestedScreenArea : Rectangle) : boolean</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>By calling this method, the Hosting System is asking the Hosted Application to take whatever steps are needed to make its GUI visible as the topmost window, and to gain focus.</p>
+               <p>If possible, the Hosted Application shall resize and reposition itself to the requestedScreenArea. If requestedScreenArea is missing or null, the Hosted Application may retain its current size and location on the screen.</p>
+               <p>The method returns TRUE if the Hosted Application received the request and will act on it. Otherwise it returns FALSE.</p>
+               <p>A Hosted Application shall act on this method if the Hosted Application is in the IDLE or INPROGRESS state. A Hosted Application is not required to act on this method if the Hosted Application is not in the IDLE or INPROGRESS state.</p>
+               <p>A Hosted Application that has no GUI (e.g., a headless analysis application), where becoming visible and gaining focus has no meaning, shall always return TRUE from this method.</p>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_7.2.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_8.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">7.2 States </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.19.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 8.2 Host Interface</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

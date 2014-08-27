@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>C Query/Retrieve Service Class (Normative)</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.4.html" title="PS3.4" />
+      <link rel="up" href="PS3.4.html" title="PS3.4" />
+      <link rel="prev" href="sect_B.6.html" title="B.6 Retired Standard SOP Classes" />
+      <link rel="next" href="sect_C.2.html" title="C.2 Query/Retrieve Information Model Definition" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">C Query/Retrieve Service Class (Normative)</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_B.6.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_C.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_C" shape="rect"></a>C Query/Retrieve Service Class (Normative)</h1>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_C.1" shape="rect"></a>C.1 Overview</h2>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_C.1.1" shape="rect"></a>C.1.1 Scope</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>The Query/Retrieve Service Class defines an application-level class-of-service that facilitates the simple management of Composite Object Instances in a manner functionally similar to ACR-NEMA 300-1988. The types of queries that are allowed are not complex. This Service Class is not intended to provide a comprehensive generalized database query mechanism such as SQL. Instead, the Query/Retrieve Service Class is focused towards basic Composite Object Instance information queries using a small set of common Key Attributes.</p>
+               <p>In addition, the Query/Retrieve Service Class provides the ability to retrieve/transfer a well-identified set of Composite Object Instances. The retrieve/transfer capability allows a DICOM AE to retrieve Composite Object Instances from a remote DICOM AE or request the remote DICOM AE to initiate a transfer of Composite Object Instances to another DICOM AE.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>Functional similarity to ACR-NEMA 300-1988 facilitates the migration to DICOM.</p>
+               </div>
+               <p>An Enhanced Multi-Frame Image Conversion Extended Negotiation option allows the Query/Retrieve Service Class to access Classic single-frame images that have been converted to Enhanced multi-frame images, or vice-versa. This is achieved by providing alternative "views" of studies, such that:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>the default view provides the images in the form they were received,</p>
+                     </li>
+                     <li class="listitem">
+                        <p>a Classic single-frame "view" provides images as Classic single frame (that were received that way or have been converted from Enhanced multi-frame),</p>
+                     </li>
+                     <li class="listitem">
+                        <p>an Enhanced multi-frame "view" provides images as Enhanced multi-frame (that were received that way or have been converted to Enhanced multi-frame).</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>A query or retrieval above the IMAGE level does not show or return duplicate information (two sets of images). The SCU may request the default, enhanced multi-frame or Classic single frame view. For each view, referential integrity is required to be consistent within the scope of the Patient and that view; i.e., references to UIDs will be converted in all Instances, not only within converted images.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="1">
+                        <li class="listitem">
+                           <p>The Classic single-frame view is not intended as an alternative to the Frame Level Retrieve SOP Classes defined in <a class="xref" href="chapter_Y.html" title="Y Instance and Frame Level Retrieve SOP Classes (Normative)" shape="rect"> Annex Y</a>. Enhanced Image Storage SOP Classes and Frame Level Retrieve SOP Classes should be used together since they support a unified view of the relationships between instances through a common set of UIDs.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>In the Enhanced view, Instances that have no Enhanced equivalent will be returned in their original form but with referential integrity related changes.</p>
+                        </li>
+                     </ol>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_C.1.2" shape="rect"></a>C.1.2 Conventions</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>The following conventions are used to define the types of keys used in Query/Retrieve Information Models.</p>
+               <div class="table">
+                  <a id="table_C.1.2-1" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table C.1.2-1. Key Type Conventions for Query/Retrieve Information Models</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Symbol</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Description</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>U</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Unique Key Attribute</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>R</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Required Key Attribute</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>O</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Optional Key Attribute</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_C.1.3" shape="rect"></a>C.1.3 Query/Retrieve Information Model</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>In order to serve as an SCP of the Query/Retrieve Service Class, a DICOM AE possesses information about the Attributes of a number of stored Composite Object Instances. This information is organized into a well defined Query/Retrieve Information Model. The Query/Retrieve Information Model shall be a standard Query/Retrieve Information Model, as defined in this Annex of the DICOM Standard.</p>
+               <p>Queries and Retrievals are implemented against well defined Information Models. A specific SOP Class of the Query/Retrieve Service Class consists of an Information Model Definition and a DIMSE-C Service Group. In this Service Class, the Information Model plays a role similar to an Information Object Definition (IOD) of most other DICOM Service Classes.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_C.1.4" shape="rect"></a>C.1.4 Service Definition</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>Two peer DICOM AEs implement a SOP Class of the Query/Retrieve Service Class with one serving in the SCU role and one serving in the SCP role. SOP Classes of the Query/Retrieve Service Class are implemented using the DIMSE-C C-FIND, C-MOVE, and C-GET services as defined in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>.</p>
+               <p>Both a baseline and extended behavior is defined for the DIMSE-C C-FIND, C-MOVE, and C-GET services. Baseline behavior specifies a minimum level of conformance for all implementations to facilitate interoperability. Extended behavior enhances the baseline behavior to provide additional features that may be negotiated independently at Association establishment time.</p>
+               <p>The following descriptions of the DIMSE-C C-FIND, C-MOVE, and C-GET services provide a brief overview of the SCU/SCP semantics:</p>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="a">
+                     <li class="listitem">
+                        <p>A C-FIND service conveys the following semantics:</p>
+                        <div class="itemizedlist">
+                           <ul class="itemizedlist" style="list-style-type: disc; ">
+                              <li class="listitem">
+                                 <p>The SCU requests that the SCP perform a match of all the keys specified in the Identifier of the request, against the information it possesses, to the level (E.g. Patient, Study, Series, or Composite Object Instance) specified in the request.</p>
+                                 <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                                    <h3 class="title">Note</h3>
+                                    <p>In this Annex, the term "Identifier" refers to the Identifier service parameter of the C-FIND, C-MOVE, or C-GET service as defined in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>.</p>
+                                 </div>
+                              </li>
+                              <li class="listitem">
+                                 <p>The SCP generates a C-FIND response for each match with an Identifier containing the values of all key fields and all known Attributes requested. All such responses will contain a status of Pending. A status of Pending indicates that the process of matching is not complete.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>When the process of matching is complete a C-FIND response is sent with a status of Success and no Identifier.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>A Refused or Failed response to a C-FIND request indicates that the SCP is unable to process the request.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The SCU may cancel the C-FIND service by issuing a C-FIND-CANCEL request at any time during the processing of the C-FIND service. The SCP will interrupt all matching and return a status of Canceled.</p>
+                              </li>
+                           </ul>
+                        </div>
+                     </li>
+                     <li class="listitem">
+                        <p>A C-MOVE service conveys the following semantics:</p>
+                        <div class="itemizedlist">
+                           <ul class="itemizedlist" style="list-style-type: disc; ">
+                              <li class="listitem">
+                                 <p>The SCU supplies Unique Key values to identify an entity at the level of the retrieval. The SCP of the C-MOVE initiates C-STORE sub-operations for the corresponding storage SOP Instances identified by Unique Key values. These C-STORE sub-operations occur on a different Association than the C-MOVE service. The SCP role of the Query/Retrieve SOP Class and the SCU role of the Storage SOP Class may be performed by different applications that may or may not reside on the same system. Initiation mechanism of C-STORE sub-operations is outside of the scope of DICOM standard.</p>
+                                 <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                                    <h3 class="title">Note</h3>
+                                    <p>This does not imply that they use the same AE Title. See <a class="xref" href="sect_C.6.html#sect_C.6.1.2.2.2" title="C.6.1.2.2.2 C-MOVE SCP Conformance" shape="rect">Section C.6.1.2.2.2</a> and <a class="xref" href="sect_C.6.html#sect_C.6.2.2.2.2" title="C.6.2.2.2.2 C-MOVE SCP Conformance" shape="rect">Section C.6.2.2.2.2</a> for the requirements to the C-MOVE SCP conformance.</p>
+                                 </div>
+                              </li>
+                              <li class="listitem">
+                                 <p>The SCP may optionally generate responses to the C-MOVE with status equal to Pending during the processing of the C-STORE sub-operations. These C-MOVE responses indicate the number of Remaining C-STORE sub-operations and the number of C-STORE sub-operations returning the status of Success, Warning, and Failed.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>When the number of Remaining C-STORE sub-operations reaches zero, the SCP generates a final response with a status equal to Success, Warning, Failed, or Refused. This response may indicate the number of C-STORE sub-operations returning the status of Success, Warning, and Failed. If the status of a C-STORE sub-operation was Failed a UID List will be returned.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The SCU may cancel the C-MOVE service by issuing a C-MOVE-CANCEL request at any time during the processing of the C-MOVE. The SCP terminates all incomplete C-STORE sub-operations and returns a status of Canceled.</p>
+                              </li>
+                           </ul>
+                        </div>
+                     </li>
+                     <li class="listitem">
+                        <p>A C-GET service conveys the following semantics:</p>
+                        <div class="itemizedlist">
+                           <ul class="itemizedlist" style="list-style-type: disc; ">
+                              <li class="listitem">
+                                 <p>The SCU supplies Unique Key values to identify an entity at the level of the retrieval. The SCP generates C-STORE sub-operations for the corresponding storage SOP Instances identified by the Unique Key values. These C-STORE sub-operations occur on the same Association as the C-GET service and the SCU/SCP roles will be reversed for the C-STORE.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The SCP may optionally generate responses to the C-GET with status equal to Pending during the processing of the C-STORE sub-operations. These C-GET responses indicate the number of Remaining C-STORE sub-operations and the number of C-STORE sub-operations returning the status of Success, Warning, and Failed.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>When the number of Remaining C-STORE sub-operations reaches zero, the SCP generates a final response with a status equal to Success, Warning, Failed, or Refused. This response may indicate the number of C-STORE sub-operations returning the status of Success, Warning, and Failed. If the status of a C-STORE sub-operation was Failed a UID List will be returned.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The SCU may cancel the C-GET service by issuing a C-GET-CANCEL request at any time during the processing of the C-GET. The SCP terminates all incomplete C-STORE sub-operations and returns a status of Canceled.</p>
+                              </li>
+                           </ul>
+                        </div>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_B.6.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_C.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">B.6 Retired Standard SOP Classes </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.4.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> C.2 Query/Retrieve Information Model Definition</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

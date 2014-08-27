@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Y Instance and Frame Level Retrieve SOP Classes (Normative)</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.4.html" title="PS3.4" />
+      <link rel="up" href="PS3.4.html" title="PS3.4" />
+      <link rel="prev" href="sect_X.6.html" title="X.6 SOP Class Definitions" />
+      <link rel="next" href="sect_Y.2.html" title="Y.2 Composite Instance Root Retrieve Information Model Definition" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">Y Instance and Frame Level Retrieve SOP Classes (Normative)</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_X.6.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_Y.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_Y" shape="rect"></a>Y Instance and Frame Level Retrieve SOP Classes (Normative)</h1>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_Y.1" shape="rect"></a>Y.1 Overview</h2>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_Y.1.1" shape="rect"></a>Y.1.1 Scope</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>Composite Instance Root Retrieve Service is a service within the DICOM Query/Retrieve Service class defined in <a class="xref" href="chapter_C.html" title="C Query/Retrieve Service Class (Normative)" shape="rect"> Annex C</a>.The retrieve capability of this service allows a DICOM AE to retrieve Composite Instances or selected frames from a remote DICOM AE over a single Association or request the remote DICOM AE to initiate a transfer of Composite Object Instances or selected frames from image objects to another DICOM AE.</p>
+               <p>The Enhanced Multi-Frame Image Conversion Extended Negotiation Option of the DICOM Query/Retrieve Service class defined in <a class="xref" href="chapter_C.html" title="C Query/Retrieve Service Class (Normative)" shape="rect"> Annex C</a> is also supported for the Composite Instance Root Retrieve Service.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_Y.1.2" shape="rect"></a>Y.1.2 Composite Instance Root Retrieve Information Model</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>Retrievals are implemented against the Composite Instance Root Retrieve Information Model, as defined in this Annex of the DICOM Standard. A specific SOP Class of the Query/Retrieve Service Class consists of an Information Model Definition and a DIMSE-C Service Group.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_Y.1.3" shape="rect"></a>Y.1.3 Service Definition</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>Two peer DICOM AEs implement a SOP Class of the Composite Instance Root Retrieve Service with one serving in the SCU role and one serving in the SCP role. SOP Classes of the Composite Instance Root Retrieve Service are implemented using the DIMSE-C C-MOVE and C-GET services as defined in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>.</p>
+               <p>The following descriptions of the DIMSE-C C-GET and C-MOVE services provide a brief overview of the SCU/SCP semantics:</p>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="a">
+                     <li class="listitem">
+                        <p>A C-MOVE service conveys the following semantics:</p>
+                        <div class="itemizedlist">
+                           <ul class="itemizedlist" style="list-style-type: disc; ">
+                              <li class="listitem">
+                                 <p>The SCU supplies Unique and Frame Range Key values to identify the requested SOP Instance(s). The SCP creates new SOP instances if necessary and then initiates C-STORE sub-operations for the corresponding storage SOP Instances. These C-STORE sub-operations occur on a different Association than the C-MOVE service. The SCP role of the Retrieve SOP Class and the SCU role of the Storage SOP Class may be performed by different applications that may or may not reside on the same system. Initiation mechanism of C-STORE sub-operations is outside of the scope of DICOM standard.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The SCP may optionally generate responses to the C-MOVE with status equal to Pending during the processing of the C-STORE sub-operations. These C-MOVE responses indicate the number of Remaining C-STORE sub-operations and the number of C-STORE sub-operations returning the status of Success, Warning, and Failed.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>When the number of Remaining C-STORE sub-operations reaches zero, the SCP generates a final response with a status equal to Success, Warning, Failed, or Refused. This response shall indicate the number of C-STORE sub-operations returning the status of Success, Warning, and Failed. If any of the sub-operations was successful then a Successful UID list shall be returned. If the status of a C-STORE sub-operation was Failed a UID List shall be returned.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The SCU may cancel the C-MOVE service by issuing a C-MOVE-CANCEL request at any time during the processing of the C-MOVE. The SCP terminates all incomplete C-STORE sub-operations and returns a status of Canceled.</p>
+                              </li>
+                           </ul>
+                        </div>
+                     </li>
+                     <li class="listitem">
+                        <p>A C-GET service conveys the following semantics:</p>
+                        <div class="itemizedlist">
+                           <ul class="itemizedlist" style="list-style-type: disc; ">
+                              <li class="listitem">
+                                 <p>The SCU supplies Unique and Frame Range Key values to identify the requested SOP Instance(s). The SCP creates new SOP instances if necessary and then generates C-STORE sub-operations for the corresponding storage SOP Instances. These C-STORE sub-operations occur on the same Association as the C-GET service and the SCU/SCP roles are reversed for the C-STORE.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The SCP may optionally generate responses to the C-GET with status equal to Pending during the processing of the C-STORE sub-operations. These C-GET responses indicate the number of remaining C-STORE sub-operations and the number of C-STORE sub-operations returning the status of Success, Warning, and Failed.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>When the number of Remaining C-STORE sub-operations reaches zero, the SCP generates a final response with a status equal to Success, Warning, Failed, or Refused. This response shall indicate the number of C-STORE sub-operations returning the status of Success, Warning, and Failed. If the status of any C-STORE sub-operation was Failed a UID List shall be returned.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The SCU may cancel the C-GET service by issuing a C-GET-CANCEL request at any time during the processing of the C-GET. The SCP terminates all incomplete C-STORE sub-operations and returns a status of Canceled.</p>
+                              </li>
+                           </ul>
+                        </div>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_X.6.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_Y.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">X.6 SOP Class Definitions </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.4.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> Y.2 Composite Instance Root Retrieve Information Model Definition</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

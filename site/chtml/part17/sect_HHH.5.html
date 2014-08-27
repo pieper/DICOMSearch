@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>HHH.5 IHE ITI Compatibility</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="chapter_HHH.html" title="HHH Evolution of WADO to Web and Rest Services (Informative)" />
+      <link rel="prev" href="sect_HHH.4.html" title="HHH.4 Uses For QIDO Services" />
+      <link rel="next" href="sect_HHH.6.html" title="HHH.6 Proxy Agent For Non-WS DICOM Archive" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">HHH.5 IHE ITI Compatibility</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_HHH.4.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">HHH Evolution of WADO to Web and Rest Services (Informative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_HHH.6.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_HHH.5" shape="rect"></a>HHH.5 IHE ITI Compatibility</h2>
+               </div>
+            </div>
+         </div>
+         <p>There is a strong desire that the ITI Transaction RAD-69 be a proper implementation of the DICOM WS-* transaction. Note that RAD-69 is not the entire suite of XD* transactions. It is the "Retrieve Imaging Document Set" transaction.</p>
+         <p>The RAD-69 transaction is quite simple, can be difficult to find all the parts of the ITI documentation. In summary, the RAD-69 transaction is a WS request to the IHE "RequestDocumentSet" action and related endpoints. The request is a list of "DocumentRequest", each "DocumentRequest" has three elements: required OID, required RepositoryID, and optional CommunityID. The response is a list of "DocumentResponse". Each "DocumentResponse" has four elements: required OID, required RepositoryID, required Document, and optional CommunityID.</p>
+         <p>The mapping to DICOM for OID would be SOP Instance UID, and Document the DICOM contents. RepositoryID is analogous to the AE Title. It is not a perfect mapping. IHE considers the configuration where one system acts as a front end for multiple other systems, each identified by a RepositoryID. The CommunityID is an extension of this to "communities" that exchange data through gateways. The gateways will use the RepositoryID to identify internal repository systems.</p>
+         <p>RAD-69 requires no understanding of document contents. They are binary blobs that are identified by an OID.</p>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_HHH.4.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_HHH.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_HHH.6.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">HHH.4 Uses For QIDO Services </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> HHH.6 Proxy Agent For Non-WS DICOM Archive</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

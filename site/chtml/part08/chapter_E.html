@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>E Usage of the P-DATA Service By the DICOM Application Entity (Normative)</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.8.html" title="PS3.8" />
+      <link rel="up" href="PS3.8.html" title="PS3.8" />
+      <link rel="prev" href="sect_D.2.html" title="D.2 Extended User Information Negotiation" />
+      <link rel="next" href="sect_E.2.html" title="E.2 Message Control Header Encoding" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">E Usage of the P-DATA Service By the DICOM Application Entity (Normative)</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_D.2.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_E.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_E" shape="rect"></a>E Usage of the P-DATA Service By the DICOM Application Entity (Normative)</h1>
+               </div>
+            </div>
+         </div>
+         <p>This Annex specifies how DICOM messages are encapsulated into the P-DATA Service by the DICOM Application Entity.</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_E.1" shape="rect"></a>E.1 Encapsulation Rules</h2>
+                  </div>
+               </div>
+            </div>
+            <p>DICOM Messages are encapsulated in P-DATA request primitives as the user data of Presentation Data Values (PDV). A DICOM Message is fragmented in Command Fragments and Data Fragments, each placed in a PDV. The same presentation context shall be used for every fragment of the same message (i.e., same Presentation Context ID for the user data of the PDVs containing the fragments of a same message). A PDV User Data parameter shall contain one and only one fragment (either Command or Data) preceded by a Message Control Header. This header will indicate:</p>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="a">
+                  <li class="listitem">
+                     <p>whether the fragment is of the Command or Data type</p>
+                  </li>
+                  <li class="listitem">
+                     <p>whether the fragment is or is not the last fragment of a Command/Data Stream of a DICOM Message</p>
+                  </li>
+               </ol>
+            </div>
+            <p>A P-DATA request PDV List parameter shall contain one or more such PDV(s) (Message Control Header and a complete message fragment). Each PDV is wholly contained in a given P-DATA request primitive and does not span across several P-DATA request primitives. The PDVs contained in a P-DATA request primitive shall be related to the same DICOM message. Each fragment of a message shall consist of an even number of bytes.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>No padding is necessary as <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a> defines messages on an even byte boundary.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The above rules state that each fragment contained in a PDV shall consist of an even number of bytes (only). Therefore, encoding such as Group Number, Element Number, Value Length, etc. (as defined by the DICOM Application Entity, see <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>) is not guaranteed to be within the same PDV.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <p>The fragmentation of any message results in a series of PDVs that shall be sent, on a given association, by a corresponding series of P-DATA requests preserving the ordering of the fragments of any message. Furthermore, no fragments of any other message shall be sent until all fragments of the current message have been sent (i.e., interleaving of fragments from different messages is not permitted).</p>
+            <p>It is strongly recommended that two consecutive PDVs in the same P-DATA Request primitive (therefore containing fragments of the same message using the same Presentation Context ID) do not contain two message Control Headers with the same type (Command or Data). These should have been combined in a single PDV by the sender. However, receivers must be able to receive and process such PDVs.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>The above rules allow the sending in the same P-DATA request/indication of a Command fragment in the first PDV (with the last fragment flag set) followed by a Data Fragment in the second PDV (with the last fragment flag set or not). In particular, if the negotiated maximum length for the PDV List parameter of the P-DATA request is sufficient to hold a complete message, a single P-DATA request can be used to exchange an entire message.</p>
+            </div>
+            <p>Individual PDVs shall not be sent with Presentation-data-value fields consisting only of a single byte containing a Message Control Header, but without any other content in the fragment. These should have been combined with the preceding or succeeding PDVs by the sender.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>Even though the above rules prohibit the sending of an "empty" PDV (such as with the last fragment flag set), it is recommended that receivers be able to receive and process such PDVs.</p>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_D.2.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_E.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">D.2 Extended User Information Negotiation </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.8.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> E.2 Message Control Header Encoding</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

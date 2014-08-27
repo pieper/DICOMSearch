@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>C.2 Creator RSA Digital Signature Profile</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.15.html" title="PS3.15" />
+      <link rel="up" href="chapter_C.html" title="C Digital Signature Profiles (Normative)" />
+      <link rel="prev" href="chapter_C.html" title="C Digital Signature Profiles (Normative)" />
+      <link rel="next" href="sect_C.3.html" title="C.3 Authorization RSA Digital Signature Profile" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">C.2 Creator RSA Digital Signature Profile</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_C.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">C Digital Signature Profiles (Normative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_C.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_C.2" shape="rect"></a>C.2 Creator RSA Digital Signature Profile</h2>
+               </div>
+            </div>
+         </div>
+         <p>The creator of a DICOM SOP Instance may generate signatures using the Creator RSA Digital Signature Profile. The Digital Signature produced by this Profile serves as a lifetime data integrity check that can be used to verify that the pixel data in the SOP instance has not been altered since its initial creation. An implementation that supports the Creator RSA Digital Signature Profile may include a Creator RSA Digital Signature with every SOP Instance that it creates; however, the implementation is not required to do so.</p>
+         <p>As a minimum, an implementation shall include the following attributes in generating the Creator RSA Digital Signature:</p>
+         <div class="orderedlist">
+            <ol class="orderedlist" type="a">
+               <li class="listitem">
+                  <p>the SOP Class and Instance UIDs</p>
+               </li>
+               <li class="listitem">
+                  <p>the SOP Creation Date and Time, if present</p>
+               </li>
+               <li class="listitem">
+                  <p>the Study and Series Instance UIDs</p>
+               </li>
+               <li class="listitem">
+                  <p>any attributes of the General Equipment module that are present</p>
+               </li>
+               <li class="listitem">
+                  <p>any attributes of the Overlay Plane, Curve or Graphic Annotation modules that are present</p>
+               </li>
+               <li class="listitem">
+                  <p>any attributes of the General Image and Image Pixel modules that are present</p>
+               </li>
+               <li class="listitem">
+                  <p>any attributes of the SR Document General and SR Document Content modules that are present</p>
+               </li>
+               <li class="listitem">
+                  <p>any attributes of the Waveform and Waveform Annotation modules that are present</p>
+               </li>
+               <li class="listitem">
+                  <p>any attributes of the Multi-frame Functional Groups module that are present</p>
+               </li>
+               <li class="listitem">
+                  <p>any attributes of the Enhanced MR Image module that are present</p>
+               </li>
+               <li class="listitem">
+                  <p>any attributes of the MR Spectroscopy modules that are present</p>
+               </li>
+               <li class="listitem">
+                  <p>any attributes of the Raw Data module that are present</p>
+               </li>
+               <li class="listitem">
+                  <p>any attributes of the Enhanced CT Image module that are present</p>
+               </li>
+               <li class="listitem">
+                  <p>any attributes of the Enhanced XA/XRF Image module that are present</p>
+               </li>
+               <li class="listitem">
+                  <p>any attributes of the Segmentation Image module that are present</p>
+               </li>
+               <li class="listitem">
+                  <p>any attributes of the Encapsulated Document module that are present</p>
+               </li>
+               <li class="listitem">
+                  <p>any attributes of the X-Ray 3D Image module that are present</p>
+               </li>
+               <li class="listitem">
+                  <p>any attributes of the Enhanced PET Image module that are present</p>
+               </li>
+               <li class="listitem">
+                  <p>any attributes of the Enhanced US Image module that are present</p>
+               </li>
+               <li class="listitem">
+                  <p>any attributes of the Surface Segmentation module that are present</p>
+               </li>
+               <li class="listitem">
+                  <p>any attributes of the Surface Mesh Module that are present</p>
+               </li>
+               <li class="listitem">
+                  <p>any attributes of the Structured Display, Structured Display Annotation, and Structured Display Image Box modules that are present</p>
+               </li>
+               <li class="listitem">
+                  <p>any Attributes of the Implant Template module that are present</p>
+               </li>
+               <li class="listitem">
+                  <p>any Attributes of the Implant Assembly Template module that are present</p>
+               </li>
+               <li class="listitem">
+                  <p>any Attributes of the Implant Template Group module that are present</p>
+               </li>
+               <li class="listitem">
+                  <p>any attributes of the Point Cloud Module that are present</p>
+               </li>
+               <li class="listitem">
+                  <p>any attributes of the Enhanced Mammography Image module that are present</p>
+               </li>
+            </ol>
+         </div>
+         <p></p>
+         <p>The Digital Signature shall be created using the methodology described in the Base RSA Digital Signature Profile. Typically the certificate and associated private key used to produce Creator RSA Digital Signatures are configuration parameters of the Application Entity set by service or installation engineers.</p>
+         <p>Creator RSA Digital Signatures bear no direct relationship to other Digital Signatures. However, other Digital Signatures, such as the Authorization Digital Signature, may be used to collaborate the timestamp of a Creator RSA Digital Signature.</p>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_C.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_C.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_C.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">C Digital Signature Profiles (Normative) </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.15.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> C.3 Authorization RSA Digital Signature Profile</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>NN.2 Basic Concepts and Definitions</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="chapter_NN.html" title="NN Specimen Identification and Management" />
+      <link rel="prev" href="chapter_NN.html" title="NN Specimen Identification and Management" />
+      <link rel="next" href="sect_NN.3.html" title="NN.3 Specimen Module" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">NN.2 Basic Concepts and Definitions</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_NN.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">NN Specimen Identification and Management</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_NN.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_NN.2" shape="rect"></a>NN.2 Basic Concepts and Definitions</h2>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_NN.2.1" shape="rect"></a>NN.2.1 Specimen</h3>
+                  </div>
+               </div>
+            </div>
+            <p>A physical object (or a collection of objects) is a specimen when the laboratory considers it a single discrete, uniquely identified unit that is the subject of one or more steps in the laboratory (diagnostic) workflow.</p>
+            <p>To say the same thing in a slightly different way: "Specimen" is defined as a <span class="underline">role</span> played by a physical entity (one or more physical objects considered as single unit) when the entity is identified uniquely by the laboratory and is the direct subject of more steps in a laboratory (diagnostic) workflow.</p>
+            <p>It is worthwhile to expand on this very basic, high level definition because it contains implications that are important to the development and implementation of the DICOM Specimen Module. In particular:</p>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="1">
+                  <li class="listitem">
+                     <p>A single discrete physical object or a collection of several physical objects can act as a single specimen as long as the collection is 
+            <span class="bold">
+                           <strong>
+                              <span class="italic">considered a unit</span>
+                           </strong>
+                        </span> during the laboratory (diagnostic) process step involved. In other words, a specimen may include multiple physical pieces, as long as they are considered a single unit in the workflow. For example, when multiple fragments of tissue are placed in a cassette, most laboratories would consider that collection of fragments as one specimen (one "block").</p>
+                  </li>
+                  <li class="listitem">
+                     <p>A specimen 
+            <span class="underline">must</span> be 
+            <span class="bold">
+                           <strong>
+                              <span class="italic">identified</span>
+                           </strong>
+                        </span>. It 
+            <span class="underline">must</span> have an ID that identifies it as a unique subject in the laboratory workflow. An entity that does not have an identifier is not a specimen.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Specimens are 
+            <span class="bold">
+                           <strong>
+                              <span class="italic">sampled and processed</span>
+                           </strong>
+                        </span> during a laboratory's (diagnostic) workflow. Sampling can create new (child) specimens. These child specimens are full specimens in their own right (they have unique identifiers and are direct subjects in one or more steps in the laboratory's (diagnostic) workflow. This property of specimens (that can be created from existing specimens by sampling) extends a common definition of specimen, which limits the word to the original object received for examination (e.g., from surgery).</p>
+                  </li>
+                  <li class="listitem">
+                     <p>However, child specimens can and do carry some attributes from 
+            <span class="bold">
+                           <strong>
+                              <span class="italic">ancestors</span>
+                           </strong>
+                        </span>. For example, a tissue section cut from a formalin fixed block remains formalin fixed, and a tissue section cut from a block dissected from the proximal margin of a colon resection is still made up of tissue from the proximal margin. A description of a specimen therefore, may require description of its parent specimens.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>A specimen is defined by decisions in the laboratory workflow. For example, in a typical laboratory, multiple tissue sections cut from a single block and placed on the same slide are considered a single specimen (as single unit identified by the slide number). However, if the histotechnologists had placed each tissue section on its own slide (and given each slide a unique number), each tissue section would be a specimen in its own right 
+            <span class="bold">
+                           <strong>.</strong>
+                        </span>
+                     </p>
+                  </li>
+               </ol>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_NN.2.2" shape="rect"></a>NN.2.2 Containers</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Specimen containers (or just "containers") play an important role in laboratory (diagnostic) processes. In most, but not all, process steps, specimens are held in containers, and a container often carries its specimen's ID. Sometimes the container becomes intimately involved with the specimen (e.g., a paraffin block), and in some situations (such as examining tissue under the microscope) the container (the slide and coverslip) become part of the optical path.</p>
+            <p>Containers have identifiers that are important in laboratory operations and in some imaging processes (such as whole slide imaging). The DICOM Specimen Module distinguishes the Container ID and the Specimen ID, making them different data elements. In many laboratories where there is one specimen per container, the value of the specimen ID and container ID will be same. However, there are use cases in which there are more than one specimen in a container. In those situations, the value of the container ID and the specimen IDs will be different (see <a class="xref" href="sect_NN.3.html#sect_NN.3.5" title="NN.3.5 Relationship Between Specimens and Containers" shape="rect">Section NN.3.5</a>).</p>
+            <p>Containers are often made up of components. For example, a "slide" is container that is made up of the glass slide, the cover slip and the "glue" the binds them together. The Module allows each component to be described in detail.</p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_NN.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_NN.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_NN.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">NN Specimen Identification and Management </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> NN.3 Specimen Module</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

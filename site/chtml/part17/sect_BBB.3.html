@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>BBB.3 Use Cases</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="chapter_BBB.html" title="BBB Unified Procedure Step in Radiotherapy (Informative)" />
+      <link rel="prev" href="sect_BBB.2.html" title="BBB.2 Use Case Actors" />
+      <link rel="next" href="chapter_CCC.html" title="CCC Ophthalmic Axial Measurements and Intraocular Lens Calculations Use Cases (Informative)" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">BBB.3 Use Cases</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_BBB.2.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">BBB Unified Procedure Step in Radiotherapy (Informative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_CCC.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_BBB.3" shape="rect"></a>BBB.3 Use Cases</h2>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_BBB.3.1" shape="rect"></a>BBB.3.1 Treatment Delivery Normal Flow - Internal Verification</h3>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_BBB.3.1.1" shape="rect"></a>BBB.3.1.1 Message Sequencing</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>
+                  <a class="xref" href="sect_BBB.3.html#figure_BBB.3.1.1-1" title="Figure BBB.3.1.1-1. Treatment Delivery Normal Flow - Internal Verification Message Sequence" shape="rect">Figure BBB.3.1.1-1</a> illustrates a message sequence example in the case where a treatment procedure delivery is requested and performed by a delivery device that has internal verification capability. In the example, no 'setup verification' is performed, i.e., the patient is assumed to be in the treatment position. Unified Procedure Step (UPS) is used to request delivery of a session of radiation therapy (commonly known as a "fraction") from a specialized Application Entity (a "Treatment Delivery System"). That entity performs the requested delivery, completing normally. Further examples could be constructed for discontinued, emergency (unscheduled) and interrupted treatment delivery use cases, but are not considered in this informative section (see DICOM Part 17 for generic examples).</p>
+               <p>In this example the Treatment Delivery System conforms to the UPS Pull SOP Class as an SCU, and the Treatment Management System conforms to the UPS Pull SOP Class as an SCP. In alternative implementations requiring on-the-fly scheduling and notification, other UPS SOP classes could be implemented.</p>
+               <p>Italic text in <a class="xref" href="sect_BBB.3.html#figure_BBB.3.1.1-1" title="Figure BBB.3.1.1-1. Treatment Delivery Normal Flow - Internal Verification Message Sequence" shape="rect">Figure BBB.3.1.1-1</a> denotes messages that will typically be conveyed by means other than DICOM services.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_BBB.3.1.2" shape="rect"></a>BBB.3.1.2 Transactions and Message Flow</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>This section describes in detail the interactions illustrated in <a class="xref" href="sect_BBB.3.html#figure_BBB.3.1.1-1" title="Figure BBB.3.1.1-1. Treatment Delivery Normal Flow - Internal Verification Message Sequence" shape="rect">Figure BBB.3.1.1-1</a>.</p>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>'List Procedures for Delivery' on TDS console.</p>
+                        <p>The User uses a control on the user interface of the TDS to indicate that he or she wishes to see the list of patients available for treatment.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Query UPS.</p>
+                        <p>The TDS queries the TMS for Unified Procedure Steps (UPSs) matching its search criteria. For example, all worklist items with a Unified Procedure Step Status of "SCHEDULED", and Input Readiness State (0040,4041) of "READY". This is conveyed using the C-FIND request primitive of the UPS Pull SOP Class.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Receive 0-n UPS.</p>
+                        <p>The TDS receives the set of Unified Procedure Steps (UPSs) resulting from the Query UPS message. The Receive UPS is conveyed via one or more C-FIND response primitives of the UPS Pull SOP Class. Each response (with status pending) contains the requested attributes of a single Unified Procedure Step (UPS).</p>
+                        <p>The TMS returns a list of one or more UPSs based on its own knowledge of the planned tasks for the querying device. Two real-world scenarios are common in this step:</p>
+                        <div class="itemizedlist">
+                           <ul class="itemizedlist" style="list-style-type: disc; ">
+                              <li class="listitem">
+                                 <p>There is no TMS Console located in the treatment area, and selection of the delivery to be performed has not been made. In this case, the TMS returns a list of potentially many UPSs (for different patients), and the User picks from the list the UPS that they wish to deliver.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The User has direct access to the TMS in the treatment area, and has already selected the delivery to be performed on the console of the TMS, located in the treatment room area. In this case, a single UPS is returned. The TDS may either display the single item for confirmation, or proceed directly to loading the patient details.</p>
+                              </li>
+                           </ul>
+                        </div>
+                        <p>
+                </p>
+                        <div class="figure">
+                           <a id="figure_BBB.3.1.1-1" shape="rect"></a>
+                           <div class="figure-contents">
+                              <div class="mediaobject">
+                                 <img src="figures/PS3.17_BBB.3.1.1-1.svg" alt="Treatment Delivery Normal Flow - Internal Verification Message Sequence" />
+                              </div>
+                           </div>
+                           <p class="title">
+                              <strong>Figure BBB.3.1.1-1. Treatment Delivery Normal Flow - Internal Verification Message Sequence</strong>
+                           </p>
+                        </div>
+                        <p>
+                           <br class="figure-break" clear="none" />
+                        </p>
+                        <p>A returned set of UPSs may have more than one UPS addressing a given treatment delivery. For example, in the case where a patient position verification is required prior to delivery, there might be a UPS with Requested Procedure Code Sequence item having a Code Value of 121708 ("RT Patient Position Acquisition, CT MV"), another UPS with a Code Value of 121714 ("RT Patient Position Registration, 3D CT general"), another UPS with a Code Value of 121722 ("RT Patient Position Adjustment"),and a fourth UPS whose Requested Procedure Code Sequence item would have a Code Value of 121726 ("RT Treatment With Internal Verification").</p>
+                     </li>
+                     <li class="listitem">
+                        <p>'Select Procedure' on TDS console</p>
+                        <p>The User selects one of the scheduled procedures specified on the TDS console. If exactly one UPS was returned from the UPS query described above, then this step can be omitted.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Get UPS Details and Retrieve Archive Objects</p>
+                        <p>The TDS may request the details of one or more procedure steps. This is conveyed using the N-GET primitive of the UPS Pull SOP Class, and is required when not all necessary information can be obtained from the query response alone.</p>
+                        <p>The TDS then retrieves the required SOP Classes from the Input Information Sequence of the returned UPS query response. In response to a C-MOVE Request on those objects (5a), the Archive then transmits to the TDS the SOP Instances to be used as input information during the task. These SOP Instances might include an RT Plan SOP Instance, and verification images (CT Image or RT Image). They might also include RT Beams Treatment Record SOP Instances if the Archive is used to store these SOP Instances rather than the TMS. The TDS knows of the existence and whereabouts of these SOP Instances by virtue of the fully-specified locations in the N-GET response.</p>
+                        <p>Although the TDS could set the UPS to 'IN PROGRESS' prior to retrieving the archive instances, this example shows the archive instances being retrieved prior to the UPS being 'locked' with the N-ACTION step. This avoids the UPS being set 'IN PROGRESS' if the required instances are not available, and therefore avoids the need to schedule another (different) procedure step in this case, as required by the Unified Procedure Step State Diagram State Diagram (<a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a>). However, some object instances dynamically created to service performing of the UPS step should be supplied after setting the UPS 'IN PROGRESS' (see Step 7).</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Change UPS State to IN PROGRESS</p>
+                        <p>The TDS sets the UPS (which is managed by the TMS) to have the Unified Procedure Step Status of 'IN PROGRESS' upon starting work on the item. The SOP Instance UID of the UPS will normally have been obtained in the worklist item. This is conveyed using the N-ACTION primitive of the UPS Pull SOP Class with an action type "UPS Status Change". This message allows the TMS to update its worklist and permits other Performing Devices to detect that the UPS is already being worked on.</p>
+                        <p>The UPS is updated in this step before the required dynamic SOP Instances are obtained from the TMS (see Step 7). In radiation therapy, it is desirable to signal as early as possible that a patient is about to undergo treatment, to allow the TMS to begin other activities related to the patient delivery. If the TMS implements the UPS Watch SOP Class, other systems will be able to subscribe for notifications regarding the progress of the procedure step.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Retrieve TMS Objects</p>
+                        <p>In response to a C-MOVE Request, the TMS transmits to the TDS the RT Beams Delivery Instruction and possibly RT Treatment Summary Record SOP Instances to be used as input information during the task. These SOP Instances may be created "on-the-fly" by the TMS (since it was the TMS itself that transmitted the UIDs in the UPS). The RT Treatment Summary SOP Instance may be required by the TDS to determine the delivery context, although the UPS does specify a completion delivery (following a previous delivery interruption). RT Beams Treatment Record instances might also be retrieved from the TMS in this step if the TMS is used to manage these SOP Instances rather than the Archive.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>'Start Treatment Session' on TDS console</p>
+                        <p>The User uses a control on the user interface of the TDS to indicate that he or she wishes to commence the treatment delivery session. A Treatment Session may involve fulfillment of more than one UPS, in which case Steps 4-13 may be repeated.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Set UPS Progress and Beam Number, Verify, and Deliver Radiation</p>
+                        <p>For each beam, the TDS updates the UPS on the TMS just prior to starting the radiation delivery sequencing. This is conveyed using the N-SET primitive of the UPS Pull SOP Class.</p>
+                        <p>The completion percentage of the entire UPS is indicated in the Unified Procedure Step Progress attribute. The algorithm used to calculate this completion percentage is not specified here, but should be appropriate for user interface display.</p>
+                        <p>The Referenced Beam Number of the beam about to be delivered is specified by encoding it as a string value in the Procedure Step Progress Description (0074,1006).</p>
+                        <p>The TDS then performs internal verifications to determine that the machine is ready to deliver the radiation, and then delivers the therapeutic radiation for the specified beam. In the current use case, it is assumed that the radiation completes normally, delivering the entire scheduled fraction. Other use cases, such as voluntary interruption by the User, or interruption by the TDS, will be described elsewhere.</p>
+                        <p>If there is more than one beam to be delivered, the verification, UPS update, and radiation delivery is repeated once per beam.</p>
+                        <p>This example does not specify whether or not treatment should be interrupted or terminated if a UPS update operation fails. The successful transmittal of updates is not intended as a gating requirement for continuation of the delivery, but could be used as such if the TDS considers that interrupting treatment is clinically appropriate at that moment of occurrence.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Set UPS to Indicate Radiation Complete</p>
+                        <p>The TDS may then update the UPS Progress Information Sequence upon completion of the final beam (although this is not required), and set any other attributes of interest to the SCP. This is conveyed using the N-SET primitive of the UPS Pull SOP Class.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Store Results</p>
+                        <p>The TDS stores any generated results to the Archive. This would typically be achieved using the Storage and/or Storage Commitment Service Classes and may contain one or more RT Beams Treatment Records or RT Treatment Summary Records, RT Images (portal verification images), CT Images (3D verification images), RT Dose (reconstructed or measured data), or other relevant Composite SOP Instances. References to the results and their storage locations are associated with the UPS in the Set UPS to Final State message (below). The RT Beams Treatment Record instances might be stored to the TMS instead, if the TMS is used to manage these SOP Instances rather than the Archive.</p>
+                        <p>The required SOP Instances are stored to the Archive in this step before the UPS is status is set to COMPLETED. In radiation therapy, it is desirable to ensure that the entire procedure is complete, including storage of important patient data, before indicating that the step completed successfully. For some systems, such as those using Storage Commitment, this may not be possible, in which case another service such as Instance Availability Notification (not shown here) would have to be used to notify the TMS of SOP Instance availability. For the purpose of this example, it is assumed that the storage commitment response occurs in a short time frame.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Set UPS Attributes to Meet Final State Requirements</p>
+                        <p>The TDS then updates the UPS with any further attributes required to conform to the UPS final state requirements. Also, references to the results SOP Instances stored in Step 11 are supplied in the Output Information Sequence. This is conveyed using the N-SET primitive of the UPS Pull SOP Class.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Change UPS State to COMPLETED</p>
+                        <p>The TDS changes the Unified Procedure Step Status of the UPS to COMPLETED upon completion of the scheduled step and storage or results. This is conveyed using the N-ACTION primitive of the UPS Pull SOP Class with an action type "UPS Status Change". This message informs the TMS that the UPS is now complete.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Indicate 'Treatment Session Completed' on TDS Console</p>
+                        <p>The TDS then signals to the User via the TDS user interface that the requested procedure has completed successfully, and all generated SOP Instances have been stored.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_BBB.3.2" shape="rect"></a>BBB.3.2 Treatment Delivery Normal Flow - External Verification</h3>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_BBB.3.2.1" shape="rect"></a>BBB.3.2.1 Message Sequencing</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>
+                  <a class="xref" href="sect_BBB.3.html#figure_BBB.3.2.1-1" title="Figure BBB.3.2.1-1. Treatment Delivery Normal Flow - External Verification Message Sequence" shape="rect">Figure BBB.3.2.1-1</a> illustrates a message sequence example in the case where a treatment procedure delivery is requested and performed by a conventional delivery device requiring an 
+          <span class="underline">external</span> verification capability.</p>
+               <p>In the case where external verification is requested (i.e., where the UPS Requested Procedure Code Sequence item has a value of "RT Treatment With External Verification"), the information contained in the UPS and potentially other required delivery data must be communicated to the Machine Parameter Verifier (MPV). In many real-world situations the Oncology Information System fulfills both the role of the TMS and the MPV, hence this communication is internal to the device and not standardized. If separate physical devices perform the two roles, the communication may also be non-standard, since these two devices must be very closely coupled.</p>
+               <p>Elements in bold indicate the additional messages required when the Machine Parameter Verifier is charged with validating the beam parameters for each beam, prior to radiation being administered. These checks can be initiated by the User on a beam-by-beam basis ('manual sequencing', shown with the optional 'Deliver Beam x' messages), or can be performed by the Machine Parameter Verifier without intervention ('automatic sequencing'). The TDS would typically store an RT Treatment Record SOP Instance after each beam.</p>
+               <p>This example illustrates the case where photon or electron beams are being delivered. If ion beams are to be delivered, instances of the RT Conventional Machine Verification IOD will be replaced with instances of the RT Ion Machine Verification IOD.</p>
+               <p>Delivery of individual beams can be explicitly requested by the User (as shown in this example), or sequenced automatically by the TDS.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_BBB.3.2.2" shape="rect"></a>BBB.3.2.2 Transactions and Message Flow</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>This section describes in detail the additional interactions illustrated in <a class="xref" href="sect_BBB.3.html#figure_BBB.3.2.1-1" title="Figure BBB.3.2.1-1. Treatment Delivery Normal Flow - External Verification Message Sequence" shape="rect">Figure BBB.3.2.1-1</a>.</p>
+               <p>After the TDS has retrieved the necessary treatment SOP Instances (Step 7), the following step is performed:</p>
+               <p>7a. Communicate UPS and Required Delivery Data to MPV</p>
+               <p>The MPV must receive information about the procedure to be performed, and any other data required in order to carry out its role. This communication typically occurs outside the DICOM standard, since the TMS and MPV are tightly coupled (and may be the same physical device). In cases where standardized network communication of these parameters is required, this could be achieved using DICOM storage of RT Plan and RT Delivery Instruction SOP Instances, or alternatively by use of the UPS Push SOP Class.</p>
+               <p>After the User has initiated the treatment session on the TDS console (Step 8), the following steps are then performed:</p>
+               <p>8a. 'Deliver Beam x' on TDS console</p>
+               <p>In some implementations, parameter verification for each beam may be initiated manually by the User (as shown in this example). In other approaches, the TDS may initiate these verifications automatically.</p>
+               <p>8b. Create RT Conventional Machine Verification Instance</p>
+               <p>The TDS creates a new RT Conventional Machine Verification instance on the MPV prior to beam parameter verification of the first beam to be delivered. This is conveyed using the N-CREATE primitive of the RT Conventional Machine Verification SOP Class.</p>
+               <p>
+            </p>
+               <div class="figure">
+                  <a id="figure_BBB.3.2.1-1" shape="rect"></a>
+                  <div class="figure-contents">
+                     <div class="mediaobject">
+                        <img src="figures/PS3.17_BBB.3.2.1-1.svg" alt="Treatment Delivery Normal Flow - External Verification Message Sequence" />
+                     </div>
+                  </div>
+                  <p class="title">
+                     <strong>Figure BBB.3.2.1-1. Treatment Delivery Normal Flow - External Verification Message Sequence</strong>
+                  </p>
+               </div>
+               <p>
+                  <br class="figure-break" clear="none" />
+               </p>
+               <p>After the TDS has signaled the UPS current Referenced Beam Number and completion percentage for a given beam (9), the following sequence of steps is performed:</p>
+               <p>9a. Set 'Beam x' RT Conventional Machine Verification Instance</p>
+               <p>The TDS sets the RT Conventional Machine Verification SOP Instance to transfer the necessary verification parameters. This is conveyed using the N-SET primitive of the RT Conventional Machine Verification SOP Class. The Referenced Beam Number (300C,0006) attribute is used to specify the beam to be delivered. It is the responsibility of the SCU to keep track of the verification parameters such that the complete list of required attributes can be specified within the top-level sequence items.</p>
+               <p>9b. Initiate Verification</p>
+               <p>The TDS sets the RT Conventional Machine Verification SOP Instance to indicate that the TDS is ready for external verification to occur. This is conveyed using the N-ACTION primitive of the RT Conventional Machine Verification SOP Class.</p>
+               <p>9c. Verify Machine Parameters</p>
+               <p>The MPV then attempts to verify the treatment parameters for 'Beam x'. The MPV sends one or more N-EVENT-REPORT signals to the TDS during the verification process. The permissible event types for these signals in this context are 'Pending' (zero or more times, not shown in this use case), and 'Done' when the verification is complete (successful or otherwise).</p>
+               <p>9d. Get RT Conventional Machine Verification (optional step)</p>
+               <p>The TDS may then request attributes of the RT Conventional Machine Verification instance. This is conveyed using the N-GET primitive of the RT Conventional Machine Verification SOP Class. If verification has occurred normally and the N-EVENT-REPORT contained a Treatment Verification Status of VERIFIED (this use case), then this step is not necessary unless the TDS wishes to record additional parameters associated with the verification process.</p>
+               <p>The TDS then delivers the therapeutic radiation. In the current use case, it is assumed that the radiation completes normally, delivering the entire scheduled fraction. Other use cases, such as voluntary interruption by the User, or interruption by the TDS or MPV, are not described here. If the delivery requires an override of additional information, a different message flow occurs. This is illustrated in the use case described in the next section.</p>
+               <p>9e. Store 'Beam x' RT Beams Treatment Record to Archive</p>
+               <p>The TDS stores an RT Beams Treatment Record to the Archive (or potentially the TMS as described in <a class="xref" href="sect_BBB.3.html#sect_BBB.3.1.2" title="BBB.3.1.2 Transactions and Message Flow" shape="rect">Section BBB.3.1.2</a> Transactions and Message Flow). The RT Beams Treatment Record is therefore not stored in Step 11 for the external verification case (since it has already been stored in the step on a per-beam basis).</p>
+               <p>For each subsequent beam in the sequence of beams being delivered, steps 8a (optional), 9, 9a, 9b, 9c, 9d (optional), and 9e are then repeated, i.e., N-SET, N-ACTION, and N-GET operations are performed on the same instance of the RT Conventional Machine Verification SOP Class, which persists throughout the beam session.</p>
+               <p>9f. Delete RT Conventional Machine Verification Instance</p>
+               <p>When all beams have been processed, the TDS deletes the RT Conventional Machine Verification SOP Instance to indicate to the MPV that verification is no longer required. This is conveyed using the N-DELETE primitive of the RT Conventional Machine Verification SOP Class.</p>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_BBB.3.3" shape="rect"></a>BBB.3.3 Treatment-delivery With External Verification - Override Or Additional Info Required</h3>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_BBB.3.3.1" shape="rect"></a>BBB.3.3.1 Message Sequencing</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>
+                  <a class="xref" href="sect_BBB.3.html#figure_BBB.3.3.1-1" title="Figure BBB.3.3.1-1. Treatment Delivery Message Sequence - Override or Additional Information Required" shape="rect">Figure BBB.3.3.1-1</a> illustrates a message sequence example for the external verification model in the case where the Machine Parameter Verifier (MPV) either detects that an override is required, or requires additional information (such as a bar code) before authorizing treatment.</p>
+               <p>The steps in this use case replace Steps 8a to 9f in Use Case BBB.3.2, for the case where only a single beam is delivered.</p>
+               <p>
+            </p>
+               <div class="figure">
+                  <a id="figure_BBB.3.3.1-1" shape="rect"></a>
+                  <div class="figure-contents">
+                     <div class="mediaobject">
+                        <img src="figures/PS3.17_BBB.3.3.1-1.svg" alt="Treatment Delivery Message Sequence - Override or Additional Information Required" />
+                     </div>
+                  </div>
+                  <p class="title">
+                     <strong>Figure BBB.3.3.1-1. Treatment Delivery Message Sequence - Override or Additional Information Required</strong>
+                  </p>
+               </div>
+               <p>
+                  <br class="figure-break" clear="none" />
+               </p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_BBB.3.3.2" shape="rect"></a>BBB.3.3.2 Transactions and Message Flow</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>This section describes in detail the interactions illustrated in <a class="xref" href="sect_BBB.3.html#figure_BBB.3.3.1-1" title="Figure BBB.3.3.1-1. Treatment Delivery Message Sequence - Override or Additional Information Required" shape="rect">Figure BBB.3.3.1-1</a>.</p>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>'Deliver Beam x' on TDS console (optional step)</p>
+                        <p>See use case <a class="xref" href="sect_BBB.3.html#sect_BBB.3.2" title="BBB.3.2 Treatment Delivery Normal Flow - External Verification" shape="rect">BBB.3.2</a>.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Create RT Conventional Machine Verification Instance</p>
+                        <p>See use case <a class="xref" href="sect_BBB.3.html#sect_BBB.3.2" title="BBB.3.2 Treatment Delivery Normal Flow - External Verification" shape="rect">BBB.3.2</a>.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Set 'Beam x' RT Conventional Machine Verification Instance</p>
+                        <p>See use case <a class="xref" href="sect_BBB.3.html#sect_BBB.3.2" title="BBB.3.2 Treatment Delivery Normal Flow - External Verification" shape="rect">BBB.3.2</a>.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Initiate Machine Verification</p>
+                        <p>See use case <a class="xref" href="sect_BBB.3.html#sect_BBB.3.2" title="BBB.3.2 Treatment Delivery Normal Flow - External Verification" shape="rect">BBB.3.2</a>.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Verify Machine Parameters</p>
+                        <p>The MPV then attempts to verify the treatment parameters for 'Beam x'. The MPV determines that one or more treatment parameters are out-of-tolerance, or that information such as a bar code is missing. It sends an N-EVENT-REPORT signal to the TDS with an Event Type of Done and an RT Machine Verification Status of NOT_VERIFIED. The MPV also shows the reason for the override/information request on its display (5a).</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Supply Override Instruction or Bar Code</p>
+                        <p>The User observes on the MPV console that an override or missing information is required, and supplies the override approval or missing information to the MPV via its user interface, or equivalent proxy.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Initiate Machine Verification</p>
+                        <p>The TDS performs another N-ACTION on the RT Conventional Machine Verification SOP Instance to indicate that the TDS is once again ready for treatment verification. See use case <a class="xref" href="sect_BBB.3.html#sect_BBB.3.2" title="BBB.3.2 Treatment Delivery Normal Flow - External Verification" shape="rect">BBB.3.2</a>. This may be initiated by the user (as shown in this example), or may be initiated automatically by the TDS using a polling approach.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Re-verify Machine Parameters</p>
+                        <p>The MPV verifies the treatment parameters, and determines that all parameters are now within tolerance and all required information is supplied. It sends an N-EVENT-REPORT signal to the TDS with an Event Type of Done and an RT Machine Verification Status of VERIFIED_OVR.</p>
+                        <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                           <h3 class="title">Note</h3>
+                           <p>If another verification failure occurs, the override cycle can be repeated as many times as necessary.</p>
+                        </div>
+                     </li>
+                     <li class="listitem">
+                        <p>Get RT Conventional Machine Verification (optional step)</p>
+                        <p>See use case <a class="xref" href="sect_BBB.3.html#sect_BBB.3.2" title="BBB.3.2 Treatment Delivery Normal Flow - External Verification" shape="rect">BBB.3.2</a>. If an N-GET is requested, the parameters that were overridden are available in Overridden Parameters Sequence (0074,104A).</p>
+                        <p>The TDS then delivers the therapeutic radiation.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Store 'Beam x' RT Beams Treatment Record to Archive</p>
+                        <p>See use case <a class="xref" href="sect_BBB.3.html#sect_BBB.3.2" title="BBB.3.2 Treatment Delivery Normal Flow - External Verification" shape="rect">BBB.3.2</a>. Overridden parameters are ultimately captured in the treatment record.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Delete RT Conventional Machine Verification Instance</p>
+                        <p>See use case <a class="xref" href="sect_BBB.3.html#sect_BBB.3.2" title="BBB.3.2 Treatment Delivery Normal Flow - External Verification" shape="rect">BBB.3.2</a>.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_BBB.3.4" shape="rect"></a>BBB.3.4 Treatment-delivery With External Verification - Machine Adjustment Required</h3>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_BBB.3.4.1" shape="rect"></a>BBB.3.4.1 Message Sequencing</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>
+                  <a class="xref" href="sect_BBB.3.html#figure_BBB.3.4.1-1" title="Figure BBB.3.4.1-1. Treatment Delivery Message Sequence - Machine Adjustment Required" shape="rect">Figure BBB.3.4.1-1</a> illustrates a message sequence example for the external verification model in the case where the Machine Parameter Verifier (MPV) detects that one or more machine adjustments are required before authorizing treatment, and the TDS has been configured to retrieve the failure information and make the required adjustments.</p>
+               <p>The steps in this use case replace Steps 8a to 9f in Use Case BBB.3.2, for the case where only a single beam is delivered.</p>
+               <p>
+            </p>
+               <div class="figure">
+                  <a id="figure_BBB.3.4.1-1" shape="rect"></a>
+                  <div class="figure-contents">
+                     <div class="mediaobject">
+                        <img src="figures/PS3.17_BBB.3.4.1-1.svg" alt="Treatment Delivery Message Sequence - Machine Adjustment Required" />
+                     </div>
+                  </div>
+                  <p class="title">
+                     <strong>Figure BBB.3.4.1-1. Treatment Delivery Message Sequence - Machine Adjustment Required</strong>
+                  </p>
+               </div>
+               <p>
+                  <br class="figure-break" clear="none" />
+               </p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_BBB.3.4.2" shape="rect"></a>BBB.3.4.2 Transactions and Message Flow</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>This section describe in detail the interactions illustrated in <a class="xref" href="sect_BBB.3.html#figure_BBB.3.4.1-1" title="Figure BBB.3.4.1-1. Treatment Delivery Message Sequence - Machine Adjustment Required" shape="rect">Figure BBB.3.4.1-1</a>.</p>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>'Deliver Beam x' on TDS console (optional step)</p>
+                        <p>See use case <a class="xref" href="sect_BBB.3.html#sect_BBB.3.2" title="BBB.3.2 Treatment Delivery Normal Flow - External Verification" shape="rect">BBB.3.2</a>.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Create RT Conventional Machine Verification Instance</p>
+                        <p>See use case <a class="xref" href="sect_BBB.3.html#sect_BBB.3.2" title="BBB.3.2 Treatment Delivery Normal Flow - External Verification" shape="rect">BBB.3.2</a>.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Set 'Beam x' RT Conventional Machine Verification Instance</p>
+                        <p>See use case <a class="xref" href="sect_BBB.3.html#sect_BBB.3.2" title="BBB.3.2 Treatment Delivery Normal Flow - External Verification" shape="rect">BBB.3.2</a>.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Initiate Machine Verification</p>
+                        <p>See use case <a class="xref" href="sect_BBB.3.html#sect_BBB.3.2" title="BBB.3.2 Treatment Delivery Normal Flow - External Verification" shape="rect">BBB.3.2</a>.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Verify Machine Parameters</p>
+                        <p>The MPV then attempts to verify the treatment parameters for 'Beam x'. The MPV determines that one or more treatment parameters are out-of-tolerance. It sends an N-EVENT-REPORT signal to the TDS with an Event Type of Done and an RT Machine Verification Status of NOT_VERIFIED. It may also display the verification status and information to the user (5a).</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Get RT Conventional Machine Verification</p>
+                        <p>The TDS then requests the failed verification parameters of the verification process. This is conveyed using the N-GET primitive of the RT Conventional Machine Verification SOP Class. The MPV replies with an N-GET-RESPONSE having a Treatment Verification Status of NOT_VERIFIED. The reason(s) for the failure is encoded in the Failed Parameters Sequence (0074,1048) attribute of the response.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Request machine adjustment</p>
+                        <p>As illustrated in this example, some implementations may require that the User observes the failed verification parameters on the MPV console and manually request the required machine adjustment. In this case the User makes the request to the TDS via its user interface. In other implementations the TDS makes the adjustments automatically and request verification without User intervention.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Adjust TDS and Set 'Beam x' RT Conventional Machine Verification Instance</p>
+                        <p>The TDS adjusts one or more of its parameters as requested, then sets the RT Conventional Machine Verification SOP Instance to indicate that the TDS is once again ready for treatment delivery. This is conveyed using the N-SET primitive of the RT Conventional Machine Verification SOP Class. The N-SET command provides values for all applicable parameters (not just those that have been modified) since if one or more parameters within a top-level sequence is supplied, then all the applicable parameters within that sequence must also be supplied (otherwise DICOM requires their values to be cleared).</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Initiate Machine Verification</p>
+                        <p>The TDS performs another N-ACTION on the RT Conventional Machine Verification SOP Instance to request that the MPV re-perform treatment verification. See use case <a class="xref" href="sect_BBB.3.html#sect_BBB.3.2" title="BBB.3.2 Treatment Delivery Normal Flow - External Verification" shape="rect">BBB.3.2</a>.</p>
+                        <p>As an optional step, the MPV may notify the TDS that the verification is in process at any time, by sending an N-EVENT-REPORT signal to the TDS with an Event Type of Pending (9a).</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Re-verify Machine Parameters</p>
+                        <p>The MPV verifies the treatment parameters, and determines that the required adjustments have been made, i.e., all parameters are now within tolerance. It sends an N-EVENT-REPORT signal to the TDS with an Event Type of Done and an RT Conventional Machine Verification Status of VERIFIED.</p>
+                        <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                           <h3 class="title">Note</h3>
+                           <p>If another verification failure occurs, the override cycle can be repeated as many times as necessary.</p>
+                        </div>
+                     </li>
+                     <li class="listitem">
+                        <p>Get RT Conventional Machine Verification (optional step)</p>
+                        <p>See use case <a class="xref" href="sect_BBB.3.html#sect_BBB.3.2" title="BBB.3.2 Treatment Delivery Normal Flow - External Verification" shape="rect">BBB.3.2</a>.</p>
+                        <p>The TDS then delivers the therapeutic radiation.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Store 'Beam x' RT Beams Treatment Record to Archive</p>
+                        <p>See use case <a class="xref" href="sect_BBB.3.html#sect_BBB.3.2" title="BBB.3.2 Treatment Delivery Normal Flow - External Verification" shape="rect">BBB.3.2</a>.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Delete RT Conventional Machine Verification Instance</p>
+                        <p>See use case <a class="xref" href="sect_BBB.3.html#sect_BBB.3.2" title="BBB.3.2 Treatment Delivery Normal Flow - External Verification" shape="rect">BBB.3.2</a>.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_BBB.2.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_BBB.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_CCC.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">BBB.2 Use Case Actors </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> CCC Ophthalmic Axial Measurements and Intraocular Lens Calculations Use Cases (Informative)</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

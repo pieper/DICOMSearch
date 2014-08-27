@@ -1,0 +1,2004 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>D.3 Association Establishment</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.7.html" title="PS3.7" />
+      <link rel="up" href="chapter_D.html" title="D Association Negotiation (Normative)" />
+      <link rel="prev" href="sect_D.2.html" title="D.2 Transfer Syntaxes" />
+      <link rel="next" href="chapter_E.html" title="E Command Dictionary (Normative)" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">D.3 Association Establishment</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_D.2.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">D Association Negotiation (Normative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_E.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_D.3" shape="rect"></a>D.3 Association Establishment</h2>
+               </div>
+            </div>
+         </div>
+         <p>Association establishment is used to negotiate the type of data to be exchanged and how the data will be encoded. DICOM AEs establish Associations by using the ACSE A-ASSOCIATE Service as defined by Part 8 of the DICOM Standard. Three key parameters conveyed in the A-ASSOCIATE Service are the Application Context, Presentation Context, and the User Information Items. The following section discusses these negotiation parameters.</p>
+         <p>Note: The A-ASSOCIATE Service is performed only once at Association established time. The examples shown in this Section separate the negotiation parameters for clarification purposes only. Readers should remember that only one A-ASSOCIATE request is offered for each Association and it contains all of the negotiation parameters.</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_D.3.1" shape="rect"></a>D.3.1 Application Context</h3>
+                  </div>
+               </div>
+            </div>
+            <p>An Application Context explicitly defines the set of Application Service Elements, related options and any other information necessary for the inter-working of DICOM AEs on an Association.</p>
+            <p>The Application Context provides the highest level of negotiation, therefore, a very high level definition. Only one Application Context shall be offered per Association. DICOM specifies a single Application Context Name that defines the DICOM Application Context (applicable for this Standard and potentially later versions).</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>For complete specification see <a class="xref" href="chapter_A.html" title="A Application Context Usage (Normative)" shape="rect"> Annex A</a>.</p>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_D.3.2" shape="rect"></a>D.3.2 Presentation Contexts Negotiation</h3>
+                  </div>
+               </div>
+            </div>
+            <p>A Presentation Context defines the presentation of the data on an Association. It provides a lower level of negotiation and one or more Presentation Contexts can be offered and accepted per Association.</p>
+            <p>A Presentation Context consists of three components, a Presentation Context ID, an Abstract Syntax Name, and a list of one or more Transfer Syntax Names.</p>
+            <p>Only one Abstract Syntax shall be offered per Presentation Context. However, multiple Transfer Syntaxes may be offered per Presentation Context, but only one shall be accepted.</p>
+            <p>For each SOP Class or Meta SOP Class a Presentation Context must be negotiated such that this Presentation Context supports the associated Abstract Syntax and a suitable Transfer Syntax. Presentation Contexts will be identified within the scope of a specific Association by a Presentation Context ID.</p>
+            <p>
+               <a class="xref" href="sect_D.3.html#figure_D.3-1" title="Figure D.3-1. Presentation Contexts Negotiation" shape="rect">Figure D.3-1</a> provides an illustration of Presentation Context Negotiation with the key points as follows:</p>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="a">
+                  <li class="listitem">
+                     <p>the Association-requester may offer multiple Presentation Contexts per Association.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>each Presentation Context supports one Abstract Syntax (related to a SOP Class or Meta SOP Class) and one or more Transfer Syntaxes.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>the Association-acceptor may accept or reject each Presentation Context individually.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>the Association-acceptor selects a suitable Transfer Syntax for each Presentation Context accepted.</p>
+                  </li>
+               </ol>
+            </div>
+            <p>
+  </p>
+            <div class="figure">
+               <a id="figure_D.3-1" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.7_D.3-1.svg" alt="Presentation Contexts Negotiation" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure D.3-1. Presentation Contexts Negotiation</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_D.3.3" shape="rect"></a>D.3.3 DICOM Application Association Information</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Peer DICOM AEs negotiate, at Association establishment, a number of features related to the DIMSE protocol by using the ACSE User Information Item of the A-ASSOCIATE request. This Section discusses these features.</p>
+            <p>When the Association is established between peer DIMSE-service-users the Kernel Functional Unit shall be assumed; therefore, the Kernel Functional Unit shall not be included in the A-ASSOCIATE User Information item.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_D.3.3.1" shape="rect"></a>D.3.3.1 Maximum Length Application PDU Notification</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The Maximum Length notification allows communicating AEs to limit the size of the data for each P-DATA indication. Each DICOM AE defines the maximum PDU size it can receive on this Association. Therefore, different maximum lengths can be specified for each direction of data flow on an Association. This notification is required. <a class="xref" href="sect_D.3.html#figure_D.3-2" title="Figure D.3-2. Maximum Length PDU Negotiation" shape="rect">Figure D.3-2</a> illustrates the Maximum Length notification.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>For complete specification see <a href="../part08/PS3.8.html" class="olink" shape="rect">PS3.8</a>.</p>
+               </div>
+               <p>
+</p>
+               <div class="figure">
+                  <a id="figure_D.3-2" shape="rect"></a>
+                  <div class="figure-contents">
+                     <div class="mediaobject">
+                        <img src="figures/PS3.7_D.3-2.svg" alt="Maximum Length PDU Negotiation" />
+                     </div>
+                  </div>
+                  <p class="title">
+                     <strong>Figure D.3-2. Maximum Length PDU Negotiation</strong>
+                  </p>
+               </div>
+               <p>
+                  <br class="figure-break" clear="none" />
+               </p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_D.3.3.2" shape="rect"></a>D.3.3.2 Implementation Identification Notification</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The implementation identification notification allows implementations of communicating AEs to identify each other at Association establishment time. It is intended to provide respective (each network node knows the other's implementation identity) and non-ambiguous identification in the event of communication problems encountered between two nodes. This negotiation is required.</p>
+               <p>Implementation identification relies on two pieces of information:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>Implementation Class UID (required)</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Implementation Version Name (optional)</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>The Implementation Class UID identifies in a unique manner a specific class of implementation. Each node claiming conformance to this Standard shall be assigned an Implementation Class UID to distinguish its implementation environment from others. Such Implementation Class UIDs shall be registered by the implementing organization per the policies defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>. This Standard does not specify the policies associated with assigning such a UID.</p>
+               <p>Different equipment of the same type or product line (but having different serial numbers) shall use the same Implementation Class UID if they share the same implementation environment (i.e., software).</p>
+               <p>The notification by Association requestors and acceptors of their respective Implementation Class UID is required for all implementations conforming to this Standard. <a class="xref" href="sect_D.3.html#figure_D.3-3" title="Figure D.3-3. Implementation Class UID Notification" shape="rect">Figure D.3-3</a> illustrates the Implementation Class UID notification.</p>
+               <p>
+</p>
+               <div class="figure">
+                  <a id="figure_D.3-3" shape="rect"></a>
+                  <div class="figure-contents">
+                     <div class="mediaobject">
+                        <img src="figures/PS3.7_D.3-3.svg" alt="Implementation Class UID Notification" />
+                     </div>
+                  </div>
+                  <p class="title">
+                     <strong>Figure D.3-3. Implementation Class UID Notification</strong>
+                  </p>
+               </div>
+               <p>
+                  <br class="figure-break" clear="none" />
+               </p>
+               <p>In addition to the Implementation Class UID, an option is provided to convey an Implementation Version Name of up to 16 characters. <a class="xref" href="sect_D.3.html#figure_D.3-4" title="Figure D.3-4. Implementation Version Name Notification" shape="rect">Figure D.3-4</a> illustrates the Implementation Version Name notification. This Standard does not specify the structure and policies associated with such an Implementation Version Name. The absence of the Implementation Version Name requires that the use of the same Implementation Class UID by two nodes guarantees that these use the same version of implementation.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>As the UID shall not be parsed (their structure is not intended to convey any semantic significance beyond uniqueness), this optional Implementation Version Name provides an adequate mechanism to distinguish two versions of the same implementation (same Implementation Class UID).</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_D.3.3.2.1" shape="rect"></a>D.3.3.2.1 Implementation Class UID Sub-Item Structure (A-ASSOCIATE-RQ)</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The Implementation Class UID Sub-Item shall be made of a sequence of mandatory fixed length fields followed by a variable field. Only one Implementation Class UID Sub-Item shall be present in the User Data Item of the A-ASSOCIATE-RQ. <a class="xref" href="sect_D.3.html#table_D.3-1" title="Table D.3-1. Implementation Class UID Sub-Item Fields (A-ASSOCIATE-RQ)" shape="rect">Table D.3-1</a> shows the sequence of the mandatory fields.</p>
+                  <p>
+</p>
+                  <div class="figure">
+                     <a id="figure_D.3-4" shape="rect"></a>
+                     <div class="figure-contents">
+                        <div class="mediaobject">
+                           <img src="figures/PS3.7_D.3-4.svg" alt="Implementation Version Name Notification" />
+                        </div>
+                     </div>
+                     <p class="title">
+                        <strong>Figure D.3-4. Implementation Version Name Notification</strong>
+                     </p>
+                  </div>
+                  <p>
+                     <br class="figure-break" clear="none" />
+                  </p>
+                  <div class="table">
+                     <a id="table_D.3-1" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table D.3-1. Implementation Class UID Sub-Item Fields (A-ASSOCIATE-RQ)</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Item Bytes</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Field Name</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Description of Field</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Item-type</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>52H</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Reserved</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This reserved field shall be sent with a value 00H but not tested to this value when received.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3 - 4</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Item-length</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This Item-length shall be the number of bytes from the first byte of the following field to the last byte of the Implementation-class-uid field. It shall be encoded as an unsigned binary number.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>5 - xxx</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Implementation-class-uid</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This variable field shall contain the Implementation-class-uid of the Association-requester as defined in <a class="xref" href="sect_D.3.html#sect_D.3.3.2" title="D.3.3.2 Implementation Identification Notification" shape="rect">Section D.3.3.2</a>. The Implementation-class-uid field is structured as a UID as defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>.</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_D.3.3.2.2" shape="rect"></a>D.3.3.2.2 Implementation Class UID Sub-Item Structure (A-ASSOCIATE-AC)</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The Implementation Class UID Sub-Item shall be made of a sequence of mandatory fixed length fields followed by a variable field. Only one Implementation Class UID Sub-Item shall be present in the User Data Item of the A-ASSOCIATE-AC. <a class="xref" href="sect_D.3.html#table_D.3-2" title="Table D.3-2. Implementation UID Sub-Item Fields (A-ASSOCIATE-AC)" shape="rect">Table D.3-2</a> shows the sequence of the mandatory fields.</p>
+                  <div class="table">
+                     <a id="table_D.3-2" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table D.3-2. Implementation UID Sub-Item Fields (A-ASSOCIATE-AC)</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Item Bytes</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Field Name</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Description of Field</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Item-type</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>52H</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Reserved</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This reserved field shall be sent with a value 00H but not tested to this value when received.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3 - 4</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Item-length</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This Item-length shall be the number of bytes from the first byte of the following field to the last byte of the Implementation-class-uid field. It shall be encoded as an unsigned binary number.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>5 - xxx</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Implementation-class-uid</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This variable field shall contain the Implementation-class-uid of the Association-acceptor as defined in <a class="xref" href="sect_D.3.html#sect_D.3.3.2" title="D.3.3.2 Implementation Identification Notification" shape="rect">Section D.3.3.2</a>. The Implementation-class-uid field is structured as a UID as defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>.</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_D.3.3.2.3" shape="rect"></a>D.3.3.2.3 Implementation Version Name Structure (A-ASSOCIATE-RQ)</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The Implementation Version Name Sub-Item shall be made of a sequence of mandatory fixed length fields followed by a variable field. Only one Implementation Version Name Sub-Item shall be present in the User Data Item of the A-ASSOCIATE-RQ. <a class="xref" href="sect_D.3.html#table_D.3-3" title="Table D.3-3. Implementation Version Name Sub-Item Fields (A-ASSOCIATE-RQ)" shape="rect">Table D.3-3</a> shows the sequence of the mandatory fields.</p>
+                  <div class="table">
+                     <a id="table_D.3-3" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table D.3-3. Implementation Version Name Sub-Item Fields (A-ASSOCIATE-RQ)</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Item Bytes</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Field Name</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Description of Field</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Item-type</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>55H</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Reserved</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This reserved field shall be sent with a value 00H but not tested to this value when received.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3 - 4</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Item-length</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This Item-length shall be the number of bytes from the first byte of the following field to the last byte of the Implementation-version-name field. It shall be encoded as an unsigned binary number.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>5 - xxx</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Implementation-version-name</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This variable field shall contain the Implementation-version-name of the Association-requester as defined in <a class="xref" href="sect_D.3.html#sect_D.3.3.2" title="D.3.3.2 Implementation Identification Notification" shape="rect">Section D.3.3.2</a>. It shall be encoded as a string of 1 to 16 ISO 646:1990 (basic G0 set) characters.</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_D.3.3.2.4" shape="rect"></a>D.3.3.2.4 Implementation Version Name Structure (A-ASSOCIATE-AC)</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The Implementation Version Name Sub-Item shall be made of a sequence of mandatory fixed length fields followed by a variable field. Only one Implementation Version Name Sub-Item shall be present in the User Data Item of the A-ASSOCIATE-AC. <a class="xref" href="sect_D.3.html#table_D.3-4" title="Table D.3-4. Implementation Version Name Sub-Item Fields (A-ASSOCIATE-AC)" shape="rect">Table D.3-4</a> shows the sequence of the mandatory fields.</p>
+                  <div class="table">
+                     <a id="table_D.3-4" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table D.3-4. Implementation Version Name Sub-Item Fields (A-ASSOCIATE-AC)</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Item Bytes</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Field Name</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Description of Field</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Item-type</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>55H</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Reserved</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This reserved field shall be sent with a value 00H but not tested to this value when received.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3 - 4</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Item-length</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This Item-length shall be the number of bytes from the first byte of the following field to the last byte of the Implementation-version-name field. It shall be encoded as an unsigned binary number.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>5 - xxx</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Implementation-version-name</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This variable field shall contain the Implementation-version-name of the Association-acceptor as defined in <a class="xref" href="sect_D.3.html#sect_D.3.3.2" title="D.3.3.2 Implementation Identification Notification" shape="rect">Section D.3.3.2</a>. It shall be encoded as a string of 1 to 16 ISO 646:1990 (basic G0 set) characters.</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_D.3.3.3" shape="rect"></a>D.3.3.3 Asynchronous Operations (And Sub-Operations) Window Negotiation</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The Asynchronous Operations Window is used to negotiate the maximum number of outstanding operation or sub-operation requests (i.e., command requests) for each direction. The synchronous operations mode is the default mode and shall be support by all DICOM AEs. This negotiation is optional.</p>
+               <p>The Association-requester conveys in the A-ASSOCIATE request:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>when negotiating the SCU role for operations, the maximum number of outstanding operations it may invoke asynchronously; when negotiating the SCP role for operations,the maximum number of outstanding sub-operations it may invoke asynchronously; when negotiating the SCP role for notifications, the maximum number of notifications it may invoke asynchronously</p>
+                     </li>
+                     <li class="listitem">
+                        <p>when negotiating the SCP role for operations, the maximum number of outstanding operations it may invoke asynchronously; when negotiating the SCU role for operations, the maximum number of outstanding sub-operations it may perform asynchronously; when negotiating the SCU role for notifications, the maximum number of notifications it may perform asynchronously when negotiating the SCP role</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>A value of zero indicates that the above parameters are unlimited. If the Asynchronous Operations Window is absent the default for the above parameters shall be equal to one.</p>
+               <p>The Association-acceptor conveys in the A-ASSOCIATE response:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>when negotiating the SCP role for operations, the maximum number of outstanding operations; when negotiating the SCU role for operations, the maximum number of sub-operations it allows the Association-requester to invoke asynchronously; when negotiating the SCU role for notifications, the maximum number of outstanding notifications it allows the Association-requester to invoke asynchronously when negotiating the SCU role. This number shall be equal or less than the number of outstanding notifications, operations and/or sub-operations the Association-requester offers to invoke (by the A-ASSOCIATE indication).</p>
+                     </li>
+                     <li class="listitem">
+                        <p>when negotiating the SCU role for operations, the maximum number of outstanding operations; when negotiating the SCP role for operations, the maximum number of sub-operations it allows the Association-requester to perform asynchronously; when negotiating the SCP role for notifications, the maximum number of outstanding notifications it allows the Association-requester to perform asynchronously. This number shall be equal or less than the number of outstanding notifications, operations and/or sub-operations the Association-requester offers to perform (by the A-ASSOCIATE indication).</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>A value of zero indicates that the above parameters are unlimited. If the Asynchronous Operations Window is absent the default for the above parameters shall be equal to one. Figures D.3-5 and D.3-6 illustrate examples of Asynchronous Operations Window negotiation.</p>
+               <p>If this negotiation is not present in the A-ASSOCIATE indication it shall be omitted in the A-ASSOCIATE response.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>The case where the Association-requester offers the value of zero (which indicates unlimited operations), the Association-acceptor may return zero (agreeing to unlimited operations) or negotiate the parameter down by conveying a value other than zero.</p>
+               </div>
+               <p>
+</p>
+               <div class="figure">
+                  <a id="figure_D.3-5" shape="rect"></a>
+                  <div class="figure-contents">
+                     <div class="mediaobject">
+                        <img src="figures/PS3.7_D.3-5.svg" alt="Asynchronous Operations Window Negotiation (Window Being Negotiated Down By DICOM Application Entity &quot;B&quot;)" />
+                     </div>
+                  </div>
+                  <p class="title">
+                     <strong>Figure D.3-5. Asynchronous Operations Window Negotiation (Window Being Negotiated Down By DICOM Application Entity "B")</strong>
+                  </p>
+               </div>
+               <p>
+                  <br class="figure-break" clear="none" />
+               </p>
+               <p>
+</p>
+               <div class="figure">
+                  <a id="figure_D.3-6" shape="rect"></a>
+                  <div class="figure-contents">
+                     <div class="mediaobject">
+                        <img src="figures/PS3.7_D.3-6.svg" alt="Asynchronous Operations Window Negotiation (Window Being Defaulted to 1, 1 By DICOM Application Entity &quot;B&quot;)" />
+                     </div>
+                  </div>
+                  <p class="title">
+                     <strong>Figure D.3-6. Asynchronous Operations Window Negotiation (Window Being Defaulted to 1, 1 By DICOM Application Entity "B")</strong>
+                  </p>
+               </div>
+               <p>
+                  <br class="figure-break" clear="none" />
+               </p>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_D.3.3.3.1" shape="rect"></a>D.3.3.3.1 Asynchronous Operations Window Sub-Item Structure (A-ASSOCIATE-RQ)</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The Asynchronous Operations Window Sub-Item shall be made of a sequence of mandatory fixed length fields. This Sub-Item is optional and if supported, only one Asynchronous Operations Window Sub-Item shall be present in the User Data Item of the A-ASSOCIATE-RQ. <a class="xref" href="sect_D.3.html#table_D.3-7" title="Table D.3-7. Asynchronous Operations Window Sub-Item Fields (A-ASSOCIATE-RQ)" shape="rect">Table D.3-7</a> shows the sequence of the mandatory fields.</p>
+                  <div class="table">
+                     <a id="table_D.3-7" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table D.3-7. Asynchronous Operations Window Sub-Item Fields (A-ASSOCIATE-RQ)</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Item Bytes</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Field Name</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Description of Field</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Item-type</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>53H</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Reserved</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This reserved field shall be sent with a value 00H but not tested to this value when received.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3 - 4</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Item-length</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This Item-length shall be the number of bytes from the first byte of the following field to the last byte of the Maximum-number-operations-performed field. In the case of this Sub-Item, it shall have the fixed value of 00000004H encoded as an unsigned binary number.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>5 - 6</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Maximum-number-operations-invoked</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This field shall contain the Maximum-number-operations-invoked as defined for the Association-requester in <a class="xref" href="sect_D.3.html#sect_D.3.3.3" title="D.3.3.3 Asynchronous Operations (And Sub-Operations) Window Negotiation" shape="rect">Section D.3.3.3</a>. It shall be encoded as an unsigned binary number.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>7-8</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Maximum-number-operations-performed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This field shall contain the Maximum-number-operations-performed as defined for the Association-requester in <a class="xref" href="sect_D.3.html#sect_D.3.3.3" title="D.3.3.3 Asynchronous Operations (And Sub-Operations) Window Negotiation" shape="rect">Section D.3.3.3</a>. It shall be encoded as an unsigned binary number.</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_D.3.3.3.2" shape="rect"></a>D.3.3.3.2 Asynchronous Operations Window Sub-Item Structure (A-ASSOCIATE-AC)</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The Asynchronous Operations Window Sub-Item shall be made of a sequence of mandatory fixed length fields. This Sub-Item is optional and if supported, only one Asynchronous Operations Window Sub-Item shall be present in the User Data Item of the A-ASSOCIATE-AC. <a class="xref" href="sect_D.3.html#table_D.3-8" title="Table D.3-8. Asynchronous Operations Window Sub-Item Fields (A-ASSOCIATE-AC)" shape="rect">Table D.3-8</a> shows the sequence of the mandatory fields.</p>
+                  <div class="table">
+                     <a id="table_D.3-8" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table D.3-8. Asynchronous Operations Window Sub-Item Fields (A-ASSOCIATE-AC)</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Item Bytes</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Field Name</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Description of Field</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Item-type</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>53H</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Reserved</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This reserved field shall be sent with a value 00H but not tested to this value when received.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3 - 4</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Item-length</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This Item-length shall be the number of bytes from the first byte of the following field to the last byte of the Maximum-number-operations-performed field. In the case of this Sub-Item, it shall have the fixed value of 00000004H encoded as an unsigned binary number.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>5-6</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Maximum-number-operations-invoked</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This field shall contain the Maximum-number-operations-invoked as defined for the Association-acceptor in <a class="xref" href="sect_D.3.html#sect_D.3.3.3" title="D.3.3.3 Asynchronous Operations (And Sub-Operations) Window Negotiation" shape="rect">Section D.3.3.3</a> It shall be encoded as an unsigned binary number.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>7-8</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Maximum-number-operations-performed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This field shall contain the Maximum-number-operations-performed as defined for the Association-acceptor in <a class="xref" href="sect_D.3.html#sect_D.3.3.3" title="D.3.3.3 Asynchronous Operations (And Sub-Operations) Window Negotiation" shape="rect">Section D.3.3.3</a>. It shall be encoded as an unsigned binary number.</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_D.3.3.4" shape="rect"></a>D.3.3.4 SCP/SCU Role Selection Negotiation</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The SCP/SCU role selection negotiation allows peer AEs to negotiate the roles in which they will serve for each SOP Class or Meta SOP Class supported on the Association. This negotiation is optional.</p>
+               <p>The Association-requester, for each SOP Class UID or Meta SOP Class UID, may use one SCP/SCU Role Selection item. The SOP Class or Meta SOP Class shall be identified by its corresponding Abstract Syntax Name followed by one of the three role values:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>Association-requester is SCU only</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Association-requester is SCP only</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Association-requester is both SCU and SCP</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>If the SCP/SCU Role Selection item is absent the default role of the Association-requester shall be SCU and the default role of the Association-acceptor shall be SCP.</p>
+               <p>The Association-acceptor, for each SCP/SCU Role Selection item offered, either accepts the Association-requester proposal by returning the same value (1) or turns down the proposal by returning the value (0). The Association-acceptor shall not return the value (1) if the Association-requester has not proposed the role, i.e., it has sent a value (0). The Association-requester shall ignore the response if it has not proposed the role.</p>
+               <p>If the SCP/SCU Role Selection item is not returned by the Association-acceptor then the role of the Association-requester shall be SCU and the role of the Association-acceptor shall be SCP. <a class="xref" href="sect_D.3.html#figure_D.3-7" title="Figure D.3-7. SCU/SCP Role Negotiation" shape="rect">Figure D.3-7</a> illustrates the SCP/SCU Role Selection negotiation.</p>
+               <p>If the SCP/SCU Role Selection items do not exist in the A-ASSOCIATE indication they shall be omitted in the A-ASSOCIATE response.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="1">
+                        <li class="listitem">
+                           <p>The choices made for the default roles are based on clarification made to previous versions of the Standard. Association-requesters that wish to offer Abstract Syntax Names using the SCP role must support this item. Association-acceptors that wish to accept Abstract Syntax Names using the SCU role must support this item.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>If an Association-requestor offers an SCP/SCU Role Selection item for an Abstract Syntax Name but the Association-acceptor does not return a SCP/SCU Role Selection item for the same Abstract Syntax Name then the proposed roles have not been accepted and the default roles apply (i.e., Association-requester is SCU and Association-acceptor is SCP).</p>
+                        </li>
+                     </ol>
+                  </div>
+               </div>
+               <p>
+</p>
+               <div class="figure">
+                  <a id="figure_D.3-7" shape="rect"></a>
+                  <div class="figure-contents">
+                     <div class="mediaobject">
+                        <img src="figures/PS3.7_D.3-7.svg" alt="SCU/SCP Role Negotiation" />
+                     </div>
+                  </div>
+                  <p class="title">
+                     <strong>Figure D.3-7. SCU/SCP Role Negotiation</strong>
+                  </p>
+               </div>
+               <p>
+                  <br class="figure-break" clear="none" />
+               </p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="1">
+                        <li class="listitem">
+                           <p>DICOM AE "B" accepts DICOM AE "A"'s proposed role as an SCU for the Storage-MR SOP; therefore, DICOM AE "B" will perform in the SCP role. DICOM AE "B" turns down the SCP proposal from DICOM AE "A".</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Both DICOM AEs may be SCU and SCP for the Storage-CT SOP.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>DICOM AE "B" accepts DICOM AE "A"'s proposed role as an SCU for the Print-SOP; therefore, DICOM AE "B" will perform in the SCP role.</p>
+                        </li>
+                     </ol>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_D.3.3.4.1" shape="rect"></a>D.3.3.4.1 SCP/SCU Role Selection Sub-Item Structure (A-ASSOCIATE-RQ)</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The SCP/SCU Role Selection Sub-Item shall be made of a sequence of mandatory fields. This Sub-Item is optional and if supported, one or more SCP/SCU Role Selection Sub-Items may be present in the User Data Item of the A-ASSOCIATE-RQ. The Association-requester may only offer one SOP Class SCP/SCU Role Selection Sub-Item for each SOP Class UID or Meta SOP Class that is present in the A-ASSOCIATE request. <a class="xref" href="sect_D.3.html#table_D.3-9" title="Table D.3-9. SCP/SCU Role Selection Sub-Item Fields (A-ASSOCIATE-RQ)" shape="rect">Table D.3-9</a> shows the sequence of the mandatory fields.</p>
+                  <div class="table">
+                     <a id="table_D.3-9" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table D.3-9. SCP/SCU Role Selection Sub-Item Fields (A-ASSOCIATE-RQ)</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Item Bytes</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Field Name</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Description of Field</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Item-type</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>54H</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Reserved</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This reserved field shall be sent with a value 00H but not tested to this value when received.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3 - 4</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Item-length</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This Item-length shall be the number of bytes from the first byte of the following field to the last byte of the SCP Role field. It shall be encoded as an unsigned binary number.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>5-6</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>UID-length</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This UID-length shall be the number of bytes from the first byte of the following field to the last byte of the SOP-class-uid field. It shall be encoded as an unsigned binary number.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>7 -xxx</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>SOP-class-uid</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This variable field shall contain the SOP Class UID or Meta SOP Class UID that may be used to identify the corresponding Abstract Syntax for which this Sub-Item pertains. It shall be encoded as a UID as defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>xxx</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>SCU-role</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This byte field shall contain the SCU-role as defined for the Association-requester in <a class="xref" href="sect_D.3.html#sect_D.3.3.4" title="D.3.3.4 SCP/SCU Role Selection Negotiation" shape="rect">Section D.3.3.4</a>. It shall be encoded as an unsigned binary and shall use one of the following values:</p>
+                                    <p>0 - non support of the SCU role</p>
+                                    <p>1 - support of the SCU role</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>xxx</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>SCP-role</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This byte field shall contain the SCP-role as defined for the Association-requester in <a class="xref" href="sect_D.3.html#sect_D.3.3.4" title="D.3.3.4 SCP/SCU Role Selection Negotiation" shape="rect">Section D.3.3.4</a>. It shall be encoded as an unsigned binary and shall use one of the following values:</p>
+                                    <p>0 - non support of the SCP role</p>
+                                    <p>1 - support of the SCP role.</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_D.3.3.4.2" shape="rect"></a>D.3.3.4.2 SCP/SCU Role Selection Sub-Item Structure (A-ASSOCIATE-AC)</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The SCP/SCU Role Selection Sub-Item shall be made of a sequence of mandatory fields. This Sub-Item is optional and if supported, one or more SCP/SCU Role Selection Sub-Items may be present in the User Data Item of the A-ASSOCIATE-AC. <a class="xref" href="sect_D.3.html#table_D.3-10" title="Table D.3-10. SCP/SCU Role Selection Sub-Item Fields (A-ASSOCIATE-AC)" shape="rect">Table D.3-10</a> shows the sequence of the mandatory fields.</p>
+                  <div class="table">
+                     <a id="table_D.3-10" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table D.3-10. SCP/SCU Role Selection Sub-Item Fields (A-ASSOCIATE-AC)</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Item Bytes</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Field Name</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Description of Field</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Item-type</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>54H</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Reserved</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This reserved field shall be sent with a value 00H but not tested to this value when received.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3-4</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Item-length</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This Item-length shall be the number of bytes from the first byte of the following field to the last byte of the SCP Role field. It shall be encoded as an unsigned binary number.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>5-6</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>UID-length</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This UID-length shall be the number of bytes from the first byte of the following field to the last byte of the SOP-class-uid field. It shall be encoded as an unsigned binary number.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>7-xxx</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>SOP-class-uid</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This variable field shall contain the SOP Class UID or Meta SOP Class UID that may be used to identify the corresponding Abstract Syntax for which this Sub-Item pertains. It shall be encoded as a UID as defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>xxx</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>SCU-role</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This byte field shall contain the SCU-role as defined in <a class="xref" href="sect_D.3.html#sect_D.3.3.4" title="D.3.3.4 SCP/SCU Role Selection Negotiation" shape="rect">Section D.3.3.4</a>. It shall be encoded as an unsigned binary and shall use one of the following values:</p>
+                                    <p>0 - The Association-acceptor rejects the Association-requester's proposal of the SCU role selection</p>
+                                    <p>1 - The Association-acceptor accepts the Association-requester's proposal of the SCU role selection</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>xxx</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>SCP-role</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This byte field shall contain the SCP-role as defined for the Association-acceptor in <a class="xref" href="sect_D.3.html#sect_D.3.3.4" title="D.3.3.4 SCP/SCU Role Selection Negotiation" shape="rect">Section D.3.3.4</a>. It shall be encoded as an unsigned binary and shall use one of the following values:</p>
+                                    <p>0 - The Association-acceptor rejects the Association-requester's proposal of the SCP role selection</p>
+                                    <p>1 - The Association-acceptor accepts the Association-requester's proposal of the SCP role selection</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_D.3.3.5" shape="rect"></a>D.3.3.5 Service-Object Pair (SOP) Class Extended Negotiation</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The SOP Class Extended Negotiation allows, at Association establishment, peer DICOM AEs to exchange application information defined by specific Service Class specifications. This is an optional feature that various Service Classes may or may not choose to support.</p>
+               <p>Each Service Class specification is required to document, as part of its SOP Class or Meta SOP Class, the application information it supports and how this information is negotiated between SCUs and SCPs. Service Class specifications shall specify, for both the SCU and SCP roles, the following:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>semantics of the application information (including the negotiation rules)</p>
+                     </li>
+                     <li class="listitem">
+                        <p>encoding of the application information</p>
+                     </li>
+                     <li class="listitem">
+                        <p>conditions for which the application information is mandatory and/or optional</p>
+                     </li>
+                     <li class="listitem">
+                        <p>default conditions of the application information</p>
+                     </li>
+                  </ul>
+               </div>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>The use of the SOP Class Extended Negotiation is not limited to Service Classes defined by this Standard. It may also be used for privately defined Service Classes.</p>
+               </div>
+               <p>The Association-requester may only offer one SOP Class Extended Negotiation item for each SOP Class UID or Meta SOP Class that is present in the A-ASSOCIATE request.</p>
+               <p>If the SOP Class Extended Negotiation items do not exist in the A-ASSOCIATE indication they shall be omitted in the A-ASSOCIATE response.</p>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_D.3.3.5.1" shape="rect"></a>D.3.3.5.1 SOP Class Extended Negotiation Sub-Item Structure (A-ASSOCIATE-RQ)</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The SOP Class Extended Negotiation Sub-item shall be made of a sequence of mandatory fields followed by the Service-class-application-information field (specific for each Service Class specification). This Sub-Item is required per the specific Service Class specifications. Multiple SOP Class Extended Negotiation Sub-Items may be present in the User Data Item of the A-ASSOCIATE-RQ, however, only one Sub-Item per SOP Class UID shall be present. <a class="xref" href="sect_D.3.html#table_D.3-11" title="Table D.3-11. SOP Class Extended Negotiation Sub-Item Fields (A-ASSOCIATE-RQ and A-ASSOCIATE-AC)" shape="rect">Table D.3-11</a> shows the sequence of mandatory fields.</p>
+                  <div class="table">
+                     <a id="table_D.3-11" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table D.3-11. SOP Class Extended Negotiation Sub-Item Fields (A-ASSOCIATE-RQ and A-ASSOCIATE-AC)</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Item Bytes</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Field Name</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Description of Field</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Item-type</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>56H</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Reserved</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This reserved field shall be sent with a value 00H but not tested to this value when received.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3-4</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Item-Length</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This Item-length shall be the number of bytes from the first byte of the following field to the last byte of the Service-class-application-information field. It shall be encoded as an unsigned binary number.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>5-6</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>SOP-class-uid-length</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>The SOP-class-uid-length shall be the number of bytes from the first byte of the following field to the last byte of the SOP-class-uid field. It shall be encoded as an unsigned binary number.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>7-xxx</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>SOP-class-uid</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>The SOP Class or Meta SOP Class identifier encoded as a UID as defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>xxx-xxx</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Service-class-application-information</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This field shall contain the application information specific to the Service Class specification identified by the SOP-class-uid. The semantics and value of this field is defined in the identified Service Class specification.</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_D.3.3.5.2" shape="rect"></a>D.3.3.5.2 SOP Class Extended Negotiation Sub-Item Structure (A-ASSOCIATE-AC)</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The SOP Class Extended Negotiation Sub-item shall be made of a sequence of mandatory fields followed by the Service-class-application-information field (specific for each Service Class specification). This Sub-Item is required per the specific Service Class specifications. Multiple SOP Class Extended Negotiation Sub-Items may be present in the User Data Item of the A-ASSOCIATE-AC, however, only one Sub-Item per SOP Class UID shall be present. <a class="xref" href="sect_D.3.html#table_D.3-11" title="Table D.3-11. SOP Class Extended Negotiation Sub-Item Fields (A-ASSOCIATE-RQ and A-ASSOCIATE-AC)" shape="rect">Table D.3-11</a> shows the sequence of mandatory fields.</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_D.3.3.6" shape="rect"></a>D.3.3.6 Service-Object Pair (SOP) Class Common Extended Negotiation</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The SOP Class Common Extended Negotiation allows, at Association establishment, peer DICOM AEs to exchange application information, the form of which is generic, and not specific to individual Service Classes, as compared to the information defined in D.3.3.5. This is an optional feature that Association-requesters and Association-acceptors may or may not choose to support.</p>
+               <p>The information included for each SOP Class for which a sub-item is present consists of a Service Class UID and (optionally) a Related General SOP Class UID.</p>
+               <p>The Service Class UID conveys the Service Class of the SOP Class.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>Explicit conveyance of the Service Class may allow the selection of the proper format for the Service-class-application-information of the SOP Class Extended Negotiation Sub-item.</p>
+               </div>
+               <p>The Related General SOP Class UID conveys zero or more Related General SOP Class for the SOP Class.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="1">
+                        <li class="listitem">
+                           <p>Consider the example of negotiation of support for a Procedure Log Storage SOP Class. That SOP Class is of the Storage Service Class. The encoding of the IOD would be compatible with the more general Enhanced SR Storage SOP Class. Therefore, the following common extended negotiation sub-item could optionally be included:</p>
+                           <div class="itemizedlist">
+                              <ul class="itemizedlist" style="list-style-type: none; ">
+                                 <li class="listitem" style="list-style-type: none">
+                                    <p>SOP Class UID: 1.2.840.10008.5.1.4.1.1.88.40 Procedure Log</p>
+                                 </li>
+                                 <li class="listitem" style="list-style-type: none">
+                                    <p>Service Class UID: 1.2.840.10008.4.2 Storage Service Class</p>
+                                 </li>
+                                 <li class="listitem" style="list-style-type: none">
+                                    <p>Related General SOP Class UID: 1.2.840.10008.5.1.4.1.1.88.22 Enhanced SR</p>
+                                 </li>
+                              </ul>
+                           </div>
+                        </li>
+                        <li class="listitem">
+                           <p>The Related SOP Class may be absent, though the Service Class may still be included. For example, there may be a new image storage SOP Class without a Related SOP Class defined in <a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a>, yet it is still useful to an Association-acceptor to be informed that the new SOP Class is of the Storage Service Class:</p>
+                           <div class="itemizedlist">
+                              <ul class="itemizedlist" style="list-style-type: none; ">
+                                 <li class="listitem" style="list-style-type: none">
+                                    <p>SOP Class UID: 1.2.840.10008.5.1.4.1.1.7.1 MF Single Bit SC Image Storage</p>
+                                 </li>
+                                 <li class="listitem" style="list-style-type: none">
+                                    <p>Service Class UID: 1.2.840.10008.4.2 Storage Service Class</p>
+                                 </li>
+                                 <li class="listitem" style="list-style-type: none">
+                                    <p>Related General SOP Class UID: (none)</p>
+                                 </li>
+                              </ul>
+                           </div>
+                        </li>
+                     </ol>
+                  </div>
+               </div>
+               <p>The Association-requester may only offer one SOP Class Common Extended Negotiation item for each SOP Class UID that is present in the A-ASSOCIATE request.</p>
+               <p>No response is necessary, hence the SOP Class Common Extended Negotiation items shall be omitted in the A-ASSOCIATE response.</p>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_D.3.3.6.1" shape="rect"></a>D.3.3.6.1 SOP Class Common Extended Negotiation Sub-Item Structure (A-ASSOCIATE-RQ)</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The SOP Class Common Extended Negotiation Sub-item shall be made of a sequence of mandatory fields, the last two of which may be zero-length. Multiple SOP Class Common Extended Negotiation Sub-Items may be present in the User Data Item of the A-ASSOCIATE-RQ, however, only one Sub-Item per SOP Class UID shall be present. <a class="xref" href="sect_D.3.html#table_D.3-12" title="Table D.3-12. SOP Class Common Extended Negotiation Sub-Item Fields (A-ASSOCIATE-RQ)" shape="rect">Table D.3-12</a> shows the sequence of mandatory fields.</p>
+                  <div class="table">
+                     <a id="table_D.3-12" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table D.3-12. SOP Class Common Extended Negotiation Sub-Item Fields (A-ASSOCIATE-RQ)</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Item Bytes</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Field Name</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Description of Field</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Item-type</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>57H</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Sub-item-version</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This field indicates the version of the Sub-item. Fields added to the Sub-item definition in succeeding editions of the Standard will not affect the semantics of previously defined fields. The version of the Sub-item defined in this edition of the Standard is 0.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3-4</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Item-Length</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This Item-length shall be the number of bytes from the first byte of the following field to the last byte of the Reserved field. It shall be encoded as an unsigned binary number.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>5-6</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>SOP-class-uid-length</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>The SOP-class-uid-length shall be the number of bytes in the SOP-class-uid field. It shall be encoded as an unsigned binary number.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>7-x</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>SOP-class-uid</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>The SOP Class identifier encoded as a UID as defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(x+1) - (x+2)</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Service-class-uid-length</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>The Service-class-uid-length shall be the number of bytes in the Service-class-uid field. It shall be encoded as an unsigned binary number.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(x+3) - y</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Service-class-uid</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>The Service Class identifier encoded as a UID as defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(y+1) - (y+2)</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Related-general-sop-class-identification-length</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>The Related-general-sop-class-identification-length shall be the number of bytes in the Related-general-sop-class-identification field. Shall be zero if no Related General SOP Classes are identified.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(y+3) - z</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Related-general-sop-class-identification</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>The Related-general-sop-class-identification is a sequence of pairs of length and UID sub-fields. Each pair of sub-fields shall be formatted in accordance with <a class="xref" href="sect_D.3.html#table_D.3-13" title="Table D.3-13. Related-General-SOP-Class-Identification Sub-Fields" shape="rect">Table D.3-13</a>
+                                    </p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(z+1) - k</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Reserved</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Reserved for additional fields of the sub-item. Shall be zero-length for Version 0 of Sub-item definition.</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+                  <div class="table">
+                     <a id="table_D.3-13" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table D.3-13. Related-General-SOP-Class-Identification Sub-Fields</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Bytes</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Sub-Field Name</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Description of Sub-Field</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1-2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Related-general-sop-class-uid-length</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>The Related-general-sop-class-uid-length shall be the number of bytes in the Related-general-sop-class-uid sub-field. It shall be encoded as an unsigned binary number.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3-n</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Related-general-sop-class-uid</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>The Related General SOP Class identifier encoded as a UID as defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>.</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_D.3.3.7" shape="rect"></a>D.3.3.7 User Identity Negotiation</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The User Identity Negotiation is used to notify the association acceptor of the user identity of the association requestor. It may also request that the association acceptor respond with the server identity. This negotiation is optional. If this sub-item is not present in the A-ASSOCIATE request the A-ASSOCIATE response shall not contain a user identity response sub-item.</p>
+               <p>The Association-requester conveys in the A-ASSOCIATE request:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>the form of user identity being provided, either a username, username and passcode, a Kerberos service ticket, or a SAML assertion.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>an indication whether a positive server response is requested.</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>The Association-acceptor does not provide an A-ASSOCIATE response unless a positive response is requested and user authentication succeeded. If a positive response was requested, the A-ASSOCIATE response shall contain a User Identity sub-item. If a Kerberos ticket is used the response shall include a Kerberos server ticket.</p>
+               <p>Since a system may ignore request sub-items, the positive response must be requested if the association requestor requires confirmation. If the association acceptor does not support user identification it will accept the association without making a positive response. The association requestor can then decide whether to proceed.</p>
+               <p>The association acceptor may utilize the User Identity information provided during the association negotiation to populate the user information fields in DICOM audit trail messages. The association acceptor may utilize the User Identity information provided during the association negotiation to perform authorization controls during the performance of other DIMSE transactions on the same association. The user identity information may also be used to modify the performance of DIMSE transactions for other purposes, such as workflow optimizations.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="1">
+                        <li class="listitem">
+                           <p>User identity authorization controls may be simple "allow/disallow" rules, or they can be more complex scoping rules. For example, a query could be constrained to apply only to return information about patients that are associated with the identified user. The issues surrounding authorization controls can become very complex. The User Identity SOP conveys user identity to support uses such as authorization controls and audit controls. It does not specify their behavior.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The option to include a passcode along with the user identity enables a variety of non-Kerberos secure interfaces. Sending passwords in the clear is insecure, but there are single use password systems such as RFC-2289 and the various smart tokens that do not require protection. The password might also be protected by TLS or other mechanisms.</p>
+                        </li>
+                     </ol>
+                  </div>
+               </div>
+               <p>
+</p>
+               <div class="figure">
+                  <a id="figure_D.3-8" shape="rect"></a>
+                  <div class="figure-contents">
+                     <div class="mediaobject">
+                        <img src="figures/PS3.7_D.3-8.svg" alt="User Identity Negotiation (With Server Positive Response Requested)" />
+                     </div>
+                  </div>
+                  <p class="title">
+                     <strong>Figure D.3-8. User Identity Negotiation (With Server Positive Response Requested)</strong>
+                  </p>
+               </div>
+               <p>
+                  <br class="figure-break" clear="none" />
+               </p>
+               <p>
+</p>
+               <div class="figure">
+                  <a id="figure_D.3-9" shape="rect"></a>
+                  <div class="figure-contents">
+                     <div class="mediaobject">
+                        <img src="figures/PS3.7_D.3-9.svg" alt="User Identity Negotiation (Application Entity &quot;A&quot; Provides Username Identity)" />
+                     </div>
+                  </div>
+                  <p class="title">
+                     <strong>Figure D.3-9. User Identity Negotiation (Application Entity "A" Provides Username Identity)</strong>
+                  </p>
+               </div>
+               <p>
+                  <br class="figure-break" clear="none" />
+               </p>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_D.3.3.7.1" shape="rect"></a>D.3.3.7.1 User Identity Sub-Item Structure (A-ASSOCIATE-RQ)</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The User Identity Negotiation Sub-Item shall be made of a sequence of mandatory fixed and variable length fields. This Sub-Item is optional and if supported, only one User Identity Negotiation Sub-Item shall be present in the User Data Item of the A-ASSOCIATE-RQ. <a class="xref" href="sect_D.3.html#table_D.3-14" title="Table D.3-14. User Identity Negotiation Sub-Item Fields (A-ASSOCIATE-RQ)" shape="rect">Table D.3-14</a> shows the sequence of the mandatory fields.</p>
+                  <div class="table">
+                     <a id="table_D.3-14" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table D.3-14. User Identity Negotiation Sub-Item Fields (A-ASSOCIATE-RQ)</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Item Bytes</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Field Name</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Description of Field</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Item-type</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>58H</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Reserved</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This reserved field shall be sent with a value 00H but not tested to this value when received.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3 - 4</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Item-length</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This Item-length shall be the number of bytes from the first byte of the following field to the last byte of the last field sent. It shall be encoded as an unsigned binary number.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>5</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>User-Identity-Type</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Field value shall be in the range 1 to 4 with the following meanings:</p>
+                                    <p>1 - Username as a string in UTF-8</p>
+                                    <p>2 - Username as a string in UTF-8 and passcode</p>
+                                    <p>3 - Kerberos Service ticket</p>
+                                    <p>4 - SAML Assertion</p>
+                                    <p>Other values are reserved for future standardization.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>6</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Positive-response-requested</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Field value:</p>
+                                    <p>0 - no response requested</p>
+                                    <p>1 - positive response requested</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>7-8</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Primary-field-length</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>The User-Identity-Length shall contain the length of the User-Identity value.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>9-n</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Primary-field</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This field shall convey the user identity, either the username as a series of characters, or the Kerberos Service ticket encoded in accordance with RFC-1510.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>n+1-n+2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Secondary-field-length</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This field shall be non-zero only if User-Identity-Type has the value 2. It shall contain the length of the secondary-field.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>n+3-m</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Secondary-field</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This field shall be present only if User-Identity-Type has the value 2. It shall contain the Passcode value.</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_D.3.3.7.2" shape="rect"></a>D.3.3.7.2 User Identity Sub-Item Structure (A-ASSOCIATE-AC)</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The User Identity Sub-Item shall be made of a sequence of mandatory fixed and variable length fields. This Sub-Item is optional and if supported, only one User Identity Sub-Item shall be present in the User Data Item of the A-ASSOCIATE-AC. <a class="xref" href="sect_D.3.html#table_D.3-15" title="Table D.3-15. User Identity Negotiation Sub-Item Fields (A-ASSOCIATE-AC)" shape="rect">Table D.3-15</a> shows the sequence of the mandatory fields.</p>
+                  <div class="table">
+                     <a id="table_D.3-15" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table D.3-15. User Identity Negotiation Sub-Item Fields (A-ASSOCIATE-AC)</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Item Bytes</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Field Name</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Description of Field</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Item-type</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>59H</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Reserved</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This reserved field shall be sent with a value 00H but not tested to this value when received.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3 - 4</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Item-length</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This Item-length shall be the number of bytes from the first byte of the following field to the last byte of the final field. It shall be encoded as an unsigned binary number.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>5-6</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Server-response-length</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This field shall contain the number of bytes in the Server-response. May be zero.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>7-n</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Server-response</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This field shall contain the Kerberos Server ticket, encoded in accordance with RFC-1510, if the User-Identity-Type value in the A-ASSOCIATE-RQ was 3. This field shall contain the SAML response if the User-Identity-Type value in the A-ASSOCIATE-RQ was 4. This field shall be zero length if the value of the User-Identity-Type in the A-ASSOCIATE-RQ was 1 or 2.</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+                  <p>If the Association-Requestor has requested a positive acknowledgment, the Server-response shall be returned with the Kerberos Server ticket when User-Identity-Type is Kerberos Service ticket (3).</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_D.3.3.7.3" shape="rect"></a>D.3.3.7.3 User Identity Rejection</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The association acceptor may utilize the username or username and passcode information to determine whether the user is permitted to establish an association. If the Kerberos mechanism is chosen, the association acceptor shall utilize the Kerberos service ticket to determine whether the user is permitted to establish an association.</p>
+                  <p>If the association acceptor rejects the association because of an authorization failure, the rejection shall be indicated to be rejected-permanent (see <a href="../part08/PS3.8.html" class="olink" shape="rect">PS3.8</a>). The source shall be value (2) "DICOM UL service provided (ACSE related function) ". The rejection is indicated to be rejected-permanent because retries with the same user identity fields will continue to be rejected. A different and valid username, username and passcode, or Kerberos ticket must be provided.</p>
+                  <p>This standard does not define how the association acceptor performs authentication or what rules apply to this authentication.</p>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_D.2.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_D.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_E.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">D.2 Transfer Syntaxes </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.7.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> E Command Dictionary (Normative)</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

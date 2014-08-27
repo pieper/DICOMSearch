@@ -1,0 +1,2829 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>9.3 Protocol</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.7.html" title="PS3.7" />
+      <link rel="up" href="chapter_9.html" title="9 DIMSE-C" />
+      <link rel="prev" href="sect_9.2.html" title="9.2 Sequencing" />
+      <link rel="next" href="chapter_10.html" title="10 DIMSE-N" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">9.3 Protocol</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_9.2.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">9 DIMSE-C</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_10.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_9.3" shape="rect"></a>9.3 Protocol</h2>
+               </div>
+            </div>
+         </div>
+         <p>This section specifies the protocol necessary to perform the set of DIMSE-C operations. The Value Representations (VR) specified in the following tables shall be encoded as defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>.</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_9.3.1" shape="rect"></a>9.3.1 C-STORE Protocol</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The information necessary for the C-STORE request and indication DIMSE-C primitives are conveyed in the C-STORE-RQ Message. The information necessary for the C-STORE response and confirmation DIMSE-C primitives are conveyed in the C-STORE-RSP Message.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_9.3.1.1" shape="rect"></a>9.3.1.1 C-STORE-RQ</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The C-STORE-RQ Message contains fields as defined in <a class="xref" href="sect_9.3.html#table_9.3-1" title="Table 9.3-1. C-STORE-RQ Message Fields" shape="rect">Table 9.3-1</a>. Each field shall conform to DICOM encoding and Value Representation as defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>. Fields are required as specified in the C-STORE service definition unless otherwise noted in <a class="xref" href="sect_9.3.html#table_9.3-1" title="Table 9.3-1. C-STORE-RQ Message Fields" shape="rect">Table 9.3-1</a>. Fields not specified in the C-STORE service definition but present in <a class="xref" href="sect_9.3.html#table_9.3-1" title="Table 9.3-1. C-STORE-RQ Message Fields" shape="rect">Table 9.3-1</a> are required by the DIMSE-C protocol.</p>
+               <div class="table">
+                  <a id="table_9.3-1" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table 9.3-1. C-STORE-RQ Message Fields</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Message Field</strong>
+                                    </span>
+                                 </p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Tag</strong>
+                                    </span>
+                                 </p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VR</strong>
+                                    </span>
+                                 </p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VM</strong>
+                                    </span>
+                                 </p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Description of Field</strong>
+                                    </span>
+                                 </p>
+                              </td>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Group Length</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0000)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UL</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The even number of bytes from the end of the value field to the beginning of the next group.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Affected SOP Class UID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0002)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UI</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>SOP Class UID of the SOP Instance to be stored.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Field</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0100)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field distinguishes the DIMSE‑C operation conveyed by this Message. The value of this field shall be set to 0001H for the C-STORE-RQ Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Message ID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0110)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Implementation-specific value. It distinguishes this Message from other Messages.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Priority</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0700)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The priority shall be set to one of the following values:</p>
+                                 <p>LOW = 0002H</p>
+                                 <p>MEDIUM = 0000H</p>
+                                 <p>HIGH = 0001H</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Data Set Type</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0800)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field indicates that a Data Set is present in the Message. It shall be set to any value other than 0101H (Null).</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Affected SOP Instance UID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,1000)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UI</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Contains the UID of the SOP Instance to be stored.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Move Originator Application Entity Title</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,1030)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>AE</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Contains the DICOM AE Title of the DICOM AE that invoked the C-MOVE operation from which this C-STORE sub-operation is being performed.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Move Originator Message ID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,1031)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Contains the Message ID (0000,0110) of the C-MOVE-RQ Message from which this C-STORE sub-operations is being performed.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Data Set</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(no tag)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>-</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>-</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Application-specific Data Set.</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>The contents of Composite Information Object Definitions, encoded as a series of Data Elements, are defined in <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a> and <a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a>
+                  </p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_9.3.1.2" shape="rect"></a>9.3.1.2 C-STORE-RSP</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The C-STORE-RSP Message contains fields as defined in <a class="xref" href="sect_9.3.html#table_9.3-2" title="Table 9.3-2. C-STORE-RSP Message Fields" shape="rect">Table 9.3-2</a> and in <a class="xref" href="chapter_C.html" title="C Status Type Encoding (Normative)" shape="rect"> Annex C</a>. Each field shall conform to DICOM encoding and Value Representation as defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a> of the DICOM Standard. Fields are required as specified in the C-STORE service definition unless otherwise noted in <a class="xref" href="sect_9.3.html#table_9.3-2" title="Table 9.3-2. C-STORE-RSP Message Fields" shape="rect">Table 9.3-2</a>. Fields not specified in the C-STORE service definition but present in <a class="xref" href="sect_9.3.html#table_9.3-2" title="Table 9.3-2. C-STORE-RSP Message Fields" shape="rect">Table 9.3-2</a> are required by the DIMSE-C protocol.</p>
+               <div class="table">
+                  <a id="table_9.3-2" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table 9.3-2. C-STORE-RSP Message Fields</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Message Field</strong>
+                                    </span>
+                                 </p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Tag</strong>
+                                    </span>
+                                 </p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VR</strong>
+                                    </span>
+                                 </p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VM</strong>
+                                    </span>
+                                 </p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Description of Field</strong>
+                                    </span>
+                                 </p>
+                              </td>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Group Length</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0000)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UL</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The even number of bytes from the end of the value field to the beginning of the next group.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Affected SOP Class UID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0002)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UI</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Contains the SOP Class of the SOP Instance stored.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Field</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0100)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field distinguishes the DIMSE‑C operation conveyed by this Message. The value of this field shall be set to 8001H for the C-STORE-RSP Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Message ID Being Responded To</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0120)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Shall be set to the value of the Message ID (0000,0110) field used in associated C-STORE-RQ Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Data Set Type</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0800)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field indicates that no Data Set is present in the Message and shall be set to a value of 0101H (Null).</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Status</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0900)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The value of this field depends upon the status type. <a class="xref" href="chapter_C.html" title="C Status Type Encoding (Normative)" shape="rect"> Annex C</a> defines the encoding of the status types defined in the service definition.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Affected SOP Instance UID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,1000)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UI</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Contains the UID of the SOP Instance stored.</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_9.3.1.3" shape="rect"></a>9.3.1.3 C-STORE Protocol Procedures</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The C-STORE procedures are initiated by the invoking DIMSE-service-user issuing a C-STORE request primitive. On receipt of the C-STORE request primitive the DIMSE-C protocol machine shall:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>construct a Message conveying the C-STORE-RQ</p>
+                     </li>
+                     <li class="listitem">
+                        <p>send the Message using the P-DATA request service (see 8.1)</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>On receipt of a Message conveying a C-STORE-RQ the DIMSE-C protocol machine shall issue a C-STORE indication primitive to the performing DIMSE-service-user.</p>
+               <p>On receipt of the C-STORE response primitive, issued by the performing DIMSE-service-user, the DIMSE-C protocol machine shall:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>construct a Message conveying the C-STORE-RSP</p>
+                     </li>
+                     <li class="listitem">
+                        <p>send the Message using the P-DATA request service (see 8.1)</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>On receipt of a Message conveying a C-STORE-RSP the DIMSE-C protocol machine shall issue a C-STORE confirmation primitive to the invoking DIMSE-service-user, thus completing the C-STORE procedure.</p>
+               <p>The performing DIMSE-service-user may return a C-STORE-RSP with the status of Failed or Refused before the complete C-STORE-RQ request Message has been completely transmitted by the invoking DIMSE-service-user (this is called an early failed response). Upon receipt of this Failed or Refused C-STORE-RSP the invoking DIMSE-service-user may terminate the Message before it is completely sent (i.e., set the Last Fragment bit to 1 in a Data PDV for this Message, see <a class="xref" href="chapter_F.html" title="F Usage of the P-DATA Service By the DICOM Application Entity (Normative)" shape="rect"> Annex F</a>). Following this, it may invoke another operation or notification. It is a protocol violation for an invoking DIMSE-service-user to set the Last Fragment bit to 1 before a C-STORE-RQ Message has been completely transmitted if it has not received a Failed or Refused C-STORE-RSP to that request.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>When an Association is operating in asynchronous mode, it is possible for an invoking DIMSE-service-user to transmit several Messages before a response. Therefore, while sending a Message it may receive a response to a previously transmitted Message. In this case this response is not an early failed response because the related Message has already been sent.</p>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_9.3.2" shape="rect"></a>9.3.2 C-FIND Protocol</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The information necessary for the C-FIND request and indication DIMSE-C primitives are conveyed in the C-FIND-RQ Message. The information necessary for the C-FIND response and confirmation DIMSE-C primitives are conveyed in the C-FIND-RSP Message. The information necessary for the C-FIND Cancel Request and Cancel Indication primitives are conveyed in the C-CANCEL-FIND-RQ Message.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_9.3.2.1" shape="rect"></a>9.3.2.1 C-FIND-RQ</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The C-FIND-RQ Message contains fields as defined in <a class="xref" href="sect_9.3.html#table_9.3-3" title="Table 9.3-3. C-FIND-RQ Message Fields" shape="rect">Table 9.3-3</a>. Each field shall conform to DICOM encoding and Value Representation as defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>. Fields are required as specified in the C-FIND service definition unless otherwise noted in <a class="xref" href="sect_9.3.html#table_9.3-3" title="Table 9.3-3. C-FIND-RQ Message Fields" shape="rect">Table 9.3-3</a>. Fields not specified in the C-FIND service definition but present in <a class="xref" href="sect_9.3.html#table_9.3-3" title="Table 9.3-3. C-FIND-RQ Message Fields" shape="rect">Table 9.3-3</a> are required by the DIMSE-C protocol.</p>
+               <div class="table">
+                  <a id="table_9.3-3" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table 9.3-3. C-FIND-RQ Message Fields</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Message Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Tag</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VR</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VM</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Description of Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Group Length</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0000)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UL</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The even number of bytes from the end of the value field to the beginning of the next group.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Affected SOP Class UID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0002)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UI</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>SOP Class UID associated with this operation.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Field</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0100)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field distinguishes the DIMSE‑C operation conveyed by this Message. The value of this field shall be set to 0020H for the C-FIND-RQ Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Message ID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0110)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Implementation-specific value that distinguishes this Message from other Messages.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Priority</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0700)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The priority shall be set to one of the following values:</p>
+                                 <p>LOW = 0002H</p>
+                                 <p>MEDIUM = 0000H</p>
+                                 <p>HIGH = 0001H</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Data Set Type</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0800)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field indicates that a Data Set is present in the Message. It shall be set to any value other than 0101H (Null).</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Identifier</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(no tag)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>-</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>-</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>A Data Set that encodes the Identifier to be matched. See <a class="xref" href="chapter_9.html#sect_9.1.2.1.5" title="9.1.2.1.5 Identifier" shape="rect">Section 9.1.2.1.5</a>.</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>Implementations that require compatibility to previous versions of this Standard must set the Command Data Set Type (0000,0800) Field to 0102H (Identifier).</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_9.3.2.2" shape="rect"></a>9.3.2.2 C-FIND-RSP</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The C-FIND-RSP Message contains fields as defined in <a class="xref" href="sect_9.3.html#table_9.3-4" title="Table 9.3-4. C-FIND-RSP Message Fields" shape="rect">Table 9.3-4</a> and in <a class="xref" href="chapter_C.html" title="C Status Type Encoding (Normative)" shape="rect"> Annex C</a>. Each field shall conform to DICOM encoding and Value Representation as defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>. Fields are required as specified in the C-FIND service definition unless otherwise noted in <a class="xref" href="sect_9.3.html#table_9.3-4" title="Table 9.3-4. C-FIND-RSP Message Fields" shape="rect">Table 9.3-4</a>. Fields not specified in the C-FIND service definition but present in <a class="xref" href="sect_9.3.html#table_9.3-4" title="Table 9.3-4. C-FIND-RSP Message Fields" shape="rect">Table 9.3-4</a> are required by the DIMSE-C protocol.</p>
+               <div class="table">
+                  <a id="table_9.3-4" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table 9.3-4. C-FIND-RSP Message Fields</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Message Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Tag</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VR</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VM</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Description of Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Group Length</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0000)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UL</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The even number of bytes from the end of the value field to the beginning of the next group.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Affected SOP Class UID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0002)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UI</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>SOP Class UID associated with the operation.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Field</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0100)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field distinguishes the DIMSE‑C operation conveyed by this Message. The value of this field shall be set to 8020H for the C-FIND-RSP Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Message ID Being Responded To</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0120)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Shall be set to the value of the Message ID (0000,0110) field used in associated C-FIND-RQ Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Data Set Type</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0800)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field indicates if a Data Set is present in the Message. This field shall be set to the value of 0101H (Null) if no Data Set is present; any other value indicates a Data Set is included in the Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Status</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0900)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The value of this field depends upon the status type. <a class="xref" href="chapter_C.html" title="C Status Type Encoding (Normative)" shape="rect"> Annex C</a> defines the encoding of the status types defined in the service definition.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Identifier</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(no tag)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>-</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>-</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>A Data Set that encodes the Identifier that was matched. See <a class="xref" href="chapter_9.html#sect_9.1.2.1.5" title="9.1.2.1.5 Identifier" shape="rect">Section 9.1.2.1.5</a>.</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_9.3.2.3" shape="rect"></a>9.3.2.3 C-CANCEL-FIND-RQ</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The C-CANCEL-FIND-RQ Message contains fields as defined in <a class="xref" href="sect_9.3.html#table_9.3-5" title="Table 9.3-5. C-CANCEL-FIND-RQ Message Fields" shape="rect">Table 9.3-5</a>. Each field shall conform to DICOM encoding and Value Representation as defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>. Fields are required as specified in the C-FIND service definition unless otherwise noted in <a class="xref" href="sect_9.3.html#table_9.3-5" title="Table 9.3-5. C-CANCEL-FIND-RQ Message Fields" shape="rect">Table 9.3-5</a>. Fields not specified in the C-FIND service definition but present in <a class="xref" href="sect_9.3.html#table_9.3-5" title="Table 9.3-5. C-CANCEL-FIND-RQ Message Fields" shape="rect">Table 9.3-5</a> are required by the DIMSE-C protocol.</p>
+               <div class="table">
+                  <a id="table_9.3-5" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table 9.3-5. C-CANCEL-FIND-RQ Message Fields</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Message Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Tag</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VR</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VM</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Description of Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Group Length</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0000)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UL</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The even number of bytes from the end of the value field to the beginning of the next group.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Field</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0100)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field distinguishes the DIMSE‑C operation conveyed by this Message. The value of this field shall be set to 0FFFH for the C-CANCEL-FIND-RQ Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Message ID Being Responded To</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0120)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Shall be set to the value of the Message ID (0000,0110) field used in associated C-FIND-RQ Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Data Set Type</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0800)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field indicates that no Data Set is present in the Message and shall be set to a value of 0101H.</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_9.3.2.4" shape="rect"></a>9.3.2.4 C-FIND Protocol Procedures</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The C-FIND procedures are initiated by the invoking DIMSE-service-user issuing a C-FIND request primitive. On receipt of the C-FIND request primitive the DIMSE-C protocol machine shall:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>construct a Message conveying the C-FIND-RQ</p>
+                     </li>
+                     <li class="listitem">
+                        <p>send the Message using the P-DATA request service (see 8.1)</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>On receipt of a Message conveying a C-FIND-RQ the DIMSE-C protocol machine shall issue a C-FIND indication primitive to the performing DIMSE-service-user.</p>
+               <p>The DIMSE-C protocol machine shall:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>accept zero or more C-FIND response primitives containing the status of Pending, issued by the performing DIMSE-service-user, followed by a single C-FIND response primitive containing the final status</p>
+                     </li>
+                     <li class="listitem">
+                        <p>for each C-FIND response primitive containing the Pending status the DIMSE-C protocol machine shall:</p>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="a">
+                              <li class="listitem">
+                                 <p>construct a Message conveying the (Pending) C-FIND-RSP</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>send the Message using the P-DATA request service (see 8.1)</p>
+                              </li>
+                           </ol>
+                        </div>
+                     </li>
+                     <li class="listitem">
+                        <p>for the C-FIND response primitive containing the final status the DIMSE-C protocol machine shall:</p>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="a">
+                              <li class="listitem">
+                                 <p>construct a Message conveying the (final) C-FIND-RSP</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>end the Message using the P-DATA request service (see 8.1)</p>
+                              </li>
+                           </ol>
+                        </div>
+                     </li>
+                  </ul>
+               </div>
+               <p>On receipt of a Message conveying a C-FIND-RSP the DIMSE-C protocol machine shall:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>if the Message indicates the status of Pending, issue a C-FIND confirmation primitive to the invoking DIMSE-service-user with a Pending status</p>
+                     </li>
+                     <li class="listitem">
+                        <p>if the Message indicates a final status, issue a C-FIND confirmation primitive to the invoking DIMSE-service-user with a final status, thus completing the C-FIND procedure</p>
+                     </li>
+                  </ul>
+               </div>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>The C-FIND procedures can be canceled at any time by the invoking DIMSE-service-user. This is accomplished by the invoking DIMSE-service-user issuing a C-CANCEL request primitive.</p>
+               </div>
+               <p>The performing DIMSE-service-user may return a C-FIND-RSP with the status of Failed or Refused before the complete C-FIND-RQ request Message has been completely transmitted by the invoking DIMSE-service-user (this is called an early failed response). Upon receipt of this Failed or Refused C-FIND-RSP the invoking DIMSE-service-user may terminate the Message before it is completely sent (i.e., set the Last Fragment bit to 1 in a Data PDV for this Message, see <a class="xref" href="chapter_F.html" title="F Usage of the P-DATA Service By the DICOM Application Entity (Normative)" shape="rect"> Annex F</a>). Following this, it may invoke another operation or notification. It is a protocol violation for an invoking DIMSE-service-user to set the Last Fragment bit to 1 before a C-FIND-RQ Message has been completely transmitted if it has not received a Failed or Refused C-FIND-RSP to that request.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>When an Association is operating in asynchronous mode, it is possible for an invoking DIMSE-service-user to transmit several Messages before a response. Therefore, while sending a Message it may receive a response to a previously transmitted Message. In this case this response is not an early failed response because the related Message has already been sent.</p>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_9.3.3" shape="rect"></a>9.3.3 C-GET Protocol</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The information necessary for the C-GET request and indication DIMSE-C primitives are conveyed in the C-GET-RQ Message. The information necessary for the C-GET response and confirmation DIMSE-C primitives are conveyed in the C-GET-RSP Message. The information necessary for the C-GET Cancel Request and Cancel Indication primitives are conveyed in the C-CANCEL-GET-RQ Message.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_9.3.3.1" shape="rect"></a>9.3.3.1 C-GET-RQ</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The C-GET-RQ Message contains fields as defined in <a class="xref" href="sect_9.3.html#table_9.3-6" title="Table 9.3-6. C-GET-RQ Message Fields" shape="rect">Table 9.3-6</a>. Each field shall conform to DICOM encoding and Value Representation as defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>. Fields are required as specified in the C-GET service definition unless otherwise noted in <a class="xref" href="sect_9.3.html#table_9.3-6" title="Table 9.3-6. C-GET-RQ Message Fields" shape="rect">Table 9.3-6</a>. Fields not specified in the C-GET service definition but present in <a class="xref" href="sect_9.3.html#table_9.3-6" title="Table 9.3-6. C-GET-RQ Message Fields" shape="rect">Table 9.3-6</a> are required by the DIMSE-C protocol.</p>
+               <div class="table">
+                  <a id="table_9.3-6" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table 9.3-6. C-GET-RQ Message Fields</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Message Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Tag</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VR</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VM</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Description of Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Group Length</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0000)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UL</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The even number of bytes from the end of the value field to the beginning of the next group.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Affected SOP Class UID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0002)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UI</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>SOP Class UID associated with this operation.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Field</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0100)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field distinguishes the DIMSE‑C operation conveyed by this Message. The value of this field shall be set to 0010H for the C-GET-RQ Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Message ID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0110)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Implementation-specific value that distinguishes this Message from other Messages.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Priority</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0700)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The priority shall be set to one of the following values:</p>
+                                 <p>LOW = 0002H</p>
+                                 <p>MEDIUM = 0000H</p>
+                                 <p>HIGH = 0001H</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Data Set Type</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0800)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field indicates that a Data Set is present in the Message. It shall be set to any value other than 0101H (Null).</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Identifier</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(no tag)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>-</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>-</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>A Data Set that encodes attributes providing status information about the C-GET operation. See <a class="xref" href="chapter_9.html#sect_9.1.3.1.5" title="9.1.3.1.5 Identifier" shape="rect">Section 9.1.3.1.5</a>.</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>Implementations that require compatibility to previous versions of this Standard must set the Command Data Set Type (0000,0800) Field to 0102H (Identifier).</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_9.3.3.2" shape="rect"></a>9.3.3.2 C-GET-RSP</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The C-GET-RSP Message contains fields as defined in <a class="xref" href="sect_9.3.html#table_9.3-7" title="Table 9.3-7. C-GET-RSP Message Fields" shape="rect">Table 9.3-7</a> and in <a class="xref" href="chapter_C.html" title="C Status Type Encoding (Normative)" shape="rect"> Annex C</a>. Each field shall conform to DICOM encoding and Value Representation as defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>. Fields are required as specified in the C-GET service definition unless otherwise noted in <a class="xref" href="sect_9.3.html#table_9.3-7" title="Table 9.3-7. C-GET-RSP Message Fields" shape="rect">Table 9.3-7</a>. Fields not specified in the C-GET service definition but present in <a class="xref" href="sect_9.3.html#table_9.3-7" title="Table 9.3-7. C-GET-RSP Message Fields" shape="rect">Table 9.3-7</a> are required by the DIMSE-C protocol.</p>
+               <div class="table">
+                  <a id="table_9.3-7" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table 9.3-7. C-GET-RSP Message Fields</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Message Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Tag</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VR</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VM</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Description of Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Group Length</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0000)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UL</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The even number of bytes from the end of the value field to the beginning of the next group.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Affected SOP Class UID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0002)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UI</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>SOP Class UID associated with the operation.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Field</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0100)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field distinguishes the DIMSE‑C operation conveyed by this Message. The value of this field shall be set to 8010H for the C-GET-RSP Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Message ID Being Responded To</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0120)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Shall be set to the value of the Message ID (0000,0110) field used in associated C-GET-RQ Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Data Set Type</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0800)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field indicates if a Data Set is present in the Message. This field shall be set to the value of 0101H (Null) if no Data Set is present; any other value indicates a Data Set is included in the Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Status</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0900)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The value of this field depends upon the status type. <a class="xref" href="chapter_C.html" title="C Status Type Encoding (Normative)" shape="rect"> Annex C</a> defines the encoding of the status types defined in the service definition.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Number of Remaining Sub-operations</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,1020)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The number of remaining C-STORE sub-operations to be invoked for this C-GET operation.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Number of Completed Sub-operations</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,1021)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The number of C-STORE sub-operations invoked by this C-GET operation that have completed successfully.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Number of Failed Sub-operations</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,1022)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The number of C-STORE sub-operations invoked by this C-GET operation that have failed.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Number of Warning Sub-operations</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,1023)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The number of C-STORE sub-operations invoked by this C-GET operation that generated warning responses.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Identifier</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(no tag)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>-</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>-</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>A Data Set that encodes the Identifier that was matched. See <a class="xref" href="chapter_9.html#sect_9.1.3.1.5" title="9.1.3.1.5 Identifier" shape="rect">Section 9.1.3.1.5</a>.</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>The list of Attributes allowed and the rules that define the usage of the Identifier are specified in <a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a>.</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_9.3.3.3" shape="rect"></a>9.3.3.3 C-CANCEL-GET-RQ</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The C-CANCEL-GET-RQ Message contains fields as defined in <a class="xref" href="sect_9.3.html#table_9.3-8" title="Table 9.3-8. C-CANCEL-GET-RQ Message Fields" shape="rect">Table 9.3-8</a>. Each field shall conform to DICOM encoding and Value Representation as defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>. Fields are required as specified in the C-GET service definition unless otherwise noted in <a class="xref" href="sect_9.3.html#table_9.3-8" title="Table 9.3-8. C-CANCEL-GET-RQ Message Fields" shape="rect">Table 9.3-8</a>. Fields not specified in the C-GET service definition but present in <a class="xref" href="sect_9.3.html#table_9.3-8" title="Table 9.3-8. C-CANCEL-GET-RQ Message Fields" shape="rect">Table 9.3-8</a> are required by the DIMSE-C protocol.</p>
+               <div class="table">
+                  <a id="table_9.3-8" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table 9.3-8. C-CANCEL-GET-RQ Message Fields</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Message Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Tag</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VR</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VM</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Description of Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Group Length</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0000)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UL</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The even number of bytes from the end of the value field to the beginning of the next group.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Field</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0100)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field distinguishes the DIMSE‑C operation conveyed by this Message. The value of this field shall be set to 0FFFH for the C-CANCEL-GET-RQ Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Message ID Being Responded To</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0120)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Shall be set to the value of the Message ID (0000,0110) field used in associated C-GET-RQ Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Data Set Type</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0800)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field indicates that no Data Set is present in the Message and shall be set to a value of 0101H.</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_9.3.3.4" shape="rect"></a>9.3.3.4 C-GET Protocol Procedures</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The C-GET procedures are initiated by the invoking DIMSE-service-user issuing a C-GET request primitive. On receipt of the C-GET request primitive the DIMSE-C protocol machine shall:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>construct a Message conveying the C-GET-RQ</p>
+                     </li>
+                     <li class="listitem">
+                        <p>send the Message using the P-DATA request service (see 8.1).</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>On receipt of a Message conveying a C-GET-RQ the DIMSE-C protocol machine shall issue a C-GET indication primitive to the performing DIMSE-service-user.</p>
+               <p>The DIMSE-C protocol machine shall:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>accept zero or more C-GET response primitives containing the status of Pending, issued by the performing DIMSE-service-user, followed by a single C-GET response primitive containing the final status</p>
+                     </li>
+                     <li class="listitem">
+                        <p>for each C-GET response primitive containing the Pending status the DIMSE-C protocol machine shall:</p>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="a">
+                              <li class="listitem">
+                                 <p>construct a Message conveying the (Pending) C-GET-RSP</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>send the Message using the P-DATA request service (see 8.1)</p>
+                              </li>
+                           </ol>
+                        </div>
+                     </li>
+                     <li class="listitem">
+                        <p>for the C-GET response primitive containing the final status the DIMSE-C protocol machine shall:</p>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="a">
+                              <li class="listitem">
+                                 <p>construct a Message conveying the (final) C-GET-RSP</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>send the Message using the P-DATA request service (see 8.1)</p>
+                              </li>
+                           </ol>
+                        </div>
+                     </li>
+                  </ul>
+               </div>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>The C-GET indication primitive initiates a sub-operation identical to the C-STORE operation. However, for the C-STORE sub-operation the DIMSE-service-users switch their invoking and performing roles (i.e., the invoking DIMSE-service-user becomes the performing DIMSE-service-user, etc.).</p>
+               </div>
+               <p>On receipt of a Message conveying a C-GET-RSP the DIMSE-C protocol machine shall:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>if the Message indicates the status of Pending, issue a C-GET confirmation primitive to the invoking DIMSE-service-user with a Pending status</p>
+                     </li>
+                     <li class="listitem">
+                        <p>if the Message indicates a final status, issue a C-GET confirmation primitive to the invoking DIMSE-service-user with a final status, thus completing the C-GET procedure</p>
+                     </li>
+                  </ul>
+               </div>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>The C-GET procedures can be canceled at any time by the invoking DIMSE-service-user. This is accomplished by the invoking DIMSE-service-user issuing a C-CANCEL request primitive.</p>
+               </div>
+               <p>The performing DIMSE-service-user may return a C-GET-RSP with the status of Failed or Refused before the complete C-GET-RQ request Message has been completely transmitted by the invoking DIMSE-service-user (this is called an early failed response). Upon receipt of this Failed or Refused C-GET-RSP the invoking DIMSE-service-user may terminate the Message before it is completely sent (i.e., set the Last Fragment bit to 1 in a Data PDV for this Message, see <a class="xref" href="chapter_F.html" title="F Usage of the P-DATA Service By the DICOM Application Entity (Normative)" shape="rect"> Annex F</a>). Following this, it may invoke another operation or notification. It is a protocol violation for an invoking DIMSE-service-user to set the Last Fragment bit to 1 before a C-GET-RQ Message has been completely transmitted if it has not received a Failed or Refused C-GET-RSP to that request.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>When an Association is operating in asynchronous mode, it is possible for an invoking DIMSE-service-user to transmit several Messages before a response. Therefore, while sending a Message it may receive a response to a previously transmitted Message. In this case this response is not an early failed response because the related Message has already been sent.</p>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_9.3.4" shape="rect"></a>9.3.4 C-MOVE Protocol</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The information necessary for the C-MOVE request and indication DIMSE-C primitives are conveyed in the C-MOVE-RQ Message. The information necessary for the C-MOVE response and confirmation DIMSE-C primitives are conveyed in the C-MOVE-RSP Message. The information necessary for the C-MOVE Cancel request and Cancel indication primitives are conveyed in the C-CANCEL-MOVE-RQ Message.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_9.3.4.1" shape="rect"></a>9.3.4.1 C-MOVE-RQ</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The C-MOVE-RQ Message contains fields as defined in <a class="xref" href="sect_9.3.html#table_9.3-9" title="Table 9.3-9. C-MOVE-RQ Message Fields" shape="rect">Table 9.3-9</a>. Each field shall conform to DICOM encoding and Value Representation as defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>. Fields are required as specified in the C-MOVE service definition unless otherwise noted in <a class="xref" href="sect_9.3.html#table_9.3-9" title="Table 9.3-9. C-MOVE-RQ Message Fields" shape="rect">Table 9.3-9</a>. Fields not specified in the C-GET-MOVE service definition but present in <a class="xref" href="sect_9.3.html#table_9.3-9" title="Table 9.3-9. C-MOVE-RQ Message Fields" shape="rect">Table 9.3-9</a> are required by the DIMSE-C protocol.</p>
+               <div class="table">
+                  <a id="table_9.3-9" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table 9.3-9. C-MOVE-RQ Message Fields</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Message Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Tag</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VR</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VM</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Description of Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Group Length</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0000)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UL</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The even number of bytes from the end of the value field to the beginning of the next group.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Affected SOP Class UID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0002)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UI</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>SOP Class UID associated with this operation.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Field</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0100)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field distinguishes the DIMSE‑C operation conveyed by this Message. The value of this field shall be set to 0021H for the C-MOVE-RQ Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Message ID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0110)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Implementation-specific value that distinguishes this Message from other Messages.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Priority</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0700)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The priority shall be set to one of the following values:</p>
+                                 <p>LOW = 0002H</p>
+                                 <p>MEDIUM = 0000H</p>
+                                 <p>HIGH = 0001H</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Data Set Type</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0800)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field indicates that a Data Set is present in the Message. It shall be set to any value other than 0101H (Null).</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Move Destination</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0600)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>AE</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Shall be set to the DICOM AE Title of the destination DICOM AE to which the C-STORE sub-operations are being performed.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Identifier</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(no tag)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>-</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>-</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>A Data Set that encodes the Identifier to be matched. See <a class="xref" href="chapter_9.html#sect_9.1.4.1.6" title="9.1.4.1.6 Identifier" shape="rect">Section 9.1.4.1.6</a>.</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>Implementations that require compatibility to previous versions of this Standard must set the Command Data Set Type (0000,0800) Field to 0102H (Identifier).</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_9.3.4.2" shape="rect"></a>9.3.4.2 C-MOVE-RSP</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The C-MOVE-RSP Message contains fields as defined in <a class="xref" href="sect_9.3.html#table_9.3-10" title="Table 9.3-10. C-MOVE-RSP Message Fields" shape="rect">Table 9.3-10</a> and in <a class="xref" href="chapter_C.html" title="C Status Type Encoding (Normative)" shape="rect"> Annex C</a>. Each field shall conform to DICOM encoding and Value Representation as defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>. Fields are required as specified in the C-MOVE service definition unless otherwise noted in <a class="xref" href="sect_9.3.html#table_9.3-10" title="Table 9.3-10. C-MOVE-RSP Message Fields" shape="rect">Table 9.3-10</a>. Fields not specified in the C-MOVE service definition but present in <a class="xref" href="sect_9.3.html#table_9.3-10" title="Table 9.3-10. C-MOVE-RSP Message Fields" shape="rect">Table 9.3-10</a> are required by the DIMSE-C protocol.</p>
+               <div class="table">
+                  <a id="table_9.3-10" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table 9.3-10. C-MOVE-RSP Message Fields</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Message Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Tag</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VR</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VM</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Description of Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Group Length</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0000)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UL</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The even number of bytes from the end of the value field to the beginning of the next group.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Affected SOP Class UID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0002)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UI</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>SOP Class UID associated with the operation.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Field</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0100)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field distinguishes the DIMSE‑C operation conveyed by this Message. The value of this field shall be set to 8021H for the C-MOVE-RSP Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Message ID Being Responded To</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0120)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Shall be set to the value of the Message ID (0000,0110) field used in associated C-MOVE Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Data Set Type</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0800)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field indicates if a Data Set is present in the Message. This field shall be set to the value of 0101H (Null) if no Data Set is present; any other value indicates a Data Set is included in the Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Status</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0900)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The value of this field depends upon the status type. <a class="xref" href="chapter_C.html" title="C Status Type Encoding (Normative)" shape="rect"> Annex C</a> defines the encoding of the status types defined in the service definition.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Number of Remaining Sub-operations</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,1020)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The number of remaining sub-operations to be invoked for this C-MOVE operation.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Number of Complete Sub-operations</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,1021)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The number of C-STORE sub-operations invoked by this C-MOVE operation that have completed successfully.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Number of Failed Sub-operations</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,1022)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The number of C-STORE sub-operations invoked by this C-MOVE operation that have failed.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Number of Warning Sub-operations</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,1023)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The number of C-STORE sub-operations invoked by this C-MOVE operation that generated warning responses.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Identifier</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(no tag)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>-</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>-</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>A Data Set that encodes attributes providing status information about the C-MOVE operation. See <a class="xref" href="chapter_9.html#sect_9.1.4.1.6" title="9.1.4.1.6 Identifier" shape="rect">Section 9.1.4.1.6</a>.</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_9.3.4.3" shape="rect"></a>9.3.4.3 C-CANCEL-MOVE-RQ</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The C-CANCEL-MOVE-RQ Message contains fields as defined in <a class="xref" href="sect_9.3.html#table_9.3-11" title="Table 9.3-11. C-CANCEL-MOVE-RQ Message Fields" shape="rect">Table 9.3-11</a>. Each field shall conform to DICOM encoding and Value Representation as defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>. Fields are required as specified in the C-MOVE service definition unless otherwise noted in <a class="xref" href="sect_9.3.html#table_9.3-11" title="Table 9.3-11. C-CANCEL-MOVE-RQ Message Fields" shape="rect">Table 9.3-11</a>. Fields not specified in the C-MOVE service definition but present in <a class="xref" href="sect_9.3.html#table_9.3-11" title="Table 9.3-11. C-CANCEL-MOVE-RQ Message Fields" shape="rect">Table 9.3-11</a> are required by the DIMSE-C protocol.</p>
+               <div class="table">
+                  <a id="table_9.3-11" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table 9.3-11. C-CANCEL-MOVE-RQ Message Fields</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Message Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Tag</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VR</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VM</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Description of Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Group Length</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0000)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UL</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The even number of bytes from the end of the value field to the beginning of the next group.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Field</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0100)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field distinguishes the DIMSE‑C operation conveyed by this Message. The value of this field shall be set to 0FFFH for the C-CANCEL-MOVE-RQ Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Message ID Being Responded To</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0120)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Shall be set to the value of the Message ID (0000,0110) field used in associated C-MOVE-RQ Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Data Set Type</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0800)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field indicates that no Data Set is present in the Message and shall be set to a value of 0101H.</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_9.3.4.4" shape="rect"></a>9.3.4.4 C-MOVE Protocol Procedures</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The C-MOVE procedures are initiated by the invoking DIMSE-service-user issuing a C-MOVE request primitive. On receipt of the C-MOVE request primitive the DIMSE-C protocol machine shall:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>construct a Message conveying the C-MOVE-RQ</p>
+                     </li>
+                     <li class="listitem">
+                        <p>send the Message using the P-DATA request service (see 8.1)</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>On receipt of a Message conveying a C-MOVE-RQ the DIMSE-C protocol machine shall issue a C-MOVE indication primitive to the performing DIMSE-service-user.</p>
+               <p>The DIMSE-C protocol machine shall:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>accept zero or more C-MOVE response primitives containing the status of Pending, issued by the performing DIMSE-service-user, followed by a single C-MOVE response primitive containing the final status</p>
+                     </li>
+                     <li class="listitem">
+                        <p>for each C-MOVE response primitive containing the Pending status the DIMSE-C protocol machine shall:</p>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="a">
+                              <li class="listitem">
+                                 <p>construct a Message conveying the (Pending) C-MOVE-RSP</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>send the Message using the P-DATA request service (see 8.1)</p>
+                              </li>
+                           </ol>
+                        </div>
+                     </li>
+                     <li class="listitem">
+                        <p>for the C-MOVE response primitive containing the final status the DIMSE-C protocol machine shall:</p>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="a">
+                              <li class="listitem">
+                                 <p>construct a Message conveying the (final) C-MOVE-RSP</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>send the Message using the P-DATA request service (see 8.1)</p>
+                              </li>
+                           </ol>
+                        </div>
+                     </li>
+                  </ul>
+               </div>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>The C-MOVE indication primitive initiates a sub-operation identical to the C-STORE operation.</p>
+               </div>
+               <p>On receipt of a Message conveying a C-MOVE-RSP the DIMSE-C protocol machine shall:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>if the Message indicates the status of Pending, issue a C-MOVE confirmation primitive to the invoking DIMSE-service-user with a Pending status;</p>
+                     </li>
+                     <li class="listitem">
+                        <p>if the Message indicates a final status, issue a C-MOVE confirmation primitive to the invoking DIMSE-service-user with a final status, thus completing the C-MOVE procedure</p>
+                     </li>
+                  </ul>
+               </div>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>The C-MOVE procedures can be canceled at any time by the invoking DIMSE-service-user. This shall be accomplished by the invoking DIMSE-service-user issuing a C-CANCEL request primitive.</p>
+               </div>
+               <p>The performing DIMSE-service-user may return a C-MOVE-RSP with the status of Failed or Refused before the complete C-MOVE-RQ request Message has been completely transmitted by the invoking DIMSE-service-user (this is called an early failed response). Upon receipt of this Failed or Refused C-MOVE-RSP the invoking DIMSE-service-user may terminate the Message before it is completely sent (i.e., set the Last Fragment bit to 1 in a Data PDV for this Message, see <a class="xref" href="chapter_F.html" title="F Usage of the P-DATA Service By the DICOM Application Entity (Normative)" shape="rect"> Annex F</a>). Following this, it may invoke another operation or notification. It is a protocol violation for an invoking DIMSE-service-user to set the Last Fragment bit to 1 before a C-MOVE-RQ Message has been completely transmitted if it has not received a Failed or Refused C-MOVE-RSP to that request.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>When an Association is operating in asynchronous mode, it is possible for an invoking DIMSE-service-user to transmit several Messages before a response. Therefore, while sending a Message it may receive a response to a previously transmitted Message. In this case this response is not an early failed response because the related Message has already been sent.</p>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_9.3.5" shape="rect"></a>9.3.5 C-ECHO Protocol</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The information necessary for the C-ECHO request and indication DIMSE-C primitives are conveyed in the C-ECHO-RQ Message. The information necessary for the C-ECHO response and confirmation DIMSE-C primitives are conveyed in the C-ECHO-RSP Message.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_9.3.5.1" shape="rect"></a>9.3.5.1 C-ECHO-RQ</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The C-ECHO-RQ Message contains fields as defined in <a class="xref" href="sect_9.3.html#table_9.3-12" title="Table 9.3-12. C-ECHO-RQ Message Fields" shape="rect">Table 9.3-12</a> Each field shall conform to DICOM encoding and Value Representation as defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>. Fields are required as specified in the C-ECHO service definition unless otherwise noted in <a class="xref" href="sect_9.3.html#table_9.3-12" title="Table 9.3-12. C-ECHO-RQ Message Fields" shape="rect">Table 9.3-12</a>. Fields not specified in the C-ECHO service definition but present in <a class="xref" href="sect_9.3.html#table_9.3-13" title="Table 9.3-13. C-ECHO-RSP Message Fields" shape="rect">Table 9.3-13</a> are required by the DIMSE-C protocol.</p>
+               <div class="table">
+                  <a id="table_9.3-12" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table 9.3-12. C-ECHO-RQ Message Fields</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Message Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Tag</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VR</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VM</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Description of Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Group Length</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0000)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UL</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The even number of bytes from the end of the value field to the beginning of the next group.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Affected SOP Class UID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0002)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UI</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>SOP Class UID associated with this operation.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Field</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0100)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field distinguishes the DIMSE‑C operation conveyed by this Message. The value of this field shall be set to 0030H for the C-ECHO-RQ Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Message ID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0110)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Implementation-specific value that distinguishes this Message from other Messages.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Data Set Type</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0800)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field indicates that no Data Set is present in the Message and shall be set to a value of 0101H.</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_9.3.5.2" shape="rect"></a>9.3.5.2 C-ECHO-RSP</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The C-ECHO-RSP Message contains fields as defined in <a class="xref" href="sect_9.3.html#table_9.3-13" title="Table 9.3-13. C-ECHO-RSP Message Fields" shape="rect">Table 9.3-13</a> and in <a class="xref" href="chapter_C.html" title="C Status Type Encoding (Normative)" shape="rect"> Annex C</a>. Each field shall conform to DICOM encoding and Value Representation as defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>. Fields are required as specified in the C-ECHO service definition unless otherwise noted in <a class="xref" href="sect_9.3.html#table_9.3-13" title="Table 9.3-13. C-ECHO-RSP Message Fields" shape="rect">Table 9.3-13</a>. Fields not specified in the C-ECHO service definition but present in <a class="xref" href="sect_9.3.html#table_9.3-13" title="Table 9.3-13. C-ECHO-RSP Message Fields" shape="rect">Table 9.3-13</a> are required by the DIMSE-C protocol.</p>
+               <div class="table">
+                  <a id="table_9.3-13" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table 9.3-13. C-ECHO-RSP Message Fields</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Message Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Tag</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VR</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VM</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Description of Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Group Length</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0000)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UL</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The even number of bytes from the end of the value field to the beginning of the next group.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Affected SOP Class UID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0002)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UI</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>SOP Class UID associated with the operation.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Field</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0100)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field distinguishes the DIMSE‑C operation conveyed by this Message. The value of this field shall be set to 8030H for the C-ECHO-RSP Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Message ID Being Responded To</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0120)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Shall be set to the value of the Message ID (0000,0110) field used in associated C-ECHO-RQ Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Data Set Type</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0800)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field indicates that no Data Set is present in the Message and shall be set to a value of 0101H.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Status</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0900)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Indicates the status of the response. It shall have a value of Success.</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_9.3.5.3" shape="rect"></a>9.3.5.3 C-ECHO Protocol Procedures</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The C-ECHO procedures are initiated by the invoking DIMSE-service-user issuing a C-ECHO request primitive. On receipt of the C-ECHO request primitive the DIMSE-C protocol machine shall:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>construct a Message conveying the C-ECHO-RQ</p>
+                     </li>
+                     <li class="listitem">
+                        <p>send the Message using the P-DATA request service (see 8.1)</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>On receipt of a Message conveying a C-ECHO-RQ the DIMSE-C protocol machine shall issue a C-ECHO indication primitive to the performing DIMSE-service-user.</p>
+               <p>On receipt of a C-ECHO response primitive, issued by the performing DIMSE-service-user, the DIMSE-C protocol machine shall:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>construct a Message conveying the C-ECHO-RSP</p>
+                     </li>
+                     <li class="listitem">
+                        <p>send the Message using the P-DATA request service (see 8.1)</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>On receipt of a Message conveying a C-ECHO-RSP the DIMSE protocol machine shall issue a C-ECHO confirmation primitive to the invoking DIMSE-service-user, thus completing the C-ECHO procedure.</p>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_9.2.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_9.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_10.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">9.2 Sequencing </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.7.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 10 DIMSE-N</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

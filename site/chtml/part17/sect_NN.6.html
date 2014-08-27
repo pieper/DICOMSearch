@@ -1,0 +1,1771 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>NN.6 Examples of Specimen Module Use</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="chapter_NN.html" title="NN Specimen Identification and Management" />
+      <link rel="prev" href="sect_NN.5.html" title="NN.5 Structure of The Specimen Module" />
+      <link rel="next" href="sect_NN.7.html" title="NN.7 Specimen Data in Pathology Imaging Workflow Management" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">NN.6 Examples of Specimen Module Use</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_NN.5.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">NN Specimen Identification and Management</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_NN.7.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_NN.6" shape="rect"></a>NN.6 Examples of Specimen Module Use</h2>
+               </div>
+            </div>
+         </div>
+         <p>This section includes examples of the use of the Specimen Module. Each example has two tables.</p>
+         <p>The first table contains the majority of the container and specimen elements of the Specimen Module. The second includes the Specimen Preparation Sequence (which documents the sampling, processing and staining steps).</p>
+         <p>In the first table, invocations of Macros have been expanded to their constituent attributes. The Table does not include Type 3 (optional) attributes that are not used for the example case.</p>
+         <p>The second table shows the Items of the Specimen Preparation Sequence and its subsidiary Specimen Preparation Step Content Item Sequence. That latter sequence itself has subsidiary Code Sequence Items, but these are shown in the canonical DICOM "triplet" format (see <a href="../part16/PS3.16.html" class="olink" shape="rect">PS3.16</a>), e.g., (T-28600, SRT, "Left Upper Lobe of Lung"). In the table, inclusions of subsidiary templates have been expanded to their constituent Content Items. The Table does not include Type U (optional) Content Items that are not used for the example case.</p>
+         <p>Values in the colored columns of the two tables actually appear in the image object.</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_NN.6.1" shape="rect"></a>NN.6.1 Gross Specimen</h3>
+                  </div>
+               </div>
+            </div>
+            <p>This is an example of how the Specimen Module can be populated for a gross specimen (a lung lobe resection received from surgery). The associated image would be a gross image taken in gross room.</p>
+            <div class="table">
+               <a id="table_NN.6-1" shape="rect"></a>
+               <p class="title">
+                  <strong>Table NN.6-1. Specimen Module for Gross Specimen</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Attribute Name</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Tag</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Attribute Description</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Example Value</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Comments</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Container Identifier</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,0512)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>The identifier for the container that contains the specimen(s) being imaged.</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>S07-100 A</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Note that the container ID is required, even though the container itself does not figure in the image.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Issuer of the Container Identifier Sequence</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,0513)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Organization that assigned the Container Identifier</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Local Namespace Entity ID</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,0031)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Identifies an entity within the local namespace or domain.</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Case Medical Center</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Container Type Code Sequence</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,0518)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Type of container that contains the specimen(s) being imaged. Zero or one items shall be permitted in this sequence</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This would likely be a default container value for all gross specimens. The LIS does not keep information on the gross container type, so this is an empty sequence.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Specimen Description Sequence</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,0560)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Sequence of identifiers and detailed description of the specimen(s) being imaged. One or more Items shall be included in this Sequence.</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Specimen Identifier</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,0551)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>A departmental information system identifier for the Specimen.</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>S07-100 A</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Specimen and Container have same ID</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Issuer of the Specimen Identifier Sequence</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,0562)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>The name or code for the institution that has assigned the Specimen Identifier.</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt; Local Namespace Entity ID</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,0031)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Identifies an entity within the local namespace or domain.</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Case Medical Center</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Specimen UID</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,0554)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Unique Identifier for Specimen</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>1.2.840.99790.986.33.1677.1.1.17.1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Specimen Short Description</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,0600)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Short textual specimen description</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Part A: LEFT UPPER LOBE</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>The LIS "Specimen Received" field is mapped to this DICOM field</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Specimen Detailed Description</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,0602)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Detailed textual specimen description</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>A: Received fresh for intraoperative consultation, labeled with the patient's name, number and "left upper lobe," is a pink-tan, wedge-shaped segment of soft tissue, 6.9 x 4.2 x 1.0 cm. The pleural surface is pink-tan and glistening with a stapled line measuring 12.0 cm. in length. The pleural surface shows a 0.5 cm. area of puckering. The pleural surface is inked black. The cut surface reveals a 1.2 x 1.1 cm, white-gray, irregular mass abutting the pleural surface and deep to the puckered area. The remainder of the cut surface is red-brown and congested. No other lesions are identified. Representative sections are submitted.</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This is a mapping from the LIS "Gross Description" field. Note that in Case S07-100 there were six parts. This means the LIS gross description field will have six sections (A - F). We would have to parse the gross description field into those parts (A-F) and then only incorporate section "A" into this attribute. NOTE: One could consider listing all the Blocks associated with Part A. It would be easy to do and might give useful information.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Specimen Preparation Sequence</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,0610)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Sequence of Items identifying the process steps used to prepare the specimen for image acquisition. One or more Items may be present. This Sequence includes description of the specimen sampling step from a parent specimen, potentially back to the original part collection.</p>
+                           </td>
+                           <td align="left" rowspan="2" colspan="1">
+                              <p>(see <a class="xref" href="sect_NN.6.html#table_NN.6-2" title="Table NN.6-2. Specimen Preparation Sequence for Gross Specimen" shape="rect">Table NN.6-2</a>)</p>
+                           </td>
+                           <td align="left" rowspan="2" colspan="1"></td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;Specimen Preparation Step Content Item Sequence</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,0612)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Sequence of Content Items identifying the processes used in one preparation step to prepare the specimen for image acquisition. One or more Items may be present.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Primary Anatomic Structure Sequence</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0008,2228)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Original anatomic location in patient of specimen. This location may be inherited from the parent specimen, or further refined by modifiers depending on the sampling procedure for this specimen.</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;Code Value</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0008,0100)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>T-28600</p>
+                           </td>
+                           <td align="left" rowspan="3" colspan="1">
+                              <p>This is a code sequence item</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;Coding Scheme Designator</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0008,0102)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>SRT</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;Code Meaning</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0008,0104)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Left Upper Lobe of Lung</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <div class="table">
+               <a id="table_NN.6-2" shape="rect"></a>
+               <p class="title">
+                  <strong>Table NN.6-2. Specimen Preparation Sequence for Gross Specimen</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Specimen Preparation Sequence - Item #</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Specimen Prep. Step Content Item Sequence - Item #</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Template / Row</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Value Type (0040,A040)</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Concept Name Code Sequence (0040,A043)</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Example Value</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Comments</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="6" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>TEXT</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(121041, DCM, "Specimen Identifier")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>S07-100 A</p>
+                           </td>
+                           <td align="left" rowspan="6" colspan="1">
+                              <p>Collection in OR</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>2</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 2</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>TEXT</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(111724, DCM, "Issuer of Specimen Identifier")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Case Medical Center</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 3</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>CODE</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(111701, DCM, "Processing type")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(P3-02000, SRT, "Specimen collection")</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>2</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 4</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>DATETIME</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(111702, DCM, "DateTime of processing")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>200703230827</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>3</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 5</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>TEXT</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(111703, DCM, "Processing step description")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Taken</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>4</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 8</p>
+                              <p>8002 / 1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>CODE</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(111704, DCM, "Sampling Method")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(P1-03000, SRT, "Excision")</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="4" colspan="1">
+                              <p>2</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>TEXT</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(121041, DCM, "Specimen Identifier")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>S07-100 A</p>
+                           </td>
+                           <td align="left" rowspan="4" colspan="1">
+                              <p>Specimen received in Pathology department</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>2</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 2</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>TEXT</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(111724, DCM, "Issuer of Specimen Identifier")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Case Medical Center</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 3</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>CODE</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(111701, DCM, "Processing type")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(P3-05013, SRT, "Specimen Receiving")</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>2</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 4</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>DATETIME</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(111702, DCM, "DateTime of processing")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>200703230943</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_NN.6.2" shape="rect"></a>NN.6.2 Slide</h3>
+                  </div>
+               </div>
+            </div>
+            <p>This is an example of how the Specimen Module can be populated for a slide (from a lung lobe resection received from surgery). The associated image would be a whole slide image.</p>
+            <div class="table">
+               <a id="table_NN.6-3" shape="rect"></a>
+               <p class="title">
+                  <strong>Table NN.6-3. Specimen Module for a Slide</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Attribute Name</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Tag</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Attribute Description</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Example Value</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Comments</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Container Identifier</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,0512)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>The identifier for the container that contains the specimen(s) being imaged.</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>S07-100 A 5 1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Issuer of the Container Identifier Sequence</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,0513)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Organization that assigned the Container Identifier</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Local Namespace Entity ID</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,0031)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Identifies an entity within the local namespace or domain.</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Case Medical Center</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Container Type Code Sequence</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,0518)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Type of container that contains the specimen(s) being imaged. Only a single item shall be permitted in this sequence</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This would likely be a default container value for all slide specimens.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Code Value</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0008,0100)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>G-81EA</p>
+                           </td>
+                           <td align="left" rowspan="3" colspan="1">
+                              <p>This is a code sequence item</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Coding Scheme Designator</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0008,0102)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>SRT</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Code Meaning</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0008,0104)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Slide</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Container Component Sequence</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,0520)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Description of one or more components of the container (e.g., description of the slide and of the coverslip). One or more Items may be included in this Sequence.</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Container Component Type Code Sequence</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0050,0012)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Type of container component. One Item shall be included in this Sequence.</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;Code Value</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0008,0100)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>A-0101D</p>
+                           </td>
+                           <td align="left" rowspan="3" colspan="1">
+                              <p>This is a code sequence item</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;Coding Scheme Designator</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0008,0102)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>SRT</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;Code Meaning</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0008,0104)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Microscope slide cover slip</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Container Component Material</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0050,001A)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Material of container component.</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>GLASS</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Specimen Description</p>
+                              <p>Sequence</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,0560)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Sequence of identifiers and detailed description of the specimen(s) being imaged. One or more Items shall be included in this Sequence.</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Specimen Identifier</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,0551)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>A departmental information system identifier for the Specimen.</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>S07-100 A 5 1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Specimen and Container have same ID</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Issuer of the Specimen Identifier Sequence</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,0562)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>The name or code for the institution that has assigned the Specimen Identifier.</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;Local Namespace Entity ID</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,0031)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Identifies an entity within the local namespace or domain.</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Case Medical Center</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Specimen UID</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,0554)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Unique Identifier for Specimen</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>1.2.840.99790.986.33.1677.1.1.19.5</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Specimen Short Description</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,0600)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Short textual specimen description</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Part A: LEFT UPPER LOBE, Block 5: Mass (2 pc), Slide 1: H&amp;E</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This attribute concatenates four LIS fields: 1. Specimen Received, 2. Cassette Summary, 3. Number of Pieces in Block, 4. Staining. This does not always work this nicely. Often one or more of fields is empty or confusing.</p>
+                              <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                                 <h3 class="title">Note</h3>
+                                 <p>This field is limited to 64 characters</p>
+                              </div>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Specimen Detailed Description</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,0602)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Detailed textual specimen description</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>A: Received fresh for intraoperative consultation, labeled with the patient's name, number and "left upper lobe," is a pink-tan, wedge-shaped segment of soft tissue, 6.9 x 4.2 x 1.0 cm. The pleural surface is pink-tan and glistening with a stapled line measuring 12.0 cm. in length. The pleural surface shows a 0.5 cm. area of puckering. The pleural surface is inked black. The cut surface reveals a 1.2 x 1.1 cm, white-gray, irregular mass abutting the pleural surface and deep to the puckered area. The remainder of the cut surface is red-brown and congested. No other lesions are identified. Representative sections are submitted.</p>
+                              <p>Block 5: "Mass" (2 pieces)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This is a mapping from the LIS Gross Description Field and the Block Summary. Note that in Case S07-100, there were six parts. This means the LIS gross description field will have six sections (A - F). We would have to parse the gross description field into those parts (A-F) and then only incorporate section "A" into this attribute. The same would be true of the Blocks.</p>
+                              <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                                 <h3 class="title">Note</h3>
+                                 <p>One could consider listing all the Blocks associated with Part A. It would be easy to do and might give useful information.</p>
+                              </div>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Specimen Preparation Sequence</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,0610)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Sequence of Items identifying the process steps used to prepare the specimen for image acquisition. One or more Items may be present. This Sequence includes description of the specimen sampling step from a parent specimen, potentially back to the original part collection.</p>
+                           </td>
+                           <td align="left" rowspan="2" colspan="1">
+                              <p>(see <a class="xref" href="sect_NN.6.html#table_NN.6-4" title="Table NN.6-4. Specimen Preparation Sequence for Slide" shape="rect">Table NN.6-4</a>)</p>
+                           </td>
+                           <td align="left" rowspan="2" colspan="1"></td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;Specimen Preparation Step Content Item Sequence</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,0612)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Sequence of Content Items identifying the processes used in one preparation step to prepare the specimen for image acquisition. One or more Items may be present.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Primary Anatomic Structure</p>
+                              <p>Sequence</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0008,2228)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Original anatomic location in patient of specimen. This location may be inherited from the parent specimen, or further refined by modifiers depending on the sampling procedure for this specimen.</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;Code Value</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0008,0100)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>T-28600</p>
+                           </td>
+                           <td align="left" rowspan="3" colspan="1">
+                              <p>This is a code sequence item</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;Coding Scheme Designator</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0008,0102)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>SRT</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;Code Meaning</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0008,0104)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Left Upper Lobe of Lung</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <p>The example Specimen Preparation Sequence first describes the most recent processing of the slide (staining), then goes back to show its provenance. Notice that there is no sampling process for the slide described here; the LIS did not record the step of slicing of blocks into slides.</p>
+            <div class="table">
+               <a id="table_NN.6-4" shape="rect"></a>
+               <p class="title">
+                  <strong>Table NN.6-4. Specimen Preparation Sequence for Slide</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Specimen Preparation Sequence - Item #</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Specimen Prep. Step Content Item Sequence - Item #</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Template / Row</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Value Type (0040,A040)</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Concept Name Code Sequence (0040,A043)</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Example Value</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Comments</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="6" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>TEXT</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(121041, DCM, "Specimen Identifier")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>S07-100 A</p>
+                           </td>
+                           <td align="left" rowspan="6" colspan="1">
+                              <p>Part Collection in OR.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>2</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 2</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>TEXT</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(111724, DCM, "Issuer of Specimen Identifier")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Case Medical Center</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>3</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 3</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>CODE</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(111701, DCM, "Processing type")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(P3-02000, SRT, "Specimen collection")</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>4</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 4</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>DATETIME</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(111702, DCM, "DateTime of processing")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>200703230827</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>5</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 5</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>TEXT</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(111703, DCM, "Processing step description")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Taken</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>6</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 8</p>
+                              <p>8002 / 1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>CODE</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(111704, DCM, "Sampling Method")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(P1-03000, SRT, "Excision")</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="4" colspan="1">
+                              <p>2</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>TEXT</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(121041, DCM, "Specimen Identifier")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>S07-100 A</p>
+                           </td>
+                           <td align="left" rowspan="4" colspan="1">
+                              <p>Specimen received in Pathology department</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>2</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 2</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>TEXT</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(111724, DCM, "Issuer of Specimen Identifier")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Case Medical Center</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>3</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 3</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>CODE</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(111701, DCM, "Processing type")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(P3-05013, SRT, "Specimen Receiving")</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>4</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 4</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>DATETIME</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(111702, DCM, "DateTime of processing")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>200703230943</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="9" colspan="1">
+                              <p>3</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>TEXT</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(121041, DCM, "Specimen Identifier")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>S07-100 A 5</p>
+                           </td>
+                           <td align="left" rowspan="8" colspan="1">
+                              <p>Sampling to block</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>2</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 2</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>TEXT</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(111724, DCM, "Issuer of Specimen Identifier")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Case Medical Center</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>3</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 3</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>CODE</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(111701, DCM, "Processing type")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(P3-4000A, SRT, "Sampling of tissue specimen")</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>4</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 5</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>TEXT</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(111703, DCM, "Processing step description")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Block Creation</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>5</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 8</p>
+                              <p>8002 / 1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>CODE</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(111704, DCM, "Sampling Method")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(P1-01003, SRT, "Dissection")</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>6</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 8</p>
+                              <p>8002 / 2</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>TEXT</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(111705, DCM, "Parent Specimen Identifier")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>S07-100 A</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>7</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 8</p>
+                              <p>8002 / 3</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>TEXT</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(111706, DCM, "Issuer of Parent Specimen Identifier")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Case Medical Center</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 8</p>
+                              <p>8002 / 4</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>CODE</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(111707, DCM, "Parent specimen type")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(T-D0011, SRT, "Anatomic part")</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>9</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 8</p>
+                              <p>8002 / 6</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>TEXT</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(111709, DCM, "Location of sampling site")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Mass</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This is coming from the summary of blocks field in the LIS</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="6" colspan="1">
+                              <p>4</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>TEXT</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(121041, DCM, "Specimen Identifier")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>S07-100 A 5</p>
+                           </td>
+                           <td align="left" rowspan="6" colspan="1">
+                              <p>Block Processing</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>2</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 2</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>TEXT</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(111724, DCM, "Issuer of Specimen Identifier")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Case Medical Center</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>3</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 3</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>CODE</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(111701, DCM, "Processing type")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(P3-05000, SRT, "Specimen Processing")</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>4</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 4</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>DATETIME</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(111702, DCM, "DateTime of processing")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>200703231900</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>5</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 5</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>TEXT</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(111703, DCM, "Processing step description")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Standard Block Processing (Formalin)</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>6</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 10</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>CODE</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(111715, DCM, "Specimen Fixative")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(C-21402, SRT, "Formalin")</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="6" colspan="1">
+                              <p>5</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>TEXT</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(121041, DCM, "Specimen Identifier")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>S07-100 A 5</p>
+                           </td>
+                           <td align="left" rowspan="6" colspan="1">
+                              <p>Block embedding</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>2</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 2</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>TEXT</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(111724, DCM, "Issuer of Specimen Identifier")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Case Medical Center</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>3</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 3</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>CODE</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(111701, DCM, "Processing type")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(P3-05000, SRT, "Specimen Processing")</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>4</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 4</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>DATETIME</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(111702, DCM, "DateTime of processing")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>200703240500</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>5</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 5</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>TEXT</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(111703, DCM, "Processing step description")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Embedding (paraffin)</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>6</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 11</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>CODE</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(F-6221A, SRT, "Embedding medium")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(F-61118, SRT, "Paraffin")</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="4" colspan="1">
+                              <p>6</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>TEXT</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(121041, DCM, "Specimen Identifier")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>S07-100 A 5 1</p>
+                           </td>
+                           <td align="left" rowspan="4" colspan="1">
+                              <p>Slide Staining</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>2</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 3</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>CODE</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(111701, DCM, "Processing type")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(P3-00003, SRT, "Staining")</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>3</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 4</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>DATETIME</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(111702, DCM, "DateTime of processing")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>200703240700</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>4</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>8001 / 9</p>
+                              <p>8003 / 2</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>TEXT</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>(G-C350, SRT, "Using substance")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>H&amp;E (1)</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_NN.5.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_NN.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_NN.7.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">NN.5 Structure of The Specimen Module </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> NN.7 Specimen Data in Pathology Imaging Workflow Management</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

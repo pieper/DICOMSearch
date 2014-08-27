@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>B.2 Clinical Context</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.11.html" title="PS3.11" />
+      <link rel="up" href="chapter_B.html" title="B 1024 X-Ray Angiographic Application Profile (Normative)" />
+      <link rel="prev" href="chapter_B.html" title="B 1024 X-Ray Angiographic Application Profile (Normative)" />
+      <link rel="next" href="sect_B.3.html" title="B.3 STD-XA1K Application Profile Class Requirements" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">B.2 Clinical Context</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_B.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">B 1024 X-Ray Angiographic Application Profile (Normative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_B.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_B.2" shape="rect"></a>B.2 Clinical Context</h2>
+               </div>
+            </div>
+         </div>
+         <p>This class of Application Profiles facilitates the interchange of primary digital X-Ray cine runs, typically acquired as part of angiographic procedures. Typical media interchanges would be from in-lab acquisition equipment to either a display workstation or to a data archive system, or between a display workstation and a data archive system (in both directions).</p>
+         <p>Additionally, images derived from or related to primary digital X-Ray cine runs, such as quantitative analysis images, reference images, multi-modality images and screen capture images, may be interchanged via this Profile.</p>
+         <p>The operational use of the media interchange is potentially both intra-institutional and inter-institutional.</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <p>An FSC conforming to the Basic 512 Cardiac Angiographic Profile and General Purpose CD-R Profile supporting the SC Image Media Storage SOP Class could, if the restrictions in this profile were observed, create images that were readable by an FSR supporting the profile. Conversely, SC Images written by an FSC conforming to this profile, would be readable by an FSR conforming to the Basic 512 Cardiac Angiographic Profile and the General Purpose CD-R Profile supporting the SC Image Media Storage SOP Class.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_B.2.1" shape="rect"></a>B.2.1 Roles and Service Class Options</h3>
+                  </div>
+               </div>
+            </div>
+            <p>This Application Profile Class uses the Media Storage Service Class defined in <a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a>.</p>
+            <p>The Application Entity shall support one or more of the roles of File-set Creator, File-set Reader, and File-set Updater, defined in <a href="../part10/PS3.10.html" class="olink" shape="rect">PS3.10</a>.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_B.2.1.1" shape="rect"></a>B.2.1.1 File Set Creator</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The Application entity acting as a File-Set Creator generates a File Set under the STD-XA1K Application Profile Class. Typical entities using this role would include X-Ray angiographic lab equipment, and archive systems that generate a patient record for transfer to another institution. File Set Creators shall be able to generate the Basic Directory SOP Class in the DICOMDIR File with all types of Directory Records related to the SOP Classes stored in the File-set.</p>
+               <p>An FSC shall offer the ability to either finalize the disc at the completion of the most recent write session (no additional information can be subsequently added to the disc) or to allow multi-session (additional information may be subsequently added to the disc). An FSC may allow packet-writing if supported by the media and file system specified in the profile.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>A multiple volume (a logical volume that can cross multiple physical media) is not supported by this Application Profile Class. If a set of Files, e.g., a Study, cannot be written entirely on one piece of media, the FSC will create multiple independent DICOM File-sets such that each File-set can reside on a single piece of media controlled by its individual DICOMDIR file. The user of the FSC can opt to use written labels on the discs to reflect that there is more than one disc for this set of files (e.g., a Study).</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_B.2.1.2" shape="rect"></a>B.2.1.2 File Set Reader</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The role of File Set Reader shall be used by Application Entities that receive a transferred File Set. Typical entities using this role would include display workstations, and archive systems that receive a patient record transferred from another institution. File Set Readers shall be able to read all the defined SOP Instances defined for the specific Application Profiles to which a conformance claim is made, using all the defined Transfer Syntaxes.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_B.2.1.3" shape="rect"></a>B.2.1.3 File Set Updater</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The role of File Set Updater shall be used by Application Entities that receive a transferred File Set and update it by the addition of processed information. Typical entities using this role would include analytic workstations, which for instance may add to the File Set an information object containing a processed (e.g., edge-enhanced) image frame. Stations that update patient information objects would also use this role. File-set Updaters shall be able to read and update the DICOMDIR file. File-set Updaters do not have to read the image information object. File-set Updaters shall be able to generate one or more of the SOP Instances defined for the specific Application Profiles to which a conformance claim is made, and to read and update the DICOMDIR file.</p>
+               <p>An FSU shall offer the ability to either finalize the disc at the completion of the most recent write session (no additional information can be subsequently added to the disc) or to allow multi-session (additional information may be subsequently added to the disc).</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>If the disc has not been finalized, the File-set Updater will be able to update information assuming there is enough space on the disc to write a new DICOMDIR file, the information, and the fundamental volume control structures. Volume control structures are the structures that are inherent to the standards of the physical volume; see <a href="../part12/PS3.12.html" class="olink" shape="rect">PS3.12</a>
+                  </p>
+               </div>
+               <p>The FSU role is not defined for the STD-XA1K-DVD profile.</p>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_B.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_B.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_B.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">B 1024 X-Ray Angiographic Application Profile (Normative) </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.11.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> B.3 STD-XA1K Application Profile Class Requirements</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

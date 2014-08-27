@@ -1,0 +1,735 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>HHH.3 Uses For WADO-WS, WADO-RS and STOW-RS Services</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="chapter_HHH.html" title="HHH Evolution of WADO to Web and Rest Services (Informative)" />
+      <link rel="prev" href="sect_HHH.2.html" title="HHH.2 Web and Rest Services Implementation" />
+      <link rel="next" href="sect_HHH.4.html" title="HHH.4 Uses For QIDO Services" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">HHH.3 Uses For WADO-WS, WADO-RS and STOW-RS Services</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_HHH.2.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">HHH Evolution of WADO to Web and Rest Services (Informative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_HHH.4.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_HHH.3" shape="rect"></a>HHH.3 Uses For WADO-WS, WADO-RS and STOW-RS Services</h2>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_HHH.3.1" shape="rect"></a>HHH.3.1 General Requirements</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Imaging information is important in the context of EMR/EHR. But EMR/EHR systems often do not support the DICOM protocol. The EMR/EHR vendors need access using web and web service technologies to satisfy their users.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_HHH.3.2" shape="rect"></a>HHH.3.2 Analysis of Use Cases</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Examples of use cases / clinical scenarios, as the basis to develop the requirements, include:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>Providing access to images and reports from a point-of-service application e.g., EMR.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Following references to significant images used to create an imaging report and displaying those images.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Following references / links to relevant images and imaging reports in email correspondence or clinical reports e.g., clinical summary.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Providing access to anonymized DICOM images and reports for clinical research and teaching purposes.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Providing access to a DICOM encoded imaging report associated with the DICOM IE (patient/study/series/objects) to support remote diagnostic workflows e.g., urgent medical incidents, remote consultation, clinical training, teleradiology/telemedicine applications.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Providing access to summary or selected information from DICOM objects.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Providing access to complete studies for caching, viewing, or image processing.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Storing DICOM SOP Instances using HTTP over a Network from PACS to PACS, from PACS to VNA, from VNA to VNA, from clinical application to PACS, or any other DICOM SCP.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Web clients, including mobile ones, retrieving XML and bulk data from a WADO-RS Service and adding new instances to a study.</p>
+                  </li>
+               </ul>
+            </div>
+            <p>Examples of the use cases described in 1 above are:</p>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="a">
+                  <li class="listitem">
+                     <p>The EMR displays in JPEG one image with annotations on it (patient and/or technique related), based upon information provided in a report.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>The EMR retrieves from a "Manifest" document all the referenced objects in DICOM and launches a DICOM viewer for displaying them (use case addressed by the IHE XDS-I.b profile).</p>
+                  </li>
+                  <li class="listitem">
+                     <p>The EMR displays in JPEG one image per series with information describing every series (e.g., series description).</p>
+                  </li>
+                  <li class="listitem">
+                     <p>The EMR displays in JPEG all the images of a series with information describing the series as well as every image (e.g., instance number and slice location for scanner images).</p>
+                  </li>
+                  <li class="listitem">
+                     <p>The EMR populates in its database for all the instances referred in a manifest (KOS) the relevant information (study ID/UID/AccessionNumber/Description/DateTime, series UID/Modality/Description/DateTime, instance UID/InstanceNumber/SliceLocation).</p>
+                  </li>
+                  <li class="listitem">
+                     <p>The EMR displays patient demographics and image slices in a browser by accessing studies through URLs that are cached and rendered in a remote data center.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>A hospital transfers a DICOM Study over a network to another healthcare provider without needing special ports opened in either firewall.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>A diagnostic visualization client, during post-processing, adds a series of Instances containing measurements, annotations, or reports.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>A healthcare provider transfers a DICOM Study to a Patient Health Record (PHR) at the request of the patient.</p>
+                  </li>
+               </ol>
+            </div>
+            <p>As an example, the 1c use case is decomposed in the following steps (all the other use cases can be implemented through a similar sequence of basic transactions):</p>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="A">
+                  <li class="listitem">
+                     <p>The EMR sends to the DICOM server the list of the objects ("selection"), asking for the object content.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>The DICOM server sends back the JPEG images corresponding to the listed objects.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>The EMR sends to the DICOM server the "selection" information for obtaining the relevant information about the objects retrieved.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>The DICOM server sends back the corresponding information in the form of a "metadata" document, converted in XML.</p>
+                  </li>
+               </ol>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_HHH.3.3" shape="rect"></a>HHH.3.3 Description of The Use Cases</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The use cases described above in terms of clinical scenarios correspond to the following technical implementation scenarios. In each case the use is distinguished by the capabilities of the requesting system:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>Does it prefer the URI based requests, or the web-services based requests.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Does it have the ability to decode and utilize the DICOM <a href="../part10/PS3.10.html" class="olink" shape="rect">PS3.10</a> format or not.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Does it need the metadata describing the image and its acquisition, and/or does it need an image to be displayed.</p>
+                  </li>
+               </ul>
+            </div>
+            <p>These then become the following technical use cases.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_HHH.3.3.1" shape="rect"></a>HHH.3.3.1 URI Based WADO Use Case</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="A">
+                     <li class="listitem">
+                        <p>The requesting system is Web Browser or other application that can make simple HTTP/HTTPS requests,</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Reference information is provided as URL or similar information that can be easily converted into a URL.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The request specifies:</p>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>Individual SOP Instance</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>Desired format and subset selection for information to be returned</p>
+                              </li>
+                           </ol>
+                        </div>
+                     </li>
+                     <li class="listitem">
+                        <p>The Response provides</p>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>SOP instance, reformatted and subset as requested. This may be encoded as a DICOM <a href="../part10/PS3.10.html" class="olink" shape="rect">PS3.10</a> instance, or rendered into a generic image format such as JPEG.</p>
+                              </li>
+                           </ol>
+                        </div>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_HHH.3.3.2" shape="rect"></a>HHH.3.3.2 DICOM (Encoded Content) Requester</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="A">
+                     <li class="listitem">
+                        <p>The requesting system is an application capable of making Web Service requests and able to process data encoded as a DICOM File, per DICOM <a href="../part10/PS3.10.html" class="olink" shape="rect">PS3.10</a> encodings.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Reference information may come in a wide variety of forms. It is expected to include at least the Study UID, Series UID, and Individual SOP instance information. This may be encoded as part of an HL7 reference within a CDA document, a DICOM SOP Instance reference, or other formats.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The request specifies</p>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>Requested Data set</p>
+                                 <div class="orderedlist">
+                                    <ol class="orderedlist" type="a">
+                                       <li class="listitem">
+                                          <p>Study UID</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>List of Series UID</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>List of SOP Instance UIDs</p>
+                                       </li>
+                                    </ol>
+                                 </div>
+                              </li>
+                              <li class="listitem">
+                                 <p>Optionally, it may also specify subset information</p>
+                                 <div class="orderedlist">
+                                    <ol class="orderedlist" type="a">
+                                       <li class="listitem">
+                                          <p>Instance and Frame Level Retrieve SOP classes subset information for selecting frames</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>No-pixel data request (using the Transfer Syntax parameter)</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>Anonymization</p>
+                                       </li>
+                                    </ol>
+                                 </div>
+                              </li>
+                           </ol>
+                        </div>
+                     </li>
+                     <li class="listitem">
+                        <p>The response provides</p>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>SOP Instances, encoded per DICOM <a href="../part10/PS3.10.html" class="olink" shape="rect">PS3.10</a>.</p>
+                              </li>
+                           </ol>
+                        </div>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_HHH.3.3.3" shape="rect"></a>HHH.3.3.3 Rendered (JPEG/PDF) Requester</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="A">
+                     <li class="listitem">
+                        <p>The requesting system: application capable of making Web Service requests. System is not capable of decoding DICOM <a href="../part10/PS3.10.html" class="olink" shape="rect">PS3.10</a> formats. The system is capable of processing images in JPEG or other more generic formats.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Reference information may come in a wide variety of forms. It is expected to include at least the Study UID, Series UID, and Individual SOP instance information. This may be encoded as part of an HL7 reference within a CDA document, a DICOM SOP Instance reference, or other formats.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Request information</p>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>Requested Data set</p>
+                                 <div class="orderedlist">
+                                    <ol class="orderedlist" type="a">
+                                       <li class="listitem">
+                                          <p>Study UID</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>List of Series UID</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>List of SOP Instance UIDs</p>
+                                       </li>
+                                    </ol>
+                                 </div>
+                              </li>
+                              <li class="listitem">
+                                 <p>Desired format and subset information</p>
+                                 <div class="orderedlist">
+                                    <ol class="orderedlist" type="a">
+                                       <li class="listitem">
+                                          <p>JPEG/PDF/etc. selection, subset area, presentation information</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>Frame selection for subsets of multi-frame objects</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>What should be done for requests where image shapes and SOP classes vary and a subset is requested?</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>Anonymize or not.</p>
+                                       </li>
+                                    </ol>
+                                 </div>
+                              </li>
+                           </ol>
+                        </div>
+                     </li>
+                     <li class="listitem">
+                        <p>Response information</p>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>JPEGs</p>
+                                 <div class="orderedlist">
+                                    <ol class="orderedlist" type="a">
+                                       <li class="listitem">
+                                          <p>Should JPEGs include tag information within the JPEG? If so, what information?</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>How will JPEGs be related to multi-frame and multi-instance requests? Order? Tag?</p>
+                                       </li>
+                                    </ol>
+                                 </div>
+                              </li>
+                              <li class="listitem">
+                                 <p>PDFs</p>
+                                 <div class="orderedlist">
+                                    <ol class="orderedlist" type="a">
+                                       <li class="listitem">
+                                          <p>How will PDFs be related to multi-frame and multi-instance requests? One per frame? One per instance? One for entire set?</p>
+                                       </li>
+                                    </ol>
+                                 </div>
+                              </li>
+                              <li class="listitem">
+                                 <p>Other encodings?</p>
+                              </li>
+                           </ol>
+                        </div>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_HHH.3.3.4" shape="rect"></a>HHH.3.3.4 Metadata (XML Without Pixel Data, Waveform Data, etc.) Requester</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="A">
+                     <li class="listitem">
+                        <p>The requesting system: application capable of making Web Service requests. The requesting System is not capable of decoding DICOM <a href="../part10/PS3.10.html" class="olink" shape="rect">PS3.10</a> formats. The system is capable of processing metadata that describes the image, provided that the metadata is encoded in an XML format. The system can be programmed based upon the DICOM definitions for XML encoding and attribute meanings.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Reference information may come in a wide variety of forms. It is expected to include at least the Study UID, Series UID, and Individual SOP instance information. This may be encoded as part of an HL7 reference within a CDA document, a DICOM SOP Instance reference, or other formats.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Request information</p>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>Requested Data set</p>
+                                 <div class="orderedlist">
+                                    <ol class="orderedlist" type="a">
+                                       <li class="listitem">
+                                          <p>Study UID</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>List of Series UID</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>List of SOP Instance UIDs</p>
+                                       </li>
+                                    </ol>
+                                 </div>
+                              </li>
+                              <li class="listitem">
+                                 <p>Desired format and subset information</p>
+                                 <div class="orderedlist">
+                                    <ol class="orderedlist" type="a">
+                                       <li class="listitem">
+                                          <p>XPath definition for subset or total metadata selection</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>What should be done when SOP classes vary and a subset is requested? The XPath will fail.</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>Frame selection for subsets of multi-frame objects</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>Anonymize or not.</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>Response information</p>
+                                       </li>
+                                    </ol>
+                                 </div>
+                              </li>
+                           </ol>
+                        </div>
+                     </li>
+                     <li class="listitem">
+                        <p>Response information</p>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>XML encoded metadata.</p>
+                              </li>
+                           </ol>
+                        </div>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_HHH.3.3.5" shape="rect"></a>HHH.3.3.5 DICOM Requester</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="A">
+                     <li class="listitem">
+                        <p>The requesting system is an application capable of making HTTP Service requests and able to process data encoded as a DICOM File, per DICOM <a href="../part10/PS3.10.html" class="olink" shape="rect">PS3.10</a> encodings.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Requesting information for DICOM Instances may come from a wide variety of forms. It is expected to include at least the Study UID. This may be encoded as part of an HL7 reference within a CDA document, a DICOM SOP Instance reference, or other formats.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The request specifies</p>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>Requested Data set</p>
+                                 <div class="orderedlist">
+                                    <ol class="orderedlist" type="a">
+                                       <li class="listitem">
+                                          <p>Study UID</p>
+                                       </li>
+                                    </ol>
+                                 </div>
+                              </li>
+                              <li class="listitem">
+                                 <p>Optionally, it may also specify subset information</p>
+                                 <div class="orderedlist">
+                                    <ol class="orderedlist" type="a">
+                                       <li class="listitem">
+                                          <p>Series UID</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>SOP Instance UID</p>
+                                       </li>
+                                    </ol>
+                                 </div>
+                              </li>
+                           </ol>
+                        </div>
+                     </li>
+                     <li class="listitem">
+                        <p>The response provides</p>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>SOP Instances, encoded per DICOM <a href="../part10/PS3.10.html" class="olink" shape="rect">PS3.10</a>.</p>
+                              </li>
+                           </ol>
+                        </div>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_HHH.3.3.6" shape="rect"></a>HHH.3.3.6 Frame Pixel Data Requester</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="A">
+                     <li class="listitem">
+                        <p>The requesting system is an application capable of making HTTP requests and able to process pixel data.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Requesting information for pixel data may come in a wide variety of forms. It is expected to include at least the Study UID, Series UID, Individual SOP Instance, and Frame List information. This may be encoded as part of an HL7 reference within a CDA document, a DICOM SOP Instance reference, or other formats.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The request specifies</p>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>Requested Data set</p>
+                                 <div class="orderedlist">
+                                    <ol class="orderedlist" type="a">
+                                       <li class="listitem">
+                                          <p>Study UID</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>Series UID</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>SOP Instance UID</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>Frame List comprised of one or more frame numbers</p>
+                                       </li>
+                                    </ol>
+                                 </div>
+                              </li>
+                           </ol>
+                        </div>
+                     </li>
+                     <li class="listitem">
+                        <p>The response provides pixel data</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_HHH.3.3.7" shape="rect"></a>HHH.3.3.7 Bulk Data Requester</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="A">
+                     <li class="listitem">
+                        <p>The requesting system is an application capable of making HTTP requests and able to process bulk data.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Requesting information for bulk data may come in a wide variety of forms. It is expected to include the Bulk Data URL as provided by the RetrieveMetadata resource. This may be encoded as part of an HL7 reference within a CDA document, a DICOM SOP Instance reference, or other formats.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The request specifies</p>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>Requested Data set</p>
+                                 <div class="orderedlist">
+                                    <ol class="orderedlist" type="a">
+                                       <li class="listitem">
+                                          <p>Bulk Data URL</p>
+                                       </li>
+                                    </ol>
+                                 </div>
+                              </li>
+                           </ol>
+                        </div>
+                     </li>
+                     <li class="listitem">
+                        <p>The response provides bulk data</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_HHH.3.3.8" shape="rect"></a>HHH.3.3.8 Metadata Requester</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="A">
+                     <li class="listitem">
+                        <p>The requesting system is an application capable of making HTTP requests and able to process data encoded as a XML, per DICOM <a href="../part19/PS3.19.html" class="olink" shape="rect">PS3.19</a> encodings.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The Study UID may be obtained as part of an HL7 reference within a CDA document, a DICOM SOP Instance reference, or other formats.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Request information</p>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>Requested Data set</p>
+                                 <div class="orderedlist">
+                                    <ol class="orderedlist" type="a">
+                                       <li class="listitem">
+                                          <p>Study UID</p>
+                                       </li>
+                                    </ol>
+                                 </div>
+                              </li>
+                           </ol>
+                        </div>
+                     </li>
+                     <li class="listitem">
+                        <p>The response provides full study metadata encoded in XML, encoded per DICOM <a href="../part19/PS3.19.html" class="olink" shape="rect">PS3.19</a>.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_HHH.3.3.9" shape="rect"></a>HHH.3.3.9 DICOM Creator</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="A">
+                     <li class="listitem">
+                        <p>The requesting system is an application capable of making HTTP/1.1 Service requests and able to process data encoded as <a href="../part10/PS3.10.html" class="olink" shape="rect">PS3.10</a> binary instances.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The request specifies</p>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>The STOW-RS Service to store POST requests.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>Optionally, it may also specify Study Instance UID indicating all POST requests are for the indicated study.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>SOP Instances, per DICOM <a href="../part10/PS3.10.html" class="olink" shape="rect">PS3.10</a> encoding.</p>
+                              </li>
+                           </ol>
+                        </div>
+                     </li>
+                     <li class="listitem">
+                        <p>The response is a standard HTTP/1.1 status line and an XML response message body. The meaning of the success, warning, or failure statuses are defined in <a href="../part18/PS3.18.html" class="olink" shape="rect">PS3.18</a>.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_HHH.3.3.10" shape="rect"></a>HHH.3.3.10 Metadata and Bulk Data Creator</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="A">
+                     <li class="listitem">
+                        <p>The requesting system is an application capable of making HTTP/1.1 requests and able to process data encoded as <a href="../part19/PS3.19.html" class="olink" shape="rect">PS3.19</a> XML metadata.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The request specifies</p>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>The STOW-RS Service to store POST requests.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>Optionally, it may also specify Study Instance UID indicating all POST requests are for the indicated study.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>XML metadata, per DICOM <a href="../part19/PS3.19.html" class="olink" shape="rect">PS3.19</a> encodings, and bulk data.</p>
+                              </li>
+                           </ol>
+                        </div>
+                     </li>
+                     <li class="listitem">
+                        <p>The response is a standard HTTP/1.1 status line and an XML response message body. The meaning of the success, warning, or failure statuses are defined in <a href="../part18/PS3.18.html" class="olink" shape="rect">PS3.18</a>.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_HHH.2.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_HHH.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_HHH.4.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">HHH.2 Web and Rest Services Implementation </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> HHH.4 Uses For QIDO Services</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

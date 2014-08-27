@@ -1,0 +1,583 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>HHH.4 Uses For QIDO Services</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="chapter_HHH.html" title="HHH Evolution of WADO to Web and Rest Services (Informative)" />
+      <link rel="prev" href="sect_HHH.3.html" title="HHH.3 Uses For WADO-WS, WADO-RS and STOW-RS Services" />
+      <link rel="next" href="sect_HHH.5.html" title="HHH.5 IHE ITI Compatibility" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">HHH.4 Uses For QIDO Services</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_HHH.3.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">HHH Evolution of WADO to Web and Rest Services (Informative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_HHH.5.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_HHH.4" shape="rect"></a>HHH.4 Uses For QIDO Services</h2>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_HHH.4.1" shape="rect"></a>HHH.4.1 General Requirements</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Imaging information is important in the context of EMR/EHR. But EMR/EHR systems often do not support DICOM service classes. The EMR/EHR vendors need access using web and web service technologies to satisfy their users.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_HHH.4.2" shape="rect"></a>HHH.4.2 Analysis of Use Cases</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Examples of use cases / clinical scenarios, used as the basis for the development of the QIDO-RS requirements, include:</p>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="a">
+                  <li class="listitem">
+                     <p>Search from EMR</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Populating FHIR resources</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Worklist in Viewer</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Study Import Duplication Check</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Multiple System Query</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Clinical Reconstruction</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Mobile Device Access</p>
+                  </li>
+               </ol>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_HHH.4.2.1" shape="rect"></a>HHH.4.2.1 Search From EMR</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>A General Practitioner (GP) in a clinic would like to check for imaging studies for the current patient. These studies are stored in a PACS, Vendor Neutral Archive (VNA) or HIE that supports QIDO functionality. The GP launches an Electronic Medical Record (EMR) application, and keys in the patient demographics to search for the patient record within the EMR. Once the record is open, the EMR, using QIDO, makes requests to the back-end systems, supplying Patient ID (including issuer) and possibly other parameters (date of birth, date range, modality, etc.). That system returns the available studies along with meta-data for each study that will help the GP select the study to open. The meta-data would include, but is not limited to, Study Description, Study Date, Modality, and Referring Physician.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_HHH.4.2.2" shape="rect"></a>HHH.4.2.2 Populating FHIR Resources</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>HL7 has introduced FHIR (Fast Healthcare Interoperability Resources) as a means of providing access to healthcare informatics information using RESTful web services.</p>
+               <p>While FHIR will not replicate the information contained in a PACS or other medical imaging storage system, it is desirable for FHIR to present a view of the medical imaging studies available for a particular patient along with the means of retrieving the imaging data using other RESTful services.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_HHH.4.2.3" shape="rect"></a>HHH.4.2.3 Worklist in Viewer</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>A Radiologist, is reading studies in the office, using software that maintains diagnostic orders for the facility. This system produces the radiology worklist of studies to be read and provides meta-data about each scheduled procedure, including the Study Instance UID. When the next study is selected to be read on the worklist, the system, using the Study Instance UID, makes a QIDO request to the local archive to discover the instances and relevant study meta-data associated with the procedure to display. Subsequent QIDO requests are made to the local archive and to connected VNA archives to discover candidate relevant prior studies for that patient.</p>
+               <p>For each candidate relevant prior, the full study metadata will be retrieved using WADO-RS and processed to generate the list of relevant priors.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_HHH.4.2.4" shape="rect"></a>HHH.4.2.4 Multiple Systems Query</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>A Radiologist is working in a satellite clinic, which has a system with QIDO functionality and small image cache. The main hospital with which the clinic is affiliated has a system with QIDO functionality and a large historical image archive or VNA. The viewing software displays a worklist of patients, and a study is selected for viewing. The viewer checks for prior studies, by making QIDO requests to both the local cache and remote archive using the Patient ID, Name and Date of Birth, if available. If the Patient Identifier isn't available, other means (such as by other demographics, or a Master Patient Index) could be utilized. Any studies that meet relevant prior criteria can be pre-fetched.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_HHH.4.2.5" shape="rect"></a>HHH.4.2.5 Clinical Reconstruction</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>A Neurologist is preparing a surgical plan for a patient with a brain tumor using three-dimensional reconstruction software, which takes CT images and builds a 3D model of various structures. After supplying the patient demographics (or Patient Identifier), the software requests a list of appropriate studies for reconstruction (based on Study Date, Body Region and Modality). Once the user has selected a study and series, the software contacts the QIDO server again, requesting the SOP Instance UIDs of all images of a certain thickness (specified in specific DICOM tags) and frame of reference to be returned. The software then uses this information to retrieve, using the WADO-RS service, the appropriate DICOM objects needed to prepare the rendered volume for display.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_HHH.4.2.6" shape="rect"></a>HHH.4.2.6 Mobile Device Access</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>A General Practitioner (GP) has left the medical ward for a few hours, and is paged with a request to look at a patient X-Ray image in order to grant a discharge. The GP carries a smart phone that has been pre-loaded with credentials and secured. The device makes a QIDO request to the server, to look for studies from the last hour that list the GP as the Referring Physician. The GP is able to retrieve and view the matching studies, and can make a determination whether to return to the ward for further review or to sign the discharge order using the phone.</p>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_HHH.4.3" shape="rect"></a>HHH.4.3 Description of The Use Cases</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The use cases described above in terms of clinical scenarios correspond to the following technical implementation scenarios. In each case the use is distinguished by the capabilities of the requesting system:</p>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="a">
+                  <li class="listitem">
+                     <p>Does it prefer XML or JSON results?</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Does it need to perform searches at the Series and Instance level or can it process the full Study metadata?</p>
+                  </li>
+                  <li class="listitem">
+                     <p>What attributes does it need to search against?</p>
+                  </li>
+                  <li class="listitem">
+                     <p>What attributes does it need for each matching Study, Series or Composite Instance?</p>
+                  </li>
+               </ol>
+            </div>
+            <p>These questions can be applied to the use cases:</p>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="a">
+                  <li class="listitem">
+                     <p>Search from EMR</p>
+                     <div class="orderedlist">
+                        <ol class="orderedlist" type="1">
+                           <li class="listitem">
+                              <p>JSON or XML</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Study</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Study Instance UID, Patient ID</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Accession Number, Issuer of Accession Number, Study Description, Study Date, Modality, Number of Series, Number of Instances</p>
+                           </li>
+                        </ol>
+                     </div>
+                  </li>
+                  <li class="listitem">
+                     <p>Populating FHIR resources</p>
+                     <div class="orderedlist">
+                        <ol class="orderedlist" type="1">
+                           <li class="listitem">
+                              <p>JSON or XML</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Study, Series and Instance</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Patient ID and Issuer of Patient ID</p>
+                           </li>
+                           <li class="listitem">
+                              <p>All attributes required by the FHIR Imaging Study Resource (see <a class="link" href="http://www.hl7.org/implement/standards/fhir/imagingstudy.htm" target="_top" shape="rect">http://www.hl7.org/implement/standards/fhir/imagingstudy.htm</a>)</p>
+                           </li>
+                        </ol>
+                     </div>
+                  </li>
+                  <li class="listitem">
+                     <p>Worklist in Viewer</p>
+                     <div class="orderedlist">
+                        <ol class="orderedlist" type="1">
+                           <li class="listitem">
+                              <p>JSON or XML</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Study</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Study Instance UID, Patient ID, Issuer of Patient ID</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Series Instance UIDs, SOP Instance UIDs, patient demographics, Study Description, Study Date, Modality, Referring Physician</p>
+                           </li>
+                        </ol>
+                     </div>
+                  </li>
+                  <li class="listitem">
+                     <p>Study Import Duplication Check</p>
+                     <div class="orderedlist">
+                        <ol class="orderedlist" type="1">
+                           <li class="listitem">
+                              <p>JSON or XML</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Study</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Study Instance UID, Series Instance UID, SOP Instance UID</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Study Instance UID</p>
+                           </li>
+                        </ol>
+                     </div>
+                  </li>
+                  <li class="listitem">
+                     <p>Multiple System Query</p>
+                     <div class="orderedlist">
+                        <ol class="orderedlist" type="1">
+                           <li class="listitem">
+                              <p>JSON or XML</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Study</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Patient ID, Issuer of Patient ID, Patient Name, Patient Date of Birth</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Study Instance UID, Accession Number, Study Description, Study Date, Modalities in Study</p>
+                           </li>
+                        </ol>
+                     </div>
+                  </li>
+                  <li class="listitem">
+                     <p>Clinical Reconstruction</p>
+                     <div class="orderedlist">
+                        <ol class="orderedlist" type="1">
+                           <li class="listitem">
+                              <p>JSON or XML</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Study, Series, Instance</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Study Instance UID, Series Instance UID</p>
+                           </li>
+                           <li class="listitem">
+                              <p>SOP Instance UID, Image Instance Level Attributes</p>
+                           </li>
+                        </ol>
+                     </div>
+                  </li>
+                  <li class="listitem">
+                     <p>Mobile Device Access</p>
+                     <div class="orderedlist">
+                        <ol class="orderedlist" type="1">
+                           <li class="listitem">
+                              <p>JSON</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Study, Series and Instance</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Patient ID, Issuer of Patient ID, Patient Name, Patient Date of Birth, Study Date, Referring Physician</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Instance Date/time, Modalities in Study</p>
+                           </li>
+                        </ol>
+                     </div>
+                  </li>
+               </ol>
+            </div>
+            <p>These then become the following technical use cases.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_HHH.4.3.1" shape="rect"></a>HHH.4.3.1 XML Study Search Use Case</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="A">
+                     <li class="listitem">
+                        <p>The requesting web-based application can make QIDO-RS requests, parse XML and then make WADO-RS requests</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The request specifies:</p>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>Multipart XML</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>Search parameters, including:</p>
+                                 <div class="orderedlist">
+                                    <ol class="orderedlist" type="a">
+                                       <li class="listitem">
+                                          <p>Patient ID</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>Issuer of Patient ID</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>Patient Name</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>Study Description</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>Study Date</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>Modalities in Study</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>Referring Physician</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>etc.</p>
+                                       </li>
+                                    </ol>
+                                 </div>
+                              </li>
+                           </ol>
+                        </div>
+                     </li>
+                     <li class="listitem">
+                        <p>The Response provides</p>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>One <a href="../part19/PS3.19.html" class="olink" shape="rect">PS3.19</a> XML NativeDicomModel element for each matching Study</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>All requested DICOM attributes for each matching Study</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>WADO-RS Retrieve URL for each matching Study</p>
+                              </li>
+                           </ol>
+                        </div>
+                     </li>
+                     <li class="listitem">
+                        <p>The requesting system identifies the Studies of interest and uses WADO-RS to retrieve data</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_HHH.4.3.2" shape="rect"></a>HHH.4.3.2 XML Study, Series and Instance Search Use Case</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="A">
+                     <li class="listitem">
+                        <p>The requesting system is a simple web-based application that can make QIDO-RS requests and parse XML and then make WADO URL requests</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The request specifies:</p>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>Multipart XML</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>Search parameters, including:</p>
+                                 <div class="orderedlist">
+                                    <ol class="orderedlist" type="a">
+                                       <li class="listitem">
+                                          <p>Patient ID</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>Issuer of Patient ID</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>Patient Name</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>Patient Date of Birth</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>Study Description</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>Study Date</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>Modalities in Study</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>Referring Physician</p>
+                                       </li>
+                                    </ol>
+                                 </div>
+                              </li>
+                           </ol>
+                        </div>
+                     </li>
+                     <li class="listitem">
+                        <p>The Response provides</p>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>One <a href="../part19/PS3.19.html" class="olink" shape="rect">PS3.19</a> XML NativeDicomModel element for each matching Study</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>All requested DICOM attributes for each matching Study</p>
+                              </li>
+                           </ol>
+                        </div>
+                     </li>
+                     <li class="listitem">
+                        <p>The requesting system identifies the Study of interest and uses Search For Series to identify a series of interest</p>
+                     </li>
+                     <li class="listitem">
+                        <p>[repeat B-D for Series, Instance]</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The requesting system uses WADO URL to retrieve specific instances</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_HHH.4.3.3" shape="rect"></a>HHH.4.3.3 JSON Use Case</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="A">
+                     <li class="listitem">
+                        <p>The requesting system is a mobile application that can make QIDO-RS requests, parse JSON and then make WADO URL requests.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The request specifies:</p>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>JSON</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>Search parameters, including:</p>
+                                 <div class="orderedlist">
+                                    <ol class="orderedlist" type="a">
+                                       <li class="listitem">
+                                          <p>Patient ID</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>Issuer of Patient ID</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>Patient Name</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>Patient Date of Birth</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>Study Description</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>Study Date</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>Modalities in Study</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>Referring Physician</p>
+                                       </li>
+                                    </ol>
+                                 </div>
+                              </li>
+                           </ol>
+                        </div>
+                     </li>
+                     <li class="listitem">
+                        <p>The Response provides</p>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>One DICOM JSON element containing all matching Studies</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>All requested DICOM attributes for each matching Study</p>
+                              </li>
+                           </ol>
+                        </div>
+                     </li>
+                     <li class="listitem">
+                        <p>The requesting system identifies the Study of interest and uses Search For Series to identify a series of interest</p>
+                     </li>
+                     <li class="listitem">
+                        <p>[repeat B-D for Series, Instance]</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The requesting system uses WADO URL to retrieve specific instances</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_HHH.3.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_HHH.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_HHH.5.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">HHH.3 Uses For WADO-WS, WADO-RS and STOW-RS Services </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> HHH.5 IHE ITI Compatibility</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

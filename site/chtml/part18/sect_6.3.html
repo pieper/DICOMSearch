@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>6.3 WADO-URI Response</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.18.html" title="PS3.18" />
+      <link rel="up" href="chapter_6.html" title="6 Data Communication Requirements" />
+      <link rel="prev" href="sect_6.2.html" title="6.2 WADO-URI Request" />
+      <link rel="next" href="sect_6.4.html" title="6.4 WADO-WS Request/Response" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">6.3 WADO-URI Response</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_6.2.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">6 Data Communication Requirements</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_6.4.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_6.3" shape="rect"></a>6.3 WADO-URI Response</h2>
+               </div>
+            </div>
+         </div>
+         <p>The response shall be an HTTP Response Message as specified in IETF RFC2616.</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <p>The content of the message-body varies according to the Media type as defined below.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_6.3.1" shape="rect"></a>6.3.1 Body of Single DICOM MIME Sub-type Part Response</h3>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_6.3.1.1" shape="rect"></a>6.3.1.1 MIME Type</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The MIME type shall be 'application/dicom', as specified in IETF RFC3240.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_6.3.1.2" shape="rect"></a>6.3.1.2 Content</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The body content shall be a "Part 10 File" that includes a meta-header as defined in <a href="../part10/PS3.10.html" class="olink" shape="rect">PS3.10</a>.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_6.3.1.3" shape="rect"></a>6.3.1.3 Transfer Syntax</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The returned DICOM object shall be encoded using one of the transfer syntaxes specified in the transfer syntax query parameter as defined in <a class="xref" href="sect_8.2.1.html#sect_8.2.11" title="8.2.11 Transfer Syntax UID" shape="rect">Section 8.2.11</a> below. By default, the transfer syntax shall be "Explicit VR Little Endian".</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>This implies that retrieved images are sent uncompressed by default.</p>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_6.3.2" shape="rect"></a>6.3.2 Body of Non-DICOM MIME Type Response</h3>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_6.3.2.1" shape="rect"></a>6.3.2.1 MIME Type</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The MIME type shall be one on the MIME types defined in the contentType parameter, preferably the most desired by the Web Client, and shall be in any case compatible with the 'Accept' field of the GET method.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>The HTTP behavior is that an error (406 - Not Acceptable) is returned if the required content type cannot be served.</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_6.3.2.2" shape="rect"></a>6.3.2.2 Content</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The content shall be a single MIME part containing the object to be retrieved.</p>
+               <p>Note: Multiple objects in a response are not supported by this standard. The parameters select only a single object to retrieve. Most current Web Clients are able to retrieve single objects, within a "non multipart" MIME body, and are not able to support multipart/related or multipart/mixed responses.</p>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_6.2.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_6.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_6.4.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">6.2 WADO-URI Request </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.18.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 6.4 WADO-WS Request/Response</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

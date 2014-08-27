@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>PP.3 3D Ultrasound Solutions in DICOM</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="chapter_PP.html" title="PP 3D Ultrasound Volumes (Informative)" />
+      <link rel="prev" href="sect_PP.2.html" title="PP.2 3D Ultrasound Clinical Use Cases" />
+      <link rel="next" href="chapter_QQ.html" title="QQ Enhanced US Data Type Blending Examples (Informative)" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">PP.3 3D Ultrasound Solutions in DICOM</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_PP.2.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">PP 3D Ultrasound Volumes (Informative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_QQ.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_PP.3" shape="rect"></a>PP.3 3D Ultrasound Solutions in DICOM</h2>
+               </div>
+            </div>
+         </div>
+         <p>This section maps the use case hierarchy in <a class="xref" href="sect_PP.2.html#sect_PP.2.2" title="PP.2.2 Hierarchy of Use Cases" shape="rect">Section PP.2.2</a> to specific solutions in the DICOM Standard. As described in items 1a and 1b, there are two different types of data related to 3D image acquisition: the 3D volume data set itself and 2D images derived from the volume data set. See <a class="xref" href="sect_PP.3.html#figure_PP.3-1" title="Figure PP.3-1. Types of 3D Ultrasound Source and Derived Images" shape="rect">Figure PP.3-1</a>.</p>
+         <p>
+        </p>
+         <div class="figure">
+            <a id="figure_PP.3-1" shape="rect"></a>
+            <div class="figure-contents">
+               <div class="mediaobject">
+                  <img src="figures/PS3.17_PP.3-1.svg" alt="Types of 3D Ultrasound Source and Derived Images" />
+               </div>
+            </div>
+            <p class="title">
+               <strong>Figure PP.3-1. Types of 3D Ultrasound Source and Derived Images</strong>
+            </p>
+         </div>
+         <p>
+            <br class="figure-break" clear="none" />
+         </p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_PP.3.1" shape="rect"></a>PP.3.1 3D Volume Data sets</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The 3D volume data set is conveyed via the Enhanced US Volume SOP Class, which represents individual 3D Volume Data sets or collections of temporally-related 3D Volume Data sets using the 'enhanced' multi-frame features used by Enhanced Storage SOP Classes for other modalities, including shared and per-frame functional group sequences and multi-frame dimensions. The 3D Volume Data sets represented by the Enhanced Ultrasound IOD (the striped box in <a class="xref" href="sect_PP.3.html#figure_PP.3-1" title="Figure PP.3-1. Types of 3D Ultrasound Source and Derived Images" shape="rect">Figure PP.3-1</a>) are suitable for Multi-Planar Reconstruction (MPR) and 3D rendering operations. Note that the generation of the Cartesian volume, its relationship to spatially-related 2D frames (whether the volume was created from spatially-related frames, or spatially-related frames extracted from the Cartesian volume), and the algorithms used for MPR or 3D rendering operations are outside the scope of this standard.</p>
+            <p>Functional Group Macros allow the storage of many parameters describing the acquisition and positioning of the image planes relative to the patient and external frame of references (such as a gantry or probe locating device). These macros may apply to the entire instance (Shared Functional Group) or may vary frame-to-frame (Per-Frame Functional Group).</p>
+            <p>Multi-frame Dimensions are used to organize the data type, spatial, and temporal variations among frames. Of particular interest is Data Type used as a dimension to relate frames of different data types (like tissue and flow) comprising each plane of an ultrasound image (item 1c in the use case hierarchy). Refer to <a href="../part03/sect_C.8.html#sect_C.8.24.3.3" class="olink" shape="rect">Section C.8.24.3.3</a> for the use of Dimensions with the Enhanced US Volume SOP Class.</p>
+            <p>Sets of temporally-related volumes may have been acquired sequentially or acquired asynchronously and reassembled into a temporal sequence, such as through Spatial-Temporal Image Correlation (STIC). Regardless of how the temporal volume sequence was acquired, frames in the resultant volumes are marked with a temporal position value, such as Temporal Position Time Offset (0020,930D) indicating the temporal position of the resultant volumes independent of the time sequence of the acquisition prior to reassembly into volumes.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_PP.3.2" shape="rect"></a>PP.3.2 2D Derived Images</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The 2D image types represent collections of frames that are related to or derived from the volume data set, namely Render Views (projections), separate Multi-Planar Reconstruction (MPR) views, or sets of spatially-related source frames, either parallel or oblique (the cross-hatched images in <a class="xref" href="sect_PP.3.html#figure_PP.3-1" title="Figure PP.3-1. Types of 3D Ultrasound Source and Derived Images" shape="rect">Figure PP.3-1</a>). The Ultrasound Image and Ultrasound Multi-frame Image IODs are used to represent these related or derived 2D images. The US Image Module for the Ultrasound Image Storage and Ultrasound Multi-frame Image Storage SOP Classes have defined terms for "3D Rendering" (render or MPR views) and "Spatially Related Frames" in value 4 of the Image Type (0008,0008) attribute to specify that the object contains these views while maintaining backwards compatibility with Ultrasound review applications for frame-by-frame display, which may be displayed sequentially ("fly-through" or temporal) loop display or as a side-by-side ("light-box") display of spatially-related slices. Also, the
+        optional Source Image Sequence (0008,2112) and Derivation Code Sequence (0008,9215) attributes may be included to more succinctly specify the type of image contained in the instance and the 3D Volume Data set from which it was derived.</p>
+            <p>2D Derived image instances should be linked to the source 3D Volume Data set through established DICOM reference mechanisms. This is necessary to support the "Two-Stage Review" use case. Consider the following examples:</p>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="1">
+                  <li class="listitem">
+                     <p>In the case of a 3D Volume Data set created from a set of spatially-related frames within the ultrasound scanner,</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: disc; ">
+                           <li class="listitem">
+                              <p>the Enhanced US Volume instance should include</p>
+                              <div class="orderedlist">
+                                 <ol class="orderedlist" type="a">
+                                    <li class="listitem">
+                                       <p>Referenced Image Sequence (0008,1140) to the source Ultrasound Image and/or Multi-frame Image instances</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>Referenced Image Purpose of Reference Code Sequence (0040,A170) using (121346, DCM, "Acquisition frames corresponding to volume")</p>
+                                    </li>
+                                 </ol>
+                              </div>
+                           </li>
+                           <li class="listitem">
+                              <p>and the Ultrasound Image and/or Multi-frame Image instances should include:</p>
+                              <div class="orderedlist">
+                                 <ol class="orderedlist" type="a">
+                                    <li class="listitem">
+                                       <p>Referenced Image Sequence (0008,1140) to the 3D Volume Data set</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>Referenced Image Purpose of Reference Code Sequence (0040,A170) using (121347, DCM, "Volume corresponding to spatially-related acquisition frames")</p>
+                                    </li>
+                                 </ol>
+                              </div>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li class="listitem">
+                     <p>In the case of an Ultrasound Image or Ultrasound Multi-frame Image instance containing one or more of the spatially-related frames derived from a 3D volume data set, the ultrasound image instance should include:</p>
+                     <div class="orderedlist">
+                        <ol class="orderedlist" type="a">
+                           <li class="listitem">
+                              <p>Source Image Sequence (0008,2112) referencing the Enhanced US Volume instance</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Source Image Sequence Purpose of Reference Code Sequence (0040,A170) using (121322, DCM, "Source of Image Processing Operation")</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Derivation Code Sequence (0008,9215) using (113091, DCM, "Spatially-related frames extracted from the volume")</p>
+                           </li>
+                        </ol>
+                     </div>
+                  </li>
+                  <li class="listitem">
+                     <p>In the case of separate MPR or 3D rendered views derived from a 3D Volume Data set, the image instance(s) should include:</p>
+                     <div class="orderedlist">
+                        <ol class="orderedlist" type="a">
+                           <li class="listitem">
+                              <p>Source Image Sequence (0008,2112) referencing the Enhanced US Volume instance</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Source Image Sequence Purpose of Reference Code Sequence (0040,A170) using (121322, DCM, "Source of Image Processing Operation")</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Derivation Code Sequence (0008,9215) using <a href="../part16/sect_CID_7203.html" class="olink" shape="rect">CID 7203 “Image Derivation”</a> code(s) describing the specific derivation operation(s)</p>
+                           </li>
+                        </ol>
+                     </div>
+                  </li>
+               </ol>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_PP.3.3" shape="rect"></a>PP.3.3 Physiological Waveforms Associated With 3D Volume Data sets</h3>
+                  </div>
+               </div>
+            </div>
+            <p>ECG or other physiological waveforms associated with an Enhanced US Volume (item 1d in the use case hierarchy) are to be conveyed via a one or more companion instances of Waveform IODs linked bidirectionally to the Enhanced US Volume instance. Physiological waveforms associated with Ultrasound image acquisition may be represented using any of the Waveform IODs, and are linked with the Enhanced US Volume instance and to other simultaneous waveforms through the Referenced Instance Sequence in the image instance and each waveform instance. The Synchronization module and the Acquisition DateTime attribute (0018,1800) are used to synchronize the waveforms with the image and each other.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_PP.3.4" shape="rect"></a>PP.3.4 Workflow Considerations</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The use case of two-step review (item 2a in the use case hierarchy) is addressed by the use of separate SOP Classes for 2D and 3D data representations. A review may initially be performed on the Ultrasound Image and Ultrasound Multi-frame image instances created during the study. If additional operations on the 3D volume data set are desired, the Enhanced US Volume instance referenced in the Source Image Sequence of the derived object may be individually retrieved and operated upon by an appropriate application.</p>
+            <p>The 3D volume data set spatially relates individual frames of the image to each other using the Transducer Frame of Reference defined in <a href="../part03/sect_C.8.html#sect_C.8.24.2" class="olink" shape="rect">Section C.8.24.2 in <span class="olinkdocname">PS3.3</span>
+               </a> (items 2b in the use case hierarchy). This permits alignment of frames with each other in the common situation where a hand-held ultrasound transducer is used without an external frame of reference. However, the Transducer Frame of Reference may in turn be related to an external Frame of Reference through the Transducer Gantry Position and Transducer Gantry Orientation attributes. This would permit the creation of optional Image Position and Orientation values relative to the Patient when this information is available. In addition to these frames of reference, the spatial registration, fiducials, segmentation, and deformation objects available for other Enhanced objects may also be used with the Enhanced US Volume instances.</p>
+            <p>The Key Object Selection Document SOP Class may be used to identify specific Enhanced US Volume instances of particular interest (item 2d in the use case hierarchy).</p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_PP.2.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_PP.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_QQ.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">PP.2 3D Ultrasound Clinical Use Cases </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> QQ Enhanced US Data Type Blending Examples (Informative)</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

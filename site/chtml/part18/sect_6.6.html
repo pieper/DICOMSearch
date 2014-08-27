@@ -1,0 +1,1000 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>6.6 STOW-RS Request/Response</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.18.html" title="PS3.18" />
+      <link rel="up" href="chapter_6.html" title="6 Data Communication Requirements" />
+      <link rel="prev" href="sect_6.5.html" title="6.5 WADO-RS Request/Response" />
+      <link rel="next" href="sect_6.7.html" title="6.7 QIDO-RS Request/Response" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">6.6 STOW-RS Request/Response</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_6.5.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">6 Data Communication Requirements</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_6.7.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_6.6" shape="rect"></a>6.6 STOW-RS Request/Response</h2>
+               </div>
+            </div>
+         </div>
+         <p>The STOW-RS Service defines one action type. An implementation shall support the following action type:</p>
+         <div class="orderedlist">
+            <ol class="orderedlist" type="1">
+               <li class="listitem">
+                  <p>Store Instances</p>
+                  <p>This action creates new resources for the given SOP Instances on the Server or appends to existing resources on the Server.</p>
+               </li>
+            </ol>
+         </div>
+         <p>All request messages are HTTP/1.1 multipart messages. The organization of SOP Instances into message parts depends on whether the SOP Instances are structured as <a href="../part10/PS3.10.html" class="olink" shape="rect">PS3.10</a> binary instances, or metadata and bulk data.</p>
+         <p>
+            <a href="../part10/PS3.10.html" class="olink" shape="rect">PS3.10</a> binary instances shall be encoded with one message part per DICOM Instance.</p>
+         <p>Metadata and bulk data requests will be encoded in the following manner:(see <a class="xref" href="sect_6.5.html#figure_6.5-1" title="Figure 6.5-1. Mapping between IOD and HTTP message parts" shape="rect">Figure 6.5-1 Mapping between IOD and HTTP message parts</a>):</p>
+         <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+               <li class="listitem">
+                  <p>All XML request messages shall be encoded as described in the Native DICOM Model defined in <a href="../part19/PS3.19.html" class="olink" shape="rect">PS3.19</a> with one message part per XML object.</p>
+               </li>
+               <li class="listitem">
+                  <p>All JSON requests shall be encoded as an array of DICOM JSON Model Objects defined in <a class="xref" href="chapter_F.html" title="F DICOM JSON Model" shape="rect"> Annex F</a>.</p>
+               </li>
+               <li class="listitem">
+                  <p>Uncompressed bulk and pixel data shall be encoded in a Little Endian format using the application/octet-stream media type with one message part per bulk data item.</p>
+               </li>
+               <li class="listitem">
+                  <p>Compressed pixel data shall be encoded in one of two ways:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: circle; ">
+                        <li class="listitem">
+                           <p>Single-frame pixel data encoded using a single-frame media type (one message part)</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Multi-frame or video pixel data encoded using a multi-frame media type (multiple frames in one message part)</p>
+                        </li>
+                     </ul>
+                  </div>
+               </li>
+            </ul>
+         </div>
+         <p>Compressed pixel data shall be encoded using the Media Types as described in <a class="xref" href="sect_6.5.html#table_6.5-1" title="Table 6.5-1. Media Type Mapping to Transfer Syntax" shape="rect">Table 6.5-1</a> WADO-RS Media Type Mapping to Transfer Syntax UID. Media Types corresponding to several DICOM Transfer Syntax UIDs may require a transfer-syntax parameter to disambiguate the request.</p>
+         <p>HTTP Request field Content-Type is used in the header lines by the client in an HTTP/1.1 transaction to indicate the type of data being sent to the Service. All lines are RFC822 or RFC2616 format headers. All HTTP header fields whose use is not defined by STOW-RS shall have the meaning defined by the HTTP standard.</p>
+         <p>The Service is required to support uncompressed bulk and pixel data (multipart/related; type= application/octet-stream).</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_6.6.1" shape="rect"></a>6.6.1 STOW-RS - Store Instances</h3>
+                  </div>
+               </div>
+            </div>
+            <p>This action stores one or more DICOM instances associated with one or more study instance unique identifiers (SUID). The request message can be DICOM or metadata and bulk data depending on the"Content-Type", and is encapsulated in a multipart request body.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_6.6.1.1" shape="rect"></a>6.6.1.1 Request</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The specific Service resource to be used for the Store Instances action shall be as follows:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>Resource</p>
+                        <div class="itemizedlist">
+                           <ul class="itemizedlist" style="list-style-type: circle; ">
+                              <li class="listitem">
+                                 <p>{SERVICE}/studies[/{StudyInstanceUID}], where</p>
+                                 <div class="itemizedlist">
+                                    <ul class="itemizedlist" style="list-style-type: square; ">
+                                       <li class="listitem">
+                                          <p>{SERVICE} is the base URL for the service. This may be a combination of scheme (either HTTP or HTTPS), host, port, and application.</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>{StudyInstanceUID} (optional) is the study instance UID for a single study. If not specified, instances can be from multiple studies. If specified, all instances shall be from that study; instances not matching the StudyInstanceUID shall be rejected.</p>
+                                       </li>
+                                    </ul>
+                                 </div>
+                              </li>
+                           </ul>
+                        </div>
+                     </li>
+                     <li class="listitem">
+                        <p>Method</p>
+                        <div class="itemizedlist">
+                           <ul class="itemizedlist" style="list-style-type: circle; ">
+                              <li class="listitem">
+                                 <p>POST</p>
+                              </li>
+                           </ul>
+                        </div>
+                     </li>
+                     <li class="listitem">
+                        <p>Headers</p>
+                        <div class="itemizedlist">
+                           <ul class="itemizedlist" style="list-style-type: circle; ">
+                              <li class="listitem">
+                                 <p>Content-Type - The representation scheme being posted to the RESTful service. The types allowed for this request header are as follows:</p>
+                                 <div class="itemizedlist">
+                                    <ul class="itemizedlist" style="list-style-type: square; ">
+                                       <li class="listitem">
+                                          <p>multipart/related; type=application/dicom; boundary={messageBoundary}</p>
+                                          <p>Specifies that the post is <a href="../part10/PS3.10.html" class="olink" shape="rect">PS3.10</a> binary instances. All STOW-RS providers must accept this Content-Type.</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>multipart/related; type=application/dicom+xml; boundary={messageBoundary}</p>
+                                          <p>Specifies that the post is <a href="../part19/PS3.19.html" class="olink" shape="rect">PS3.19</a> XML metadata and bulk data. All STOW-RS providers must accept this Content-Type.</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>multipart/related; type=application/json; boundary={messageBoundary}</p>
+                                          <p>Specifies that the post is DICOM JSON metadata and bulk data. A STOW-RS provider may optionally accept this Content-Type.</p>
+                                       </li>
+                                    </ul>
+                                 </div>
+                              </li>
+                           </ul>
+                        </div>
+                     </li>
+                  </ul>
+               </div>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>It is not necessary that the study referenced by the StudyInstanceUID in the resource (and in the provided instances) exists on the server, however it is necessary that it be a valid UID. The client may have obtained an appropriate UID from elsewhere or generated it as described in <a href="../part05/chapter_9.html" class="olink" shape="rect">9 in <span class="olinkdocname">PS3.5</span>
+                     </a> and <a href="../part05/chapter_B.html" class="olink" shape="rect">B in <span class="olinkdocname">PS3.5</span>
+                     </a>.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_6.6.1.1.1" shape="rect"></a>6.6.1.1.1 DICOM Request Message Body</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The DICOM Request Message has a multipart body.</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>Content-Type:</p>
+                           <div class="itemizedlist">
+                              <ul class="itemizedlist" style="list-style-type: circle; ">
+                                 <li class="listitem">
+                                    <p>multipart/related; type=application/dicom; boundary={MessageBoundary}</p>
+                                 </li>
+                              </ul>
+                           </div>
+                        </li>
+                        <li class="listitem">
+                           <p>The multipart request body contains every instance to be stored. Each instance is in a separate part of the multipart body.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Each part in the multipart body represents a DICOM SOP Instance with the following HTTP headers:</p>
+                           <div class="itemizedlist">
+                              <ul class="itemizedlist" style="list-style-type: circle; ">
+                                 <li class="listitem">
+                                    <p>Content-Type: application/dicom</p>
+                                 </li>
+                              </ul>
+                           </div>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_6.6.1.1.2" shape="rect"></a>6.6.1.1.2 XML Metadata and Bulk Data Request Message Body</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The XML Metadata and Bulk Data Request Message has a multipart body.</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>Content-Type:</p>
+                           <div class="itemizedlist">
+                              <ul class="itemizedlist" style="list-style-type: circle; ">
+                                 <li class="listitem">
+                                    <p>multipart/related; type=application/dicom+xml; boundary={MessageBoundary}</p>
+                                 </li>
+                              </ul>
+                           </div>
+                        </li>
+                        <li class="listitem">
+                           <p>The multipart request body contains all the metadata and bulk data to be stored. If the number of bulk data parts does not correspond to the number of unique BulkDataURIs in the metadata then the entire message is invalid and will generate an error status line.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Each body part is either DICOM <a href="../part19/PS3.19.html" class="olink" shape="rect">PS3.19</a> XML metadata or a bulk data item from a SOP Instance sent as part of the Store operation. The first part of the multipart message must be XML metadata.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The first part in the multipart request will contain the following HTTP headers:</p>
+                           <div class="itemizedlist">
+                              <ul class="itemizedlist" style="list-style-type: circle; ">
+                                 <li class="listitem">
+                                    <p>Content-Type: application/dicom+xml; transfer-syntax={TransferSyntaxUID}</p>
+                                 </li>
+                              </ul>
+                           </div>
+                        </li>
+                        <li class="listitem">
+                           <p>Subsequent items will contain the following HTTP headers (order is not guaranteed):</p>
+                           <div class="itemizedlist">
+                              <ul class="itemizedlist" style="list-style-type: circle; ">
+                                 <li class="listitem">
+                                    <p>additional metadata with the following headers:</p>
+                                    <div class="itemizedlist">
+                                       <ul class="itemizedlist" style="list-style-type: square; ">
+                                          <li class="listitem">
+                                             <p>Content-Type: application/dicom+xml; transfer-syntax={TransferSyntaxUID}</p>
+                                          </li>
+                                       </ul>
+                                    </div>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>an uncompressed bulk data element encoded in Little Endian binary format with the following headers:</p>
+                                    <div class="itemizedlist">
+                                       <ul class="itemizedlist" style="list-style-type: square; ">
+                                          <li class="listitem">
+                                             <p>Content-Type: application/octet-stream</p>
+                                          </li>
+                                          <li class="listitem">
+                                             <p>Content-Location: {BulkDataURI}</p>
+                                          </li>
+                                       </ul>
+                                    </div>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>a compressed pixel data object from a SOP Instance in the Study with the following headers:</p>
+                                    <div class="itemizedlist">
+                                       <ul class="itemizedlist" style="list-style-type: square; ">
+                                          <li class="listitem">
+                                             <p>Content-Type: {MediaType}</p>
+                                          </li>
+                                          <li class="listitem">
+                                             <p>Content-Location: {BulkDataURI}</p>
+                                          </li>
+                                       </ul>
+                                    </div>
+                                 </li>
+                              </ul>
+                           </div>
+                        </li>
+                        <li class="listitem">
+                           <p>Metadata and its associated bulk data shall always be sent in the same POST request.</p>
+                        </li>
+                     </ul>
+                  </div>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>It is not intended that metadata and bulk data be stored separately in multiple POST requests since the service always requires the metadata for context.</p>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_6.6.1.1.3" shape="rect"></a>6.6.1.1.3 JSON Metadata and Bulk Data Request Message Body</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The JSON Metadata and Bulk Data Request Message has a multipart body.</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>Content-Type:</p>
+                           <div class="itemizedlist">
+                              <ul class="itemizedlist" style="list-style-type: circle; ">
+                                 <li class="listitem">
+                                    <p>multipart/related; type=application/json; boundary={MessageBoundary}</p>
+                                 </li>
+                              </ul>
+                           </div>
+                        </li>
+                        <li class="listitem">
+                           <p>The multipart request body contains all the metadata and bulk data to be stored. If the number of bulk data parts does not correspond to the number of unique BulkDataURIs in the metadata then the entire message is invalid and will generate an error status line.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The first part in the multipart request will contain a JSON array of DICOM JSON Model Objects (defined in <a class="xref" href="chapter_F.html" title="F DICOM JSON Model" shape="rect"> Annex F</a>). Each array element is the metadata from a SOP Instance sent as part of the Store operation. This message part will have the following headers:</p>
+                           <div class="itemizedlist">
+                              <ul class="itemizedlist" style="list-style-type: circle; ">
+                                 <li class="listitem">
+                                    <p>Content-Type: application/json; transfer-syntax={TransferSyntaxUID}</p>
+                                 </li>
+                              </ul>
+                           </div>
+                        </li>
+                        <li class="listitem">
+                           <p>Subsequent items will be one of the following:</p>
+                           <div class="itemizedlist">
+                              <ul class="itemizedlist" style="list-style-type: circle; ">
+                                 <li class="listitem">
+                                    <p>an uncompressed bulk data element encoded in Little Endian binary format with the following headers:</p>
+                                    <div class="itemizedlist">
+                                       <ul class="itemizedlist" style="list-style-type: square; ">
+                                          <li class="listitem">
+                                             <p>Content-Type: application/octet-stream</p>
+                                          </li>
+                                          <li class="listitem">
+                                             <p>Content-Location: {BulkDataURI}</p>
+                                          </li>
+                                       </ul>
+                                    </div>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>a compressed pixel data object from a SOP Instance in the Study with the following headers:</p>
+                                    <div class="itemizedlist">
+                                       <ul class="itemizedlist" style="list-style-type: square; ">
+                                          <li class="listitem">
+                                             <p>Content-Type: {MediaType}</p>
+                                          </li>
+                                          <li class="listitem">
+                                             <p>Content-Location: {BulkDataURI}</p>
+                                          </li>
+                                       </ul>
+                                    </div>
+                                 </li>
+                              </ul>
+                           </div>
+                        </li>
+                        <li class="listitem">
+                           <p>JSON Metadata and its associated bulk data shall always be sent in the same POST request.</p>
+                        </li>
+                     </ul>
+                  </div>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>It is not intended that metadata and bulk data be stored separately in multiple POST requests since the service always requires the metadata for context.</p>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_6.6.1.2" shape="rect"></a>6.6.1.2 Action</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The Service may coerce or replace values of attributes such as Patient Name, ID, Accession Number, for example, during import of media from an external institution, reconciliation against a master patient index, or reconciliation against an imaging procedure order. The Service may correct, or replace incorrect values, such as Patient Name or ID, for example, when incorrect worklist item was chosen or operator input error occurs.</p>
+               <p>If any element is coerced or corrected, the Original Attribute Sequence (0400,0561) shall be included in the DICOM Object that is stored and may be included in the PS3.18 XML Store Instances Response Module in the response.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>For more information on populating the Original Attribute Sequence, see <a href="../part03/sect_C.12.html#sect_C.12.1" class="olink" shape="rect">Section C.12.1 “SOP Common Module” in <span class="olinkdocname">PS3.3</span>
+                     </a>.</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_6.6.1.3" shape="rect"></a>6.6.1.3 Response</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The RESTful Service shall return an HTTP status line, including a status code and associated textual phrase for the entire set of stored SOP Instances, followed by a message body containing the Store Instances Response Module as defined in <a class="xref" href="sect_6.6.html#table_6.6.1-2" title="Table 6.6.1-2. Store Instances Response Module Attributes" shape="rect">Table 6.6.1-2</a>. The message body shall be encoded as either:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>an XML object as described in the Native DICOM Model defined in <a href="../part19/PS3.19.html" class="olink" shape="rect">PS3.19</a>, or</p>
+                     </li>
+                     <li class="listitem">
+                        <p>a DICOM JSON Model Object defined as defined in  <a class="xref" href="chapter_F.html" title="F DICOM JSON Model" shape="rect"> Annex F</a>.</p>
+                     </li>
+                  </ul>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_6.6.1.3.1" shape="rect"></a>6.6.1.3.1 Response Status Line</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>If the status for all instances included in the POST request is Success, the RESTful Service shall return an "HTTP 200 - Success" response code.</p>
+                  <p>If the status for all instances included in the POST request is Failure, the RESTful Service shall return an appropriate failure status line with a response code from <a class="xref" href="sect_6.6.html#table_6.6.1-1" title="Table 6.6.1-1. HTTP/1.1 Standard Response Code" shape="rect">Table 6.6.1-1</a>. If there are instance specific errors, the response code shall be a 409 and the response payload shall contain the Store Instances Response Module, which contains additional information regarding instance errors.</p>
+                  <p>In all other conditions, the RESTful Service shall return an "HTTP 202 - Accepted" response code. The response payload may contain a Store Instances Response Module, which specifies additional information regarding instance warnings or failures.</p>
+                  <div class="table">
+                     <a id="table_6.6.1-1" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table 6.6.1-1. HTTP/1.1 Standard Response Code</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table rules="all" frame="box">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>Service Status</p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>HTTP/1.1 Status Codes</p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>STOW-RS Description</p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Failure</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>400 - Bad Request</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This indicates that the STOW-RS Service was unable to store any instances due to bad syntax.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>401 - Unauthorized</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This indicates that the STOW-RS Service refused to create or append any instances because the client is not authorized.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>403 - Forbidden</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This indicates that the STOW-RS Service understood the request, but is refusing to fulfill it (e.g., an authorized user with insufficient privileges).</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>409 - Conflict</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This indicates that the STOW-RS Service request was formed correctly but the service was unable to store any instances due to a conflict in the request (e.g., unsupported SOP Class or StudyInstanceUID mismatch).</p>
+                                    <p>This may also be used to indicate that a STOW-RS Service was unable to store any instances for a mixture of reasons.</p>
+                                    <p>Additional information regarding the instance errors can be found in the XML response message body.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>415 - Unsupported Media Type</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This indicates that the STOW-RS Service does not support the Content-Type specified in the storage request (e.g., the service does not support JSON metadata).</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>503 - Busy</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This indicates that the STOW-RS Service was unable to store any instances because it was out of resources.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Warning</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>202 - Accepted</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This indicates that the STOW-RS Service stored some of the instances but warnings or failures exist for others.</p>
+                                    <p>Additional information regarding this error can be found in the XML response message body.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Success</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>200 - OK</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This indicates that the STOW-RS Service successfully stored all the instances.</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>HTTP Status Codes for Failures and Warnings are returned in HTTP response headers. It is recommended that the text returned in the HTTP Response Warning contain a DICOM Status Code and descriptive reason as defined in <a class="xref" href="sect_6.6.html#sect_6.6.1.3.2.1" title="6.6.1.3.2.1 Store Instances Response Attribute Description" shape="rect">Section 6.6.1.3.2.1</a>. For example,</p>
+                     <p>
+                        <code class="computeroutput">Warning: "A700: Out of memory"</code>
+                     </p>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_6.6.1.3.2" shape="rect"></a>6.6.1.3.2 Response Message Body</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The message body shall provide appropriate status codes for individual SOP Instances indicating success, warning, or failure as defined below.</p>
+                  <p>The message body may also include details about the processing of attributes by the service.</p>
+                  <p>
+                     <a class="xref" href="sect_6.6.html#table_6.6.1-2" title="Table 6.6.1-2. Store Instances Response Module Attributes" shape="rect">Table 6.6.1-2</a> defines the Attributes for referencing SOP Instances that are contained in a Store Instances Response Module in the response message body.</p>
+                  <div class="table">
+                     <a id="table_6.6.1-2" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table 6.6.1-2. Store Instances Response Module Attributes</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table rules="all" frame="box">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Attribute Name</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Tag</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Type</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Attribute Description</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Retrieve URL</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,1190)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>The URL where the Study is available for retrieval via a WADO-RS Retrieve Study service.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Failed SOP Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,1198)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1C</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>A sequence of Items where each Item references a single SOP Instance for which storage could not be provided.</p>
+                                    <p>Required if one or more SOP Instances failed to store.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" colspan="4" rowspan="1">
+                                    <p>
+                                       <span class="italic">&gt;<a href="../part03/sect_10.8.html#table_10-11" class="olink" shape="rect">Table 10-11 “SOP Instance Reference Macro Attributes” in <span class="olinkdocname">PS3.3</span>
+                                          </a>
+                                       </span>
+                                    </p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Failure Reason</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,1197)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>The reason that storage could not be provided for this SOP Instance.</p>
+                                    <p>See <a class="xref" href="sect_6.6.html#sect_6.6.1.3.2.1.2" title="6.6.1.3.2.1.2 Failure Reason" shape="rect">Section 6.6.1.3.2.1.2</a>.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Referenced SOP Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,1199)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1C</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>A sequence of Items where each Item references a single SOP Instance that was successfully stored.</p>
+                                    <p>Required if one or more SOP Instances were successfully stored.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" colspan="4" rowspan="1">
+                                    <p>
+                                       <span class="italic">&gt;<a href="../part03/sect_10.8.html#table_10-11" class="olink" shape="rect">Table 10-11 “SOP Instance Reference Macro Attributes” in <span class="olinkdocname">PS3.3</span>
+                                          </a>
+                                       </span>
+                                    </p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Retrieve URL</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,1190)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>The URL where the SOP Instance is available for retrieval via a WADO-URI or WADO-RS service.</p>
+                                    <p>If the study Retrieve URI is specified above, this URI can be constructed if the client knows the series and instance UIDs.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Warning Reason</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,1196)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1C</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>The reason that this SOP Instance was accepted with warnings.</p>
+                                    <p>Required if there was a warning for this SOP Instance.</p>
+                                    <p>See <a class="xref" href="sect_6.6.html#sect_6.6.1.3.2.1.1" title="6.6.1.3.2.1.1  Warning Reason" shape="rect">Section 6.6.1.3.2.1.1</a>.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Original Attributes Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0400,0561)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Sequence of Items containing all attributes that were removed or replaced by other values.</p>
+                                    <p>One or more Items are permitted in this sequence.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Attribute Modification DateTime</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0400,0562)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Date and time the attributes were removed and/or replaced.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Modifying System</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0400,0563)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Identification of the system that removed and/or replaced the attributes.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Reason for the Attribute Modification</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0400,0565)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Reason for the attribute modification. Defined terms are:</p>
+                                    <p>COERCE = Replace values of attributes such as Patient Name, ID, Accession Number, for example, during import of media from an external institution, or reconciliation against a master patient index.</p>
+                                    <p>CORRECT = Replace incorrect values, such as Patient Name or ID, for example, when incorrect worklist item was chosen or operator input error.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Modified Attributes Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0400,0550)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Sequence that contains all the Attributes, with their previous values, that were modified or removed from the main data set.</p>
+                                    <p>Only a single Item shall be included in this sequence.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" colspan="4" rowspan="1">
+                                    <p>
+                                       <span class="italic">&gt;&gt;Any Attribute from the main data set that was modified or removed; may include Sequence Attributes and their Items.</span>
+                                    </p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_6.6.1.3.2.1" shape="rect"></a>6.6.1.3.2.1 Store Instances Response Attribute Description</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="section">
+                        <div class="titlepage">
+                           <div>
+                              <div>
+                                 <h6 class="title">
+                                    <a id="sect_6.6.1.3.2.1.1" shape="rect"></a>6.6.1.3.2.1.1  Warning Reason</h6>
+                              </div>
+                           </div>
+                        </div>
+                        <p>For the following semantics the associated value shall be used for the Warning Reason (0008,1196):</p>
+                        <div class="variablelist">
+                           <dl class="variablelist">
+                              <dt>
+                                 <span class="term">B000 - Coercion of Data Elements</span>
+                              </dt>
+                              <dd>
+                                 <p>The STOW-RS Service modified one or more data elements during storage of the instance. See <a class="xref" href="sect_6.6.html#sect_6.6.1.3" title="6.6.1.3 Response" shape="rect">Section 6.6.1.3</a>.</p>
+                              </dd>
+                              <dt>
+                                 <span class="term">B006 - Elements Discarded</span>
+                              </dt>
+                              <dd>
+                                 <p>The STOW-RS Service discarded some data elements during storage of the instance. See <a class="xref" href="sect_6.6.html#sect_6.6.1.3" title="6.6.1.3 Response" shape="rect">Section 6.6.1.3</a>.</p>
+                              </dd>
+                              <dt>
+                                 <span class="term">B007 - Data Set does not match SOP Class</span>
+                              </dt>
+                              <dd>
+                                 <p>The STOW-RS Service observed that the Data Set did not match the constraints of the SOP Class during storage of the instance.</p>
+                              </dd>
+                           </dl>
+                        </div>
+                        <p>Additional codes may be used for the Warning Reason (0008,1196) to address the semantics of other issues.</p>
+                        <p>In the event that multiple codes may apply, the single most appropriate code shall be used.</p>
+                     </div>
+                     <div class="section">
+                        <div class="titlepage">
+                           <div>
+                              <div>
+                                 <h6 class="title">
+                                    <a id="sect_6.6.1.3.2.1.2" shape="rect"></a>6.6.1.3.2.1.2 Failure Reason</h6>
+                              </div>
+                           </div>
+                        </div>
+                        <p>For the following semantics the associated value shall be used for the Failure Reason (0008,1197). Implementation specific warning and error codes shall be defined in the conformance statement:</p>
+                        <div class="variablelist">
+                           <dl class="variablelist">
+                              <dt>
+                                 <span class="term">A7xx - Refused out of Resources</span>
+                              </dt>
+                              <dd>
+                                 <p>The STOW-RS Service did not store the instance because it was out of resources.</p>
+                              </dd>
+                              <dt>
+                                 <span class="term">A9xx - Error: Data Set does not match SOP Class</span>
+                              </dt>
+                              <dd>
+                                 <p>The STOW-RS Service did not store the instance because the instance does not conform to its specified SOP Class.</p>
+                              </dd>
+                              <dt>
+                                 <span class="term">Cxxx - Error: Cannot understand</span>
+                              </dt>
+                              <dd>
+                                 <p>The STOW-RS Service did not store the instance because it cannot understand certain Data Elements.</p>
+                              </dd>
+                              <dt>
+                                 <span class="term">C122 - Referenced Transfer Syntax not supported</span>
+                              </dt>
+                              <dd>
+                                 <p>The STOW-RS Service did not store the instance because it does not support the requested Transfer Syntax for the instance.</p>
+                              </dd>
+                              <dt>
+                                 <span class="term">0110 - Processing failure</span>
+                              </dt>
+                              <dd>
+                                 <p>The STOW-RS Service did not store the instance because of a general failure in processing the operation.</p>
+                              </dd>
+                              <dt>
+                                 <span class="term">0122 - Referenced SOP Class not supported</span>
+                              </dt>
+                              <dd>
+                                 <p>The STOW-RS Service did not store the instance because it does not support the requested SOP Class.</p>
+                              </dd>
+                           </dl>
+                        </div>
+                        <p>Additional codes may be used for the Failure Reason (0008,1197) to address the semantics of other issues.</p>
+                        <p>In the event that multiple codes may apply, the single most appropriate code shall be used.</p>
+                     </div>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_6.6.1.3.2.2" shape="rect"></a>6.6.1.3.2.2 Response Message Body Example</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>The following is an example of a PS3.18 XML Store Instances Response Module in the response message body containing 2 failed SOP Instances, 1 successful SOP Instance, and 1 accepted SOP Instance with a warning:</p>
+                     <pre class="programlisting" xml:space="preserve">
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;NativeDicomModel xmlns="http://dicom.nema.org/PS3.19/models/NativeDICOM"
+xsi:schemaLocation="http://dicom.nema.org/PS3.19/models/NativeDICOM"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+  &lt;DicomAttribute tag="00081198" vr="SQ" keyword="FailedSOPSequence"&gt;
+    &lt;Item number="1"&gt;
+      &lt;DicomAttribute tag="00081150" vr="UI" keyword="ReferencedSOPClassUID"&gt;
+        &lt;Value number="1"&gt;1.2.840.10008.3.1.2.3.1&lt;/Value&gt;
+      &lt;/DicomAttribute&gt;
+      &lt;DicomAttribute tag="00081155" vr="UI"
+      keyword="ReferencedSOPInstanceUID"&gt;
+        &lt;Value number="1"&gt;
+        2.16.124.113543.6003.1011758472.49886.19426.2085542308&lt;/Value&gt;
+      &lt;/DicomAttribute&gt;
+      &lt;DicomAttribute tag="00081197" vr="US" keyword="FailureReason"&gt;
+        &lt;Value number="1"&gt;290&lt;/Value&gt;
+      &lt;/DicomAttribute&gt;
+    &lt;/Item&gt;
+    &lt;Item number="2"&gt;
+      &lt;DicomAttribute tag="00081150" vr="UI" keyword="ReferencedSOPClassUID"&gt;
+        &lt;Value number="1"&gt;1.2.840.10008.3.1.2.3.1&lt;/Value&gt;
+      &lt;/DicomAttribute&gt;
+      &lt;DicomAttribute tag="00081155" vr="UI"
+      keyword="ReferencedSOPInstanceUID"&gt;
+        &lt;Value number="1"&gt;
+        2.16.124.113543.6003.1011758472.49886.19426.2085542309&lt;/Value&gt;
+      &lt;/DicomAttribute&gt;
+      &lt;DicomAttribute tag="00081197" vr="US" keyword="FailureReason"&gt;
+        &lt;Value number="1"&gt;290&lt;/Value&gt;
+      &lt;/DicomAttribute&gt;
+    &lt;/Item&gt;
+  &lt;/DicomAttribute&gt;
+  &lt;DicomAttribute tag="00081199" vr="SQ" keyword="ReferencedSOPSequence"&gt;
+    &lt;Item number="1"&gt;
+      &lt;DicomAttribute tag="00081150" vr="UI" keyword="ReferencedSOPClassUID"&gt;
+        &lt;Value number="1"&gt;1.2.840.10008.5.1.4.1.1.2&lt;/Value&gt;
+      &lt;/DicomAttribute&gt;
+      &lt;DicomAttribute tag="00081155" vr="UI"
+      keyword="ReferencedSOPInstanceUID"&gt;
+        &lt;Value number="1"&gt;
+        2.16.124.113543.6003.189642796.63084.16748.2599092903&lt;/Value&gt;
+      &lt;/DicomAttribute&gt;
+      &lt;DicomAttribute tag="00081190" vr="UT" keyword="RetrieveURL"&gt;
+        &lt;Value number="1"&gt;
+        https://wadors.hospital.com/studies/2.16.124.113543.6003.1154777499.30246.19789.3503430045/
+        series/2.16.124.113543.6003.2588828330.45298.17418.2723805630/
+        instances/2.16.124.113543.6003.189642796.63084.16748.2599092903&lt;/Value&gt;
+      &lt;/DicomAttribute&gt;
+    &lt;/Item&gt;
+    &lt;Item number="2"&gt;
+      &lt;DicomAttribute tag="00081150" vr="UI" keyword="ReferencedSOPClassUID"&gt;
+        &lt;Value number="1"&gt;1.2.840.10008.5.1.4.1.1.2&lt;/Value&gt;
+      &lt;/DicomAttribute&gt;
+      &lt;DicomAttribute tag="00081155" vr="UI"
+      keyword="ReferencedSOPInstanceUID"&gt;
+        &lt;Value number="1"&gt;
+        2.16.124.113543.6003.189642796.63084.16748.2599092905&lt;/Value&gt;
+      &lt;/DicomAttribute&gt;
+      &lt;DicomAttribute tag="00081196" vr="US" keyword="WarningReason"&gt;
+        &lt;Value number="1"&gt;45056&lt;/Value&gt;
+      &lt;/DicomAttribute&gt;
+      &lt;DicomAttribute tag="00081190" vr="UT" keyword="RetrieveURL"&gt;
+        &lt;Value number="1"&gt;
+        https://wadors.hospital.com/studies/2.16.124.113543.6003.1154777499.30246.19789.3503430045/
+        series/2.16.124.113543.6003.2588828330.45298.17418.2723805630/
+        instances/2.16.124.113543.6003.189642796.63084.16748.2599092905&lt;/Value&gt;
+      &lt;/DicomAttribute&gt;
+    &lt;/Item&gt;
+  &lt;/DicomAttribute&gt;
+  &lt;DicomAttribute tag="00081190" vr="UT" keyword="RetrieveURL"&gt;
+    &lt;Value number="1"&gt;
+    https://wadors.hospital.com/studies/2.16.124.113543.6003.1154777499.30246.19789.3503430045&lt;/Value&gt;
+  &lt;/DicomAttribute&gt;
+&lt;/NativeDicomModel&gt;
+</pre>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_6.5.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_6.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_6.7.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">6.5 WADO-RS Request/Response </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.18.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 6.7 QIDO-RS Request/Response</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

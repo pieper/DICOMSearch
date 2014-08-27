@@ -1,0 +1,1032 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>6.4 WADO-WS Request/Response</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.18.html" title="PS3.18" />
+      <link rel="up" href="chapter_6.html" title="6 Data Communication Requirements" />
+      <link rel="prev" href="sect_6.3.html" title="6.3 WADO-URI Response" />
+      <link rel="next" href="sect_6.5.html" title="6.5 WADO-RS Request/Response" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">6.4 WADO-WS Request/Response</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_6.3.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">6 Data Communication Requirements</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_6.5.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_6.4" shape="rect"></a>6.4 WADO-WS Request/Response</h2>
+               </div>
+            </div>
+         </div>
+         <p>The DICOM Web Service defines several action types. An implementation shall support at least one of these actions. The three action types are:</p>
+         <div class="orderedlist">
+            <ol class="orderedlist" type="1">
+               <li class="listitem">
+                  <p>RetrieveImagingDocumentSet</p>
+                  <p>This action retrieves a set of DICOM instances and other objects. This action corresponds to the IHE XDS-I.b transaction RAD-69. The DICOM instances are formatted in accordance with <a href="../part10/PS3.10.html" class="olink" shape="rect">PS3.10</a>, and encapsulated in a Web Services response.</p>
+               </li>
+               <li class="listitem">
+                  <p>RetrieveRenderedImagingDocumentSet</p>
+                  <p>This action retrieves a set of DICOM instances that have been rendered into the requested format. For example, if rendering into JPEG was requested, these will be the JPEG renderings of the requested set of DICOM objects.</p>
+               </li>
+               <li class="listitem">
+                  <p>RetrieveImagingDocumentSetMetadata</p>
+                  <p>This action retrieves a set of DICOM instances presented as an Infoset with the bulk data removed. This service can retrieve either the full metadata, or a subset selected by XPath arguments. The XML encoding for the DICOM attributes is defined in <a href="../part19/PS3.19.html" class="olink" shape="rect">PS3.19</a>.</p>
+               </li>
+            </ol>
+         </div>
+         <p>The Web Services actions shall be fully compliant with the Basic Profile of WS-I as defined in IHE IT Infrastructure Technical Framework Vol 2x Annex V. All &lt;wsa:Action&gt; elements shall have the mustUnderstand attribute set (mustUnderstand="1").</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_6.4.1" shape="rect"></a>6.4.1 WS - RetrieveImagingDocumentSet</h3>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_6.4.1.1" shape="rect"></a>6.4.1.1 Request</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The specific Web Services parameters to be used for the Retrieve Imaging Document Set action shall be as follows, in the order that they would appear in the WSDL definition:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>The following types shall be imported (xsd:import) in the /definitions/types section:</p>
+                        <div class="itemizedlist">
+                           <ul class="itemizedlist" style="list-style-type: circle; ">
+                              <li class="listitem">
+                                 <p>namespace="urn:ihe:rad:xdsi-b:2009", schema="XDSI.b_ImagingDocumentSource.xsd"</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The baseline XDS.b schema (namespace="urn:ihe:iti:xds-b:2007", schema="XDS.b_DocumentRepository.xsd")</p>
+                              </li>
+                           </ul>
+                        </div>
+                     </li>
+                     <li class="listitem">
+                        <p>The /definitions/message/part/@element attribute of the Retrieve Imaging Document Set Request message shall be an "iherad:RetrieveImagingDocumentSetRequest" as defined below.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The /definitions/message/part/@element attribute of the Retrieve Imaging Document Set Response message shall be an "ihe:RetrieveDocumentSetResponse" as defined below.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The /definitions/portType/operation/input/@wsaw:Action attribute for the Retrieve Imaging Document Set Request message shall be "urn:ihe:rad:2009:RetrieveImagingDocumentSet".</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The /definitions/portType/operation/output/@wsaw:Action attribute for the Retrieve Imaging Document Set Response message shall be "urn:ihe:iti:2007:RetrieveDocumentSetResponse".</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The /definitions/binding/operation/soap12:operation/@soapAction attribute shall be "urn:ihe:rad:2009:RetrieveImagingDocumentSet".</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>The &lt;iherad:RetrieveImagingDocumentSetRequest/&gt; element for use with the Retrieve Imaging Document Set Request Message is defined as:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>One or more &lt;iherad:StudyRequest/&gt; elements each of which includes a "studyInstanceUID" attribute identifying the study associated with the DICOM images/ objects being retrieved. Each &lt;iherad:StudyRequest/&gt; element shall contain:</p>
+                        <div class="itemizedlist">
+                           <ul class="itemizedlist" style="list-style-type: circle; ">
+                              <li class="listitem">
+                                 <p>One or more &lt;iherad:SeriesRequest/&gt; elements each of which includes a "seriesInstanceUID" attribute identifying the series associated with the DICOM images/ objects being retrieved. Each &lt;iherad:SeriesRequest/&gt; element shall contain:</p>
+                                 <div class="itemizedlist">
+                                    <ul class="itemizedlist" style="list-style-type: square; ">
+                                       <li class="listitem">
+                                          <p>One or more &lt;ihe:DocumentRequest/&gt; elements, each one representing an individual document that the requestor wants to retrieve from the Web Server. Each &lt;ihe:DocumentRequest/&gt; element contains:</p>
+                                          <div class="itemizedlist">
+                                             <ul class="itemizedlist" style="list-style-type: disc; ">
+                                                <li class="listitem">
+                                                   <p>An optional &lt;ihe:RepositoryUniqueId/&gt; element that identifies the Web Server from which the document is to be retrieved. This value corresponds to XDSDocumentEntry.repositoryUniqueId. The RepositoryUniqueID is similar to a DICOM AETitle, but is a uniqueID assigned to the WADO-WS Web Server rather than a locally assigned string identifier. There will be a separate RepositoryUniqueID for each web service end point.</p>
+                                                </li>
+                                                <li class="listitem">
+                                                   <p>A required &lt;ihe:DocumentUniqueId/&gt; element that identifies the document within the source. For example, this value could be a SOP Instance UID obtained from a Key Object Selection (KOS) instance.</p>
+                                                </li>
+                                                <li class="listitem">
+                                                   <p>An optional &lt;ihe:HomeCommunityId/&gt; element. See the IHE Profiles for the definition and possible uses of this element.</p>
+                                                </li>
+                                                <li class="listitem">
+                                                   <p>An optional &lt;wado:Anonymize/&gt; element.</p>
+                                                </li>
+                                                <li class="listitem">
+                                                   <p>An optional &lt;wado:FrameNumber/&gt; element.</p>
+                                                </li>
+                                                <li class="listitem">
+                                                   <p>A required &lt;iherad:TransferSyntaxUIDList/&gt; element that contains a list of one or more &lt;ihe:TransferSyntaxUID&gt; elements. Each of the &lt;iherad:TransferSyntaxUID&gt; elements represent one of the transfer syntax encodings that the Imaging Document Consumer is capable of processing.</p>
+                                                </li>
+                                             </ul>
+                                          </div>
+                                       </li>
+                                    </ul>
+                                 </div>
+                              </li>
+                           </ul>
+                        </div>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_6.4.1.2" shape="rect"></a>6.4.1.2 Response</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>A Web Server shall provide the document(s) indicated in the request. The Web Server shall return the document(s) or an error code when the document could not be returned. The pixel data shall be encoded using one of the DICOM transfer syntaxes included in the Retrieve Imaging Document Set Request Message. If the Imaging Document Source cannot encode the pixel data using any of the requested transfer syntaxes then an error status shall be returned.</p>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_6.4.1.2.1" shape="rect"></a>6.4.1.2.1 Form of the Response</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The &lt;ihe:RetrieveDocumentResponse/&gt; element for use with the Retrieve Imaging Document Set Response Message is defined as:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>A required /ihe:RetrieveDocumentSetResponse/rs:RegistryResponse element</p>
+                        </li>
+                        <li class="listitem">
+                           <p>An optional sequence of &lt;ihe:DocumentResponse/&gt; elements containing</p>
+                           <div class="itemizedlist">
+                              <ul class="itemizedlist" style="list-style-type: circle; ">
+                                 <li class="listitem">
+                                    <p>An optional &lt;ihe:HomeCommunityId/&gt; element. The value of this element shall be the same as the value of the /RetrieveImagingDocumentSetRequest/StudyRequest/SeriesRequest/DocumentRequest/HomeCommunityId element in the Retrieve Document Set Request Message. If the &lt;ihe:HomeCommunityId/&gt; element is not present in the Retrieve Document Set Request Message, this value shall not be present.</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>An optional &lt;ihe:RepositoryUniqueId/&gt; that identifies the Imaging Document Source from which the document is to be retrieved. The value of this element shall be the same as the value of the /RetrieveImagingDocumentSetRequest/StudyRequest/SeriesRequest/DocumentRequest/RepositoryUniqueId element in the original Retrieve Imaging Document Set Request Message. This value corresponds to XDSDocumentEntry.repositoryUniqueId.</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>A required &lt;ihe:DocumentUniqueId/&gt; that identifies the document within the Imaging Document Source. The value of this element shall be the same as the value of the /RetrieveImagingDocumentSetRequest/StudyRequest/SeriesRequest/DocumentRequest/DocumentUniqueId element in the original Retrieve Imaging Document Set Request Message. This value corresponds to the SOP Instance UID in the Retrieve Document Request.</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>A conditional &lt;wado:FrameNumber/&gt; that identifies the frame within the source document. It shall be present if and only if &lt;wado:FrameNumber/&gt; was in the request</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>A required &lt;ihe:Document/&gt; element that contains the retrieved document as an XOP Infoset.</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>A required &lt;ihe:mimeType/&gt; element that indicates the MIME type of the retrieved document.</p>
+                                 </li>
+                              </ul>
+                           </div>
+                        </li>
+                     </ul>
+                  </div>
+                  <p>The /RetrieveDocumentSetResponse/rs:RegistryResponse/@status attributes provides the overall status of the request: It shall contain one of the following values:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success</p>
+                        </li>
+                        <li class="listitem">
+                           <p>urn:ihe:iti:2007:ResponseStatusType:PartialSuccess</p>
+                        </li>
+                        <li class="listitem">
+                           <p>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure</p>
+                        </li>
+                     </ul>
+                  </div>
+                  <p>See ITI TF-2a: 4.1.13 Error Reporting for the interpretation of these values.</p>
+                  <p>For each document requested in a /RetrieveImagingDocumentSetRequest/StudyRequest/SeriesRequest/DocumentRequest element:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>If the document is successfully retrieved (without warning) then no /RetrieveDocumentSetResponse/rs:RegistryResponse/rs:RegistryErrorList/ rs:RegistryError element shall be present and a /RetrieveDocumentSetResponse/DocumentResponse/Document element shall be returned containing the document as base64binary encoded data.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>If a warning is reported when retrieving the document, then a /RetrieveDocumentSetResponse/rs:RegistryResponse/rs:RegistryErrorList/ rs:RegistryError element shall be returned with:</p>
+                           <div class="itemizedlist">
+                              <ul class="itemizedlist" style="list-style-type: circle; ">
+                                 <li class="listitem">
+                                    <p>@severity is urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Warning</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>@errorCode is specified</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>@codeContext contains the warning message</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>@location contains the DocumentUniqueId of the document requested</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>The document shall be returned in an instance of /RetrieveDocumentSetResponse/DocumentResponse/Document as base64binary encoded data. The returned document and warning are correlated via the DocumentUniqueId.</p>
+                                 </li>
+                              </ul>
+                           </div>
+                        </li>
+                        <li class="listitem">
+                           <p>If an error is reported when retrieving a document, then a /RetrieveDocumentSetResponse/rs:RegistryResponse/rs:RegistryErrorList/ rs:RegistryError element shall be returned with:</p>
+                           <div class="itemizedlist">
+                              <ul class="itemizedlist" style="list-style-type: circle; ">
+                                 <li class="listitem">
+                                    <p>@severity is urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>@errorCode is specified</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>@codeContext contains the error message</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>@location contains the DocumentUniqueId of the document requested</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>No corresponding RetrieveDocumentSetResponse/DocumentResponse element shall be returned</p>
+                                 </li>
+                              </ul>
+                           </div>
+                        </li>
+                     </ul>
+                  </div>
+                  <p>The error conditions for failures and associated error codes are given below in section 6.4.4. These errors shall be detected and the associated errorCode returned if that error occurs. Additional errors defined in the ebRS standard, in ITI TF-2: 4.1.13 "Error Reporting", and defined by the implementer may be returned.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_6.4.1.2.2" shape="rect"></a>6.4.1.2.2 JPIP</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>If the Web Client specifies a transfer syntax field of 1.2.840.10008.1.2.4.94 (DICOM JPIP Referenced Transfer Syntax) or 1.2.840.10008.1.2.4.95 (DICOM JPIP Referenced Deflate Transfer Syntax), and the Web Server supports the requested transfer syntax the following behavior is expected:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>If the DICOM Image Object(s) already have the same JPIP transfer syntax as the one indicated in the request, the Retrieve Imaging Document Set Response shall include the DICOM Image Objects unchanged.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>If the DICOM Image Object(s) have a transfer syntax that differs from that of the request, the Retrieve Imaging Document Set Response shall include the DICOM image with the transfer syntax changed to the requested transfer syntax. In addition, the pixel data Attribute (7FE0,0010 tag) will have been removed and replaced with a Pixel Data Provider URL (0028,7FE0 tag). The URL represents the JPIP request and will include the specific target information.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Upon receipt of this Retrieve Imaging Document Set Response, the Imaging Document Consumer may request the pixel data from the pixel data provider using the supplied URL. Additional parameters required by the application may be appended to the URL when accessing the pixel data provider.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>For example, a JPIP request for a 200 by 200 pixel rendition of the entire image can be constructed from the Pixel Data Provider URL as follows:</p>
+                           <div class="itemizedlist">
+                              <ul class="itemizedlist" style="list-style-type: circle; ">
+                                 <li class="listitem">
+                                    <p>Pixel Data Provider URL (0028,7FE0) = https://server.xxx/jpipserver.cgi?target=imgxyz.jp2,</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>URL Generated by the application = https://server.xxx/jpipserver.cgi?target=imgxyz.jp2&amp;fsiz=200,200</p>
+                                 </li>
+                              </ul>
+                           </div>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_6.4.2" shape="rect"></a>6.4.2 WS - RetrieveRenderedImagingDocumentSet</h3>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_6.4.2.1" shape="rect"></a>6.4.2.1 Request</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The specific Web Services parameters to be used for the Retrieve Rendered Imaging Document Set action shall be as follows, in the order that they would appear in the WSDL definition:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>The following types shall be imported (xsd:import) in the /definitions/types section:</p>
+                        <div class="itemizedlist">
+                           <ul class="itemizedlist" style="list-style-type: circle; ">
+                              <li class="listitem">
+                                 <p>namespace="urn:ihe:rad:xdsi-b:2009", schema="XDSI.b_ImagingDocumentSource.xsd"</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The baseline XDS.b schema (namespace="urn:ihe:iti:xds-b:2007", schema="XDS.b_DocumentRepository.xsd")</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The baseline DICOM WADO-WS schema (namespace="urn:dicom:wado:ws:2011", schema="dicom.wado.ws.2011.xsd")</p>
+                              </li>
+                           </ul>
+                        </div>
+                     </li>
+                     <li class="listitem">
+                        <p>The /definitions/message/part/@element attribute of the Retrieve Rendered Imaging Document Set Request message shall be a "wado:RetrieveRenderedImagingDocumentSetRequest" as defined below.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The /definitions/message/part/@element attribute of the Retrieve Rendered Imaging Document Set Response message shall be a "wado:RetrieveRenderedImagingDocumentSetResponse" as defined below.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The /definitions/portType/operation/input/@wsaw:Action attribute for the Retrieve Rendered Imaging Document Set Request message shall be "urn:dicom:ws:wado:2011:RetrieveRenderedImagingDocumentSet".</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The /definitions/portType/operation/output/@wsaw:Action attribute for the Retrieve Imaging Document Set Response message shall be "urn:dicom:ws:wado:2011:RetrieveRenderedImagingDocumentSetResponse".</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The /definitions/binding/operation/soap12:operation/@soapAction attribute shall be "urn:dicom:ws:wado:2011:RetrieveRenderedImagingDocumentSet".</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>The &lt;wado:RetrieveRenderedImagingDocumentSetRequest/&gt; element for use with the Retrieve Imaging Document Set Request Message is defined as:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>One or more &lt;wado:StudyRequest/&gt; elements each of which includes a "studyInstanceUID" attribute identifying the study associated with the DICOM images/ objects being retrieved. Each &lt;iherad:StudyRequest/&gt; element shall contain:</p>
+                        <div class="itemizedlist">
+                           <ul class="itemizedlist" style="list-style-type: circle; ">
+                              <li class="listitem">
+                                 <p>One or more &lt;wado:SeriesRequest/&gt; elements each of which includes a "seriesInstanceUID" attribute identifying the series associated with the DICOM images/ objects being retrieved. Each &lt;iherad:SeriesRequest/&gt; element shall contain:</p>
+                                 <div class="itemizedlist">
+                                    <ul class="itemizedlist" style="list-style-type: square; ">
+                                       <li class="listitem">
+                                          <p>One or more &lt;wado:RenderedDocumentRequest/&gt; elements, each one representing an individual document that the requestor wants to retrieve from the Web Server. Each &lt;wado:DocumentRequest/&gt; element contains:</p>
+                                          <div class="itemizedlist">
+                                             <ul class="itemizedlist" style="list-style-type: disc; ">
+                                                <li class="listitem">
+                                                   <p>An optional &lt;ihe:RepositoryUniqueId/&gt; element that identifies the Web Server from which the document is to be retrieved. This value corresponds to XDSDocumentEntry.repositoryUniqueId. The RepositoryUniqueID is similar to a DICOM AETitle, but is a uniqueID assigned to the WADO-WS Web Server rather than a locally assigned string identifier. There will be a separate RepositoryUniqueID for each web service end point.</p>
+                                                </li>
+                                                <li class="listitem">
+                                                   <p>A required &lt;ihe:DocumentUniqueId/&gt; element that identifies the document within the source. This value corresponds to the SOP Instance UID referenced within the DICOM manifest.</p>
+                                                </li>
+                                                <li class="listitem">
+                                                   <p>An optional &lt;ihe:HomeCommunityId/&gt; element that corresponds to the home attribute of the Identifiable class in ebRIM.</p>
+                                                </li>
+                                                <li class="listitem">
+                                                   <p>An optional &lt;wado:Annotation/&gt; element.</p>
+                                                </li>
+                                                <li class="listitem">
+                                                   <p>An optional &lt;wado:Rows/&gt; element.</p>
+                                                </li>
+                                                <li class="listitem">
+                                                   <p>An optional &lt;wado:Columns/&gt; element.</p>
+                                                </li>
+                                                <li class="listitem">
+                                                   <p>An optional &lt;wado:Region/&gt; element.</p>
+                                                </li>
+                                                <li class="listitem">
+                                                   <p>An optional &lt;wado:WindowCenter/&gt; element.</p>
+                                                </li>
+                                                <li class="listitem">
+                                                   <p>An optional &lt;wado:WindowWidth/&gt; element.</p>
+                                                </li>
+                                                <li class="listitem">
+                                                   <p>An optional &lt;wado:ImageQuality/&gt; element.</p>
+                                                </li>
+                                                <li class="listitem">
+                                                   <p>An optional &lt;wado:PresentationUID/&gt; element.</p>
+                                                </li>
+                                                <li class="listitem">
+                                                   <p>An optional &lt;wado:PresentationSeriesUID/&gt; element.</p>
+                                                </li>
+                                                <li class="listitem">
+                                                   <p>An optional &lt;wado:Anonymize/&gt; element</p>
+                                                </li>
+                                                <li class="listitem">
+                                                   <p>An optional &lt;wado:FrameNumber/&gt; element.</p>
+                                                </li>
+                                                <li class="listitem">
+                                                   <p>A required &lt;wado:ContentTypeList/&gt; element that contains a list of one or more &lt;wado:ContentType&gt; elements.</p>
+                                                </li>
+                                                <li class="listitem">
+                                                   <p>An optional &lt;wado:CharsetList/&gt; element that contains a list of one or more &lt;wado:Charset&gt; elements.</p>
+                                                </li>
+                                             </ul>
+                                          </div>
+                                       </li>
+                                    </ul>
+                                 </div>
+                              </li>
+                           </ul>
+                        </div>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_6.4.2.2" shape="rect"></a>6.4.2.2 Response</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>An Web Server shall render and then provide the document(s) indicated in the request. The Web Server shall return the rendered documents or an error code when the document could not be returned. The rendered forms shall be the subset specified, and in the format requested. If the Imaging Document Source cannot render the pixel data in that manner then an error status shall be returned.</p>
+               <p>The &lt;wado:RetrieveRenderedImagingDocumentResponse/&gt; element for use with the Retrieve Imaging Document Set Response Message, Retrieve Rendered Imaging Document Set Response Message and Retrieve Imaging Document Set Metadata Response Message is defined as:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>A required /ihe:RetrieveDocumentSetResponse/rs:RegistryResponse element</p>
+                     </li>
+                     <li class="listitem">
+                        <p>An optional sequence of &lt;wado:RenderedDocumentResponse/&gt; elements containing:</p>
+                        <div class="itemizedlist">
+                           <ul class="itemizedlist" style="list-style-type: circle; ">
+                              <li class="listitem">
+                                 <p>A &lt;ihe:HomeCommunityId/&gt; element. The value of this element shall be the same as the value of the StudyRequest/SeriesRequest/DocumentRequest/HomeCommunityId element in the Request Message. If the &lt;ihe:HomeCommunityId/&gt; element is not present in the Request Message, this value shall not be present.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>A required &lt;ihe:RepositoryUniqueId/&gt; that identifies the Imaging Document Source from which the document was retrieved. The value of this element shall be the same as the value of the StudyRequest/SeriesRequest/DocumentRequest/RepositoryUniqueId element in the original Request Message.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>A required &lt;wado:SourceDocumentUniqueId/&gt; that identifies the source document. The value of this element shall be the same as the value of the StudyRequest/SeriesRequest/DocumentRequest/DocumentUniqueId element in the original Request Message. This value identifies the source, and is not an ID for the resulting rendered document.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>A conditional &lt;wado:FrameNumber/&gt; that identifies the frame within the source document. It shall be present if and only if &lt;wado:FrameNumber/&gt; was in the request.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>A required &lt;wado:Annotation/&gt; element that contains the actual value used.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>A required &lt;wado:Rows/&gt; element that contains the actual value used.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>A required &lt;wado:Columns/&gt; element that contains the actual value used.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>A required &lt;wado:Region/&gt; element that contains the actual value used.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>A required &lt;wado:WindowCenter/&gt; element that contains the actual value used.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>A required &lt;wado:WindowWidth/&gt; element that contains the actual value used.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>A required &lt;wado:ImageQuality/&gt; element that contains the actual value used.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>A required &lt;wado:PresentationUID/&gt; element that contains the actual value used if a PresentationUID was used.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>A required &lt;wado:PresentationSeriesUID/&gt; element that contains the actual value used if a PresentationSeriesUID was used.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>An optional &lt;wado:Anonymize/&gt; element that shall be present if the rendered instance was anonymized.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>A required &lt;ihe:Document/&gt; element that contains the rendered document encoded as an XOP Infoset.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>A required &lt;ihe:mimeType/&gt; element that indicates the MIME type of the retrieved document.</p>
+                              </li>
+                           </ul>
+                        </div>
+                     </li>
+                  </ul>
+               </div>
+               <p>The /RetrieveDocumentSetResponse/rs:RegistryResponse/@status attributes provides the overall status of the request: It shall contain one of the following values:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success</p>
+                     </li>
+                     <li class="listitem">
+                        <p>urn:ihe:iti:2007:ResponseStatusType:PartialSuccess</p>
+                     </li>
+                     <li class="listitem">
+                        <p>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>For each document requested in a /RetrieveRenderedImagingDocumentSetRequest/StudyRequest/SeriesRequest/DocumentRequest element:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>If the document is successfully rendered (without warning) then no /RetrieveRenderedImagingDocumentSetResponse/rs:RegistryResponse/rs:RegistryErrorList/ rs:RegistryError element shall be present and a /RetrieveRenderedImagingDocumentSetResponse/DocumentResponse/Document element shall be returned containing the rendered document as base64binary encoded data.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>If a warning is reported when retrieving the document, then a /RetrieveRenderedImagingDocumentSetResponse/rs:RegistryResponse/rs:RegistryErrorList/ rs:RegistryError element shall be returned with:</p>
+                        <div class="itemizedlist">
+                           <ul class="itemizedlist" style="list-style-type: circle; ">
+                              <li class="listitem">
+                                 <p>@severity is urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Warning</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>@errorCode is specified</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>@codeContext contains the warning message</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>@location contains the DocumentUniqueId of the document requested</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The rendered document shall be returned in an instance of /RetrieveRenderedImagingDocumentSetResponse/DocumentResponse/Document as base64binary encoded data. The returned document and warning are correlated via the DocumentUniqueId.</p>
+                              </li>
+                           </ul>
+                        </div>
+                     </li>
+                     <li class="listitem">
+                        <p>If an error is reported when retrieving a document, then a /RetrieveRenderedImagingDocumentSetResponse/rs:RegistryResponse/rs:RegistryErrorList/ rs:RegistryError element shall be returned with:</p>
+                        <div class="itemizedlist">
+                           <ul class="itemizedlist" style="list-style-type: circle; ">
+                              <li class="listitem">
+                                 <p>@severity is urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>@errorCode is specified</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>@codeContext contains the error message</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>@location contains the DocumentUniqueId of the document requested</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>No corresponding RetrieveRenderedImagingDocumentSetResponse/DocumentResponse element shall be returned</p>
+                              </li>
+                           </ul>
+                        </div>
+                     </li>
+                  </ul>
+               </div>
+               <p>The error conditions for failures and associated error codes are given below in section 6.4.4. These errors shall be detected and the associated errorCode returned if that error occurs. Additional errors defined in the ebRS standard, in ITI TF-2: 4.1.13 "Error Reporting", and defined by the implementer may be returned.</p>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_6.4.3" shape="rect"></a>6.4.3 WS - RetrieveImagingDocumentSetMetadataRequest</h3>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_6.4.3.1" shape="rect"></a>6.4.3.1 Request</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The specific Web Services parameters to be used for the Retrieve Imaging Document Set Metadata action shall be as follows, in the order that they would appear in the WSDL definition:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>The following types shall be imported (xsd:import) in the /definitions/types section:</p>
+                        <div class="itemizedlist">
+                           <ul class="itemizedlist" style="list-style-type: circle; ">
+                              <li class="listitem">
+                                 <p>namespace="urn:ihe:rad:xdsi-b:2009", schema="XDSI.b_ImagingDocumentSource.xsd"</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The baseline XDS.b schema (namespace="urn:ihe:iti:xds-b:2007", schema="XDS.b_DocumentRepository.xsd")</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The baseline DICOM WADO-WS schema (namespace="urn:dicom:wado:ws:2011", schema="dicom.wado.ws.2011.xsd")</p>
+                              </li>
+                           </ul>
+                        </div>
+                     </li>
+                     <li class="listitem">
+                        <p>The /definitions/message/part/@element attribute of the Retrieve Imaging Document Information Set Request message shall be defined an "wado:RetrieveImagingDocumentSetInformationRequest" as defined below.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The /definitions/message/part/@element attribute of the Retrieve Imaging Document Set Information Response message shall be defined an "wado:RetrieveImagingDocumentSetInformationResponse" as defined below.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The /definitions/portType/operation/input/@wsaw:Action attribute for the Retrieve Imaging Document Set Information Request message shall be "urn:wado:2011:RetrieveImagingDocumentSetInformation".</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The /definitions/portType/operation/output/@wsaw:Action attribute for the Retrieve Imaging Document Set Information Response message shall be "urn:wado:2011:RetrieveImagingDocumentSetInformationResponse".</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The /definitions/binding/operation/soap12:operation/@soapAction attribute shall be "urn:wado:2011:RetrieveImagingDocumentSetInformation".</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>The &lt;wado:RetrieveImagingDocumentSetInformationRequest/&gt; element for use with the Retrieve Imaging Document Set Request Message is defined as:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>One or more &lt;wado:StudyRequest/&gt; elements each of which includes a "studyInstanceUID" attribute identifying the study associated with the DICOM images/objects being retrieved. Each &lt;iherad:StudyRequest/&gt; element shall contain:</p>
+                        <div class="itemizedlist">
+                           <ul class="itemizedlist" style="list-style-type: circle; ">
+                              <li class="listitem">
+                                 <p>One or more &lt;wado:SeriesRequest/&gt; elements each of which includes a "seriesInstanceUID" attribute identifying the series associated with the DICOM images/objects being retrieved. Each &lt;iherad:SeriesRequest/&gt; element shall contain:</p>
+                                 <div class="itemizedlist">
+                                    <ul class="itemizedlist" style="list-style-type: square; ">
+                                       <li class="listitem">
+                                          <p>One or more &lt;wado:DocumentInformationRequest/&gt; elements, each one representing an individual document that the requestor wants to retrieve from the Web Server. Each &lt; wado:DocumentInformationRequest /&gt; element contains:</p>
+                                          <div class="itemizedlist">
+                                             <ul class="itemizedlist" style="list-style-type: disc; ">
+                                                <li class="listitem">
+                                                   <p>· An required &lt;ihe:RepositoryUniqueId/&gt; element that identifies the Web Server from which the document is to be retrieved. This value corresponds to XDSDocumentEntry.repositoryUniqueId. The RepositoryUniqueID is similar to a DICOM AE Title, but is a uniqueID assigned to the WADO-WS Web Server rather than a locally assigned string identifier. There will be a separate RepositoryUniqueID for each web service end point.</p>
+                                                </li>
+                                                <li class="listitem">
+                                                   <p>A required &lt;ihe:DocumentUniqueId/&gt; element that identifies the document within the source. For example, this value could be a SOP Instance UID obtained from a Key Object Selection (KOS) instance.</p>
+                                                </li>
+                                                <li class="listitem">
+                                                   <p>An optional &lt;ihe:HomeCommunityId/&gt; element. See the IHE Profiles for the definition and possible uses of this element.</p>
+                                                </li>
+                                                <li class="listitem">
+                                                   <p>An optional &lt;wado:Anonymize/&gt; element</p>
+                                                </li>
+                                                <li class="listitem">
+                                                   <p>A required &lt;wado:XPath/&gt; that contains the text corresponding to the XPath "filter" applied to the Native DICOM Model transposition of the object, as defined in <a href="../part19/PS3.19.html" class="olink" shape="rect">PS3.19</a>.</p>
+                                                   <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                                                      <h3 class="title">Note</h3>
+                                                      <p>If the requested filter is "/", then all of the metadata is requested.</p>
+                                                   </div>
+                                                </li>
+                                             </ul>
+                                          </div>
+                                       </li>
+                                    </ul>
+                                 </div>
+                              </li>
+                           </ul>
+                        </div>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_6.4.3.2" shape="rect"></a>6.4.3.2 Response</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>A Web Server shall extract information from each document specified in a Document Set Information Request. This shall be done by the logical equivalent of:</p>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>convert the non-pixel data for each of the requested data into an XML encoded form</p>
+                     </li>
+                     <li class="listitem">
+                        <p>apply each of the wado:XPath elements to this XML encoded form</p>
+                     </li>
+                     <li class="listitem">
+                        <p>provide the XPath response as part of the Document Set Information Response.</p>
+                     </li>
+                  </ol>
+               </div>
+               <p>See <a href="../part19/PS3.19.html" class="olink" shape="rect">PS3.19</a> for details on conversion to XML encoded form.</p>
+               <p>The Web Server shall return the XPath results or an error code when the document could not be processed.</p>
+               <p>The &lt;wado:RetrieveImagingDocumentSetInformationResponse/&gt; element for use with the Retrieve Imaging Document Set Response Message is additionally defined as:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>A required /wado:RetrieveImagingDocumentSetInformationResponse/rs:RegistryResponse element</p>
+                     </li>
+                     <li class="listitem">
+                        <p>An optional sequence of &lt;wado:DocumentInformationResponse/&gt; elements containing:</p>
+                        <div class="itemizedlist">
+                           <ul class="itemizedlist" style="list-style-type: circle; ">
+                              <li class="listitem">
+                                 <p>A &lt;ihe:HomeCommunityId/&gt; element. The value of this element shall be the same as the value of the StudyRequest/SeriesRequest/DocumentRequest/HomeCommunityId element in the Request Message. If the &lt;ihe:HomeCommunityId/&gt; element is not present in the Request Message, this value shall not be present.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>A required &lt;ihe:DocumentUniqueId/&gt; that identifies the document within the Web Server. The value of this element shall be the same as the value of the StudyRequest/SeriesRequest/DocumentRequest/DocumentUniqueId element in the original Request Message. This value corresponds to the SOP Instance UID.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>A conditional &lt;wado:FrameNumber/&gt; that identifies the frame within the source document. It shall be present if and only if &lt;wado:FrameNumber/&gt; was in the request.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>One &lt;wado:XPathResponseList/&gt; containing:</p>
+                                 <div class="itemizedlist">
+                                    <ul class="itemizedlist" style="list-style-type: square; ">
+                                       <li class="listitem">
+                                          <p>A required &lt;wado:XPathResponse&gt; that contains the XPath results for each &lt;wado:XPath/&gt; elements, in the same order as in the request encoded as an XOP Infoset. The response element shall be empty if there was no XPath match.</p>
+                                       </li>
+                                    </ul>
+                                 </div>
+                              </li>
+                           </ul>
+                        </div>
+                     </li>
+                  </ul>
+               </div>
+               <p>The /RetrieveImagingDocumentSetInformationResponse/rs:RegistryResponse/@status attributes provides the overall status of the request: It shall contain one of the following values:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success</p>
+                     </li>
+                     <li class="listitem">
+                        <p>urn:ihe:iti:2007:ResponseStatusType:PartialSuccess</p>
+                     </li>
+                     <li class="listitem">
+                        <p>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>For each document requested in a /RetrieveImagingDocumentSetInformationRequest/StudyRequest/SeriesRequest/DocumentRequest element:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>If the document is successfully retrieved (without warning) then no /RetrieveImagingDocumentSetInformationResponse/rs:RegistryResponse/rs:RegistryErrorList/ rs:RegistryError element shall be present and a /RetrieveImagingDocumentSetInformationResponse/DocumentResponse/Document element shall be returned containing the document as base64binary encoded data.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>If a warning is reported when retrieving the document, then a /RetrieveImagingDocumentSetInformationResponse/rs:RegistryResponse/rs:RegistryErrorList/ rs:RegistryError element shall be returned with:</p>
+                        <div class="itemizedlist">
+                           <ul class="itemizedlist" style="list-style-type: circle; ">
+                              <li class="listitem">
+                                 <p>@severity is urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Warning</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>@errorCode is specified</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>@codeContext contains the warning message</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>@location contains the DocumentUniqueId of the document requested</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The document shall be returned in an instance of /RetrieveDocumentSetResponse/DocumentResponse/Document as base64binary encoded data. The returned document and warning are correlated via the DocumentUniqueId.</p>
+                              </li>
+                           </ul>
+                        </div>
+                     </li>
+                     <li class="listitem">
+                        <p>If an error is reported when retrieving a document, then a /RetrieveImagingDocumentSetInformationResponse/rs:RegistryResponse/rs:RegistryErrorList/ rs:RegistryError element shall be returned with:</p>
+                        <div class="itemizedlist">
+                           <ul class="itemizedlist" style="list-style-type: circle; ">
+                              <li class="listitem">
+                                 <p>@severity is urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>@errorCode is specified</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>@codeContext contains the error message</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>@location contains the DocumentUniqueId of the document requested</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>No corresponding RetrieveDocumentSetResponse/DocumentResponse element shall be returned</p>
+                              </li>
+                           </ul>
+                        </div>
+                     </li>
+                  </ul>
+               </div>
+               <p>The error conditions for failures and associated error codes are given below in section 6.4.4. These errors shall be detected and the associated errorCode returned if that error occurs. Additional errors defined in the ebRS standard, in ITI TF-2: 4.1.13 "Error Reporting", and defined by the implementer may be returned.</p>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_6.4.4" shape="rect"></a>6.4.4 Error Codes</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The following errorCodes are defined and shall be used to report any of the associated error and warning situations. Other errorCodes may be present for other error and warning situations.</p>
+            <div class="table">
+               <a id="table_6.4-1" shape="rect"></a>
+               <p class="title">
+                  <strong>Table 6.4-1. Error Codes</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Error Code</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Error Situation</p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>urn:dicom:wado:XXX1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Unable to anonymize the requested instance(s).</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>urn:dicom:wado:XXX2</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Web Server does not support anonymization.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>urn:dicom:wado:XXX3</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>The requested instance(s) are not immediately available, but can be made available by manual request.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>urn:dicom:wado:XXX4</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Instance is no longer available, e.g., document retention rules have caused it to be removed or relocated.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>urn:dicom:wado:XXX5</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>The requested instance(s) cannot be returned because the size or count exceeds resource limits.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>urn:dicom:wado:XXX6</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Web Server does not support the requested format or transfer syntax.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>urn:dicom:wado:XXX7</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>The requested instance(s) cannot be provided in the requested format or transfer syntax.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>urn:dicom:wado:XXX8</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Single image format is not available for multi-frame images.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>urn:dicom:wado:XXX9</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Identifier does not match SOP Class (see <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a> C-MOVE)</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>urn:dicom:wado:XX10</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Inconsistent identifiers, e.g., Study and Series are correct but Series is in a different Study (see <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a> C-MOVE)</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>urn:dicom:wado:XX11</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>SOP Class not supported (see <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a> C-MOVE)</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>urn:dicom:wado:XX12</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Invalid parameter value in request (see <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a> C-MOVE)</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>urn:dicom:wado:XX13</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Unsupported parameter in request (see <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a> C-MOVE)</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>urn:dicom:wado:XX14</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Processing Failure (see <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a> C-MOVE)</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>urn:dicom:wado:XX15</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Study Instance UID not known</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>urn:dicom:wado:XX16</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Series Instance UID not known</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>urn:dicom:wado:XX17</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Document UID not known</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>urn:dicom:wado:XX18</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Out of range Frame number</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>urn:dicom:wado:XX19</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Presentation UID not known</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>urn:dicom:wado:XX20</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Presentation Series UID not known</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_6.3.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_6.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_6.5.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">6.3 WADO-URI Response </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.18.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 6.5 WADO-RS Request/Response</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

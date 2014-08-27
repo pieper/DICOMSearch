@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>NN.3 Specimen Module</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="chapter_NN.html" title="NN Specimen Identification and Management" />
+      <link rel="prev" href="sect_NN.2.html" title="NN.2 Basic Concepts and Definitions" />
+      <link rel="next" href="sect_NN.4.html" title="NN.4 Specimen Identification Examples" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">NN.3 Specimen Module</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_NN.2.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">NN Specimen Identification and Management</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_NN.4.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_NN.3" shape="rect"></a>NN.3 Specimen Module</h2>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_NN.3.1" shape="rect"></a>NN.3.1 Scope</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The Specimen Module (see <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>) defines formal DICOM attributes for the identification and description of laboratory specimens when said specimens are the subject of a DICOM image. The Module is focused on the specimen and laboratory attributes necessary to <span class="bold">
+                  <strong>
+                     <span class="italic">understand and</span>
+                     <span class="italic">interpret</span>
+                  </strong>
+               </span> the image. These include:</p>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="1">
+                  <li class="listitem">
+                     <p>Attributes that identify (specify) the specimen (within a given institution and across institutions).</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Attributes that identify and describe the container in which the specimen resides. Containers are intimately associated with specimens in laboratory processes, often "carry" a specimen's identity, and sometimes are intimately part of the imaging process, as when a glass slide and cover slip are in the optical path in microscope imaging.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Attributes that describe specimen collection, sampling and processing. Knowing how a specimen was collected, sampled, processed and stained is vital in interpreting an image of a specimen. One can make a strong case that those laboratory steps are part of the imaging process.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Attributes that describe the specimen or its ancestors (see <a class="xref" href="sect_NN.2.html#sect_NN.2.1" title="NN.2.1 Specimen" shape="rect">Section NN.2.1</a>) when these descriptions help with the interpretation of the image.</p>
+                  </li>
+               </ol>
+            </div>
+            <p>Attributes that convey diagnostic opinions or interpretations are not within the scope of the Specimen Module. The DICOM Specimen Module does not seek to replace or mirror the pathologist's report.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_NN.3.2" shape="rect"></a>NN.3.2 Relationship With The Laboratory Information System</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The Laboratory Information System (LIS) is critical to management of workflow and processes in the pathology lab. It is ultimately the source of the identifiers applied to specimens and containers, and is responsible for recording the processes that were applied to specimens.</p>
+            <p>An important purpose of the Specimen Module is to store specimen information necessary to understand and interpret an image <span class="underline">within the image information object</span>, as images may be displayed in contexts where the Laboratory Information System is not available. Implementation of the Specimen Module therefore requires close, dynamic integration between the LIS and imaging systems in the laboratory workflow.</p>
+            <p>It is expected that the Laboratory Information Systems will participate in the population of the Specimen Module by passing the appropriate information to a DICOM compliant imaging system in the Modality Worklist, or by processing the image objects itself and populating the Specimen Module attributes.</p>
+            <p>The nature of the LIS processing for imaging in the workflow will vary by product implementation. For example, an image of a gross specimen may be taken before a gross description is transcribed. A LIS might provide short term storage for images and update the description attributes in the module after a particular event (such as sign out). The DICOM Standard is silent on such implementation issues, and only discusses the attributes defined for the information objects exchanged between systems.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_NN.3.3" shape="rect"></a>NN.3.3 Case Level Information and The Accession Number</h3>
+                  </div>
+               </div>
+            </div>
+            <p>A pathology "case" is a unit of work resulting in a report with associated codified, billable acts. Case Level attributes are generally <span class="bold">
+                  <strong>
+                     <span class="italic">outside</span>
+                  </strong>
+               </span> the scope of the Specimen Module. However, a case is equivalent to a DICOM Requested Procedure, for which attributes are specified in the DICOM Study level modules.</p>
+            <p>DICOM has existing methods to handle most "case level" issues, including accepting cases referred for other institutions, clinical history, status codes, etc. These methods are considered sufficient to support DICOM imaging in Pathology.</p>
+            <p>The concept of an "Accession Number" in Pathology has been determined to be sufficiently equivalent to an "Accession Number" in Radiology that the DICOM data element "Accession Number" at the Study level at the DICOM information model may be used for the Pathology Accession Number with essentially the existing definition.</p>
+            <p>It is understood that the value of the laboratory accession number is often incorporated as part of a Specimen ID. However, there is no presumption that this is always true, and the Specimen ID should not be parsed to determine an accession number. The accession number will always be sent in its own discrete attribute.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_NN.3.4" shape="rect"></a>NN.3.4 Laboratory Workflows and Specimen Types</h3>
+                  </div>
+               </div>
+            </div>
+            <p>While created with anatomic pathology in mind, the DICOM Specimen Module is designed to support specimen identification, collection, sampling and processing attributes for a wide range of laboratory workflows. The Module is designed in a general way so not to limit the nature, scope, scale or complexity of laboratory (diagnostic) workflow that may generate DICOM images.</p>
+            <p>To provide specificity on the general process, the Module provides extendable lists of Container Types, Container Component Types, Specimen Types, Specimen Collection Types, Specimen Process Types and Staining Types. It is expected that the value sets for these "types" can be specialized to describe a wide range of laboratory procedures.</p>
+            <p>In typical anatomic pathology practice, and in Laboratory Information Systems, there are conventionally three identified levels of specimen preparation - part, block, and slide. These terms are actually conflations of the concepts of specimen and container. Not all processing can be described by only these three levels.</p>
+            <p>A part is the uniquely identified tissue or material collected from the patient and delivered to the pathology department for examination. Examples of parts would include a lung resection, colon biopsy at 20 cm, colon biopsy at 30 cm, peripheral blood sample, cervical cells obtained via scraping or brush, etc. A part can be delivered in a wide range of containers, usually labeled with the patients name, medical record number, and a short description of the specimen such as "colon biopsy at 20 cm". At accession, the lab creates a part identifier and writes it on the container. The container therefore conveys the part's identifier in the lab.</p>
+            <p>A block is a uniquely identified container, typically a cassette, containing one or more pieces of tissue dissected from the part (tissue dice). The tissue pieces may be considered, by some laboratories, as separate specimens. However in most labs, all the tissue pieces in a block are considered a single specimen.</p>
+            <p>A slide is a uniquely identified container, typically a glass microscope slide, containing tissue or other material. Common slide preparations include:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>"Tissue sections" created from tissue embedded in blocks. (1 slide typically contains one or more tissue sections coming from one block)</p>
+                  </li>
+                  <li class="listitem">
+                     <p>"Touch preps" prepared by placing a slide into contact with unprocessed tissue.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>"Liquid preparations" are a thin layer of cells created from a suspension.</p>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_NN.3.5" shape="rect"></a>NN.3.5 Relationship Between Specimens and Containers</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Virtually all specimens in a clinical laboratory are associated with a container, and specimens and containers are both important in imaging (see "Definitions", above). In most clinical laboratory situations there is a one to one relationship between specimens and containers. In fact, pathologists and LIS systems routinely consider a specimen and its container as single entity; e.g., the slide (a container) and the tissue sections (the specimen) are considered a single unit.</p>
+            <p>However, there are legitimate use cases in which a laboratory may place two or more specimens in the same container (see <a class="xref" href="sect_NN.4.html" title="NN.4 Specimen Identification Examples" shape="rect">Section NN.4</a> for examples). Therefore, the DICOM Specimen Module distinguishes between a Specimen ID and a Container ID. However, in situations where there is only one specimen per container, the value of the Specimen ID and Container ID may be the same (as assigned by the LIS).</p>
+            <p>Some Laboratory Information System may, in fact, not support multiple specimens in a container, i.e., they manage only a single identifier used for the combination of specimen and container. This is not contrary to the DICOM Standard; images produced under such a system will simply always assert that there is only one specimen in each container. However, a pathology image display application that shows images from a variety of sources must be able to distinguish between container and specimen IDs, and handle the 1:N relationship.</p>
+            <p>In allowing for one container to have multiple specimens, the Specimen Module asserts that it is the Container, not the Specimen, that is the unique target of the image. In other words, one Container ID is required in the Specimen Module, and multiple Specimen IDs are allowed in the Specimen Sequence. See <a class="xref" href="sect_NN.3.html#figure_NN.3-1" title="Figure NN.3-1. Extension of DICOM E-R Model for Specimens" shape="rect">Figure NN.3-1</a>.</p>
+            <p>
+          </p>
+            <div class="figure">
+               <a id="figure_NN.3-1" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.17_NN.3-1.svg" alt="Extension of DICOM E-R Model for Specimens" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure NN.3-1. Extension of DICOM E-R Model for Specimens</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+            <p>If there is more than one specimen in a container, there must be a mechanism to identify and locate each specimen. When there is more than one specimen in a container, the Module allows various approaches to specify their locations. The Specimen Localization Content Item Sequence (0040,0620), through its associated <a href="../part16/chapter_C.html#sect_TID_8004" class="olink" shape="rect">TID 8004 “Specimen Localization”</a>, allows the specimen to be localized by a distance in three dimensions from a reference point on the container, by a textual description of a location or physical attribute such as a colored ink, or by its location as shown in a referenced image of the container. The referenced image may use an overlay, burned-in annotation, or an associated Presentation State SOP Instance to specify the location of the specimen.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_NN.3.6" shape="rect"></a>NN.3.6 Relationship Between Specimens and Images</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Because the Module supports one container with multiple specimens, the Module can be used with an image of:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>A single specimen associated with a container</p>
+                  </li>
+                  <li class="listitem">
+                     <p>One or more specimens out of several in the same container</p>
+                  </li>
+                  <li class="listitem">
+                     <p>All specimens in the same container</p>
+                  </li>
+               </ul>
+            </div>
+            <p>However the Module is <span class="bold">
+                  <strong>not</strong>
+               </span> designed for use with an image of:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>Multiple specimens that are not associated with the same container, e.g., two gross specimens (two Parts) on a photography table, each with a little plastic label with their specimen number.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Multiple containers that hold specimens (e.g., eight cassettes containing breast tissue being X-Rayed for calcium).</p>
+                  </li>
+               </ul>
+            </div>
+            <p>Such images may be included in the Study, but would not use the Specimen Module; they would, for instance, be general Visible Light Photographic images. Note, however, that the LIS might identify a "virtual container" that contains such multiple real containers, and manage that virtual container in the laboratory workflow.</p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_NN.2.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_NN.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_NN.4.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">NN.2 Basic Concepts and Definitions </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> NN.4 Specimen Identification Examples</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>GGG Unified Worklist and Procedure Step - UPS (Informative)</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="PS3.17.html" title="PS3.17" />
+      <link rel="prev" href="sect_FFF.2.html" title="FFF.2 Application Cases" />
+      <link rel="next" href="sect_GGG.2.html" title="GGG.2 Implementation Examples" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">GGG Unified Worklist and Procedure Step - UPS (Informative)</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_FFF.2.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_GGG.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_GGG" shape="rect"></a>GGG Unified Worklist and Procedure Step - UPS (Informative)</h1>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_GGG.1" shape="rect"></a>GGG.1 Introduction</h2>
+                  </div>
+               </div>
+            </div>
+            <p>This section provides examples of different implementations and message sequencing when using the Unified Worklist and Procedure Step SOP Classes (UPS Push, UPS Pull, UPS Watch and UPS Event).</p>
+            <p>The examples are intended to provide a sense of how the UPS SOP Classes can be used to support a variety of workflow use cases. For the detailed specification of how the underlying DIMSE Services function, please refer to <a href="../part04/chapter_CC.html" class="olink" shape="rect"> Annex CC “Unified Procedure Step Service and SOP Classes (Normative)”</a>.</p>
+            <p>The Unified Worklist and Procedure Step Service Class combines the information that is conveyed separately by the Modality Worklist and Modality Performed Procedure Step into a single normalized object. This object is created to represent the planned step and then updated to reflect its progress from scheduled to complete and record details of the procedure performed and the results created. Additionally, the Unified Worklist supports subscription based notifications of progress and completion.</p>
+            <p>The Unified Worklist and Modality Procedure Step Service Class does not include support for complex internal task structures. It describes a single task to be performed in terms of the task request and the task results. Additional complexity is managed by the business logic.</p>
+            <p>The UPS SOP Classes define services so UPSs can be created, their status managed, notifications sent and their attributes set, queried, and retrieved. DICOM intentionally leaves open the many combinations in which these services can be implemented and applied to enact a variety of approaches to workflow.</p>
+            <p>
+               <span class="bold">
+                  <strong>Pull Workflow and Push Workflow</strong>
+               </span>
+            </p>
+            <p>Similar to previous SOP Classes like Modality Worklist, UPS allows a performing system (using the UPS Pull SOP Class as a C-FIND SCU) to query a worklist manager (the SCP) for relevant tasks and choose which one to start working on. This is sometimes called "Pull Workflow" since the performer pulls down the list and selects an item.</p>
+            <p>UPS adds the ability for a scheduling system (using the UPS Push SOP Class as an N-CREATE SCU) to "push" a workitem onto the performing system (here an SCP). In "Push Workflow" the scheduler makes the choice of which system becomes responsible for the workitem.</p>
+            <p>Performing systems (again as an SCP) could also schedule/create their own workitems, while allowing other systems (using the UPS Watch and UPS Event SOP Classes as N-EVENT-REPORT SCUs and N-GET SCUs) to receive notifications of the activities of the performer and examine the results.</p>
+            <p>Push and Pull can also be combined in various ways. A high level departmental scheduler could break down orders and push tasks onto the acquisition worklist manager and reporting worklist manager from which modalities and reporting workstations could pull their tasks. In another scenario, a modality that has pulled an acquisition workitem off a worklist, could push a follow-up task onto a workstation to perform 3D processing or CAD on the results.</p>
+            <p>
+               <span class="bold">
+                  <strong>Reliable Watchers and Deletion Locks</strong>
+               </span>
+            </p>
+            <p>Some UPS features (specifically the Deletion Lock - See <a href="../part04/sect_CC.2.html#sect_CC.2.3.2" class="olink" shape="rect">Section CC.2.3.2, “Service Class User Behavior”</a>) were introduced to support Reliable Watchers. By subscribing with a Deletion Lock, an SCU wishing to be a reliable watcher can signal the SCP to persist instances until the watcher has been able to retrieve final state information and remove the lock.</p>
+            <p>This means that network latency, slight delays in processing threads, or even the watcher being offline for a short time, will not prevent the watcher from reliably collecting the final state details from UPS instances it is interested in. This can be very important since the watcher may be responsible for monitoring completion of those instances, extracting details from them, and based on that and other internal logic, creating subsequent UPS Instances and populating the input data fields with information from the completed UPS. Without some form of persistence guarantee, UPS instances could disappear immediately upon entering a completed state.</p>
+            <p>Having established the Deletion Lock mechanism, it is possible that, due to equipment or processing errors, there could be cases where locks are not properly removed and some UPS instances might remain when they are no longer needed. Most SCP implementations will likely provide a way for such orphaned UPS instances to be removed under administrator control.</p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_FFF.2.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_GGG.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">FFF.2 Application Cases </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> GGG.2 Implementation Examples</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

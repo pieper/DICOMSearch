@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>7.2 Data Set Encapsulation</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.10.html" title="PS3.10" />
+      <link rel="up" href="chapter_7.html" title="7 DICOM File Format" />
+      <link rel="prev" href="chapter_7.html" title="7 DICOM File Format" />
+      <link rel="next" href="sect_7.3.html" title="7.3 Support of File Management Information" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">7.2 Data Set Encapsulation</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_7.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">7 DICOM File Format</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_7.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_7.2" shape="rect"></a>7.2 Data Set Encapsulation</h2>
+               </div>
+            </div>
+         </div>
+         <p>Each File shall contain a single Data Set representing a single SOP Instance related to a single SOP Class (and corresponding IOD).</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <p>A file may contain more than a single 2D image frame as specific IODs may be defined to include multiple frames.</p>
+         </div>
+         <p>The Transfer Syntax used to encode the Data Set shall be the one identified by the Transfer Syntax UID of the DICOM File Meta Information.</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="1">
+                  <li class="listitem">
+                     <p>The Transfer Syntax used to encode the Data Set cannot be changed within the Data Set; i.e., the Transfer Syntax UID Data Element may not occur anywhere within the Data Set, e.g., nested within a Sequence Item.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>A DICOM Data Set does not include its total length. The end of the file indication provided by the DICOM File Service (see <a class="xref" href="sect_8.4.html" title="8.4 File Content Access" shape="rect">Section 8.4</a>) is the only indication of the end of the Data Set.</p>
+                  </li>
+               </ol>
+            </div>
+         </div>
+         <p>The last Data Element of a Data Set may be Data Element (FFFC,FFFC) if padding of a Data Set is desired when a file is written. The Value of this Data Set Trailing Padding Data Element (FFFC,FFFC) has no significance and shall be ignored by all DICOM implementations reading this Data Set. File-set Readers or Updaters shall be able to process this Data Set Trailing Padding (FFFC,FFFC) either in the Data Set following the Meta Information or in Data Sets nested in a Sequence (see <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>).</p>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_7.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_7.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_7.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">7 DICOM File Format </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.10.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 7.3 Support of File Management Information</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

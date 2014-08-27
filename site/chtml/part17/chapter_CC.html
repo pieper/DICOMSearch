@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>CC Storage Commitment (Informative)</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="PS3.17.html" title="PS3.17" />
+      <link rel="prev" href="chapter_BB.html" title="BB Printing (Informative)" />
+      <link rel="next" href="chapter_DD.html" title="DD Worklists (Informative)" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">CC Storage Commitment (Informative)</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_BB.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_DD.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_CC" shape="rect"></a>CC Storage Commitment (Informative)</h1>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_CC.1" shape="rect"></a>CC.1 Storage Commitment Examples (Informative)</h2>
+                  </div>
+               </div>
+            </div>
+            <p>This Section and its sub-sections contain examples of ways in which the Storage Commitment Service Class could be used. This is not meant to be an exhaustive set of scenarios but rather a set of examples.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_CC.1.1" shape="rect"></a>CC.1.1 Push Model Example</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>
+                  <a class="xref" href="chapter_CC.html#figure_CC.1-1" title="Figure CC.1-1. Example of Storage Commitment Push Model SOP Class" shape="rect">Figure CC.1-1</a> is an example of the use of the Storage Commitment Push Model SOP Class.</p>
+               <p>
+          </p>
+               <div class="figure">
+                  <a id="figure_CC.1-1" shape="rect"></a>
+                  <div class="figure-contents">
+                     <div class="mediaobject">
+                        <img src="figures/PS3.17_CC.1-1.svg" alt="Example of Storage Commitment Push Model SOP Class" />
+                     </div>
+                  </div>
+                  <p class="title">
+                     <strong>Figure CC.1-1. Example of Storage Commitment Push Model SOP Class</strong>
+                  </p>
+               </div>
+               <p>
+                  <br class="figure-break" clear="none" />
+               </p>
+               <p>Node A (an SCU) uses the services of the Storage Service Class to transmit one or more SOP Instances to Node B (1). Node A then issues an N-ACTION to Node B (an SCP) containing a list of references to SOP Instances, requesting that the SCP take responsibility for storage commitment of the SOP Instances (2). If the SCP has determined that all SOP Instances exist and that it has successfully completed storage commitment for the set of SOP Instances, it issues an N-EVENT-REPORT with the status successful (3) and a list of the stored SOP Instances. Node A now knows that Node B has accepted the commitment to store the SOP Instances. Node A might decide that it is now appropriate for it to delete its copies of the SOP Instances. The N-EVENT-REPORT may or may not occur on the same Association as the N-ACTION.</p>
+               <p>If the SCP determines that committed storage can for some reason not be provided for one or more SOP Instances referenced by the N-ACTION request, then instead of reporting success it would issue an N-EVENT-REPORT with a status of completed - failures exists. With the EVENT-REPORT it would include a list of the SOP Instances that were successfully stored and also a list of the SOP Instances for which storage failed.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_CC.1.2" shape="rect"></a>CC.1.2 Pull Model Example (Retired)</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>A Pull Model was defined in earlier versions, but has been retired. See PS3.4-2001.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_CC.1.3" shape="rect"></a>CC.1.3 Remote Storage of Data by The SCP</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>
+                  <a class="xref" href="chapter_CC.html#figure_CC.1-3" title="Figure CC.1-3. Example of Remote Storage of SOP Instances" shape="rect">Figure CC.1-3</a> explains the use of the Retrieve AE Title. Using the push model a set of SOP Instances will be transferred from the SCU to the SCP. The SCP may decide to store the data locally or, alternatively, may decide to store the data at a remote location. This example illustrates how to handle the latter case.</p>
+               <p>
+          </p>
+               <div class="figure">
+                  <a id="figure_CC.1-3" shape="rect"></a>
+                  <div class="figure-contents">
+                     <div class="mediaobject">
+                        <img src="figures/PS3.17_CC.1-3.svg" alt="Example of Remote Storage of SOP Instances" />
+                     </div>
+                  </div>
+                  <p class="title">
+                     <strong>Figure CC.1-3. Example of Remote Storage of SOP Instances</strong>
+                  </p>
+               </div>
+               <p>
+                  <br class="figure-break" clear="none" />
+               </p>
+               <p>Node A, an SCU of the Storage Commitment Push Model SOP Class, informs Node B, an SCP of the corresponding SOP Class, of its wish for storage commitment by issuing an N-ACTION containing a list of references to SOP Instances (1). The SOP Instances will already have been transferred from Node A to Node B (Push Model) (2). If the SCP has determined that storage commitment has been achieved for all SOP Instances at Node C specified in the original Storage Commitment Request (from Node A), it issues an N-EVENT-REPORT (3) like in the previous examples. However, to inform the SCU about the address of the location at which the data will be stored, the SCP includes in the N-EVENT-REPORT the Application Entity Title of Node C.</p>
+               <p>The Retrieve AE Title can be included in the N-EVENT-REPORT at two different levels. If all the SOP Instances in question were stored at Node C, a single Retrieve AE Title could be used for the whole data set. However, the SCP could also choose not to store all the SOP Instances at the same location. In this case the Retrieve AE Title Attribute must be provided at the level of each single SOP Instance in the Referenced SOP Instance Sequence.</p>
+               <p>This example also applies to the situation where the SCP decides to store the SOP Instances on Storage Media. Instead of providing the Retrieve AE Title, the SCP will then provide a pair of Storage Media File-Set ID and UID.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_CC.1.4" shape="rect"></a>CC.1.4 Storage Commitment in Conjunction With Use of Storage Media</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>
+                  <a class="xref" href="chapter_CC.html#figure_CC.1-4" title="Figure CC.1-4. Example of Storage Commitment in Conjunction with Storage Media" shape="rect">Figure CC.1-4</a> is an example of how to use the Push Model with Storage Media to perform the actual transfer of the SOP Instances.</p>
+               <p>
+          </p>
+               <div class="figure">
+                  <a id="figure_CC.1-4" shape="rect"></a>
+                  <div class="figure-contents">
+                     <div class="mediaobject">
+                        <img src="figures/PS3.17_CC.1-4.svg" alt="Example of Storage Commitment in Conjunction with Storage Media" />
+                     </div>
+                  </div>
+                  <p class="title">
+                     <strong>Figure CC.1-4. Example of Storage Commitment in Conjunction with Storage Media</strong>
+                  </p>
+               </div>
+               <p>
+                  <br class="figure-break" clear="none" />
+               </p>
+               <p>Node A (an SCU) starts out by transferring the SOP Instances for which committed storage is required to Node B (an SCP) by off-line means on some kind of Storage Media (1). When the data is believed to have arrived at Node B, Node A can issue an N-ACTION to Node B containing a list of references to the SOP Instances contained on the Storage Media, requesting that the SCP perform storage commitment of these SOP Instances (2). If the SCP has determined that all the referenced SOP Instances exist (they may already have been loaded into the system or they may still reside on the Storage Media) and that it has successfully completed storage commitment for the SOP Instances, it issues an N-EVENT-REPORT with the status successful (3) and a list of the stored SOP Instances like in the previous examples.</p>
+               <p>If the Storage Media has not yet arrived or if the SCP determines that committed storage can for some other reason not be provided for one or more SOP Instances referenced by the N-ACTION request it would issue an N-EVENT-REPORT with a status of completed - failures exists. With the EVENT-REPORT it would include a list of the SOP Instances that were successfully stored and also a list of the SOP Instances for which storage failed. The SCP is not required to wait for the Storage Media to arrive (however it may chose to wait) but is free to reject the Storage Commitment request immediately. If so, the SCU may decide to reissue another N-ACTION at a later point in time.</p>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_BB.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_DD.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">BB Printing (Informative) </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> DD Worklists (Informative)</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

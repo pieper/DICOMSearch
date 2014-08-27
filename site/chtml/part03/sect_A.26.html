@@ -1,0 +1,654 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>A.26 Digital X-Ray Image IOD</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.3.html" title="PS3.3" />
+      <link rel="up" href="chapter_A.html" title="A Composite Information Object Definitions (Normative)" />
+      <link rel="prev" href="sect_A.25.html" title="A.25 Hardcopy Color Image IOD" />
+      <link rel="next" href="sect_A.27.html" title="A.27 Digital Mammography X-Ray Image IOD" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">A.26 Digital X-Ray Image IOD</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_A.25.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">A Composite Information Object Definitions (Normative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_A.27.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_A.26" shape="rect"></a>A.26 Digital X-Ray Image IOD</h2>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_A.26.1" shape="rect"></a>A.26.1 DX Image IOD Description</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The Digital X-Ray (DX) Image Information Object Definition specifies an image that has been created by a digital projection radiography imaging device.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>This includes but is not limited to: chest radiography, linear and multi-directional tomography, orthopantomography and skeletal radiography. Acquisition of image data may include but is not limited to: CCD-based sensors, stimulable phosphor imaging plates, amorphous selenium, scintillation based amorphous silicon and secondary capture of film-based images.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Specific IODs are defined for intra-oral radiography and mammography that further specialize the DX IOD.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <p>A DX image shall consist of the result of a single X-Ray exposure, in order to ensure that the anatomical and orientation attributes are meaningful for the image, permitting safe annotation, appropriate image processing and appropriate dissemination.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>This requirement specifically deprecates the common film/screen and Computed Radiography practice of making multiple exposures on different areas of a cassette or plate by using lead occlusion between exposures. Such acquisitions could be separated and transformed into multiple DX images during an appropriate quality assurance step by an operator.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>This requirement does not deprecate the acquisition of multiple paired structures during a single exposure, provided that they can be described by the relevant orientation Attributes. For example, an AP or PA projection of both hands side by side is typically obtained in a single exposure, and can be described by a Patient Orientation (0020,0020) of R\H or L\H since both hands are in the same traditional Anatomical Position. See <a href="../part17/chapter_A.html" class="olink" shape="rect"> Annex A “Explanation of Patient Orientation (Normative)” in PS3.17</a>.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <p>The DX Image IOD is used in two SOP Classes as defined in <a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a> Storage Service Class, a SOP Class for storage of images intended for presentation, and a SOP Class for storage of images intended for further processing before presentation. These are distinguished by their SOP Class UID and by the Enumerated Value of the mandatory Attribute in the <a class="xref" href="sect_C.8.html#sect_C.8.11.1" title="C.8.11.1 DX Series Module" shape="rect">DX Series Module</a>, Presentation Intent Type (0008,0068).</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_A.26.2" shape="rect"></a>A.26.2 DX Image IOD Entity-Relationship Model</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The E-R Model in <a class="xref" href="chapter_A.html#sect_A.1.2" title="A.1.2 IOD Entity-Relationship Model" shape="rect">Section A.1.2</a> depicts those components of the DICOM Information Model that directly reference the DX Image IOD.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_A.26.3" shape="rect"></a>A.26.3 DX Image IOD Module Table</h3>
+                  </div>
+               </div>
+            </div>
+            <div class="table">
+               <a id="table_A.26-1" shape="rect"></a>
+               <p class="title">
+                  <strong>Table A.26-1. Digital X-Ray Image IOD Modules</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>IE</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Module</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Reference</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Usage</p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="2" colspan="1">
+                              <p>Patient</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Patient</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.1.1" title="C.7.1.1 Patient Module" shape="rect">C.7.1.1</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>M</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Clinical Trial Subject</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.1.3" title="C.7.1.3 Clinical Trial Subject Module" shape="rect">C.7.1.3</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>U</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="3" colspan="1">
+                              <p>Study</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>General Study</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.2.1" title="C.7.2.1 General Study Module" shape="rect">C.7.2.1</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>M</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Patient Study</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.2.2" title="C.7.2.2 Patient Study Module" shape="rect">C.7.2.2</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>U</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Clinical Trial Study</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.2.3" title="C.7.2.3 Clinical Trial Study Module" shape="rect">C.7.2.3</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>U</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="3" colspan="1">
+                              <p>Series</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>General Series</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.3.1" title="C.7.3.1 General Series Module" shape="rect">C.7.3.1</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>M</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Clinical Trial Series</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.3.2" title="C.7.3.2 Clinical Trial Series Module" shape="rect">C.7.3.2</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>U</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>DX Series</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.8.html#sect_C.8.11.1" title="C.8.11.1 DX Series Module" shape="rect">C.8.11.1</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>M</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Frame of Reference</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Frame of Reference</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.4.1" title="C.7.4.1 Frame of Reference Module" shape="rect">C.7.4.1</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>U</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Equipment</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>General Equipment</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.5.1" title="C.7.5.1 General Equipment Module" shape="rect">C.7.5.1</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>M</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="23" colspan="1">
+                              <p>Image</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>General Image</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.6.1" title="C.7.6.1 General Image Module" shape="rect">C.7.6.1</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>M</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Image Pixel</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.6.3" title="C.7.6.3 Image Pixel Module" shape="rect">C.7.6.3</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>M</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Contrast/Bolus</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.6.4" title="C.7.6.4 Contrast/Bolus Module" shape="rect">C.7.6.4</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>U</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Display Shutter</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.6.11" title="C.7.6.11 Display Shutter Module" shape="rect">C.7.6.11</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>U</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Device</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.6.12" title="C.7.6.12 Device Module" shape="rect">C.7.6.12</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>U</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Intervention</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.6.13" title="C.7.6.13 Intervention Module" shape="rect">C.7.6.13</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>U</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Specimen</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.6.22" title="C.7.6.22 Specimen Module" shape="rect">C.7.6.22</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>U</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>DX Anatomy Imaged</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.8.html#sect_C.8.11.2" title="C.8.11.2 DX Anatomy Imaged Module" shape="rect">C.8.11.2</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>M</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>DX Image</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.8.html#sect_C.8.11.3" title="C.8.11.3 DX Image Module" shape="rect">C.8.11.3</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>M</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>DX Detector</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.8.html#sect_C.8.11.4" title="C.8.11.4 DX Detector Module" shape="rect">C.8.11.4</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>M</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>X-Ray Collimator</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.8.html#sect_C.8.7.3" title="C.8.7.3 X-Ray Collimator" shape="rect">C.8.7.3</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>U</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>DX Positioning</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.8.html#sect_C.8.11.5" title="C.8.11.5 DX Positioning Module" shape="rect">C.8.11.5</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>U</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>X-Ray Tomo Acquisition</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.8.html#sect_C.8.7.7" title="C.8.7.7 X-Ray Tomography Acquisition Module" shape="rect">C.8.7.7</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>U</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>X-Ray Acquisition Dose</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.8.html#sect_C.8.7.8" title="C.8.7.8 X-Ray Acquisition Dose Module" shape="rect">C.8.7.8</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>U</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>X-Ray Generation</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.8.html#sect_C.8.7.9" title="C.8.7.9 X-Ray Generation Module" shape="rect">C.8.7.9</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>U</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>X-Ray Filtration</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.8.html#sect_C.8.7.10" title="C.8.7.10 X-Ray Filtration Module" shape="rect">C.8.7.10</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>U</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>X-Ray Grid</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.8.html#sect_C.8.7.11" title="C.8.7.11 X-Ray Grid Module" shape="rect">C.8.7.11</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>U</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Overlay Plane</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.9.html#sect_C.9.2" title="C.9.2 Overlay Plane Module" shape="rect">C.9.2</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>C - Required if graphic annotation is present - See <a class="xref" href="sect_A.26.html#sect_A.26.4" title="A.26.4 Overlay Plane Module" shape="rect">Section A.26.4</a>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>VOI LUT</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.11.html#sect_C.11.2" title="C.11.2 VOI LUT Module" shape="rect">C.11.2</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>C - Required if Presentation Intent Type (0008,0068) is FOR PRESENTATION. Shall not be present otherwise. See Note 8.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Image Histogram</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.11.html#sect_C.11.5" title="C.11.5 Image Histogram Module" shape="rect">C.11.5</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>U</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Acquisition Context</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.6.14" title="C.7.6.14 Acquisition Context Module" shape="rect">C.7.6.14</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>M - See <a class="xref" href="sect_A.26.html#sect_A.26.5" title="A.26.5 Acquisition Context Module" shape="rect">Section A.26.5</a>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>SOP Common</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.12.html#sect_C.12.1" title="C.12.1 SOP Common Module" shape="rect">C.12.1</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>M</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Common Instance Reference</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.12.html#sect_C.12.2" title="C.12.2 Common Instance Reference Module" shape="rect">C.12.2</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>U</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>The Overlay Plane requirement is determined by the presence of "graphic annotation". Graphic annotation includes user or machine drawn graphics or text (such as computer assisted diagnosis) to indicate regions of interest or descriptions. It specifically does not include patient or image identification or technique information that is defined in other Attributes of the IOD.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The Device and Intervention Modules are User optional, though it is desirable that, if present, they are stored by an SCP. It is recognized that in some cases the digital image acquisition system will not have a user interface or direct connection that allows acquisition of these parameters, even if device or therapy have been used.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The Frame of Reference, X-Ray Collimator, DX Positioning and DX Tomo Acquisition Modules are User optional, though it is desirable that, if present, they are stored by an SCP. It is recognized that in some cases the parameters of the mechanical devices used for collimation, positioning and tomography may not be available to a digital image acquisition system that is not integrated with the X-Ray generation and positioning system.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The Histogram Module may contain a single or multiple statistical representations of the pixel data used to derive the VOI LUT Module, or intended to be used to derive or replace the VOI LUT Module. The Histogram Module may contain statistics of a subset of the stored image pixel data (such as from a cropped area or region of interest that is not the full field of view) that are useful for deriving a better VOI LUT than might be derived from the statistics obtained from the entire stored pixel data.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The Specimen Identification Module was previously included in this IOD but has been retired, and its functionality replaced by the Specimen Module. See PS3.3-2008.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The VOI LUT Module Attributes and behavior are further specialized in the DX Image Module.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The Curve Module was previously included in this IOD but has been retired. See <a class="link" href="ftp://medical.nema.org/MEDICAL/Dicom/2004/printed/04_03pu3.pdf" target="_top" shape="rect">PS3.3-2004</a>.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_A.26.4" shape="rect"></a>A.26.4 Overlay Plane Module</h3>
+                  </div>
+               </div>
+            </div>
+            <p>If the Overlay Plane Module is present, any Overlays defined in that Module shall store the overlay data in Overlay Data (60xx,3000), and not any unused high bits in Pixel Data (7FE0,0010).</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_A.26.5" shape="rect"></a>A.26.5 Acquisition Context Module</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The Acquisition Context Module may be used to encode information about conditions present during acquisition that are not described by specific attributes in other modules of the IOD.</p>
+            <p>The Baseline TID shall be <a href="../part16/chapter_C.html#sect_TID_3460" class="olink" shape="rect">TID 3460 “Projection Radiography Acquisition Context”</a>.</p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_A.25.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_A.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_A.27.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">A.25 Hardcopy Color Image IOD </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.3.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> A.27 Digital Mammography X-Ray Image IOD</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>7 Hosted Application Life Cycle</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.19.html" title="PS3.19" />
+      <link rel="up" href="PS3.19.html" title="PS3.19" />
+      <link rel="prev" href="chapter_6.html" title="6 Application Hosting Overview" />
+      <link rel="next" href="sect_7.2.html" title="7.2 States" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">7 Hosted Application Life Cycle</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_6.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_7.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_7" shape="rect"></a>7 Hosted Application Life Cycle</h1>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_7.1" shape="rect"></a>7.1 Initialization</h2>
+                  </div>
+               </div>
+            </div>
+            <p>The Hosting System initializes a Hosted Application by issuing a run command or its equivalent (e.g exec function in the C language) with command line parameters to specify the end point references (URLs) to be used for the interfaces. One end point reference is used by the Hosted Application to access the Host interface provided by the Hosting System. The second end point reference is where the Hosting System will look for the Application interface provided by the Hosted Application. The Host and Application interfaces are described in <a class="xref" href="chapter_8.html" title="8 Interfaces" shape="rect"> Section 8</a>. If issued from a command prompt or shell, the run command may appear as:</p>
+            <p>
+               <span class="italic">app</span>--hostURL
+  <span class="italic">url1</span>--applicationURL
+  <span class="italic">url2</span>
+            </p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>In this startup methodology, it is the Hosting System, not the Hosted Application that specifies both URLs. The Hosted Application must respond at the URL assigned to it by the Hosting System.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>A Hosted Application implementation where the Hosted Application runs remotely or on an application server might utilize a startup or proxy application to appropriately map between the URL provided by the Hosting System and the actual URL that the Hosted Application is using.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <p>
+               <a class="xref" href="chapter_7.html#figure_7.1-1" title="Figure 7.1-1. Hosted Application Initialization Sequence" shape="rect">Figure 7.1-1</a> shows a sequence diagram of Hosted Application initialization. Once the Hosted Application has initialized and is ready to begin processing data, it changes its state to IDLE and notifies the Hosting System of the state change using a call to the notifyStateChanged() method, thus informing the Hosting System that the Hosted Application is ready to go.</p>
+            <p>
+        </p>
+            <div class="figure">
+               <a id="figure_7.1-1" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.19_7.1-1.svg" alt="Hosted Application Initialization Sequence" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure 7.1-1. Hosted Application Initialization Sequence</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_6.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_7.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">6 Application Hosting Overview </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.19.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 7.2 States</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

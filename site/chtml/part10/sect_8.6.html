@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>8.6 Reserved DICOMDIR File ID</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.10.html" title="PS3.10" />
+      <link rel="up" href="chapter_8.html" title="8 DICOM File Service" />
+      <link rel="prev" href="sect_8.5.html" title="8.5 Character Set" />
+      <link rel="next" href="chapter_9.html" title="9 Conformance Requirements" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">8.6 Reserved DICOMDIR File ID</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_8.5.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">8 DICOM File Service</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_9.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_8.6" shape="rect"></a>8.6 Reserved DICOMDIR File ID</h2>
+               </div>
+            </div>
+         </div>
+         <p>A single File with a File ID, DICOMDIR, shall exist as a member of every File-set. This File ID is made of a single Component (see <a class="xref" href="sect_8.2.html" title="8.2 File IDs" shape="rect">Section 8.2</a> for the File ID structure). It contains the DICOM Media Storage Directory (see <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a> for detailed specification of the Basic Directory IOD), which includes general information about the whole File-set. This general information is always present, but optionally the directory content may be left empty in environments where it would not be needed. If the DICOMDIR File does not exist in a File-set, the File-set does not conform to PS3.10. The DICOMDIR shall not reference Files outside of the File-set to which it belongs.</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="1">
+                  <li class="listitem">
+                     <p>An example of the content of the DICOMDIR File may be found in <a class="xref" href="chapter_A.html" title="A Example of DICOMDIR File Content (Informative)" shape="rect"> Annex A</a>.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>If one chooses to map the origin of a File-set to a specific directory node in a specific Media Format, the File IDs, including the DICOMDIR File IDs, would be relative to this directory node path name.</p>
+                  </li>
+               </ol>
+            </div>
+         </div>
+         <p>The DICOMDIR File shall use the Explicit VR Little Endian Transfer Syntax (UID=1.2.840.10008.1.2.1) to encode the Media Storage Directory SOP Class. The DICOMDIR File shall comply with the DICOM File Format specified in Section 7 of this Standard. In particular the:</p>
+         <div class="orderedlist">
+            <ol class="orderedlist" type="a">
+               <li class="listitem">
+                  <p>SOP Class UID in the File Meta Information (header of the DICOMDIR File) shall have the Value specified in <a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a> of this Standard for the Media Storage Directory SOP Class;</p>
+               </li>
+               <li class="listitem">
+                  <p>SOP Instance UID in the File Meta Information (header of the DICOMDIR File) shall contain the File-set UID Value. The File-set UID is assigned by the Application Entity that created the File-set (FSC role, see <a class="xref" href="sect_8.3.html" title="8.3 File Management Roles and Services" shape="rect">Section 8.3</a>) with zero or more DICOM Files. This File-set UID Value shall not be changed by any other Application Entities reading or updating the content of the File-set.</p>
+               </li>
+            </ol>
+         </div>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="1">
+                  <li class="listitem">
+                     <p>This policy reflects that a File-set is an abstraction of a "container" within which Files may be created or read. The File-set UID is related to the "container" not its content. A File-set in the DICOM File Service is intended to be mapped to a supporting feature of a selected Media Format (e.g., volume or partition).</p>
+                  </li>
+                  <li class="listitem">
+                     <p>The Standard does not prevent the making of duplicate copies of a File-set (i.e., a File-set with the same File-set UID). However, within a managed domain of File-sets, a domain specific policy may be used to prevent the creation of such duplicate File-sets.</p>
+                  </li>
+               </ol>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_8.5.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_8.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_9.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">8.5 Character Set </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.10.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 9 Conformance Requirements</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>6 Application Hosting Overview</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.19.html" title="PS3.19" />
+      <link rel="up" href="PS3.19.html" title="PS3.19" />
+      <link rel="prev" href="chapter_5.html" title="5 Conventions" />
+      <link rel="next" href="chapter_7.html" title="7 Hosted Application Life Cycle" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">6 Application Hosting Overview</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_5.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_7.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_6" shape="rect"></a>6 Application Hosting Overview</h1>
+               </div>
+            </div>
+         </div>
+         <p>This section describes the capabilities of the API, gives an example of the sequence of operations, and summarizes the remaining sections of this Part.</p>
+         <p>The APIs are shared by a Hosting System and one or more Hosted Applications.</p>
+         <p>The API is agnostic to the hardware platform, the operating system, and the GUI. The API supports requesting space in the GUI, if available. The API supports headless operation (i.e., no GUI).</p>
+         <p>The APIs are defined using Web Services Definition Language (WSDL) to be programming language, platform, and technology neutral. The APIs are designed to maximize language independence while minimizing the impact on efficiency of utilizing web services technology. The interfaces support both a networked file-based and a shared-memory interaction model. The API supports manual configuration, but not discovery.</p>
+         <p>The API can provide DICOM Data Sets and other data to the Hosted Application and can accept DICOM Data Sets and other data created by the Hosted Application, incrementally or upon completion. The Hosted Application has granular access to data provided by the Hosting System (e.g., single attributes, a subset of the pixel data, etc.) and only that data. The API utilizes DICOM semantics, but not necessarily DICOM network transfer syntax. The Hosting System provides a mechanism to the Hosted Application for generating UIDs.</p>
+         <p>The API allows the Hosting System to suspend and/or cancel the operation of the Hosted Application and regain user interface control. The API supports returning status information from the Hosted Application to the Hosting System and tracking the state of the Hosted Application.</p>
+         <p>The Hosting System has a mechanism to launch or connect to one or more Hosted Applications, verify that the Hosted Application has started successfully, and then pass the initial data objects. All interactions start in the Hosting System. A typical sequence of events is as follows:</p>
+         <div class="orderedlist">
+            <ol class="orderedlist" type="1">
+               <li class="listitem">
+                  <p>The Hosting System identifies and locates the Hosted Application appropriate to the task and data using host-specific methods. Often the desired application is selected by the user of the system or is identified in a work list entry.</p>
+               </li>
+               <li class="listitem">
+                  <p>The Hosting System launches the application, essentially issuing a 'run' or 'exec' command, passing parameters that the Hosted Application uses to establish bilateral communications between the two.</p>
+               </li>
+               <li class="listitem">
+                  <p>The Hosting System uses the API to initiate a processing task in the Hosted Application and notifies it of its input data.</p>
+               </li>
+               <li class="listitem">
+                  <p>The Hosted Application uses the API to pull information from the Hosting System about the input data, including the location of the bulk pixel data.</p>
+               </li>
+               <li class="listitem">
+                  <p>The Hosted Application may use file I/O, memory mapping, or any other appropriate method to gain access to the bulk pixel data.</p>
+               </li>
+               <li class="listitem">
+                  <p>The Hosted Application may also use the API to inform the Hosting System of the status of the processing, for example progress, any warnings or errors encountered.</p>
+               </li>
+               <li class="listitem">
+                  <p>The Hosting System might use the API to suspend or cancel processing in the Hosted Application.</p>
+               </li>
+               <li class="listitem">
+                  <p>If the Hosting System suspended processing in the Hosted Application, it may use the API to instruct the Hosted Application to resume processing.</p>
+               </li>
+               <li class="listitem">
+                  <p>The Hosted Application, as it processes the input data, might create output objects, and use the API to inform the Hosting System of their existence.</p>
+               </li>
+               <li class="listitem">
+                  <p>The Hosting System uses the API to pull information about the output objects from the Hosted Application, including the location of the bulk data.</p>
+               </li>
+               <li class="listitem">
+                  <p>The Hosting system might use file I/O, memory mapping, or any other appropriate method to gain access to the output bulk data, if needed.</p>
+               </li>
+               <li class="listitem">
+                  <p>Once the Hosting System has pulled the output data from the Hosted Application, it uses the API to instruct the Hosted Application to wait for the next processing task (i.e., tells the Hosted Application to idle).</p>
+               </li>
+               <li class="listitem">
+                  <p>If the Hosting System has another task for the Hosted Application to perform, it may use the API to start that task, following this sequence of events beginning at Step 3.</p>
+               </li>
+               <li class="listitem">
+                  <p>When the Hosting System no longer needs the Hosted Application, it may use the API to request that the Hosted Application exit.</p>
+               </li>
+            </ol>
+         </div>
+         <p>
+            <a class="xref" href="chapter_7.html" title="7 Hosted Application Life Cycle" shape="rect"> Section 7</a> describes in greater detail the Hosted Application Life Cycle.</p>
+         <p>
+            <a class="xref" href="chapter_8.html" title="8 Interfaces" shape="rect"> Section 8</a> describes the base interfaces between the Hosting System and the Hosted Application.</p>
+         <p>
+            <a class="xref" href="chapter_9.html" title="9 Data Types and Structures" shape="rect"> Section 9</a> describes the custom data types and data structures used by the interfaces.</p>
+         <p>
+            <a class="xref" href="chapter_10.html" title="10 Data Exchange Model Conventions" shape="rect"> Section 10</a> describes the general form of models used by the model-based interfaces, and the conventions used in defining those models. The models defined by this Standard are described in the Annexes.</p>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_5.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_7.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">5 Conventions </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.19.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 7 Hosted Application Life Cycle</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

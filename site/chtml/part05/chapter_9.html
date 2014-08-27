@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>9 Unique Identifiers (UIDs)</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.5.html" title="PS3.5" />
+      <link rel="up" href="PS3.5.html" title="PS3.5" />
+      <link rel="prev" href="sect_8.4.html" title="8.4 Pixel Data Provider Service" />
+      <link rel="next" href="sect_9.2.html" title="9.2 Unique Identifier Registration" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">9 Unique Identifiers (UIDs)</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_8.4.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_9.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_9" shape="rect"></a>9 Unique Identifiers (UIDs)</h1>
+               </div>
+            </div>
+         </div>
+         <p>Unique Identifiers (UIDs) provide the capability to uniquely identify a wide variety of items. They guarantee uniqueness across multiple countries, sites, vendors and equipment. Different classes of objects, instance of objects and information entities can be distinguished from one another across the DICOM universe of discourse irrespective of any semantic context.</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <p>For example the same UID value cannot be used to identify both a study instance (Study Instance UID) and a series instance (Series Instance UID) within that study or a different study. Implementers also need to be cautioned against building new UID values by derivation (for example by adding a suffix) from a UID assigned by another implementation.</p>
+         </div>
+         <p>The UID identification scheme is based on the OSI Object Identification (numeric form) as defined by the ISO 8824 standard. All Unique Identifiers, used within the context of the DICOM Standard, are registered values as defined by ISO 9834-1 to ensure global uniqueness. The uses of such UIDs are defined in the various Parts of the DICOM Standard.</p>
+         <p>Each UID is composed of two parts, an &lt;org root&gt; and a &lt;suffix&gt;:</p>
+         <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: none; ">
+               <li class="listitem" style="list-style-type: none">
+                  <p>UID = &lt;org root&gt;.&lt;suffix&gt;</p>
+               </li>
+            </ul>
+         </div>
+         <p>The &lt;org root&gt; portion of the UID uniquely identifies an organization, (i.e., manufacturer, research organization, NEMA, etc.), and is composed of a number of numeric components as defined by ISO 8824. The &lt;suffix&gt; portion of the UID is also composed of a number of numeric components, and shall be unique within the scope of the &lt;org root&gt;. This implies that the organization identified in the &lt;org root&gt; is responsible for guaranteeing &lt;suffix&gt; uniqueness by providing registration policies. These policies shall guarantee &lt;suffix&gt; uniqueness for all UIDs created by that organization. Unlike the &lt;org root&gt;, which may be common for UIDs in an organization, the &lt;suffix&gt; shall take different unique values between different UIDs that identify different objects.</p>
+         <p>The &lt;org root&gt; "1.2.840.10008" is reserved for DICOM defined items (such as DICOM Transfer Syntaxes) and shall not be used for privately defined items (such as an Image Instance).</p>
+         <p>Although a specific implementation may choose some particular structure for its generated UIDs, it should never assume that a UID carries any semantics. Thus, a UID shall not be "parsed" to find a particular value or component. Component definition (for the suffix) is implementation specific and may change as long as uniqueness is maintained. Parsing UIDs may jeopardize the ability to inter-operate as implementations evolve.</p>
+         <p>Example of UID structure is given in <a class="xref" href="chapter_C.html" title="C DICOM Unique Identifier Registration Process (Informative)" shape="rect"> Annex C</a>.</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_9.1" shape="rect"></a>9.1 UID Encoding Rules</h2>
+                  </div>
+               </div>
+            </div>
+            <p>The DICOM UID encoding rules are defined as follows:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>Each component of a UID is a number and shall consist of one or more digits. The first digit of each component shall not be zero unless the component is a single digit.</p>
+                     <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                        <h3 class="title">Note</h3>
+                        <p>Registration authorities may distribute components with non-significant leading zeroes. The leading zeroes should be ignored when being encoded (i.e.,"00029" would be encoded "29").</p>
+                     </div>
+                  </li>
+                  <li class="listitem">
+                     <p>Each component numeric value shall be encoded using the characters 0-9 of the Basic G0 Set of the International Reference Version of ISO 646:1990 (the DICOM default character repertoire).</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Components shall be separated by the character "." (2EH).</p>
+                  </li>
+                  <li class="listitem">
+                     <p>If ending on an odd byte boundary, except when used for network negotiation (see <a href="../part08/PS3.8.html" class="olink" shape="rect">PS3.8</a>), one trailing NULL (00H), as a padding character, shall follow the last component in order to align the UID on an even byte boundary.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>UIDs, shall not exceed 64 total characters, including the digits of each component, separators between components, and the NULL (00H) padding character if needed.</p>
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_8.4.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_9.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">8.4 Pixel Data Provider Service </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.5.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 9.2 Unique Identifier Registration</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

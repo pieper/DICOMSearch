@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>C.6 Harmonization With HL7</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="chapter_C.html" title="C Waveforms (Informative)" />
+      <link rel="prev" href="sect_C.5.html" title="C.5 Waveform Information Model" />
+      <link rel="next" href="sect_C.7.html" title="C.7 Harmonization With SCP-ECG" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">C.6 Harmonization With HL7</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_C.5.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">C Waveforms (Informative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_C.7.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_C.6" shape="rect"></a>C.6 Harmonization With HL7</h2>
+               </div>
+            </div>
+         </div>
+         <p>This Waveform IE definition is harmonized with the HL7 waveform semantic constructs, including the channel definition attributes and the use of multiplex groups for synchronously acquired channels. The use of a common object model allows straightforward transcoding and interoperation between systems that use DICOM for waveform interchange and those that use HL7, and may be viewed as an example of common semantics implemented in the differing syntaxes of two messaging systems.</p>
+         <p>This section describes the congruence between the DICOM Waveform IE and the HL7 version 2.3 waveform message format (see HL7 version 2.3 Chapter 7, sections 7.14 - 7.20).</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_C.6.1" shape="rect"></a>C.6.1 HL7 Waveform Observation</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Waveforms in HL7 messages are sent in a set of OBX (Observation) Segments. Four subtypes of OBX segments are defined:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>The CHN subtype defines one channel in a CD (Channel Definition) Data Type</p>
+                  </li>
+                  <li class="listitem">
+                     <p>The TIM subtype defines the start time of the waveform data in a TS (Time String) Data Type</p>
+                  </li>
+                  <li class="listitem">
+                     <p>The WAV subtype carries the waveform data in an NA (Numeric Array) or MA (Multiplexed Array) Data Type (ASCII encoded samples, character delimited)</p>
+                  </li>
+                  <li class="listitem">
+                     <p>The ANO subtype carries an annotation in a CE (Coded Entry) Data Type with a reference to a specific time within the waveform to which the annotation applies</p>
+                  </li>
+               </ul>
+            </div>
+            <p>Other segments of the HL7 message definition specify patient and study identification, whose harmonization with DICOM constructs is not defined in this Annex.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_C.6.2" shape="rect"></a>C.6.2 Channel Definition</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The Waveform Module Channel Definition sequence attribute (003A,0200) is defined in harmonization with the HL7 Channel Definition (CD) Data Type, in accordance with the following Table. Each Item in the Channel Definition sequence attribute corresponds to an OBX Segment of subtype CHN.</p>
+            <div class="table">
+               <a id="table_C.6-1" shape="rect"></a>
+               <p class="title">
+                  <strong>Table C.6-1. Correspondence Between DICOM and HL7 Channel Definition</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>DICOM Attribute</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>DICOM Tag</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>HL7 CD Data Type Component</p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Waveform Channel Number</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(003A,0202)</p>
+                           </td>
+                           <td align="left" rowspan="2" colspan="1">
+                              <p>Channel Identifier (number&amp;name)</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Channel Label</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(003A,0203)</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Channel Source Sequence</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(003A,0208)</p>
+                           </td>
+                           <td align="left" rowspan="2" colspan="1">
+                              <p>Waveform Source</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Channel Source Modifier Sequence</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(003A,0209)</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Channel Sensitivity</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(003A,0210)</p>
+                           </td>
+                           <td align="left" rowspan="2" colspan="1">
+                              <p>Channel Sensitivity and Units</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Channel Sensitivity Units Sequence</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(003A,0211)</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Channel Sensitivity Correction Factor</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(003A,0212)</p>
+                           </td>
+                           <td align="left" rowspan="3" colspan="1">
+                              <p>Channel Calibration Parameters</p>
+                              <p>(correctionfactor&amp;baseline&amp;timeskew)</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Channel Baseline</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(003A,0213)</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Channel Time Skew</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(003A,0214)</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>[Group] Sampling Frequency</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(003A,001A)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Channel Sampling Frequency</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Channel Minimum Value</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(5400,0110)</p>
+                           </td>
+                           <td align="left" rowspan="2" colspan="1">
+                              <p>Minimum and Maximum Data Values</p>
+                              <p>(minimum &amp; maximum)</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Channel Maximum Value</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(5400,0112)</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Channel Offset</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(003A,0218)</p>
+                           </td>
+                           <td align="left" rowspan="6" colspan="1">
+                              <p>not defined in HL7</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Channel Status</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(003A,0205)</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Filter Low Frequency</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(003A,0220)</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Filter High Frequency</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(003A,0221)</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Notch Filter Frequency</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(003A,0222)</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Notch Filter Bandwidth</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(003A,0223)</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <p>In the DICOM information object definition, the sampling frequency is defined for the multiplex group, while in HL7 it is defined for each channel, but is required to be identical for all multiplexed channels.</p>
+            <p>Note that in the HL7 syntax, Waveform Source is a string, rather than a coded entry as used in DICOM. This should be considered in any transcoding between the two formats.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_C.6.3" shape="rect"></a>C.6.3 Timing</h3>
+                  </div>
+               </div>
+            </div>
+            <p>In HL7, the exact start time for waveform data is sent in an OBX Segment of subtype TIM. The corresponding DICOM attributes, which must be combined to form the equivalent time string, are:</p>
+            <div class="informaltable">
+               <table frame="box" rules="all">
+                  <tbody>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Acquisition DateTime</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>(0008,002A)</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Multiplex Group Time Offset</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>(0018,1068)</p>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_C.6.4" shape="rect"></a>C.6.4 Waveform Data</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The DICOM binary encoding of data samples in the Waveform Data attribute (5400,1010) corresponds to the ASCII representation of data samples in the HL7 OBX Segment of subtype WAV. The same channel-interleaved multiplexing used in the HL7 MA (Multiplexed Array) Data Type is used in the DICOM Waveform Data attribute.</p>
+            <p>Because of its binary representation, DICOM uses several data elements to specify the precise encoding, as listed in the following Table. There are no corresponding HL7 data elements, since HL7 uses explicit character-delimited ASCII encoding of data samples.</p>
+            <div class="informaltable">
+               <table frame="box" rules="all">
+                  <tbody>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Number of Waveform Channels</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>(003A,0005)</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Number of Waveform Samples</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>(003A,0010)</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Waveform Bits Stored</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>(003A,021A)</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Waveform Bits Allocated</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>(5400,1004)</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Waveform Sample Interpretation</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>(5400,1006)</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Waveform Padding Value</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>(5400,100A)</p>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_C.6.5" shape="rect"></a>C.6.5 Annotation</h3>
+                  </div>
+               </div>
+            </div>
+            <p>In HL7, Waveform Annotation is sent in an OBX Segment of subtype ANO, using the CE (Coded Entry) Data Type CE. This corresponds precisely to the DICOM Annotation using Coded Entry Sequences. However, HL7 annotation ROI is to a single point only (time reference), while DICOM allows reference to ranges of samples delimited by time or by explicit sample position.</p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_C.5.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_C.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_C.7.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">C.5 Waveform Information Model </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> C.7 Harmonization With SCP-ECG</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

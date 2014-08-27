@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>7.2 Special Conventions for Context Group Tables</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.16.html" title="PS3.16" />
+      <link rel="up" href="chapter_7.html" title="7 DCMR Context Group Specifications" />
+      <link rel="prev" href="chapter_7.html" title="7 DCMR Context Group Specifications" />
+      <link rel="next" href="chapter_8.html" title="8 Coding Schemes" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">7.2 Special Conventions for Context Group Tables</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_7.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">7 DCMR Context Group Specifications</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_8.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_7.2" shape="rect"></a>7.2 Special Conventions for Context Group Tables</h2>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_7.2.1" shape="rect"></a>7.2.1 Include Context Group</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The 'Include Context Group' macro is a concise mechanism for including (by-reference) all of the rows of a specified Context Group in the invoking Context Group, effectively substituting the specified Context Group for the row where the macro is invoked. If an 'Include Context Group' is specified, it shall be specified in the Concept Name column of a Context Group Table. Table 7.2.1-1 specifies the syntax of the 'Include Context Group macro. Inclusion may be nested, in that included Context Groups may themselves include other Context Groups. This gives rise to the possibility of circular inclusion and multiple inclusion, in which case the Context Group shall consist of the transitive closure of the set of all coded concepts within the included Context Groups.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>For example, it is reasonable to have the following definitions for context groups:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>Context ID 1, includes Context IDs 2 and 3</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Context ID 2, includes Context IDs 4 and 5</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Context ID 3, includes Context IDs 5 and 6</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Context ID 4 contains a, b, c</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Context ID 5 contains e, f, g</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Context ID 6 contains a, h, i</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>The contents of Context ID 1 will be a, b, c, e, f, g, h, i.</p>
+            </div>
+            <div class="table">
+               <a id="table_7.2.1-1" shape="rect"></a>
+               <p class="title">
+                  <strong>Table 7.2.1-1. Include Context Group Macro</strong>
+               </p>
+               <div class="table-contents">
+                  <table rules="all" frame="box">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Coding Scheme Designator</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Code Value</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Code Meaning</p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>…</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>…</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>…</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" colspan="3" rowspan="1">
+                              <p>
+                                 <span class="italic">Include CID nnn</span>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>…</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>…</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>…</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_7.2.2" shape="rect"></a>7.2.2 Units of Measurement</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Context Group 82 is defined to include all units of measurement relevant to DICOM IODs. In the past it was envisaged that an extensible list of pre-coordinated codes would be included in the mapping resource.</p>
+            <p>DICOM has now adopted the Unified Codes for Units of Measurement (UCUM) standard for all units of measurement. This coding scheme allows for the "construction" of pre-coordinated codes from atomic components.</p>
+            <p>The specialization of the UCUM standard as it is used in DICOM involves the following rules:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>the Coding Scheme Designator is specified as "UCUM"</p>
+                  </li>
+                  <li class="listitem">
+                     <p>the version of UCUM from which a code is constructed is not required, as it is not needed to resolve ambiguity in the Code Value or Code Meaning; however, there is no restriction on the version being specified in Coding Scheme Version</p>
+                  </li>
+                  <li class="listitem">
+                     <p>the Code Value will be constructed from UCUM and make use of the "case-sensitive" form of UCUM code (e.g., "ml/s")</p>
+                  </li>
+                  <li class="listitem">
+                     <p>the Code Meaning for other than UCUM unity may be one of the following:</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: circle; ">
+                           <li class="listitem">
+                              <p>the "print" value specified in UCUM (e.g., "mmHg" for Code Value mm[Hg])</p>
+                           </li>
+                           <li class="listitem">
+                              <p>the same string as sent in the Code Value (e.g., "ml/s")</p>
+                           </li>
+                           <li class="listitem">
+                              <p>constructed from the "names" of individual components using the Americanized form of name (e.g., "milliliters/second")</p>
+                           </li>
+                           <li class="listitem">
+                              <p>constructed from the "names" of individual components using the European form of name (e.g., "<span xml:lang="en-GB" class="foreignphrase" lang="en-GB">
+                                    <em xml:lang="en-GB" class="foreignphrase" lang="en-GB">millilitres</em>
+                                 </span>/second")</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li class="listitem">
+                     <p>In the case of UCUM unity ("1", or curly braces expression) it is forbidden to use "1" as a Code Meaning. <a class="xref" href="chapter_G.html" title="G English Code Meanings of Selected Codes (Normative)" shape="rect"> Annex G</a> provides Code Meanings for a Code Value (0008,0100) of 1. A Template or Context Group may constrain the Code Meaning according to the following rules:</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: circle; ">
+                           <li class="listitem">
+                              <p>UCUM default unit 1 shall use one of the Code Meaning synonyms specified in <a class="xref" href="chapter_G.html" title="G English Code Meanings of Selected Codes (Normative)" shape="rect"> Annex G</a>
+                              </p>
+                           </li>
+                           <li class="listitem">
+                              <p>ratios of identically dimensioned values may use ({ratio}, UCUM, "ratio")</p>
+                           </li>
+                           <li class="listitem">
+                              <p>unitless numeric scores may use ({M:N}, UCUM, "range: M:N") to specify the minimum and maximum value, for example, ({0:10}, UCUM, "range: 0:10")</p>
+                           </li>
+                           <li class="listitem">
+                              <p>counts using UCUM annotation shall always use the text within the curly braces as the Code Meaning, for example, ({masses}, UCUM, "masses")</p>
+                           </li>
+                           <li class="listitem">
+                              <p>compositions of a curly braces expression with other UCUM values may use a conventional clinical representation, for example, ({H.B.}/min, UCUM, "BPM")</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+               </ul>
+            </div>
+            <p>The UCUM standard states that the preferred display values for codes deg (degrees of
+          plane angle) and Cel (degrees Celsius) are "°" and "°C". However, the character ° does not
+          have a representation in the DICOM default character set (ASCII, ISO-IR 6). The Code
+          Meaning specified in this Part therefore uses "deg" and "C". SOP Instances that specify a
+          Specific Character Set that allows the character ° may use Code Meanings "°" and
+          "°C".</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>Code Meaning "C" formally conflicts with the Code Meaning for Coulomb. In the context of DICOM use, the possibility of confusion to a user based on the display of the Code Meaning is considered remote, as there is little use of Coulomb in imaging, and the context of the displayed item Concept Name would resolve between temperature and electric charge. Automated processing based on the Code Values should not face an issue as the Code Values differ.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The character ° has Unicode code point U+00B0, and is represented as 0xB0 in ISO-IR 100 (Latin-1), ISO-IR 101 (Latin-2), ISO-IR 109 (Latin-3), ISO-IR 110 (Latin-4), ISO-IR 126 (Greek), ISO-IR 138 (Hebrew), and ISO-IR 148 (Latin-5). It is not encodable in ISO-IR 13 (Katakana), ISO-IR 144 (Cyrillic), ISO-IR 127 (Arabic), or ISO-IR 166 (Thai).</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_7.2.3" shape="rect"></a>7.2.3 Extension of Context Groups</h3>
+                  </div>
+               </div>
+            </div>
+            <p>An Application may extend an Extensible Context Group by adding terms for new concepts. Applications may not substitute other terms of the same concept in the Context Group. Applications may not add a term that means "unspecified" or "missing" or "unknown" similar; if such a concept is intended to be permitted then the Standard will include it in the Context Group already. Such extension may be made without a change in Context Group Identifier, but with the specification of Context Group Extensions (see <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>).</p>
+            <p>Non-extensible Context Groups shall not be modified in an Application.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>The set of concepts in either an Extensible or a Non-extensible Context Group may be changed in subsequent editions of the Standard, in accordance with the procedures of the DICOM Standards Committee.</p>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_7.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_7.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_8.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">7 DCMR Context Group Specifications </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.16.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 8 Coding Schemes</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

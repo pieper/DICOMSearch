@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>6 Overview</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.14.html" title="PS3.14" />
+      <link rel="up" href="PS3.14.html" title="PS3.14" />
+      <link rel="prev" href="chapter_5.html" title="5 Conventions" />
+      <link rel="next" href="chapter_7.html" title="7 The Grayscale Standard Display Function" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">6 Overview</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_5.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_7.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_6" shape="rect"></a>6 Overview</h1>
+               </div>
+            </div>
+         </div>
+         <p>PS3.14 defines, mathematically, the Grayscale Standard Display Function of Standardized Display Systems. These systems may be printers producing hard-copies viewed on light-boxes or electronic Display Systems for soft-copies.</p>
+         <p>Hard-copies may consist of transmissive films as well as reflective prints. The image in these prints is represented by optical density variations in transmission or diffuse reflection. To an observer, every element of the image appears with a certain Luminance depending on the Illuminance and the optical density of the image element.</p>
+         <p>Soft-copies may be produced by emissive Display Systems (such as CRT monitors) or electronic light valves (such as light sources and liquid crystal displays).</p>
+         <p>For the purpose of PS3.14, Display Systems take a Digital Driving Level and produce Luminance or optical density variations that represent the image. Predictable application of image transformations, such as the modality, value-of-interest, and presentation look-up tables specified in the DICOM standard, requires knowledge of the Characteristic Curve of the Display System. Standardizing the response function expected of the Display System simplifies the application of such image transformations across several different Display Systems such as encountered in a network environment.</p>
+         <p>PS3.14 does not define when conformance with the Grayscale Standard Display Function is achieved or how to characterize the degree of conformance reached.</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <p>A definition of conformance would require thorough evaluations of human visual system sensitivity to deviations of Display Functions from the Grayscale Standard Display Function for medical images.</p>
+         </div>
+         <p>
+            <a class="xref" href="chapter_6.html#figure_6-1" title="Figure 6-1. The Grayscale Standard Display Function is an element of the image presentation after several modifications to the image have been completed by other elements of the image acquisition and presentation chain." shape="rect">Figure 6-1</a> and <a class="xref" href="chapter_6.html#figure_6-2" title="Figure 6-2. The conceptual model of a Standardized Display System maps P-Values to Luminance via an intermediate transformation to Digital Driving Levels of an unstandardized Display System." shape="rect">Figure 6-2</a> show the context for the Grayscale Standard Display Function. The Grayscale Standard Display Function is part of the image presentation. There will be a number of other modifications to the image before the Grayscale Standard Display Function is applied. The image acquisition device will adjust the image as it is formed. Other elements may perform a "window and level" to select a part of the dynamic range of the image to be presented. Yet other elements can adjust the selected dynamic range in preparation for display. The Presentation LUT outputs P-Values (presentation values). These P-Values become the Digital Driving Levels for Standardized Display Systems. The Grayscale Standard Display Function maps P-Values to the log-luminance output of the Standardized Display System. How a Standardized Display System performs this mapping is implementation dependent.</p>
+         <p>The boundary between the DICOM model of the image acquisition and presentation chain, and the Standardized Display System, expressed in P-Values, is intended to be both device independent and conceptually (if not actually) perceptually linear. In other words, regardless of the capabilities of the Standardized Display System, the same range of P-Values will be presented ìsimilarlyî.</p>
+         <p>
+      </p>
+         <div class="figure">
+            <a id="figure_6-1" shape="rect"></a>
+            <div class="figure-contents">
+               <div class="mediaobject">
+                  <img src="figures/PS3.14_6-1.svg" alt="The Grayscale Standard Display Function is an element of the image presentation after several modifications to the image have been completed by other elements of the image acquisition and presentation chain." />
+               </div>
+            </div>
+            <p class="title">
+               <strong>Figure 6-1. The Grayscale Standard Display Function is an element of the image presentation after several modifications to the image have been completed by other elements of the image acquisition and presentation chain.</strong>
+            </p>
+         </div>
+         <p>
+            <br class="figure-break" clear="none" />
+         </p>
+         <div class="figure">
+            <a id="figure_6-2" shape="rect"></a>
+            <div class="figure-contents">
+               <div class="mediaobject">
+                  <img src="figures/PS3.14_6-2.svg" alt="The conceptual model of a Standardized Display System maps P-Values to Luminance via an intermediate transformation to Digital Driving Levels of an unstandardized Display System." />
+               </div>
+            </div>
+            <p class="title">
+               <strong>Figure 6-2. The conceptual model of a Standardized Display System maps P-Values to Luminance via an intermediate transformation to Digital Driving Levels of an unstandardized Display System.</strong>
+            </p>
+         </div>
+         <br class="figure-break" clear="none" />
+         <p>The main objective of PS3.14 is to define mathematically an appropriate Grayscale Standard Display Function for all image presentation systems. The purpose of defining this Grayscale Standard Display Function is to allow applications to know
+  <span class="italic">a priori</span>how P-Values are transformed to viewed Luminance values by a Standardized Display System. In essence, defining the Grayscale Standard Display Function fixes the "units" for the P-Values output from the Presentation LUT and used as Digital Driving Levels to Standardized Display Systems.</p>
+         <p>A second objective of PS3.14 is to select a Display Function that provides some level of similarity in grayscale perception or basic appearance for a given image between Display Systems of different Luminance and that facilitates good use of the available Digital Driving Levels of a Display System. While many different functions could serve the primary objective, this Grayscale Standard Display Function was chosen to meet the second objective. With such a function, P-Values are approximately linearly related to human perceptual response. Similarity does not guarantee equal information content. Display Systems with a wider Luminance Range and/or higher Luminance will be capable of presenting more just-noticeable Luminance differences to an observer. Similarity also does not imply strict perceptual linearity, since perception is dependent on image content and on the viewer. In order to achieve strict perceptual linearity, applications would need to adjust the presentation of
+  images to match user expectations through the other constructs defined in the DICOM Standard (e.g., VOI and Presentation LUT). Without a defined Display Function, such adjustments on the wide variety of Display Systems encountered on a network would be difficult.</p>
+         <p>The choice of the function is based on several ideas that are discussed further in <a class="xref" href="chapter_A.html" title="A Derivation of the Grayscale Standard Display Function (Informative)" shape="rect"> Annex A</a>.</p>
+         <p>
+            <a class="xref" href="chapter_B.html" title="B Table of the Grayscale Standard Display Function (Informative)" shape="rect"> Annex B</a> contains the Grayscale Standard Display Function in tabular form.</p>
+         <p>Informative <a class="xref" href="chapter_C.html" title="C Measuring the Accuracy With Which a Display System Matches the Grayscale Standard Display Function (Informative)" shape="rect"> Annex C</a> provides an example procedure for comparing mathematically the shape of the actual Display Function with the Grayscale Standard Display Function and for quantifying how well the actual discrete Luminance intervals match those of the Grayscale Standard Display Function.</p>
+         <p>Display Systems often will have Characteristic Curves different from the Grayscale Standard Display Function. These devices may contain means for incorporating externally defined transformations that make the devices conform with the Grayscale Standard Display Function. PS3.14 provides examples of test patterns for Display Systems with which their behavior can be measured and the approximation to the Grayscale Standard Display Function evaluated (see Informative <a class="xref" href="chapter_D.html#sect_D.1" title="D.1 Emissive Display Systems" shape="rect">Section D.1</a>, <a class="xref" href="sect_D.2.html" title="D.2 Transparent Hardcopy Devices" shape="rect">Section D.2</a> and <a class="xref" href="sect_D.3.html" title="D.3 Reflective Display Systems" shape="rect">Section D.3</a>).</p>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_5.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_7.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">5 Conventions </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.14.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 7 The Grayscale Standard Display Function</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

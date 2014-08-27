@@ -1,0 +1,2076 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>C.4 DIMSE-C Service Groups</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.4.html" title="PS3.4" />
+      <link rel="up" href="chapter_C.html" title="C Query/Retrieve Service Class (Normative)" />
+      <link rel="prev" href="sect_C.3.html" title="C.3 Standard Query/Retrieve Information Models" />
+      <link rel="next" href="sect_C.5.html" title="C.5 Association Negotiation" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">C.4 DIMSE-C Service Groups</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_C.3.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">C Query/Retrieve Service Class (Normative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_C.5.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_C.4" shape="rect"></a>C.4 DIMSE-C Service Groups</h2>
+               </div>
+            </div>
+         </div>
+         <p>Three DIMSE-C Services are used in the construction of SOP Classes of the Query/Retrieve Service Class. The following DIMSE-C operations are used:</p>
+         <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+               <li class="listitem">
+                  <p>C-FIND</p>
+               </li>
+               <li class="listitem">
+                  <p>C-MOVE</p>
+               </li>
+               <li class="listitem">
+                  <p>C-GET</p>
+               </li>
+            </ul>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_C.4.1" shape="rect"></a>C.4.1 C-FIND Operation</h3>
+                  </div>
+               </div>
+            </div>
+            <p>SCPs of some SOP Classes of the Query/Retrieve Service Class may be capable of processing queries using the C-FIND operation as described in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>. The C-FIND operation is the mechanism by which queries are performed. Matches against the keys present in the Identifier are returned in C-FIND responses.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_C.4.1.1" shape="rect"></a>C.4.1.1 C-FIND Service Parameters</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.4.1.1.1" shape="rect"></a>C.4.1.1.1 SOP Class UID</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The SOP Class UID identifies the Query/Retrieve Information Model against which the C-FIND is to be performed. Support for the SOP Class UID is implied by the Abstract Syntax UID of the Presentation Context used by this C-FIND operation.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.4.1.1.2" shape="rect"></a>C.4.1.1.2 Priority</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The Priority Attribute defines the requested priority of the C-FIND operation with respect to other DIMSE operations being performed by the same SCP.</p>
+                  <p>Processing of priority requests is not required of SCPs. Whether or not an SCP supports priority processing and the meaning of the different priority levels shall be stated in the Conformance Statement of the SCP.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.4.1.1.3" shape="rect"></a>C.4.1.1.3 Identifier</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Both the C-FIND request and response contain an Identifier encoded as a Data Set (see <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>).</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>The definition of a Data Set in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a> specifically excludes the range of groups below group 0008, and this includes in particular Meta Information Header elements such as Transfer Syntax UID (0002,0010). The C-FIND request and identifier do not support a mechanism for ascertaining the manner in which an SCP might have encoded a stored image whether it be by requesting Transfer Syntax UID (0002,0010) or by any other mechanism.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_C.4.1.1.3.1" shape="rect"></a>C.4.1.1.3.1 Request Identifier Structure</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>An Identifier in a C-FIND request shall contain:</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: disc; ">
+                           <li class="listitem">
+                              <p>Key Attributes values to be matched against the values of storage SOP Instances managed by the SCP.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Query/Retrieve Level (0008,0052), which defines the level of the query.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Conditionally, the Attribute Query/Retrieve View (0008,0053). This Attribute may be included if Enhanced Multi-Frame Image Conversion has been accepted during Association Extended Negotiation. It shall not be included otherwise.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Conditionally, the Attribute Specific Character Set (0008,0005). This Attribute shall be included if expanded or replacement character sets may be used in any of the Attributes in the Request Identifier. It shall not be included otherwise.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Conditionally, the Attribute Timezone Offset From UTC (0008,0201). This Attribute shall be included if Key Attributes of time are to be interpreted explicitly in the designated local time zone. It shall not be present otherwise, i.e., it shall not be sent with a zero-length value.</p>
+                           </li>
+                        </ul>
+                     </div>
+                     <p>The Key Attributes and values allowable for the level of the query shall be defined in the SOP Class definition for the Query/Retrieve Information Model.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_C.4.1.1.3.2" shape="rect"></a>C.4.1.1.3.2 Response Identifier Structure</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>The C-FIND response shall not contain Attributes that were not in the request or specified in this section.</p>
+                     <p>An Identifier in a C-FIND response shall contain:</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: disc; ">
+                           <li class="listitem">
+                              <p>Key Attributes with values corresponding to Key Attributes contained in the Identifier of the request.</p>
+                              <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                                 <h3 class="title">Note</h3>
+                                 <div class="orderedlist">
+                                    <ol class="orderedlist" type="1">
+                                       <li class="listitem">
+                                          <p>All Required Keys in the Request Identifier, as well as all Optional Keys in the Request Identifier that are supported by the SCP, will therefore be present in the Response Identifier.</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>Required Keys and supported Optional Keys in the Response Identifier will have zero length if the SCP has no value to send; i.e., there is no requirement that the SCP have a value for these, or create a dummy value.</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>The requirement that unsupported Optional Keys present in the Request Identifier not be included in the Response Identifier is specified in <a class="xref" href="sect_C.2.html#sect_C.2.2.1.3" title="C.2.2.1.3 Optional Keys" shape="rect">Section C.2.2.1.3</a>.</p>
+                                       </li>
+                                    </ol>
+                                 </div>
+                              </div>
+                           </li>
+                           <li class="listitem">
+                              <p>Query/Retrieve Level (0008,0052), which defines the level of the query. The Query/Retrieve level shall be equal to the level specified in the request.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Conditionally, the Attribute Specific Character Set (0008,0005). This Attribute shall be included if expanded or replacement character sets may be used in any of the Attributes in the Response Identifier. It shall not be included otherwise. The C-FIND SCP is not required to return responses in the Specific Character Set requested by the SCU if that character set is not supported by the SCP. The SCP may return responses with a different Specific Character Set.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Conditionally, the Attribute Timezone Offset From UTC (0008,0201). This Attribute shall be included if any Attributes of time in the Response Identifier are to be interpreted explicitly in the designated local time zone. It shall not be present otherwise, i.e., it shall not be sent with a zero-length value.</p>
+                           </li>
+                        </ul>
+                     </div>
+                     <p>The C-FIND SCP is required to support either or both the Retrieve AE Title Data Element or the Storage Media File-Set ID/Storage Media File Set UID Data Elements. An Identifier in a C-FIND response shall contain:</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: disc; ">
+                           <li class="listitem">
+                              <p>Storage Media File-Set ID (0088,0130), which defines a user or implementation specific human readable Identifier that identifies the Storage Media on which the Composite Object Instance(s); reside. This element pertains to the set of Composite Object Instances available at the Query/Retrieve Level specified in the Identifier of the C-FIND request (e.g., Patient, Study, Series, Composite Object Instance). This Attribute shall be present if the Retrieve AE Title Data Element is not present. A null value (Data Element length of 0) is valid for all levels except the lowest level in the Information Model as defined by the SOP Class.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Storage Media File-Set UID (0088,0140), which uniquely identifies the Storage Media on which the Composite Object Instance(s) reside. This element pertains to the set of Composite Object Instances available at the Query/Retrieve Level specified in the Identifier of the C-FIND request (e.g., Patient, Study, Series, Composite Object Instance). This Attribute shall be present if the Retrieve AE Title Data Element is not present. A null value (Data Element length of 0) is valid for all levels except the lowest level in the Information Model as defined by the SOP Class.</p>
+                              <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                                 <h3 class="title">Note</h3>
+                                 <p>The File-Set concepts are used in <a href="../part10/PS3.10.html" class="olink" shape="rect">PS3.10</a>.</p>
+                              </div>
+                           </li>
+                           <li class="listitem">
+                              <p>Retrieve AE Title (0008,0054), which defines a list of DICOM Application Entity Title(s) that identify the location from which the Composite Object Instance(s) may be retrieved on the network. This element pertains to the set of Composite Object Instances available at the Query/Retrieve Level specified in the Identifier of the C-FIND request (e.g., Patient, Study, Series, Composite Object Instance). This Attribute shall be present if the Storage Media File-Set ID and Storage Media File-Set UID elements are not present. The Application Entity named in this field shall support either the C-GET or C-MOVE SOP Class of the Query/Retrieve Service Class. A null value (Data Element length of 0) is valid for all levels except the lowest level in the Information Model as defined by the SOP Class.</p>
+                              <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                                 <h3 class="title">Note</h3>
+                                 <div class="orderedlist">
+                                    <ol class="orderedlist" type="1">
+                                       <li class="listitem">
+                                          <p>For example, a DICOM AE with the AE Title of "A" performs a C-FIND request to a DICOM AE with the AE Title of "B" with the Query/Retrieve level set to "STUDY". DICOM AE "B" determines that the Composite Object Instances for each matching study may be retrieved by itself and sets the Data Element Retrieve AE Title to "B".</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>File-Sets may not be defined at every Query/Retrieve Level. If the SCP supports the File-Set ID/File-Set UID option but does not define these Attributes at the Query/Retrieve Level specified in the C-FIND request it may return these Data Elements with a length of 0 to signify that the value is unknown. An SCU should reissue a C-FIND at a Query/Retrieve Level lower in the hierarchy.</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>The fact that the value of the Key Attribute is unknown to the SCP of the Query/Retrieve Service Class does not imply that it is not present in the underlying Information Object. Thus, a subsequent retrieval may cause a Storage of a SOP Instance that contains the value of the Attribute.</p>
+                                       </li>
+                                    </ol>
+                                 </div>
+                              </div>
+                           </li>
+                        </ul>
+                     </div>
+                     <p>The C-FIND SCP may also, but is not required to, support the Instance Availability (0008,0056) Data Element. This Data Element shall not be included in a C-FIND request. An Identifier in a C-FIND response may contain:</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: disc; ">
+                           <li class="listitem">
+                              <p>Instance Availability (0008,0056), which defines how rapidly Composite Object Instance(s); become available for transmission after a C-MOVE or C-GET retrieval request. This element pertains to the set of Composite Object Instances available at the Query/Retrieve Level specified in the Identifier of the C-FIND request (e.g., Patient, Study, Series, Composite Object Instance). When some composite instances are less rapidly available than others, the availability of the least rapidly available shall be returned. If this Data Element is not returned, the availability is unknown or unspecified. A null value (Data Element length of 0) is not permitted. The Enumerated Values for this Data Element are:</p>
+                              <div class="itemizedlist">
+                                 <ul class="itemizedlist" style="list-style-type: circle; ">
+                                    <li class="listitem">
+                                       <p>"ONLINE", which means the instances are immediately available,</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>"NEARLINE", which means the instances need to be retrieved from relatively slow media such as optical disk or tape, or require conversion that takes time,</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>"OFFLINE", which means the instances need to be retrieved by manual intervention,</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>"UNAVAILABLE", which means the instances cannot be retrieved. Note that SOP Instances that are unavailable may have an alternate representation that is available (see section <a class="xref" href="sect_C.6.html#sect_C.6.1.1.5.1" title="C.6.1.1.5.1 Alternate Representation Sequence" shape="rect">Section C.6.1.1.5.1</a>).</p>
+                                    </li>
+                                 </ul>
+                              </div>
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.4.1.1.4" shape="rect"></a>C.4.1.1.4 Status</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>
+                     <a class="xref" href="sect_C.4.html#table_C.4-1" title="Table C.4-1. C-FIND Response Status Values" shape="rect">Table C.4-1</a> defines the specific status code values that might be returned in a C-FIND response. General status code values and fields related to status code values are defined in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>.</p>
+                  <div class="table">
+                     <a id="table_C.4-1" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table C.4-1. C-FIND Response Status Values</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Service Status</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Further Meaning</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Status Codes</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Related Fields</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Failure</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Refused: Out of Resources</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>A700</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,0902)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Identifier does not match SOP Class</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>A900</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,0901)</p>
+                                    <p>(0000,0902)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Unable to process</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Cxxx</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,0901)</p>
+                                    <p>(0000,0902)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Cancel</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Matching terminated due to Cancel request</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>FE00</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>None</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Success</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Matching is complete - No final Identifier is supplied.</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>0000</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>None</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Pending</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Matches are continuing - Current Match is supplied and any Optional Keys were supported in the same manner as Required Keys.</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>FF00</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Identifier</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Matches are continuing - Warning that one or more Optional Keys were not supported for existence and/or matching for this Identifier.</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>FF01</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Identifier</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_C.4.1.2" shape="rect"></a>C.4.1.2 C-FIND SCU Behavior</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>This Section discusses both the baseline and extended behavior of the C-FIND SCU.</p>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.4.1.2.1" shape="rect"></a>C.4.1.2.1 Baseline Behavior of SCU</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>All C-FIND SCUs shall be capable of generating query requests that meet the requirements of the Hierarchical Search.</p>
+                  <p>The Identifier contained in a C-FIND request shall contain a single value in the Unique Key Attribute for each level above the Query/Retrieve level. No Required or Optional Keys shall be specified that are associated with levels above the Query/Retrieve level.</p>
+                  <p>The Unique Key Attribute associated with the Query/Retrieve level shall be contained in the C-FIND request and may specify Single Value Matching, Universal Value Matching, or List of UID Matching. In addition, Required and Optional Keys associated with the Query/Retrieve level may be contained in the Identifier.</p>
+                  <p>An SCU conveys the following semantics using the C-FIND request:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>The SCU requests that the SCP perform a match of all keys specified in the Identifier of the request against the information it possesses down to the Query/Retrieve level specified in the request.</p>
+                           <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                              <h3 class="title">Note</h3>
+                              <div class="orderedlist">
+                                 <ol class="orderedlist" type="1">
+                                    <li class="listitem">
+                                       <p>The SCU may not assume the SCP supports any Optional Keys. Hence, Optional Keys serve only to reduce network related overhead when they are supported by the SCP.</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>The SCU must be prepared to filter C-FIND responses when the SCP fails to support an Optional Key specified in the C-FIND request.</p>
+                                    </li>
+                                 </ol>
+                              </div>
+                           </div>
+                        </li>
+                        <li class="listitem">
+                           <p>The SCU shall interpret Pending responses to convey the Attributes of a match of an Entity at the level of the query.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The SCU shall interpret a response with a status equal to Success, Failed or Refused to convey the end of Pending responses.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The SCU shall interpret a Refused or Failed response to a C-FIND request as an indication that the SCP is unable to process the request.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The SCU may cancel the C-FIND service by issuing a C-FIND-CANCEL request at any time during the processing of the C-FIND. The SCU shall recognize a status of Canceled to indicate that the C-FIND-CANCEL was successful.</p>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.4.1.2.2" shape="rect"></a>C.4.1.2.2 Extended Behavior of SCU</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Extended SCU behavior shall be negotiated at Association establishment time. If an option within the extended behavior is not agreed upon in the negotiation, then only baseline SCU behavior shall be performed with respect to that option. Extended SCU behavior includes all baseline behavior with the following option:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>Relational-queries</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Enhanced Multi-Frame Image Conversion</p>
+                        </li>
+                     </ul>
+                  </div>
+                  <p>More than one option may be agreed upon.</p>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_C.4.1.2.2.1" shape="rect"></a>C.4.1.2.2.1 Relational-Queries</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>The C-FIND Service with relational-queries allows any combination of keys at any level in the hierarchy. The Unique Key Attribute associated with the Query/Retrieve level shall be contained in the C-FIND request and may specify Single Value Matching, Universal Value Matching, or List of UID Matching. Support for relational-queries removes the baseline restriction that a Unique Key shall be specified for all levels above the Query/Retrieve level in the C-FIND request.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_C.4.1.2.2.2" shape="rect"></a>C.4.1.2.2.2 Enhanced Multi-Frame Image Conversion</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>The C-FIND Service with Enhanced Multi-Frame Image Conversion allows for selection of the default or an alternative view of the instances represented by the Information Model.</p>
+                     <p>Support for Enhanced Multi-Frame Image Conversion allows the SCU to specify the Query/Retrieve View (0008,0053) in the Request Identifier with a value of either "CLASSIC" or "ENHANCED".</p>
+                     <p>If Query/Retrieve View (0008,0053) is not present in the Request Identifier, then the SCU requests that the SCP perform a match of all keys specified in the Identifier of the request against the information about the instances that it possesses, as received.</p>
+                     <p>If Query/Retrieve View (0008,0053) is present with a value of "CLASSIC", then the SCU requests that the SCP perform a match of all keys specified in the Identifier of the request against the information about Classic single frame Instances (converted from Enhanced multi-frame Instances if required), as well as any instances that were converted to preserve referential integrity, and any that did not need to be converted.</p>
+                     <p>If Query/Retrieve View (0008,0053) is present with a value of "ENHANCED", then the SCU requests that the SCP perform a match of all keys specified in the Identifier of the request against the information about Enhanced multi-frame Instances (converted from Classic single frame Instances if required), as well as any instances that were converted to preserve referential integrity, and any that did not need to be converted.</p>
+                     <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                        <h3 class="title">Note</h3>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>The SCU may assume that no duplicate information will be returned. For example, if an entire series of single frame instances can be converted to a separate series of converted instances, a STUDY level C-FIND will not return both series.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The Query Information Model is unchanged, and the same unique, required and optional keys are equally applicable to both views, except that the values for the SERIES and IMAGE level queries will be different and will depend on the converted instance content.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>Unconverted instances, such as for other modalities like Ultrasound, will appear identical regardless of view.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>Implementations may apply performance optimizations, such as pre-computing or caching the potential information against which CLASSIC and ENHANCED queries may be performed, in order to minimize significant delays between the query request and response caused by converting "on demand", but SCUs may need to consider the potential for a delayed response when configuring timeouts, etc.</p>
+                              </li>
+                           </ol>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_C.4.1.3" shape="rect"></a>C.4.1.3 C-FIND SCP Behavior</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>This Section discusses both the baseline and extended behavior of the C-FIND SCP.</p>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.4.1.3.1" shape="rect"></a>C.4.1.3.1 Baseline Behavior of SCP</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>All C-FIND SCPs shall be capable of processing queries that meet the requirements of the Hierarchical Search.</p>
+                  <p>An SCP conveys the following semantics with a C-FIND response:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>The SCP is requested to perform a match of all the keys specified in the Identifier of the request, against the information it possesses, to the level specified in the request. Attribute matching is performed using the key values specified in the Identifier of the C-FIND request as defined in <a class="xref" href="sect_C.2.html" title="C.2 Query/Retrieve Information Model Definition" shape="rect">Section C.2</a>.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The SCP generates a C-FIND response for each match using the Hierarchical Search method. All such responses shall contain an Identifier whose Attributes contain values from a single match. All such responses shall contain a status of Pending.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>When all matches have been sent, the SCP generates a C-FIND response that contains a status of Success. A status of Success shall indicate that a response has been sent for each match known to the SCP.</p>
+                           <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                              <h3 class="title">Note</h3>
+                              <p>When there are no matches, then no responses with a status of Pending are sent, only a single response with a status of Success.</p>
+                           </div>
+                        </li>
+                        <li class="listitem">
+                           <p>The SCP shall generate a response with a status of Refused or Failed if it is unable to process the request. A Refused or Failed response shall contain no Identifier.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>If the SCP receives C-FIND-CANCEL indication before it has completed the processing of the matches it shall interrupt the matching process and return a status of Canceled.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>If the SCP manages images in multiple alternate encodings (see <a class="xref" href="sect_C.6.html#sect_C.6.1.1.5.1" title="C.6.1.1.5.1 Alternate Representation Sequence" shape="rect">Section C.6.1.1.5.1</a>), only one of the alternate encodings of an image shall be included in the set of matches for a C-FIND request at the Instance level.</p>
+                           <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                              <h3 class="title">Note</h3>
+                              <p>For query of images with alternate encodings, the SCP may select the appropriately encoded Instance for the request response based on identity of the SCU or other factors.</p>
+                           </div>
+                        </li>
+                     </ul>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_C.4.1.3.1.1" shape="rect"></a>C.4.1.3.1.1 Hierarchical Search Method</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>Starting at the top level in the Query/Retrieve Information Model, continuing until the level specified in the C-FIND request is reached, the following procedures are used to generate matches:</p>
+                     <div class="orderedlist">
+                        <ol class="orderedlist" type="a">
+                           <li class="listitem">
+                              <p>If the current level is the level specified in the C-FIND request, then the key match strings contained in the Identifier of the C-FIND request are matched against the values of the Key Attributes for each entity at the current level. For each entity for which the Attributes match all of the specified match strings, construct an Identifier. This Identifier shall contain all of the Unique Keys at higher levels and all of the values of the Attributes for this entity that match those in the C-FIND request. Return a response for each such Identifier. If there are no matching keys, then there are no matches, return a response with a status equal to Success and with no Identifier.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Otherwise, if the current level is not the level specified in the C-FIND request and there is an entity matching the Unique Key Attribute value for this level specified in the C-FIND request, perform this procedure at the next level down in the hierarchy.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Otherwise there are no matches; return a response with a status equal to Success.</p>
+                              <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                                 <h3 class="title">Note</h3>
+                                 <p>The above description specifies a recursive procedure. It may recur upon itself multiple times as it goes down the hierarchical levels, but at each level it recurs only once.</p>
+                              </div>
+                           </li>
+                        </ol>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.4.1.3.2" shape="rect"></a>C.4.1.3.2 Extended Behavior of SCP</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Extended SCP behavior shall be negotiated at Association establishment time. If an option within the extended behavior is not agreed upon in the negotiation, then only baseline SCP behavior shall be performed with respect to that option. Extended SCP behavior includes all baseline behavior with the following option:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>Relational-queries</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Enhanced Multi-Frame Image Conversion</p>
+                        </li>
+                     </ul>
+                  </div>
+                  <p>More than one option may be agreed upon.</p>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_C.4.1.3.2.1" shape="rect"></a>C.4.1.3.2.1 Relational-Queries</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>The C-FIND Service with relational-queries allows any combination of keys at any level in the hierarchy. At the lowest level, a query using the relational-queries shall contain the Unique Key for that level with either a single value match, a wild card match, or a universal match. Support for relational-queries removes the baseline restriction that a Unique Key shall be specified for all levels above the Query/Retrieve level in the C-FIND request.</p>
+                     <p>The C-FIND SCP shall perform matching based on all keys specified in the C-FIND request regardless of the Query/Retrieve level.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_C.4.1.3.2.2" shape="rect"></a>C.4.1.3.2.2 Relational Search Method</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>A query using the relational method may contain any combination of keys at any level in the hierarchy. Starting at the top level in the Query/Retrieve Information Model, continuing until the Query/Retrieve level specified in the C-FIND request is reached, the following procedures are used to generate matches:</p>
+                     <div class="orderedlist">
+                        <ol class="orderedlist" type="a">
+                           <li class="listitem">
+                              <p>The key match strings contained in the Identifier of the C-FIND request are matched against the values of the Key Attributes for each entity at the current level.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>If no Key Attribute is specified at the current level and the current level is not the level specified in the C-FIND request, the match shall be performed as if a wild card were specified for the Unique Key Attribute for the current level (i.e., all entities at the current level shall match).</p>
+                           </li>
+                           <li class="listitem">
+                              <p>If the current level is the level specified in the C-FIND request, then for each matching entity (a matching entity is one for which the Attributes match all of the specified match strings in the Key Attributes), construct an Identifier. This Identifier shall contain all of the Attributes generated by this procedure at higher levels on this recursion path and all of the values of the Key Attributes for this entity that match those in the C-FIND request.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Otherwise, if the current level is not the level specified in the C-FIND request, then for each matching entity construct a list of Attributes containing all of the matching Key Attributes and all Attributes that were prepared at the previous level for this entity. Then perform this procedure at the next level down in the hierarchy for each matching entity.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Otherwise, if there are no matches, return a response with status equal to Success and no Identifier.</p>
+                           </li>
+                        </ol>
+                     </div>
+                     <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                        <h3 class="title">Note</h3>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>The above description specifies a recursive procedure. It may recur upon itself multiple times as it goes down the hierarchical levels, and at each level, it may recur multiple times (one for each matching entity). This may result in a large number of Identifiers being generated.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>It is not required that the above defined procedure be used to generate matches. It is expected that implementations will incorporate different algorithms for performing searches of the databases. For a given query, the set of matches shall be equivalent to that which would be generated by the above procedure.</p>
+                              </li>
+                           </ol>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_C.4.1.3.2.3" shape="rect"></a>C.4.1.3.2.3 Enhanced Multi-Frame Image Conversion</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>If Query/Retrieve View (0008,0053) is not present in the Request Identifier, then the SCP shall perform a match of all keys specified in the Identifier of the request against the information about the instances that it possesses, as received.</p>
+                     <p>If Query/Retrieve View (0008,0053) is present with a value of "CLASSIC", then the SCP shall perform a match of all keys specified in the Identifier of the request against the information about Classic single frame Instances (converted from Enhanced multi-frame Instances if required), as well as any instances that were converted to preserve referential integrity, and any that did not need to be converted.</p>
+                     <p>If Query/Retrieve View (0008,0053) is present with a value of "ENHANCED", then the SCP shall perform a match of all keys specified in the Identifier of the request against the information about Enhanced multi-frame Instances (converted from Classic single frame Instances if required), as well as any instances that were converted to preserve referential integrity, and any that did not need to be converted.</p>
+                     <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                        <h3 class="title">Note</h3>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>The SCP will not return information that is duplicated. For example, if an entire series of single frame instances can be converted to a separate series of converted instances, a STUDY level C-FIND will not return both series.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The Query Information Model is unchanged, and the same unique, required and optional keys are equally applicable to both views, except that the values for the SERIES and IMAGE level queries will be different and will depend on the converted instance content.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>Unconverted instances, such as for other modalities like Ultrasound, will appear identical regardless of view.</p>
+                              </li>
+                           </ol>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_C.4.2" shape="rect"></a>C.4.2 C-MOVE Operation</h3>
+                  </div>
+               </div>
+            </div>
+            <p>SCUs of some SOP Classes of the Query/Retrieve Service Class may generate retrievals using the C-MOVE operation as described in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>. The C-MOVE operation allows an application entity to instruct another application entity to transfer stored SOP Instances to another application entity using the C-STORE operation. Support for the C-MOVE service shall be agreed upon at Association establishment time by both the SCU and SCP of the C-MOVE in order for a C-MOVE operation to occur over the Association. The C-STORE sub-operations shall always be accomplished over an Association different from the Association that accomplishes the C-MOVE operation. Hence, the SCP of the Query/Retrieve Service Class serves as the SCU of the Storage Service Class.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>The application entity that receives the stored SOP Instances may or may not be the originator of the C-MOVE operation.</p>
+            </div>
+            <p>A C-MOVE request may be performed to any level of the Query/Retrieve Information Model. However, the transfer of stored SOP Instances may not be performed at this level. The level at which the transfer is performed depends upon the SOP Class (see <a class="xref" href="sect_C.6.html" title="C.6 SOP Class Definitions" shape="rect">Section C.6</a>).</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_C.4.2.1" shape="rect"></a>C.4.2.1 C-MOVE Service Parameters</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.4.2.1.1" shape="rect"></a>C.4.2.1.1 SOP Class UID</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The SOP Class UID identifies the Query/Retrieve Information Model against which the C-MOVE is to be performed. Support for the SOP Class UID is implied by the Abstract Syntax UID of the Presentation Context used by this C-MOVE operation.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.4.2.1.2" shape="rect"></a>C.4.2.1.2 Priority</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The Priority Attribute defines the requested priority of the C-MOVE operation and corresponding C-STORE sub-operations with respect to other DIMSE operations being performed by the same SCP.</p>
+                  <p>Processing of priority requests is not required of SCPs. Whether or not an SCP supports priority processing, and the meaning of the different priority levels shall be stated in the Conformance Statement of the SCP. The same priority shall be used for all C-STORE sub-operations.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.4.2.1.3" shape="rect"></a>C.4.2.1.3 Move Destination</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Move Destination specifies the Application Entity Title of the receiver of the C-STORE sub-operations.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.4.2.1.4" shape="rect"></a>C.4.2.1.4 Identifier</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The C-MOVE request shall contain an Identifier. The C-MOVE response shall conditionally contain an Identifier as required in <a class="xref" href="sect_C.4.html#sect_C.4.2.1.4.2" title="C.4.2.1.4.2 Response Identifier Structure" shape="rect">Section C.4.2.1.4.2</a>.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>The Identifier is specified as U in the definition of the C-MOVE primitive in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a> but is specialized for use with this service.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_C.4.2.1.4.1" shape="rect"></a>C.4.2.1.4.1 Request Identifier Structure</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>An Identifier in a C-MOVE request shall contain:</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: disc; ">
+                           <li class="listitem">
+                              <p>Query/Retrieve Level (0008,0052), which defines the level of the retrieval</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Unique Key Attributes, which may include Patient ID (0010,0020), Study Instance UIDs (0020,000D), Series Instance UIDs (0020,000E), and the SOP Instance UIDs (0008,0018)</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Conditionally, the Attribute Query/Retrieve View (0008,0053). This Attribute may be included if Enhanced Multi-Frame Image Conversion has been accepted during Association Extended Negotiation. It shall not be included otherwise.</p>
+                           </li>
+                        </ul>
+                     </div>
+                     <p>Specific Character Set (0008,0005) shall be present if Patient ID (0010,0020) is using a character set other than the default character repertoire.</p>
+                     <p>The Unique Keys at each level of the hierarchy and the values allowable for the level of the retrieval shall be defined in the SOP Class definition for the Query/Retrieve Information Model.</p>
+                     <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                        <h3 class="title">Note</h3>
+                        <p>In the non-Relational behavior, more than one entity may be retrieved if the Query/Retrieve Level is IMAGE, SERIES or STUDY, using List of UID matching, but only Single Value Matching value may be specified for Patient ID (0010,0020).</p>
+                     </div>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_C.4.2.1.4.2" shape="rect"></a>C.4.2.1.4.2 Response Identifier Structure</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>The Failed SOP Instance UID List (0008,0058) specifies a list of UIDs of the C-STORE sub-operation SOP Instances for which this C-MOVE operation has failed. An Identifier in a C-MOVE response shall conditionally contain the Failed SOP Instance UID List (0008,0058) based on the C-MOVE response status value. If no C-STORE sub-operation failed, Failed SOP Instance UID List (0008,0058) is absent and therefore no Data Set shall be sent in the C-MOVE response.</p>
+                     <p>Specific Character Set (0008,0005) shall not be present.</p>
+                     <p>The Identifier in a C-MOVE response with a status of:</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: disc; ">
+                           <li class="listitem">
+                              <p>Canceled, Failure, Refused, or Warning shall contain the Failed SOP Instance UID List Attribute</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Pending shall not contain the Failed SOP Instance UID List Attribute (no Data Set)</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.4.2.1.5" shape="rect"></a>C.4.2.1.5 Status</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>
+                     <a class="xref" href="sect_C.4.html#table_C.4-2" title="Table C.4-2. C-MOVE Response Status Values" shape="rect">Table C.4-2</a> defines the specific status code values that might be returned in a C-MOVE response. General status code values and fields related to status code values are defined in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>.</p>
+                  <div class="table">
+                     <a id="table_C.4-2" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table C.4-2. C-MOVE Response Status Values</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Service Status</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Further Meaning</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Status Codes</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Related Fields</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Failure</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Refused: Out of Resources - Unable to calculate number of matches</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>A701</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,0902)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Refused: Out of Resources - Unable to perform sub-operations</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>A702</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,1021)</p>
+                                    <p>(0000,1022)</p>
+                                    <p>(0000,1023)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Refused: Move Destination unknown</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>A801</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,0902)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Identifier does not match SOP Class</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>A900</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,0901)</p>
+                                    <p>(0000,0902)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Unable to Process</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Cxxx</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,0901)</p>
+                                    <p>(0000,0902)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Cancel</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Sub-operations terminated due to Cancel Indication</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>FE00</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,1020)</p>
+                                    <p>(0000,1021)</p>
+                                    <p>(0000,1022)</p>
+                                    <p>(0000,1023)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Warning</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Sub-operations Complete - One or more Failures</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>B000</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,1021)</p>
+                                    <p>(0000,1022)</p>
+                                    <p>(0000,1023)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Success</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Sub-operations Complete - No Failures</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>0000</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,1021)</p>
+                                    <p>(0000,1022)</p>
+                                    <p>(0000,1023)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Pending</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Sub-operations are continuing</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>FF00</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,1020)</p>
+                                    <p>(0000,1021)</p>
+                                    <p>(0000,1022)</p>
+                                    <p>(0000,1023)</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.4.2.1.6" shape="rect"></a>C.4.2.1.6 Number of Remaining Sub-Operations</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Inclusion of the Number of Remaining Sub-operations is conditional based upon the status in the C-MOVE response. The Number of Remaining Sub-operations specifies the number of Remaining C-STORE sub-operations necessary to complete the C-MOVE operation.</p>
+                  <p>A C-MOVE response with a status of:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>Pending shall contain the Number of Remaining Sub-operations Attribute</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Canceled may contain the Number of Remaining Sub-operations Attribute</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Warning, Failure, or Success shall not contain the Number of Remaining Sub-operations Attribute</p>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.4.2.1.7" shape="rect"></a>C.4.2.1.7 Number of Completed Sub-Operations</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Inclusion of the Number of Completed Sub-operations is conditional based upon the status in the C-MOVE response. The Number of Completed sub-operations specifies the number of C-STORE sub-operations generated by the requested transfer that have completed successfully.</p>
+                  <p>A C-MOVE response with a status of:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>Pending shall contain the Number of Completed Sub-operations Attribute</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Canceled, Warning, Failure, or Success may contain the Number of Completed Sub-operations Attribute</p>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.4.2.1.8" shape="rect"></a>C.4.2.1.8 Number of Failed Sub-Operations</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Inclusion of the Number of Failed Sub-operations is conditional based upon the status in the C-MOVE response. The Number of Failed sub-operations specifies the number of C-STORE sub-operations generated by the requested transfer that have Failed.</p>
+                  <p>A C-MOVE response with a status of:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>Pending shall contain the Number of Failed Sub-operations Attribute</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Canceled, Warning, Failure, or Success may contain the Number of Failed Sub-operations Attribute</p>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.4.2.1.9" shape="rect"></a>C.4.2.1.9 Number of Warning Sub-Operations</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Inclusion of the Number of Warning Sub-operations is conditional based upon the status in the C-MOVE response. The Number of Warning sub-operations specifies the number of C-STORE sub-operations generated by the requested transfer that had a status of warning.</p>
+                  <p>A C-MOVE response with a status of:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>Pending shall contain the Number of Warnings Sub-operations Attribute</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Canceled, Warning, Failure, or Success may contain the Number of Warning Sub-operations Attribute</p>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_C.4.2.2" shape="rect"></a>C.4.2.2 C-MOVE SCU Behavior</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>This Section discusses both the baseline and extended behavior of the C-MOVE SCU.</p>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.4.2.2.1" shape="rect"></a>C.4.2.2.1 Baseline Behavior of SCU</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>An SCU conveys the following semantics with a C-MOVE request:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>The SCU shall supply a single value in the Unique Key Attribute for each level above the Query/Retrieve level. For the level of retrieve, the SCU shall supply a single value for one unique key if the level of retrieve is above the STUDY level and shall supply one UID, or a list of UIDs if a retrieval of several items is desired and the retrieve level is STUDY, SERIES or IMAGE. The SCU shall also supply a move destination. The move destination shall be the DICOM Application Entity Title of a DICOM Application Entity capable of serving as the SCP of the Storage Service Class.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The SCU shall interpret responses to the C-MOVE with status equal to Pending during the processing of the C-STORE sub-operations. These responses shall indicate the number of Remaining, Completed, Failed, and Warning C-STORE sub-operations.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The SCU shall interpret responses with a status equal to Success, Warning, Failure, or Refused as final responses. The final response shall indicate the number of Successful C-STORE sub-operations and the number of Failed C-STORE sub-operations resulting from the C-MOVE operation. The SCU shall interpret a status of:</p>
+                           <div class="itemizedlist">
+                              <ul class="itemizedlist" style="list-style-type: circle; ">
+                                 <li class="listitem">
+                                    <p>Success to indicate that all sub-operations were successfully completed</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>Warning to indicate one or more sub-operations were successfully completed and one or more sub-operations were unsuccessful or had a status of warning, or all sub-operations had a status of warning</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>Failure or Refused to indicate all sub-operations were unsuccessful.</p>
+                                 </li>
+                              </ul>
+                           </div>
+                        </li>
+                        <li class="listitem">
+                           <p>The SCU may cancel the C-MOVE service by issuing a C-MOVE-CANCEL request at any time during the processing of the C-MOVE. The SCU shall interpret a C-MOVE response with a status of Canceled to indicate the transfer was canceled. The C-MOVE response with a status of Canceled shall contain the number of Completed, Failed, and Warning C-STORE sub-operations. If present, the Remaining sub-operations count shall contain the number of C-STORE sub-operations that were not initiated due to the C-MOVE-CANCEL request.</p>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.4.2.2.2" shape="rect"></a>C.4.2.2.2 Extended Behavior of SCU</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Extended SCU behavior shall be negotiated at Association establishment time. If an option within the extended behavior is not agreed upon in the negotiation, then only baseline SCU behavior shall be performed with respect to that option. Extended SCU behavior includes all baseline behavior with the following option:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>Relational-retrieve</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Enhanced Multi-Frame Image Conversion</p>
+                        </li>
+                     </ul>
+                  </div>
+                  <p>More than one option may be agreed upon.</p>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_C.4.2.2.2.1" shape="rect"></a>C.4.2.2.2.1 Relational-Retrieve</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>The C-MOVE Service with relational-retrieve removes the restriction that the SCU supply Unique Key values for levels above the Query/Retrieve level to identify an entity at the level of the retrieval. Hence, the Identifier of a C-MOVE request may transfer:</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: disc; ">
+                           <li class="listitem">
+                              <p>all Composite Object Instances related to a study by only providing a Study Instance UID (0020,000D)</p>
+                           </li>
+                           <li class="listitem">
+                              <p>all Composite Object Instances related to a series by only providing a Series Instance UID (0020,000E)</p>
+                           </li>
+                           <li class="listitem">
+                              <p>individual Composite Object Instances by only providing a list of SOP Instance UIDs (0008,0018)</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_C.4.2.2.2.2" shape="rect"></a>C.4.2.2.2.2 Enhanced Multi-Frame Image Conversion</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>The C-MOVE Service with Enhanced Multi-Frame Image Conversion allows for selection of the default or an alternative view of the instances represented by the Information Model, and hence the retrieval of either the legacy or the converted images, together with any unconverted instances, all of which are required to be processed to maintain referential integrity within the scope of the Patient.</p>
+                     <p>Support for Enhanced Multi-Frame Image Conversion allows the SCU to specify the Attribute Query/Retrieve View (0008,0053) in the Request Identifier with a value of either "CLASSIC" or "ENHANCED".</p>
+                     <p>If Query/Retrieve View (0008,0053) is not present in the Request Identifier, then the SCU requests that the SCP provide all the requested instances it possesses, as received.</p>
+                     <p>If Query/Retrieve View (0008,0053) is present with a value of "CLASSIC", then the SCU requests that the SCP provide all the Classic single frame Instances (converted from Enhanced multi-frame Instances if required), as well as any instances that were converted to preserve referential integrity, and any that did not need to be converted.</p>
+                     <p>If Query/Retrieve View (0008,0053) is present with a value of "ENHANCED", then the SCU requests that the SCP provide all the Enhanced multi-frame Instances (converted from Classic single frame Instances if required), as well as any instances that were converted to preserve referential integrity, and any that did not need to be converted.</p>
+                     <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                        <h3 class="title">Note</h3>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>The SCU may assume that no duplicate information will be provided. For example, if an entire series of single frame instances can be converted to a separate series of converted instances, a STUDY level C-MOVE will not provide both series.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The Query Information Model is unchanged, and the same unique keys are equally applicable to both views, except that the values for the SERIES and IMAGE level queries will be different and will depend on the converted instance content.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The Query/Retrieve View is still required in an IMAGE or SERIES level request identifier, even though the requested unique key(s) are unambiguous, and the view is in a sense "redundant", because the conversion that created the requested instances may not have been executed yet. It is not permitted to specify a view that is inconsistent with the requested unique key(s).</p>
+                              </li>
+                           </ol>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_C.4.2.3" shape="rect"></a>C.4.2.3 C-MOVE SCP Behavior</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>This section discusses both the baseline and extended behavior of the C-MOVE SCP.</p>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.4.2.3.1" shape="rect"></a>C.4.2.3.1 Baseline Behavior of SCP</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>An SCP conveys the following semantics with a C-MOVE response:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>The SCP shall identify a set of Entities at the level of the transfer based upon the values in the Unique Keys in the Identifier of the C-MOVE request. The SCP shall initiate C-STORE sub-operations for the corresponding storage SOP Instances. These C-STORE sub-operations shall occur on a different Association (that may already exist) from the C-MOVE operation. The SCP of the Query/Retrieve Service Class shall serve as an SCU of the Storage Service Class.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The SCP shall either reuse an established and compatible Association or establish a new Association for the C-STORE sub-operations. The SCP shall initiate C-STORE sub-operations over that Association for all stored SOP Instances related to the Patient ID, List of Study Instance UIDs, List of Series Instance UIDs, or List of SOP Instance UIDs depending on the Query/Retrieve level specified in the C-MOVE request. A sub-operation is considered Failed if the SCP is unable to negotiate an appropriate presentation context for a given stored SOP Instance.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Optionally, the SCP may generate responses to the C-MOVE with status equal to Pending during the processing of the C-STORE sub-operations. These responses shall indicate the Remaining, Completed, Failed, and Warning C-STORE sub-operations.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>When the number of Remaining sub-operations reaches zero, the SCP shall generate a final response with a status equal to Success, Warning, Failure, or Refused. This response shall indicate the number of Completed sub-operations, the number of Failed sub-operations, and the number of sub-operations with Warning Status. The status contained in the C-MOVE response shall contain:</p>
+                           <div class="itemizedlist">
+                              <ul class="itemizedlist" style="list-style-type: circle; ">
+                                 <li class="listitem">
+                                    <p>Success if all sub-operations were successfully completed</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>Warning if one or more sub-operations were successfully completed and one or more sub-operations were unsuccessful or had a warning status</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>Warning if all sub-operations had a warning status</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>Failure or Refused if all sub-operations were unsuccessful</p>
+                                 </li>
+                              </ul>
+                           </div>
+                        </li>
+                        <li class="listitem">
+                           <p>The SCP may receive a C-MOVE-CANCEL request at any time during the processing of the C-MOVE. The SCP shall interrupt all C-STORE sub-operation processing and return a status of Canceled in the C-MOVE response. The C-MOVE response with a status of Canceled shall contain the number of Completed, Failed, and Warning C-STORE sub-operations. If present, the Remaining sub-operations count shall contain the number of C-STORE sub-operations that were not initiated due to the C-MOVE-CANCEL request.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>If the SCP manages images in multiple alternate encodings (see <a class="xref" href="sect_C.6.html#sect_C.6.1.1.5.1" title="C.6.1.1.5.1 Alternate Representation Sequence" shape="rect">Section C.6.1.1.5.1</a>), only one of the alternate encodings of an image shall be included in the set of object instances retrieved by a C-MOVE request at the Patient, Study, or Series level.</p>
+                           <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                              <h3 class="title">Note</h3>
+                              <p>For retrieval of images with alternate encodings using a C-MOVE request at the Patient, Study, or Series level, the SCP may select the appropriately encoded Instance for the retrieval based on identity of the SCU, transfer syntaxes accepted in the C-STORE Association Negotiation, or other factors.</p>
+                           </div>
+                        </li>
+                     </ul>
+                  </div>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>If the association on which the C-MOVE operation was issued is abnormally terminated, then it will not be possible to issue any further pending responses nor a final response, nor will C-MOVE-CANCEL requests be received. The behavior of the C-MOVE SCP acting as a C-STORE SCU is undefined in this condition. Specifically, whether or not any uncompleted C-STORE sub-operations continue is undefined.</p>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.4.2.3.2" shape="rect"></a>C.4.2.3.2 Extended Behavior of SCP</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Extended SCP behavior shall be negotiated at Association establishment time. If an option within the extended behavior is not agreed upon in the negotiation, then only baseline SCP behavior shall be performed with respect to that option. Extended SCP behavior includes all baseline behavior with the following option:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>Relational-retrieve</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Enhanced Multi-Frame Image Conversion</p>
+                        </li>
+                     </ul>
+                  </div>
+                  <p>More than one option may be agreed upon.</p>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_C.4.2.3.2.1" shape="rect"></a>C.4.2.3.2.1 Relational-Retrieve</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>The C-MOVE Service with relational-retrieve removes the restriction that the SCU supply Unique Key values for levels above the Query/Retrieve level to help identify an entity at the level of the retrieval. Hence, the Identifier of a C-MOVE request may specify the transfer of:</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: disc; ">
+                           <li class="listitem">
+                              <p>all Composite Object Instances related to a study by only providing a Study Instance UID (0020,000D)</p>
+                           </li>
+                           <li class="listitem">
+                              <p>all Composite Object Instances related to a series by only providing a Series Instance UID (0020,000E)</p>
+                           </li>
+                           <li class="listitem">
+                              <p>individual Composite Object Instances by only providing a list of SOP Instance UIDs (0008,0018)</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_C.4.2.3.2.2" shape="rect"></a>C.4.2.3.2.2 Enhanced Multi-Frame Image Conversion</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>If Query/Retrieve View (0008,0053) is not present in the Request Identifier, then the SCP shall identify a set of Entities at the level of the transfer based upon the values in the Unique Keys in the Identifier of the C-MOVE request that correspond to the instances it possesses, as received, and shall initiate C-STORE sub-operations for all the corresponding storage SOP Instances.</p>
+                     <p>If Query/Retrieve View (0008,0053) is present with a value of "CLASSIC", then the SCP shall identify a set of Entities at the level of the transfer based upon the values in the Unique Keys in the Identifier of the C-MOVE request that correspond to the Classic single frame Instances (converted from Enhanced multi-frame Instances if required), as well as any instances that were converted to preserve referential integrity, and any that did not need to be converted, and shall initiate C-STORE sub-operations for all the corresponding storage SOP Instances.</p>
+                     <p>If Query/Retrieve View (0008,0053) is present with a value of "ENHANCED", then the SCP shall identify a set of Entities at the level of the transfer based upon the values in the Unique Keys in the Identifier of the C-MOVE request that correspond to the Enhanced multi-frame Instances (converted from Classic single frame Instances if required), as well as any instances that were converted to preserve referential integrity, and any that did not need to be converted, and shall initiate C-STORE sub-operations for all the corresponding storage SOP Instances.</p>
+                     <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                        <h3 class="title">Note</h3>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>The SCP will not send information that is duplicated to the C-STORE SCP. For example, if an entire series of single frame instances can be converted to a separate series of converted instances, a STUDY level C-MOVE will not send both series.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The C-STORE SCP will need to support the necessary SOP Classes for converted instances, otherwise the C-STORE sub-operations will fail in the normal manner and this will be reflected in the C-MOVE responses.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The Query Information Model is unchanged, and the same unique, required and optional keys are equally applicable to both views, except that the values for the SERIES and IMAGE level queries will be different and will depend on the converted instance content.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The Query/Retrieve View is still required in an IMAGE or SERIES level request identifier, even though the requested unique key(s) are unambiguous.</p>
+                              </li>
+                           </ol>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_C.4.3" shape="rect"></a>C.4.3 C-GET Operation</h3>
+                  </div>
+               </div>
+            </div>
+            <p>SCUs of some SOP Classes of the Query/Retrieve Service Class may generate retrievals using the C-GET operation as described in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>. The C-GET operation allows an application entity to instruct another application entity to transfer stored SOP Instances to the initiating application entity using the C-STORE operation. Support for the C-GET service shall be agreed upon at Association establishment time by both the SCU and SCP of the C-GET in order for a C-GET operation to occur over the Association. The C-STORE Sub-operations shall be accomplished on the same Association as the C-GET operation. Hence, the SCP of the Query/Retrieve Service Class serves as the SCU of the Storage Service Class.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>The application entity that receives the stored SOP Instances is always the originator of the C-GET operation.</p>
+            </div>
+            <p>A C-GET request may be performed to any level of the Query/Retrieve Information Model. However, the transfer of stored SOP Instances may not be performed at this level. The level at which the transfer is performed depends upon the SOP Class.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_C.4.3.1" shape="rect"></a>C.4.3.1 C-GET Service Parameters</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.4.3.1.1" shape="rect"></a>C.4.3.1.1 SOP Class UID</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The SOP Class UID identifies the Query/Retrieve Information Model against which the C-GET is to be performed. Support for the SOP Class UID is implied by the Abstract Syntax UID of the Presentation Context used by this C-GET operation.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.4.3.1.2" shape="rect"></a>C.4.3.1.2 Priority</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The Priority Attribute defines the requested priority of the C-GET operation and corresponding C-STORE sub-operations with respect to other DIMSE operations being performed by the same SCP.</p>
+                  <p>Processing of priority requests is not required of SCPs. Whether or not an SCP supports priority processing, and the meaning of the different priority levels shall be stated in the Conformance Statement of the SCP. The same priority shall be used for all C-STORE sub-operations.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.4.3.1.3" shape="rect"></a>C.4.3.1.3 Identifier</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The C-GET request shall contain an Identifier. The C-GET response shall conditionally contain an Identifier as required in <a class="xref" href="sect_C.4.html#sect_C.4.3.1.3.2" title="C.4.3.1.3.2 Response Identifier Structure" shape="rect">Section C.4.3.1.3.2</a>.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>The Identifier is specified as U in the definition of the C-GET primitive in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a> but is specialized for use with this service.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_C.4.3.1.3.1" shape="rect"></a>C.4.3.1.3.1 Request Identifier Structure</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>An Identifier in a C-GET request shall contain:</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: disc; ">
+                           <li class="listitem">
+                              <p>Query/Retrieve Level (0008,0052), which defines the level of the retrieval</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Unique Key Attributes, which may include Patient ID (0010,0020), Study Instance UIDs (0020,000D) Series Instance UIDs (0020,000E), and SOP Instance UIDs (0008,0018)</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Conditionally, the Attribute Query/Retrieve View (0008,0053). This Attribute may be included if Enhanced Multi-Frame Image Conversion has been accepted during Association Extended Negotiation. It shall not be included otherwise.</p>
+                           </li>
+                        </ul>
+                     </div>
+                     <p>Specific Character Set (0008,0005) shall be present if Patient ID (0010,0020) is using a character set other than the default character repertoire.</p>
+                     <p>The Unique Keys at each level of the hierarchy and the values allowable for the level of the retrieval shall be defined in the SOP Class definition for the Query/Retrieve Information Model.</p>
+                     <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                        <h3 class="title">Note</h3>
+                        <p>In the non-Relational behavior, more than one entity may be retrieved if the Query/Retrieve Level is IMAGE, SERIES or STUDY, using List of UID matching, but only Single Value Matching value may be specified for Patient ID (0010,0020).</p>
+                     </div>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_C.4.3.1.3.2" shape="rect"></a>C.4.3.1.3.2 Response Identifier Structure</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>The Failed SOP Instance UID List (0008,0058) specifies a list of UIDs of the C-STORE sub-operation SOP Instances for which this C-GET operation has failed. An Identifier in a C-GET response shall conditionally contain the Failed SOP Instance UID List (0008,0058) based on the C-GET response. If no C-STORE sub-operation failed, Failed SOP Instance UID List (0008,0058) is absent and therefore no Data Set shall be sent in the C-GET response.</p>
+                     <p>Specific Character Set (0008,0005) shall not be present.</p>
+                     <p>The Identifier in a C-GET response with a status of:</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: disc; ">
+                           <li class="listitem">
+                              <p>Canceled, Failure, Refused, or Warning shall contain the Failed SOP Instance UID List Attribute</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Pending shall not contain the Failed SOP Instance UID List Attribute (no Data Set)</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.4.3.1.4" shape="rect"></a>C.4.3.1.4 Status</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>
+                     <a class="xref" href="sect_C.4.html#table_C.4-3" title="Table C.4-3. C-GET Response Status Values" shape="rect">Table C.4-3</a> defines the specific status code values that might be returned in a C-GET response. General status code values and fields related to status code values are defined in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>.</p>
+                  <div class="table">
+                     <a id="table_C.4-3" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table C.4-3. C-GET Response Status Values</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Service Status</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Further Meaning</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Status Codes</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Related Fields</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Failure</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Refused: Out of Resources - Unable to calculate number of matches</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>A701</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,0902)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Refused: Out of Resources - Unable to perform sub-operations</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>A702</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,1021)</p>
+                                    <p>(0000,1022)</p>
+                                    <p>(0000,1023)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Identifier does not match SOP Class</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>A900</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,0901)</p>
+                                    <p>(0000,0902)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Unable to process</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Cxxx</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,0901)</p>
+                                    <p>(0000,0902)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Cancel</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Sub-operations terminated due to Cancel Indication</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>FE00</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,1020)</p>
+                                    <p>(0000,1021)</p>
+                                    <p>(0000,1022)</p>
+                                    <p>(0000,1023)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Warning</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Sub-operations Complete - One or more Failures or Warnings</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>B000</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,1021)</p>
+                                    <p>(0000,1022)</p>
+                                    <p>(0000,1023)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Success</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Sub-operations Complete - No Failures or Warnings</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>0000</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,1021)</p>
+                                    <p>(0000,1022)</p>
+                                    <p>(0000,1023)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Pending</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Sub-operations are continuing</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>FF00</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,1020)</p>
+                                    <p>(0000,1021)</p>
+                                    <p>(0000,1022)</p>
+                                    <p>(0000,1023)</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.4.3.1.5" shape="rect"></a>C.4.3.1.5 Number of Remaining Sub-Operations</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Inclusion of the Number of Remaining Sub-operations is conditional based upon the status in the C-GET response. The Number of Remaining Sub-operations specifies the number of Remaining C-STORE sub-operations necessary to complete the C-GET operation.</p>
+                  <p>A C-GET response with a status of:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>Pending shall contain the Number of Remaining Sub-operations Attribute</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Canceled may contain the Number of Remaining Sub-operations Attribute</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Warning, Failure, or Success shall not contain the Number of Remaining Sub-operations Attribute.</p>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.4.3.1.6" shape="rect"></a>C.4.3.1.6 Number of Completed Sub-Operations</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Inclusion of the Number of Completed Sub-operations is conditional based upon the status in the C-GET response. The Number of Completed Sub-operations specifies the number of C-STORE sub-operations generated by the requested transfer that have completed successfully.</p>
+                  <p>A C-GET response with a status of:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>Pending shall contain the Number of Completed Sub-operations Attribute</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Canceled, Warning, Failure, or Success may contain the Number of Completed Sub-operations Attribute</p>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.4.3.1.7" shape="rect"></a>C.4.3.1.7 Number of Failed Sub-Operations</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Inclusion of the Number of Failed Sub-operations is conditional based upon the status in the C-GET response. The Number of Failed Sub-operations specifies the number of C-STORE sub-operations generated by the requested transfer that have Failed.</p>
+                  <p>A C-GET response with a status of:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>Pending shall contain the Number of Failed Sub-operations Attribute</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Canceled, Warning, Failure, or Success may contain the Number of Failed Sub-operations Attribute</p>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.4.3.1.8" shape="rect"></a>C.4.3.1.8 Number of Warning Sub-Operations</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Inclusion of the Number of Warning Sub-operations is conditional based upon the status in the C-GET response. The Number of Warning Sub-operations specifies the number of C-STORE sub-operations generated by the requested transfer that had a status of Warning.</p>
+                  <p>A C-GET response with a status of:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>Pending shall contain the Number of Warning Sub-operations Attribute</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Canceled, Warning, Failure, or Success may contain the Number of Warning Sub-operations Attribute</p>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_C.4.3.2" shape="rect"></a>C.4.3.2 C-GET SCU Behavior</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>This Section discusses both the baseline and extended behavior of the C-GET SCU.</p>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.4.3.2.1" shape="rect"></a>C.4.3.2.1 Baseline Behavior of SCU</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>An SCU conveys the following semantics with a C-GET request:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>The SCU shall have proposed sufficient presentation contexts at Association establishment time to accommodate expected C-STORE sub-operations that shall occur over the same Association. The SCU of the Query/Retrieve Service Class shall serve as the SCP of the Storage Service Class.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The SCU shall supply a single value in the Unique Key Attribute for each level above the Query/Retrieve level. For the level of retrieve, the SCU shall supply a single value for one unique key if the level of the retrieve is above the STUDY level and shall supply one UID, or a list of UIDs if a retrieval of several items is desired and the retrieve level is STUDY, SERIES or IMAGE.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The SCU shall interpret C-GET responses with status equal to Pending during the processing of the C-STORE sub-operations. These responses shall indicate the number of Remaining, Completed, Failed, Warning C-STORE sub-operations.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The SCU shall interpret a C-GET response with a status equal to Success, Warning, Failure, or Refused as a final response. The final response shall indicate the number of Completed sub-operations and the number of Failed C-STORE sub-operations resulting from the C-GET operation. The SCU shall interpret a status of:</p>
+                           <div class="itemizedlist">
+                              <ul class="itemizedlist" style="list-style-type: circle; ">
+                                 <li class="listitem">
+                                    <p>Success to indicate that all sub-operations were successfully completed</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>Warning to indicate one or more sub-operations were successfully completed and one or more unsuccessful or all sub-operations had a status of warning</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>Failure or Refused to indicate all sub-operations were unsuccessful</p>
+                                 </li>
+                              </ul>
+                           </div>
+                        </li>
+                        <li class="listitem">
+                           <p>The SCU may cancel the C-GET operation by issuing a C-GET-CANCEL request at any time during the processing of the C-GET request. A C-GET response with a status of Canceled shall indicate to the SCU that the retrieve was canceled. Optionally, the C-GET response with a status of Canceled shall indicate the number of Completed, Failed, and Warning C-STORE sub-operations. If present, the Remaining sub-operations count shall contain the number of C-STORE sub-operations that were not initiated due to the C-GET-CANCEL request.</p>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.4.3.2.2" shape="rect"></a>C.4.3.2.2 Extended Behavior of SCU</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Extended SCU behavior shall be negotiated at Association establishment time. If an option within the extended behavior is not agreed upon in the negotiation, then only baseline SCU behavior shall be supported with respect to that option. Extended SCU behavior includes all baseline behavior with the following option:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>Relational-retrieve</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Enhanced Multi-Frame Image Conversion</p>
+                        </li>
+                     </ul>
+                  </div>
+                  <p>More than one option may be agreed upon.</p>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_C.4.3.2.2.1" shape="rect"></a>C.4.3.2.2.1 Relational-Retrieve</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>The C-GET Service with relational-retrieve removes the restriction that the SCU supply Unique Key values for levels above the Query/Retrieve level to help identify an entity at the level of the retrieval. Hence, the Identifier of a C-GET request may retrieve:</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: disc; ">
+                           <li class="listitem">
+                              <p>all Composite Object Instances related to a study by providing a Study Instance UID (0020,000D)</p>
+                           </li>
+                           <li class="listitem">
+                              <p>all Composite Object Instances related to a series by providing a Series Instance UID (0020,000E)</p>
+                           </li>
+                           <li class="listitem">
+                              <p>individual Composite Object Instances by providing a list of SOP Instance UIDs (0008,0018)</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_C.4.3.2.2.2" shape="rect"></a>C.4.3.2.2.2 Enhanced Multi-Frame Image Conversion</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>The C-GET Service with Enhanced Multi-Frame Image Conversion allows for selection of the default or an alternative view of the instances represented by the Information Model, and hence the retrieval of either the legacy or the converted images, together with any unconverted instances, all of which are required to be processed to maintain referential integrity within the scope of the Patient.</p>
+                     <p>Support for Enhanced Multi-Frame Image Conversion allows the SCU to specify the Attribute Query/Retrieve View (0008,0053) in the Request Identifier with a value of either "CLASSIC" or "ENHANCED".</p>
+                     <p>If Query/Retrieve View (0008,0053) is not present in the Request Identifier, then the SCU requests that the SCP retrieve all the requested instances it possesses, as received.</p>
+                     <p>If Query/Retrieve View (0008,0053) is present with a value of "CLASSIC", then the SCU requests that the SCP retrieve all the Classic single frame Instances (converted from Enhanced multi-frame Instances if required), as well as any instances that were converted to preserve referential integrity, and any that did not need to be converted.</p>
+                     <p>If Query/Retrieve View (0008,0053) is present with a value of "ENHANCED", then the SCU requests that the SCP retrieve all the Enhanced multi-frame Instances (converted from Classic single frame Instances if required), as well as any instances that were converted to preserve referential integrity, and any that did not need to be converted.</p>
+                     <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                        <h3 class="title">Note</h3>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>The C-GET SCU acting as a C-STORE SCP may assume that no duplicate information will be provided. For example, if an entire series of single frame instances can be converted to a separate series of converted instances, a STUDY level C-GET will not return both series.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The C-GET SCU acting as a C-STORE SCP will need to support the necessary SOP Classes for converted instances, otherwise the C-STORE sub-operations will fail in the normal manner and this will be reflected in the C-GET responses.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The Query Information Model is unchanged, and the same unique, required and optional keys are equally applicable to both views, except that the values for the SERIES and IMAGE level queries will be different and will depend on the converted instance content.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The Query/Retrieve View is still required in an IMAGE or SERIES level request identifier, even though the requested unique key (s) are unambiguous, and the view is in a sense "redundant", because the conversion that created the requested instances may not have been executed yet. It is not permitted to specify a view that is inconsistent with the requested unique key(s).</p>
+                              </li>
+                           </ol>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_C.4.3.3" shape="rect"></a>C.4.3.3 C-GET SCP Behavior</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>This Section discusses both the baseline and extended behavior of the C-GET SCP.</p>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.4.3.3.1" shape="rect"></a>C.4.3.3.1 Baseline Behavior of SCP</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>An SCP conveys the following semantics with a C-GET response:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>The SCP shall identify a set of Entities at the level of the retrieval based upon the values in the Unique Keys in the Identifier of the C-GET request. The SCP shall initiate C-STORE sub-operations for the corresponding storage SOP Instances. The SCP of the Query/Retrieve Service Class shall serve as an SCU of the Storage Service Class.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The SCP shall initiate C-STORE sub-operations over the same Association for all stored SOP Instances related to the Patient ID, List of Study Instance UIDs, List of Series Instance UIDs, or List of SOP Instance UIDs depending on the Query/Retrieve level specified in the C-GET request</p>
+                        </li>
+                        <li class="listitem">
+                           <p>A sub-operation is considered Failed if the SCP is unable to initiate a C-STORE sub-operation because the Query/Retrieve SCU did not offer an appropriate presentation context for a given stored SOP Instance.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Optionally, the SCP may generate responses to the C-GET with status equal to Pending during the processing of the C-STORE sub-operations. These responses shall indicate the number of Remaining, Completed, Failure, and Warning C-STORE sub-operations.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>When the number of Remaining sub-operations reaches zero, the SCP shall generate a final response with a status equal to Success, Warning, Failed, or Refused. The status contained in the C-GET response shall contain:</p>
+                           <div class="itemizedlist">
+                              <ul class="itemizedlist" style="list-style-type: circle; ">
+                                 <li class="listitem">
+                                    <p>Success if all sub-operations were successfully completed</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>Warning if one or more sub-operations were successfully completed and one or more sub-operations were unsuccessful or had a status of warning</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>Warning if all sub-operations had a status of Warning</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>Failure or Refused if all sub-operations were unsuccessful</p>
+                                 </li>
+                              </ul>
+                           </div>
+                        </li>
+                        <li class="listitem">
+                           <p>The SCP may receive a C-GET-CANCEL request at any time during the processing of the C-GET request. The SCP shall interrupt all C-STORE sub-operation processing and return a status of Canceled in the C-GET response. The C-GET response with a status of Canceled shall contain the number of Completed, Failed, and Warning C-STORE sub-operations. If present, the Remaining sub-operations count shall contain the number of C-STORE sub-operations that were not initiated due to the C-GET-CANCEL request.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>If the SCP manages images in multiple alternate encodings (see <a class="xref" href="sect_C.6.html#sect_C.6.1.1.5.1" title="C.6.1.1.5.1 Alternate Representation Sequence" shape="rect">Section C.6.1.1.5.1</a>), only one of the alternate encodings of an image shall be included in the set of object instances retrieved by a C-GET request at the Patient, Study, or Series level.</p>
+                           <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                              <h3 class="title">Note</h3>
+                              <p>For retrieval of images with alternate encodings using a C-GET request at the Patient, Study, or Series level, the SCP may select the appropriately encoded Instance for the retrieval based on identity of the SCU, transfer syntaxes accepted in the C-STORE Association Negotiation, or other factors.</p>
+                           </div>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.4.3.3.2" shape="rect"></a>C.4.3.3.2 Extended Behavior of SCP</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Extended SCP behavior shall be negotiated at Association establishment time. If an option within the extended behavior is not agreed upon in the negotiation, then only baseline SCP behavior shall be performed with respect to that option. Extended SCP behavior includes all baseline behavior with the following option:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>Relational-retrieve</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Enhanced Multi-Frame Image Conversion</p>
+                        </li>
+                     </ul>
+                  </div>
+                  <p>More than one option may be agreed upon.</p>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_C.4.3.3.2.1" shape="rect"></a>C.4.3.3.2.1 Relational-Retrieve</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>The C-GET Service with relational-retrieve removes the restriction that the SCU supply Unique Key values for levels above the Query/Retrieve level to help identify an entity at the level of the retrieval. Hence, the Identifier of a C-GET request may retrieve:</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: disc; ">
+                           <li class="listitem">
+                              <p>all Composite Object Instances related to a study by providing a Study Instance UID</p>
+                           </li>
+                           <li class="listitem">
+                              <p>all Composite Object Instances related to a series by providing a Series Instance UID</p>
+                           </li>
+                           <li class="listitem">
+                              <p>individual Composite Object Instances by providing a list of SOP Instance UIDs</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_C.4.3.3.2.2" shape="rect"></a>C.4.3.3.2.2 Enhanced Multi-Frame Image Conversion</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>If Query/Retrieve View (0008,0053) is not present in the Request Identifier, then the SCP shall identify a set of Entities at the level of the transfer based upon the values in the Unique Keys in the Identifier of the C-GET request that correspond to the instances it possesses, as received, and shall initiate C-STORE sub-operations for all the corresponding storage SOP Instances.</p>
+                     <p>If Query/Retrieve View (0008,0053) is present with a value of "CLASSIC", then the SCP shall identify a set of Entities at the level of the transfer based upon the values in the Unique Keys in the Identifier of the C-GET request that correspond to the Classic single frame Instances (converted from Enhanced multi-frame Instances if required), as well as any instances that were converted to preserve referential integrity, and any that did not need to be converted, and shall initiate C-STORE sub-operations for all the corresponding storage SOP Instances.</p>
+                     <p>If Query/Retrieve View (0008,0053) is present with a value of "ENHANCED", then the SCP shall identify a set of Entities at the level of the transfer based upon the values in the Unique Keys in the Identifier of the C-GET request that correspond to the Enhanced multi-frame Instances (converted from Classic single frame Instances if required), as well as any instances that were converted to preserve referential integrity, and any that did not need to be converted, and shall initiate C-STORE sub-operations for all the corresponding storage SOP Instances.</p>
+                     <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                        <h3 class="title">Note</h3>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>The C-GET SCP acting as a C-STORE SCU will not send information that is duplicated to the C-GET SCU acting as a C-STORE SCP. For example, if an entire series of single frame instances can be converted to a separate series of converted instances, a STUDY level C-GET will not send both series.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The Query Information Model is unchanged, and the same unique, required and optional keys are equally applicable to both views, except that the values for the SERIES and IMAGE level queries will be different and will depend on the converted instance content.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The Query/Retrieve View is still required in an IMAGE or SERIES level request identifier, even though the requested unique key(s) are unambiguous.</p>
+                              </li>
+                           </ol>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_C.3.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_C.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_C.5.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">C.3 Standard Query/Retrieve Information Models </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.4.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> C.5 Association Negotiation</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

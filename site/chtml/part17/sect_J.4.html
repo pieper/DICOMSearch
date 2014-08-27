@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>J.4 One MPPS Is Created in Response to Two Or More Requested Procedures</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="chapter_J.html" title="J Handling of Identifying Parameters (Informative)" />
+      <link rel="prev" href="sect_J.3.html" title="J.3 Non-integrated Environment" />
+      <link rel="next" href="sect_J.5.html" title="J.5 MPPS SOP Instance Created by Another System (not the Modality)" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">J.4 One MPPS Is Created in Response to Two Or More Requested Procedures</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_J.3.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">J Handling of Identifying Parameters (Informative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_J.5.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_J.4" shape="rect"></a>J.4 One MPPS Is Created in Response to Two Or More Requested Procedures</h2>
+               </div>
+            </div>
+         </div>
+         <p>In the MPPS SOP Instance, all the specific Attributes of a Scheduled Procedure Step or Steps are included in the Scheduled Step Attributes Sequence. In the Image SOP Instances, these Attributes may be included in the Request Attributes Sequence. This is an optional Sequence in order not to change the definition of existing SOP Classes by adding new required Attributes or changing the meaning of existing Attributes.</p>
+         <p>Both Sequences may have more than one Item if more than one Requested Procedure results in a single Performed Procedure Step.</p>
+         <p>Because of the definitions of existing Attributes in existing Image SOP Classes, the following solutions are a compromise. The first one chooses or creates a value for the single valued Attributes Study Instance UID and Accession Number. The second one completely replicates the Image data with different values for the Attributes Study Instance UID and Accession Number.</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_J.4.1" shape="rect"></a>J.4.1 Choose Or Create A Value For Study Instance UID and Accession Number</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The modality may:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>In the Image SOP Instances:</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: circle; ">
+                           <li class="listitem">
+                              <p>create a Request Attributes Sequence containing two or more Items each containing the following Attributes:</p>
+                              <div class="itemizedlist">
+                                 <ul class="itemizedlist" style="list-style-type: square; ">
+                                    <li class="listitem">
+                                       <p>Requested Procedure ID</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>Scheduled Procedure Step ID</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>Scheduled Procedure Step Description</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>Scheduled Protocol Code Sequence</p>
+                                    </li>
+                                 </ul>
+                              </div>
+                           </li>
+                           <li class="listitem">
+                              <p>create a Referenced Study Sequence containing two or more Items sufficient to contain the Study SOP Instance UID values from the Modality Worklist for both Requested Procedures</p>
+                           </li>
+                           <li class="listitem">
+                              <p>select one value from the Modality Worklist or generate a new value for:</p>
+                              <div class="itemizedlist">
+                                 <ul class="itemizedlist" style="list-style-type: square; ">
+                                    <li class="listitem">
+                                       <p>Study Instance UID</p>
+                                    </li>
+                                 </ul>
+                              </div>
+                           </li>
+                           <li class="listitem">
+                              <p>select one value from the Modality Worklist or generate a new value or assign an empty value for:</p>
+                              <div class="itemizedlist">
+                                 <ul class="itemizedlist" style="list-style-type: square; ">
+                                    <li class="listitem">
+                                       <p>Accession Number</p>
+                                    </li>
+                                 </ul>
+                              </div>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li class="listitem">
+                     <p>In the MPPS SOP Instance:</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: circle; ">
+                           <li class="listitem">
+                              <p>create a Scheduled Step Attributes Sequence containing two or more Items each containing the following Attributes:</p>
+                              <div class="itemizedlist">
+                                 <ul class="itemizedlist" style="list-style-type: square; ">
+                                    <li class="listitem">
+                                       <p>Study Instance UID</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>Referenced Study Sequence</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>Accession Number</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>Requested Procedure ID</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>Scheduled Procedure Step ID</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>Scheduled Procedure Step Description</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>Scheduled Protocol Code Sequence</p>
+                                    </li>
+                                 </ul>
+                              </div>
+                           </li>
+                           <li class="listitem">
+                              <p>include the following Attribute value that may be generated during image acquisition, if supported:</p>
+                              <div class="itemizedlist">
+                                 <ul class="itemizedlist" style="list-style-type: square; ">
+                                    <li class="listitem">
+                                       <p>Procedure Code Sequence</p>
+                                    </li>
+                                 </ul>
+                              </div>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li class="listitem">
+                     <p>In both the Image SOP Instances and the MPPS SOP Instance</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: circle; ">
+                           <li class="listitem">
+                              <p>create a Performed Procedure Step ID</p>
+                           </li>
+                           <li class="listitem">
+                              <p>include the following Attribute values that may be generated during image acquisition, if supported:</p>
+                              <div class="itemizedlist">
+                                 <ul class="itemizedlist" style="list-style-type: square; ">
+                                    <li class="listitem">
+                                       <p>Performed Procedure Step Start Date</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>Performed Procedure Step Start Time</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>Performed Procedure Step Description</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>Study ID</p>
+                                    </li>
+                                 </ul>
+                              </div>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_J.4.2" shape="rect"></a>J.4.2 Replicate The Image IOD</h3>
+                  </div>
+               </div>
+            </div>
+            <p>An alternative method is to replicate the entire Image SOP Instance with a new SOP Instance UID, and assign each Image IOD it's own identifying Attributes. In this case, each of the Study Instance UID and the Accession Number values can be used in their own Image SOP Instance.</p>
+            <p>Both Image SOP Instances may reference a single MPPS SOP Instance (via the MPPS SOP Instance UID in the Referenced Performed Procedure Step Sequence).</p>
+            <p>Each individual Image SOP Instance may reference it's own related Study SOP Instance, if it exists (via the Referenced Study Sequence). This Study SOP Instance has a one to one relationship with the corresponding Requested Procedure.</p>
+            <p>If an MPPS SOP Instance is created, it may reference both related Study SOP Instances.</p>
+            <p>The modality may:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>For all Series in the MPPS, replicate the entire Series of Images using new Series Instance UIDs</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Create replicated Image SOP Instances with different SOP Instance UIDs that use the new Series Instance UIDs, for each of the two or more Requested Procedures</p>
+                  </li>
+                  <li class="listitem">
+                     <p>In each of the Image SOP Instances, using values from the corresponding Requested Procedure:</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: circle; ">
+                           <li class="listitem">
+                              <p>create a Request Attributes Sequence containing an Item containing the following Attributes:</p>
+                              <div class="itemizedlist">
+                                 <ul class="itemizedlist" style="list-style-type: square; ">
+                                    <li class="listitem">
+                                       <p>Requested Procedure ID</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>Scheduled Procedure Step ID</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>Scheduled Procedure Step Description</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>Scheduled Protocol Code Sequence</p>
+                                    </li>
+                                 </ul>
+                              </div>
+                           </li>
+                           <li class="listitem">
+                              <p>copy from the Modality Worklist:</p>
+                              <div class="itemizedlist">
+                                 <ul class="itemizedlist" style="list-style-type: square; ">
+                                    <li class="listitem">
+                                       <p>Study Instance UID</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>Accession Number</p>
+                                    </li>
+                                 </ul>
+                              </div>
+                           </li>
+                           <li class="listitem">
+                              <p>create a Referenced Study Sequence containing an Item containing the following Attribute:</p>
+                              <div class="itemizedlist">
+                                 <ul class="itemizedlist" style="list-style-type: square; ">
+                                    <li class="listitem">
+                                       <p>Study SOP Instance in the Referenced Study Sequence from the Worklist</p>
+                                    </li>
+                                 </ul>
+                              </div>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li class="listitem">
+                     <p>In the MPPS SOP Instance (if supported):</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: circle; ">
+                           <li class="listitem">
+                              <p>create a Scheduled Step Attributes Sequence containing two or more Items each containing the following Attributes:</p>
+                              <div class="itemizedlist">
+                                 <ul class="itemizedlist" style="list-style-type: square; ">
+                                    <li class="listitem">
+                                       <p>Study Instance UID</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>Referenced Study Sequence</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>Accession Number</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>Requested Procedure ID</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>Scheduled Procedure Step ID</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>Scheduled Procedure Step Description</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>Scheduled Protocol Code Sequence</p>
+                                    </li>
+                                 </ul>
+                              </div>
+                           </li>
+                           <li class="listitem">
+                              <p>include the following Attribute value that may be generated during image acquisition, if supported:</p>
+                              <div class="itemizedlist">
+                                 <ul class="itemizedlist" style="list-style-type: square; ">
+                                    <li class="listitem">
+                                       <p>Procedure Code Sequence</p>
+                                    </li>
+                                 </ul>
+                              </div>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li class="listitem">
+                     <p>In both the Image SOP Instances and the MPPS SOP Instance (if supported):</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: circle; ">
+                           <li class="listitem">
+                              <p>create a Performed Procedure Step ID</p>
+                              <div class="itemizedlist">
+                                 <ul class="itemizedlist" style="list-style-type: square; ">
+                                    <li class="listitem">
+                                       <p>include the following Attribute values that may be generated during image acquisition, if supported:</p>
+                                       <div class="itemizedlist">
+                                          <ul class="itemizedlist" style="list-style-type: disc; ">
+                                             <li class="listitem">
+                                                <p>Performed Procedure Step Start Date</p>
+                                             </li>
+                                             <li class="listitem">
+                                                <p>Performed Procedure Step Start Time</p>
+                                             </li>
+                                             <li class="listitem">
+                                                <p>Performed Procedure Step Description</p>
+                                             </li>
+                                             <li class="listitem">
+                                                <p>Study ID</p>
+                                             </li>
+                                          </ul>
+                                       </div>
+                                    </li>
+                                 </ul>
+                              </div>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_J.3.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_J.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_J.5.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">J.3 Non-integrated Environment </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> J.5 MPPS SOP Instance Created by Another System (not the Modality)</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>A.7 Audit Trail Message Transmission Profile - SYSLOG-UDP</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.15.html" title="PS3.15" />
+      <link rel="up" href="chapter_A.html" title="A Secure Use Profiles (Normative)" />
+      <link rel="prev" href="sect_A.6.html" title="A.6 Audit Trail Message Transmission Profile - SYSLOG-TLS" />
+      <link rel="next" href="chapter_B.html" title="B Secure Transport Connection Profiles (Normative)" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">A.7 Audit Trail Message Transmission Profile - SYSLOG-UDP</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_A.6.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">A Secure Use Profiles (Normative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_B.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_A.7" shape="rect"></a>A.7 Audit Trail Message Transmission Profile - SYSLOG-UDP</h2>
+               </div>
+            </div>
+         </div>
+         <p>This profile defines the transmission of audit trail messages. Transmission of Syslog Messages over UDP (RFC5426) provides the mechanisms for rapid transport of audit messages. It is the standardized successor to the informative standard "The BSD syslog protocol (RFC3164) ", which is widely used in a variety of settings.</p>
+         <p>The syslog port number shall be configurable, with the port number (514) as the default.</p>
+         <p>The underlying UDP transport might not accept messages longer than the MTU size minus the UDP header length. This may result in longer syslog messages being truncated. When these messages are truncated the resulting XML may be incorrect. Because of this potential for truncated messages and other security concerns, the transmission of syslog messages over TLS may be preferred (see <a class="xref" href="sect_A.6.html" title="A.6 Audit Trail Message Transmission Profile - SYSLOG-TLS" shape="rect">Section A.6</a>).</p>
+         <p>The PRI field shall be set using the facility value of 10 (security/authorization messages). Most messages should have the severity value of 5 (normal but significant), although applications may choose values of 4 (warning condition) if that is appropriate to the more detailed information in the audit message. This means that for most audit messages the PRI field will contain the value "&lt;85&gt;". Audit repositories shall be prepared to deal appropriately with any incoming PRI value.</p>
+         <p>The MSGID field in the HEADER of the SYSLOG-MSG shall be set. The value "DICOM+RFC3881" may be used for messages that comply with this profile.</p>
+         <p>The MSG field of the SYSLOG-MSG shall be present and shall be an XML structure following the RFC 3881 format, as extended in this profile.</p>
+         <p>The syslog message shall be created and transmitted as described in RFC 5424.</p>
+         <p>Any implementation that claims conformance to this Security Profile shall describe in its conformance statement:</p>
+         <div class="orderedlist">
+            <ol class="orderedlist" type="a">
+               <li class="listitem">
+                  <p>any configuration parameters relevant to RFC 5424 and RFC 5426.</p>
+               </li>
+               <li class="listitem">
+                  <p>Any STRUCTURED-DATA that is generated or processed.</p>
+               </li>
+               <li class="listitem">
+                  <p>Any implementation schema or message element extensions for the audit messages.</p>
+               </li>
+               <li class="listitem">
+                  <p>The maximum size of messages that can be sent or received.</p>
+               </li>
+            </ol>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_A.6.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_A.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_B.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">A.6 Audit Trail Message Transmission Profile - SYSLOG-TLS </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.15.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> B Secure Transport Connection Profiles (Normative)</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

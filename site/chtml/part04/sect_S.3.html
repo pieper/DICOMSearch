@@ -1,0 +1,1357 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>S.3 Media Creation Management SOP Class</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.4.html" title="PS3.4" />
+      <link rel="up" href="chapter_S.html" title="S Media Creation Management Service Class (Normative)" />
+      <link rel="prev" href="sect_S.2.html" title="S.2 Conformance Overview" />
+      <link rel="next" href="sect_S.4.html" title="S.4 Conformance Requirements" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">S.3 Media Creation Management SOP Class</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_S.2.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">S Media Creation Management Service Class (Normative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_S.4.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_S.3" shape="rect"></a>S.3 Media Creation Management SOP Class</h2>
+               </div>
+            </div>
+         </div>
+         <p>The SCU transmits the SOP Instances to the SCP using the Storage Service Class. The request for media creation is transmitted to the SCP and contains a list of references to one or more SOP Instances. Success or failure of media creation is subsequently indicated by the SCU requesting the status from the SCP on the same or a separate association.</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_S.3.1" shape="rect"></a>S.3.1 DIMSE Service Group</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The following DIMSE-N Services are applicable to the Media Creation Management SOP Class.</p>
+            <div class="table">
+               <a id="table_S.3.1-1" shape="rect"></a>
+               <p class="title">
+                  <strong>Table S.3.1-1. DIMSE-N Services Applicable to Media Creation Management</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>DIMSE Service Element</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Usage SCU/SCP</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>N-CREATE</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>M/M</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>N-ACTION</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>M/M</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>N-GET</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>U/M</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <p>The DIMSE-N Services and Protocol are specified in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_S.3.2" shape="rect"></a>S.3.2 Operations</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The DICOM AEs that claim conformance to this SOP Class as an SCU shall invoke the N-CREATE and the N-ACTION operations. The DICOM AEs that claim conformance to this SOP Class as an SCP shall support the N-CREATE, the N-ACTION and the N-GET operations.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_S.3.2.1" shape="rect"></a>S.3.2.1 Create a Media Creation Request</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The Create a Media Creation Request operation allows an SCU to create an instance of the Media Creation Management SOP Class and initialize Attributes of the SOP Class. The SCP uses this operation to create a new media creation request containing the set of SOP Instances that shall be included in the Interchange Media. This operation shall be invoked through the N-CREATE primitive</p>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_S.3.2.1.1" shape="rect"></a>S.3.2.1.1 Attributes</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The DICOM AEs that claim conformance to this SOP Class as an SCU may choose to provide a subset of the Attributes maintained by the SCP. The DICOM AEs that claim conformance to this SOP Class as an SCP shall support a subset of the Media Creation Management specified in <a class="xref" href="sect_S.3.html#table_S.3.2.1.1-1" title="Table S.3.2.1.1-1. Media Creation Management - N-CREATE Attributes" shape="rect">Table S.3.2.1.1-1</a>.</p>
+                  <div class="table">
+                     <a id="table_S.3.2.1.1-1" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table S.3.2.1.1-1. Media Creation Management - N-CREATE Attributes</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Attribute</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Tag</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Requirement Type SCU/SCP</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Specific Character Set</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0005)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1C/1C (Required if expanded or replacement character set is used)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Storage Media File-Set ID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0088,0130)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                    <p>See <a class="xref" href="sect_S.3.html#sect_S.3.2.1.1.1" title="S.3.2.1.1.1 Storage Media File-Set Attributes" shape="rect">Section S.3.2.1.1.1</a>.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Storage Media File-Set UID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0088,0140)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                    <p>See <a class="xref" href="sect_S.3.html#sect_S.3.2.1.1.1" title="S.3.2.1.1.1 Storage Media File-Set Attributes" shape="rect">Section S.3.2.1.1.1</a>.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Label Using Information Extracted From Instances</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(2200,0001)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/1C</p>
+                                    <p>See <a class="xref" href="sect_S.3.html#sect_S.3.2.1.1.4" title="S.3.2.1.1.4 Labeling" shape="rect">Section S.3.2.1.1.4</a>.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Label Text</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(2200,0002)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/1C</p>
+                                    <p>See <a class="xref" href="sect_S.3.html#sect_S.3.2.1.1.4" title="S.3.2.1.1.4 Labeling" shape="rect">Section S.3.2.1.1.4</a>.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Label Style Selection</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(2200,0003)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/1C</p>
+                                    <p>See <a class="xref" href="sect_S.3.html#sect_S.3.2.1.1.4" title="S.3.2.1.1.4 Labeling" shape="rect">Section S.3.2.1.1.4</a>.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Barcode Value</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(2200,0005)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                    <p>See <a class="xref" href="sect_S.3.html#sect_S.3.2.1.1.4" title="S.3.2.1.1.4 Labeling" shape="rect">Section S.3.2.1.1.4</a>
+                                    </p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Barcode Symbology</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(2200,0006)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                    <p>See <a class="xref" href="sect_S.3.html#sect_S.3.2.1.1.4" title="S.3.2.1.1.4 Labeling" shape="rect">Section S.3.2.1.1.4</a>
+                                    </p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Media Disposition</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(2200,0004)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                    <p>See <a class="xref" href="sect_S.3.html#sect_S.3.2.1.1.5" title="S.3.2.1.1.5 Media Disposition" shape="rect">Section S.3.2.1.1.5</a>.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Allow Media Splitting</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(2200,0007)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/1C</p>
+                                    <p>See <a class="xref" href="sect_S.3.html#sect_S.3.2.1.1.6" title="S.3.2.1.1.6 Allow Media Splitting" shape="rect">Section S.3.2.1.1.6</a>
+                                    </p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Allow Lossy Compression</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(2200,000F)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/1C</p>
+                                    <p>See <a class="xref" href="sect_S.3.html#sect_S.3.2.1.1.9" title="S.3.2.1.1.9 Allow Lossy Compression" shape="rect">Section S.3.2.1.1.9</a>
+                                    </p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Include Non-DICOM Objects</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(2200,0008)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/1C</p>
+                                    <p>See <a class="xref" href="sect_S.3.html#sect_S.3.2.1.1.7" title="S.3.2.1.1.7 Include Non-DICOM Objects" shape="rect">Section S.3.2.1.1.7</a>
+                                    </p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Include Display Application</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(2200,0009)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/1C</p>
+                                    <p>See <a class="xref" href="sect_S.3.html#sect_S.3.2.1.1.8" title="S.3.2.1.1.8 Include Display Application" shape="rect">Section S.3.2.1.1.8</a>
+                                    </p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Preserve Composite Instances After Media Creation</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(2200,000A)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Referenced SOP Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,1199)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Referenced SOP Class UID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,1150)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Referenced SOP Instance UID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,1155)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Requested Media Application Profile</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(2200,000C)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/1</p>
+                                    <p>See <a class="xref" href="sect_S.3.html#sect_S.3.2.1.1.2" title="S.3.2.1.1.2 Requested Media Application Profile" shape="rect">Section S.3.2.1.1.2</a>.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Icon Image Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0088,0200)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/1C</p>
+                                    <p>See <a class="xref" href="sect_S.3.html#sect_S.3.2.1.1.3" title="S.3.2.1.1.3 Icon Image Sequence" shape="rect">Section S.3.2.1.1.3</a>.</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_S.3.2.1.1.1" shape="rect"></a>S.3.2.1.1.1 Storage Media File-Set Attributes</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>If present, the Storage Media File-Set ID (0088,0130) and Storage Media File-Set UID (0088,0140) shall be used on the media created. If absent, the media shall contain values generated by the SCP.</p>
+                     <p>If the media request will not fit on a single volume (single piece or side of media), then whether or not the SCP ignores Storage Media File-Set ID (0088,0130), or uses it as a prefix and appends information to distinguish volumes, is implementation dependent. Different values of Storage Media File-Set UID (0088,0140) shall be used for different volumes.</p>
+                     <p>If multiple copies are requested, the same Storage Media File-Set ID (0088,0130) and Storage Media File-Set UID (0088,0140) shall be used on all copies.</p>
+                     <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                        <h3 class="title">Note</h3>
+                        <p>Care should be taken with multiple copies written to rewritable media that their contents do not diverge even though their identifiers are identical.</p>
+                     </div>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_S.3.2.1.1.2" shape="rect"></a>S.3.2.1.1.2 Requested Media Application Profile</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>The Requested Media Application Profile (2200,000C), if present, shall be used by the SCP for the specified SOP Instance. If absent for a particular instance, the choice of Media Application Profile for that instance shall be at the discretion of the SCP.</p>
+                     <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                        <h3 class="title">Note</h3>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>Different Media Application Profiles may be used for different instances on the same piece of media.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The form of the DICOMDIR directory records that the SCP must create may be significantly influenced by the media application profiles used.</p>
+                              </li>
+                           </ol>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_S.3.2.1.1.3" shape="rect"></a>S.3.2.1.1.3 Icon Image Sequence</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>The Icon Image Sequence (0088,0200), if present:</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: disc; ">
+                           <li class="listitem">
+                              <p>shall be used by the SCP for inclusion in the instance-level DICOM Directory Record for the specified SOP Instance, if the Media Application Profile requires its inclusion, and the icon supplied by the SCU meets the requirements of the profile</p>
+                           </li>
+                           <li class="listitem">
+                              <p>may be used by the SCP for inclusion in the instance-level DICOM Directory Record for the specified SOP Instance, if the Media Application Profile does not require its inclusion</p>
+                           </li>
+                        </ul>
+                     </div>
+                     <p>If absent for a particular instance, the choice of Media Application Profile for that instance dictates whether or not the SCP is required to create its own Icon Image Sequence (0088,0200) from the contents of the SOP Instance.</p>
+                     <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                        <h3 class="title">Note</h3>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>Some Media Application Profiles require the inclusion of an Icon Image Sequence (0088,0200) in the directory records.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>Some Media Application Profiles specify constraints on the form of the Icon Image Sequence (0088,0200).</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The SCP may choose to extend the Media Application Profile by generating and including icons anyway.</p>
+                              </li>
+                           </ol>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_S.3.2.1.1.4" shape="rect"></a>S.3.2.1.1.4 Labeling</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>The SCP may or may not have the capability to print a label on (or for) the media. If it does, then the following SCP behavior shall apply and the specified Attributes are required to be supported by the SCP.</p>
+                     <p>The Label Using Information Extracted From Instances (2200,0001) Attribute is a flag that instructs the SCP whether or not to create any label using the Patient and Study information contained within the instances themselves.</p>
+                     <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                        <h3 class="title">Note</h3>
+                        <p>The SCP may implement whatever it considers to be an appropriate subset of any Attributes of any Modules at the Patient, Specimen and Study entities in the DICOM Information Model specified in <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>. Typically included are such Attributes as Patient Name (0010,0010), Patient ID (0010,0020), Study ID (0020,0010), and Study Date (0008,0020).</p>
+                     </div>
+                     <p>The Label Text (2200,0002) Attribute is additional text that the SCP shall include on any label, either in addition to or instead of any extracted demographics, depending on the value of Label Using Information Extracted From Instances (2200,0001).</p>
+                     <p>The Label Style Selection (2200,0003) Attribute is a code string, which if present, may be used by the SCP to choose one or more implementation-dependent styles of labeling.</p>
+                     <p>The Barcode Value (2200,0005) and the Barcode Symbology (2200,0006), if present, may be used by the SCP to print a barcode on the label.</p>
+                     <p>Note It is SCU responsibility to convey a value for the Barcode Value (2200,0005) Attribute consistent in length and content with the requested Barcode Symbology (2200,0006).</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_S.3.2.1.1.5" shape="rect"></a>S.3.2.1.1.5 Media Disposition</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>The Media Disposition (2200,0004), if present, may be used by the SCP to determine where and to whom to send the media when completed.</p>
+                     <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                        <h3 class="title">Note</h3>
+                        <p>For example, it may contain the name and address of a referring doctor, and be used to print a label for an envelope or mailer, or as additional material to be printed on the media label.</p>
+                     </div>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_S.3.2.1.1.6" shape="rect"></a>S.3.2.1.1.6 Allow Media Splitting</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>The SCP may or may not have the capability to split a request over more than one piece of media (e.g., if it doesn't fit on one). If it does, then the following SCP behavior shall apply and the specified Attributes are required to be supported by the SCP.</p>
+                     <p>The Allow Media Splitting Attribute (2200,0007) shall be used by the SCP to determine if it is permitted to split this request over more than one piece of media.</p>
+                     <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                        <h3 class="title">Note</h3>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>If the file-set size exceeds the media storage capacity, and this flag has been set to NO, the SCP shall refuse to process the request.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>If the requested Media Application Profile allows for lossless compression, and images are not already compressed, such compression may be applied by the SCP in order to fit all instances on a single piece of media. This also applies to lossy compression if it has not been allowed by the value of Allow Lossy Compression (2200,000F).</p>
+                              </li>
+                           </ol>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_S.3.2.1.1.7" shape="rect"></a>S.3.2.1.1.7 Include Non-DICOM Objects</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>The SCP may or may not have the capability to include on the created media additional Non-DICOM objects (e.g., HTML files, JPEG images) that are a rendering of the DICOM instances. If it does, then the following SCP behavior shall apply and the specified Attributes are required to be supported by the SCP.</p>
+                     <p>The Include Non-DICOM Objects (2200,0008) shall be used to request the SCP to add additional Non-DICOM objects onto the created media.</p>
+                     <p>An SCP is not required to be able to add such files. Inability to add Non-DICOM objects is not an error.</p>
+                     <p>If Include Non-DICOM Objects (2200,0008) is set to NO, the SCP shall not include additional non-DICOM objects on the media.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_S.3.2.1.1.8" shape="rect"></a>S.3.2.1.1.8 Include Display Application</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>The SCP may or may not have the capability to include on the created media an application for displaying DICOM instances. If it does, then the following SCP behavior shall apply and the specified Attributes are required to be supported by the SCP.</p>
+                     <p>The Include Display Application (2200,0009) shall be used to request the SCP to add an application for displaying DICOM instances onto the created media.</p>
+                     <p>An SCP is not required to be able to add such an application. Inability to add a display application is not an error.</p>
+                     <p>Whether the display application is capable of displaying all stored instances is beyond the scope of the standard.</p>
+                     <p>Whether the display application automatically executes when media is inserted for reading is beyond the scope of the standard.</p>
+                     <p>Which platforms are supported by the display application(s) is beyond the scope of the standard.</p>
+                     <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                        <h3 class="title">Note</h3>
+                        <p>Multiple files may need to be included in the media to support the display application, rather than a single executable file, and these may be present, even if the Include Non-DICOM Objects (2200,0008) Attribute has a value of NO.</p>
+                     </div>
+                     <p>If Include Display Application (2200,0009) is set to NO, the SCP shall not include a display application on the media.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_S.3.2.1.1.9" shape="rect"></a>S.3.2.1.1.9 Allow Lossy Compression</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>If Allow Lossy Compression (2200,000F) has a value of YES, the SCP is allowed to perform lossy compression under the following circumstances:</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: disc; ">
+                           <li class="listitem">
+                              <p>if it receives uncompressed or lossless compressed images yet is requested to use a profile that requires lossy compression, or</p>
+                           </li>
+                           <li class="listitem">
+                              <p>if Allow Media Splitting (2200,0007) is NO, and the request would otherwise need to be split across media.</p>
+                           </li>
+                        </ul>
+                     </div>
+                     <p>If Allow Lossy Compression (2200,000F) has a value of YES but the requested profile does not permit lossy compression, lossy compression shall not be performed.</p>
+                     <p>The level of compression is at the SCP's discretion.</p>
+                     <p>The SCP shall not decompress and recompress already lossy compressed images, but may use images that have already been lossy compressed.</p>
+                     <p>The SCP is never required to perform lossy compression.</p>
+                     <p>If Allow Lossy Compression (2200,000F) has a value of NO, the SCP is not allowed to perform lossy compression. If Allow Lossy Compression (2200,000F) has a value of NO and the requested profile requires lossy compression, an error shall be returned.</p>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_S.3.2.1.2" shape="rect"></a>S.3.2.1.2 Service Class User Behavior</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The SCU shall use the N-CREATE primitive to inform the SCP that a new media creation request has been placed and to convey the proprieties of this request. The request proprieties (e.g., the set of SOP Instances that the creating interchange media shall contain) are referenced in the IOD Attributes as specified in <a class="xref" href="sect_S.3.html#table_S.3.2.1.1-1" title="Table S.3.2.1.1-1. Media Creation Management - N-CREATE Attributes" shape="rect">Table S.3.2.1.1-1</a>.</p>
+                  <p>Upon receipt of a successful N-CREATE Response Status Code from the SCP, the SCU now knows that the SCP has received the N-CREATE request and a new media creation request has been created.</p>
+                  <p>Upon receipt of a failure N-CREATE Response Status Code from the SCP, the SCU now knows that the SCP will not process the request. The actions taken by the SCU upon receiving the status is beyond the scope of this Standard.</p>
+                  <p>At any time after receipt of the N-CREATE-Response, the SCU may release the association on which it sent the N-CREATE-Request.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>An N-GET of the corresponding of the Media Creation Management SOP Class may be performed on the same or subsequent associations.</p>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_S.3.2.1.3" shape="rect"></a>S.3.2.1.3 Service Class Provider Behavior</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Upon receipt of the N-CREATE request, the SCP shall return, via the N-CREATE response primitive, the N-CREATE Response Status Code applicable to the associated request. A success status conveys that the SCP has successfully received the N-CREATE request.</p>
+                  <p>Warning statuses shall not be returned.</p>
+                  <p>Any other status (i.e., a failure status) conveys that the SCP is not processing the media creation request.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <div class="orderedlist">
+                        <ol class="orderedlist" type="1">
+                           <li class="listitem">
+                              <p>It is not specified by the Standard what checks the SCP shall accomplish after the N-CREATE request primitive reception and before returning the N-CREATE response. Implementations are discouraged from performing extended validation of the contents of the N-CREATE request, such as availability of the referenced Composite SOP Instances, support for the requested profiles, etc. In case of N-CREATE failure, the SCU would not be able to perform an N-GET to determine the detailed reasons for failure, and allow operators to apply suitable correction actions to make the request processable (e.g., resending any missing Composite SOP Instances). Such checks are better deferred until after receipt of the N-ACTION request, after which an N-GET may be performed.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>The Standard does not require the SCP to queue multiple requests, though implementations are encouraged to do so. As a consequence, a new request before a previous request has been completed may fail immediately, or may return a successful response and be queued. The size of any such queue is beyond the scope of the Standard.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>How long the instance of the Media Creation Management SOP Class persists once the Execution Status (2100,0020) has been set to IDLE is beyond the scope of the Standard.</p>
+                           </li>
+                        </ol>
+                     </div>
+                  </div>
+                  <p>The N-CREATE implicitly creates the Execution Status (2100,0020) and Execution Status Info (2100,0030) Attributes, which may subsequently be retrieved by an N-GET.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_S.3.2.1.4" shape="rect"></a>S.3.2.1.4 Status Codes.</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The status values that are specific for this action are defined in <a class="xref" href="sect_S.3.html#table_S.3.2.2.4-1" title="Table S.3.2.2.4-1. SOP Class Status Values" shape="rect">Table S.3.2.2.4-1</a>. See <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a> for general response status codes.</p>
+                  <div class="table">
+                     <a id="table_S.3.2.2.4-1" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table S.3.2.2.4-1. SOP Class Status Values</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Status</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Meaning</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Code</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Failure</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Refused because an Initiate Media Creation action has already been received for this SOP Instance.</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>A510</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_S.3.2.2" shape="rect"></a>S.3.2.2 Initiate Media Creation</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The Initiate Media Creation operation allows an SCU to request an SCP to create Interchange Media according to an already created Media Creation Management SOP Instance. An SCP shall use this operation to schedule the creation of Interchange Media. This operation shall be invoked through the N-ACTION primitive.</p>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_S.3.2.2.1" shape="rect"></a>S.3.2.2.1 Action Information</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The DICOM AEs that claim conformance to this SOP Class as an SCU and/or an SCP shall support the Action Types and Action Information as specified in <a class="xref" href="sect_S.3.html#table_S.3.2.2.1-1" title="Table S.3.2.2.1-1. Media Creation Request - Action Information" shape="rect">Table S.3.2.2.1-1</a>.</p>
+                  <div class="table">
+                     <a id="table_S.3.2.2.1-1" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table S.3.2.2.1-1. Media Creation Request - Action Information</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Action Type Name</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Action Type ID</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Attribute</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Tag</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Requirement Type SCU/SCP</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" rowspan="2" colspan="1">
+                                    <p>Initiate Media Creation</p>
+                                 </td>
+                                 <td align="center" rowspan="2" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Number of Copies</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(2000,0010)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/1</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Request Priority</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(2200,0020)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                    <p>See <a class="xref" href="sect_S.3.html#sect_S.3.2.2.1.1" title="S.3.2.2.1.1 Priority" shape="rect">Section S.3.2.2.1.1</a>
+                                    </p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_S.3.2.2.1.1" shape="rect"></a>S.3.2.2.1.1 Priority</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>The Request Priority (2200,0020), if present, may be used by the SCP to prioritize a higher priority request over other pending lower priority requests.</p>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_S.3.2.2.2" shape="rect"></a>S.3.2.2.2 Service Class User Behavior</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The SCU shall use the N-ACTION primitive to request the SCP to create Interchange Media according to an already created Media Creation Management SOP Instance. Action Information is specified in Table S. 3.2.2.1-1.</p>
+                  <p>Upon receipt of a successful N-ACTION Response Status Code from the SCP, the SCU now knows that the SCP has received the N-ACTION Initiate Media Creation request and will process the request.</p>
+                  <p>Upon receipt of a failure N-ACTION Response Status Code from the SCP, the SCU now knows that the SCP will not process the Initiate Media Creation request. The actions taken by the SCU upon receiving the status is beyond the scope of this Standard.</p>
+                  <p>At any time after receipt of the N-ACTION-Response, the SCU may release the association on which it sent the N-ACTION-Request.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <div class="orderedlist">
+                        <ol class="orderedlist" type="1">
+                           <li class="listitem">
+                              <p>An N-GET of the corresponding of the Media Creation Management SOP Class may be performed on the same or subsequent associations.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>The duration for which the SOP Instance UID of an instance of the Media Creation Management SOP Class remains active once the request has been completed or has failed is implementation dependent, but should be sufficiently long to allow an SCU to determine the ultimate outcome of the request.</p>
+                           </li>
+                        </ol>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_S.3.2.2.3" shape="rect"></a>S.3.2.2.3 Service Class Provider Behavior</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Upon receipt of the N-ACTION Initiate Media Creation request, the SCP shall return, via the N-ACTION response primitive, the N-ACTION Response Status Code applicable to the associated request. A success status conveys that the SCP has successfully scheduled the request.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <div class="orderedlist">
+                        <ol class="orderedlist" type="1">
+                           <li class="listitem">
+                              <p>The extent of validation of the contents of the request, the availability of the referenced Composite SOP Instances, support for the requested profiles and other checks that may determine the ultimate success or failure of the request are not specified by the Standard. In particular, a request may be immediately accepted successfully, but subsequently fail for some reason, or the N-ACTION response primitive may contain a status that reflects a more thorough (and prolonged) check.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>How long any Composite Instances that have been transferred via the Storage Service Class to the SCP for the purpose of a Media Creation Request persist, is beyond the scope of the Standard. The Preserve Composite Instances After Media Creation (2200,000A) flag is provided as a hint only. Even if this flag is set, a subsequent request referencing some or all of the same instances may fail if the SCP had reason to flush its cache of instances in the interim, and the SCU may need to be prepared to re-send them.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>How long the instance of the Media Creation Management SOP Class persists once the Execution Status (2100,0020) has been set to DONE or FAILED is beyond the scope of the Standard.</p>
+                           </li>
+                        </ol>
+                     </div>
+                  </div>
+                  <p>The N-ACTION implicitly creates or updates the Execution Status (2100,0020), Execution Status Info (2100,0030), Total Number of Pieces of Media Created (2200,000B), Failed SOP Sequence (0008,1198) and Referenced Storage Media Sequence (2200,000D) Attributes, which may subsequently be retrieved by an N-GET.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_S.3.2.2.4" shape="rect"></a>S.3.2.2.4 Status Codes</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>There are no specific status codes. See <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a> for response status codes.</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_S.3.2.3" shape="rect"></a>S.3.2.3 Cancel Media Creation</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The Cancel Media Creation operation allows an SCU to request an SCP to cancel a media creation request, whether or not it has begun to be processed. This operation shall be invoked through the N-ACTION primitive.</p>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_S.3.2.3.1" shape="rect"></a>S.3.2.3.1 Action Information</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The DICOM AEs that claim conformance to this SOP Class as an SCU and/or an SCP shall support the Action Types and Action Information as specified in <a class="xref" href="sect_S.3.html#table_S.3.2.3.1-1" title="Table S.3.2.3.1-1. Media Creation Request - Action Information" shape="rect">Table S.3.2.3.1-1</a>.</p>
+                  <div class="table">
+                     <a id="table_S.3.2.3.1-1" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table S.3.2.3.1-1. Media Creation Request - Action Information</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Action Type Name</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Action Type ID</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Attribute</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Tag</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Requirement Type SCU/SCP</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Cancel Media Creation</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_S.3.2.3.2" shape="rect"></a>S.3.2.3.2 Service Class User Behavior</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The SCU shall use the N-ACTION primitive to request the SCP to cancel the media creation request corresponding to the Affected SOP Instance UID in the N-ACTION request primitive, whether or not it has been initiated with an N-ACTION Initiate Media Creation request, and whether or not it has begun to be processed (i.e., is pending or in progress).</p>
+                  <p>Upon receipt of a successful N-ACTION Response Status Code from the SCP, the SCU knows that the SCP has received the N-ACTION Cancel Media Creation request, has canceled any pending or in progress media creation, and deleted the Media Creation Management SOP Instance.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>Successful cancellation implies that a subsequent N-GET of the corresponding Media Creation Management SOP Instance would fail.</p>
+                  </div>
+                  <p>Upon receipt of a failure N-ACTION Response Status Code from the SCP, the SCU knows that the SCP will not process the Cancel Media Creation request. The actions taken by the SCU upon receiving the status is beyond the scope of this Standard.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>Cancellation failure implies that media creation has already completed (successfully or not), or will proceed. The status of the media creation request may still be obtained with an N-GET, unless the reason for failure was that the SOP Instance did not exist.</p>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_S.3.2.3.3" shape="rect"></a>S.3.2.3.3 Service Class Provider Behavior</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Upon receipt of the N-ACTION Cancel Media Creation request, the SCP shall return, via the N-ACTION response primitive, the N-ACTION Response Status Code applicable to the associated request. A success status conveys that the SCP has successfully canceled the request.</p>
+                  <p>A failure status conveys that the SCP has failed to cancel the request, in which case the Execution Status (2100,0020), Execution Status Info (2100,0030), Total Number of Pieces of Media Created (2200,000B), Failed SOP Sequence (0008,1198) and Referenced Storage Media Sequence (2200,000D) Attributes may subsequently be retrieved by an N-GET.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_S.3.2.3.4" shape="rect"></a>S.3.2.3.4 Status Codes</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The status values that are specific for this SOP Class and DIMSE Service are defined in <a class="xref" href="sect_S.3.html#table_S.3.2.3.4-1" title="Table S.3.2.3.4-1. Response Statuses" shape="rect">Table S.3.2.3.4-1</a>.See <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a> for general response status codes.</p>
+                  <div class="table">
+                     <a id="table_S.3.2.3.4-1" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table S.3.2.3.4-1. Response Statuses</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Service Status</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Further Meaning</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Response Status Codes</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" rowspan="3" colspan="1">
+                                    <p>Failure</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Media creation request already completed.</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>C201</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Media creation request already in progress and cannot be interrupted.</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>C202</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Cancellation denied for unspecified reason.</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>C203</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_S.3.2.4" shape="rect"></a>S.3.2.4 Get Media Creation Result</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The Get Media Creation Result operation allows an SCU to request of an SCP the status of a media creation request. This operation shall be invoked through the N-GET primitive used in conjunction with the appropriate Media Creation Management SOP Instance corresponding to the creation request.</p>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_S.3.2.4.1" shape="rect"></a>S.3.2.4.1 Attributes</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The Application Entity that claims conformance to this SOP Class as an SCU may choose to interpret the Attributes maintained by the SCP that the SCU receives via the operations of the SOP Class. The Application Entity that claims conformance as an SCP to this SOP Class shall support the Attributes specified in <a class="xref" href="sect_S.3.html#table_S.3.2.4.1-1" title="Table S.3.2.4.1-1. Media Creation Management SOP Class N-GET Attributes" shape="rect">Table S.3.2.4.1-1</a>.</p>
+                  <div class="table">
+                     <a id="table_S.3.2.4.1-1" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table S.3.2.4.1-1. Media Creation Management SOP Class N-GET Attributes</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Attribute Name</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Tag</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Requirement Type (SCU/SCP)</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Specific Character Set</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0005)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/1C</p>
+                                    <p>(Required if expanded or replacement character set is used)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Execution Status</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(2100,0020)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/1</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Execution Status Info</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(2100,0030)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/1</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Total Number of Pieces of Media Created</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(2200,000B)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/1</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Failed SOP Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,1198)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/2</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Referenced Storage Media Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(2200,000D)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/2</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="italic">All Other Attributes of the Media Creation Management Module</span>
+                                    </p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_S.3.2.4.2" shape="rect"></a>S.3.2.4.2 Service Class User</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The SCU shall specify in the N-GET request primitive the UID of the Media Creation Management SOP Instance for which Attribute Values are to be returned. The SCU shall be permitted to request that Attribute Values be returned for any Media Creation Management SOP Class Attribute specified in <a class="xref" href="sect_S.3.html#sect_S.3.2.1.1" title="S.3.2.1.1 Attributes" shape="rect">Section S.3.2.1.1</a>. Additionally, values may be requested for optional Media Creation Management Module Attributes.</p>
+                  <p>The SCU shall specify the list of Media Creation Management SOP Class Attributes for which the Attribute Values are to be returned. The encoding rules for this list are specified in the N-GET request primitive specified in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>.</p>
+                  <p>In an N-GET operation, Sequence Attributes can only be requested in their entirety, and only the top level Sequence Attribute can be included in the request.</p>
+                  <p>The SCU shall be capable of receiving all requested Attribute Values provided by the SCP in response to the N-GET indication primitive. The SCU may request Attribute values for optional Attributes that are not maintained by the SCP. In such a case the SCU shall function properly regardless of whether the SCP returns values for those Attributes or not. This Service Class Specification places no requirements on what the SCU shall do as a result of receiving this information.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>In order to interpret accurately the character set used for Attribute values returned, it is recommended that the Attribute value for Specific Character Set (0008,0005) be requested in the N-GET request primitive.</p>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_S.3.2.4.3" shape="rect"></a>S.3.2.4.3 Service Class Provider</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>This operation allows the SCU to request from the SCP, selected Attribute Values for a specific Media Creation Management SOP Instance. This operation shall be invoked through the use of the DIMSE N-GET Service used in conjunction with the appropriate Media Creation Management SOP Instance.</p>
+                  <p>The SCP shall return, via the N-GET response primitive, the N-GET Response Status Code applicable to the associated request. Contingent on the N-GET Response Status, the SCP shall return, via the N-GET Response Primitive, Attribute Values for all requested Attributes maintained by the SCP (see <a class="xref" href="sect_S.3.html#table_S.3.2.4.1-1" title="Table S.3.2.4.1-1. Media Creation Management SOP Class N-GET Attributes" shape="rect">Table S.3.2.4.1-1</a>). The SCP shall not return Data Elements for optional Attributes that are not maintained by the SCP.</p>
+                  <p>The SCP shall return the entire content of a Sequence if a Sequence Attribute is requested.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_S.3.2.4.4" shape="rect"></a>S.3.2.4.4 Status Codes</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The status values that are specific for this SOP Class and DIMSE Service are defined in <a class="xref" href="sect_S.3.html#table_S.3.2.4.4-1" title="Table S.3.2.4.4-1. Response Statuses" shape="rect">Table S.3.2.4.4-1</a>.</p>
+                  <p>See <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a> for response status codes.</p>
+                  <div class="table">
+                     <a id="table_S.3.2.4.4-1" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table S.3.2.4.4-1. Response Statuses</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Service Status</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Further Meaning</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Response Status Codes</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Warning</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Requested optional Attributes are not supported</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>0001</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_S.3.3" shape="rect"></a>S.3.3 Media Creation Management SOP Class UID</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The Media Creation Management SOP Class shall be uniquely identified by the Media Creation Management SOP Class UID, which shall have the value "1.2.840.10008.5.1.1.33".</p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_S.2.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_S.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_S.4.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">S.2 Conformance Overview </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.4.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> S.4 Conformance Requirements</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

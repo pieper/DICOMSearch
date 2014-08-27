@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>F Basic Directory Information Object Definition (Normative)</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.3.html" title="PS3.3" />
+      <link rel="up" href="PS3.3.html" title="PS3.3" />
+      <link rel="prev" href="chapter_E.html" title="E Explanation of Patient Orientation (Normative)" />
+      <link rel="next" href="sect_F.2.html" title="F.2 Basic Directory IOD Overview" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">F Basic Directory Information Object Definition (Normative)</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_E.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_F.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_F" shape="rect"></a>F Basic Directory Information Object Definition (Normative)</h1>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_F.1" shape="rect"></a>F.1 Scope of the Basic Directory Information IOD</h2>
+                  </div>
+               </div>
+            </div>
+            <p>The Basic Directory Information Object Definition may be used for DICOM Media Storage (see <a href="../part10/PS3.10.html" class="olink" shape="rect">PS3.10</a>) and the Media Storage Service Class (see <a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a>). It is an abstraction of the information to:</p>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="a">
+                  <li class="listitem">
+                     <p>Identify a File-set</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Provide a directory that facilitates access to the information stored in the files of a File-set based on key medical information. Such a directory facility relies on a hierarchical information model of medical summary information referencing the content of the Files stored in a File-set on a storage medium. Standardizing such a directory function is a key element to facilitate the interchange of medical imaging data and is intended to support the complete range of modality imaging information.</p>
+                  </li>
+               </ol>
+            </div>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>The directory information has been defined so that a future version may be extended to support the distribution of the directory information among a logical tree of several files (with the DICOMDIR file at its root). However in this version, the entire directory information is specified to be stored in a single File with a DICOMDIR File ID.</p>
+            </div>
+            <p>
+        </p>
+            <div class="figure">
+               <a id="figure_F.1-1" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.3_F.1-1.svg" alt="The DICOMDIR File. A Central Role in a DICOM File-set" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure F.1-1. The DICOMDIR File. A Central Role in a DICOM File-set</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>Whether a single File-set or multiple File-sets are allowed on a formatted Physical Media is defined by the Media Format specification (used for each specific Physical Media) in <a href="../part12/PS3.12.html" class="olink" shape="rect">PS3.12</a>.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The DICOMDIR File is identified by a single component File ID, DICOMDIR. Other files in the File-set may have File IDs made of a single component (e.g., "ABGT" in <a class="xref" href="chapter_F.html#figure_F.1-1" title="Figure F.1-1. The DICOMDIR File. A Central Role in a DICOM File-set" shape="rect">Figure F.1-1</a>) or multiple components (e.g., AB\12 or AB\CDE\FI) not to exceed 8 components (see <a href="../part10/PS3.10.html" class="olink" shape="rect">PS3.10</a>).</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <p>This Basic Directory Information Object:</p>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="a">
+                  <li class="listitem">
+                     <p>is based on a structure of basic medical information. It is not a file system directory such as the one that may be used by the Media Format Layer;</p>
+                  </li>
+                  <li class="listitem">
+                     <p>is simple enough to meet the requirements of elementary Media Interchange applications;</p>
+                  </li>
+                  <li class="listitem">
+                     <p>is efficient in supporting update to the directory on rewritable media without a complete rewrite of the entire DICOMDIR File;</p>
+                  </li>
+                  <li class="listitem">
+                     <p>is extendible for specific applications with specialized selection keys in addition to the standard keys;</p>
+                  </li>
+                  <li class="listitem">
+                     <p>does not mandate any relationship between the hierarchy of the medical information in the DICOM Directory and the hierarchy of the File ID Components;</p>
+                  </li>
+               </ol>
+            </div>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>Such an independence between the structure of the file identifiers, from which no semantic information shall be inferred, and the DICOM Directory that conveys medical imaging information, ensures that the broadest interoperability is possible between conforming DICOM media storage implementations.</p>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_E.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_F.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">E Explanation of Patient Orientation (Normative) </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.3.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> F.2 Basic Directory IOD Overview</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

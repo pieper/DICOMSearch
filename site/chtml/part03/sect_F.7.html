@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>F.7 Icon Image Key Definition</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.3.html" title="PS3.3" />
+      <link rel="up" href="chapter_F.html" title="F Basic Directory Information Object Definition (Normative)" />
+      <link rel="prev" href="sect_F.6.html" title="F.6 Special Directory Records" />
+      <link rel="next" href="chapter_G.html" title="G Integration of Modality Worklist and Modality Performed Procedure Step in the Original DICOM Standard (Informative)" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">F.7 Icon Image Key Definition</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_F.6.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">F Basic Directory Information Object Definition (Normative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_G.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_F.7" shape="rect"></a>F.7 Icon Image Key Definition</h2>
+               </div>
+            </div>
+         </div>
+         <p>An Icon Image may be used as a key representative of an Image, RT Dose, or Series in a corresponding Directory Record to allow an application to display icons that enable a user to select one or more from amongst several of them. It is based on the general purpose Image Pixel Macro (see <a class="xref" href="chapter_C.html" title="C Information Module Definitions (Normative)" shape="rect"> Annex C</a>).</p>
+         <p>The Icon Image Key corresponds to Data Element (0088,0200). It is defined as a Sequence that contains a single Item encapsulating the Data Set made of the Data Elements of the Icon Image. The Data Elements are defined by the Image Pixel Macro (see <a class="xref" href="sect_C.7.html#sect_C.7.6.3" title="C.7.6.3 Image Pixel Module" shape="rect">Section C.7.6.3</a>).</p>
+         <p>The Image Pixel Macro usage is restricted in a few areas to facilitate general use in Directory Record across various modality environments. These restrictions are:</p>
+         <div class="orderedlist">
+            <ol class="orderedlist" type="a">
+               <li class="listitem">
+                  <p>Only monochrome and palette color images shall be used. Samples per Pixel (0028,0002) shall have a Value of 1, Photometric Interpretation (0028,0004) shall have a Value of either MONOCHROME 1, MONOCHROME 2 or PALETTE COLOR, Planar Configuration (0028,0006) shall not be present.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>True color icon images are not supported. This is due to the fact that the reduced size of the Icon Image makes the quality of a palette color image (with 256 colors) sufficient in most cases. This simplifies the handling of Icon Images by File-set Readers and File-set Updaters.</p>
+                  </div>
+               </li>
+               <li class="listitem">
+                  <p>If an FSR/FSU supports Icons (i.e., does not ignore them) then it shall support at least a maximum size of 64 by 64 Icons. An FSC may write Icons of any size. Icons larger than 64 by 64 may be ignored by FSRs and FSUs unless specialized by Application Profiles.</p>
+               </li>
+               <li class="listitem">
+                  <p>Pixel samples have a Value of either 1 or 8 for Bits Allocated (0028,0100) and Bits Stored (0028,0101). High Bit (0028,0102) shall have a Value of one less than the Value used in Bit Stored.</p>
+               </li>
+               <li class="listitem">
+                  <p>Pixel Representation (0028,0103) shall used an unsigned integer representation (Value 0000H).</p>
+               </li>
+               <li class="listitem">
+                  <p>Pixel Aspect Ratio (0028,0034) shall have a Value of 1:1.</p>
+               </li>
+               <li class="listitem">
+                  <p>If a Palette Color lookup Table is used, an 8 Bit Allocated (0028,0100) shall be used.</p>
+               </li>
+            </ol>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_F.6.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_F.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_G.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">F.6 Special Directory Records </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.3.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> G Integration of Modality Worklist and Modality Performed Procedure Step in the Original DICOM Standard (Informative)</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

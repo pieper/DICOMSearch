@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>K Basic Worklist Management Service (Normative)</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.4.html" title="PS3.4" />
+      <link rel="up" href="PS3.4.html" title="PS3.4" />
+      <link rel="prev" href="sect_J.5.html" title="J.5 Storage Commitment Examples (Informative)" />
+      <link rel="next" href="sect_K.2.html" title="K.2 Worklist Information Model Definition" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">K Basic Worklist Management Service (Normative)</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_J.5.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_K.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_K" shape="rect"></a>K Basic Worklist Management Service (Normative)</h1>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_K.1" shape="rect"></a>K.1 Overview</h2>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_K.1.1" shape="rect"></a>K.1.1 Scope</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>The Basic Worklist Management Service Class defines an application-level class-of-service that facilitates the access to worklists.</p>
+               <p>A worklist is the structure to present information related to a particular set of tasks. It specifies particular details for each task. The information supports the selection of the task to be performed first, and supports the performance of that task.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>One example is the worklist used to present information about scheduled imaging procedures at an imaging modality and to the operator of that modality. Another example is the worklist presented at a radiological reporting station to indicate which studies have been performed and are waiting to be reported.</p>
+               </div>
+               <p>This annex defines a service for communicating such worklists. The following are characteristics for this Service Class:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>The worklist has to be queried by the Application Entity (AE) associated with the application on which, or by which, the tasks included in the worklist have to be performed. In this query, a number of search keys can be used, defined for each particular worklist SOP class.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The worklist consists of worklist items, each item is related to one task. A worklist item contains Attributes from different objects related to the task.</p>
+                     </li>
+                  </ul>
+               </div>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="1">
+                        <li class="listitem">
+                           <p>This Service Class is not intended to provide a comprehensive generalized database query mechanism such as SQL. Instead, the Basic Worklist Management Service Class is focused towards basic queries using a small set of common Key Attributes used as Matching Keys or Return Attributes. Basic Worklist Information Models are not hierarchical.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Basic Worklist Information Models always consist of one query level, which may consist of one or more entities. There is no distinction between hierarchical and relational use of C-Find in the Basic Worklist Management Service Class.</p>
+                        </li>
+                     </ol>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_K.1.2" shape="rect"></a>K.1.2 Conventions</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>Key Attributes serve two purposes, they may be used as : Matching Key Attributes and Return Key Attributes. Matching Key Attributes may be used for matching (criteria to be used in the C-FIND request to determine whether an entity matches the query). Return Key Attributes may be used to specify desired return Attributes (what elements in addition to the Matching Key Attributes have to be returned in the C-FIND response).</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>Matching Keys are typically used in an SQL 'where' clause. Return Keys are typically used in an SQL 'select' clause to convey the Attribute values.</p>
+               </div>
+               <p>Matching Key Attributes may be of Type "required" (R) or "optional" (O). Return Key Attributes may be of Type 1, 1C, 2, 2C, 3 as defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_K.1.3" shape="rect"></a>K.1.3 Worklist Information Model</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>In order to serve as a Service Class Provider (SCP) of the Basic Worklist Service Class, a DICOM Application Entity (AE) possesses information about the Attributes of a number of managed worklist entries. This information is organized into Worklist Information Models.</p>
+               <p>Worklists are implemented against well defined Information Models. A specific SOP Class of the Basic Worklist Service Class consists of an informative Overview, an Information Model Definition and a DIMSE-C Service Group. In this Service Class, the Information Model plays a role similar to an Information Object Definition (IOD) of most other DICOM Service Classes.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_K.1.4" shape="rect"></a>K.1.4 Service Definition</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>Two peer DICOM AEs implement a SOP Class of the Basic Worklist Service Class with one serving in the SCU role and one serving in the SCP role. SOP Classes of the Basic Worklist Service Class are implemented using the DIMSE-C C-FIND service as defined in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>.</p>
+               <p>Both a baseline and extended behavior are defined for the DIMSE-C C-FIND. Baseline behavior specifies a minimum level of conformance for all implementations to facilitate interoperability. Extended behavior enhances the baseline behavior to provide additional features that may be negotiated independently at Association establishment time.</p>
+               <p>The following description of the DIMSE-C C-FIND service provides a brief overview of the SCU/SCP semantics.</p>
+               <p>A C-FIND service conveys the following semantics:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>The SCU requests that the SCP perform a match for the Matching Keys and return values for the Return Keys that have been specified in the Identifier of the request, against the information that the SCP possesses, to the objects specified in the SOP Class.</p>
+                        <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                           <h3 class="title">Note</h3>
+                           <p>In this Annex, the term "Identifier" refers to the Identifier service parameter of the C-FIND service as defined in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>.</p>
+                        </div>
+                     </li>
+                     <li class="listitem">
+                        <p>The SCP generates a C-FIND response for each match with an Identifier containing the values of all Matching Key Attributes and all known Return Key Attributes requested. Each response contains one worklist item. All such responses will contain a status of Pending. A status of Pending indicates that the process of matching is not complete.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>When the process of matching is complete a C-FIND response is sent with a status of Success and no Identifier.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>A Refused or Failed response to a C-FIND request indicates that the SCP is unable to process the request.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The SCU may cancel the C-FIND service by issuing a C-CANCEL-FIND request at any time during the processing of the C-FIND service. The SCP will interrupt all matching and return a status of Canceled.</p>
+                        <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                           <h3 class="title">Note</h3>
+                           <p>The SCU needs to be prepared to receive C-FIND responses sent by the SCP until the SCP finally processed the C-CANCEL-FIND request.</p>
+                        </div>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_J.5.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_K.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">J.5 Storage Commitment Examples (Informative) </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.4.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> K.2 Worklist Information Model Definition</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>L.3 Example 2: DICOM File Set MIME Message (Informative)</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.12.html" title="PS3.12" />
+      <link rel="up" href="chapter_L.html" title="L RFC 3240 - Digital Imaging and Communications in Medicine (dicom) - Application/dicom MIME Sub-type Registration (Informative)" />
+      <link rel="prev" href="chapter_L.html" title="L RFC 3240 - Digital Imaging and Communications in Medicine (dicom) - Application/dicom MIME Sub-type Registration (Informative)" />
+      <link rel="next" href="chapter_M.html" title="M 130 mm 4.1GB Magneto-Optical Disk (Normative)" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">L.3 Example 2: DICOM File Set MIME Message (Informative)</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_L.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">L RFC 3240 - Digital Imaging and Communications in Medicine (dicom) - Application/dicom MIME Sub-type Registration (Informative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_M.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_L.3" shape="rect"></a>L.3 Example 2: DICOM File Set MIME Message (Informative)</h2>
+               </div>
+            </div>
+         </div>
+         <pre class="programlisting" xml:space="preserve">
+From: "Dr Johnson" &lt;drjohnson@provider.org&gt;
+To: "Dr Smith" &lt;drsmith@provider.org&gt;
+Subject: DICOM MIME sub-type file set example
+Date: Sat, 9 Mar 2002 16:24:27 +0100
+MIME-Version: 1.0
+Content-Type: multipart/mixed;
+	boundary="----=_NextPart_000_0062_01C1C786.EA262CC0";
+	start="&lt;header1@provider.org&gt;";
+	type="text/plain"
+
+This is a multi-part message in MIME format.
+
+------=_NextPart_000_0062_01C1C786.EA262CC0
+Content-Type: text/plain;
+	charset="iso-8859-1"
+Content-Transfer-Encoding: 7bit
+Content-ID: "&lt;intro@provider.org&gt;"
+
+This is an example message containing a DICOM file set encoded following the
+DICOM MIME sub-type (RFC3240).
+
+
+------=_NextPart_000_0062_01C1C786.EA262CC0
+Content-Type: text/plain;
+	name="header1.txt"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+	filename="header1.txt"
+Content-ID: "&lt;header1@provider.org&gt;"
+Content-Description: Header of the medical message
+
+This is the header part of the message, which contains:
+- a first text document (letter1)
+- a DICOM file set part (dicomfileset1) including an additional =
+complementary note
+This message was sent by Dr Johnson to Dr Smith.
+It relates to the patient: DICOM Nema (M) 01/01/1993
+------=_NextPart_000_0062_01C1C786.EA262CC0
+Content-Type: multipart/related;
+	boundary="----=_NextPart_000_0062_01C1C786.EA262CC1_13487";
+	start="&lt;dicomfileset1.dicomdir@provider.org&gt;";
+	type="application/dicom"
+
+------=_NextPart_000_0062_01C1C786.EA262CC1_13487
+Content-Type: text/plain;
+	name="dicomfileset1note1.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="dicomfileset1note1.txt"
+Content-ID: "&lt;dicomfileset1.note1@provider.org&gt;"
+Content-Description: Note for the images use
+
+This is a simple note, for receivers who can not read images.
+These images are DICOM 3.0 images and the DICOMDIR index related file.
+Please use a DICOM compatible application.
+DICOM is a Standard Mark of Nema (www.nema.org).
+------=_NextPart_000_0062_01C1C786.EA262CC1_13487
+Content-Type: application/dicom;
+	id="DICOMDIR";
+	name="Dicomdir"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment;
+	filename="Dicomdir";
+Content-ID: "&lt;dicomfileset1.dicomdir@provider.org&gt;"
+Content-Description: Index of the images (DICOMDIR)
+
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAABESUNNAgAAAFVMBACIAAAAAgABAE9CAAACAAAAAQACAAIAVUkUADEuMi44
+NDAuMTAwMDguMS4zLjEwAgADAFVJIAAxLjIuMjUwLjEuNTkuMi40Mi4yMDAyMDMwOTE2NDkyMAIA
+EABVSRQAMS4yLjg0MC4xMDAwOC4xLjIuMQACABIAVUkSADEuMi4yNTAuMS41OS4yLjQ0AAQAAABV
+TAQAdgMAAAQAMBFDUw4ARVRJQU1fREVZRTI0NAAEAAASVUwEAGgBAAAEAAISVUwEAGgBAAAEABIS
+VVMCAAAABAAgElNRAAAyAwAA/v8A4G4AAAAEAAAUVUwEAAAAAAAEABAUVVMCAP//BAAgFFVMBADe
+AQAABAAwFENTCABQQVRJRU5UIBAAEABQTgoARElDT01eTkVNQRAAIABMTwgARElDT00zMAAQADAA
+REEIADE5OTMwMTAxEABAAENTAgBNAP7/AOCmAAAABAAAFFVMBAAAAAAABAAQFFVTAgD//wQAIBRV
+TAQAjAIAAAQAMBRDUwYAU1RVRFkgCAAgAERBCAAyMDAyMDMwOQgAMABUTQYAMTYwMzI1CABQAFNI
+CABESUNPTTMwAAgAMBBMTxgARElDT00gTUlNRSB0eXBlIGV4YW1wbGUAIAANAFVJGAAxLjIuMjUw
+LjEuNTkuMTIzLjQ1Ni43ODkgABAAU0gAAP7/AOCGAAAABAAAFFVMBAAAAAAABAAQFFVTAgD//wQA
+IBRVTAQAGgMAAAQAMBRDUwYAU0VSSUVTCABgAENTAgBPVAgAgABMTwAACACBAFNUAAAIAD4QTE8A
+AAgAUBBQTgAAIAAOAFVJGgAxLjIuMjUwLjEuNTkuMTIzLjQ1Ni43ODkuMSAAEQBJUwIAMQD+/wDg
+uAAAAAQAABRVTAQA2gMAAAQAEBRVUwIA//8EACAUVUwEAAAAAAAEADAUQ1MGAElNQUdFIAQAABVD
+UwwAU0UwMDAxL0kwMDAxBAAQFVVJGgAxLjIuODQwLjEwMDA4LjUuMS40LjEuMS43AAQAERVVSRwA
+MS4yLjI1MC4xLjU5LjEyMy40NTYuNzg5LjEuMQQAEhVVSRQAMS4yLjg0MC4xMDAwOC4xLjIuMQAI
+AAgAQ1MAACAAEwBJUwIAMQD+/wDguAAAAAQAABRVTAQAAAAAAAQAEBRVUwIA//8EACAUVUwEAAAA
+AAAEADAUQ1MGAElNQUdFIAQAABVDUwwAU0UwMDAxL0kwMDAyBAAQFVVJGgAxLjIuODQwLjEwMDA4
+LjUuMS40LjEuMS43AAQAERVVSRwAMS4yLjI1MC4xLjU5LjEyMy40NTYuNzg5LjEuMgQAEhVVSRQA
+MS4yLjg0MC4xMDAwOC4xLjIuMQAIAAgAQ1MAACAAEwBJUwIAMgA=
+
+------=_NextPart_000_0062_01C1C786.EA262CC1_13487
+Content-Type: application/dicom;
+	id="SE0001/I0001";
+	name="I0001.dcm"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment;
+	filename="I0001.dcm"
+Content-ID: "&lt;dicomfileset1.se0001.i0001@provider.org&gt;"
+Content-Description: Color image
+
+
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAABESUNNAgAAAFVMBACmAAAAAgABAE9CAAACAAAAAQACAAIAVUkaADEuMi44
+NDAuMTAwMDguNS4xLjQuMS4xLjcAAgADAFVJHAAxLjIuMjUwLjEuNTkuMTIzLjQ1Ni43ODkuMS4x
+AgAQAFVJFAAxLjIuODQwLjEwMDA4LjEuMi4xAAIAEgBVSRgAMS4yLjI1MC4xLjU5LjIuNDMuODYu
+MjQzAgATAFNIDgBBQ1EtRVRJQU0tMi40MwgAAABVTAQAxAAAAAgABQBDUwoASVNPX0lSIDEwMAgA
+FgBVSRoAMS4yLjg0MC4xMDAwOC41LjEuNC4xLjEuNwAIABgAVUkcADEuMi4yNTAuMS41OS4xMjMu
+NDU2Ljc4OS4xLjEIACAAREEIADIwMDIwMzA5CAAwAFRNBgAxNjAzMjUIAFAAU0gIAERJQ09NMzAA
+CABgAENTAgBPVAgAZABDUwQAV1NEAAgAkABQTgAACAAwEExPGABESUNPTSBNSU1FIHR5cGUgZXhh
+bXBsZQAQAAAAVUwEADwAAAAQABAAUE4KAERJQ09NXk5lbWEQACAATE8IAERJQ09NMzAAEAAwAERB
+CAAxOTkzMDEwMRAAQABDUwIATQAgAAAAVUwEAF4AAAAgAA0AVUkYADEuMi4yNTAuMS41OS4xMjMu
+NDU2Ljc4OSAADgBVSRoAMS4yLjI1MC4xLjU5LjEyMy40NTYuNzg5LjEgABAAU0gAACAAEQBJUwIA
+MQAgABMASVMCADEAKAAAAFVMBABmAAAAKAACAFVTAgADACgABABDUwQAUkdCICgABgBVUwIAAAAo
+AAgASVMCADEAKAAQAFVTAgAIACgAEQBVUwIAGgAoAAABVVMCAAgAKAABAVVTAgAIACgAAgFVUwIA
+BwAoAAMBVVMCAAAA4H8AAFVMBAB8AgAA4H8QAE9CAABwAgAA////9fXs0NCivLx6zMyZ4uLG7/Hr
+6+/v7vHx/f39+vv77PDw+vv7+/z83+Xl5erq/f399ff33uTk+vv7/v7+9fb2/////v7+7fDw+/z8
+8PHlcYNRXnI5dIVPUm1ISmpYaoJpdY+HtMPDeJKS6O3tb4uL4ujoj6WlzdfXtcTEwc3Nm6+vyNPT
+cY2N6+/vhJ2d9ff33uTkjqSk9/j4zs6fVWw2coNQY3pUGUU8K1NKdY19i5+P/f79kKamu8nJb4yM
+v8zMiaCg/v7+/P39lKmpxdDQ/v7+j6Wlrb29aYeHpri4oLOzdZCQ////29u4l5k6RGJCnql/TW1b
+v8Wkh5yLg5mM/v7+ma2ty9XVb4yMyNLSdZCQ+fr6+/z8m6+vq7u7/v7+k6iou8jIo7W1YoKCsMDA
+b4yM////+/v4ycmTfoxQurt+r7WF4ODDorKodpGQuMbGs8LC8vT0h5+f5uvrpri4nbCwq7y83eTk
+kaentcTErb6+4efnu8jIq7y86+7uiqGh9ff3+/v4+Pjy5ubR3Ny74+PH8vLm+vr1+fn0+vr3+vr2
++fn0+/v3+vr1+fn0+fn1+Pjz+vr1+fn0+Pn1+vr2/Pz59/fw+fnz+fn0+fn0/Pz66OjT0tKl1tau
+3Ny619ew2tq21tau1NSq5OTJ2dm03d294uLG2Niz2Nix2dmz19ex2Niz1NSq3t6+39+/5ubP0tKm
+09Oo2dm11tau8fHj////+/v4/v7+/////////v7++/v4/Pz6/f38////////////////////////
+////////////////////////////////////////////
+
+------=_NextPart_000_0062_01C1C786.EA262CC1_13487
+Content-Type: application/dicom;
+	id="SE0001/I0002";
+	name="I0002.dcm"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment;
+	filename="I0002.dcm"
+Content-ID: "&lt;dicomfileset1.se0001.i0002@provider.org&gt;"
+Content-Description: B&amp;W image
+
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAABESUNNAgAAAFVMBACmAAAAAgABAE9CAAACAAAAAQACAAIAVUkaADEuMi44
+NDAuMTAwMDguNS4xLjQuMS4xLjcAAgADAFVJHAAxLjIuMjUwLjEuNTkuMTIzLjQ1Ni43ODkuMS4y
+AgAQAFVJFAAxLjIuODQwLjEwMDA4LjEuMi4xAAIAEgBVSRgAMS4yLjI1MC4xLjU5LjIuNDMuODYu
+MjQzAgATAFNIDgBBQ1EtRVRJQU0tMi40MwgAAABVTAQAxAAAAAgABQBDUwoASVNPX0lSIDEwMAgA
+FgBVSRoAMS4yLjg0MC4xMDAwOC41LjEuNC4xLjEuNwAIABgAVUkcADEuMi4yNTAuMS41OS4xMjMu
+NDU2Ljc4OS4xLjIIACAAREEIADIwMDIwMzA4CAAwAFRNBgAwNzQ3NDAIAFAAU0gIAERJQ09NMzAA
+CABgAENTAgBPVAgAZABDUwQAV1NEAAgAkABQTgAACAAwEExPGABESUNPTSBNSU1FIHR5cGUgZXhh
+bXBsZQAQAAAAVUwEADwAAAAQABAAUE4KAERJQ09NXk5lbWEQACAATE8IAERJQ09NMzAAEAAwAERB
+CAAxOTkzMDEwMRAAQABDUwIATQAgAAAAVUwEAF4AAAAgAA0AVUkYADEuMi4yNTAuMS41OS4xMjMu
+NDU2Ljc4OSAADgBVSRoAMS4yLjI1MC4xLjU5LjEyMy40NTYuNzg5LjEgABAAU0gAACAAEQBJUwIA
+MQAgABMASVMCADIAKAAAAFVMBABkAAAAKAACAFVTAgABACgABABDUwwATU9OT0NIUk9NRTIAKAAI
+AElTAgAxACgAEABVUwIADwAoABEAVVMCADMAKAAAAVVTAgAIACgAAQFVUwIACAAoAAIBVVMCAAcA
+KAADAVVTAgAAAOB/AABVTAQACgMAAOB/EABPQgAA/gIAAP/////98dPX5O//////////////////
+/////////////////////////////////////////dCcjY2OnqW1yufa2tra6f///+Xa3f///+W5
+uc/2///xwLnn////+d7/////5Nfx///6oX53blKghHl6h5J8N72mT2Lo/+sktv/7fX/Mx3as/6l0
+0rhIgfz/51r////0Wdfn//+2WiM7YZFoJyMjIzt9V///92VX/f8k1P+ZWv3///rF0Tn4///hL6r/
+zSTP//+nJPj///uScylco6MwQCgmI2+hS/v//80j4f8k1P9ImP//////gnH/////aWD/rkJr//lp
+I9z///aOjHVqqZIoJGOSh7GrV/b//+Ujzv8k1P8/mP//////ZXT/////gUr/hLMl27KuPsP///+i
+jZQ4RLSiI5rFy7V+Uv3//9wq9f8k1P9VdP//////j0T9////boD/cvdreXH8WKT////kkI1sP9LH
+T7Xk6HQlRP///YaL//8k0v/AKbv///nQ4yux///wQtj/YP/PJqH/gIH/////5qB1g7O9vcbb291q
+QYmbgJz9/+A+ofb/vlZwf1/V/89adp93yv/dYOz/fvT/m2Pg//////vTppydq8Pa8/////j3////
+///////////59/r/////+Pj/////////////////////////////////////////////////////
+///////////////////////////////////JwdnRz9vQy9Xh3N3VzODx0drez8/k38/czNji0NXd
+2MrX2t/j2NH/u8DbxsfeyNnY//nPzcHRyMvi1cbUwLvXyrnzxs/K4tvd2sjN0sbLzsbayMHH0dLi
+08fz0dHNwsbc0cjg/////+79/////////PD//+79////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+/wA=
+
+------=_NextPart_000_0062_01C1C786.EA262CC1_13487--
+------=_NextPart_000_0062_01C1C786.EA262CC0--
+</pre>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_L.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_L.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_M.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">L RFC 3240 - Digital Imaging and Communications in Medicine (dicom) - Application/dicom MIME Sub-type Registration (Informative) </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.12.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> M 130 mm 4.1GB Magneto-Optical Disk (Normative)</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

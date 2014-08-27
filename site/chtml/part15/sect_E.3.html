@@ -1,0 +1,1926 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>E.3 Basic Application Level Confidentiality Options</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.15.html" title="PS3.15" />
+      <link rel="up" href="chapter_E.html" title="E Attribute Confidentiality Profiles" />
+      <link rel="prev" href="sect_E.2.html" title="E.2 Basic Application Level Confidentiality Profile" />
+      <link rel="next" href="chapter_F.html" title="F Network Address Management Profiles" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">E.3 Basic Application Level Confidentiality Options</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_E.2.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">E Attribute Confidentiality Profiles</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_F.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_E.3" shape="rect"></a>E.3 Basic Application Level Confidentiality Options</h2>
+               </div>
+            </div>
+         </div>
+         <p>Various options are defined to be applicable to the Basic Application Level Confidentiality Profile. Some of these options require removal of additional information, and some of these options require retention of information that would otherwise be removed.</p>
+         <p>The following options are defined that require removal of additional information:</p>
+         <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+               <li class="listitem">
+                  <p>Clean Pixel Data Option</p>
+               </li>
+               <li class="listitem">
+                  <p>Clean Recognizable Visual Features Option</p>
+               </li>
+               <li class="listitem">
+                  <p>Clean Graphics Option</p>
+               </li>
+               <li class="listitem">
+                  <p>Clean Structured Content Option</p>
+               </li>
+               <li class="listitem">
+                  <p>Clean Descriptors Option</p>
+               </li>
+            </ul>
+         </div>
+         <p>The following options are defined that require retention of information that would otherwise be removed but that is needed for specific uses:</p>
+         <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+               <li class="listitem">
+                  <p>Retain Longitudinal Temporal Information with Full Dates Option</p>
+               </li>
+               <li class="listitem">
+                  <p>Retain Longitudinal Temporal Information with Modified Dates Option</p>
+               </li>
+               <li class="listitem">
+                  <p>Retain Patient Characteristics Option</p>
+               </li>
+               <li class="listitem">
+                  <p>Retain Device Identity Option</p>
+               </li>
+               <li class="listitem">
+                  <p>Retain UIDs</p>
+               </li>
+               <li class="listitem">
+                  <p>Retain Safe Private Option</p>
+               </li>
+            </ul>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_E.3.1" shape="rect"></a>E.3.1 Clean Pixel Data Option</h3>
+                  </div>
+               </div>
+            </div>
+            <p>When this Option is specified in addition to an Application Level Confidentiality Profile, any information burned in to the Pixel Data (7FE0,0010) corresponding to the Attribute information specified to be removed by the Profile and any other Options specified shall also be removed, as described in <a class="xref" href="chapter_E.html#table_E.1-1" title="Table E.1-1. Application Level Confidentiality Profile Attributes" shape="rect">Table E.1-1</a>.</p>
+            <p>This may require intervention of or approval by a human operator.</p>
+            <p>The Attribute Burned In Annotation (0028,0301) shall be added to the Dataset with a value of "NO".</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>This capability is called out as a specific option, since it may be extremely burdensome in practice to implement and is unnecessary for the vast majority of modalities that do not burn in such annotation in the first place. For example, CT images do not normally contain such burned in annotation, whereas Ultrasound images routinely do.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Though image processing and optical character recognition techniques can be used to detect the presence of and location of burned in text, and matching against known identifying information can be applied, deciding whether or not that text is identifying information or some other type of information may be non-trivial. Compliance with this option requires that identifying information is removed, regardless of how that is achieved. It is not required that information specified to be retained in the non-pixel data by other Options (e.g., physical characteristics, dates or descriptors) also be retained burned-in to the pixel data. Thus the most conservative approach of removing any and all burned in text would be compliant. This may involve sacrificing additional potentially useful information such as localizer posting and manual graphic annotations.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The stored pixel values are to be changed (blacked out); it is not sufficient to superimpose an overlay or graphic annotation or shutter to obscure the pixel data values, since those may not be ignored by the receiving system.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>This option is intended to apply to the Pixel Data (7FE0,0010) Attribute that occurs in the top level Dataset of an Image Storage SOP Instance. The other standard use of Pixel Data (7FE0,0010) is within Icon Image Sequence (0088,0200), which is already described in <a class="xref" href="chapter_E.html#table_E.1-1" title="Table E.1-1. Application Level Confidentiality Profile Attributes" shape="rect">Table E.1-1</a> and the accompanying note as requiring removal. This option does not require the ability to manually or automatically process the pixel values of Pixel Data (7FE0,0010) occurring in any other location than the top level dataset, but it does not prohibit it. Pixel Data (7FE0,0010) occurring within private Attributes will be removed because such Attributes will not be known to be safe.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_E.3.2" shape="rect"></a>E.3.2 Clean Recognizable Visual Features Option</h3>
+                  </div>
+               </div>
+            </div>
+            <p>When this Option is specified in addition to an Application Level Confidentiality Profile, if there is sufficient visual information within the Pixel Data of a set of instances to allow an individual to be recognized from the instances themselves or a reconstruction of a set of instances, then sufficient removal or distortion of the Pixel Data shall be applied to prevent recognition.</p>
+            <p>This may require intervention of or approval by a human operator.</p>
+            <p>The Attribute Recognizable Visual Features (0028,0302) shall be added to the Dataset with a value of "NO".</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>This capability is called out as a specific option, since it may be extremely burdensome in practice to implement and is unnecessary for the vast majority of anatomic sites and modalities.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>In the case of full-face photographs, the risk of visual identification is obvious, and numerous techniques are well established for de-identification, such as applying black rectangles over the eyes, etc.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>In the case of high-resolution cross-sectional imaging of the entire head and neck, it has been suggested that a 3D volume or surface rendering of the pixel data may be sufficient to allow identification (or matching against a constrained subset of individuals) under some circumstances.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Application of this option may render the pixel data unusable for the purpose for which it has been collected, and hence its use may require a compromise between de-identification and utility based on obtaining appropriate ethical approval and informed consent. Consider for example, the case of dental images.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Since the Referenced Patient Photo Sequence is removed as part of the Basic Profile, support of the Clean Recognizable Visual Features option does not add requirements for that attribute.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_E.3.3" shape="rect"></a>E.3.3 Clean Graphics Option</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Instances of various Standard and Standard Extended SOP Classes, including Images, Presentation States and other Composite SOP Instances, may contain identification information encoded as graphics, text annotations or overlays. This does not include information contained in Structured Report SOP Classes.</p>
+            <p>When this Option is specified in addition to an Application Level Confidentiality Profile, any information encoded in graphics, text annotations or overlays corresponding to the Attribute information specified to be removed by the Profile and any other Options specified shall also be removed, as described in <a class="xref" href="chapter_E.html#table_E.1-1" title="Table E.1-1. Application Level Confidentiality Profile Attributes" shape="rect">Table E.1-1</a>.</p>
+            <p>This may require intervention of a human operator.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>This capability is called out as a specific option, since it may be more practical to simply remove all such graphics, text annotations or overlays (as required by the profile without this option).</p>
+                     </li>
+                     <li class="listitem">
+                        <p>As with burned-in pixel data annotation, deciding whether or not text is identifying information or some other type of information may be non-trivial. It is not required that information specified to be retained in the non-pixel data by other Options (e.g., physical characteristics, dates or descriptors) also be retained in graphics, text annotations or overlays.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_E.3.4" shape="rect"></a>E.3.4 Clean Structured Content Option</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Instances of Structured Report SOP Classes may contain identifiable information in a Content Sequence (0040,A730) encoded in Content Items. Instances of other SOP Classes may contain structured content encoded in a similar manner in the Acquisition Context Sequence (0040,0555) or Specimen Preparation Sequence (0040,0610).</p>
+            <p>When this Option is specified in addition to an Application Level Confidentiality Profile, any information encoded in SR Content Items or Acquisition Context or Specimen Preparation Sequence Items corresponding to the Attribute information specified to be removed by the Profile and any other Options specified shall also be removed.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>For example, the "observer" responsible for a diagnostic imaging report may be explicitly identified in Observation Content related Content Items in an SR.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>A de-identifier that does not implement this option creates significant risk when attempting to de-identity a Structured Report unless it is only used to de-identify instances that are known to have no identifying information in the Content Sequence.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_E.3.5" shape="rect"></a>E.3.5 Clean Descriptors Option</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Even though many Attributes are defined in the DICOM Standard for specific purposes, such as to describe a Study or a Series, those that contain plain text over which an operator has control may contain unstructured information that includes identities.</p>
+            <p>When this Option is specified in addition to an Application Level Confidentiality Profile, any information that is embedded in text or string Attributes corresponding to the Attribute information specified to be removed by the Profile and any other Options specified shall also be removed, as described in <a class="xref" href="chapter_E.html#table_E.1-1" title="Table E.1-1. Application Level Confidentiality Profile Attributes" shape="rect">Table E.1-1</a>.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>For example, an operator may include a person's name or a patient's demographics or physical characteristics in the Study Description (0008,1030), perhaps because their modality user interface does not provide other fields or because other systems do not display them. E.g., the description might contain "CT chest abdomen pelvis - 55F Dr. Smith".</p>
+                     </li>
+                     <li class="listitem">
+                        <p>One approach to cleaning such text strings without human intervention is to extract and retain only values known to be useful and safe and discard all others. For example, in the string "CT chest abdomen pelvis - 55F Dr. Smith" are found in Study Description (0008,1030), then it would be feasible to detect and retain "CT chest abdomen pelvis" and discard the remainder. In an international setting, this may require an extensive dictionary of words that are safe to retain, e.g., to detect "Buik" for abdomen in Dutch or "λεκάνη" for pelvis in Greek. Another possibility is to extract such information and attempt to code the information in other Attributes (if otherwise absent or empty) such as Anatomic Region Sequence (0008,2218). However, the possibility of string values being both identifying and descriptive in different uses needs to be considered, e.g., "Dr. Hand" or "M. Genou".</p>
+                     </li>
+                     <li class="listitem">
+                        <p>
+                           <a class="xref" href="chapter_E.html#table_E.1-1" title="Table E.1-1. Application Level Confidentiality Profile Attributes" shape="rect">Table E.1-1</a> calls out specific Attributes known to be at risk, but an implementer may want to consider any attribute that could potential contain character data, though this Option does not require that this be done. For example, all SH, LO, ST, LT and UT Value Representations could perhaps be misused. Code strings, CS, are not generally at risk, but a check against known Defined Terms and Enumerated Values could be performed. Though extremely unusual, it is conceivable that even a DS or IS string could be misused, and a check could be made that only legal numeric characters were used. Any PN Attribute is obviously at risk. The OB VR is discussed in the Retain Safe Private Option.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>This Option specifies what needs to be removed, not what needs to be retained. Depending on the application, it may be desirable to retain some information, such as technique description, but discard other information, such as diagnosis, for example because it may bias the interpretation in a clinical trial. For example, one approach is to remove all description and comment attributes except Series Description (0008,103E), since this Attribute rarely contains identifying or diagnosis information yet is typically a reliable source of useful information about the acquisition technique populated automatically from modality device protocols, though it still could be cleaned as described in Note 2.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>It should be recognized that if any descriptor contains information about a particularly unusual procedure or condition, then in conjunction with other demographic information it might reduce the number of possible individuals that could be the imaging subject. However, this is to some extent true also if the condition or other unusual physical features are obvious from visual examination of the images themselves. E.g., how many conjoined twins born in a particular month in Philadelphia might there be?</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <p>The manner of cleaning shall be described in the Conformance Statement.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_E.3.6" shape="rect"></a>E.3.6 Retain Longitudinal Temporal Information Options</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Dates and times are recognized as having a potential for leakage of identity because they constrain the number of possible individuals that could be the imaging subject, though only if there is access to other information about the individuals concerned to match it against.</p>
+            <p>However, there are applications that require dates and times to be present to able to fulfill the objective. This is particularly true in therapeutic clinical trials in which the objective is to measure change in an outcome measure over time. Further, it is often necessary to correlate information from images with information from other sources, such as clinical and laboratory data, and dates and times need to be consistent.</p>
+            <p>Two options are specified to address these requirements:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>Retain Longitudinal Temporal Information With Full Dates Option</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Retain Longitudinal Temporal Information With Modified Dates Option</p>
+                  </li>
+               </ul>
+            </div>
+            <p>When the Retain Longitudinal Temporal Information With Full Dates Option is specified in addition to an Application Level Confidentiality Profile, any dates and times present in the Attributes shall be retained, as described in <a class="xref" href="chapter_E.html#table_E.1-1" title="Table E.1-1. Application Level Confidentiality Profile Attributes" shape="rect">Table E.1-1</a>. The Attribute Longitudinal Temporal Information Modified (0028,0303) shall be added to the Dataset with a value of "UNMODIFIED".</p>
+            <p>When the Retain Longitudinal Temporal Information With Modified Dates Option is specified in addition to an Application Level Confidentiality Profile, any dates and times present in the Attributes listed in <a class="xref" href="chapter_E.html#table_E.1-1" title="Table E.1-1. Application Level Confidentiality Profile Attributes" shape="rect">Table E.1-1</a> shall be modified. The modification of the dates and times shall be performed in a manner that:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>aggregates or transforms dates so as to reduce the possibility of matching for re-identification</p>
+                  </li>
+                  <li class="listitem">
+                     <p>preserves the gross longitudinal temporal relationships between images obtained on different dates to the extent necessary for the application</p>
+                  </li>
+                  <li class="listitem">
+                     <p>preserves the fine temporal relationships between images and real-world events to the extent necessary for analysis of the images for the application</p>
+                  </li>
+               </ul>
+            </div>
+            <p>The Attribute Longitudinal Temporal Information Modified (0028,0303) shall be added to the Dataset with a value of "MODIFIED".</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>Aggregation of dates may be performed by various means such as setting all dates to the first day of the month, all months to the first month of the year, etc., depending on the precision required for the application.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>It is possible to modify all dates and times to dummy values by shifting them relative to an arbitrary epoch, and hence retain the precise longitudinal temporal relationships amongst a set of studies, when either de-identification of the entire set is performed at the same time, or some sort of mapping or database is kept to repeat this process on separate occasions.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Transformation of dates and times should be considered together, in order to address studies that span midnight.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Any transformation of times should be performed in such a manner as to not disrupt computations needed for analysis, such as comparison of start of injection time to the acquisition time for PET SUV, or extraction of time-intensity values from dynamic contrast enhanced studies.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <p>The manner of date modification shall be described in the Conformance Statement.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_E.3.7" shape="rect"></a>E.3.7 Retain Patient Characteristics Option</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Physical characteristics of the patient, which are descriptive rather than identifying information per se, are recognized as having a potential for leakage of identity because they constrain the number of possible individuals that could be the imaging subject, though only if there is access to other information about the individuals concerned to match it against.</p>
+            <p>However, there are applications that require such physical characteristics in order to perform the computations necessary to analyze the images to fulfill the objective. One such class of applications is those that are related to metabolic measures, such as computation of PET Standard Uptake Values (SUV) or DEXA or MRI measures of body composition, which are based on body weight, body surface area or lean body mass.</p>
+            <p>When this Option is specified in addition to an Application Level Confidentiality Profile, information about age, sex, height and weight and other characteristics present in the Attributes shall be retained, as described in <a class="xref" href="chapter_E.html#table_E.1-1" title="Table E.1-1. Application Level Confidentiality Profile Attributes" shape="rect">Table E.1-1</a>.</p>
+            <p>The manner of cleaning of retained attributes shall be described in the Conformance Statement.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_E.3.8" shape="rect"></a>E.3.8 Retain Device Identity Option</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Information about the identity of the device that was used to perform the acquisition is recognized as having a potential for leakage of identity because it may constrain the number of possible individuals that could be the imaging subject, though only if there is access to other information about the individuals concerned to match it against.</p>
+            <p>However, there are applications that require such device information to perform the analysis or interpretation. The type of correction for spatial or other inhomogeneity may require knowledge of the specific device serial number. Confirmation that specific devices that have been previously qualified (e.g., with phantoms) may be required. Further, there may be a need to maintain a record of the device used for regulatory or registry purposes, yet the acquisition site may not maintain an adequate electronic audit trail.</p>
+            <p>When this Option is specified in addition to an Application Level Confidentiality Profile, information about the identity of the device in the Attributes shall be retained, as described in <a class="xref" href="chapter_E.html#table_E.1-1" title="Table E.1-1. Application Level Confidentiality Profile Attributes" shape="rect">Table E.1-1</a>.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_E.3.9" shape="rect"></a>E.3.9 Retain UIDs Option</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Though individuals do not have unique identifiers themselves, studies, series, instances and other entities in the DICOM model are assigned globally unique UIDs. Whilst these UIDs cannot be mapped directly to an individual out of context, given access to the original images, or to a database of the original images containing the UIDs, it would be possible to recover the individual's identity.</p>
+            <p>However, there are applications that require the ability to maintain an audit trail back to the original images and though there are other mechanisms they may not scale well or be reliably implemented. This Option is provided for use when it is judged that the risk of gaining access to the original information via the UIDs is small relative to the benefit of retaining them.</p>
+            <p>When this Option is specified in addition to an Application Level Confidentiality Profile, UIDs shall be retained, as described in <a class="xref" href="chapter_E.html#table_E.1-1" title="Table E.1-1. Application Level Confidentiality Profile Attributes" shape="rect">Table E.1-1</a>.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>A UID of a DICOM entity is not the same as a unique identifier of an individual, such as would be proscribed by some privacy regulations.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>UIDs are generated using a hierarchical scheme of "roots", which may be traceable by a knowledgeable person back to the original assignee of the root, typically the device manufacturer, but sometimes the organization using the device.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>When evaluating the risk of matching UIDs with the original images or PACS database, one should consider that even if the UIDs are changed, the pixel data itself presents a similar risk. Specifically, the pixel data of the de-identified image can be matched against the pixel data of the original image. Such matching can be greatly accelerated by comparing pre-computed hash values of the pixel data. Removal of burned-in identification may change the pixel data but then matching against a sub-region of the pixel data is almost certainly possible (e.g., the central region of an image). Even addition of noise to an image is not sufficient to prevent re-identification since statistical matching techniques can be used. Ultimately, if any useable pixel data is retained during de-identification, then re-identification is nearly always possible if one has access to the original images. Ergo, replacement of UIDs should not give rise to a false confidence that the images have been more thoroughly de-identified than if the UIDs are retained.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Regardless of this option, implementers should take care not to remove UIDs that are structural and defined by the standard as opposed to those that are instance-related. E.g., one would never remove or replace the SOP Class UID for de-identification purposes.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The Implementation Class UID (0002,0012) is not included in the list of UID attributes to be retained, since it is part of the File Meta Information (see <a href="../part10/PS3.10.html" class="olink" shape="rect">PS3.10</a>), which is entirely replaced whenever a file is stored or modified during de-identification. See <a class="xref" href="chapter_E.html#sect_E.1.1" title="E.1.1 De-identifier" shape="rect">Section E.1.1</a>.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_E.3.10" shape="rect"></a>E.3.10 Retain Safe Private Option</h3>
+                  </div>
+               </div>
+            </div>
+            <p>By definition, Private Attributes contain proprietary information, in many cases the nature of which is known only to the vendor and not publicly documented.</p>
+            <p>However, some Private Attributes may be necessary for the desired application. For example, specific technique information such as CT helical span pitch, or pixel value transformation, such as PET SUV rescale factors, may only be available in Private Attributes since the information is either not defined in Standard Attributes, or was added to the DICOM Standard after the acquisition device was manufactured.</p>
+            <p>When this Option is specified in addition to an Application Level Confidentiality Profile, Private Attributes that are known by the de-identifier to be safe from identity leakage shall be retained, together with the Private Creator IDs that are required to fully define the retained Private Attributes; all other Private Attributes shall be removed.</p>
+            <p>When this Option is not specified, all Private Attributes shall be removed, as described in <a class="xref" href="chapter_E.html#table_E.1-1" title="Table E.1-1. Application Level Confidentiality Profile Attributes" shape="rect">Table E.1-1</a>.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>A sample list of Private Attributes thought to be safe is provided here. Vendors do not guarantee them to be safe, and do not commit to sending them in any particular software version (including future products).</p>
+                        <div class="table">
+                           <a id="table_E.3.10-1" shape="rect"></a>
+                           <p class="title">
+                              <strong>Table E.3.10-1. Safe Private Attributes</strong>
+                           </p>
+                           <div class="table-contents">
+                              <table frame="box" rules="all">
+                                 <thead>
+                                    <tr valign="top">
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>
+                                             <span class="bold">
+                                                <strong>Data Element</strong>
+                                             </span>
+                                          </p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>
+                                             <span class="bold">
+                                                <strong>Private Creator</strong>
+                                             </span>
+                                          </p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>
+                                             <span class="bold">
+                                                <strong>VR</strong>
+                                             </span>
+                                          </p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>
+                                             <span class="bold">
+                                                <strong>VM</strong>
+                                             </span>
+                                          </p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>
+                                             <span class="bold">
+                                                <strong>Meaning</strong>
+                                             </span>
+                                          </p>
+                                       </th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(7053,xx00)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Philips PET Private Group</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>DS</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>SUV Factor - Multiplying stored pixel values by Rescale Slope then this factor results in SUVbw in g/l</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(7053,xx09)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Philips PET Private Group</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>DS</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Activity Concentration Factor - Multiplying stored pixel values by Rescale Slope then this factor results in MBq/ml.</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(00E1,xx21)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>ELSCINT1</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>DS</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>DLP</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(01E1,xx26)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>ELSCINT1</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>CS</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Phantom Type</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(01E1,xx50)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>ELSCINT1</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>DS</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Acquisition Duration</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(01F1,xx01)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>ELSCINT1</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>CS</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Acquisition Type</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(01F1,xx07)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>ELSCINT1</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>DS</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Table Velocity</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(01F1,xx26)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>ELSCINT1</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>DS</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Pitch</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(01F1,xx27)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>ELSCINT1</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>DS</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Rotation Time</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0019,xx23)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>GEMS_ACQU_01</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>DS</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Table Speed [mm/rotation]</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0019,xx24)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>GEMS_ACQU_01</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>DS</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Mid Scan Time [sec]</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0019,xx27)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>GEMS_ACQU_01</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>DS</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Rotation Speed (Gantry Period)</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0019,xx9E)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>GEMS_ACQU_01</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>LO</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Internal Pulse Sequence Name</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0043,xx27)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>GEMS_PARM_01</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>SH</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Scan Pitch Ratio in the form "n.nnn:1"</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0045,xx01)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>GEMS_HELIOS_01</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>SS</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Number of Macro Rows in Detector</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0045,xx02)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>GEMS_HELIOS_01</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Macro width at ISO Center</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0903,xx10)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>GEIIS PACS</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>US</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Reject Image Flag</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0903,xx11)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>GEIIS PACS</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>US</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Significant Flag</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0903,xx12)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>GEIIS PACS</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>US</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Confidential Flag</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(2001,xx03)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Philips Imaging DD 001</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Diffusion B-Factor</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(2001,xx04)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Philips Imaging DD 001</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>CS</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Diffusion Direction</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0019,xx0C)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>SIEMENS MR HEADER</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>IS</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>B Value</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0019,xx0D)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>SIEMENS MR HEADER</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>CS</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Diffusion Directionality</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0019,xx0E)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>SIEMENS MR HEADER</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FD</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>3</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Diffusion Gradient Direction</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0019,xx27)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>SIEMENS MR HEADER</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FD</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>6</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>B Matrix</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0043,xx39)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>GEMS_PARM_01</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>IS</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>4</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>1<sup>st</sup>value is B Value</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0043,xx6F)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>GEMS_PARM_01</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>DS</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>3-4</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Scanner Table Entry + Gradient Coil Selected</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0025,xx07)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>GEMS_SERS_01</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>SL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Images in Series</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(7E01,xx01)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>HOLOGIC, Inc.</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>LO</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Codec Version</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(7E01,xx02)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>HOLOGIC, Inc.</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>SH</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Codec Content Type</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(7E01,xx10)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>HOLOGIC, Inc.</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>SQ</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>High Resolution Data Sequence</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(7E01,xx11)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>HOLOGIC, Inc.</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>SQ</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Low Resolution Data Sequence</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(7E01,xx12)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>HOLOGIC, Inc.</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>OB</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Codec Content</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0099,xx01)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQHeader</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>UI</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Version</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0099,xx02)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQHeader</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>UI</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Analyzed Series UID</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0099,xx04)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQHeader</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>SS</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Return Code</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0099,xx05)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQHeader</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>LT</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Return Message</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0099,xx10)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQHeader</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>MI</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0099,xx20)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQHeader</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>SH</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Units</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0099,xx21)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQHeader</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>ICV</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0199,xx01)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQLeft</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Left Cortical White Matter</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0199,xx02)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQLeft</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Left Cortical Gray Matter</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0199,xx03)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQLeft</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Left 3rd Ventricle</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0199,xx04)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQLeft</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Left 4th Ventricle</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0199,xx05)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQLeft</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Left 5th Ventricle</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0199,xx06)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQLeft</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Left Lateral Ventricle</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0199,xx07)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQLeft</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Left Inferior Lateral Ventricle</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0199,xx08)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQLeft</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Left Inferior CSF</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0199,xx09)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQLeft</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Left Cerebellar White Matter</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0199,xx0a)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQLeft</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Left Cerebellar Gray Matter</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0199,xx0b)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQLeft</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Left Hippocampus</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0199,xx0c)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQLeft</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Left Amygdala</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0199,xx0d)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQLeft</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Left Thalamus</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0199,xx0e)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQLeft</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Left Caudate</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0199,xx0f)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQLeft</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Left Putamen</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0199,xx10)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQLeft</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Left Pallidum</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0199,xx11)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQLeft</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Left Ventral Diencephalon</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0199,xx12)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQLeft</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Left Nucleus Accumbens</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0199,xx13)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQLeft</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Left Brain Stem</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0199,xx14)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQLeft</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Left Exterior CSF</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0199,xx15)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQLeft</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Left WM Hypo</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0199,xx16)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQLeft</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Left Other</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0299,xx01)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQRight</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Right Cortical White Matter</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0299,xx02)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQRight</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Right Cortical Gray Matter</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0299,xx03)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQRight</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Right 3rd Ventricle</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0299,xx04)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQRight</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Right 4th Ventricle</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0299,xx05)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQRight</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Right 5th Ventricle</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0299,xx06)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQRight</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Right Lateral Ventricle</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0299,xx07)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQRight</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Right Inferior Lateral Ventricle</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0299,xx08)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQRight</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Right Inferior CSF</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0299,xx09)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQRight</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Right Cerebellar White Matter</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0299,xx0a)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQRight</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Right Cerebellar Gray Matter</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0299,xx0b)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQRight</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Right Hippocampus</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0299,xx0c)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQRight</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Right Amygdala</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0299,xx0d)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQRight</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Right Thalamus</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0299,xx0e)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQRight</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Right Caudate</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0299,xx0f)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQRight</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Right Putamen</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0299,xx10)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQRight</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Right Pallidum</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0299,xx11)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQRight</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Right Ventral Diencephalon</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0299,xx12)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQRight</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Right Nucleus Accumbens</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0299,xx13)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQRight</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Right Brain Stem</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0299,xx14)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQRight</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Right Exterior CSF</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0299,xx15)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQRight</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Right WM Hypo</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0299,xx16)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>NQRight</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Right Other</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(2005,xx0D)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Philips MR Imaging DD 001</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Scale Intercept</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(2005,xx0E)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Philips MR Imaging DD 001</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>FL</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Scale Slope</p>
+                                       </td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                        <br class="table-break" clear="none" />
+                     </li>
+                     <li class="listitem">
+                        <p>One approach to retaining Private Attributes safely, either when the VR is encoded explicitly or known from a data dictionary (such as may be derived from published DICOM Conformance Statements or previously encountered instances, perhaps by adaptively extending the data dictionary as new explicit VR instances are received), is to retain those Attributes that are numeric only. For example, one might retain US, SS, UL, SS, FL and FD binary values, and IS and DS string values that contain only valid numeric characters. One might assume that other string Value Representations are unsafe in the absence of definite confirmation from the vendor to the contrary; code strings (CS) may be an exception. Bulk binary data in OB Value representations is particularly unsafe, and may often contain entire proprietary format headers in binary or text or XML form that includes the patient's name and other identifying information.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <p>The safe private attributes that are retained shall be described in the Conformance Statement.</p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_E.2.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_E.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_F.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">E.2 Basic Application Level Confidentiality Profile </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.15.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> F Network Address Management Profiles</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

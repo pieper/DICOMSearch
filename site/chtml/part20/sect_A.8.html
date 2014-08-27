@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>A.8 Overview on Data Types</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.20.html" title="PS3.20" />
+      <link rel="up" href="chapter_A.html" title="A SR Diagnostic Imaging Report Transformation Guide" />
+      <link rel="prev" href="sect_A.7.html" title="A.7 HL7 V3 DICOM CMETS" />
+      <link rel="next" href="chapter_B.html" title="B Imaging Report with Conditional Radiation Exposure and Protection Information Transformation Guide" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">A.8 Overview on Data Types</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_A.7.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">A SR Diagnostic Imaging Report Transformation Guide</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_B.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_A.8" shape="rect"></a>A.8 Overview on Data Types</h2>
+               </div>
+            </div>
+         </div>
+         <p>DICOM data types are specified in Part 5 of the standard (<a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>), CDA R2 is based on HL7 V3 Data Types Release 1 (refer to XML Implementation Technology Specification and Abstract Data Types Specification). While a complete comparison of DICOM and HL7 V3 data types, cardinality and optionality is beyond the scope of this implementation guide, some hints are given on topics that are relevant for transforming DICOM SR Diagnostic Imaging Reports to CDA R2.</p>
+         <div class="orderedlist">
+            <ol class="orderedlist" type="a">
+               <li class="listitem">
+                  <p>Optionality</p>
+                  <p>If the original DICOM SR document does not include values for optional attributes that are required or mandatory in CDA R2, the null flavor value "NI" (No Information) can be used as the default for those attributes unless specific reasons for missing values are known.</p>
+               </li>
+               <li class="listitem">
+                  <p>Character Sets</p>
+                  <p>DICOM provides information on the interpretation of text data types by specifying a default character set (ISO-IR 6) and "Specific Character Set" (0008,0005) values that are used if the Basic Graphic Set is expanded or replaced. For CDA R2 the XML declaration attribute "encoding" (overall document) and the attribute "charset" (for ED and ST data type values) may be used to provide information on character sets.</p>
+               </li>
+               <li class="listitem">
+                  <p>Character strings</p>
+                  <p>Text Value (0040,A160) of value type TEXT (data type: Unlimited Text (UT)) shall be mapped to HL7 V3 data type ED (text (TXT) representation; media type = "text/plain") to populate CDA R2 text observation entries and section text. The ED text representation is identical to HL7 V3 data type ST (Character String). Character strings that are used for DICOM attributes such as Study Description (Long String, LO) are mapped to ST. Maximum length is not specified for HL7 V3 data types ED and ST.</p>
+                  <p>DICOM character strings such as Long String (LO, e.g., Manufacturer's Model Name (0008,1090)) and Unlimited Text (UT, e.g., Observer's Model Name within <a href="../part16/chapter_A.html#sect_TID_1004" class="olink" shape="rect">TID 1004</a>) can be mapped to the character string part of HL7 V3 data type SC (Character String with Code). SC code components are optional.</p>
+               </li>
+               <li class="listitem">
+                  <p>Identifiers</p>
+                  <p>DICOM UI (data type: Unique Identifier, UID) is limited to 64 bytes. UIDs shall be mapped to the root portion of HL7 V3 Instance Identifiers (II).</p>
+                  <p>DICOM Placer Number, Filler Number, Accession Number (Unlimited Text, UT) and Patient ID (Long String, LO) are usually non-globally unique identifiers. However, a globally unique root is mandatory for the HL7 V3 Instance Identifier (II) data type. Order number, placer number, accession number and patient id may be used as an extension to the II root representing the ID assigning authority.</p>
+                  <p>If information on Issuer of Patient ID is available from the DICOM SR document (Patient Module), Universal Entity ID (0040,0032) of the Issuer of Patient ID Qualifiers Sequence (0010,0024) shall be mapped to PatientRole.id II root and Patient ID (0010,0020) to PatientRole.id II extension. Otherwise a globally unique identifier (ISO Object Identifier) may be generated for the PatientRole.id II root portion. If available Issuer of Patient ID (0010,0021) shall be mapped to PatientRole.id assigningAuthorityName.).</p>
+               </li>
+               <li class="listitem">
+                  <p>Codes</p>
+                  <p>Basic code attributes are mapped as specified in <a class="xref" href="sect_A.8.html#table_A.8-1" title="Table A.8-1. Basic Code Attributes Mapping to HL7 V3 Code Data Types (CV, CS, CE and CD)" shape="rect">Table A.8-1</a> below for HL7 V3 code data types (CV, CS, CE and CD).</p>
+                  <div class="table">
+                     <a id="table_A.8-1" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table A.8-1. Basic Code Attributes Mapping to HL7 V3 Code Data Types (CV, CS, CE and CD)</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" colspan="2" rowspan="1">
+                                    <p>DICOM <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>, <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a> and <a href="../part16/PS3.16.html" class="olink" shape="rect">PS3.16</a>
+                                    </p>
+                                 </th>
+                                 <th align="center" colspan="2" rowspan="1">
+                                    <p>HL7 V3 Data Types R1</p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Code Value (0008,0100)</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>SH</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>code</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>ST</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Coding Scheme UID (<a href="../part16/PS3.16.html" class="olink" shape="rect">PS3.16</a>)</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>UID</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>codeSystem</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>UID</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Coding Scheme Designator (0008,0102)</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>SH</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>codeSystemName</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>ST</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Coding Scheme Version (0008,0103)</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>SH</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>codeSystemVersion</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>ST</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Code Meaning (0008,0104)</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>LO</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>displayName</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>ST</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>The actual encoding for CV, CE and CD will be the same. The difference are optional fields that are not present in the DICOM report.</p>
+                  </div>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>For document titles the Code Meaning value may be mapped to the CDA title string (ST).</p>
+                        </li>
+                        <li class="listitem">
+                           <p>For coded DICOM SR person identifiers the Code Value shall be mapped to the root portion of the HL7 V3 instance identifier (II).</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Patient's Sex (DICOM coded string: CS) shall be mapped to the appropriate administrativeGenderCode attribute code (HL7 V3: CE).</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Ethnic Group (DICOM short string: SH) shall be mapped to the appropriate ethnicGroupCode attribute code (HL7 V3: CE).</p>
+                        </li>
+                        <li class="listitem">
+                           <p>If this report was generated automatically, Station Name (DICOM short string: SH) shall be mapped to AuthoringDevice.code (CE) original text. Basic code values of the AuthoringDevice.code shall be set to null flavor value "OTH" (other) because no specific codes are available.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Units of measurement in observations shall be transcoded to UCUM.</p>
+                        </li>
+                     </ul>
+                  </div>
+               </li>
+               <li class="listitem">
+                  <p>Date and Time</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>DICOM data types DateTime (DT), Date (DA) and Time (TM) shall be mapped to HL7 V3 data type Point in Time (TS).</p>
+                        </li>
+                        <li class="listitem">
+                           <p>DICOM DT matches TS except for the number of decimal places of fractional seconds (6 versus 4 for TS).</p>
+                        </li>
+                        <li class="listitem">
+                           <p>DICOM DA matches the TS part YYYYMMDD (Y=Year, M=Month, D=Day).</p>
+                        </li>
+                        <li class="listitem">
+                           <p>DICOM DT matches the TS part HHMMSS.UUUUUU (H=Hour, M=Minute, S=Second, U=Fractional Second) except for the number of decimal places of fractional seconds (6 versus 4 for TS).</p>
+                        </li>
+                        <li class="listitem">
+                           <p>If available, DICOM Timezone Offset From UTC (0008,0201) values shall be used for DA or TM data types to populate time zone offset values of HL7 V3 data type TS.</p>
+                        </li>
+                     </ul>
+                  </div>
+               </li>
+               <li class="listitem">
+                  <p>Person and Organization Names</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>DICOM Person Name (PN) shall be mapped to HL7 V3 data type Person Name (PN) as described in <a class="xref" href="sect_A.8.html#table_A.8-2" title="Table A.8-2. DICOM Person Name (PN) Mapping to HL7 V3 Data Type Person Name (PN)" shape="rect">Table A.8-2</a>.</p>
+                           <div class="table">
+                              <a id="table_A.8-2" shape="rect"></a>
+                              <p class="title">
+                                 <strong>Table A.8-2. DICOM Person Name (PN) Mapping to HL7 V3 Data Type Person Name (PN)</strong>
+                              </p>
+                              <div class="table-contents">
+                                 <table frame="box" rules="all">
+                                    <thead>
+                                       <tr valign="top">
+                                          <th align="center" rowspan="1" colspan="1">
+                                             <p>DICOM Person Name (PN)</p>
+                                          </th>
+                                          <th align="center" rowspan="1" colspan="1">
+                                             <p>HL7 V3 Data Types R1: Person Name (PN)</p>
+                                          </th>
+                                       </tr>
+                                    </thead>
+                                    <tbody>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>&lt;family_name_complex&gt;</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Family Part type</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>&lt;given_name_complex&gt;</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Given Part type</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>&lt;middle_name&gt;</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Given Part type - order of parts matters</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>&lt;name_suffix&gt;</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Suffix Part type</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>&lt;name_prefix&gt;</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Prefix Part type</p>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </div>
+                           </div>
+                           <br class="table-break" clear="none" />
+                        </li>
+                        <li class="listitem">
+                           <p>HL7 V3 PN may contain multiple given names. DICOM PN Middle Name shall be mapped to HL7 V3 PN Given Name Part type.</p>
+                           <div class="example">
+                              <a id="example_A.8-1" shape="rect"></a>
+                              <p class="title">
+                                 <strong>Example A.8-1. Person Name Example</strong>
+                              </p>
+                              <div class="example-contents">
+                                 <p>John Robert Morrison, Ph.D. "Morrison^John Robert^^^Ph.D." [One family name; two given names; no middle name; no prefix; one suffix] can be represented as a HL7 V3 Person Name (PN) in the following way:</p>
+                                 <pre class="programlisting" xml:space="preserve">
+&lt;name&gt;
+   		&lt;given&gt;John&lt;/given&gt;
+   		&lt;given&gt;Robert&lt;/given&gt;
+		&lt;family&gt;Morrison&lt;/family&gt;
+ 		&lt;suffix&gt;Ph.D.&lt;/suffix&gt;
+	&lt;/name&gt;
+</pre>
+                              </div>
+                           </div>
+                           <br class="example-break" clear="none" />
+                        </li>
+                        <li class="listitem">
+                           <p>The following HL7V3 PN use codes may be used to represent multi-part DICOM person names: ABC (Alphabetic), IDE (Ideographic), SYL (Phonetic).</p>
+                           <div class="example">
+                              <a id="example_A.8-2" shape="rect"></a>
+                              <p class="title">
+                                 <strong>Example A.8-2. HL7 V3 Multi-Part Person Name Example</strong>
+                              </p>
+                              <div class="example-contents">
+                                 <pre class="programlisting" xml:space="preserve">
+&lt;name use="ABC"&gt;
+   		&lt;family&gt;KIMURA&lt;/family&gt;
+   		&lt;given&gt;MICHIO&lt;/given&gt;
+	&lt;/name&gt;
+	&lt;name use='IDE'&gt;
+   		&lt;family&gt;木村&lt;/family&gt;
+   		&lt;given&gt;道男&lt;/given&gt;
+	&lt;/name&gt;
+	&lt;name use="SYL"&gt;
+   		&lt;family&gt;きむら&lt;/family&gt;
+   		&lt;given&gt;みちお&lt;/given&gt;
+	&lt;/name&gt;
+</pre>
+                              </div>
+                           </div>
+                           <br class="example-break" clear="none" />
+                        </li>
+                        <li class="listitem">
+                           <p>DICOM character strings representing organization names shall be mapped to HL7 V3 data type Organization Name (ON). ON may be populated with free text.</p>
+                        </li>
+                     </ul>
+                  </div>
+               </li>
+               <li class="listitem">
+                  <p>Addresses</p>
+                  <p>DICOM address character strings (e.g., Short Text (ST)) shall be mapped to HL7 V3 data type Postal Address (AD). AD may be populated with free text.</p>
+               </li>
+               <li class="listitem">
+                  <p>Numeric Measurements</p>
+                  <p>DICOM Numeric Measurement value types shall be mapped to HL7 V3 Physical Quantity data types as specified in <a class="xref" href="sect_A.8.html#table_A.8-3" title="Table A.8-3. DICOM Numeric Measurement Value Types Mapped to HL7 V3 Physical Quantity Data Types" shape="rect">Table A.8-3</a>.</p>
+                  <div class="table">
+                     <a id="table_A.8-3" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table A.8-3. DICOM Numeric Measurement Value Types Mapped to HL7 V3 Physical Quantity Data Types</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" colspan="2" rowspan="1">
+                                    <p>DICOM <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>, <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a> and <a href="../part16/PS3.16.html" class="olink" shape="rect">PS3.16</a>: Numeric Measurement (NUM) Value Type</p>
+                                 </th>
+                                 <th align="center" colspan="2" rowspan="1">
+                                    <p>HL7 V3 Data Types R1: Physical Quantity (PQ)</p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Numeric Value (0040,A30A)</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>DS</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>value</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>REAL</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Code Value (0008,0100) of Measurement Units Code Sequence (0040,08EA)</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>SH</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>unit</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>CS</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Measure Units Code Sequence (0040,08EA)</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Refer to note below</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>translation</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>CD</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt; Numeric Value Qualifier Code Sequence (0040,A301)</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Refer to note below</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>qualifier (of translation)</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>CR</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>Details on the mapping of basic code attributes are provided in section "e. Codes" of this annex.</p>
+                  </div>
+                  <p>If the Numeric Value Qualifier Code Sequence is used to convey the reason for absence of the measured value sequence item, an appropriate null flavor value shall be used to populate the physical quantity value.</p>
+               </li>
+            </ol>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_A.7.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_A.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_B.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">A.7 HL7 V3 DICOM CMETS </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.20.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> B Imaging Report with Conditional Radiation Exposure and Protection Information Transformation Guide</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

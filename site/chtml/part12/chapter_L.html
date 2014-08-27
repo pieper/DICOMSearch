@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>L RFC 3240 - Digital Imaging and Communications in Medicine (dicom) - Application/dicom MIME Sub-type Registration (Informative)</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.12.html" title="PS3.12" />
+      <link rel="up" href="PS3.12.html" title="PS3.12" />
+      <link rel="prev" href="sect_K.3.html" title="K.3 Logical Format" />
+      <link rel="next" href="sect_L.3.html" title="L.3 Example 2: DICOM File Set MIME Message (Informative)" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">L RFC 3240 - Digital Imaging and Communications in Medicine (dicom) - Application/dicom MIME Sub-type Registration (Informative)</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_K.3.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_L.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_L" shape="rect"></a>L RFC 3240 - Digital Imaging and Communications in Medicine (dicom) - Application/dicom MIME Sub-type Registration (Informative)</h1>
+               </div>
+            </div>
+         </div>
+         <pre class="programlisting" xml:space="preserve">
+Network Working Group                                          D. Clunie
+Request for Comments: 3240                                 E. Cordonnier
+Category: Informational                                  DICOM Committee
+                                                           February 2002
+
+
+        Digital Imaging and Communications in Medicine (DICOM) -
+              Application/dicom MIME Sub-type Registration
+
+Status of this Memo
+
+   This memo provides information for the Internet community.  It does
+   not specify an Internet standard of any kind.  Distribution of this
+   memo is unlimited.
+
+Copyright Notice
+
+   Copyright (C) The Internet Society (2002).  All Rights Reserved.
+
+Abstract
+
+   This document describes the registration of the MIME sub-type
+   application/dicom (Digital Imaging and Communications in Medicine).
+   The baseline encoding is defined by the DICOM Standards Committee in
+   "Digital Imaging and Communications in Medicine".
+
+1. DICOM Definition
+
+   Digital Imaging and Communications in Medicine (DICOM) specifies
+   protocols and formats for the exchange of images, time-based
+   waveforms, reports, and associated information for medical
+   applications.
+
+   Individual DICOM objects (such as images) may be encapsulated in
+   files and exchanged by e-mail using the Media Type defined herein.
+   In addition, a set of DICOM files may be described by an index file,
+   DICOMDIR, which may accompany the files that it references.
+
+2.  IANA Registration
+
+   MIME media type name: Application
+
+   MIME subtype name: dicom
+
+Required parameters:
+
+      "id" is constructed from a DICOM File ID (see DICOM PS3.11).  The
+      total length is limited to 71 characters.  Each component is
+      limited to 8 characters.  The delimiter is a forward slash "/".
+      There is never a leading delimiter (i.e., this is not a
+      traditional path from a root directory).
+
+      If a DICOMDIR (which provides an index of files) is included, then
+      it will refer to other DICOM files in the file set by use of this
+      File ID.  The File ID is not encoded within each DICOM file.  If a
+      DICOMDIR is not present, then the "id" parameter may be absent.
+      Note that the DICOMDIR will also have a Media Type of
+      application/dicom and is distinguished from other files by its ID
+      of "DICOMDIR".
+
+      For example:
+       "ROOTDIR/SUBDIR1/MRSCAN/A789FD07/19991024/ST00234/S00003/I00023"
+
+      Each component shall be character strings made of characters from
+      a subset of the G0 repertoire of ISO 8859.  This subset consists
+      of uppercase alphabetic characters, numeric characters and
+      underscore.  The following characters are permissible:
+
+      A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V,
+      W, X, Y, Z (uppercase)
+      1, 2, 3, 4, 5, 6, 7, 8, 9, 0 and _ (underscore)
+
+   Optional parameters:
+
+      none
+
+   Encoding considerations:
+
+      The DICOM information is binary, therefore the encoding used shall
+      support lossless transfer of binary information.  Typically, the
+      Content-Transfer-Encoding would be set to "Base64".
+
+      Multiple DICOM parts should be included as a Multipart/related
+      entity [2387].  Receiving agents shall also support multiple parts
+      as a Multipart/mixed entity.  When multiple DICOM parts are
+      included, one of the parts may be a DICOMDIR, in which case, all
+      the files referred to by the DICOMDIR shall also be present.  The
+      DICOMDIR is not required to be the first Application/dicom part
+      encoded in the message, in which case the optional "start"
+      parameter should refer to the content-id of the part containing
+      the DICOMDIR.
+
+      Multiple DICOM Application/dicom parts may be included with other
+      types of parts as a Multipart/mixed entity.
+
+   Security considerations:
+
+      Application/dicom parts contain medical information, including
+      individual demographic information.  Accordingly, their exchange
+      should be restricted to a secure network or within a secure
+      wrapper that protects a patient's right to confidentiality
+      according to local and national policy.  The specific security
+      mechanisms are outside the scope of this proposal.  Such
+      mechanisms as Secured MIME (S/MIME) [2633] or similar might be
+      appropriate.
+
+   Interoperability considerations:
+
+      Because DICOM information is specific to the medical (imaging)
+      domain, generic e-mail applications may not be able to interpret
+      the information.
+
+      The Media Type has been designed in order to allow for
+
+      (i)   DICOM aware applications to interoperate,
+      (ii)  generic applications to save the files in a form
+            recognizable as DICOM files, that a DICOM application may
+            subsequently use.
+
+   Published specification:
+
+      The Digital Imaging and Communications in Medicine (DICOM)
+      Standard is a standard of the DICOM Standards Committee, published
+      by the National Electrical Manufacturers Association (NEMA), 1300
+      N. 17th Street, Rosslyn, Virginia 22209 USA,
+      (http://medical.nema.org).
+
+   Applications which use this media:
+
+      Biomedical imaging applications.
+
+   Additional information:
+
+      1. Magic number(s): "DICM" after 128 byte preamble indicates DICOM
+                            PS 3.10 file
+
+      2. File extension(s): ".dcm" is recommended for files saved to
+                              disk (other than DICOMDIR)
+
+      3. Macintosh file type code:  Macintosh File Type "DICM" is
+                                     recommended
+
+      4. Object Identifiers: none
+
+   Person to contact for further information:
+
+      1. Name: Howard Clark
+      2. E-mail: how_clark@nema.org
+
+   Intended usage:
+
+      Common
+
+      Interchange of biomedical images.
+
+   Author/Change controller:
+
+      DICOM Standards Committee
+
+3. References
+
+   [DICOM]  DICOM Standards Committee, "Digital Imaging and
+            Communications in Medicine", 2001.
+
+   [2387]   Levinson, E., "The MIME Multipart/Related Content-type", RFC
+            2387, August 1998.
+
+   [2633]   Ramsdell, B., "S/MIME Version 3 Message Specification", RFC
+            2633, June 1999.
+
+4. Authors' Addresses
+
+   David Clunie
+   RadPharm
+   943 Heiden Road
+   Bangor PA 18013
+   USA
+
+   Phone: +1-570-897-7123
+   Fax:   +1-425-930-0171
+   EMail: dclunie@dclunie.com
+
+
+   Emmanuel Cordonnier
+   Etiam
+   20 rue du Pr J. Pecker
+   35000 Rennes
+   France
+
+   Phone: +33(0)299 14 33 88
+   Fax:   +33(0)299 14 33 80
+   EMail: emmanuel.cordonnier@etiam.com
+
+5.  Full Copyright Statement
+
+   Copyright (C) The Internet Society (2002).  All Rights Reserved.
+
+   This document and translations of it may be copied and furnished to
+   others, and derivative works that comment on or otherwise explain it
+   or assist in its implementation may be prepared, copied, published
+   and distributed, in whole or in part, without restriction of any
+   kind, provided that the above copyright notice and this paragraph are
+   included on all such copies and derivative works.  However, this
+   document itself may not be modified in any way, such as by removing
+   the copyright notice or references to the Internet Society or other
+   Internet organizations, except as needed for the purpose of
+   developing Internet standards in which case the procedures for
+   copyrights defined in the Internet Standards process must be
+   followed, or as required to translate it into languages other than
+   English.
+
+   The limited permissions granted above are perpetual and will not be
+   revoked by the Internet Society or its successors or assigns.
+
+   This document and the information contained herein is provided on an
+   "AS IS" basis and THE INTERNET SOCIETY AND THE INTERNET ENGINEERING
+   TASK FORCE DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING
+   BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION
+   HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF
+   MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+
+Acknowledgment
+
+   Funding for the RFC Editor function is currently provided by the
+   Internet Society.
+</pre>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_L.2" shape="rect"></a>L.2 Example 1: Simple DICOM File MIME Message (Informative)</h2>
+                  </div>
+               </div>
+            </div>
+            <pre class="programlisting" xml:space="preserve">
+From: "Dr Smith" &lt;smith@provider1.com&gt;
+To: "Dr Johnson" &lt;johnson@provider2.com&gt;
+Subject: test DICOM Mime Type
+Date: Fri, 5 Nov 1999 15:15:35 +0100
+MIME-Version: 1.0
+Content-Type: Multipart/mixed;
+	boundary="----=_NextPart_000_0027_01BF27A0.9BE21980"
+
+This is a multi-part message in MIME format.
+
+------=_NextPart_000_0027_01BF27A0.9BE21980
+Content-Type: text/plain;
+	charset="iso-8859-1"
+Content-Transfer-Encoding: 7bit
+
+Message text: this is a DICOM MIME Type example for DICOM File.
+
+------=_NextPart_000_0027_01BF27A0.9BE21980
+Content-Type: Application/dicom;
+	id="i00023"; name="i00023.dcm"
+Content-Transfer-Encoding: base64
+
+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
+
+------=_NextPart_000_0027_01BF27A0.9BE21980--
+</pre>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_K.3.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_L.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">K.3 Logical Format </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.12.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> L.3 Example 2: DICOM File Set MIME Message (Informative)</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

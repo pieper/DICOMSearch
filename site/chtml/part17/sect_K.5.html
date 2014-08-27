@@ -1,0 +1,900 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>K.5 Guidelines</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="chapter_K.html" title="K Ultrasound Staged Protocol Data Management (Informative)" />
+      <link rel="prev" href="sect_K.4.html" title="K.4 Attributes Used in Staged Protocol Exams" />
+      <link rel="next" href="chapter_L.html" title="L Hemodynamics Report Structure (Informative)" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">K.5 Guidelines</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_K.4.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">K Ultrasound Staged Protocol Data Management (Informative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_L.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_K.5" shape="rect"></a>K.5 Guidelines</h2>
+               </div>
+            </div>
+         </div>
+         <p>This annex provides guidelines for implementation of the following aspects of Staged Protocol exams:</p>
+         <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+               <li class="listitem">
+                  <p>Identification of a Staged Protocol exam.</p>
+               </li>
+               <li class="listitem">
+                  <p>Identification of Stages and Views within a Staged Protocol exam.</p>
+               </li>
+               <li class="listitem">
+                  <p>Identification of extra-Protocol images within a Staged Protocol exam.</p>
+               </li>
+               <li class="listitem">
+                  <p>Acquisition of multiple images of a View during a Stage, and identification of the preferred image for that Stage.</p>
+               </li>
+               <li class="listitem">
+                  <p>Workflow management of Staged Protocol images.</p>
+               </li>
+            </ul>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_K.5.1" shape="rect"></a>K.5.1 Staged Protocol Exam Identification</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The attributes Number of Stages (0008,2124) and Number of Views in Stage (0008,212A) are each Type 2C with the condition "Required if this image was acquired in a Staged Protocol." These two attributes will be present with values in image SOP Instances if the exam meets the definition of a Staged Protocol Exam stated in <a class="xref" href="sect_K.3.html" title="K.3 Definition of a Staged Protocol Exam" shape="rect">Section K.3</a>. This includes both the Protocol View images as well as any extra-Protocol images acquired during the Protocol Stages.</p>
+            <p>The attributes Protocol Name (0018,1030) and Performed Protocol Code Sequence (0040,0260) identify the Protocol of a Staged Protocol Exam, but the mere presence of one or both of these attributes does not in itself identify the acquisition as a Staged Protocol Exam. If both Protocol Name and Performed Protocol Code Sequence attributes are present, the Protocol Name value takes precedence over the Performed Protocol Code Sequence Code Meaning value as a display label for the Protocol, since the Protocol Name would convey the institutional preference better than the standardized code meaning.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_K.5.2" shape="rect"></a>K.5.2 Stage and View Identification</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Display devices usually include capabilities that aid in the organization and presentation of images acquired as part of the Staged Protocol. These capabilities allow a clinician to display images of a given View acquired during different Stages of the Protocol side by side for comparison. A View is a particular combination of the transducer position and orientation at the time of image acquisition. Images are acquired at the same View in different Protocol Stages for the purpose of comparison. For these features to work properly, the display device must be able to determine the Stage and View of each image in an unambiguous fashion.</p>
+            <p>There are three possible mechanisms for conveying Stage and View identification in the image SOP Instances:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>"Numbers" (Stage Number (0008,2122) and View Number (0008,2128) ), which number Stages and Views, starting with one.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>"Names" (Stage Name (0008,2120) and View Name (0008,2127) ), which specify textual names for each Stage and View, respectively.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>"Code sequences" (Stage Code Sequence (0040,000A) for Stage identification, and View Code Sequence (0054,0220) for View identification), which give identification "codes" to the Stage and View respectively.</p>
+                  </li>
+               </ul>
+            </div>
+            <p>The use of code sequences to identify Stage and View, using Context Group values specified in <a href="../part16/PS3.16.html" class="olink" shape="rect">PS3.16</a> (e.g., <a href="../part16/sect_CID_12002.html" class="olink" shape="rect">CID 12002 “Ultrasound Protocol Stage Types”</a> and <a href="../part16/sect_CID_12226.html" class="olink" shape="rect">CID 12226 “Echocardiography Image View”</a>), allows a display application with knowledge of the code semantics to render a display in accordance with clinical domain uses and user preferences (e.g., populating each quadrant of an echocardiographic display with the user desired stage and view). The IHE Echocardiography Workflow Profile requires such use of code sequences for stress-echo studies.</p>
+            <p>
+               <a class="xref" href="sect_K.5.html#table_K.5-1" title="Table K.5-1. Staged Protocol Image Attributes Example" shape="rect">Table K.5-1</a> provides an example of the Staged Protocol relevant attributes in images acquired during a typical cardiac stress-echo ultrasound exam.</p>
+            <div class="table">
+               <a id="table_K.5-1" shape="rect"></a>
+               <p class="title">
+                  <strong>Table K.5-1. Staged Protocol Image Attributes Example</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Baseline Stage - View 1</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Mid-Stress Stage - View 1</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Mid-Stress Stage - View 2</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Study Instance UID:</p>
+                              <p>"1.2.840….123.1"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Study Instance UID:</p>
+                              <p>"1.2.840….123.1"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Study Instance UID:</p>
+                              <p>"1.2.840….123.1"</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Request Attributes Sequence:</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Request Attributes Sequence:</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Request Attributes Sequence:</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Scheduled Procedure Step Description: "Exercise stress echocardiography"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Scheduled Procedure Step Description: "Exercise stress echocardiography"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Scheduled Procedure Step Description: "Exercise stress echocardiography"</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Scheduled Protocol Code Sequence:</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Scheduled Protocol Code Sequence:</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Scheduled Protocol Code Sequence:</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;Code Value: "P5-B3050"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;Code Value: "P5-B3050"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;Code Value: "P5-B3050"</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;Coding Scheme Designator: "SRT"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;Coding Scheme Designator: "SRT"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;Coding Scheme Designator: "SRT"</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;Code Meaning: "Exercise stress echocardiography"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;Code Meaning: "Exercise stress echocardiography"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;Code Meaning: "Exercise stress echocardiography"</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Performed Procedure Step Description: "Exercise stress echocardiography"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Performed Procedure Step Description: "Exercise stress echocardiography"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Performed Procedure Step Description: "Exercise stress echocardiography"</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Protocol Name:</p>
+                              <p>"EXERCISE STRESS-ECHO"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Protocol Name:</p>
+                              <p>"EXERCISE STRESS-ECHO"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Protocol Name:</p>
+                              <p>"EXERCISE STRESS-ECHO"</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Performed Protocol Code Sequence:</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Performed Protocol Code Sequence:</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Performed Protocol Code Sequence:</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Code Value: "P5-B3050"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Code Value: "P5-B3050"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Code Value: "P5-B3050"</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Coding Scheme Designator: "SRT"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Coding Scheme Designator: "SRT"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Coding Scheme Designator: "SRT"</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Code Meaning: "Exercise stress echocardiography"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Code Meaning: "Exercise stress echocardiography"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Code Meaning: "Exercise stress echocardiography"</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Number of Stages: "4"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Number of Stages: "4"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Number of Stages: "4"</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Number of Views In Stage: "2"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Number of Views In Stage: "2"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Number of Views In Stage: "2"</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Stage Name: "BASELINE"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Stage Name: "MID-STRESS"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Stage Name: "MID-STRESS"</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Stage Number: "1"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Stage Number: "2"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Stage Number: "2"</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Stage Code Sequence:</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Stage Code Sequence:</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Stage Code Sequence:</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Code Value:"F-01602"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Code Value: "109091"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Code Value: "109091"</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Coding Scheme Designator: "SRT"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Coding Scheme Designator: "DCM"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Coding Scheme Designator: "DCM"</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Code Meaning: "Baseline state"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Code Meaning: "Cardiac Stress State"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Code Meaning: "Cardiac Stress State"</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>View Name: "Para-sternal long axis"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>View Name: "Para-sternal long axis"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>View Name: "Para-sternal short axis"</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>View Number: "1"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>View Number: "1"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>View Number: "2"</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>----</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Number of Event Timers: "1"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Number of Event Timers: "1"</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>----</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Event Elapsed Time(s): "10000" (ms)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Event Elapsed Time(s): "25000" (ms)</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>----</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Event Elapsed Timer Name(s): "Time Since Exercise Halted"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Event Elapsed Timer Name(s): "Time Since Exercise Halted"</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>View Code Sequence:</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>View Code Sequence:</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>View Code Sequence:</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Code Value: "G-0396"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Code Value: "G-0396"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Code Value: "G-0397"</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Coding Scheme Designator: "SRT"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Coding Scheme Designator: "SRT"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Coding Scheme Designator: "SRT"</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Code Meaning: "Parasternal long axis"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Code Meaning: "Parasternal long axis"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Code Meaning: "Parasternal short axis"</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_K.5.3" shape="rect"></a>K.5.3 Extra-protocol Image Identification</h3>
+                  </div>
+               </div>
+            </div>
+            <p>At any Stage of a Staged Protocol exam, the operator may acquire images that are not part of the Protocol. These images are so-called "extra-Protocol images". Information regarding the performed Protocol is still included because such images are acquired in the same Procedure Step as the Protocol images. The Stage number and optionally other Stage identification attributes (Stage Name and/or Stage Code Sequence) should still be conveyed in extra-Protocol images. However, the View number should be omitted to signify that the image is not one of the standard Views in the Protocol. Other View identifying information, such as name or code sequences, may indicate the image location.</p>
+            <div class="table">
+               <a id="K.5-2" shape="rect"></a>
+               <p class="title">
+                  <strong>Table K.5-2. Comparison Of Protocol And Extra-Protocol Image Attributes Example</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Mid-Stress Stage - View 1</strong>
+                                 </span>
+                              </p>
+                              <p>
+                                 <span class="bold">
+                                    <strong>Protocol Image</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Mid-Stress Stage</strong>
+                                 </span>
+                              </p>
+                              <p>
+                                 <span class="bold">
+                                    <strong>Extra-Protocol Image</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Study Instance UID:</p>
+                              <p>"1.2.840….123.1"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Study Instance UID:</p>
+                              <p>"1.2.840….123.1"</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Request Attributes Sequence:</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Request Attributes Sequence:</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Scheduled Procedure Step Description: " Exercise stress echocardiography protocol"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Scheduled Procedure Step Description: " Exercise stress echocardiography protocol"</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Scheduled Protocol Code Sequence:</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Scheduled Protocol Code Sequence:</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;Code Value: " P5-B3050"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;Code Value: " P5-B3050"</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;Coding Scheme Designator: "SRT"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;Coding Scheme Designator: "SRT"</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;Code Meaning:" Exercise stress echocardiography"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;Code Meaning:" Exercise stress echocardiography"</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Performed Procedure Step Description: "Exercise stress echocardiography"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Performed Procedure Step Description: "Exercise stress echocardiography"</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Protocol Name:</p>
+                              <p>"EXERCISE STRESS-ECHO"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Protocol Name:</p>
+                              <p>"EXERCISE STRESS-ECHO"</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Performed Protocol Code Sequence:</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Performed Protocol Code Sequence:</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Code Value: "P5-B3050"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Code Value: "P5-B3050"</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Coding Scheme Designator: "SRT"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Coding Scheme Designator: "SRT"</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Code Meaning:" Exercise stress echocardiography"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Code Meaning:" Exercise stress echocardiography"</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Number of Stages: "4"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Number of Stages: "4"</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Number of Views In Stage: "2"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Number of Views In Stage: "2"</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Stage Name: "MID-STRESS"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Stage Name: "MID-STRESS"</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Stage Number: "2"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Stage Number: "2"</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Stage Code Sequence:</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Stage Code Sequence:</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Code Value: "109091"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Code Value: "109091"</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Coding Scheme Designator: "DCM"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Coding Scheme Designator: "DCM"</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Code Meaning: "Cardiac Stress state"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Code Meaning: "Cardiac Stress state"</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>View Name: "Para-sternal long axis"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>----</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>View Number: "1"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>----</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>View Code Sequence:</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>----</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Code Value: "G-0396"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>----</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Coding Scheme Designator: "SRT"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>----</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Code Meaning: "Parasternal long axis"</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>----</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_K.5.4" shape="rect"></a>K.5.4 Multiple Images of A Stage-view</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Ultrasound systems often acquire multiple images at a particular stage and view. If one image is difficult to interpret or does not fully portray the ventricle wall, the physician may choose to view an alternate. In some cases, the user may identify the preferred image. The Key Object Selection Document can identify the preferred image for any or all of the Stage-Views. This specific usage of the Key Object Selection Document has a Document Title of (113013, DCM, "Best In Set") and Document Title Modifier of (113017, DCM, "Stage-View").</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_K.5.5" shape="rect"></a>K.5.5 Workflow Management of Staged Protocol Images</h3>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_K.5.5.1" shape="rect"></a>K.5.5.1 Uninterrupted Exams - Single MPPS</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>Modality Performed Procedure Step (MPPS) is the basic organizational unit of Staged Protocol Exams. It is recommended that a single MPPS instance encompass the entire acquisition of an ultrasound Staged Protocol Exam if possible.</p>
+               <p>There are no semantics assigned to the use of Series within a Staged Protocol Exam other than the DICOM requirements as to the relationship between Series and Modality Performed Procedure Steps. In particular, all of the following scenarios are possible:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>one Series for all images in the MPPS.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>separate Series for Protocol View images and extra-Protocol images in the MPPS.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>separate Series for images of each Stage within the MPPS.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>more than one Series for the images acquired in a single Protocol Stage.</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>There is no recommendation on the organization of images into Series because clinical events make such recommendations impractical. <a class="xref" href="sect_K.5.html#figure_K.5.5-1" title="Figure K.5.5-1. Example of Uninterrupted Staged-Protocol Exam WORKFLOW" shape="rect">Figure K.5.5-1</a> shows a possible sequence of interactions for a protocol performed as a single MPPS.</p>
+               <p>
+            </p>
+               <div class="figure">
+                  <a id="figure_K.5.5-1" shape="rect"></a>
+                  <div class="figure-contents">
+                     <div class="mediaobject">
+                        <img src="figures/PS3.17_K.5.5-1.svg" alt="Example of Uninterrupted Staged-Protocol Exam WORKFLOW" />
+                     </div>
+                  </div>
+                  <p class="title">
+                     <strong>Figure K.5.5-1. Example of Uninterrupted Staged-Protocol Exam WORKFLOW</strong>
+                  </p>
+               </div>
+               <p>
+                  <br class="figure-break" clear="none" />
+               </p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_K.5.5.2" shape="rect"></a>K.5.5.2 Interrupted Exams - Multiple MPPS</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>A special case arises when the acquisition during a Protocol Stage is halted for some reason. For example, such a situation can occur if signs of patient distress are observed, such as angina in a cardiac stress exam. These criteria are part of the normal exam Protocol, and as long as the conditions defined for the Protocol are met the MPPS status is set to COMPLETED. Only if the exam terminates before meeting the minimum acquisition requirements of the selected Protocol would MPPS status be set to DISCONTINUED. It is recommended that the reason for discontinuation should be conveyed in the Modality Procedure Step Discontinuation Reason Code Sequence (0040,0281). Staged Protocols generally include criteria for ending the exam, such as when a target time duration is reached or if signs of patient distress are observed.</p>
+               <p>If a Protocol Stage is to be acquired at a later time with the intention of using an earlier completed Protocol Stage of a halted Staged Protocol then a new Scheduled Procedure Step may or may not be created for this additional acquisition. Workflow management recommendations vary depending on whether the care institution decides to create a new Scheduled Procedure Step or not.</p>
+               <p>Follow-up Stages must use View Numbers, Names, and Code Sequences identical to those in the prior Stages to enable automatically correlating images of the original and follow-up Stages.</p>
+               <p>
+                  <span class="bold">
+                     <strong>K.5.5.2.1 Unscheduled Follow-up Stages</strong>
+                  </span>
+               </p>
+               <p>Follow-up Stages require a separate MPPS. Since follow-up stages are part of the same Requested Procedure and Scheduled Procedure Step, all acquired image SOP Instances and generated MPPS instances specify the same Study Instance UID. If the Study Instance UID is different, systems will have difficulty associating related images. This creates a significant problem if Modality Worklist is not supported. Therefore systems should assign the same Study Instance UID for follow-up Stages even if Modality Worklist is not supported. <a class="xref" href="sect_K.5.html#figure_K.5.5-2" title="Figure K.5.5-2. Example Staged-Protocol Exam with Unscheduled Follow-up Stages" shape="rect">Figure K.5.5-2</a> shows a possible interaction sequence for this scenario.</p>
+               <p>
+            </p>
+               <div class="figure">
+                  <a id="figure_K.5.5-2" shape="rect"></a>
+                  <div class="figure-contents">
+                     <div class="mediaobject">
+                        <img src="figures/PS3.17_K.5.5-2.svg" alt="Example Staged-Protocol Exam with Unscheduled Follow-up Stages" />
+                     </div>
+                  </div>
+                  <p class="title">
+                     <strong>Figure K.5.5-2. Example Staged-Protocol Exam with Unscheduled Follow-up Stages</strong>
+                  </p>
+               </div>
+               <p>
+                  <br class="figure-break" clear="none" />
+               </p>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_K.5.5.2.2" shape="rect"></a>K.5.5.2.2 Scheduled Follow-up Stages</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>In some cases a new Scheduled Procedure Step is created to acquire follow-up Stages. For example, a drug induced stress-echo exam may be scheduled because an earlier exercise induced stress-echo exam had to be halted due to patient discomfort. In such cases it would be redundant to reacquire earlier Stages such as the rest Stage of a cardiac stress-echo ultrasound exam. One MPPS contains the Image instances of the original Stage and a separate MPSS contains the follow-up instances.</p>
+                  <p>If Scheduled and Performed Procedure Steps for Staged Protocol Exam data use the same Study Instance UID, workstations can associate images from the original and follow-up Stages. <a class="xref" href="sect_K.5.html#figure_K.5.5-3" title="Figure K.5.5-3. Example Staged-Protocol Exam with Scheduled Follow-up Stages" shape="rect">Figure K.5.5-3</a> shows a possible interaction sequence for this scenario.</p>
+                  <p>
+              </p>
+                  <div class="figure">
+                     <a id="figure_K.5.5-3" shape="rect"></a>
+                     <div class="figure-contents">
+                        <div class="mediaobject">
+                           <img src="figures/PS3.17_K.5.5-3.svg" alt="Example Staged-Protocol Exam with Scheduled Follow-up Stages" />
+                        </div>
+                     </div>
+                     <p class="title">
+                        <strong>Figure K.5.5-3. Example Staged-Protocol Exam with Scheduled Follow-up Stages</strong>
+                     </p>
+                  </div>
+                  <p>
+                     <br class="figure-break" clear="none" />
+                  </p>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_K.4.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_K.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_L.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">K.4 Attributes Used in Staged Protocol Exams </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> L Hemodynamics Report Structure (Informative)</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

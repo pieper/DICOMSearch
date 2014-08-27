@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>10 Miscellaneous Macros</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.3.html" title="PS3.3" />
+      <link rel="up" href="PS3.3.html" title="PS3.3" />
+      <link rel="prev" href="chapter_9.html" title="9 Template Identification Macro (Retired)" />
+      <link rel="next" href="sect_10.2.html" title="10.2 Content Item Macro" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">10 Miscellaneous Macros</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_9.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_10.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_10" shape="rect"></a>10 Miscellaneous Macros</h1>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_10.1" shape="rect"></a>10.1 Person Identification Macro</h2>
+                  </div>
+               </div>
+            </div>
+            <p>This Macro may be invoked to specify a coded representation of a person such as a healthcare worker, and the organization to which they are responsible.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>This macro is typically invoked within a Sequence Item used to identify an individual such as a physician or a device operator.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The free-text name of the individual is not included in this Macro since there are already widely used specific Attributes to hold such values.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>No Baseline, Defined or Enumerated CIDs are defined nor is any particular coding scheme specified. In practice, workers are usually identified by using a locally or nationally specific coding scheme. For example, a local Coding Scheme Designator might be used and the individual's internal hospital ID number user in Code Value.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The organization is specified by either a coded sequence or a free text name but not both. A Baseline CID of standard organizations is provided for the purpose of identifying standard organizations responsible for creation of well known instances.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <div class="table">
+               <a id="table_10-1" shape="rect"></a>
+               <p class="title">
+                  <strong>Table 10-1. Person Identification Macro Attributes Description</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Attribute Name</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Tag</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Type</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Attribute Description</p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Person Identification Code Sequence</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,1101)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>A coded entry that identifies a person.</p>
+                              <p>The Code Meaning attribute, though it will be encoded with a VR of LO, may be encoded according to the rules of the PN VR (e.g., caret '^' delimiters shall separate name components), except that a single component (i.e., the whole name unseparated by caret delimiters) is not permitted. Name component groups for use with multi-byte character sets are permitted, as long as they fit within the 64 characters (the length of the LO VR).</p>
+                              <p>One or more Items shall be included in this Sequence.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" colspan="3" rowspan="1">
+                              <p>
+                                 <span class="italic">&gt;Include <a class="xref" href="sect_8.8.html#table_8.8-1" title="Table 8.8-1. Code Sequence Macro Attributes" shape="rect">Table 8.8-1 “Code Sequence Macro Attributes”</a>
+                                 </span>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="italic">No Baseline CID is defined.</span>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Person's Address</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,1102)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>3</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Person's mailing address</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Person's Telephone Numbers</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,1103)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>3</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Person's telephone number(s)</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Institution Name</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0008,0080)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1C</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Institution or organization to which the identified individual is responsible or accountable. Required if Institution Code Sequence (0008,0082) is not present.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Institution Address</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0008,0081)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>3</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Mailing address of the institution or organization to which the identified individual is responsible or accountable.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Institution Code Sequence</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0008,0082)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1C</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Institution or organization to which the identified individual is responsible or accountable. Required if Institution Name (0008,0080) is not present.</p>
+                              <p>Only a single Item shall be included in this Sequence.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" colspan="3" rowspan="1">
+                              <p>
+                                 <span class="italic">&gt;Include <a class="xref" href="sect_8.8.html#table_8.8-1" title="Table 8.8-1. Code Sequence Macro Attributes" shape="rect">Table 8.8-1 “Code Sequence Macro Attributes”</a>
+                                 </span>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="italic">Baseline <a href="../part16/sect_CID_5002.html" class="olink" shape="rect">CID 5002 “Organizations”</a>.</span>
+                              </p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_9.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_10.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">9 Template Identification Macro (Retired) </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.3.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 10.2 Content Item Macro</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

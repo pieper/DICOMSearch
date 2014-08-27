@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>C.2 Methodology</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.14.html" title="PS3.14" />
+      <link rel="up" href="chapter_C.html" title="C Measuring the Accuracy With Which a Display System Matches the Grayscale Standard Display Function (Informative)" />
+      <link rel="prev" href="chapter_C.html" title="C Measuring the Accuracy With Which a Display System Matches the Grayscale Standard Display Function (Informative)" />
+      <link rel="next" href="sect_C.3.html" title="C.3 References" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">C.2 Methodology</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_C.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">C Measuring the Accuracy With Which a Display System Matches the Grayscale Standard Display Function (Informative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_C.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_C.2" shape="rect"></a>C.2 Methodology</h2>
+               </div>
+            </div>
+         </div>
+         <p>
+            <span class="bold">
+               <strong>Step (1)</strong>
+            </span>
+         </p>
+         <p>The Characteristic Curve of the test Display System should be determined with as many measurements as practical (see <a class="xref" href="chapter_D.html#sect_D.1" title="D.1 Emissive Display Systems" shape="rect">Section D.1</a>, <a class="xref" href="sect_D.2.html" title="D.2 Transparent Hardcopy Devices" shape="rect">Section D.2</a>, and <a class="xref" href="sect_D.3.html" title="D.3 Reflective Display Systems" shape="rect">Section D.3</a>). Using the Grayscale Standard Display Function, the fractional number of JNDs are calculated for each Luminance interval between equally spaced P-Value steps. The JNDs/Luminance interval may be calculated directly, or iteratively. For example, if only a few JNDs belong to every Luminance interval, a linear interpolation may be performed. After transformation of the grayscale response of the Display System, the Luminance Levels for every P-Value are Li and the corresponding Standard Luminance Levels are Lj; dj specifies the JNDs /Luminance-Interval on the Grayscale Standard Display Function for the given number of P-Values. Then, the JNDs/Luminance interval for the transformed Display Function are</p>
+         <p>
+        </p>
+         <div class="equation">
+            <a id="equation_C-1" shape="rect"></a>
+            <p class="title">
+               <strong>Equation C-1. </strong>
+            </p>
+            <div class="equation-contents">
+               <span class="mathphrase">r = d<sub>j</sub>(L<sub>i+1</sub> - L<sub>i</sub>)(L<sub>j+1</sub> + L<sub>j</sub>) / ((L<sub>i+1</sub> + L<sub>i</sub>)(L<sub>j+1</sub> - L<sub>j</sub>))</span>
+            </div>
+         </div>
+         <p>
+            <br class="equation-break" clear="none" />
+         </p>
+         <p>Additionally, an iterative method can be used to calculate the number of JNDs per Luminance interval, requiring only the Grayscale Standard Display Function that defines a JND step in Luminance given a Luminance value. This is done by simply counting the number of complete JND steps in the Luminance interval, and then the remaining fractional step. Start at the Luminance low end of the interval, and calculate from the Grayscale Standard Display Function the Luminance step required for one JND step. Then continue stepping from the low Luminance value to the high Luminance value in single JND steps, until the Luminance value of the upper end of the Luminance Range is passed. Calculate the fraction portion of one JND that this last step represents. the total number of completed integer JND steps plus the fractional portion of the last uncompleted step is the fractional number of JND steps in the Luminance interval.</p>
+         <p>Plot the number of JNDs per Luminance interval (vertical axis) versus the index of the Luminance interval (horizontal axis). This curve is referred to as the
+  <span class="italic">Luminance intervals vs JNDs</span>curve. An example of a plot of Luminance intervals vs JNDs is shown in figure C-1. The plot is matched very well by a horizontal line when a linear regression is applied.</p>
+         <p>
+        </p>
+         <div class="figure">
+            <a id="figure_C-1" shape="rect"></a>
+            <div class="figure-contents">
+               <div class="mediaobject">
+                  <img src="figures/PS3.14_C-1.svg" alt="Illustration for the LUM and FIT conformance measures" />
+               </div>
+            </div>
+            <p class="title">
+               <strong>Figure C-1. Illustration for the LUM and FIT conformance measures</strong>
+            </p>
+         </div>
+         <p>
+            <br class="figure-break" clear="none" />
+         </p>
+         <p>The JNDs/Luminance interval data are evaluated by two statistical measures [C4]. The first assesses the global match of the test Display Function with the Grayscale Standard Display Function. The second measure locally analyses the approximation of the Grayscale Standard Display Function to the test Display Function.</p>
+         <p>
+            <span class="bold">
+               <strong>Step (2)</strong>
+            </span>
+         </p>
+         <p>Two related measures of a regression analysis are applied after normal multiple linear regression assumptions are verified for the data [C3].The first measure, named the
+  <span class="italic">FIT</span>test, attempts to match the Luminance-Intervals-vs-JNDs curve of the test Luminance distribution with different order polynomial fits. The Grayscale Standard Display Function is characterized by exactly one JND per Luminance interval over the entire Luminance Range. Therefore, ideally, the data of JNDs/Luminance intervals vs index of the Luminance interval are best fit by a horizontal line of a constant number of JNDs/Luminance interval, indicating that both the local and global means of JNDs/Luminance interval are constant over the given Luminance Range. If the curve is better matched by a higher-order curve, the distribution is not closely approximating the Grayscale Standard Display Function. The regression analysis should test comparisons through third-order curves.</p>
+         <p>The second measure, the Luminance uniformity metric (LUM), analyzes whether the size of Luminance steps are uniform in perceptual size (i.e., JNDs) across the Luminance Range. This is measured by the Root Mean Square Error (RMSE) of the curve fit by a horizontal line of the JNDs/Luminance interval. The smaller the RMSE of the JNDs/Luminance interval, the more closely the test Display Function approximates the Grayscale Standard Display Function on a microscopic scale.</p>
+         <p>Both the FIT and LUM measures can be conveniently calculated on standard statistical packages.</p>
+         <p>Assuming the test Luminance distribution passes the FIT test, then the measure of quality of the distribution is determined by the single quantitative measurement (LUM) of the standard deviation of the JNDs/Luminance interval from their mean. Clinical practice is expected to determine the tolerances for the FIT and LUM values.</p>
+         <p>An important factor in reaching a close approximation of a test Display Function to the Grayscale Standard Display Function is the number of discrete output levels of the Display System. For instance, the LUM measure can be improved by using only a subset of the available DDLs while maintaining the full available output digitization resolution at the cost of decreasing contrast resolution.</p>
+         <p>While the LUM is influenced by the choice of the number of discrete output gray levels in the Grayscale Standard Display Function, the appropriate number of output levels is determined by the clinical application, including possible gray scale image processing that may occur independently of the Grayscale Standard Display Function standardization. Thus, PS3.14 does not prescribe a certain number of gray levels of output. However, in general, the larger the number of distinguishable gray levels available, the higher the possible image quality because the contrast resolution is increased. It is recommended that the number of necessary output driving levels for the transformed Display Function be determined prior to standardization of the Display System (based on clinical applications of the Display System), so that this information can be used when calculating the transformation in order to avoid using gray scale distributions with fewer output levels than needed.</p>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_C.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_C.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_C.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">C Measuring the Accuracy With Which a Display System Matches the Grayscale Standard Display Function (Informative) </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.14.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> C.3 References</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

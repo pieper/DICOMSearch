@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>J UDF on 120 mm DVD-RAM Medium (Normative)</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.12.html" title="PS3.12" />
+      <link rel="up" href="PS3.12.html" title="PS3.12" />
+      <link rel="prev" href="chapter_I.html" title="I 130 mm 2.3GB Magneto-Optical Disk (Normative)" />
+      <link rel="next" href="sect_J.2.html" title="J.2 File System" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">J UDF on 120 mm DVD-RAM Medium (Normative)</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_I.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_J.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_J" shape="rect"></a>J UDF on 120 mm DVD-RAM Medium (Normative)</h1>
+               </div>
+            </div>
+         </div>
+         <p>This Annex defines the use of the UDF 1.5 file system with DVD-RAM media.</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="1">
+                  <li class="listitem">
+                     <p>Capitalization in this annex may be inconsistent with other DICOM standards in order to be consistent with historical usage for terms in referenced documents.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>DVD-ROM is a pre-mastered medium, that is it is manufactured rather than written on a one-off basis by a medical device. While it is likely that a device conforming to this Annex will be able to read a UDF file system from DVD-ROM, it is not a requirement.</p>
+                  </li>
+               </ol>
+            </div>
+         </div>
+         <p>Universal Disk Format (UDF) version 1.5 is a profile of the ECMA 167 3rd edition file system.</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="1">
+                  <li class="listitem">
+                     <p>The ECMA 167 3rd edition is more recent than ISO 13346:1995, which is equivalent to ECMA 167 2nd edition.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Though later revisions of UDF such as 2.0 are defined with additional features compared to 1.5, these features are not required to support recording of a DICOM file set.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>A reader of a UDF 2.0 file system can also read a 1.5 or 1.02 file system.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>A UDF 1.02 reader cannot read the Virtual Allocation Table (VAT) used to incrementally write a UDF 1.5 or later disk.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>A UDF 1.5 file system reader can theoretically read those structures of a UDF 2.0 file system that are common to both versions. However, a UDF 1.5 reader cannot read the Named Streams or extended file entries that may be recorded on a UDF 2.0 file system.</p>
+                     <p>Since a UDF 1.5 reader may completely reject a 2.0 disk based on the version number written on the media, without attempting to read compatible structures of the file system, it is not permitted to write DICOM media with a version greater than 1.5.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>A writer (FSC or FSU) is not permitted to add structures from a later version of UDF to a file system that has been created with an earlier version of the file system.</p>
+                  </li>
+               </ol>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_J.1" shape="rect"></a>J.1 DICOM Mapping to Media Format</h2>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_J.1.1" shape="rect"></a>J.1.1 Media Character Set</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>The character set used in UDF fields shall be the CS0 OSTA Compressed Unicode character set, required by the UDF standard.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="1">
+                        <li class="listitem">
+                           <p>The CS0 OSTA Unicode character set is defined in UDF and is a subset of Unicode 2.0.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>UDF defines a specific form of compression of 8 and 16 bit Unicode characters that must be supported.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The character set defined elsewhere in this section for DICOM File-set fields is a subset of this character set. However other fields in the UDF file system, and other files in the UDF file system not in the DICOM File-set, may use characters beyond those defined by DICOM for File ID Components, including those encoded in 16 bits.</p>
+                        </li>
+                     </ol>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_J.1.2" shape="rect"></a>J.1.2 DICOM File-set</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>One and only one DICOM File-set shall be stored on each side of a single piece of media.</p>
+               <p>A DICOM File-set is defined to be completely contained within one UDF File-set.</p>
+               <p>Only a single UDF File-set shall be present in the UDF Volume.</p>
+               <p>Each side of the media will comprise a single self-contained UDF Volume. That is the UDF Volume Set shall not consist of more than one UDF Volume.</p>
+               <p>Only a single UDF Partition shall be present on each side the media.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>Other partitions containing other file systems, possibly sharing the same data, may be present, such as an ISO-9660 bridge disk, a Mac HFS or Unix UFS hybrid disk, etc.</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_J.1.3" shape="rect"></a>J.1.3 DICOM File ID Mapping</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>The UDF Standard provides a hierarchical structure for directories and files within directories. Each volume has a root directory that may contain references to both files and sub-directories. Sub-directories may contain reference to both files and other sub-directories.</p>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_J.1.3.1" shape="rect"></a>J.1.3.1 File ID</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>
+                     <a href="../part10/PS3.10.html" class="olink" shape="rect">PS3.10</a> defines a DICOM File ID Component as a string of 8 characters from a subset of the G0 repertoire of ISO 8859. Each of these File ID Components is mapped to a UDF File Identifier or Path Component in the OSTA CS0 character set.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>This mapping is a subset of the MS-DOS mapping specified in UDF.</p>
+                  </div>
+                  <p>Filename extensions are not used in DICOM File ID Components, hence a UDF File Identifier shall not contain a File Extension or the '.' that would precede such a File Extension.</p>
+                  <p>The maximum number of levels of a Resolved Pathname in a UDF file-set shall be at most 8 levels, to comply with the definition of a DICOM File-set in <a href="../part10/PS3.10.html" class="olink" shape="rect">PS3.10</a>.</p>
+                  <p>The File Version Number is always equal to 1, as specified by UDF.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>This file ID mapping is also compatible with ISO 9660 Level 1.</p>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_J.1.3.2" shape="rect"></a>J.1.3.2 DICOMDIR File</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>A DICOMDIR file in a DICOM File-set shall reside in the root directory of the directory hierarchy, as specified in <a href="../part10/PS3.10.html" class="olink" shape="rect">PS3.10</a>.</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_J.1.4" shape="rect"></a>J.1.4 DICOM File Management Information</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>No file management information beyond that specified in the UDF File Entry is required. In particular no Extended Attributes or Named Streams are required.</p>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_I.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_J.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">I 130 mm 2.3GB Magneto-Optical Disk (Normative) </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.12.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> J.2 File System</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

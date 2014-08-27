@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>A URL/URI Transfer Syntax (Informative)</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.18.html" title="PS3.18" />
+      <link rel="up" href="PS3.18.html" title="PS3.18" />
+      <link rel="prev" href="sect_8.2.1.html" title="8.2.1 Annotation On The Object" />
+      <link rel="next" href="sect_A.2.html" title="A.2 Syntax of the &lt;query&gt; component" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">A URL/URI Transfer Syntax (Informative)</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_8.2.1.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_A.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_A" shape="rect"></a>A URL/URI Transfer Syntax (Informative)</h1>
+               </div>
+            </div>
+         </div>
+         <p>Access to the content of a data object is enabled by specifying a "link" pointing to a specific DICOM Persistent Object by means of its URL/URI and specifying its DICOM object Instance UID and the transfer syntax to be employed.</p>
+         <p>Extension to searching DICOM objects from a Server is out of the scope of the present standard. Differences between "Web Accessing" and "Searching" are mainly:</p>
+         <div class="orderedlist">
+            <ol class="orderedlist" type="1">
+               <li class="listitem">
+                  <p>"Web Accessing" means retrieving an object as a "binary" answer: "I have it, I give it to you" or "I haven't". In fact, the negative answer will be a "Void" object or an error.</p>
+               </li>
+               <li class="listitem">
+                  <p>"Searching" means querying for objects has a "fuzzy answer": "I have a list of potential candidates to your question - see above the (possible void) list of their reference -".</p>
+               </li>
+            </ol>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_A.1" shape="rect"></a>A.1 General Syntax</h2>
+                  </div>
+               </div>
+            </div>
+            <p>The general syntax of the standard respects the URI recommendation IETF RFC2396. It can be expressed as:</p>
+            <p>&lt;scheme&gt;://&lt;authority&gt;&lt;path&gt;?&lt;query&gt;</p>
+            <p>It is structured following BNF syntax. The first definition of this syntax is:</p>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="1">
+                  <li class="listitem">
+                     <p>URI-reference = [ absoluteURI | relativeURI ] [ "#" fragment ]</p>
+                  </li>
+                  <li class="listitem">
+                     <p>absoluteURI = scheme ":" (hier_part | opaque_part)</p>
+                  </li>
+                  <li class="listitem">
+                     <p>relativeURI = (net_path | abs_path | rel_path) [ "?" query ]</p>
+                  </li>
+                  <li class="listitem">
+                     <p>hier_part = (net_path | abs_path) [ "?" query ]</p>
+                  </li>
+               </ol>
+            </div>
+            <p>The present standard aims only to define the term query, and not the other components of the URL/URI that are defining the path way from the Web Client System to the Web Enabled DICOM System, independent of the DICOM Persistent Object itself. However it is anticipated that, if present, scheme value is HTTP, in order to be compatible with web browsers.</p>
+            <p>This definition of the term query shall respect fully the BNF syntax exposed in the IETF RFC2396. Within a query component, the characters ";", "/", "?", ":", "@", "&amp;", "=", "+", ",", and "$" are reserved. It is only a restriction of it for the unique purpose of retrieving DICOM Persistent Objects through Web Access to DICOM Persistent Objects.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>Management of the HTTP returns different codes (e.g., "404 Not found") as specified in IETF RFC2616.</p>
+            </div>
+            <p>Control names and values are escaped. Space characters are replaced by "+", and then reserved characters are escaped as described in IETF RFC2396. Non-alphanumeric characters are replaced by "%HH", a percent sign and two hexadecimal digits representing the ASCII code of the character. Line breaks are represented as "CR LF" pairs (i.e., "%0D%0A").</p>
+            <p>The control names/values are listed in the order they appear in the document. The name is separated from the value by "=" and name/value pairs are separated from each other by "&amp;".</p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_8.2.1.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_A.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">8.2.1 Annotation On The Object </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.18.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> A.2 Syntax of the &lt;query&gt; component</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

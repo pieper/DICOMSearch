@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>9.2 AvailableData</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.19.html" title="PS3.19" />
+      <link rel="up" href="chapter_9.html" title="9 Data Types and Structures" />
+      <link rel="prev" href="chapter_9.html" title="9 Data Types and Structures" />
+      <link rel="next" href="sect_9.3.html" title="9.3 MimeType" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">9.2 AvailableData</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_9.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">9 Data Types and Structures</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_9.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_9.2" shape="rect"></a>9.2 AvailableData</h2>
+               </div>
+            </div>
+         </div>
+         <p>A data structure that communicates what data is available to the recipient. The data is organized in a hierarchical fashion, communicating patients, studies, series, and finally ObjectDescriptors that identify available data objects. The fields in the data structure are:</p>
+         <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+               <li class="listitem">
+                  <p>ObjectDescriptors : ObjectDescriptor[] - An array of ObjectDescriptor data structures listing data that either applies to multiple patients, or does not fit into the patient / study / series hierarchy.</p>
+               </li>
+               <li class="listitem">
+                  <p>Patients : Patient[] - An array of Patient data structures.</p>
+               </li>
+            </ul>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_9.2.1" shape="rect"></a>9.2.1 ObjectDescriptor</h3>
+                  </div>
+               </div>
+            </div>
+            <p>A data structure with the following fields:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>DescriptorUUID : UUID - the UUID that the interface utilizes to track this particular data object.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>MimeType : MimeType - the MIME content type of this particular data object, in its most natural form available from the source. The most natural form is typically the form in which the source maintains the data in its database, for example a DICOM file.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>ClassUID : UID - the UID that represents the class of this data object in the form described by mimeType. For objects whose mimeType refers to a data exchange model such as those defined in <a class="xref" href="chapter_A.html" title="A Data Exchange Models" shape="rect"> Annex A</a>, this is the UID of that model. For objects whose mimeType is application:dicom, this is the SOP Class UID of the DICOM object. This may be empty for those objects whose MIME content types have no additional classes.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>TransferSyntaxUID : UID - the UID that represents the Transfer Syntax of this data object in the form described by mimeType. This may be empty for those objects of a MIME content type where Transfer Syntax has no meaning.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Modality : String - the modality that best represents where this data originated from. Standard values are drawn from the Defined Terms listed for the Modality (0008,0060) Attribute in the <a href="../part03/sect_C.7.html#sect_C.7.3.1.1.1" class="olink" shape="rect">Section C.7.3.1.1.1 “Modality” in <span class="olinkdocname">PS3.3</span>
+                        </a>.</p>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_9.2.2" shape="rect"></a>9.2.2 Patient</h3>
+                  </div>
+               </div>
+            </div>
+            <p>A data structure that communicates data for a particular patient. The fields in the data structure are:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>Name : String - The name of the patient, formatted as described for the PN VR in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>. For DICOM SOP Instances this is the value of the Patient's Name (0010,0010) Attribute.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>ID : String - A string used as the identifier for a particular patient, formatted as described for the LO VR in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>. For DICOM SOP Instances this is the value of the Patient ID (0010,0020) Attribute.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>AssigningAuthority : String - The organization who assigned the id to the patient, formatted as described for the LO VR in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>. For DICOM SOP Instances this is the value of the Issuer of Patient ID (0010,0021) Attribute.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Sex : String - The sex of the patient. For DICOM SOP Instances this is the value of the Patient's Sex (0010,0040) Attribute. In all other cases it shall take on the values permissible for the DICOM Sex (0010,0040) Attribute.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>BirthDate: String The birth date of the patient, formatted as described for the DA VR in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>. For DICOM SOP Instances this is the value of the Patient's Birth Date (0010,0030) Attribute.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>ObjectDescriptors : ObjectDescriptor[] - An array of ObjectDescriptor data structures listing data that applies to this patient, but that do not apply to any particular study of this patient.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Studies : Study[] - An array of Study data structures.</p>
+                  </li>
+               </ul>
+            </div>
+            <p>At least one of objectDescriptors or studies shall be present.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_9.2.3" shape="rect"></a>9.2.3 Study</h3>
+                  </div>
+               </div>
+            </div>
+            <p>A data structure that communicates data for a particular study. The fields in the data structure are:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>StudyUID : UID - The UID of the study. For DICOM SOP Instances this is the value of the Study Instance UID (0020,000D) Attribute.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>ObjectDescriptors : ObjectDescriptor[] - An array of ObjectDescriptor data structures listing data that applies to this study (within the enclosing patient), but that do not apply to any particular series within this study.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Series : Series[] - An array of Series data structures.</p>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_9.2.4" shape="rect"></a>9.2.4 Series</h3>
+                  </div>
+               </div>
+            </div>
+            <p>A data structure that communicates data for a particular series. The fields in the data structure are:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>SeriesUID : UID - The UID of the series. For DICOM SOP Instances this is the value of the Series Instance UID (0020,000E) Attribute.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>ObjectDescriptors : ObjectDescriptor - An array of ObjectDescriptor data structures listing data existing in this series (within the enclosing Study, within the enclosing Patient).</p>
+                  </li>
+               </ul>
+            </div>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>Most DICOM Composite SOP Instances would be identified by objectDescriptors at the Series level.</p>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_9.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_9.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_9.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">9 Data Types and Structures </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.19.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 9.3 MimeType</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

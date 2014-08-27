@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>9 DICOM Upper Layer Protocol for TCP/IP</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.8.html" title="PS3.8" />
+      <link rel="up" href="PS3.8.html" title="PS3.8" />
+      <link rel="prev" href="chapter_8.html" title="8 DICOM OSI Upper Layer Profile" />
+      <link rel="next" href="sect_9.2.html" title="9.2 DICOM Upper Layer Protocol for TCP/IP State Machine" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">9 DICOM Upper Layer Protocol for TCP/IP</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_8.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_9.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_9" shape="rect"></a>9 DICOM Upper Layer Protocol for TCP/IP</h1>
+               </div>
+            </div>
+         </div>
+         <p>The DICOM Upper Layer Protocol specified in this section shall be used in conjunction with the TCP/IP transport layers..</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_9.1" shape="rect"></a>9.1 Use of the Transport Service Provided By TCP</h2>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_9.1.1" shape="rect"></a>9.1.1 General</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>There is a one-to-one relationship between a TCP Transport Connection and an Upper Layer Association. Therefore, the following rules apply:</p>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="a">
+                     <li class="listitem">
+                        <p>Each Upper Layer Association shall be supported by one and only one TCP Transport Connection.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Each TCP Transport Connection shall support one and only one Upper Layer Association.</p>
+                     </li>
+                  </ol>
+               </div>
+               <p>The Services provided by the TCP Transport Services are not formally documented. This section, therefore, makes use of "commonly" used terms in a number of TCP Programming Interface Implementations (e.g., Sockets). However, the following RFCs shall be required for TCP/IP support. They specify the support needed for IPv4.</p>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="a">
+                     <li class="listitem">
+                        <p>RFC 793, Transmission Control Program - DARPA Internet Protocol Specification</p>
+                     </li>
+                     <li class="listitem">
+                        <p>RFC 791, Internet Protocol - DARPA Internet Protocol Specification</p>
+                     </li>
+                     <li class="listitem">
+                        <p>RFC 792, Internet Control Message Protocol - DARPA Internet Program Protocol Specification</p>
+                     </li>
+                     <li class="listitem">
+                        <p>RFC 950, Internet Subnetting</p>
+                     </li>
+                  </ol>
+               </div>
+               <p>In addition, devices that support IPv6 shall comply with:</p>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="a">
+                     <li class="listitem">
+                        <p>RFC 1881, IPv6 Address Allocation Management</p>
+                     </li>
+                     <li class="listitem">
+                        <p>RFC 2460, Internet Protocol, Version 6 (IPv6) Specification</p>
+                     </li>
+                  </ol>
+               </div>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>There are many other RFC's that may also apply to a particular implementation depending upon specific selections of hardware and software features.</p>
+               </div>
+               <p>For the establishment of a TCP connection, a TCP port shall be used to serve as the transport selector. A DICOM UL entity is identified on a given system on the network by a port number unique within the scope of this system. Port numbers of remote DICOM UL entities (well known port number or other numbers) shall be configurable on DICOM UL entities.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>It is strongly recommended that systems supporting a single DICOM UL entity use as their port the "well known port" registered for the DICOM Upper Layer Protocol: port number 104 (decimal), if the operating system permits access to privileged ports (in the range 0 to 1023), otherwise it is recommended that they use the "registered" port number 11112 (decimal). See "http://www.iana.org/assignments/port-numbers".</p>
+               </div>
+               <p>Application Entities may also choose to access the TCP Transport Services via a Secure Transport Connection. The nature of this Secure Transport Connection is specified through Security Profiles (see <a href="../part15/PS3.15.html" class="olink" shape="rect">PS3.15</a>). Security Profiles select minimum mechanisms needed to support that profile. Other mechanisms may also be used if agreed to during establishment of the Secure Transport Connection.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="1">
+                        <li class="listitem">
+                           <p>DICOM does not specify how a secure transport connection is established, or the significance of any certificates exchanged during peer entity authentication. These issues are left up to the application, which is assumed to be following some security policy. Once the application has established a secure Transport Connection, then an Upper Layer Association can use that secure channel.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>There may be an interaction between PDU size and record size of the secure Transport Connection that impacts efficiency of transport.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Registered ports for Secure Transport Connections are defined in <a href="../part15/PS3.15.html" class="olink" shape="rect">PS3.15</a>.</p>
+                        </li>
+                     </ol>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_9.1.2" shape="rect"></a>9.1.2 Opening a TCP Transport Connection</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>When an Association is to be established by a DICOM Upper Layer Entity, a TRANSPORT CONNECT request primitive shall be issued to the TCP Transport Service (Active Open). Once the TCP Transport Connection Confirmation is received (Open Completed), an A-ASSOCIATE-RQ PDU shall be sent/written on the now established transport connection.</p>
+               <p>When a DICOM Upper Layer Entity becomes activated (Association Idle State), it shall wait for TCP Transport Connections in a passive mode by initiating a "listen." When an incoming TCP Transport Connection Indication is received from the network, it is accepted and a timer ARTIM (Association Request/Reject/Release Timer) shall be set. Any further exchange of PDUs (read/write) shall be performed as specified by the Upper Layer State Machine (including ARTIM Timer expiration before an A-ASSOCIATE-RQ PDU is received, see <a class="xref" href="sect_9.2.html" title="9.2 DICOM Upper Layer Protocol for TCP/IP State Machine" shape="rect">Section 9.2</a>).</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_9.1.3" shape="rect"></a>9.1.3 Transferring Data On a TCP Connection</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>Data exchange of PDUs (read/write) on an established TCP Connection shall follow the specifications of the DICOM Upper Layer Protocol State Machine (see <a class="xref" href="sect_9.2.html" title="9.2 DICOM Upper Layer Protocol for TCP/IP State Machine" shape="rect">Section 9.2</a>) and the DICOM Upper Layer PDU structure (see <a class="xref" href="sect_9.3.html" title="9.3 DICOM Upper Layer Protocol for TCP/IP Data Units Structure" shape="rect">Section 9.3</a>).</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_9.1.4" shape="rect"></a>9.1.4 Closing a TCP Transport Connection</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>TCP Transport Connections shall be closed using the "don't linger" option.</p>
+               <p>A TCP Transport Connection is closed under a number of situations. These are described in the DICOM Upper Layer Protocol State Machine. Some typical cases are discussed below:</p>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="a">
+                     <li class="listitem">
+                        <p>After an A-RELEASE-RQ has been sent and the A-RELEASE-RP PDU is received</p>
+                     </li>
+                     <li class="listitem">
+                        <p>When a Transport Connection has been established by the DICOM remote UL Entity and no A-ASSOCIATE-RQ is received before the ARTIM Timer expires</p>
+                     </li>
+                     <li class="listitem">
+                        <p>When an A-ABORT PDU has been received</p>
+                     </li>
+                     <li class="listitem">
+                        <p>When an A-ABORT PDU has been sent and the ARTIM Timer expires before the Transport Connection is closed</p>
+                     </li>
+                     <li class="listitem">
+                        <p>When a TCP connection is being disconnected by the Transport Service Provider (e.g., network failure)</p>
+                     </li>
+                     <li class="listitem">
+                        <p>When a TCP connection is being disconnected by the remote DICOM UL Entity</p>
+                     </li>
+                  </ol>
+               </div>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="1">
+                        <li class="listitem">
+                           <p>Except following the normal completion of an association reject, release or abort and in specific situations such as temporary lack of resources, an Upper Layer State Machine should not disconnect a TCP connection or reject its establishment. The appropriate behavior is to use the Association Reject or Abort services.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The ARTIM Timer should not be used to oversee the Association Establishment or Release. Such a mechanism falls under the protocol definition of the layer above the DICOM Upper Layer (i.e., DICOM Application Entity, see <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>).</p>
+                        </li>
+                     </ol>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_9.1.5" shape="rect"></a>9.1.5 ARTIM Timer</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>The value of the ARTIM Timer used to manage the Request, Reject, and Release of associations on a DICOM UL entity shall be configurable to address a wide range of network configurations.</p>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_8.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_9.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">8 DICOM OSI Upper Layer Profile </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.8.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 9.2 DICOM Upper Layer Protocol for TCP/IP State Machine</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

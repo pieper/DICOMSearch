@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>ZZ.5 Implant Template Versions and Derivation</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="chapter_ZZ.html" title="ZZ Implant Template Description" />
+      <link rel="prev" href="sect_ZZ.4.html" title="ZZ.4 Encoding Example" />
+      <link rel="next" href="chapter_AAA.html" title="AAA Implantation Plan SR Document (Informative)" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">ZZ.5 Implant Template Versions and Derivation</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_ZZ.4.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">ZZ Implant Template Description</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_AAA.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_ZZ.5" shape="rect"></a>ZZ.5 Implant Template Versions and Derivation</h2>
+               </div>
+            </div>
+         </div>
+         <p>The Generic Implant Module contains several Attributes to express the relations between different versions of implant templates. These Attributes are</p>
+         <div class="informaltable">
+            <table frame="box" rules="all">
+               <tbody>
+                  <tr valign="top">
+                     <td align="center" rowspan="1" colspan="1">
+                        <p>(0022,1097)</p>
+                     </td>
+                     <td align="left" rowspan="1" colspan="1">
+                        <p>Implant Part Number</p>
+                     </td>
+                     <td align="left" rowspan="1" colspan="1">
+                        <p>Number (or alphanumerical code) assigned by the manufacturer of an implant to one particular release of one particular part. Whenever changes on the implant design are made, a new implant part number is assigned.</p>
+                     </td>
+                  </tr>
+                  <tr valign="top">
+                     <td align="center" rowspan="1" colspan="1">
+                        <p>(0068,6226)</p>
+                     </td>
+                     <td align="left" rowspan="1" colspan="1">
+                        <p>Effective DateTime</p>
+                     </td>
+                     <td align="left" rowspan="1" colspan="1">
+                        <p>Date and time from which on an Implant Template Instance is valid.</p>
+                     </td>
+                  </tr>
+                  <tr valign="top">
+                     <td align="center" rowspan="1" colspan="1">
+                        <p>(0068,6221)</p>
+                     </td>
+                     <td align="left" rowspan="1" colspan="1">
+                        <p>Implant Template Version</p>
+                     </td>
+                     <td align="left" rowspan="1" colspan="1">
+                        <p>Number assigned by the creator of an ORIGINAL Implant Template Instance. When an implant manufacturer issues a new version of an implant template without doing changes on the implant itself, it issues a new instance with the same part number but a different template version.</p>
+                     </td>
+                  </tr>
+                  <tr valign="top">
+                     <td align="center" rowspan="1" colspan="1">
+                        <p>(0068,6222)</p>
+                     </td>
+                     <td align="left" rowspan="1" colspan="1">
+                        <p>Replaced Implant Template Sequence</p>
+                     </td>
+                     <td align="left" rowspan="1" colspan="1">
+                        <p>When a manufacturer issues a new version of an Implant Template, the instance contains a reference to it direct predecessor.</p>
+                     </td>
+                  </tr>
+                  <tr valign="top">
+                     <td align="center" rowspan="1" colspan="1">
+                        <p>(0068,6223)</p>
+                     </td>
+                     <td align="left" rowspan="1" colspan="1">
+                        <p>Implant Type</p>
+                     </td>
+                     <td align="left" rowspan="1" colspan="1">
+                        <p>When a software vendor, user or other entity creates a "proprietary" version of an Implant Template by adding Attributes, the resulting Instance is labeled DERIVED.</p>
+                     </td>
+                  </tr>
+                  <tr valign="top">
+                     <td align="center" rowspan="1" colspan="1">
+                        <p>(0068,6225)</p>
+                     </td>
+                     <td align="left" rowspan="1" colspan="1">
+                        <p>Original Implant Template</p>
+                     </td>
+                     <td align="left" rowspan="1" colspan="1">
+                        <p>When an Instance is DERIVED, it contains a reference to the ORIGINAL instance it was derived from (directly or with several derived versions in between).</p>
+                     </td>
+                  </tr>
+                  <tr valign="top">
+                     <td align="center" rowspan="1" colspan="1">
+                        <p>(0068,6224)</p>
+                     </td>
+                     <td align="left" rowspan="1" colspan="1">
+                        <p>Derivation Implant Template Sequence</p>
+                     </td>
+                     <td align="left" rowspan="1" colspan="1">
+                        <p>When an Implant Template Instance is derived from another instance, it contains a reference to the Implant Template Instance it was directly derived from.</p>
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+         <p>Different versions of Implant Templates reflect the changes a manufacturer is doing on the Implant Templates he issues. The Implant Templates that are issued by a manufacturer (or a third party who is acting on behalf of the manufacturer) are always ORIGINAL. Software vendors, PACS integrators, or other stakeholders will add information to such templates for different purposes. The Instances that are generated by this process is called derivation and the resulting instances are labeled DERIVED. Implantation Plans, i.e., electronic documents describing the result of implantation planning, are specified in an instance of the Implantation Plan SR Document. There, the implants that are relevant for one plan are included by reference. When such plans are exchanged between systems or organizations it is likely that the receiving party has access to other versions of templates as the sending party has. In order to maintain readability of exchanged plans, the following is
+      required:</p>
+         <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+               <li class="listitem">
+                  <p>All necessary information about an implant that is relevant to display and understand a plan is present in the ORIGINAL Implant Templates that were issued by a manufacturer. This is assured by these Attributes being Type 1 in the IOD.</p>
+               </li>
+               <li class="listitem">
+                  <p>When deriving Instances, information may only be added but not removed from the ORIGINAL Instance. This information may be encoded in standard or private Tags.</p>
+               </li>
+               <li class="listitem">
+                  <p>Derived Instances contain the information about the source Instances they were derived from. All Instances contain a reference to the ORIGINAL Instance they were derived from. If an application receives a plan that references an implant it does not have in its database, it will find the UID of the ORIGINAL Instance in the plan, too. It can query its database for an instance that was derived from that Instance and thereby find an Instance it can use to present the plan.</p>
+               </li>
+            </ul>
+         </div>
+         <p>
+            <a class="xref" href="sect_ZZ.5.html#figure_ZZ.5-1" title="Figure ZZ.5-1. Implant Versions and Derivation." shape="rect">Figure ZZ.5-1</a> shows an example of the relationships between two versions of a manufacturer's Implant Template and several different Implant Templates derived by software vendors from these versions.</p>
+         <p>
+        </p>
+         <div class="figure">
+            <a id="figure_ZZ.5-1" shape="rect"></a>
+            <div class="figure-contents">
+               <div class="mediaobject">
+                  <img src="figures/PS3.17_ZZ.5-1.svg" alt="Implant Versions and Derivation." />
+               </div>
+            </div>
+            <p class="title">
+               <strong>Figure ZZ.5-1. Implant Versions and Derivation.</strong>
+            </p>
+         </div>
+         <p>
+            <br class="figure-break" clear="none" />
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_ZZ.4.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_ZZ.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_AAA.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">ZZ.4 Encoding Example </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> AAA Implantation Plan SR Document (Informative)</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

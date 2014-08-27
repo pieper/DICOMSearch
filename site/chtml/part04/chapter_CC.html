@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>CC Unified Procedure Step Service and SOP Classes (Normative)</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.4.html" title="PS3.4" />
+      <link rel="up" href="PS3.4.html" title="PS3.4" />
+      <link rel="prev" href="sect_BB.6.html" title="BB.6 SOP Class Definitions" />
+      <link rel="next" href="sect_CC.2.html" title="CC.2 DIMSE Service Groups" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">CC Unified Procedure Step Service and SOP Classes (Normative)</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_BB.6.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_CC.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_CC" shape="rect"></a>CC Unified Procedure Step Service and SOP Classes (Normative)</h1>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_CC.1" shape="rect"></a>CC.1 Overview</h2>
+                  </div>
+               </div>
+            </div>
+            <p>This Annex defines the Service and SOP Classes associated with a Unified Worklist and Procedure Step.</p>
+            <p>The Unified Procedure Step Service Class provides for management of simple worklists, including creating new worklist items, querying the worklist, and communicating progress and results.</p>
+            <p>A worklist is a list of Unified Procedure Step (UPS) instances. Each UPS instance unifies the worklist details for a single requested procedure step together with the result details of the corresponding performed procedure step. There is a one to one relationship between the procedure step request and the procedure step performed.</p>
+            <p>Unified Procedure Step instances may be used to represent a variety of scheduled tasks such as: Image Processing, Quality Control, Computer Aided Detection, Interpretation, Transcription, Report Verification, or Printing.</p>
+            <p>The UPS instance can contain details of the requested task such as when it is scheduled to be performed or Workitem Codes describing the requested actions. The UPS may also contain details of the input information the performer needs to do the task and the output the performer produced, such as: Current Images, Prior Images, Reports, Films, Presentation States, or Audio recordings.</p>
+            <p>The Unified Worklist and Procedure Step Service Class includes four SOP Classes associated with UPS instances. The SOP Class UID for any UPS Instance always specifies the UPS Push SOP Class. The separate SOP Classes facilitate better negotiation and logical implementation groups of functionality.</p>
+            <p>The UPS Push SOP Class allows an SCU to instruct the SCP to create a new UPS instance, effectively letting a system push a new work item onto the SCP's worklist. It is important to note that the SCP could be a Worklist Manager that maintains the worklist for other systems that will perform the work, or the SCP could be a performing system itself that manages an internal worklist.</p>
+            <p>The UPS Pull SOP Class allows an SCU to query a Worklist Manager (the SCP) for matching UPS instances, and instruct the SCP to update the status and contents of selected items (UPS instances). The SCU effectively pulls work instructions from the worklist. As work progresses, the SCU records details of the activities performed and the results created in the UPS instance.</p>
+            <p>The UPS Watch SOP Class allows an SCU to subscribe for status update events and retrieve the details of work items (UPS instances) managed by the SCP.</p>
+            <p>The UPS Event SOP Class allows an SCP to provide the actual status update events for work items it manages to relevant (i.e., subscribed) SCUs.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_CC.1.1" shape="rect"></a>CC.1.1 Unified Procedure Step States</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>
+                  <a class="xref" href="chapter_CC.html#figure_CC.1.1-1" title="Figure CC.1.1-1. Unified Procedure Step State Diagram" shape="rect">Figure CC.1.1-1</a>, <a class="xref" href="chapter_CC.html#table_CC.1.1-1" title="Table CC.1.1-1. Unified Procedure Step (UPS) States" shape="rect">Table CC.1.1-1</a> and <a class="xref" href="chapter_CC.html#table_CC.1.1-2" title="Table CC.1.1-2. Unified Procedure Step State Transition Table" shape="rect">Table CC.1.1-2</a> specify how changes in the state of a Unified Procedure Step shall be managed.</p>
+               <p>
+          </p>
+               <div class="figure">
+                  <a id="figure_CC.1.1-1" shape="rect"></a>
+                  <div class="figure-contents">
+                     <div class="mediaobject">
+                        <img src="figures/PS3.4_CC.1.1-1.svg" alt="Unified Procedure Step State Diagram" />
+                     </div>
+                  </div>
+                  <p class="title">
+                     <strong>Figure CC.1.1-1. Unified Procedure Step State Diagram</strong>
+                  </p>
+               </div>
+               <p>
+                  <br class="figure-break" clear="none" />
+               </p>
+               <p>The following interactions represent an example sequence of events and state transitions. Observe that the DIMSE Services described here operate on the same IOD. The multiple UPS SOP Classes thus act in a coordinated manner as specified in this Annex.</p>
+               <p>To create a UPS, an SCU uses an N-CREATE to push a UPS onto the SCP's worklist. The SCP responds to such requests by creating a Unified Procedure Step (UPS) with an initial state of SCHEDULED.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>All UPS Instances are instances of the UPS Push SOP Class, although the other three SOP Classes (UPS Pull, UPS Watch and UPS Event) may also operate on the Instance.</p>
+               </div>
+               <p>To subscribe to receive N-EVENT-REPORTs for a UPS, or to unsubscribe to stop receiving N-EVENT-REPORTS, an SCU uses an N-ACTION request. The SCU may be the system that created the UPS as a Push SCU, or may be some other system with a reason to track the progress and results of a scheduled step.</p>
+               <p>To inform interested systems of the state of a UPS or the SCP itself, an SCP issues N-EVENT-REPORTs to SCUs that have subscribed.</p>
+               <p>To find a UPS of interest, an SCU uses a C-FIND to query the SCP for relevant UPS instances.</p>
+               <p>To "claim" and start work on a UPS, an SCU (which will be referred to here as the "Performing SCU") uses an N-ACTION Change State request to set the UPS state to IN PROGRESS and provide a transaction UID (which will be referred to here as the Locking UID). For a SCHEDULED UPS, the SCP responds by changing the UPS state to IN PROGRESS and recording the transaction UID for future use. For a UPS with other status, the SCP rejects the request.</p>
+               <p>The SCP does not permit the status of a SCHEDULED UPS to be set to COMPLETED or CANCELED without first being set to IN PROGRESS.</p>
+               <p>To modify details of the performed procedure, the Performing SCU uses an N-SET request to the SCP (providing the Locking UID for the UPS). N-SET requests on an IN PROGRESS UPS where the Locking UID in the N-SET data set does not match the Locking UID in the UPS are rejected by the SCP.</p>
+               <p>To modify the status of the procedure step, the Performing SCU uses an N-ACTION Change State request to the SCP (providing the Locking UID for the UPS). N-ACTION Change State requests where the Locking UID in the N-ACTION data set does not match the Locking UID in the UPS are rejected by the SCP.</p>
+               <p>The Locking UID effectively limits control of the state of an IN PROGRESS UPS to only the SCP and the Performing SCU. The SCP does not check whether IP addresses, AE-Titles, or parameters other than the Locking UID match to determine if the SCU has permission.</p>
+               <p>When the Performing SCU completes work on the UPS, it N-SETs any values necessary to meet the Final State requirements in <a class="xref" href="sect_CC.2.html#table_CC.2.5-3" title="Table CC.2.5-3. UPS SOP Class N-CREATE/N-SET/N-GET/C-FIND Attributes" shape="rect">Table CC.2.5-3</a>, then uses an N-ACTION request (providing the Locking UID for the UPS during both steps) for the SCP to change the UPS state to COMPLETED.</p>
+               <p>When the Performing SCU abandons work on an incomplete UPS, it N-SETs any values necessary to meet the Final State requirements in <a class="xref" href="sect_CC.2.html#table_CC.2.5-3" title="Table CC.2.5-3. UPS SOP Class N-CREATE/N-SET/N-GET/C-FIND Attributes" shape="rect">Table CC.2.5-3</a>, then uses an N-ACTION request (providing the Locking UID for the UPS) for the SCP to change the UPS state to CANCELED.</p>
+               <p>To request cancellation of a UPS, non-performing SCUs use an N-ACTION Request Cancel (see <a href="../part17/sect_GGG.2.html#sect_GGG.2.4" class="olink" shape="rect">Section GGG.2.4 “Third Party Cancel” in <span class="olinkdocname">PS3.17</span>
+                  </a> and <a href="../part17/sect_GGG.2.html#sect_GGG.2.5" class="olink" shape="rect">Section GGG.2.5 “Radiation Therapy Dose Calculation Push Workflow” in <span class="olinkdocname">PS3.17</span>
+                  </a> for example cases).</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>If the UPS is still in the SCHEDULED state, the SCP first changes the UPS state to IN PROGRESS, and then to CANCELED, issuing the appropriate N-EVENT-REPORTS.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>If the UPS is already IN PROGRESS and the SCP is itself performing the UPS, it may, at its own discretion, choose to cancel the UPS as described in the previous paragraph.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>If the UPS is already IN PROGRESS and the SCP is not the performer, it does not change the UPS state to CANCELED, but rather responds by issuing an N-EVENT-REPORT of the cancellation request to all subscribed SCUs. If the Performing SCU is listening to N-EVENT-REPORTs it may, at its own discretion, choose to cancel the UPS as described above.</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>
+                  <a class="xref" href="chapter_CC.html#table_CC.1.1-1" title="Table CC.1.1-1. Unified Procedure Step (UPS) States" shape="rect">Table CC.1.1-1</a> describes the valid UPS states</p>
+               <div class="table">
+                  <a id="table_CC.1.1-1" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table CC.1.1-1. Unified Procedure Step (UPS) States</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>State</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Description</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>SCHEDULED</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The UPS is scheduled to be performed.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>IN PROGRESS</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The UPS has been claimed and a Locking UID has been set. Performance of the UPS has likely started.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>CANCELED</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The UPS has been permanently stopped before or during performance of the step. This may be due to voluntary or involuntary action by a human or machine. Any further UPS-driven work required to complete the scheduled task must be performed by scheduling another (different) UPS.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>COMPLETED</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The UPS has been completed.</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+               <p>COMPLETED and CANCELED are "Final States" that involve specific requirements on the UPS as described in <a class="xref" href="sect_CC.2.html#sect_CC.2.5.1.1" title="CC.2.5.1.1 UPS Final State Requirements" shape="rect">Section CC.2.5.1.1</a>.</p>
+               <p>
+                  <a class="xref" href="chapter_CC.html#table_CC.1.1-2" title="Table CC.1.1-2. Unified Procedure Step State Transition Table" shape="rect">Table CC.1.1-2</a> describes the valid state transitions (a row in the table defines what should happen in response to a certain event for each initial state). Details on how the Operations listed in the table should be carried out are described in section <a class="xref" href="sect_CC.2.html" title="CC.2 DIMSE Service Groups" shape="rect">Section CC.2</a>.</p>
+               <div class="table">
+                  <a id="table_CC.1.1-2" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table CC.1.1-2. Unified Procedure Step State Transition Table</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1"></th>
+                              <th align="center" colspan="5" rowspan="1">
+                                 <p>States</p>
+                              </th>
+                           </tr>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Events</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>
+                                          <span class="italic">null</span>
+                                       </strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>SCHEDULED</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>IN PROGRESS</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>COMPLETED</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>CANCELED</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>N-CREATE received for this SOP Instance UID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Create SOP Instance with empty transaction UID, Change State to SCHEDULED</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>error</p>
+                                 <p>0111</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>error</p>
+                                 <p>0111</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>error</p>
+                                 <p>0111</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>error</p>
+                                 <p>0111</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>N-ACTION to Change State to IN PROGRESS with correct transaction UID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>error</p>
+                                 <p>C307</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Report state change, Record transaction UID, Change State to IN PROGRESS</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>error</p>
+                                 <p>C302</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>error</p>
+                                 <p>C300</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>error</p>
+                                 <p>C300</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>N-ACTION to Change State to IN PROGRESS without correct transaction UID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>error</p>
+                                 <p>C307</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>error</p>
+                                 <p>C301</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>error</p>
+                                 <p>C301</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>error</p>
+                                 <p>C301</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>error</p>
+                                 <p>C301</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>N-ACTION to Change State to SCHEDULED</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>error</p>
+                                 <p>C307</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>error</p>
+                                 <p>C303</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>error</p>
+                                 <p>C303</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>error</p>
+                                 <p>C303</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>error</p>
+                                 <p>C303</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>N-ACTION to Change State to COMPLETED, with correct transaction UID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>error</p>
+                                 <p>C307</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>error</p>
+                                 <p>C310</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>If Final State Requirements met, (Report state change, Change State to COMPLETED); Else C304</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>warning</p>
+                                 <p>B306</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>error</p>
+                                 <p>C300</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>N-ACTION to Change State to COMPLETED, without correct transaction UID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>error</p>
+                                 <p>C307</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>error</p>
+                                 <p>C301</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>error</p>
+                                 <p>C301</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>error</p>
+                                 <p>C301</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>error</p>
+                                 <p>C301</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>N-ACTION to Request Cancel</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>error</p>
+                                 <p>C307</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Report state change to IN-PROGRESS, Report state change to CANCELED, Change State to CANCELED</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Report that an Application Entity requested a cancel.</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>error</p>
+                                 <p>C311</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>warning</p>
+                                 <p>B304</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>N-ACTION to Change State to CANCELED, with correct transaction UID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>error</p>
+                                 <p>C307</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>error</p>
+                                 <p>C310</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>If Final State Requirements met, (Report state change, Change State to CANCELED); Else C304.</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>error</p>
+                                 <p>C300</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>warning</p>
+                                 <p>B304</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>N-ACTION to Change State to CANCELED, without correct transaction UID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>error</p>
+                                 <p>C307</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>error</p>
+                                 <p>C301</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>error</p>
+                                 <p>C301</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>error</p>
+                                 <p>C301</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>error</p>
+                                 <p>C301</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_BB.6.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_CC.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">BB.6 SOP Class Definitions </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.4.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> CC.2 DIMSE Service Groups</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

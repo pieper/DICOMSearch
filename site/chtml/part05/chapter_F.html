@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>F Encapsulated Images As Part of A DICOM Message (Informative)</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.5.html" title="PS3.5" />
+      <link rel="up" href="PS3.5.html" title="PS3.5" />
+      <link rel="prev" href="chapter_E.html" title="E DICOM Default Character Repertoire (Normative)" />
+      <link rel="next" href="sect_F.2.html" title="F.2 Encapsulated JPEG-LS Encoded Images" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">F Encapsulated Images As Part of A DICOM Message (Informative)</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_E.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_F.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_F" shape="rect"></a>F Encapsulated Images As Part of A DICOM Message (Informative)</h1>
+               </div>
+            </div>
+         </div>
+         <p>The following remarks apply generally to communicating an encoded image within a message structure according to the DICOM Standard:</p>
+         <p>a) In the course of including an encoded image in a DICOM message, the encoding is not changed. The encoded data stream is merely segmented and encapsulated according to the protocols of the DICOM Standard. After unpacking the DICOM message, the encoded data stream can be fully reconstructed at the receiving node.</p>
+         <p>b) The object definition of the DICOM Standard is always determining format and other choices that a specific encoding implementation may offer. The encoded image must be consistent with the definition of the object of which the encoded image is part. For example:</p>
+         <p>1) If the object is defined to contain 10-bit pixel data, it is assumed that the encoding process is one that accepts at least 10-bit data. Hence, there is no need for defining separate Transfer Syntaxes, e.g., for 8-bit or 12-bit implementations. Any 12-bit implementation is assumed to operate in an 8-bit process if the object is defined to contain 8-bit data.</p>
+         <p>2) If the image of an object is interleaved, the encoding process must reproduce the interleaving.</p>
+         <p>c) Specifications in the encoding file header must be consistent with the DICOM Message header, e.g., regarding the number of rows and columns.</p>
+         <p>d) The byte order specification of an encoded file is not altered in the course of encapsulating it in a DICOM message.</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_F.1" shape="rect"></a>F.1 Encapsulated JPEG Encoded Images</h2>
+                  </div>
+               </div>
+            </div>
+            <p>The International Standards Organization (ISO/IEC JTC1/SC2/WG10) has prepared an International Standard, ISO/IS-10918-1 (JPEG Part 1) and International Draft Standard ISO/IS-10918-2 (JPEG Part 2), for the digital compression and coding of continuous-tone still images. This standard is collectively known as the JPEG Standard.</p>
+            <p>Part 1 of the JPEG Standard sets out requirements and implementation guidelines for the coded representation of compressed image data to be interchanged between applications. The processes and representations are intended to be generic in order to support the broad range of applications for color and grayscale still images for the purpose of communications and storage within computer systems. Part 2 of the JPEG Standard defines tests for determining whether implementations comply with the requirements of the various encoding and decoding processes specified in Part 1 of the JPEG Standard.</p>
+            <p>The JPEG Standard specifies lossy and lossless code processes. The lossy coding is based on the discrete cosine transform (DCT), permitting data compression with an adjustable compression ratio. The lossless coding employs differential pulse code modulation (DPCM).</p>
+            <p>The JPEG Standard permits a variety of coding processes for the coder and decoder. These processes differ in coding schemes for the quantified data and in sample precision. The coding processes are consecutively numbered as defined in the International Draft Standard ISO/IS-10918-2 (JPEG Part 2), and are summarized in <a class="xref" href="chapter_F.html#table_F.1-1" title="Table F.1-1. JPEG Modes of Image Coding" shape="rect">Table F.1-1</a>. The simplest DCT-based coding process is referred to as Baseline Sequential with Huffman Coding for 8-bit Samples.</p>
+            <div class="table">
+               <a id="table_F.1-1" shape="rect"></a>
+               <p class="title">
+                  <strong>Table F.1-1. JPEG Modes of Image Coding</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>No.</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Description</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Lossy</strong>
+                                 </span>
+                              </p>
+                              <p>
+                                 <span class="bold">
+                                    <strong>LY</strong>
+                                 </span>
+                              </p>
+                              <p>
+                                 <span class="bold">
+                                    <strong>Lossless</strong>
+                                 </span>
+                              </p>
+                              <p>
+                                 <span class="bold">
+                                    <strong>LL</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Non-Hierarchical</strong>
+                                 </span>
+                              </p>
+                              <p>
+                                 <span class="bold">
+                                    <strong>NH</strong>
+                                 </span>
+                              </p>
+                              <p>
+                                 <span class="bold">
+                                    <strong>Hierarchical</strong>
+                                 </span>
+                              </p>
+                              <p>
+                                 <span class="bold">
+                                    <strong>H</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Sequential</strong>
+                                 </span>
+                              </p>
+                              <p>
+                                 <span class="bold">
+                                    <strong>S</strong>
+                                 </span>
+                              </p>
+                              <p>
+                                 <span class="bold">
+                                    <strong>Progressive</strong>
+                                 </span>
+                              </p>
+                              <p>
+                                 <span class="bold">
+                                    <strong>P</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Transform</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Coding</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Accepted Bits</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1</p>
+                              <p>2</p>
+                              <p>4</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Baseline</p>
+                              <p>Extended</p>
+                              <p>Extended</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>LY</p>
+                              <p>LY</p>
+                              <p>LY</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>NH</p>
+                              <p>NH</p>
+                              <p>NH</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>S</p>
+                              <p>S</p>
+                              <p>S</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>DCT</p>
+                              <p>DCT</p>
+                              <p>DCT</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Huffman</p>
+                              <p>Huffman</p>
+                              <p>Huffman</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>8</p>
+                              <p>8</p>
+                              <p>12</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>14</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Lossless</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>LL</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>NH</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>S</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>DPCM</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Huffman</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>2-16</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <p>The different coding processes specified in the JPEG Standard are closely related. By extending the capability of an implementation, increasingly more 'lower level' processes can also be executed by the implementation. This is shown in <a class="xref" href="chapter_F.html#table_F.1-2" title="Table F.1-2. Relationship Between the Lossy JPEG Huffman Coding Processes" shape="rect">Table F.1-2</a> for Huffman Coding.</p>
+            <p>Inclusion of a JPEG-coded image in a DICOM message is facilitated by the use of specific Transfer Syntaxes that are defined in <a class="xref" href="chapter_A.html" title="A Transfer Syntax Specifications (Normative)" shape="rect"> Annex A</a>. Independent of the JPEG coding processes, the same syntax applies. The only distinction for different processes in the syntax is the UID value. <a class="xref" href="chapter_F.html#table_F.1-5" title="Table F.1-5. Identification of JPEG Coding Processes in DICOM" shape="rect">Table F.1-5</a> lists the UID values in the Transfer Syntax for the various JPEG coding processes for reference.</p>
+            <div class="table">
+               <a id="table_F.1-2" shape="rect"></a>
+               <p class="title">
+                  <strong>Table F.1-2. Relationship Between the Lossy JPEG Huffman Coding Processes</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Process</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>1</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>2</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>4</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>1</strong>
+                                 </span>
+                              </p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>*</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>*</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>*</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>2</strong>
+                                 </span>
+                              </p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>*</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>*</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>4</strong>
+                                 </span>
+                              </p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>*</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <p>* Coding process of column can execute coding process of row</p>
+            <div class="table">
+               <a id="table_F.1-5" shape="rect"></a>
+               <p class="title">
+                  <strong>Table F.1-5. Identification of JPEG Coding Processes in DICOM</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>DICOM Transfer Syntax UID</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>JPEG process</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>JPEG description</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>capable of performing</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1.2.840.10008.1.2.4.50</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>baseline</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1.2.840.10008.1.2.4.51</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>2,4</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>extended</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1,2,4</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1.2.840.10008.1.2.4.57</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>14</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>lossless NH</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>14</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1.2.840.10008.1.2.4.70</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>14</p>
+                              <p>Selection Value 1</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>lossless NH, first-order prediction</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_E.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_F.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">E DICOM Default Character Repertoire (Normative) </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.5.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> F.2 Encapsulated JPEG-LS Encoded Images</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

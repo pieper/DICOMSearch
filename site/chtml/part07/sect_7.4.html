@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>7.4 Association Services</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.7.html" title="PS3.7" />
+      <link rel="up" href="chapter_7.html" title="7 Service Overview" />
+      <link rel="prev" href="sect_7.3.html" title="7.3 Service Modes" />
+      <link rel="next" href="sect_7.5.html" title="7.5 DIMSE Services" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">7.4 Association Services</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_7.3.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">7 Service Overview</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_7.5.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_7.4" shape="rect"></a>7.4 Association Services</h2>
+               </div>
+            </div>
+         </div>
+         <p>The DICOM Message Service Element does not provide separate services for the establishment and termination of application Associations. This section provides an overview of how an Application Entity using the DIMSE service uses the Association Services defined in <a href="../part08/PS3.8.html" class="olink" shape="rect">PS3.8</a>.</p>
+         <p>During the Association establishment phase, a DIMSE-service-user shall exchange initialization information using parameters of the A-ASSOCIATE Upper Layer Service (see <a class="xref" href="sect_7.4.html#figure_7.4-1" title="Figure 7.4-1. DICOM Application Entity and Association" shape="rect">Figure 7.4-1</a>) that include:</p>
+         <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+               <li class="listitem">
+                  <p>Application context</p>
+               </li>
+               <li class="listitem">
+                  <p>Presentation and session requirements</p>
+               </li>
+               <li class="listitem">
+                  <p>DIMSE-specific user information</p>
+               </li>
+               <li class="listitem">
+                  <p>Application Association Information</p>
+               </li>
+            </ul>
+         </div>
+         <p>The A-RELEASE and A-ABORT Services defined in <a href="../part08/PS3.8.html" class="olink" shape="rect">PS3.8</a> shall be used for the termination of an Association.</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <p>The rules defining how the Association Services are used by a DIMSE-service-user are defined in <a class="xref" href="chapter_D.html" title="D Association Negotiation (Normative)" shape="rect"> Annex D</a>.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_7.4.1" shape="rect"></a>7.4.1 Association Establishment</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The A-ASSOCIATE Service is invoked by a DIMSE-service-user to establish an Association with a peer DIMSE-service-user. Association establishment is always the first phase of DICOM Message Exchange.</p>
+            <p>The initiating DIMSE-service-user and the responding DIMSE-service-user shall include Application Association Information on the request and response primitive respectively. The meaning of this parameter is Application Context specific. For more information on the use of the Application Association Information, see <a class="xref" href="chapter_D.html" title="D Association Negotiation (Normative)" shape="rect"> Annex D</a>.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_7.4.2" shape="rect"></a>7.4.2 Association Release</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The A-RELEASE Service is invoked by a DIMSE-service-user to request the orderly termination of an Association between peer DIMSE-service-users. This part of the Standard does not specify any use of the parameters of the A-RELEASE service.</p>
+            <p>
+</p>
+            <div class="figure">
+               <a id="figure_7.4-1" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.7_7.4-1.svg" alt="DICOM Application Entity and Association" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure 7.4-1. DICOM Application Entity and Association</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+            <p>The A-ABORT Service is invoked by a DIMSE-service-user to request the abrupt termination of the Association between peer DIMSE-service-users. The A-ABORT invoking DIMSE-service-user shall include (within the A-ABORT user information field) the Abort Source parameter. The Abort Source parameter indicates the initiating source of the abort. It takes one of the following symbolic values:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>DIMSE-service-provider</p>
+                  </li>
+                  <li class="listitem">
+                     <p>DIMSE-service-user</p>
+                  </li>
+               </ul>
+            </div>
+            <p>Reference <a href="../part08/PS3.8.html" class="olink" shape="rect">PS3.8</a> for more information on the A-RELEASE and A-ABORT services.</p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_7.3.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_7.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_7.5.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">7.3 Service Modes </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.7.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 7.5 DIMSE Services</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

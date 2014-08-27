@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>7 The Grayscale Standard Display Function</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.14.html" title="PS3.14" />
+      <link rel="up" href="PS3.14.html" title="PS3.14" />
+      <link rel="prev" href="chapter_6.html" title="6 Overview" />
+      <link rel="next" href="sect_7.2.html" title="7.2 Transmissive Hardcopy Printers" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">7 The Grayscale Standard Display Function</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_6.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_7.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_7" shape="rect"></a>7 The Grayscale Standard Display Function</h1>
+               </div>
+            </div>
+         </div>
+         <p>As explained in greater detail in <a class="xref" href="chapter_A.html" title="A Derivation of the Grayscale Standard Display Function (Informative)" shape="rect"> Annex A</a>, the Grayscale Standard Display Function is based on human Contrast Sensitivity. Human Contrast Sensitivity is distinctly non-linear within the Luminance Range of the Grayscale Standard Display Function . The human eye is relatively less sensitive in the dark areas of an image than it is in the bright areas of an image. This variation in sensitivity makes it much easier to see small relative changes in Luminance in the bright areas of the image than in the dark areas of the image. A Display Function that adjusts the brightness such that equal changes in P-Values will result in the same level of perceptibility at all driving levels is "perceptually linearized". The Grayscale Standard Display Function incorporates the notion of perceptual linearization without making it an explicit objective of PS3.14.</p>
+         <p>The employed data for Contrast Sensitivity are derived from Barten's model of the human visual system (Ref. 1, 2 and <a class="xref" href="chapter_B.html" title="B Table of the Grayscale Standard Display Function (Informative)" shape="rect"> Annex B</a>). Specifically, the Grayscale Standard Display Function refers to Contrast Sensitivity for the Standard Target consisting of a 2-deg x 2-deg square filled with a horizontal or vertical grating with sinusoidal modulation of 4 cycles per degree. The square is placed in a uniform background of Luminance equal to the mean Luminance L of the Target. The Contrast Sensitivity is defined by the Threshold Modulation at which the grating becomes just visible to the average human observer. The Luminance modulation represents the Just-Noticeable Difference (JND) for the Target at the Luminance L.</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <p>The academic nature of the Standard Target is recognized. With the simple target, the essential objectives of PS3.14 appear to be realizable. Only spurious results with more realistic targets in complex surroundings were known at the time of writing PS3.14 and these were not assessed.</p>
+         </div>
+         <p>The Grayscale Standard Display Function is defined for the Luminance Range from 0.05 to 4000 cd/m<sup>2</sup>. The minimum Luminance corresponds to the lowest practically useful Luminance of cathode-ray-tube (CRT) monitors and the maximum exceeds the unattenuated Luminance of very bright light-boxes used for interpreting X-Ray mammography. The Grayscale Standard Display Function explicitly includes the effects of the diffused ambient Illuminance.</p>
+         <p>Within the Luminance Range happen to fall 1023 JNDs (see <a class="xref" href="chapter_A.html" title="A Derivation of the Grayscale Standard Display Function (Informative)" shape="rect"> Annex A</a>).</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_7.1" shape="rect"></a>7.1 General Formulas</h2>
+                  </div>
+               </div>
+            </div>
+            <p>The Grayscale Standard Display Function is defined by a mathematical interpolation of the 1023 Luminance levels derived from Barten's model. The Grayscale Standard Display Function allows us to calculate luminance, L, in candelas per square meter, as a function of the Just-Noticeable Difference (JND) Index, j:</p>
+            <p>
+        
+        </p>
+            <div class="equation">
+               <a id="equation_7-1" shape="rect"></a>
+               <p class="title">
+                  <strong>Equation 7-1. </strong>
+               </p>
+               <div class="equation-contents">
+                  <object type="image/svg+xml" data="figures/chapter_7_withmml_image_1.svg" style="">
+                     <param name="src" value="image_1.svg" />
+                  </object>
+               </div>
+            </div>
+            <p>
+               <br class="equation-break" clear="none" />
+            </p>
+            <p>with:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: none; ">
+                  <li class="listitem" style="list-style-type: none">
+                     <p>Ln referring to the natural logarithm</p>
+                  </li>
+                  <li class="listitem" style="list-style-type: none">
+                     <p>j the index (1 to 1023) of the Luminance levels L<sub>j</sub> of the JNDs</p>
+                  </li>
+                  <li class="listitem" style="list-style-type: none">
+                     <p>a = -1.3011877</p>
+                  </li>
+                  <li class="listitem" style="list-style-type: none">
+                     <p>b = -2.5840191E-2</p>
+                  </li>
+                  <li class="listitem" style="list-style-type: none">
+                     <p>c = 8.0242636E-2</p>
+                  </li>
+                  <li class="listitem" style="list-style-type: none">
+                     <p>d = -1.0320229E-1</p>
+                  </li>
+                  <li class="listitem" style="list-style-type: none">
+                     <p>e = 1.3646699E-1</p>
+                  </li>
+                  <li class="listitem" style="list-style-type: none">
+                     <p>f = 2.8745620E-2</p>
+                  </li>
+                  <li class="listitem" style="list-style-type: none">
+                     <p>g = -2.5468404E-2</p>
+                  </li>
+                  <li class="listitem" style="list-style-type: none">
+                     <p>h = -3.1978977E-3</p>
+                  </li>
+                  <li class="listitem" style="list-style-type: none">
+                     <p>k = 1.2992634E-4</p>
+                  </li>
+                  <li class="listitem" style="list-style-type: none">
+                     <p>m = 1.3635334E-3</p>
+                  </li>
+               </ul>
+            </div>
+            <p>The logarithms to the base 10 of the Luminance L<sub>j</sub> are very well interpolated by this function over the entire Luminance Range. The relative deviation of any log(Luminance) -value from the function is at most 0.3%, and the root-mean-square-error is 0.0003. The continuous representation of the Grayscale Standard Display Function permits a user to compute discrete JNDs for arbitrary start levels and over any desired Luminance Range.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>To apply <a class="xref" href="chapter_7.html#equation_7-1" title="Equation 7-1. " shape="rect">Equation 7-1</a> to a device with a specific range of L values, it is convenient to also have the inverse of this relationship, which is given by:
+          
+              </p>
+                        <p>
+              </p>
+                        <div class="equation">
+                           <a id="equation_7-2" shape="rect"></a>
+                           <p class="title">
+                              <strong>Equation 7-2. </strong>
+                           </p>
+                           <div class="equation-contents">
+                              <object type="image/svg+xml" data="figures/chapter_7_withmml_image_2.svg" style="">
+                                 <param name="src" value="image_2.svg" />
+                              </object>
+                           </div>
+                        </div>
+                        <p>
+                           <br class="equation-break" clear="none" />
+                        </p>
+                        <p>where:</p>
+                        <div class="itemizedlist">
+                           <ul class="itemizedlist" style="list-style-type: none; ">
+                              <li class="listitem" style="list-style-type: none">
+                                 <p>Log<sub>10</sub> represents logarithm to the base 10</p>
+                              </li>
+                              <li class="listitem" style="list-style-type: none">
+                                 <p>A = 71.498068</p>
+                              </li>
+                              <li class="listitem" style="list-style-type: none">
+                                 <p>B = 94.593053</p>
+                              </li>
+                              <li class="listitem" style="list-style-type: none">
+                                 <p>C = 41.912053</p>
+                              </li>
+                              <li class="listitem" style="list-style-type: none">
+                                 <p>D = 9.8247004</p>
+                              </li>
+                              <li class="listitem" style="list-style-type: none">
+                                 <p>E = 0.28175407</p>
+                              </li>
+                              <li class="listitem" style="list-style-type: none">
+                                 <p>F = -1.1878455</p>
+                              </li>
+                              <li class="listitem" style="list-style-type: none">
+                                 <p>G = -0.18014349</p>
+                              </li>
+                              <li class="listitem" style="list-style-type: none">
+                                 <p>H = 0.14710899</p>
+                              </li>
+                              <li class="listitem" style="list-style-type: none">
+                                 <p>I = - 0.017046845</p>
+                              </li>
+                           </ul>
+                        </div>
+                     </li>
+                     <li class="listitem">
+                        <p>When incorporating the formulas for L(j) and j(L) into a computer program, the use of double precision is recommended.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Alternative methods may be used to calculate the JND Index values. One method is use a numerical algorithm such as the Van Vijngaarden-Dekker-Brent method described in
+        <span class="italic">Numerical Recipes in C</span>(Cambridge University press, 1991). The value j may be calculated from L iteratively given the Grayscale Standard Display Function's formula for L(j). Another method would be to use the Grayscale Standard Display Function's tabulated values of j and L to calculate the j corresponding to an arbitrary L by linearly interpolating between the two nearest tabulated L,j pairs.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>No specification is intended as to how these formulas are implemented. These could be implemented dynamically, by executing the equation directly, or through discrete values, such as a LUT, etc.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <p>
+               <a class="xref" href="chapter_B.html" title="B Table of the Grayscale Standard Display Function (Informative)" shape="rect"> Annex B</a> lists the Luminance levels computed with this equation for the 1023 integer JND Indices and <a class="xref" href="chapter_8.html#figure_7-1" title="Figure 7-1. The Grayscale Standard Display Function presented as logarithm-of-Luminance versus JND-Index" shape="rect">Figure 7-1</a> shows a plot of the Grayscale Standard Display Function. The exact value of the Luminance levels, of course, depends on the start level of 0.05 cd/m
+  <sup>2</sup>.</p>
+            <p>The Characteristic Curve of a Display System represents the Luminance produced by a Display System as a function of DDL and the effect of ambient Illuminance. The Characteristic Curve is measured with Standard Test Patterns (see <a class="xref" href="chapter_D.html" title="D Illustrations for Achieving Conformance with the Grayscale Standard Display Function (Informative)" shape="rect"> Annex D</a>). In general, the Display Function describes, for example,</p>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="a">
+                  <li class="listitem">
+                     <p>the Luminance (including ambient Illuminance) measured as a function of DDL for emissive displays such as a CRT-monitor/digital display controller system,</p>
+                  </li>
+                  <li class="listitem">
+                     <p>the Luminance (including ambient Illuminance) as a function of DDL measured for a transmissive medium hung in front of a light-box after a printer produced an optical density, depending on DDL, on the medium,</p>
+                  </li>
+                  <li class="listitem">
+                     <p>the Luminance (including ambient light) as a function of DDL measured for a diffusely reflective medium illuminated by a office lights after a printer produced a reflective density, depending on DDL, on the medium.</p>
+                  </li>
+               </ol>
+            </div>
+            <p>By internal or external means, the system may have been configured (or calibrated) such that the Characteristic Curve is consistent with the Grayscale Standard Display Function.</p>
+            <p>Some Display Systems adapt themselves to ambient light conditions. Such a system may conform to the Grayscale Standard Display Function for one level of ambient Illuminance only, unless it had the capability of adjusting its Display Function without user-intervention so that it remains in conformance with the Grayscale Standard Display Function.</p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_6.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_7.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">6 Overview </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.14.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 7.2 Transmissive Hardcopy Printers</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

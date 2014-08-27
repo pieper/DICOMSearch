@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>3.10 DICOM Data Structures and Encoding Definitions</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.5.html" title="PS3.5" />
+      <link rel="up" href="chapter_3.html" title="3 Definitions" />
+      <link rel="prev" href="sect_3.9.html" title="3.9 DICOM Network Communication Support For Message Exchange Definitions" />
+      <link rel="next" href="sect_3.11.html" title="3.11 Character Handling Definitions" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">3.10 DICOM Data Structures and Encoding Definitions</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_3.9.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">3 Definitions</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_3.11.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_3.10" shape="rect"></a>3.10 DICOM Data Structures and Encoding Definitions</h2>
+               </div>
+            </div>
+         </div>
+         <p>The following definitions are commonly used in this Standard:</p>
+         <p>
+            <span class="bold">
+               <strong>Basic Offset Table</strong>
+            </span>: A table of pointers to individual frames of an encapsulated multi-frame image.</p>
+         <p>
+            <span class="bold">
+               <strong>Big Endian</strong>
+            </span>: A form of byte ordering where multiple byte binary values are encoded with the most significant byte encoded first, and the remaining bytes encoded in decreasing order of significance.</p>
+         <p>
+            <span class="bold">
+               <strong>Character Repertoire</strong>
+            </span>: A finite set of different characters that is considered to be complete for a given purpose and is specified independently of their encoding (also referred to as a character set).</p>
+         <p>
+            <span class="bold">
+               <strong>Data Element</strong>
+            </span>: A unit of information as defined by a single entry in the data dictionary. An encoded Information Object Definition (IOD) Attribute that is composed of, at a minimum, three fields: a Data Element Tag, a Value Length, and a Value Field. For some specific Transfer Syntaxes, a Data Element also contains a VR Field where the Value Representation of that Data Element is specified explicitly.</p>
+         <p>
+            <span class="bold">
+               <strong>Data Element Tag</strong>
+            </span>: A unique identifier for a Data Element composed of an ordered pair of numbers (a Group Number followed by an Element Number).</p>
+         <p>
+            <span class="bold">
+               <strong>Data Element Type</strong>
+            </span>: Used to specify whether an Attribute of an Information Object Definition or an Attribute of a SOP Class Definition is mandatory, mandatory only under certain conditions, or optional. This translates to whether a Data Element of a Data Set is mandatory, mandatory only under certain conditions, or optional.</p>
+         <p>
+            <span class="bold">
+               <strong>Data Set</strong>
+            </span>: Exchanged information consisting of a structured set of Attribute values directly or indirectly related to Information Objects. The value of each Attribute in a Data Set is expressed as a Data Element. A collection of Data Elements ordered by increasing Data Element Tag number that is an encoding of the values of Attributes of a real world object.</p>
+         <p>
+            <span class="bold">
+               <strong>Defined Term</strong>
+            </span>: The Value of a Data Element is a Defined Term when the Value of the element may be one of an explicitly specified set of standard values, and these values may be extended by implementers.</p>
+         <p>
+            <span class="bold">
+               <strong>Element Number</strong>
+            </span>: The second number in the ordered pair of numbers that makes up a Data Element Tag.</p>
+         <p>
+            <span class="bold">
+               <strong>Enumerated Value</strong>
+            </span>: The Value of a Data Element is an Enumerated Value when the value of the element must be one of an explicitly specified set of standard values, and these values shall not be extended by implementers.</p>
+         <p>
+            <span class="bold">
+               <strong>Group Number</strong>
+            </span>: The first number in the ordered pair of numbers that makes up a Data Element Tag.</p>
+         <p>
+            <span class="bold">
+               <strong>Item</strong>
+            </span>: A component of the Value of a Data Element that is of Value Representation Sequence of Items. An Item contains a Data Set.</p>
+         <p>
+            <span class="bold">
+               <strong>Item Delimitation Data Element</strong>
+            </span>: Used to mark the end of an Item of Undefined Length in a Sequence of Items. This is the last Data Element in an Item of Undefined Length.</p>
+         <p>
+            <span class="bold">
+               <strong>Little Endian</strong>
+            </span>: A form of byte ordering where multiple byte binary values are encoded with the least significant byte encoded first; and the remaining bytes encoded in increasing order of significance.</p>
+         <p>
+            <span class="bold">
+               <strong>Nested Data Set</strong>
+            </span>: A Data Set contained within a Data Element of another Data Set. Data Sets can be nested recursively. Only Data Elements with Value Representation Sequence of Items may, themselves, contain Data Sets.</p>
+         <p>
+            <span class="bold">
+               <strong>Pixel Cell</strong>
+            </span>: The container for a single Pixel Sample Value that may include unused bits or bits for data other than the Pixel Sample Value (e.g., overlay planes). The size of a Pixel Cell shall be specified by the Bits Allocated (0028, 0100) Data Element.</p>
+         <p>
+            <span class="bold">
+               <strong>Pixel Data</strong>
+            </span>: Graphical data (e.g., images or overlays) of variable pixel-depth encoded in the Pixel Data Element, with Value Representation OW or OB. Additional descriptor Data Elements are often used to describe the contents of the Pixel Data element.</p>
+         <p>
+            <span class="bold">
+               <strong>Pixel Sample Value</strong>
+            </span>: A value associated with an individual pixel. An individual pixel consists of one or more Pixel Sample Values (e.g., color images).</p>
+         <p>
+            <span class="bold">
+               <strong>Private Data Element</strong>
+            </span>: Additional Data Element, defined by an implementer, to communicate information that is not contained in Standard Data Elements. Private Data elements have odd Group Numbers.</p>
+         <p>
+            <span class="bold">
+               <strong>Repeating Group</strong>
+            </span>: Standard Data Elements within a particular range of Group Numbers where elements that have identical Element Numbers have the same meaning within each Group (and the same VR, VM, and Data Element Type). Repeating Groups shall only exist for Curves and Overlay Planes (Group Numbers (50xx,eeee) and (60xx,eeee), respectively) and are a remnant of versions of this standard prior to V3.0.</p>
+         <p>
+            <span class="bold">
+               <strong>Retired Data Element</strong>
+            </span>: A Data Element that is unsupported beginning with Version 3.0 of this standard. Implementations may continue to support Retired Data Elements for the purpose of backward compatibility with versions prior to V3.0, but this is not a requirement of this version of the standard.</p>
+         <p>
+            <span class="bold">
+               <strong>Sequence Delimitation Item</strong>
+            </span>: Item used to mark the end of a Sequence of Items of Undefined Length. This Item is the last Item in a Sequence of Items of Undefined Length.</p>
+         <p>
+            <span class="bold">
+               <strong>Sequence of Items (Value Representation SQ)</strong>
+            </span>: A Value Representation for Data Elements that contain a sequence of Data Sets. Sequence of Items allows for Nested Data Sets.</p>
+         <p>
+            <span class="bold">
+               <strong>Standard Data Element</strong>
+            </span>: A Data Element defined in the DICOM Standard, and therefore listed in the DICOM Data Element Dictionary in <a href="../part06/PS3.6.html" class="olink" shape="rect">PS3.6</a>.</p>
+         <p>
+            <span class="bold">
+               <strong>Transfer Syntax (Standard and Private)</strong>
+            </span>: A set of encoding rules that allow Application Entities to unambiguously negotiate the encoding techniques (e.g., Data Element structure, byte ordering, compression) they are able to support, thereby allowing these Application Entities to communicate.</p>
+         <p>
+            <span class="bold">
+               <strong>Undefined Length</strong>
+            </span>: The ability to specify an unknown length for a Data Element Value (of Value Representation SQ, UN, OW, or OB) or Item. Data Elements and Items of Undefined Length are delimited with Sequence Delimitation Items and Item Delimiter Data Elements, respectively.</p>
+         <p>
+            <span class="bold">
+               <strong>Unique Identifier (UID)</strong>
+            </span>: A string of characters that uniquely identifies a wide variety of items; guaranteeing uniqueness across multiple countries, sites, vendors and equipment.</p>
+         <p>
+            <span class="bold">
+               <strong>Value</strong>
+            </span>: A component of a Value Field. A Value Field may consist of one or more of these components.</p>
+         <p>
+            <span class="bold">
+               <strong>Value Field</strong>
+            </span>: The field within a Data Element that contains the Value(s) of that Data Element.</p>
+         <p>
+            <span class="bold">
+               <strong>Value Length</strong>
+            </span>: The field within a Data Element that contains the length of the Value Field of the Data Element.</p>
+         <p>
+            <span class="bold">
+               <strong>Value Multiplicity (VM)</strong>
+            </span>: Specifies the number of Values contained in the Value Field of a Data Element.</p>
+         <p>
+            <span class="bold">
+               <strong>Value Representation (VR)</strong>
+            </span>: Specifies the data type and format of the Value(s) contained in the Value Field of a Data Element.</p>
+         <p>
+            <span class="bold">
+               <strong>Value Representation Field</strong>
+            </span>: The field where the Value Representation of a Data Element is stored in the encoding of a Data Element structure with explicit VR.</p>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_3.9.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_3.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_3.11.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">3.9 DICOM Network Communication Support For Message Exchange Definitions </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.5.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 3.11 Character Handling Definitions</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

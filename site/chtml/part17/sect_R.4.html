@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>R.4 Device Start up</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="chapter_R.html" title="R Configuration Use Cases (Informative)" />
+      <link rel="prev" href="sect_R.3.html" title="R.3 Obtain Configuration of Other Devices" />
+      <link rel="next" href="sect_R.5.html" title="R.5 Shutdown" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">R.4 Device Start up</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_R.3.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">R Configuration Use Cases (Informative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_R.5.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_R.4" shape="rect"></a>R.4 Device Start up</h2>
+               </div>
+            </div>
+         </div>
+         <p>Normal start up of an already configured device will obtain IP information and DICOM information from the servers.</p>
+         <p>
+        </p>
+         <div class="figure">
+            <a id="figure_R.4-1" shape="rect"></a>
+            <div class="figure-contents">
+               <div class="mediaobject">
+                  <img src="figures/PS3.17_R.4-1.svg" alt="Configured Device Start up (Normal Start up)" />
+               </div>
+            </div>
+            <p class="title">
+               <strong>Figure R.4-1. Configured Device Start up (Normal Start up)</strong>
+            </p>
+         </div>
+         <p>
+            <br class="figure-break" clear="none" />
+         </p>
+         <p>The device start up sequence is:</p>
+         <div class="orderedlist">
+            <ol class="orderedlist" type="a">
+               <li class="listitem">
+                  <p>DHCP is used to obtain IP related parameters. The DHCP request can indicate a desired machine name that DHCP can associate with a configuration saved at the DHCP server. DHCP does not guarantee that the desired machine name will be granted because it might already be in use, but this mechanism is often used to maintain specific machine configurations. The DHCP will also update the DNS server (using the DDNS mechanisms) with the assigned IP address and hostname information. Legacy note: A machine with pre-configured IP addresses, DNS servers, and NTP servers may skip this step. As an operational and documentation convenience, the DHCP server database may contain the description of this pre-configured machine.</p>
+               </li>
+               <li class="listitem">
+                  <p>The list of NTP servers is used to initiate the NTP process for obtaining and maintaining the correct time. This is an ongoing process that continues for the duration of device activity. See Time Synchronization below.</p>
+               </li>
+               <li class="listitem">
+                  <p>The list of DNS servers is used to obtain the list of LDAP servers. This utilizes a relatively new addition to the DNS capabilities that permit querying DNS to obtain servers within a domain that provide a particular service.</p>
+               </li>
+               <li class="listitem">
+                  <p>The "nearest" LDAP server is queried to obtain a description for the device matching the assigned machine name. This description includes device specific configuration information and a list of Network AEs.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>A partially managed node may reach this point and discover that there is no description for that device in the LDAP database. During installation (as described above) this may then proceed into device configuration. Partially managed devices may utilize an internal configuration mechanism.</p>
+                  </div>
+               </li>
+               <li class="listitem">
+                  <p>The AE descriptions are obtained from the LDAP server. Key information in the AE description is the assigned AE Title. The AE descriptions probably include vendor unique information in either the vendor text field or vendor extensions to the AE object. The details of this information are vendor unique. DICOM is defining a mandatory minimum capability because this will be a common need for vendors that offer dynamically configurable devices. The AE description may be present even for devices that do not support dynamic configuration. If the device has been configured with an AE Title and description that is intended to be fixed, then a description should be present in the LDAP database. The device can confirm that the description matches its stored configuration. The presence of the AE Title in the description will prevent later network activities from inadvertently re-using the same AE Title for another purpose. The degree of configurability may also vary. Many simple
+      devices may only permit dynamic configuration of the IP address and AE Title, with all other configuration requiring local service modifications.</p>
+               </li>
+               <li class="listitem">
+                  <p>The device performs whatever internal operations are involved to configure itself to match the device description and AE descriptions.</p>
+               </li>
+            </ol>
+         </div>
+         <p>At this point, the device is ready for regular operation, the DNS servers will correctly report its IP address when requested, and the LDAP server has a correct description of the device, Network AEs, and network connections.</p>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_R.3.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_R.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_R.5.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">R.3 Obtain Configuration of Other Devices </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> R.5 Shutdown</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>7.4 Data Element Type</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.5.html" title="PS3.5" />
+      <link rel="up" href="chapter_7.html" title="7 The Data Set" />
+      <link rel="prev" href="sect_7.3.html" title="7.3 Big Endian Versus Little Endian Byte Ordering" />
+      <link rel="next" href="sect_7.5.html" title="7.5 Nesting of Data Sets" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">7.4 Data Element Type</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_7.3.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">7 The Data Set</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_7.5.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_7.4" shape="rect"></a>7.4 Data Element Type</h2>
+               </div>
+            </div>
+         </div>
+         <p>An attribute, encoded as a Data Element, may or may not be required in a Data Set, depending on that Attribute's Data Element Type.</p>
+         <p>The Data Element Type of an Attribute of an Information Object Definition or an Attribute of a SOP Class Definition is used to specify whether that Attribute is mandatory or optional. The Data Element Type also indicates if an Attribute is conditional (only mandatory under certain conditions). The Data Element Types of Attributes of Composite IODs are specified in <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>. The Data Element Types of Attributes of Normalized IODs are specified as Attributes of SOP Classes in <a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a>.</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_7.4.1" shape="rect"></a>7.4.1 Type 1 Required Data Elements</h3>
+                  </div>
+               </div>
+            </div>
+            <p>IODs and SOP Classes define Type 1 Data Elements that shall be included and are mandatory elements. The Value Field shall contain valid data as defined by the elements VR and VM as specified in <a href="../part06/PS3.6.html" class="olink" shape="rect">PS3.6</a>. The Length of the Value Field shall not be zero. Absence of a valid Value in a Type 1 Data Element is a protocol violation.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>For data elements with a string (CS, SH, LO) rather than binary, text or sequence Value Representation, and for which multiple Values are allowed, the presence of a single Value is sufficient to satisfy the Type 1 requirement, unless specified otherwise in the Attribute description, and other Values may be empty, unless otherwise specified by the IOD. The presence of one or more delimiter (BACKSLASH) characters alone, without any Values, is not sufficient to satisfy the Type 1 requirement, since even though the Value Length is greater than zero, there is no valid Value present.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>A Type 1 Sequence Data Element will contain one or more Items, as defined by the IOD (irrespective of the VM of the Sequence, which is always one (<a class="xref" href="sect_7.5.html" title="7.5 Nesting of Data Sets" shape="rect">Section 7.5</a>)). Whether or not those Items may be empty (contain no Data Elements) depends on the IOD definition of the Data Set for each Item.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_7.4.2" shape="rect"></a>7.4.2 Type 1C Conditional Data Elements</h3>
+                  </div>
+               </div>
+            </div>
+            <p>IODs and SOP Classes define Data Elements that shall be included under certain specified conditions. Type 1C elements have the same requirements as Type 1 elements under these conditions. It is a protocol violation if the specified conditions are met and the Data Element is not included.</p>
+            <p>When the specified conditions are not met, Type 1C elements shall not be included in the Data Set.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_7.4.3" shape="rect"></a>7.4.3 Type 2 Required Data Elements</h3>
+                  </div>
+               </div>
+            </div>
+            <p>IODs and SOP Classes define Type 2 Data Elements that shall be included and are mandatory Data Elements. However, it is permissible that if a Value for a Type 2 element is unknown it can be encoded with zero Value Length and no Value. If the Value is known the Value Field shall contain that value as defined by the elements VR and VM as specified in <a href="../part06/PS3.6.html" class="olink" shape="rect">PS3.6</a>. These Data Elements shall be included in the Data Set and their absence is a protocol violation.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>The intent of Type 2 Data Elements is to allow a zero length to be conveyed when the operator or application does not know its value or has a specific reason for not specifying its value. It is the intent that the device should support these Data Elements.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>A Type 2 Sequence Data Element will contain zero or more Items, as defined by the IOD (irrespective of the VM of the Sequence, which is always one (<a class="xref" href="sect_7.5.html" title="7.5 Nesting of Data Sets" shape="rect">Section 7.5</a>)). An empty Type 2 Sequence is one with no Items, as opposed to an Item that is present but empty. Whether or not Items may be empty (contain no Data Elements) depends on the IOD definition of the Data Set for each Item, rather than the Type of the enclosing Sequence Data Element.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_7.4.4" shape="rect"></a>7.4.4 Type 2C Conditional Data Elements</h3>
+                  </div>
+               </div>
+            </div>
+            <p>IODs and SOP Classes define Type 2C elements that have the same requirements as Type 2 elements under certain specified conditions. It is a protocol violation if the specified conditions are met and the Data Element is not included.</p>
+            <p>When the specified conditions are not met, Type 2C elements shall not be included in the Data Set.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>An example of a Type 2C Data Element is Inversion Time (0018,0082). For several SOP Class Definitions, this Data Element is required only if the Scanning Sequence (0018,0020) has the Value "IR." It is not required otherwise. See <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>.</p>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_7.4.5" shape="rect"></a>7.4.5 Type 3 Optional Data Elements</h3>
+                  </div>
+               </div>
+            </div>
+            <p>IODs and SOP Classes define Type 3 Data Elements that are optional Data Elements. Absence of a Type 3 element from a Data Set does not convey any significance and is not a protocol violation. Type 3 elements may also be encoded with zero length and no Value. The meaning of a zero length Type 3 Data Element shall be precisely the same as that element being absent from the Data Set.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_7.4.6" shape="rect"></a>7.4.6 Data Element Types Within A Sequence</h3>
+                  </div>
+               </div>
+            </div>
+            <p>When an IOD defines a Sequence Data Element (see <a class="xref" href="sect_7.5.html" title="7.5 Nesting of Data Sets" shape="rect">Section 7.5</a>), the Type of the Sequence attribute defines whether the Sequence attribute itself must be present, and the Attribute Description of the Sequence attribute may define whether and how many Items shall be present in the Sequence. The Types of the attributes of the Data Set included in the Sequence, including any conditionality, are specified within the scope of each Data Set, i.e., for each Item present in the Sequence.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>The Type and Attribute Description of the Sequence determines whether Items are present; conditionality constraints on Data Elements of the Items cannot force an Item to be present.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Historically, many IODs declared Type 1 and Type 2 Data Elements of the Sequence to be Type 1C and Type 2C, respectively, with the condition that an Item is present. This is exactly the same as simply defining them as Type 1 and Type 2.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>In particular, the conditionality constraint "Required if Sequence is sent" on the Type 1C or Type 2C Data Elements subsidiary to a Type 2 or 3 Sequence attribute does not imply that an Item must be present in the Sequence. These conditions are meant to be equivalent to "Required if a Sequence Item is present", and the conditionality is not strictly necessary. Any Type 2 or Type 3 Sequence attribute may be sent with zero length.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>In particular, the conditionality constraint "Required if &lt;name-of-parent-sequence-attribute&gt; is sent" on the Type 1C or Type 2C Data Elements subsidiary to a Type 2 or 3 Sequence attribute does not imply that an Item must be present in the Sequence. These conditions are meant to be equivalent to "Required if a Sequence Item is present", and the conditionality is not strictly necessary. Any Type 2 or Type 3 Sequence attribute may be sent with zero length.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_7.3.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_7.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_7.5.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">7.3 Big Endian Versus Little Endian Byte Ordering </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.5.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 7.5 Nesting of Data Sets</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

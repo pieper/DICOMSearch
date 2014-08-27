@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>DD.2 RT Machine Verification Model</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.4.html" title="PS3.4" />
+      <link rel="up" href="chapter_DD.html" title="DD RT Machine Verification Service Classes (Normative)" />
+      <link rel="prev" href="chapter_DD.html" title="DD RT Machine Verification Service Classes (Normative)" />
+      <link rel="next" href="sect_DD.3.html" title="DD.3 Machine Verification SOP Class Definitions" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">DD.2 RT Machine Verification Model</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_DD.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">DD RT Machine Verification Service Classes (Normative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_DD.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_DD.2" shape="rect"></a>DD.2 RT Machine Verification Model</h2>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_DD.2.1" shape="rect"></a>DD.2.1 RT Machine Verification Data Flow</h3>
+                  </div>
+               </div>
+            </div>
+            <p>In the RT Machine Verification Model, the Service Class User (SCU) of the applicable Machine Verification Service Class is the radiation delivery system used to administer the treatment. The Machine Parameter Verifier (MPV) acts in the role of Service Class Provider (SCP).</p>
+            <p>The communication states between the SCU and SCP can be described in two levels shown in <a class="xref" href="sect_DD.2.html#figure_DD.2-1" title="Figure DD.2-1.  RT Verification Data Flow" shape="rect">Figure DD.2-1</a>: A) the Plan Level and B) the Beam Level.</p>
+            <p>The first level (A in the diagram) is the Plan Level. The SCU initializes external verification of a new plan using the N-CREATE command. The MPV then retrieves the data necessary to perform verification through DICOM or other means. In general, there is a close relationship between an MPV and a Treatment Management System (TMS) or Archive. If DICOM is the protocol used to retrieve this data, this might be done using one or more C-MOVEs on the Archive.</p>
+            <p>The second level (B in the diagram) is the Beam Level. The SCU uses the N-SET command request to instruct the SCP on the specified Attributes to be verified. The SCU then requests that the verification start using an N-ACTION command. The SCP compares the values of the specified Attributes against the values of the Attributes from the referenced plan, and signals the status of the verification using N-EVENT-REPORT command with the Treatment Verification Status (3008,002C) Attribute indicating the verification result. The MPV's use of tolerance values in the verification process shall be described in a Conformance Statement. The SCU may then optionally request the beam's verification parameters using an N-GET.</p>
+            <p>Finally, when all beams have been delivered or abandoned, the SCU terminates the verification session at the Plan Level using an N-DELETE.</p>
+            <p>
+          </p>
+            <div class="figure">
+               <a id="figure_DD.2-1" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.4_DD.2-1.svg" alt="RT Verification Data Flow" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure DD.2-1.  RT Verification Data Flow</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_DD.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_DD.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_DD.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">DD RT Machine Verification Service Classes (Normative) </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.4.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> DD.3 Machine Verification SOP Class Definitions</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

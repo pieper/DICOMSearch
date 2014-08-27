@@ -1,0 +1,608 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>H.3 Example of Person Name Value Representation in the Japanese Language</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.5.html" title="PS3.5" />
+      <link rel="up" href="chapter_H.html" title="H Character Sets and Person Name Value Representation in the Japanese Language (Informative)" />
+      <link rel="prev" href="sect_H.2.html" title="H.2 Internet Practice" />
+      <link rel="next" href="chapter_I.html" title="I Character Sets and Person Name Value Representation in the Korean Language (Informative)" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">H.3 Example of Person Name Value Representation in the Japanese Language</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_H.2.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">H Character Sets and Person Name Value Representation in the Japanese Language (Informative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_I.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_H.3" shape="rect"></a>H.3 Example of Person Name Value Representation in the Japanese Language</h2>
+               </div>
+            </div>
+         </div>
+         <p>Character strings representing person names are encoded using a convention for PN value representations based on component groups with 5 components.</p>
+         <p>For languages that use ideographic characters, it is sometimes necessary to write names both in ideographic characters and in phonetic characters. Ideographic characters may be required for official purposes, while phonetic characters may be needed for pronunciation and data processing purposes.</p>
+         <p>For the purpose of writing names in ideographic characters and in phonetic characters, up to 3 component groups may be used. The delimiter of the component group shall be the equals character "=" (3DH). The three component groups in their order of occurrence are: an alphabetic representation, an ideographic representation, and a phonetic representation.</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_H.3.1" shape="rect"></a>H.3.1 Value 1 of Attribute Specific Character Set (0008,0005) is Not Present.</h3>
+                  </div>
+               </div>
+            </div>
+            <div class="example">
+               <a id="example_H.3-1" shape="rect"></a>
+               <p class="title">
+                  <strong>Example H.3-1. Value 1 of Attribute Specific Character Set (0008,0005) is Not Present</strong>
+               </p>
+               <div class="example-contents">
+                  <p>In this case, ISO-IR 6 is used by default in Specific Character Set:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: none; ">
+                        <li class="listitem" style="list-style-type: none">
+                           <p>(0008,0005) \ISO 2022 IR 87</p>
+                        </li>
+                     </ul>
+                  </div>
+                  <p>Character String:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: none; ">
+                        <li class="listitem" style="list-style-type: none">
+                           <p>Yamada^Tarou=山田^太郎=やまだ^たろう</p>
+                        </li>
+                        <li class="listitem" style="list-style-type: none">
+                           <p>Yamada^Tarou= ESC 02/04 04/02 山田 ESC 02/08 04/02 ^ ESC 02/04 04/02 太郎 ESC 02/08 04/02 = ESC 02/04 04/02 やまだ ESC 02/08 04/02 ^ ESC 02/04 04/02 たろう ESC 02/08 04/02</p>
+                        </li>
+                     </ul>
+                  </div>
+                  <p>Encoded representation:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: none; ">
+                        <li class="listitem" style="list-style-type: none">
+                           <p>
+                              <code class="computeroutput">05/09 06/01 06/13 06/01 06/04 06/01 5/14 05/04 06/01 07/02 06/15 07/05 03/13 01/11 02/04 04/02 03/11 03/03 04/05 04/04 01/11 02/08 04/02 05/14 01/11 02/04 04/02 04/02 04/00 04/15 03/10 01/11 02/08 04/02 03/13 01/11 02/04 04/02 02/04 06/04 02/04 05/14 02/04 04/00 01/11 02/08 04/02 05/14 01/11 02/04 04/02 02/04 03/15 02/04 06/13 02/04 02/06 01/11 02/08 04/02</code>
+                           </p>
+                        </li>
+                     </ul>
+                  </div>
+                  <p>An example of what might be displayed or printed by an ASCII based machine that displays or prints the Control Character ESC (01/11) using \033:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: none; ">
+                        <li class="listitem" style="list-style-type: none">
+                           <p>
+                              <code class="computeroutput">Yamada^Tarou=\033$B;3ED\033(B^\033$BB@O:\033(B=\033$B$d$^$@\033(B^\033$B$?$m$&amp;\033(B</code>
+                           </p>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <br class="example-break" clear="none" />
+            <div class="table">
+               <a id="table_H.3-1" shape="rect"></a>
+               <p class="title">
+                  <strong>Table H.3-1. Character Sets and Escape Sequences Used in Example 1</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Character Set Description</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Component Group</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Value of (0008,0005) Defined Term</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>ISO Registration Number</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Standard for Code Extension</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>ESC Sequence</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Code Element</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Character Set: Purpose of Use</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Japanese</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>First:</p>
+                              <p>Single-byte</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Value 1:</p>
+                              <p>none</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>ISO-IR 6</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>GL</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>ISO 646:</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Second:</p>
+                              <p>Ideographic</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Value 2:</p>
+                              <p>ISO 2022 IR 87</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>ISO-IR 87</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>ISO 2022</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>ESC 02/04 04/02</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>GL</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>JIS X 0208:</p>
+                              <p>Japanese kanji, hiragana, katakana</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Value 1:</p>
+                              <p>none</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>ISO-IR 6</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>ISO 2022</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>ESC 02/08 04/02</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>GL</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>ISO 646:</p>
+                              <p>for delimiters</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Third:</p>
+                              <p>Phonetic</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Value 2:</p>
+                              <p>ISO 2022 IR 87</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>ISO-IR 87</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>ISO 2022</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>ESC 02/04 04/02</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>GL</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>JIS X 0208:</p>
+                              <p>Japanese hiragana, and katakana</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Value 1:</p>
+                              <p>none</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>ISO-IR 6</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>ISO 2022</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>ESC 02/08 04/02</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>GL</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>ISO 646:</p>
+                              <p>for delimiters</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_H.3.2" shape="rect"></a>H.3.2 Value 1 of Attribute Specific Character Set (0008,0005) is ISO 2022 IR 13.</h3>
+                  </div>
+               </div>
+            </div>
+            <div class="example">
+               <a id="example_H.3-2" shape="rect"></a>
+               <p class="title">
+                  <strong>Example H.3-2. Value 1 of Attribute Specific Character Set (0008,0005) is ISO 2022 IR 13</strong>
+               </p>
+               <div class="example-contents">
+                  <p>Specific Character Set:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: none; ">
+                        <li class="listitem" style="list-style-type: none">
+                           <p>(0008,0005) ISO 2022 IR 13\ISO 2022 IR 87</p>
+                        </li>
+                     </ul>
+                  </div>
+                  <p>Character String:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: none; ">
+                        <li class="listitem" style="list-style-type: none">
+                           <p>ヤマダ^タロウ=山田^太郎=やまだ^たろう</p>
+                        </li>
+                        <li class="listitem" style="list-style-type: none">
+                           <p>ヤマダ^タロウ= ESC 02/04 04/02 山田 ESC 02/08 04/10 ^ ESC 02/04 04/02 太郎 ESC 02/08 04/10 = ESC 02/04 04/02 やまだ ESC 02/08 04/10 ^ ESC 02/04 04/02 たろう ESC 02/08 04/10</p>
+                        </li>
+                     </ul>
+                  </div>
+                  <p>Encoded representation:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: none; ">
+                        <li class="listitem" style="list-style-type: none">
+                           <p>
+                              <code class="computeroutput">13/04 12/15 12/00 13/14 05/14 12/00 13/11 11/03 03/13 01/11 02/04 04/02 03/11 03/03 04/05 04/04 01/11 02/08 04/10 05/14 01/11 02/04 04/02 04/02 04/00 04/15 03/10 01/11 02/08 04/10 03/13 01/11 02/04 04/02 02/04 06/04 02/04 05/14 02/04 04/00 01/11 02/08 04/10 05/14 01/11 02/04 04/02 02/04 03/15 02/04 06/13 02/04 02/06 01/11 02/08 04/10</code>
+                           </p>
+                        </li>
+                     </ul>
+                  </div>
+                  <p>An example of what might be displayed or printed by an ASCII based machine that displays or prints the Control Character ESC (01/11) using \033:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: none; ">
+                        <li class="listitem" style="list-style-type: none">
+                           <p>
+                              <code class="computeroutput">\324\3l7\300\336^\300\333\263=\033$B;3ED\033(J^\033$BB@O:\033(J=\033$B$d$^$@\033(J^\033$B$?$m$&amp;\033(J</code>
+                           </p>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <br class="example-break" clear="none" />
+            <div class="table">
+               <a id="table_H.3-2" shape="rect"></a>
+               <p class="title">
+                  <strong>Table H.3-2. Character Sets and Escape Sequences Used in Example 2</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Character Set Description</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Component Group</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Value of (0008,0005) Defined Term</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>ISO Registration Number</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Standard for Code Extension</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>ESC Sequence</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Code Element</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Character Set: Purpose of Use</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Japanese</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>First:</p>
+                              <p>Single-byte</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Value 1:</p>
+                              <p>ISO 2022 IR 13</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>ISO-IR 13</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>ISO 2022</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>ESC 02/09 04/09</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>GR</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>JIS X 0201:</p>
+                              <p>Japanese katakana</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>ISO-IR 14</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>ISO 2022</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>ESC 02/08 04/10</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>GL</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>JIS X 0201:</p>
+                              <p>Japanese romaji for delimiters</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Second:</p>
+                              <p>Ideographic</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Value 2:</p>
+                              <p>ISO 2022 IR 87</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>ISO-IR 87</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>ISO 2022</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>ESC 02/04 04/02</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>GL</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>JIS X 0208:</p>
+                              <p>Japanese kanji, hiragana, katakana</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Value 1:</p>
+                              <p>ISO 2022 IR 13</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>ISO-IR 14</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>ISO 2022</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>ESC 02/08 04/10</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>GL</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>JIS X 0201:</p>
+                              <p>Japanese romaji for delimiters</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Third:</p>
+                              <p>Phonetic</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Value 2:</p>
+                              <p>ISO 2022 IR 87</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>ISO-IR 87</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>ISO 2022</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>ESC 02/04 04/02</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>GL</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>JIS X 0208:</p>
+                              <p>Japanese hiragana, and katakana</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Value 1:</p>
+                              <p>ISO 2022 IR 13</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>ISO-IR 14</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>ISO 2022</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>ESC 02/08 04/10</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>GL</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>JIS X 0201:</p>
+                              <p>Japanese romaji for delimiters</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_H.2.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_H.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_I.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">H.2 Internet Practice </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.5.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> I Character Sets and Person Name Value Representation in the Korean Language (Informative)</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

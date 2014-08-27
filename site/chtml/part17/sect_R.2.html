@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>R.2 Legacy Compatibility</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="chapter_R.html" title="R Configuration Use Cases (Informative)" />
+      <link rel="prev" href="chapter_R.html" title="R Configuration Use Cases (Informative)" />
+      <link rel="next" href="sect_R.3.html" title="R.3 Obtain Configuration of Other Devices" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">R.2 Legacy Compatibility</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_R.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">R Configuration Use Cases (Informative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_R.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_R.2" shape="rect"></a>R.2 Legacy Compatibility</h2>
+               </div>
+            </div>
+         </div>
+         <p>Legacy devices utilize some internal method for obtaining the IP addresses, port numbers, and AE Titles of the other devices. For legacy compatibility, a managed node must be controlled so that the IP addresses, port numbers, and AE Titles do not change. This affects DHCP because it is DHCP that assigns IP addresses. The LDAP database design must preserve port number and AE Title so that once the device is configured these do not change.</p>
+         <p>DHCP was designed to deal with some common legacy issues:</p>
+         <div class="orderedlist">
+            <ol class="orderedlist" type="a">
+               <li class="listitem">
+                  <p>Documenting legacy devices that do not utilize DHCP. Most DHCP servers can document a legacy device with a DHCP entry that describes the device. This avoids IP address conflicts. Since this is a manual process, there still remains the potential for errors. The DHCP server configuration is used to reserve the addresses and document how they are used. This documented entry approach is also used for complex multi-homed servers. These are often manually configured and kept with fixed configurations.</p>
+               </li>
+               <li class="listitem">
+                  <p>Specifying fixed IP addresses for DHCP clients. Many servers have clients that are not able to use DNS to obtain server IP addresses. These servers may also utilize DHCP for start up configuration. The DHCP servers must support the use of fixed IP allocations so that the servers are always assigned the same IP address. This avoids disrupting access by the server's legacy clients. This usage is quite common because it gives the IT administrators the centralized control that they need without disrupting operations. It is a frequent transitional stage for machines on networks that are transitioning to full DHCP operation.</p>
+               </li>
+            </ol>
+         </div>
+         <p>There are two legacy-related issues with time configuration:</p>
+         <div class="orderedlist">
+            <ol class="orderedlist" type="a">
+               <li class="listitem">
+                  <p>The NTP system operates in UTC. The device users probably want to operate in local time. This introduces additional internal software requirements to configure local time. DHCP will provide this information if that option is configured into the DHCP server.</p>
+               </li>
+               <li class="listitem">
+                  <p>Device clock setting must be documented correctly. Some systems set the battery-powered clock to local time; others use UTC. Incorrect settings will introduce very large time transient problems during start up. Eventually NTP clients do resolve the huge mismatch between battery clock and NTP clock, but the device may already be in medical use by the time this problem is resolved. The resulting time discontinuity can then pose problems. The magnitude of this problem depends on the particular NTP client implementation.</p>
+               </li>
+            </ol>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_R.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_R.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_R.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">R Configuration Use Cases (Informative) </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> R.3 Obtain Configuration of Other Devices</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

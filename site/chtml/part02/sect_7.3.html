@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>7.3 Rules Governing Types of SOP Classes</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.2.html" title="PS3.2" />
+      <link rel="up" href="chapter_7.html" title="7 Conformance Requirements" />
+      <link rel="prev" href="sect_7.2.html" title="7.2 DICOM Media Interchange Conformance Requirements" />
+      <link rel="next" href="sect_7.4.html" title="7.4 Rules Governing Types of Application Profiles" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">7.3 Rules Governing Types of SOP Classes</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_7.2.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">7 Conformance Requirements</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_7.4.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_7.3" shape="rect"></a>7.3 Rules Governing Types of SOP Classes</h2>
+               </div>
+            </div>
+         </div>
+         <p>Each SOP Class published in a Conformance Statement is one of four basic types. Each SOP Class in an implementation claiming conformance to the DICOM Standard shall be handled in accordance with the following rules, as dictated by the type of SOP Class.</p>
+         <p>Standard SOP Classes conform to all relevant Parts of the DICOM Standard with no additions or changes.</p>
+         <p>To claim conformance to a Standard SOP Class, an implementation shall make a declaration of this fact in its Conformance Statement, and identify its selected options, roles, and behavior.</p>
+         <p>Standard Extended SOP Classes shall:</p>
+         <div class="orderedlist">
+            <ol class="orderedlist" type="a">
+               <li class="listitem">
+                  <p>be a proper super set of one Standard SOP Class;</p>
+               </li>
+               <li class="listitem">
+                  <p>not change the semantics of any Standard Attribute of that Standard SOP Class;</p>
+               </li>
+               <li class="listitem">
+                  <p>not contain any Private Type 1, 1C, 2, or 2C Attributes, nor add additional Standard Type 1, 1C, 2 or 2C Attributes;</p>
+               </li>
+               <li class="listitem">
+                  <p>not change any Standard Type 3 Attributes to Type 1, 1C, 2, or 2C;</p>
+               </li>
+               <li class="listitem">
+                  <p>use the same UID as the Standard SOP Class on which it is based.</p>
+               </li>
+            </ol>
+         </div>
+         <p>A Standard Extended SOP Class may include Standard and/or Private Type 3 Attributes beyond those defined in the IOD on which it is based as long as the Conformance Statement identifies the added Attributes and defines their relationship with the <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a> information model.</p>
+         <p>An implementation claiming conformance with a Standard Extended SOP Class shall identify in its Conformance Statement the Standard SOP Class being extended, the options, roles, and behavior selected, and describe the Attributes being added with the Standard SOP Class's IOD Model and Modules.</p>
+         <p>Specialized SOP Classes shall:</p>
+         <div class="orderedlist">
+            <ol class="orderedlist" type="a">
+               <li class="listitem">
+                  <p>be completely conformant to relevant Parts of the DICOM Standard;</p>
+               </li>
+               <li class="listitem">
+                  <p>be based on a Standard SOP Class, i.e.:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>contain all the Type 1, 1C, 2, and 2C Attributes of Standard SOP Class on which it is based;</p>
+                        </li>
+                        <li class="listitem">
+                           <p>not change the semantics of any Standard Attribute;</p>
+                        </li>
+                        <li class="listitem">
+                           <p>use a Privately Defined UID for its SOP Class (i.e., shall not be identified with a DICOM Defined UID);</p>
+                        </li>
+                     </ul>
+                  </div>
+               </li>
+               <li class="listitem">
+                  <p>be based on the DICOM Information Model in <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a> and <a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a>.</p>
+               </li>
+            </ol>
+         </div>
+         <p>Specialized SOP Classes may:</p>
+         <div class="orderedlist">
+            <ol class="orderedlist" type="a">
+               <li class="listitem">
+                  <p>contain additional Standard and/or Private Type 1, 1C, 2, or 2C Attributes;</p>
+               </li>
+               <li class="listitem">
+                  <p>add Private and Standard Type 3 Attributes, which may or may not be published in the Conformance Statement.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>The usage of any unpublished Attributes may be ignored by other users and providers of the Specialized SOP Class.</p>
+                  </div>
+               </li>
+               <li class="listitem">
+                  <p>enumerate the permitted values for Attributes within the set allowed by the Standard SOP Class;</p>
+               </li>
+               <li class="listitem">
+                  <p>enumerate the permitted Templates for Content Items within the set allowed by the Standard SOP Class.</p>
+               </li>
+            </ol>
+         </div>
+         <p>An implementation claiming conformance with a Specialized SOP Class shall include in its Conformance Statement the identity of the Standard SOP Class being specialized, a description of usage of all Standard and Private Type 1, 1C, 2, and 2C Attributes in the Specialized SOP Class, a description of the constraints on Attributes values and Templates, and the associated Privately Defined UID.</p>
+         <p>Private SOP Classes shall:</p>
+         <div class="orderedlist">
+            <ol class="orderedlist" type="a">
+               <li class="listitem">
+                  <p>be completely conformant to relevant Parts of the DICOM Standard with the possible exception that support of the DICOM Default Transfer Syntax or a Transfer Syntax mandated by a media storage Application Profile is not required;</p>
+               </li>
+               <li class="listitem">
+                  <p>not change the <a href="../part06/PS3.6.html" class="olink" shape="rect">PS3.6</a> specification of any Standard Attributes;</p>
+               </li>
+               <li class="listitem">
+                  <p>use a Privately Defined UID for its SOP Class (i.e., shall not be identified with a DICOM Defined UID);</p>
+               </li>
+               <li class="listitem">
+                  <p>not change existing DIMSE Services or create new ones;</p>
+               </li>
+               <li class="listitem">
+                  <p>not change existing DICOM File Services defined in <a href="../part10/PS3.10.html" class="olink" shape="rect">PS3.10</a> or extend them in a manner that jeopardizes interoperability.</p>
+               </li>
+            </ol>
+         </div>
+         <p>Private SOP Classes may:</p>
+         <div class="orderedlist">
+            <ol class="orderedlist" type="a">
+               <li class="listitem">
+                  <p>use or apply DIMSE Services to privately defined or altered IODs (i.e., not necessarily be based on a Standard SOP Class);</p>
+               </li>
+               <li class="listitem">
+                  <p>use or apply Media Storage Operations to privately defined or altered IODs (i.e., not necessarily be based on a Standard SOP Class);</p>
+               </li>
+               <li class="listitem">
+                  <p>designate any Standard Attribute as Type 1, 1C, 2, or 2C regardless of the Type of the Attribute in other IODs;</p>
+               </li>
+               <li class="listitem">
+                  <p>define Private Attributes as Type 1, 1C, 2, or 2C;</p>
+               </li>
+               <li class="listitem">
+                  <p>include Private and Standard Type 3 Attributes, which may or may not be published in the Conformance Statement.</p>
+               </li>
+            </ol>
+         </div>
+         <p>An implementation claiming conformance with a Private SOP Class shall provide a <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>, <a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a>, and <a href="../part06/PS3.6.html" class="olink" shape="rect">PS3.6</a>-like description of the Private SOP Class in the implementation's Conformance Statement, including descriptions of the usage of all Standard and Private Type 1, 1C, 2, or 2C Attributes in the SOP Class, the DICOM Information Model, and the Privately Defined UIDs.</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <p>Unpublished SOP Classes (i.e., SOP Classes that are not defined in the DICOM Standard and are not defined in the Conformance Statement) are permitted in order to allow an implementation to support other abstract syntaxes within the DICOM Application Context. Such unpublished SOP Classes would utilize Privately Defined UIDs. The presence of an unpublished SOP Class does not prevent the implementation from being DICOM conformant but would have no meaning to other implementations and may be ignored.</p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_7.2.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_7.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_7.4.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">7.2 DICOM Media Interchange Conformance Requirements </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.2.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 7.4 Rules Governing Types of Application Profiles</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

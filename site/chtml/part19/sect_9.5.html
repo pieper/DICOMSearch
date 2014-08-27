@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>9.5 ObjectLocator</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.19.html" title="PS3.19" />
+      <link rel="up" href="chapter_9.html" title="9 Data Types and Structures" />
+      <link rel="prev" href="sect_9.4.html" title="9.4 ModelSetDescriptor" />
+      <link rel="next" href="sect_9.6.html" title="9.6 QueryResult" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">9.5 ObjectLocator</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_9.4.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">9 Data Types and Structures</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_9.6.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_9.5" shape="rect"></a>9.5 ObjectLocator</h2>
+               </div>
+            </div>
+         </div>
+         <p>A data structure that represents the location from which the recipient of a data object can retrieve that object. It consists of the following fields:</p>
+         <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+               <li class="listitem">
+                  <p>Locator : UUID - the UUID that the interface utilizes to track this particular ObjectLocator.</p>
+               </li>
+               <li class="listitem">
+                  <p>Source : UUID - the UUID of the source that is supplying data for this ObjectLocator. This UUID matches the UUID in the ObjectDescriptor if trying to retrieve the data in its natural form (e.g., as a file or byte stream). This UUID matches the UUID in a bulk data pointer when retrieving bulk data from a model.</p>
+               </li>
+               <li class="listitem">
+                  <p>TransferSyntax : UID - the transfer syntax in which this data is encoded, selected by source of the data from the list passed in by the recipient of the data in the acceptableTransferSyntaxUIDs parameter of the getData() call. This may be empty for those objects of a MIME content type where Transfer Syntax has no meaning.</p>
+               </li>
+               <li class="listitem">
+                  <p>Length: long - the length of the data object referred to by the UUID.</p>
+               </li>
+               <li class="listitem">
+                  <p>Offset: long - the offset within the file or byte stream where the data object begins.</p>
+               </li>
+               <li class="listitem">
+                  <p>URI: URI - the URI that identifies the resource from which the recipient might retrieve the data object, typically but not limited to a file on the local file system. The recipient shall be able to access the data within the object using file IO or memory mapping.</p>
+               </li>
+            </ul>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_9.4.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_9.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_9.6.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">9.4 ModelSetDescriptor </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.19.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 9.6 QueryResult</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

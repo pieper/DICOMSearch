@@ -1,0 +1,997 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>6 Form of Template Specifications</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.16.html" title="PS3.16" />
+      <link rel="up" href="PS3.16.html" title="PS3.16" />
+      <link rel="prev" href="chapter_5.html" title="5 Conventions" />
+      <link rel="next" href="sect_6.2.html" title="6.2 Special Conventions for Template Tables" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">6 Form of Template Specifications</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_5.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_6.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_6" shape="rect"></a>6 Form of Template Specifications</h1>
+               </div>
+            </div>
+         </div>
+         <p>Templates are patterns that specify the Concept Names, Requirements, Conditions, Value Types, Value Multiplicity, Value Set restrictions, Relationship Types and other attributes of Content Items for a particular application.</p>
+         <p>An IOD may specify that particular Standard Templates shall be used or may be used to define or constrain the content of a Content Item construct. A Content Item construct includes a coded concept name and one of several types of coded values. Content Item constructs are used in:</p>
+         <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+               <li class="listitem">
+                  <p>the main Data Set and recursively nested Content Sequences (0040,A730) of the SR Document Content Module</p>
+               </li>
+               <li class="listitem">
+                  <p>the Acquisition Context Sequence(0040,0555) of the Acquisition Context Module,</p>
+               </li>
+               <li class="listitem">
+                  <p>the Protocol Context Sequence (0040,0440) and Content Item Modifier Sequence (0040,0441) of the Scheduled Procedure Step Module, Image Acquisition Results Module, and others.</p>
+               </li>
+               <li class="listitem">
+                  <p>the Specimen Preparation Step Content Item Sequence (0040,0612) of the Specimen Module.</p>
+               </li>
+            </ul>
+         </div>
+         <p>Annexes A and C of this Part define Standard Templates.</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <p>Standard Extended and Private Templates may be defined by implementers of the Standard.
+        The rules for definition of Standard Extended and Private SR Templates are similar to the
+        rules for definition of Standard Extended and Private SOP Classes. One row of a Template
+        definition table corresponds to one row of a Module table.</p>
+         </div>
+         <p>Each Standard Template is specified by a Template table in this Part. Each Template table specifies exactly one Template, corresponding to a pattern of content within a Content Item construct.</p>
+         <p>Each Template table identifies whether the order of Content Items is significant or not significant. SOP Instances whose content is based on a Template where the order is significant shall encode the top level Content Items in the order they are specified in the Template, and the subsidiary Content Items under each parent item in the order they are specified, and so on for each Nesting Level. The significance of the order applies only to the Template itself; subsidiary included Templates may have a different order significance.</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <p>Even if a template specifies that the order is not significant, there may be significance to the order in which Content Items are encoded in a SOP Instance. For example, CONTAINER Content Items with attribute Continuity of Content (0040,A050) value CONTINUOUS encode Content Items in narrative sequence, and procedure logs encode Content Items in time order.</p>
+         </div>
+         <p>The Content Items from subsidiary templates may be intermingled if and only if the parent and subsidiary all specify that the order is not significant. This permits later refactoring into reusable templates.</p>
+         <p>The range of concepts and the options that are permitted in a family of SR Documents vary inversely with the level of constraint that is applied by the corresponding SR Template. The more narrow the range of concepts and the more restricted the options permitted by a Template, the more predictable the content of the SR Documents will be.</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="1">
+                  <li class="listitem">
+                     <p>A very specific Template defines a family of SR Documents that are very similar to each other. They have a narrow range of content options (e.g., high level of constraint of Content Item values; use of CODE or NUM with Enumerated Context Groups) and their content is therefore highly predictable. A very general (e.g., permissive or broad) Template defines a family of SR Documents that may differ considerably from one another. They have a broader range of content options (e.g., low level of constraint of Content Item values; use of TEXT and relatively little restriction of Content Item values) and their content is less predictable.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>The degree of interoperability that may be achieved with a family of SR Documents generated from a Template may be determined intentionally and precisely at a desired level by appropriate Template design to achieve the necessary degree of predictability of SR Document contents.</p>
+                  </li>
+               </ol>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_6.1" shape="rect"></a>6.1 Template Table Field Definition</h2>
+                  </div>
+               </div>
+            </div>
+            <p>SR Templates are described using tables of the following form:</p>
+            <div class="variablelist">
+               <dl class="variablelist compact">
+                  <dt>
+                     <span class="term">
+                        <span class="bold">
+                           <strong>Type:</strong>
+                        </span>
+                     </span>
+                  </dt>
+                  <dd>
+                     <p>
+                        <span class="bold">
+                           <strong>(Non-) Extensible</strong>
+                        </span>
+                     </p>
+                  </dd>
+                  <dt>
+                     <span class="term">
+                        <span class="bold">
+                           <strong>Order:</strong>
+                        </span>
+                     </span>
+                  </dt>
+                  <dd>
+                     <p>
+                        <span class="bold">
+                           <strong>(Non-) Significant</strong>
+                        </span>
+                     </p>
+                  </dd>
+               </dl>
+            </div>
+            <div class="table">
+               <a id="idp140443204645792" shape="rect"></a>
+               <p class="title">
+                  <strong>Table TID &lt;#&gt;. &lt;SR Context Template Name&gt;</strong>
+               </p>
+               <div class="table-contents">
+                  <table rules="all" frame="box">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>NL</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Rel with Parent</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>VT</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Concept Name</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>VM</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Req Type</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Condition</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Value Set Constraint</p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>2</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>3</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <p>Acquisition Context Templates are described using tables of the following form:</p>
+            <div class="variablelist">
+               <dl class="variablelist compact">
+                  <dt>
+                     <span class="term">
+                        <span class="bold">
+                           <strong>Type:</strong>
+                        </span>
+                     </span>
+                  </dt>
+                  <dd>
+                     <p>
+                        <span class="bold">
+                           <strong>(Non-) Extensible</strong>
+                        </span>
+                     </p>
+                  </dd>
+                  <dt>
+                     <span class="term">
+                        <span class="bold">
+                           <strong>Order:</strong>
+                        </span>
+                     </span>
+                  </dt>
+                  <dd>
+                     <p>
+                        <span class="bold">
+                           <strong>(Non-) Significant</strong>
+                        </span>
+                     </p>
+                  </dd>
+               </dl>
+            </div>
+            <div class="table">
+               <a id="idp140443204705888" shape="rect"></a>
+               <p class="title">
+                  <strong>Table TID &lt;#&gt;. &lt;Acquisition Context Template Name&gt;</strong>
+               </p>
+               <div class="table-contents">
+                  <table rules="all" frame="box">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>VT</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Concept Name</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>VM</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Req Type</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Condition</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Value Set Constraint</p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>2</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>3</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <p>Protocol Context Templates are described using tables of the following form:</p>
+            <div class="variablelist">
+               <dl class="variablelist compact">
+                  <dt>
+                     <span class="term">
+                        <span class="bold">
+                           <strong>Type:</strong>
+                        </span>
+                     </span>
+                  </dt>
+                  <dd>
+                     <p>
+                        <span class="bold">
+                           <strong>(Non-) Extensible</strong>
+                        </span>
+                     </p>
+                  </dd>
+                  <dt>
+                     <span class="term">
+                        <span class="bold">
+                           <strong>Order:</strong>
+                        </span>
+                     </span>
+                  </dt>
+                  <dd>
+                     <p>
+                        <span class="bold">
+                           <strong>(Non-) Significant</strong>
+                        </span>
+                     </p>
+                  </dd>
+               </dl>
+            </div>
+            <div class="table">
+               <a id="idp140443204755184" shape="rect"></a>
+               <p class="title">
+                  <strong>Table TID &lt;#&gt;. &lt;Protocol Context Template Name&gt;</strong>
+               </p>
+               <div class="table-contents">
+                  <table rules="all" frame="box">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>NL</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>VT</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Concept Name</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>VM</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Req Type</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Condition</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Value Set Constraint</p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>2</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>3</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <p>The semantics of the fields (columns) of Template tables are defined by subsections of this Section. A row of a Template table specifies either one Content Item or inclusion of another Template that may specify any number of Content Items (see <a class="xref" href="sect_6.2.html#sect_6.2.3" title="6.2.3 Inclusion of Templates" shape="rect">Section 6.2.3</a> for definition of Included Templates). Each Template table is named by a title, identified by a TID number and further explained by a description such as explanation of Template contents, purpose and use cases.</p>
+            <p>The following conventions are defined for the form of references to coded concepts,
+        Context Groups and Templates.</p>
+            <p>Code Meanings are enclosed in quotation marks (for example "cm"). Code Values and Coding Scheme Designators are not enclosed in quotation marks unless a comma occurs in the string.</p>
+            <p>References to coded concepts take the following form:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>EV or DT (CV, CSD, "CM")</p>
+                     <p>e.g., an Enumerated Value with only CV, CSD, and CM defined is represented as follows: EV (CV, CSD, "CM"), for example EV (T-04000, SNM3, "Breast").</p>
+                  </li>
+                  <li class="listitem">
+                     <p>MemberOf { BCID or DCID (CID) CNAME } MemberOf selects one term from the specified context group.</p>
+                  </li>
+               </ul>
+            </div>
+            <p>If reference to a specific coding scheme version is required, it takes the following form:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>EV or DT (CV, CSD [CSV], "CM")</p>
+                     <p>e.g., DT (D3-81922, SRT [V1], "Aortic fistula").</p>
+                  </li>
+               </ul>
+            </div>
+            <p>References to Context Groups take the following form:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>BCID or DCID (CID) CNAME</p>
+                     <p>e.g., Defined Context Group 5000 is represented as follows: DCID (5000) Language.</p>
+                  </li>
+               </ul>
+            </div>
+            <p>References to Templates take the following form:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>BTID or DTID (TID) TNAME</p>
+                     <p>e.g., Baseline Template 1000 is represented as follows: BTID (1000) Quotation.</p>
+                  </li>
+               </ul>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_6.1.1" shape="rect"></a>6.1.1 Row Number</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>Each row of a Template Table is denoted by a row number. The first row is numbered 1 and subsequent rows are numbered in ascending order with increments of 1. This number denotes a row for convenient description as well as reference in conditions. The Row Number of a Content Item in a Template may or may not be the same as the ordinal position of the corresponding Sequence Item (representing the Content Item) in a Content Sequence (0040,A730), depending on the number of times the Content Item is repeated.</p>
+               <p>The Content Item specified in the first row of a Template table may be of any Value Type. Specifically, it is not constrained to be a CONTAINER.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_6.1.2" shape="rect"></a>6.1.2 Nesting Level (NL)</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>The nesting level of Content Items is denoted by "&gt;" symbols, one per level of nesting below the initial Source Content Item (of the Template) in a manner similar to the depiction of nested Sequences of Items in Modules Tables in <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>. When it is necessary to specify the Target Content Item(s) of a relationship, they are specified in the row(s) immediately following the corresponding Source Content Item. The Nesting Level of a Target Content Item is one greater than the Nesting Level of the corresponding (parent) Source Content Item. The Content Item specified in row 1 of a Template Table is at the top level (i.e., no "&gt;" symbol is ever present in the NL field for the first Content Item in the table).</p>
+               <p>Acquisition Context templates have no Nesting Level field. Protocol Context and UPS Processing Parameter templates allow a single Nesting Level implemented through the Content Item Modifier Sequence (see <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>).</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_6.1.3" shape="rect"></a>6.1.3 Relationship With Source Content Item (Parent)</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>Relationship Type and Relationship Mode (i.e., By-value or By-reference) constraints, if defined, are specified in this field, as described 
+        <a class="xref" href="chapter_6.html#table_6.1.3-1" title="Table 6.1.3-1. Syntax of Relationship Constraints" shape="rect">Table 6.1.3-1</a>.</p>
+               <p>Relationship Type and Mode are specified for each row that specifies a target content item.</p>
+               <p>Relationship Type and Mode may also be specified when another Template is included, either "top-down" or "bottom-up" or both (i.e., in the "INCLUDE Template" row of the calling Template, or in all rows of the included Template, or in both places). There shall be no conflict between the Relationship Type and Mode of a row that includes another Template and the Relationship Type and Mode of the rows of the included Template.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>SR IODs specify Enumerated Values for Relationship Types. If a Relationship Type other than one of the Defined Terms for Relationship Type (0040,A010) is specified in a Private SOP Class, there is a significant risk to interoperability. Documentation accompanying Templates for Private SOP Classes should define any Relationship-type extensions in the manner that the Standard Relationship Types are defined in <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>.</p>
+               </div>
+               <p>Acquisition Context and Protocol Context templates have no Relationship field.</p>
+               <div class="table">
+                  <a id="table_6.1.3-1" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table 6.1.3-1. Syntax of Relationship Constraints</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table rules="all" frame="box">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Expression</p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Definition</p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>RTYPE</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Relationship Mode is By-value and Relationship Type is RTYPE. For example, "INFERRED FROM".</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>R-RTYPE</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Relationship Mode is By-reference and Relationship Type is RTYPE. For example, "R-INFERRED FROM".</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_6.1.4" shape="rect"></a>6.1.4 Value Type (VT)</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>The Value Type field specifies the SR Value Type of the Content Item or conveys the word "INCLUDE" to indicate that another Template is to be included (substituted for the row). See <a class="xref" href="sect_6.2.html#sect_6.2.3" title="6.2.3 Inclusion of Templates" shape="rect">Section 6.2.3</a> for further description of "Included Templates".</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_6.1.5" shape="rect"></a>6.1.5 Concept Name</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>Any constraints on Concept Name are specified in this field as defined or enumerated coded entries, or as baseline or defined context groups. Alternatively, when the VT field is "INCLUDE", the Concept Name field specifies the template to be included.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_6.1.6" shape="rect"></a>6.1.6 Value Multiplicity (VM)</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>The VM field indicates the number of times that either a Content Item of the specified pattern or an included Template may appear in this position. Table 6.1.6-1 specifies the values that are permitted in this field.</p>
+               <div class="table">
+                  <a id="table_6.1.6-1" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table 6.1.6-1. Permitted Values for VM</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table rules="all" frame="box">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Expression</p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Definition</p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>i (where 'i' represents an integer)</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Exactly i occurrences, where i&gt;=1. E.g., when i=1 there shall be one occurrence of the Content Item in this position.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>i-j (where 'i' and 'j' represent integers)</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>From i to j occurrences, where i and j are &gt;=1 and j&gt;i.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>i-n (where 'i' and 'n' represent integers)</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>i or more occurrences, where i&gt;=1.</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_6.1.7" shape="rect"></a>6.1.7 Requirement Type</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>The Requirement Type field specifies the requirements on the presence or absence of the Content Item or included Template.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>There is typically no need to specify Requirement Type separately for SCU and SCP of the Basic SR SOP Classes, because the SCP is required to support the entire content of any SR Document it receives. Therefore, for Basic SR SOP Classes, Requirement Type effectively only applies to the SCU.</p>
+               </div>
+               <p>The following symbols are used:</p>
+               <div class="variablelist">
+                  <dl class="variablelist compact">
+                     <dt>
+                        <span class="term">M</span>
+                     </dt>
+                     <dd>
+                        <p>Mandatory. Shall be present.</p>
+                     </dd>
+                     <dt>
+                        <span class="term">MC</span>
+                     </dt>
+                     <dd>
+                        <p>Mandatory Conditional. Shall be present if the specified condition is satisfied.</p>
+                     </dd>
+                     <dt>
+                        <span class="term">U</span>
+                     </dt>
+                     <dd>
+                        <p>User Option. May or may not be present.</p>
+                     </dd>
+                     <dt>
+                        <span class="term">UC</span>
+                     </dt>
+                     <dd>
+                        <p>User Option Conditional. May not be present. May be present according to the specified condition.</p>
+                     </dd>
+                  </dl>
+               </div>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>There is an interaction between the VM and the Requirement Type with respect to the number of times that a content item (or included Template) may actually be present, as follows:</p>
+                  <div class="informaltable">
+                     <table rules="all" frame="box">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Req Type</p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>VM</p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Actual number of occurrences in the content tree</p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>M</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>M</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1-n</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1 to n</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>U</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>0 or 1</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>U</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1-n</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>0 to n</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_6.1.8" shape="rect"></a>6.1.8 Condition</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>The Condition field specifies any conditions upon which presence or absence of the Content Item or its values depends. This field specifies any Concept Name(s) or Values upon which there are dependencies.</p>
+               <p>References in Condition statements to coded concepts or values, whether to select a content item to test or to specify a value to test against, are of the form (CV, CSD, "CM"). As is always the case for coded entries, the matching is performed against CV and CSD, irrespective of the string value of CM.</p>
+               <p>References may also be made to row numbers (e.g., to specify exclusive OR conditions that span multiple rows of a Template table).</p>
+               <p>The following abbreviations are used:</p>
+               <div class="variablelist">
+                  <dl class="variablelist compact">
+                     <dt>
+                        <span class="term">XOR</span>
+                     </dt>
+                     <dd>
+                        <p>Exclusive OR. One and only one row shall be selected from mutually-exclusive options.</p>
+                        <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                           <h3 class="title">Note</h3>
+                           <p>For example, if one of rows 1, 2, 3 or 4 may be included, then for row 2, the abbreviation "XOR rows 1, 3, 4" is specified for the condition.</p>
+                        </div>
+                     </dd>
+                     <dt>
+                        <span class="term">IF</span>
+                     </dt>
+                     <dd>
+                        <p>Shall be present if the condition is TRUE; may be present otherwise.</p>
+                     </dd>
+                     <dt>
+                        <span class="term">IFF</span>
+                     </dt>
+                     <dd>
+                        <p>If and only if. Shall be present if the condition is TRUE; shall not be present otherwise.</p>
+                     </dd>
+                  </dl>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_6.1.9" shape="rect"></a>6.1.9 Value Set Constraint</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>Value Set Constraints, if any, are specified in this field as defined or enumerated coded entries, or as baseline or defined context groups.</p>
+               <p>The Value Set Constraint column may specify a default value for the Content Item if
+          the Content Item is not present, either as a fixed value, or by reference to another
+          Content Item, or by reference to an Attribute from the data set other than within the
+          Content Sequence (0040,A730).</p>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_6.1.9.1" shape="rect"></a>6.1.9.1 NUM Units Constraint</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Constraints on units of measurement, if any, are specified in the Value Set Constraint field if and only if the Value Type is NUM. The constraints are specified either as defined or enumerated coded entries, or as baseline or defined context groups.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_6.1.9.2" shape="rect"></a>6.1.9.2 CONTAINER Continuation Flag Constraint</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The value of the Continuity of Content Flag (0040,A050) may be specified in the Value Set Constraint field if and only if the Value Type is CONTAINER.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>The SR Document Content Module specifies "SEPARATE" and "CONTINUOUS" as the Enumerated Values for Continuity of Content Flag (0040,A050).</p>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_6.1.9.3" shape="rect"></a>6.1.9.3 SCOORD Graphic Type Constraint</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Constraints on the value of the Graphic Type(0070,0023) may be specified in the Value Set Constraint field if and only if the Value Type is SCOORD. The constraint may specify a set of allowed values, or a set of disallowed values. For example:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>GRAPHIC TYPE = {POINT}</p>
+                        </li>
+                        <li class="listitem">
+                           <p>GRAPHIC TYPE = {CIRCLE, ELLIPSE}</p>
+                        </li>
+                        <li class="listitem">
+                           <p>GRAPHIC TYPE = not {MULTIPOINT}</p>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_5.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_6.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">5 Conventions </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.16.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 6.2 Special Conventions for Template Tables</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>E.4 CAD Operating Point</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="chapter_E.html" title="E Mammography CAD (Informative)" />
+      <link rel="prev" href="sect_E.3.html" title="E.3 Mammography CAD SR Examples" />
+      <link rel="next" href="sect_E.5.html" title="E.5 Mammography CAD SR and For Processing / For Presentation Images" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">E.4 CAD Operating Point</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_E.3.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">E Mammography CAD (Informative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_E.5.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_E.4" shape="rect"></a>E.4 CAD Operating Point</h2>
+               </div>
+            </div>
+         </div>
+         <p>Computer-aided detection algorithms often compute an internal "CAD score" for each Single Image Finding detected by the algorithm. In some implementations the algorithms then group the findings into "bins" as a function of their CAD score. The number of bins is a function of the algorithm and the manufacturer's implementation, and must be one or more. The bins allow an application that is displaying CAD marks to provide a number of operating points on the Free-response Receiver-Operating Characteristic (FROC) curve for the algorithm, as illustrated in <a class="xref" href="sect_E.4.html#figure_E.4-1" title="Figure E.4-1. Free-response Receiver-Operating Characteristic (FROC) curve" shape="rect">Figure E.4-1</a>.</p>
+         <p>
+        </p>
+         <div class="figure">
+            <a id="figure_E.4-1" shape="rect"></a>
+            <div class="figure-contents">
+               <div class="mediaobject">
+                  <img src="figures/PS3.17_E.4-1.svg" alt="Free-response Receiver-Operating Characteristic (FROC) curve" />
+               </div>
+            </div>
+            <p class="title">
+               <strong>Figure E.4-1. Free-response Receiver-Operating Characteristic (FROC) curve</strong>
+            </p>
+         </div>
+         <p>
+            <br class="figure-break" clear="none" />
+         </p>
+         <p>This is accomplished by displaying all CAD marks of Rendering Intent "Presentation Required" or "Presentation Optional" according to the following rules:</p>
+         <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+               <li class="listitem">
+                  <p>if the display application's Operating Point is 0, only marks with a Rendering Intent = "Presentation Required" are displayed</p>
+               </li>
+               <li class="listitem">
+                  <p>if the display application's Operating Point is 1, then marks with a Rendering Intent = "Presentation Required" and marks with a Rendering Intent = "Presentation Optional" with a CAD Operating Point = 1 are displayed</p>
+               </li>
+               <li class="listitem">
+                  <p>if the display application's Operating Point is n, then marks with a Rendering Intent = "Presentation Required" and marks with a Rendering Intent = "Presentation Optional" with a CAD Operating Point &lt;= n are displayed</p>
+               </li>
+            </ul>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_E.3.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_E.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_E.5.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">E.3 Mammography CAD SR Examples </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> E.5 Mammography CAD SR and For Processing / For Presentation Images</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

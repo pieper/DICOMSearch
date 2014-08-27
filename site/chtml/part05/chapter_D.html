@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>D Examples of Various Pixel Data and Overlay Encoding Schemes (Informative)</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.5.html" title="PS3.5" />
+      <link rel="up" href="PS3.5.html" title="PS3.5" />
+      <link rel="prev" href="chapter_C.html" title="C DICOM Unique Identifier Registration Process (Informative)" />
+      <link rel="next" href="sect_D.2.html" title="D.2 Various Additional Examples of Pixel and Overlay Data Cells" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">D Examples of Various Pixel Data and Overlay Encoding Schemes (Informative)</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_C.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_D.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_D" shape="rect"></a>D Examples of Various Pixel Data and Overlay Encoding Schemes (Informative)</h1>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_D.1" shape="rect"></a>D.1 Detailed Example of Pixel Data Encoding</h2>
+                  </div>
+               </div>
+            </div>
+            <p>As specified in <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>, Image Pixel Data is stored within the Value of the Pixel Data Element (7FE0,0010). The order in which Pixel Data for an image plane is encoded is from left to right and top to bottom, a row at a time (see Figure <a class="xref" href="chapter_D.html#figure_D-1" title="Figure D-1. An Image Pixel Plane" shape="rect">D-1</a>).</p>
+            <p>
+        </p>
+            <div class="figure">
+               <a id="figure_D-1" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.5_D-1.svg" alt="An Image Pixel Plane" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure D-1. An Image Pixel Plane</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+            <p>An individual pixel may consist of one or more Pixel Sample Values (e.g., color or multi-planar images). Each Pixel Sample Value can be expressed as either a binary 2's complement integer or a binary unsigned integer, as specified by the Pixel Representation Data Element (0028, 0103). The number of bits in each Pixel Sample Value is specified by Bits Stored (0028,0101). For 2's complement integer Pixel Samples the sign bit is the most significant bit of the Pixel Sample Value.</p>
+            <p>A Pixel Cell is the container for a Pixel Sample Value and optionally additional bits. These additional bits can be used for overlay planes, or to place Pixels on certain boundaries (byte, word, etc.). A Pixel Cell exists for every individual Pixel Sample Value in the Pixel Data. The size of the Pixel Cells is specified by Bits Allocated (0028,0100) and is greater than or equal to the Bits Stored (0028,0101). The placement of the Pixel Sample Values within the Pixel Cells is specified by High Bit (0028,0102).</p>
+            <p>Any restrictions on the characteristics of a Pixel Cell and the Pixel Sample Value contained therein are specific to the Information Object Definition (e.g., Image Object) containing the Pixel Data Element (see <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>).</p>
+            <p>The Pixel Data Element, as specified by the DICOM Default Transfer Syntax in <a class="xref" href="chapter_10.html#sect_10.1" title="10.1 DICOM Default Transfer Syntax" shape="rect">Section 10.1</a>, has a Value Representation of OW (Other Word String). The Pixel Data in DICOM 3.0, as it was in ACR-NEMA 2.0, is packed (see Figure <a class="xref" href="chapter_D.html#figure_D-2" title="Figure D-2. Encoding (Packing) of Arbitrary Pixel Data with a VR of OW" shape="rect">D-2</a>). One way to visualize this packed encoding is to imagine encoding the Pixel Cells as a concatenated stream of bits from the least significant bit of the first Pixel Cell up through the most significant bit of the last Pixel Cell. Within this stream, the most significant bit of any Pixel Cell is followed by the least significant bit of the next Pixel Cell. The Pixel Data can then be broken up into a stream of physical 16-bit words, each of which is subject to the byte ordering constraints of the Transfer Syntax.</p>
+            <p>All other (non-default) DICOM Transfer Syntaxes make use of explicit VR encoding. For these Transfer Syntaxes, all Pixel Data where Bits Allocated is less than or equal to 8 may be encoded with an explicit VR of OB (see <a class="xref" href="chapter_A.html" title="A Transfer Syntax Specifications (Normative)" shape="rect"> Annex A</a>). As in the OW case, Pixel Cells are packed together, but in this case the Pixel Data is broken up into a stream of physical 8-bit words.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>For Pixel Data encoded with an explicit VR of OB, the encoding of the Pixel Data is unaffected by Little Endian or Big Endian byte ordering.</p>
+            </div>
+            <p>
+        </p>
+            <div class="figure">
+               <a id="figure_D-2" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.5_D-2.svg" alt="Encoding (Packing) of Arbitrary Pixel Data with a VR of OW" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure D-2. Encoding (Packing) of Arbitrary Pixel Data with a VR of OW</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+            <p>IODs tend to specify Pixel Cells so that they begin and end on byte or word boundaries and such that the Pixel Sample Value contained within also fits 'neatly' within a cell. However, this does not have to be the case.</p>
+            <p>We now carry forward two examples of Pixel Data encoding using the Value representation of OW for the purposes of clarification. Example 1 will be a valid example for a CT Image Information Object, while Example 2 will be for a hypothetical information object (see Figure <a class="xref" href="chapter_D.html#figure_D-3" title="Figure D-3. Example Pixel Cells" shape="rect">D-3</a>).</p>
+            <p>
+        </p>
+            <div class="figure">
+               <a id="figure_D-3" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.5_D-3.svg" alt="Example Pixel Cells" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure D-3. Example Pixel Cells</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+            <p>Figure D-4 shows Pixel Data constructed of these example Pixel Cells as they are packed into a stream of 16-bit words.</p>
+            <p>
+        </p>
+            <div class="figure">
+               <a id="figure_D-4" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.5_D-4.svg" alt="Example Pixel Cells Packed into 16-bit Words (VR = OW)" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure D-4. Example Pixel Cells Packed into 16-bit Words (VR = OW)</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+            <p>Byte ordering becomes a consideration when we represent the Pixel Data physically, in memory, a file, or on a network.</p>
+            <p>In the memory of a byte-addressable Big Endian machine, the highest order byte (bits 8 - 15) in each 16-bit word has a binary address of x...x0. While in a byte-addressable Little Endian machine, the lowest order byte (bits 0 - 7) in each 16-bit word has a binary address of x...x0. Figure D-5 pictures our example Pixel Data streams as they would be addressed in the memory of both a Big Endian and a Little Endian machine.</p>
+            <p>
+        </p>
+            <div class="figure">
+               <a id="figure_D-5" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.5_D-5.svg" alt="Example Pixel Cells Byte Ordered in Memory (VR = OW)" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure D-5. Example Pixel Cells Byte Ordered in Memory (VR = OW)</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+            <p>Byte ordering is also specified as part of the negotiated Transfer Syntax used in the exchange of a DICOM message. Sixteen bit words are transmitted across the network (a byte at a time) least significant byte first in the case of a Little Endian Transfer Syntax and most significant byte first when using a Big Endian Transfer Syntax (see Figure <a class="xref" href="chapter_D.html#figure_D-6" title="Figure D-6. Sample Pixel Data Byte Streams (VR = OW)" shape="rect">D-6</a>).</p>
+            <p>
+        </p>
+            <div class="figure">
+               <a id="figure_D-6" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.5_D-6.svg" alt="Sample Pixel Data Byte Streams (VR = OW)" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure D-6. Sample Pixel Data Byte Streams (VR = OW)</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+            <p>As a last pair of examples, for Pixel Data having the Value Representation OW and the following attributes: 8 bits allocated, 8 bits stored, and a high bit of 7; the resulting byte streams pictured in <a class="xref" href="chapter_D.html#figure_D-7" title="Figure D-7. Sample Pixel Data Byte Streams for 8-bits Allocated and 8-bits Stored (VR = OW)" shape="rect">Figure D-7</a> are as they would be transmitted across a network and/or stored on media. For Pixel Data having the same attributes, but having the explicit Value Representation OB; the resulting byte streams are unaffected by byte ordering and are pictured in <a class="xref" href="chapter_D.html#figure_D-8" title="Figure D-8. Sample Pixel Data Byte Streams for 8-bits Allocated and 8-bits Stored (Explicit VR = OB)" shape="rect">Figure D-8</a>.</p>
+            <p>
+        </p>
+            <div class="figure">
+               <a id="figure_D-7" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.5_D-7.svg" alt="Sample Pixel Data Byte Streams for 8-bits Allocated and 8-bits Stored (VR = OW)" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure D-7. Sample Pixel Data Byte Streams for 8-bits Allocated and 8-bits Stored (VR = OW)</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+            <p>
+        </p>
+            <div class="figure">
+               <a id="figure_D-8" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.5_D-8.svg" alt="Sample Pixel Data Byte Streams for 8-bits Allocated and 8-bits Stored (Explicit VR = OB)" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure D-8. Sample Pixel Data Byte Streams for 8-bits Allocated and 8-bits Stored (Explicit VR = OB)</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_C.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_D.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">C DICOM Unique Identifier Registration Process (Informative) </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.5.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> D.2 Various Additional Examples of Pixel and Overlay Data Cells</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

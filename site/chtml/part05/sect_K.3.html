@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>K.3 Example of Long Text Value Representation in the Chinese Language with Explicit Escape Sequences Between GB2312 G0 and GB2312 G1</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.5.html" title="PS3.5" />
+      <link rel="up" href="chapter_K.html" title="K Character Sets and Person Name Value Representation in the Chinese Language with Code Extensions (Informative)" />
+      <link rel="prev" href="sect_K.2.html" title="K.2 Example of Person Name Value Representation in the Chinese Language" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">K.3 Example of Long Text Value Representation in the Chinese Language with Explicit Escape Sequences Between GB2312 G0 and GB2312 G1</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_K.2.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">K Character Sets and Person Name Value Representation in the Chinese Language with Code Extensions (Informative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_K.3" shape="rect"></a>K.3 Example of Long Text Value Representation in the Chinese Language with Explicit Escape Sequences Between GB2312 G0 and GB2312 G1</h2>
+               </div>
+            </div>
+         </div>
+         <div class="example">
+            <a id="sect_K.3-1" shape="rect"></a>
+            <p class="title">
+               <strong>Example K.3-1. Example of Long Text Value Representation in the Chinese Language with Explicit Escape Sequences Between GB2312 G0 and GB2312 G1</strong>
+            </p>
+            <div class="example-contents">
+               <p>Chinese (ISO 2022 IR 58) and ASCII (ISO 646) character sets can be used intermingled with explicit escape sequences between them. The Chinese character set ISO IR 58 is invoked to the G1 area, and the ASCII character set is invoked the G0 area. The following is an example of a Long Text value representation that includes ASCII and Chinese character set. Every line must start in ASCII, end in ASCII.</p>
+               <p>Specific Character Set:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: none; ">
+                     <li class="listitem" style="list-style-type: none">
+                        <p>(0008,0005) \ISO 2022 IR 58</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>Character String:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: none; ">
+                     <li class="listitem" style="list-style-type: none">
+                        <p>1) 第一行文字。</p>
+                        <p>2) 第二行文字。</p>
+                        <p>3) 第三行文字。</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>Encoded String:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: none; ">
+                     <li class="listitem" style="list-style-type: none">
+                        <p>1) ESC 02/04 02/09 04/01 第一行文字。ESC 02/08 04/02</p>
+                        <p>2) ESC 02/04 02/09 04/01 第二行文字。ESC 02/08 04/02</p>
+                        <p>3) ESC 02/04 02/09 04/01 第三行文字。ESC 02/08 04/02</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>Character encoded representation (GB2312):</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: none; ">
+                     <li class="listitem" style="list-style-type: none">
+                        <p>
+                           <code class="computeroutput">0x31 0x2e </code>
+                           <span class="bold">
+                              <strong>
+                                 <code class="computeroutput">0x1B 0x24 0x29 0x41</code>
+                              </strong>
+                           </span>
+                           <code class="computeroutput"> </code>
+                           <span class="underline">
+                              <code class="computeroutput">0xB5 0xDA 0xD2 0xBB 0xD0 0xD0 0xCE 0xC4 0xD7 0xD6 0xA1 0xA3</code>
+                           </span>
+                           <code class="computeroutput"> </code>
+                           <span class="bold">
+                              <strong>
+                                 <code class="computeroutput">0x1B 0x28 0x42</code>
+                              </strong>
+                           </span>
+                           <code class="computeroutput"> 0x0D 0x0A</code>
+                        </p>
+                        <p>
+                           <code class="computeroutput">0x32 0x2e </code>
+                           <span class="bold">
+                              <strong>
+                                 <code class="computeroutput">0x1B 0x24 0x29 0x41</code>
+                              </strong>
+                           </span>
+                           <code class="computeroutput"> </code>
+                           <span class="underline">
+                              <code class="computeroutput">0xB5 0xDA 0xB6 0xFE 0xD0 0xD0 0xCE 0xC4 0xD7 0xD6 0xA1 0xA3</code>
+                           </span>
+                           <code class="computeroutput"> </code>
+                           <span class="bold">
+                              <strong>
+                                 <code class="computeroutput">0x1B 0x28 0x42</code>
+                              </strong>
+                           </span>
+                           <code class="computeroutput"> 0x0D 0x0A</code>
+                        </p>
+                        <p>
+                           <code class="computeroutput">0x33 0x2e </code>
+                           <span class="bold">
+                              <strong>
+                                 <code class="computeroutput">0x1B 0x24 0x29 0x41</code>
+                              </strong>
+                           </span>
+                           <code class="computeroutput"> </code>
+                           <span class="underline">
+                              <code class="computeroutput">0xB5 0xDA 0xC8 0xFD 0xD0 0xD0 0xCE 0xC4 0xD7 0xD6 0xA1 0xA3</code>
+                           </span>
+                           <code class="computeroutput"> </code>
+                           <span class="bold">
+                              <strong>
+                                 <code class="computeroutput">0x1B 0x28 0x42</code>
+                              </strong>
+                           </span>
+                           <code class="computeroutput"> 0x0D 0x0A 0x20</code>
+                        </p>
+                     </li>
+                  </ul>
+               </div>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>The underlined byte codes correspond to double byte characters, the bold byte codes to escape sequences.</p>
+               </div>
+            </div>
+         </div>
+         <br class="example-break" clear="none" />
+         <div class="table">
+            <a id="table_K.3-1" shape="rect"></a>
+            <p class="title">
+               <strong>Table K.3-1. Character Sets and Escape Sequences used in the Examples of Person Name</strong>
+            </p>
+            <div class="table-contents">
+               <table frame="box" rules="all">
+                  <thead>
+                     <tr valign="top">
+                        <th align="center" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Character Set Description</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="center" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Component Group</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="center" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Value of (0008,0005) Defined Term</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="center" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>ISO registration number</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="center" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Standard for Code Extension</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="center" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>ESC Sequence</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="center" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Code Element</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="center" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Character Set: Purpose of Use</strong>
+                              </span>
+                           </p>
+                        </th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr valign="top">
+                        <td align="left" rowspan="3" colspan="1">
+                           <p>Chinese</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>First:</p>
+                           <p>Phonetic</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Value 1:</p>
+                           <p>none</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>ISO-IR 6</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1"></td>
+                        <td align="left" rowspan="1" colspan="1"></td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>G0</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>ISO 646:</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Second:</p>
+                           <p>Ideographic</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Value 1:</p>
+                           <p>ISO 2022 IR 58</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>ISO-IR58</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>ISO 2022</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>ESC 02/04 02/09 04/01</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>G1</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>ISO 2022 CN:</p>
+                           <p>Chinese</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Third:</p>
+                           <p>Alphabetic (English name)</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Value 1:</p>
+                           <p>none</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>ISO-IR 6</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>ISO 2022</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>ESC 02/08 04/02</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>G0</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>ISO 646:</p>
+                           <p>For delimiters</p>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <br class="table-break" clear="none" />
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_K.2.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_K.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">K.2 Example of Person Name Value Representation in the Chinese Language </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.5.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> </td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

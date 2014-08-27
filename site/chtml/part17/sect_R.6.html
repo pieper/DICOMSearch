@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>R.6 Time Synchronization</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="chapter_R.html" title="R Configuration Use Cases (Informative)" />
+      <link rel="prev" href="sect_R.5.html" title="R.5 Shutdown" />
+      <link rel="next" href="chapter_S.html" title="S Legacy Transition For Configuration Management (Informative)" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">R.6 Time Synchronization</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_R.5.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">R Configuration Use Cases (Informative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_S.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_R.6" shape="rect"></a>R.6 Time Synchronization</h2>
+               </div>
+            </div>
+         </div>
+         <p>Medical device time requirements primarily deal with synchronization of machines on a local network or campus. There are very few requirements for accurate time (synchronized with an international reference clock). DICOM time users are usually concerned with:</p>
+         <div class="orderedlist">
+            <ol class="orderedlist" type="a">
+               <li class="listitem">
+                  <p>local time synchronization between machines</p>
+               </li>
+               <li class="listitem">
+                  <p>local time base stability. This means controlling the discontinuities in the local time and its first derivative. There is also an upper bound on time base stability errors that results from the synchronization error limits.</p>
+               </li>
+               <li class="listitem">
+                  <p>international time synchronization with the UTC master clocks</p>
+               </li>
+            </ol>
+         </div>
+         <p>Other master clocks and time references (e.g., sidereal time) are not relevant to medical users.</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_R.6.1" shape="rect"></a>R.6.1 High Accuracy Time Synchronization</h3>
+                  </div>
+               </div>
+            </div>
+            <p>High accuracy time synchronization is needed for devices like cardiology equipment. The measurements taken on various different machines are recorded with synchronization modules specifying the precise time base for measurements such as waveforms and multi-frame images. These are later used to synchronize data for analysis and display.</p>
+            <p>Typical requirements are:</p>
+            <p>
+               <span class="bold">
+                  <strong>Local synchronization</strong>
+               </span>
+            </p>
+            <p>Synchronized to within approximately 10 millisecond. This corresponds to a few percent of a typical heartbeat. Under some circumstances, the requirements may be stricter than this.</p>
+            <p>
+               <span class="bold">
+                  <strong>Time base stability</strong>
+               </span>
+            </p>
+            <p>During the measurement period there should be no discontinuities greater than a few milliseconds. The time base rate should be within 0.01% of standard time rate.</p>
+            <p>
+               <span class="bold">
+                  <strong>International Time Synchronization</strong>
+               </span>
+            </p>
+            <p>There are no special extra requirements. Note however that time base stability conflicts with time synchronization when UTC time jumps (e.g., leap seconds).</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_R.6.2" shape="rect"></a>R.6.2 Ordinary Time Synchronization</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Ordinary medical equipment uses time synchronization to perform functions that were previously performed manually, e.g., record-keeping and scheduling. These were typically done using watches and clocks, with resultant stability and synchronization errors measured in seconds or longer. The most stringent time synchronization requirements for networked medical equipment derive from some of the security protocols and their record keeping.</p>
+            <p>Ordinary requirements are:</p>
+            <p>
+               <span class="bold">
+                  <strong>Local synchronization</strong>
+               </span>
+            </p>
+            <p>Synchronized to within approximately 500 milliseconds. Some security systems have problems when the synchronization error exceeds 1 second.</p>
+            <p>
+               <span class="bold">
+                  <strong>Time base stability</strong>
+               </span>
+            </p>
+            <p>Large drift errors may cause problems. Typical clock drift errors approximately 1 second/day are unlikely to cause problems. Large discontinuities are permissible if rare or during start up. Time may run backwards, but only during rare large discontinuities.</p>
+            <p>
+               <span class="bold">
+                  <strong>International Time Synchronization</strong>
+               </span>
+            </p>
+            <p>Some sites require synchronization to within a few seconds of UTC. Others have no requirement.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_R.6.3" shape="rect"></a>R.6.3 Background</h3>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_R.6.3.1" shape="rect"></a>R.6.3.1 Unsynchronized Time</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The local system time of a computer is usually provided by two distinct components.</p>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="a">
+                     <li class="listitem">
+                        <p>There is a battery-powered clock that is used to establish an initial time estimate when the machine is turned on. These clocks are typically very inaccurate. Local and international synchronization errors are often 5-10 minutes. In some cases, the battery clock is incorrect by hours or days.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The ongoing system time is provided by a software function and a pulse source. The pulse source "ticks" at some rate between 1-1000Hz. It has a nominal tick rate that is used by the system software. For every tick the system software increments the current time estimate appropriately. E.g., for a system with a 100Hz tick, the system time increments 10ms each tick.</p>
+                     </li>
+                  </ol>
+               </div>
+               <p>This lacks any external synchronization and is subject to substantial initial error in the time estimate and to errors due to systematic and random drift in the tick source. The tick sources are typically low cost quartz crystal based, with a systematic error up to approximately 10<sup>-5</sup> in the actual versus nominal tick rate and with a variation due to temperature, pressure, etc. up to approximately 10<sup>-5</sup>. This corresponds to drifts on the order of 10 seconds per day.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_R.6.3.2" shape="rect"></a>R.6.3.2 Network Synchronized Time</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>There is a well established Internet protocol (NTP) for maintaining time synchronization that should be used by DICOM. It operates in several ways.</p>
+               <p>The most common is for the computer to become an NTP client of one or more NTP servers. As a client it uses occasional ping-pong NTP messages to:</p>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="a">
+                     <li class="listitem">
+                        <p>Estimate the network delays. These estimates are updated during each NTP update cycle.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Obtain a time estimate from the server. Each estimate includes the server's own statistical characteristics and accuracy assessment of the estimate.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Use the time estimates from the servers, the network delay estimates, and the time estimates from the local system clock, to obtain a new NTP time estimate. This typically uses modern statistical methods and filtering to perform optimal estimation.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Use the resulting time estimate to</p>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>Adjust the system time, and</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>Update drift and statistical characteristics of the local clock.</p>
+                              </li>
+                           </ol>
+                        </div>
+                     </li>
+                  </ol>
+               </div>
+               <p>The local applications do not normally communicate with the NTP client software. They normally continue to use the system clock services. The NTP client software adjusts the system clock. The NTP standard defines a nominal system clock service as having two adjustable parameters:</p>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="a">
+                     <li class="listitem">
+                        <p>The clock frequency. In the example above, the nominal clock was 100Hz, with a nominal increment of 10 milliseconds. Long term measurement may indicate that the actual clock is slightly faster and the NTP client can adjust the clock increment to be 9.98 milliseconds.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The clock phase. This adjustment permits jump adjustments, and is the fixed time offset between the internal clock and the estimated UTC.</p>
+                     </li>
+                  </ol>
+               </div>
+               <p>The experience with NTP in the field is that NTP clients on the same LAN as their NTP server will maintain synchronization to within approximately 100 microseconds. NTP clients on the North American Internet and utilizing multiple NTP servers will maintain synchronization to within approximately 10 milliseconds.</p>
+               <p>There are low cost devices with only limited time synchronization needs. NTP has been updated to include SNTP for these devices. SNTP eliminates the estimation of network delays and eliminates the statistical methods for optimal time estimation. It assumes that the network delays are nil and that each NTP server time estimate received is completely accurate. This reduces the development and hardware costs for these devices. The computer processing costs for NTP are insignificant for a PC, but may be burdensome for very small devices. The SNTP synchronization errors are only a few milliseconds in a LAN environment. They are very topology sensitive and errors may become huge in a WAN environment.</p>
+               <p>Most NTP servers are in turn NTP clients to multiple superior servers and peers. NTP is designed to accommodate a hierarchy of server/clients that distributes time information from a few international standard clocks out through layers of servers.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_R.6.3.3" shape="rect"></a>R.6.3.3 External Clocks</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The NTP implementations anticipate the use of three major kinds of external clock sources:</p>
+               <p>
+                  <span class="bold">
+                     <strong>External NTP servers</strong>
+                  </span>
+               </p>
+               <p>Many ISPs and government agencies offer access to NTP servers that are in turn synchronized with the international standard clocks. This access is usually offered on a restricted basis.</p>
+               <p>
+                  <span class="bold">
+                     <strong>External clock broadcasts</strong>
+                  </span>
+               </p>
+               <p>The US, Canada, Germany, and others offer radio broadcasts of time signals that may be used by local receivers attached to an NTP server. The US and Russia broadcast time signals from satellites, e.g., GPS. Some mobile telephone services broadcast time signals. These signals are synchronized with the international standard clocks. GPS time signals are popular worldwide time sources. Their primary problem is difficulties with proper antenna location and receiver cost. Most of the popular low cost consumer GPS systems save money by sacrificing the clock accuracy.</p>
+               <p>
+                  <span class="bold">
+                     <strong>External pulse sources</strong>
+                  </span>
+               </p>
+               <p>For extremely high accuracy synchronization, atomic clocks can be attached to NTP servers. These clocks do not provide a time estimate, but they provide a pulse signal that is known to be extremely accurate. The optimal estimation logic can use this in combination with other external sources to achieve sub microsecond synchronization to a reference clock even when the devices are separated by the earth's diameter.</p>
+               <p>The details regarding selecting an external clock source and appropriate use of the clock source are outside the scope of the NTP protocol. They are often discussed and documented in conjunction with the NTP protocol and many such interfaces are included in the reference implementation of NTP.</p>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_R.6.4" shape="rect"></a>R.6.4 SNTP Restrictions</h3>
+                  </div>
+               </div>
+            </div>
+            <p>In theory, servers can be SNTP servers and NTP servers can be SNTP clients of other servers. This is very strongly discouraged. The SNTP errors can be substantial, and the clients of a server using SNTP will not have the statistical information needed to assess the magnitude of these errors. It is feasible for SNTP clients to use NTP servers. The SNTP protocol packets are identical to the NTP protocol packets. SNTP differs in that some of the statistical information fields are filled with nominal SNTP values instead of having actual measured values.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_R.6.5" shape="rect"></a>R.6.5 Implementation Considerations</h3>
+                  </div>
+               </div>
+            </div>
+            <p>There are several public reference implementations of NTP server and client software available. These are in widespread use and have been ported to many platforms (including Unix, Windows, and Macintosh). There are also proprietary and built-in NTP services for some platforms (e.g., Windows 2000). The public reference implementations include sample interfaces to many kinds of external clock sources.</p>
+            <p>There are significant performance considerations in the selection of locations for servers and clients. Devices that need high accuracy synchronization should probably be all on the same LAN together with an NTP server on that LAN.</p>
+            <p>Real time operating system (RTOS) implementations may have greater difficulties. The reference NTP implementations have been ported to several RTOSs. There were difficulties with the implementations of the internal system clock on the RTOS. The dual frequency/phase adjustment requirements may require the clock functions to be rewritten. The reference implementations also require access to a separate high resolution interval timer (with sub microsecond accuracy and precision). This is a standard CPU feature for modern workstation processors, but may be missing on low end processors.</p>
+            <p>An RTOS implementation with only ordinary synchronization requirements might choose to write their own SNTP only implementation rather than use the reference NTP implementation. The SNTP client is very simple. It may be based on the reference implementation or written from scratch. The operating system support needed for accurate adjustment is optional for SNTP clients. The only requirement is the time base stability requirement, which usually implies the ability to specify fractional seconds when setting the time.</p>
+            <p>The conflict between the user desire to use local time and the NTP use of UTC must be resolved in the device. DHCP offers the ability to obtain the offset between local time and UTC dynamically, provided the DHCP server supports this option. There remain issues such as service procedures, start up in the absence of DHCP, etc.</p>
+            <p>The differences between local time, UTC, summer time, etc. are a common source of confusion and errors setting the battery clock. The NTP algorithms will eventually resolve these errors, but the final convergence on correct time may be significantly delayed. The device might be ready for medical use before these errors are resolved.</p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_R.5.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_R.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_S.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">R.5 Shutdown </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> S Legacy Transition For Configuration Management (Informative)</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

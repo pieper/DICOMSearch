@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>A.6 DICOM JPIP Referenced Transfer Syntax (Explicit VR)</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.5.html" title="PS3.5" />
+      <link rel="up" href="chapter_A.html" title="A Transfer Syntax Specifications (Normative)" />
+      <link rel="prev" href="sect_A.5.html" title="A.5 DICOM Deflated Little Endian Transfer Syntax (Explicit VR)" />
+      <link rel="next" href="sect_A.7.html" title="A.7 DICOM JPIP Referenced Deflate Transfer Syntax (Explicit VR)" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">A.6 DICOM JPIP Referenced Transfer Syntax (Explicit VR)</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_A.5.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">A Transfer Syntax Specifications (Normative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_A.7.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_A.6" shape="rect"></a>A.6 DICOM JPIP Referenced Transfer Syntax (Explicit VR)</h2>
+               </div>
+            </div>
+         </div>
+         <p>This Transfer Syntax applies to the encoding of the entire DICOM Data Set. This implies that when a DICOM Data Set is being encoded with the DICOM Little Endian Transfer Syntax the following requirements shall be met:</p>
+         <div class="orderedlist">
+            <ol class="orderedlist" type="a">
+               <li class="listitem">
+                  <p>The Data Elements contained in the Data Set structure shall be encoded with Explicit VR (with a VR Field) as specified in <a class="xref" href="chapter_7.html#sect_7.1.2" title="7.1.2 Data Element Structure with Explicit VR" shape="rect">Section 7.1.2</a>.</p>
+               </li>
+               <li class="listitem">
+                  <p>The encoding of the overall Data Set structure (Data Element Tags, Value Length, and Value) shall be in Little Endian as specified in <a class="xref" href="sect_7.3.html" title="7.3 Big Endian Versus Little Endian Byte Ordering" shape="rect">Section 7.3</a>.</p>
+               </li>
+               <li class="listitem">
+                  <p>The encoding of the Data Elements of the Data Set shall be as follows according to their Value Representations:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>For all Value Representations defined in this part, except for the Value Representations OB and OW, the encoding shall be in Little Endian as specified in <a class="xref" href="sect_7.3.html" title="7.3 Big Endian Versus Little Endian Byte Ordering" shape="rect">Section 7.3</a>.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>For the Value Representations OB and OW, the encoding shall meet the following specification depending on the Data Element Tag:</p>
+                           <div class="itemizedlist">
+                              <ul class="itemizedlist" style="list-style-type: circle; ">
+                                 <li class="listitem">
+                                    <p>Data Element (7FE0,0010) Pixel Data shall not be present, but rather pixel data shall be referenced via Data Element (0028,7FE0) Pixel Data Provider URL</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>Overlay data, if present, shall only be encoded in the Overlay Data attribute (60xx,3000), which shall have the Value Representation OB or OW and shall be encoded in Little Endian.</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>Data Element (0028,0004) Photometric Interpretation shall be limited to the values: MONOCHROME1, MONOCHROME2, YBR_ICT and YBR_RCT.</p>
+                                 </li>
+                              </ul>
+                           </div>
+                        </li>
+                     </ul>
+                  </div>
+               </li>
+            </ol>
+         </div>
+         <p>This DICOM JPIP Referenced Transfer Syntax shall be identified by a UID of Value "1.2.840.10008.1.2.4.94 ".</p>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_A.5.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_A.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_A.7.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">A.5 DICOM Deflated Little Endian Transfer Syntax (Explicit VR) </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.5.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> A.7 DICOM JPIP Referenced Deflate Transfer Syntax (Explicit VR)</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

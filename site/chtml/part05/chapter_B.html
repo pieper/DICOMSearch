@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>B Creating a Privately Defined Unique Identifier (Informative)</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.5.html" title="PS3.5" />
+      <link rel="up" href="PS3.5.html" title="PS3.5" />
+      <link rel="prev" href="sect_A.7.html" title="A.7 DICOM JPIP Referenced Deflate Transfer Syntax (Explicit VR)" />
+      <link rel="next" href="sect_B.2.html" title="B.2 UUID Derived UID" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">B Creating a Privately Defined Unique Identifier (Informative)</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_A.7.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_B.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_B" shape="rect"></a>B Creating a Privately Defined Unique Identifier (Informative)</h1>
+               </div>
+            </div>
+         </div>
+         <p>Privately defined Unique Identifiers (UIDs) are used in DICOM to uniquely identify items such as Specialized or Private SOP Classes, Image SOP Instances, Study SOP Instances, etc.</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_B.1" shape="rect"></a>B.1 Organizationally Derived UID</h2>
+                  </div>
+               </div>
+            </div>
+            <p>A UID may be formed using a registered root (see <a class="xref" href="chapter_C.html" title="C DICOM Unique Identifier Registration Process (Informative)" shape="rect"> Annex C</a>) and an organization specific suffix. The manner in which the suffix of such an organizationally derived UID is defined is not constrained by the DICOM Standard. Only the guarantee of its uniqueness by the defining organization is required by DICOM.</p>
+            <p>The following example presents a particular choice made by a specific organization in defining its suffix to guarantee uniqueness of a SOP Instance UID.</p>
+            <pre class="programlisting" xml:space="preserve">
+  "1.2.840.xxxxx.3.152.235.2.12.187636473"
+   \___________/ \______________________/
+       root     .         suffix
+</pre>
+            <p>In this example, the root is:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>1 Identifies ISO</p>
+                  </li>
+                  <li class="listitem">
+                     <p>2 Identifies ANSI Member Body</p>
+                  </li>
+                  <li class="listitem">
+                     <p>840 Country code of a specific Member Body (U.S. for ANSI)</p>
+                  </li>
+                  <li class="listitem">
+                     <p>xxxxx Identifies a specific Organization.(assigned by ANSI)</p>
+                  </li>
+               </ul>
+            </div>
+            <p>In this example the first two components of the suffix relate to the identification of the device:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>3 Manufacturer defined device type</p>
+                  </li>
+                  <li class="listitem">
+                     <p>152 Manufacturer defined serial number</p>
+                  </li>
+               </ul>
+            </div>
+            <p>The remaining four components of the suffix relate to the identification of the image:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>235 Study number</p>
+                  </li>
+                  <li class="listitem">
+                     <p>2 Series number</p>
+                  </li>
+                  <li class="listitem">
+                     <p>12 Image number</p>
+                  </li>
+                  <li class="listitem">
+                     <p>187636473 Encoded date and time stamp of image acquisition</p>
+                  </li>
+               </ul>
+            </div>
+            <p>In this example, the organization has chosen these components to guarantee uniqueness. Other organizations may choose an entirely different series of components to uniquely identify its images. For example it may have been perfectly valid to omit the Study Number, Series Number and Image Number if the time stamp had a sufficient precision to ensure that no two images might have the same date and time stamp.</p>
+            <p>Because of the flexibility allowed by the DICOM Standard in creating organizationally derived UIDs, implementations should not depend on any assumed structure of UIDs and should not attempt to parse UIDs to extract the semantics of some of its components.</p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_A.7.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_B.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">A.7 DICOM JPIP Referenced Deflate Transfer Syntax (Explicit VR) </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.5.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> B.2 UUID Derived UID</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

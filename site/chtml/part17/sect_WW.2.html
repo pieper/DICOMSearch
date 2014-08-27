@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>WW.2 Workflow Example</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="chapter_WW.html" title="WW Audit Messages (Informative)" />
+      <link rel="prev" href="chapter_WW.html" title="WW Audit Messages (Informative)" />
+      <link rel="next" href="chapter_XX.html" title="XX Use Cases for Application Hosting" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">WW.2 Workflow Example</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_WW.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">WW Audit Messages (Informative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_XX.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_WW.2" shape="rect"></a>WW.2 Workflow Example</h2>
+               </div>
+            </div>
+         </div>
+         <p>The following is an example of audit trail message use in a hypothetical workflow. It is not intended to be all-inclusive, nor does it cover all possible scenarios for audit trail message use. There are many alternatives that can be utilized by the system designer, or that could be configured by the local site security administrator to fit security policies.</p>
+         <p>As this example scenario begins, an imaging workstation boots up. During its start up process, a DICOM-enabled viewing application is launched by the start up sequence. This triggers an Application Activity message with the Event Type Code of (110120, DCM, "Application Start").</p>
+         <p>After start up, a curious, but unauthorized visitor attempts to utilize the reviewing application. Since the reviewing application cannot verify the identity of this visitor, the attempt fails, and the reviewing application generates a User Authentication message, recording the fact that this visitor attempted to enter the application, but failed.</p>
+         <p>Later, an authorized user accesses the reviewing application. Upon successfully identifying the user, the reviewing application generates a User Authentication message indicating a successful login to the application.</p>
+         <p>The user, in order to locate the data of a particular examination, issues a query, which the reviewing application directs to a DICOM archive. The details of this query are recorded by the archive application in a Query message.</p>
+         <p>The reviewing application, in delivering the results of the query to the user, displays certain patient related information. The reviewing application records this fact by sending a Patient Record message that is defined by some other standard. Audit logs will contain messages specified by a variety of different standards. The MSG-ID field is used to aid the recognition of the defining standard or proprietary source documentation for a particular message.</p>
+         <p>From the query results, the user selects a set of images to review. The reviewing application requests the images from the archive, and records this fact in a Begin Transferring Instances message.</p>
+         <p>The archive application locates the images, sends them back to the reviewing application, and records this fact in an Instances Transferred message.</p>
+         <p>The reviewing application displays the images to the user, recording this fact via an Instances Accessed message.</p>
+         <p>During the reviewing process, the use looks up details of the procedure from the hospital information system. The reviewing application performs this lookup using HL7 messaging, and records this fact in a Procedure Record message.</p>
+         <p>The user decides that a follow-up examination is needed, and generates a new order via HL7 messaging to the hospital information system. The reviewing application records this in an Order Record message.</p>
+         <p>The user decides that a second opinion is desirable, and selects certain images to send to a colleague in an e-mail message. The reviewing application records the fact that it packaged and sent images via e-mail in an Export message.</p>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_WW.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_WW.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_XX.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">WW Audit Messages (Informative) </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> XX Use Cases for Application Hosting</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

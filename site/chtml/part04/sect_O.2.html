@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>O.2 Structured Reporting Storage SOP Class SCU and SCP Behavior</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.4.html" title="PS3.4" />
+      <link rel="up" href="chapter_O.html" title="O Structured Reporting Storage SOP Classes(Normative)" />
+      <link rel="prev" href="chapter_O.html" title="O Structured Reporting Storage SOP Classes(Normative)" />
+      <link rel="next" href="sect_O.3.html" title="O.3 Modification of SR Document Content" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">O.2 Structured Reporting Storage SOP Class SCU and SCP Behavior</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_O.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">O Structured Reporting Storage SOP Classes(Normative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_O.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_O.2" shape="rect"></a>O.2 Structured Reporting Storage SOP Class SCU and SCP Behavior</h2>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_O.2.1" shape="rect"></a>O.2.1 Behavior of an SCU</h3>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_O.2.1.1" shape="rect"></a>O.2.1.1 CAD SR SOP Classes</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>Rendering Intent concept modifiers in the Mammography CAD SR, Chest CAD SR and Colon CAD SR objects shall be consistent. Content items marked "For Presentation" shall not be subordinate to content items marked "Not for Presentation" or "Presentation Optional" in the content tree. Similarly, content items marked "Presentation Optional" shall not be subordinate to content items marked "Not for Presentation" in the content tree.</p>
+               <p>Content items referenced from another SR object instance, such as a prior Mammography CAD SR, Chest CAD SR or Colon CAD SR shall be inserted by-value in the new SR object instance, with appropriate original source observation context. It is necessary to update Rendering Intent, and referenced content item identifiers for by-reference relationships, within content items paraphrased from another source.</p>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_O.2.2" shape="rect"></a>O.2.2 Behavior of an SCP</h3>
+                  </div>
+               </div>
+            </div>
+            <p>An SCP intending to display or otherwise render a Structured Report shall convey its full meaning in an unambiguous manner.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>"Full meaning" includes not just the Content Tree (i.e., the Items of the Content Sequence), but all Attributes of the Data Set that are necessary to properly interpret the Structured Report. This includes those Attributes that set the initial Observation Context for the Content Tree, i.e., the patient, procedure, and observer identifiers, and the Completion status and Verification status of the Structured Report.</p>
+            </div>
+            <p>An Icon Image in an IMAGE reference has no meaning, and is not required to be rendered.</p>
+            <p>For a device, that is both an SCU and an SCP of these Storage SOP Classes, in addition to the behavior for the Storage Service Class specified in <a class="xref" href="sect_B.2.html#sect_B.2.2" title="B.2.2 Behavior of an SCP" shape="rect">Section B.2.2</a>, the following additional requirements are specified for Structured Reporting Storage SOP Classes:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>an SCP of this SOP Class shall support Level 2 Conformance as defined in <a class="xref" href="sect_B.4.html#sect_B.4.1" title="B.4.1 Conformance as an SCP" shape="rect">Section B.4.1</a>.</p>
+                  </li>
+               </ul>
+            </div>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>This requirement means that all Type 1, Type 2, and Type 3 Attributes defined in the Information Object Definition associated with the SOP Class will be stored and may be accessed.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_O.2.2.1" shape="rect"></a>O.2.2.1 CAD SR SOP Classes</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The Mammography CAD SR, Chest CAD SR and Colon CAD SR objects contain data not only for presentation to the clinician, but also data solely for use in subsequent mammography CAD analyses.</p>
+               <p>The SCU provides rendering guidelines via "Rendering Intent" concept modifiers associated with "Individual Impression/Recommendation", "Composite Feature" and "Single Image Finding" content items. The full meaning of the SR is provided if all content items marked "Presentation Required" are rendered down to the first instance of "Not for Presentation" or "Presentation Optional" for each branch of the tree. Use of the SCU's Conformance Statement is recommended if further enhancement of the meaning of the SR can be accomplished by rendering some or all of the data marked "Presentation Optional". Data marked "Not for Presentation" should not be rendered by the SCP; it is embedded in the SR content tree as input to subsequent CAD analysis work steps.</p>
+               <p>The SCP may further interpret whether or not to render a Single Image Finding that has Rendering Intent "Presentation Optional" by interpreting the value of the CAD Operating Point content item that is subordinate to the Rendering Intent, if present. If the CAD Operating Point content item is not present, then rendering of the Single Image Finding may be based on recommendations in the creator's DICOM Conformance Statement. For further information on the intended use of CAD Operating Point see <a href="../part17/sect_E.4.html" class="olink" shape="rect">Section E.4 “CAD Operating Point” in <span class="olinkdocname">PS3.17</span>
+                  </a>.</p>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_O.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_O.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_O.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">O Structured Reporting Storage SOP Classes(Normative) </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.4.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> O.3 Modification of SR Document Content</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

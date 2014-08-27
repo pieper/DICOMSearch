@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>ZZ.3 Implant Registration and Mating Example</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="chapter_ZZ.html" title="ZZ Implant Template Description" />
+      <link rel="prev" href="sect_ZZ.2.html" title="ZZ.2 Planning Landmarks" />
+      <link rel="next" href="sect_ZZ.4.html" title="ZZ.4 Encoding Example" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">ZZ.3 Implant Registration and Mating Example</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_ZZ.2.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">ZZ Implant Template Description</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_ZZ.4.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_ZZ.3" shape="rect"></a>ZZ.3 Implant Registration and Mating Example</h2>
+               </div>
+            </div>
+         </div>
+         <p>In this section, an example is presented that shows the usage of Implant Templates together with an Implant Assembly Template to create an Implantation Plan with patient images. The example is in 2D but can easily be extended to 3D as well. The example looks at a simplified case of hip reconstruction planning, using a monoblock stem component and a monoblock cup component.</p>
+         <p>Planning consists of 2 steps: Selection and placement of the best fitting cup from the cups referenced by the Assembly Template based on the dimension of the patient's hip is the first step. With that done, a stem is selected that can be mated with the selected cup and has a neck configuration that leads to an optimal outcome with regard to leg length and other parameters. Therefore, the available stems are placed so that the features align. The femoral planning landmarks are used to calculate the displacement of the femur this configuration would result in. The workflow is shown in the following set of figures.</p>
+         <p>
+        </p>
+         <div class="figure">
+            <a id="figure_ZZ.3-1" shape="rect"></a>
+            <div class="figure-contents">
+               <div class="mediaobject">
+                  <img src="figures/PS3.17_ZZ.3-1.svg" alt="Implant Templates used in the Example." />
+               </div>
+            </div>
+            <p class="title">
+               <strong>Figure ZZ.3-1. Implant Templates used in the Example.</strong>
+            </p>
+         </div>
+         <p>
+            <br class="figure-break" clear="none" />
+         </p>
+         <p>In the first step, the planning landmarks marked with the green arrows in <a class="xref" href="sect_ZZ.3.html#figure_ZZ.3-2" title="Figure ZZ.3-2. Cup is Aligned with Patient's Acetabulum using 2 Landmarks" shape="rect">Figure ZZ.3-2</a> are aligned with compliant positions in the patient's x-ray.</p>
+         <p>
+        </p>
+         <div class="figure">
+            <a id="figure_ZZ.3-2" shape="rect"></a>
+            <div class="figure-contents">
+               <div class="mediaobject">
+                  <img src="figures/PS3.17_ZZ.3-2.svg" alt="Cup is Aligned with Patient's Acetabulum using 2 Landmarks" />
+               </div>
+            </div>
+            <p class="title">
+               <strong>Figure ZZ.3-2. Cup is Aligned with Patient's Acetabulum using 2 Landmarks</strong>
+            </p>
+         </div>
+         <p>
+            <br class="figure-break" clear="none" />
+         </p>
+         <p>In the second step, the femoral length axis is detected from the patient's x-ray and the stem template is aligned accordingly using the femoral axis landmark. The proximal and distal fixation boundary planes are used to determine the insertion depth of the stem along that axis.</p>
+         <p>
+        </p>
+         <div class="figure">
+            <a id="figure_ZZ.3-3" shape="rect"></a>
+            <div class="figure-contents">
+               <div class="mediaobject">
+                  <img src="figures/PS3.17_ZZ.3-3.svg" alt="Stem is Aligned with Patient's Femur." />
+               </div>
+            </div>
+            <p class="title">
+               <strong>Figure ZZ.3-3. Stem is Aligned with Patient's Femur.</strong>
+            </p>
+         </div>
+         <p>
+            <br class="figure-break" clear="none" />
+         </p>
+         <p>In the third step, the image is split into a femoral and a pelvic part according to the proposed resection plane of the stem template. The mating features are used to calculate the spatial relation between the femoral and the pelvic component.</p>
+         <p>
+        </p>
+         <div class="figure">
+            <a id="figure_ZZ.3-4" shape="rect"></a>
+            <div class="figure-contents">
+               <div class="mediaobject">
+                  <img src="figures/PS3.17_ZZ.3-4.svg" alt="Femoral and Pelvic Side are Registered." />
+               </div>
+            </div>
+            <p class="title">
+               <strong>Figure ZZ.3-4. Femoral and Pelvic Side are Registered.</strong>
+            </p>
+         </div>
+         <p>
+            <br class="figure-break" clear="none" />
+         </p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_ZZ.3.1" shape="rect"></a>ZZ.3.1 Degrees of Freedom</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The hip joint has several degrees of freedom, of course. The Implant Template should contain this information in the Mating Features. In the given 2D projections, the rotational freedom of the joint is expressed by one single rotation around the axis of projection intersecting with the printing space at the 2D coordinate of the Mating Feature. Therefore, a Degree Of Freedom Sequence Item added to either the stem, the cup, or both.</p>
+            <p>In planning, this information could be used to visualize the rotational capacities of the joint after implantation.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>Technically, the degree of freedom could also have been added to the cup or even (each with half the range of freedom) to both. But since we are used to seeing the femur's rotation with respect to the pelvis and not the other way around, it seemed natural to do it that way.</p>
+            </div>
+            <p>
+          </p>
+            <div class="figure">
+               <a id="figure_ZZ.3-5" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.17_ZZ.3-5.svg" alt="Rotational Degree of Freedom" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure ZZ.3-5. Rotational Degree of Freedom</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_ZZ.2.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_ZZ.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_ZZ.4.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">ZZ.2 Planning Landmarks </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> ZZ.4 Encoding Example</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

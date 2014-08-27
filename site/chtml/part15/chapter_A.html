@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>A Secure Use Profiles (Normative)</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.15.html" title="PS3.15" />
+      <link rel="up" href="PS3.15.html" title="PS3.15" />
+      <link rel="prev" href="sect_7.2.html" title="7.2 Transactions" />
+      <link rel="next" href="sect_A.2.html" title="A.2 Basic Digital Signatures Secure Use Profile" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">A Secure Use Profiles (Normative)</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_7.2.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_A.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_A" shape="rect"></a>A Secure Use Profiles (Normative)</h1>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_A.1" shape="rect"></a>A.1 Online Electronic Storage Secure Use Profile</h2>
+                  </div>
+               </div>
+            </div>
+            <p>The Online Electronic Storage Secure Use Profile allows Application Entities to track and verify the status of SOP Instances in those cases where local security policies require tracking of the original data set and subsequent copies.</p>
+            <p>The Conformance Statement shall indicate in what manner the system restricts remote access.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_A.1.1" shape="rect"></a>A.1.1 SOP Instance Status</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>An implementation that conforms to the Online Electronic Storage Secure Use Profile shall conform to the following rules regarding the use of the SOP Instance Status (0100,0410) Attribute with SOP Instances that are transferred using the Storage Service Class:</p>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="a">
+                     <li class="listitem">
+                        <p>An Application Entity that supports the Online Electronic Storage Secure Use Profile and that creates a SOP Instance intended for diagnostic use in Online Electronic Storage shall:</p>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>Set the SOP Instance Status to Original (OR).</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>Include the following Attributes:</p>
+                                 <div class="orderedlist">
+                                    <ol class="orderedlist" type="i">
+                                       <li class="listitem">
+                                          <p>the SOP Class UID (0008,0016) and SOP Instance UID (0008,0018)</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>the Instance Creation Date (0008,0012) and Instance Creation Time (0008,0013), if known</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>the SOP Instance Status</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>the SOP Authorization Date and Time (0100,0420)</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>the SOP Authorization Comment, if any (0100,0424)</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>the SOP Equipment Certification Number (0100,0426)</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>the Study Instance UID (0020,000D) and Series Instance UID (0020,000E)</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>any Attributes of the General Equipment Module that are known</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>any overlay data present</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>any image data present</p>
+                                       </li>
+                                    </ol>
+                                 </div>
+                              </li>
+                           </ol>
+                        </div>
+                     </li>
+                     <li class="listitem">
+                        <p>The Application Entity that holds a SOP Instance where the SOP Instance Status is Original (OR) may change the SOP Instance Status to Authorized Original(AO) as long as the following rules are followed:</p>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>The Application Entity shall determine that an authorized entity has certified the SOP Instance as useable for diagnostic purposes.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The Application Entity shall change the SOP Instance Status to Authorized Original (AO). The SOP Instance UID shall not change.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The Application Entity shall set the SOP Authorization Date and Time (0100,0420) and Authorization Equipment Certification Number (0100,0426) Attributes to appropriate values. It may also add an appropriate SOP Authorization Comment (0100,0424) Attribute.</p>
+                              </li>
+                           </ol>
+                        </div>
+                     </li>
+                     <li class="listitem">
+                        <p>There shall only be one Application Entity that holds a SOP Instance where the SOP Instance Status is Original (OR) or Authorized Original (AO). The Application Entity that holds such a SOP instance shall not delete it.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>When communicating with an Application Entity that supports Online Electronic Storage the Application Entity that holds a SOP Instance where the SOP Instance Status is Original(OR) or Authorized Original(AO) may transfer that SOP Instance to another Application Entity that also conforms to the Online Electronic Storage Secure Use Profile as long as the following rules are followed:</p>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>The transfer shall occur on a Secure Transport Connection.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The two Application Entities involved in the transfer shall authenticate each other and shall confirm via the authentication that the other supports the Online Electronic Storage Secure Use Profile.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The receiving Application Entity shall reject the storage request and discard the received SOP Instance if the data integrity checks done after the transfer indicate that the SOP Instance was altered during transmission.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The transfer shall be confirmed using the push model of the Storage Commitment Service Class. Until it has completed this confirmation, the receiving Application Entity shall not forward the SOP Instance or Authorized Copies of the SOP instance to any other Application Entity.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>Once confirmed that the receiving Application Entity has successfully committed the SOP Instance to storage, the sending Application Entity shall do one of the following to its local copy of the SOP Instance:</p>
+                                 <div class="orderedlist">
+                                    <ol class="orderedlist" type="i">
+                                       <li class="listitem">
+                                          <p>delete the SOP Instance,</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>change the SOP Instance Status to Not Specified (NS),</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>if the SOP Instance Status was Authorized Original (AO), change the SOP Instance Status to Authorized Copy (AC).</p>
+                                       </li>
+                                    </ol>
+                                 </div>
+                              </li>
+                           </ol>
+                        </div>
+                     </li>
+                     <li class="listitem">
+                        <p>When communicating with an Application Entity that supports Online Electronic Storage an Application Entity that holds a SOP Instance whose SOP Instance Status is Authorized Original (AO) or Authorized Copy (AC) may send an Authorized Copy of the SOP Instance to another Application Entity as long as the following rules are followed:</p>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>The transfer shall occur on a Secure Transport Connection.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The two Application Entities involved in the transfer shall authenticate each other, and shall confirm via the authentication that the other supports the Online Electronic Storage Secure Use Profile.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The sending Application Entity shall set the SOP Instance Status to either Not Specified (NS) or Authorized Copy (AC) in the copy sent. The SOP Instance UID shall not change.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The receiving Application Entity shall reject the storage request and discard the copy if data integrity checks done after the transfer indicate that the SOP Instance was altered during transmission.</p>
+                              </li>
+                           </ol>
+                        </div>
+                     </li>
+                     <li class="listitem">
+                        <p>If communicating with a system that does not support the Online Electronic Storage Secure Use Profile, or if communication is not done over a Secure Transport Connection, then</p>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>A sending Application Entity that conforms to this Security Profile shall either set the SOP Instance Status to Not Specified (NS), or leave out the SOP Instance Status and associated parameters of any SOP Instances that the sending Application Entity sends out over the unsecured Transport Connection or to systems that do not support the Online Electronic Storage Secure Use Profile.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>A receiving Application Entity that conforms to this Security Profile shall set the SOP Instance Status to Not Specified (NS) of any SOP Instance received over the unsecured Transport Connection or from systems that do not support the Online Electronic Storage Secure Use Profile.</p>
+                              </li>
+                           </ol>
+                        </div>
+                     </li>
+                     <li class="listitem">
+                        <p>The receiving Application Entity shall store SOP Instances in accordance with Level 2 as defined in the Storage Service Class (i.e., all Attributes, including Private Attributes), as required by the Storage Commitment Storage Service Class, and shall not coerce any Attribute other than SOP Instance Status, SOP Authorization Date and Time, Authorization Equipment Certification Number, and SOP Authorization Comment.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Other than changes to the SOP Instance Status, SOP Authorization Date and Time, Authorization Equipment Certification Number, and SOP Authorization Comment Attributes, as outlined above, or changes to group length Attributes to accommodate the aforementioned changes, the Application Entity shall not change any Attribute values.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_7.2.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_A.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">7.2 Transactions </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.15.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> A.2 Basic Digital Signatures Secure Use Profile</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

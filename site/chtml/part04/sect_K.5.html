@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>K.5 Association Negotiation</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.4.html" title="PS3.4" />
+      <link rel="up" href="chapter_K.html" title="K Basic Worklist Management Service (Normative)" />
+      <link rel="prev" href="sect_K.4.html" title="K.4 DIMSE-C Service Group" />
+      <link rel="next" href="sect_K.6.html" title="K.6 SOP Class Definitions" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">K.5 Association Negotiation</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_K.4.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">K Basic Worklist Management Service (Normative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_K.6.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_K.5" shape="rect"></a>K.5 Association Negotiation</h2>
+               </div>
+            </div>
+         </div>
+         <p>Association establishment is the first phase of any instance of communication between peer DICOM AEs. The Association negotiation procedure specified in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a> shall be used to negotiate the supported SOP Classes or Meta SOP Classes.</p>
+         <p>Support for the SCP/SCU role selection negotiation is optional. The SOP Class Extended Negotiation is optional.</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_K.5.1" shape="rect"></a>K.5.1 SOP Class Extended Negotiation</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The SOP Class Extended Negotiation allows, at Association establishment, peer DICOM AEs to exchange application Association information defined by specific SOP Classes. This is achieved by defining the Service-class-application-information field. The Service-class-application-information field is used to define support for fuzzy semantic matching of person names.</p>
+            <p>This negotiation is optional. If absent, the default conditions shall be:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>literal matching of person names with case sensitivity unspecified</p>
+                  </li>
+                  <li class="listitem">
+                     <p>timezone query adjustment unspecified</p>
+                  </li>
+               </ul>
+            </div>
+            <p>The Association-requester, for each SOP Class, may use one SOP Class Extended Negotiation Sub-Item. The SOP Class is identified by the corresponding Abstract Syntax Name (as defined by <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>) followed by the Service-class-application-information field. This field defines three or more sub-fields:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>reserved; shall always be 1</p>
+                  </li>
+                  <li class="listitem">
+                     <p>reserved; shall always be 1</p>
+                  </li>
+                  <li class="listitem">
+                     <p>literal or fuzzy semantic matching of person names by the Association-requester</p>
+                  </li>
+                  <li class="listitem">
+                     <p>timezone query adjustment by the Association-requester</p>
+                  </li>
+               </ul>
+            </div>
+            <p>The meaning of fuzzy semantic person name matching and of timezone query adjustment is as defined in <a class="xref" href="sect_K.2.html#sect_K.2.2.2" title="K.2.2.2 Attribute Matching" shape="rect">Section K.2.2.2</a> and <a class="xref" href="sect_C.2.html#sect_C.2.2.2.1" title="C.2.2.2.1 Single Value Matching" shape="rect">Section C.2.2.2.1</a>.</p>
+            <p>The Association-acceptor shall return a three byte field (three sub-fields) if offered a three byte field (three sub-fields) by the Association-requester. The Association-acceptor may return more than three bytes if offered more than three bytes by the Association-requester. A three byte response to a more than three byte request means that the missing sub-field shall be treated as 0 values.</p>
+            <p>The Association-acceptor, for each sub-field of the SOP Class Extended Negotiation Sub-Item offered, either accepts the Association-requester proposal by returning the same value (1) or turns down the proposal by returning the value (0)..</p>
+            <p>If the SOP Class Extended Negotiation Sub-Item is not returned by the Association-acceptor then fuzzy semantic matching of person names is not supported and timezone query adjustment is unspecified over the Association (default condition).</p>
+            <p>If the SOP Class Extended Negotiation Sub-Items do not exist in the A-ASSOCIATE indication they shall be omitted in the A-ASSOCIATE response.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_K.5.1.1" shape="rect"></a>K.5.1.1 SOP Class Extended Negotiation Sub-Item Structure (A-ASSOCIATE-RQ)</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The SOP Class Extended Negotiation Sub-Item consists of a sequence of mandatory fields as defined by <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>. This field shall be three or four bytes in length.</p>
+               <div class="table">
+                  <a id="table_K.5.1-1" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table K.5.1-1. SOP Class Extended Negotiation Sub-Item (Service-Class-Application-Information Field) - A-ASSOCIATE-RQ</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Item Bytes</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Field Name</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Description of Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>reserved</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This byte field shall always be 1</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>2</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>reserved</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This byte field shall always be 1</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>3</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Fuzzy semantic matching of person names</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This byte field defines whether or not fuzzy semantic person name Attribute is requested by the Association-requester. It shall be encoded as an unsigned binary integer and shall use one of the following values</p>
+                                 <p>0 - fuzzy semantic matching not requested</p>
+                                 <p>1 - fuzzy semantic matching requested</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>4</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Timezone query adjustment</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This byte field defines whether or not the Attribute Timezone Offset From UTC (0008,0201) shall be used to adjust the query meaning for time and datetime fields in queries.</p>
+                                 <p>0 - Timezone query adjustment not requested</p>
+                                 <p>1 - Timezone query adjustment requested</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>This Sub-Item is identical to Extended Negotiation Sub-Items as used by the Query/Retrieve SOP Classes. However, relational queries (Byte 1) are not relevant since the worklist information models are single level, and date-time matching (Byte 2) is already required by the worklist information models and Enhanced Multi-Frame Image Conversion support is not applicable (Byte 5).</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_K.5.1.2" shape="rect"></a>K.5.1.2 SOP Class Extended Negotiation Sub-Item Structure (A-ASSOCIATE-AC)</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The SOP Class Extended Negotiation Sub-Item is made of a sequence of mandatory fields as defined by <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>. This field shall be three or four bytes in length.</p>
+               <div class="table">
+                  <a id="table_K.5.1-2" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table K.5.1-2. SOP Class Extended Negotiation Sub-Item (Service-Class-Application-Information Field) - A-ASSOCIATE-AC</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Item Bytes</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Field Name</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Description of Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>reserved</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This byte field shall always be 1</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>2</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>reserved</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This byte field shall always be 1</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>3</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Fuzzy semantic matching of person names</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This byte field defines whether or not fuzzy semantic person name Attribute matching will be performed by the Association-acceptor. It shall be encoded as an unsigned binary integer and shall use one of the following values</p>
+                                 <p>0 - fuzzy semantic matching not performed</p>
+                                 <p>1 - fuzzy semantic matching performed</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>4</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Timezone query adjustment</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This byte field defines whether or not the Attribute Timezone Offset From UTC (0008,0201) shall be used to adjust the query meaning for time and datetime fields in queries.</p>
+                                 <p>0 - Timezone adjustment of queries not performed</p>
+                                 <p>1 - Timezone adjustment of queries performed</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_K.4.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_K.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_K.6.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">K.4 DIMSE-C Service Group </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.4.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> K.6 SOP Class Definitions</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

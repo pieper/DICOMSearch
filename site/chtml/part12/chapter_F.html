@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>F 120mm CD-R Medium (Normative)</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.12.html" title="PS3.12" />
+      <link rel="up" href="PS3.12.html" title="PS3.12" />
+      <link rel="prev" href="chapter_E.html" title="E 130 mm 1.2GB Magneto-Optical Disk (Normative)" />
+      <link rel="next" href="sect_F.2.html" title="F.2 Media Formats" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">F 120mm CD-R Medium (Normative)</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_E.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_F.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_F" shape="rect"></a>F 120mm CD-R Medium (Normative)</h1>
+               </div>
+            </div>
+         </div>
+         <p>The terms "CD-R" and "CD-WO" refer to the same medium and are used interchangeably. Originally this medium was designated CD-WO, but the most common vernacular today is CD-R. There are mixed references in this annex to accommodate the common CD-R usage unless a specific reference to CD-WO is required to reflect the historical documents accurately. The term "CD-ROM," when used in reference to a disc, is a disc fabricated with all the digital data already on it. "CD-R" media is a fabricated blank, with the ability to have digital data written to it. The term "CD-ROM" is also used to refer to a CD reader, e.g., "CD-ROM drive." A CD-ROM drive can read either CD-R discs or CD-ROM discs.</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <p>Capitalization in this annex is inconsistent with other DICOM standards in order to be consistent with historical usage for terms.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_F.1" shape="rect"></a>F.1 DICOM Mapping to Media Format</h2>
+                  </div>
+               </div>
+            </div>
+            <p>Only one File-set shall be stored onto a single CD-R.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_F.1.1" shape="rect"></a>F.1.1 DICOM File-set</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>The ISO 9660 Standard provides a Volume Identifier in byte position 41 to 72 of the Primary Volume Descriptor. A DICOM File-Set is defined to be one volume, and the File-Set ID shall be placed in the Volume Identifier, starting with byte position 41. Extra bytes within the Volume Identifier shall be spaces (20H).</p>
+               <p>The Volume Identifier for a File-Set ID consisting of zero characters shall consist of all spaces (20H).</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="1">
+                        <li class="listitem">
+                           <p>The character set for File IDs and File-set IDs (see <a href="../part10/PS3.10.html" class="olink" shape="rect">PS3.10</a>) is a subset of the ISO 9660 character set, therefore no further restrictions need to be imposed.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Multiple ISO 9660 File-Sets on a single volume are achievable, but this profile does not support multiple file-sets.</p>
+                        </li>
+                     </ol>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_F.1.2" shape="rect"></a>F.1.2 DICOM File ID Mapping</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>The ISO 9660 standard provides a hierarchical structure for directories and files within directories. Each volume has a root directory that may contain references to both files and sub-directories. Sub-directories may contain reference to both files and other sub-directories.</p>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_F.1.2.1" shape="rect"></a>F.1.2.1 File ID</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>A volume may have at most 8 levels of directories, where the root directory is defined as level 1. The nomenclature for referring to a file in the ISO 9660 standard is dependent upon the receiving system. For the purposes of this document, the following notation will be used:</p>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="a">
+                        <li class="listitem">
+                           <p>/ - For the root directory</p>
+                        </li>
+                        <li class="listitem">
+                           <p>/FILENAME.;1 - For a file in the root directory</p>
+                        </li>
+                        <li class="listitem">
+                           <p>/SUBDIR - For a sub-directory in the root directory</p>
+                        </li>
+                        <li class="listitem">
+                           <p>/SUBDIR/FILENAME.;1 - For a file in the sub-directory</p>
+                        </li>
+                     </ol>
+                  </div>
+                  <p>Given a File ID consisting of N components, referred to as Comp1 through CompN, then the corresponding ISO 9660 file shall be named /Comp1/.../CompN.;1</p>
+                  <p>The ISO 9660 File Name Extension shall not be used.</p>
+                  <p>The ISO 9660 standard requires the two separators "." and ";" to demarcate a "File Name Extension" and a "Version Number". To remain compatible with the ISO standard, the version number shall be 1.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <div class="orderedlist">
+                        <ol class="orderedlist" type="1">
+                           <li class="listitem">
+                              <p>The above specified file ID mapping corresponds to ISO 9660 Level 1 compliance. This ensures the greatest level of compatibility across receiving systems.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>The following is an example of the DICOM to ISO 9660 file mapping:</p>
+                              <div class="informaltable">
+                                 <table rules="all" frame="box">
+                                    <thead>
+                                       <tr valign="top">
+                                          <th align="center" rowspan="1" colspan="1">
+                                             <p>
+                                                <span class="bold">
+                                                   <strong>DICOM File ID</strong>
+                                                </span>
+                                             </p>
+                                          </th>
+                                          <th align="center" rowspan="1" colspan="1">
+                                             <p>
+                                                <span class="bold">
+                                                   <strong>ISO 9660 File Name</strong>
+                                                </span>
+                                             </p>
+                                          </th>
+                                       </tr>
+                                    </thead>
+                                    <tbody>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>DICOMDIR</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>/DICOMDIR.;1</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>SUBDIRA\IMAGE1</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>/SUBDIRA/IMAGE1.;1</p>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </div>
+                           </li>
+                           <li class="listitem">
+                              <p>The ISO 9660 File Name written on the media as described above is not necessarily the name that an application will use in interacting with an operating system or CD-R writing utility. For example, the application will generally create a directory structure, and the OS or utility will create the correct full path file names with "/" characters. Similarly, the application generally will not need to append the dot character and ";1" version identifier to the name, as these will be added by the OS or utility to create an ISO 9660 compliant File Name. In fact, if the application appends ";1" to the name, and the OS or utility supports the Rock Ridge or Joliet extensions, those characters may be interpreted as part of the application specified file name rather than the file version identifier; a further file version identifier may be appended, resulting in an incorrect file name such as "/DICOMDIR.;1.;1".</p>
+                           </li>
+                        </ol>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_F.1.2.2" shape="rect"></a>F.1.2.2 DICOMDIR File</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>A DICOMDIR file in a DICOM File-set shall reside in the root directory of the directory hierarchy, and shall be named /DICOMDIR.;1.</p>
+                  <p>Multiple DICOMDIR files shall not be stored on a single volume under this annex.</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_F.1.3" shape="rect"></a>F.1.3 DICOM File Management Information</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>A Directory record in ISO 9660 provides for a Recording Data and Time field, which shall be set to the creation date of the file.</p>
+               <p>File modification data, file owner identification, and permissions are part of the ISO 9660 - Extended Attribute Record. The Extended Attribute Record is not required by this annex and shall be ignored at this time. To ensure future backwards compatibility and file accessibility, the Extended Attribute Record Length and File Flag of the Directory record shall be set as follows for each file. The Extended Attribute Record Length (byte position 2) shall be zero. The File Flags (byte position 26) shall have bit positions 3 and 4 set to zero.</p>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_E.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_F.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">E 130 mm 1.2GB Magneto-Optical Disk (Normative) </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.12.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> F.2 Media Formats</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

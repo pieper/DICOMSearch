@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>1 Scope and Field of Application</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.19.html" title="PS3.19" />
+      <link rel="up" href="PS3.19.html" title="PS3.19" />
+      <link rel="prev" href="chapter_Foreword.html" title="Foreword" />
+      <link rel="next" href="chapter_2.html" title="2 Normative References" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">1 Scope and Field of Application</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_Foreword.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_1" shape="rect"></a>1 Scope and Field of Application</h1>
+               </div>
+            </div>
+         </div>
+         <p>This Part of the DICOM Standard defines an interface between two software applications. One application, the Hosting System, provides the second application with data, such as a set of images and related data. The second application, the Hosted Application, analyzes that data, potentially returning the results of that analysis, for example in the form of another set of images and/or structured reports, to the first application. Such an Application Program Interface (API) differs in scope from other portions of the DICOM Standard in that it standardizes the data interchange between software components on the same system, instead of data interchange between different systems. Hosted Application programs written to that standardized interface can 'plug-into' (see <a class="xref" href="chapter_1.html#figure_1-1" title="Figure 1-1. Interface between Hosted Application and Hosting System." shape="rect">Figure 1-1</a>) Hosting Systems. The notion of software add-ons or 'plug-ins' is quite common in the computing world, and has been successfully employed to extend the capabilities of web browsers, media players, graphical
+  editors, publishing programs, etc. A Hosting System implementer needs only to create the standardized API once in order to support a wide variety of add-on Hosted Applications.</p>
+         <div class="figure">
+            <a id="figure_1-1" shape="rect"></a>
+            <div class="figure-contents">
+               <div class="mediaobject">
+                  <img src="figures/PS3.19_1-1.svg" alt="Interface between Hosted Application and Hosting System." />
+               </div>
+            </div>
+            <p class="title">
+               <strong>Figure 1-1. Interface between Hosted Application and Hosting System.</strong>
+            </p>
+         </div>
+         <br class="figure-break" clear="none" />
+         <p>In the traditional 'plug-in' model, the 'plug-in' is dedicated to a particular host system (e.g., a web browsing program), and might not run under other host systems (e.g., other web browsing programs). PS3.19 defines a standardized API that may be implemented by any Hosting System. A 'plug-in' Hosted Application written to the standardized API would be able to run on any Hosting System that implements that standardized API (see <a class="xref" href="chapter_1.html#figure_1-2" title="Figure 1-2. Illustration of Platform Independence via Hosted Application Architecture." shape="rect">Figure 1-2</a>).</p>
+         <p>
+      </p>
+         <div class="figure">
+            <a id="figure_1-2" shape="rect"></a>
+            <div class="figure-contents">
+               <div class="mediaobject">
+                  <img src="figures/PS3.19_1-2.svg" alt="Illustration of Platform Independence via Hosted Application Architecture." />
+               </div>
+            </div>
+            <p class="title">
+               <strong>Figure 1-2. Illustration of Platform Independence via Hosted Application Architecture.</strong>
+            </p>
+         </div>
+         <p>
+            <br class="figure-break" clear="none" />
+         </p>
+         <p>The design goals and assumptions for the API include:</p>
+         <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+               <li class="listitem">
+                  <p>Language independence - the API is defined in such a way that programs written in any common programming language could utilize it.</p>
+               </li>
+               <li class="listitem">
+                  <p>Platform independence - the API is defined in such a way that it is not dependent on any particular computing platform or operating system.</p>
+               </li>
+               <li class="listitem">
+                  <p>Extensible - the API can be extended in a backward compatible fashion. Old applications still work even with new extensions in place, while new applications that are aware of the extensions can gain access to a richer set of functionality.</p>
+               </li>
+               <li class="listitem">
+                  <p>Protected - the API design is consistent with later additions of mechanisms to protect intellectual property rights, and mechanisms that assure appropriate permissions and licenses are in place. The API should not interfere with common licensing systems.</p>
+               </li>
+               <li class="listitem">
+                  <p>Secure - the Hosted Application's access to data on the Hosting System would be controlled via the API by the Hosting System. The Hosting System would be responsible for access controls and audit logging, since it is the one providing the data to the Hosted Application.</p>
+               </li>
+               <li class="listitem">
+                  <p>Leverage Existing Technology - the API definition utilizes existing technology in common use, as far as practical, and does not define new methodologies.</p>
+               </li>
+               <li class="listitem">
+                  <p>Simultaneous Launching - the Hosting System will be able to launch several instances of the same or of different Hosted Applications at the same time.</p>
+               </li>
+               <li class="listitem">
+                  <p>Distributed Execution - although the API is designed for local execution, it does not prevent remote execution, where the Application is running on a different system from the Host.</p>
+               </li>
+            </ul>
+         </div>
+         <p>PS3.19 specifies both the interactions and the Application Programming Interfaces (API) between Hosting Systems and Hosted Applications. PS3.19 also includes Normative and Informative Annexes that define the data models that are used by the API defined in this part.</p>
+         <p>The API does not directly address workflow management, which is addressed by other DICOM Services.</p>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_Foreword.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">Foreword </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.19.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 2 Normative References</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>A.5 DICOM Deflated Little Endian Transfer Syntax (Explicit VR)</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.5.html" title="PS3.5" />
+      <link rel="up" href="chapter_A.html" title="A Transfer Syntax Specifications (Normative)" />
+      <link rel="prev" href="sect_A.4.html" title="A.4 Transfer Syntaxes For Encapsulation of Encoded Pixel Data" />
+      <link rel="next" href="sect_A.6.html" title="A.6 DICOM JPIP Referenced Transfer Syntax (Explicit VR)" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">A.5 DICOM Deflated Little Endian Transfer Syntax (Explicit VR)</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_A.4.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">A Transfer Syntax Specifications (Normative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_A.6.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_A.5" shape="rect"></a>A.5 DICOM Deflated Little Endian Transfer Syntax (Explicit VR)</h2>
+               </div>
+            </div>
+         </div>
+         <p>This Transfer Syntax applies to the encoding of the entire DICOM Data Set.</p>
+         <p>The entire Data Set is first encoded according to the rules specified in <a class="xref" href="sect_A.2.html" title="A.2 DICOM Little Endian Transfer Syntax (Explicit VR)" shape="rect">Section A.2</a>.</p>
+         <p>The entire byte stream is then compressed using the "Deflate" algorithm defined in Internet RFC 1951.</p>
+         <p>If the deflate algorithm produces an odd number of bytes then a single trailing NULL byte shall be added after the last byte of the deflated bit stream.</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="1">
+                  <li class="listitem">
+                     <p>The Pixel Data (7FE0,0010) is not handled in any special manner. The pixel data is first encoded as sequential uncompressed frames without encapsulation, and then is handled as part of the byte stream fed to the "deflate" compressor in the same manner as the value of any other attribute.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>This transfer syntax is particularly useful for compression of objects without pixel data, such as structured reports. It is not particularly effective at image compression, since any benefit obtained from compressing the non-pixel data is offset by less effective compression of the much larger pixel data.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>A freely available reference implementation of the "deflate" compressor may be found in the zlib package, which may be downloaded from <a class="link" href="http://www.zlib.net/" target="_top" shape="rect">http://www.zlib.net/</a>.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Although the encoded stream may be padded by a trailing NULL byte, the end of the deflated bit stream will be indicated by the delimiter that will occur before the padding.</p>
+                  </li>
+               </ol>
+            </div>
+         </div>
+         <p>In order to facilitate interoperability of implementations conforming to the DICOM Standard that elect to use this Transfer Syntax, the following policy is specified:</p>
+         <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+               <li class="listitem">
+                  <p>Any implementation that has elected to support the Deflated Explicit VR Little Endian Transfer Syntax for any Abstract Syntax, shall also support the Explicit VR Little Endian Transfer for that Abstract Syntax</p>
+               </li>
+            </ul>
+         </div>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="1">
+                  <li class="listitem">
+                     <p>This requirement to support the (uncompressed) Explicit VR Little Endian Transfer Syntax is in order to ensure full-fidelity exchange of VR information in the case that the Association Acceptor does not support the Deflated Explicit VR Little Endian Transfer Syntax. The requirement specified in <a class="xref" href="chapter_10.html#sect_10.1" title="10.1 DICOM Default Transfer Syntax" shape="rect">Section 10.1</a> of this part, that the Default Implicit VR Little Endian Transfer Syntax be supported by all implementations except those that only have access to lossy compressed pixel data, is not waived. In other words, an implementation must support all three transfer syntaxes.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>There are no such "baseline" requirements on media, since such requirements are at the discretion of the Media Application Profile. Furthermore, sufficient object "management" information should be present in the DICOMDIR even if an individual application cannot decompress an instance encoded with the deflated transfer syntax.</p>
+                  </li>
+               </ol>
+            </div>
+         </div>
+         <p>This DICOM Deflated Explicit VR Little Endian Transfer Syntax shall be identified by a UID of Value "1.2.840.10008.1.2.1.99".</p>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_A.4.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_A.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_A.6.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">A.4 Transfer Syntaxes For Encapsulation of Encoded Pixel Data </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.5.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> A.6 DICOM JPIP Referenced Transfer Syntax (Explicit VR)</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

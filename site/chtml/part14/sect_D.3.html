@@ -1,0 +1,2108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>D.3 Reflective Display Systems</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.14.html" title="PS3.14" />
+      <link rel="up" href="chapter_D.html" title="D Illustrations for Achieving Conformance with the Grayscale Standard Display Function (Informative)" />
+      <link rel="prev" href="sect_D.2.html" title="D.2 Transparent Hardcopy Devices" />
+      <link rel="next" href="chapter_E.html" title="E Realizable JND Range of a Display Under Ambient Light (Informative)" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">D.3 Reflective Display Systems</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_D.2.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">D Illustrations for Achieving Conformance with the Grayscale Standard Display Function (Informative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_E.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_D.3" shape="rect"></a>D.3 Reflective Display Systems</h2>
+               </div>
+            </div>
+         </div>
+         <p>This last example illustrates how conformance with the Grayscale Standard Display Function may be achieved for a thermal-dye-transfer paper printer/office-light system. The thermal-dye-transfer printer produces black-and-white grayscale prints on a semi-glossy 8-inch x 10-inch heavy-gauge paper. The print is illuminated uniformly by fluorescent lamps so that the minimum reflective density produces a Luminance of 150 cd/m<sup>2</sup>. The hypothetical transformation operator is assumed to have equal input and output digitization resolution of 8 bits.</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_D.3.1" shape="rect"></a>D.3.1 Measuring the System Characteristic Curve</h3>
+                  </div>
+               </div>
+            </div>
+            <p>A print with a 64-step grayscale tablet was printed for DDLs 4, 8, 12, ...,248, 252, 255. The reflection optical densities (from 0.08 to 2.80) were measured with a densitometer. The Luminance levels corresponding to the measured optical densities and illumination conditions are plotted in <a class="xref" href="sect_D.3.html#figure_D.3-1" title="Figure D.3-1. Measured and interpolated Characteristic Curve and Grayscale Standard Display Function for a printer producing reflective hard-copies" shape="rect">Figure D.3-1</a>.</p>
+            <p>
+          </p>
+            <div class="figure">
+               <a id="figure_D.3-1" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.14_D.3-1.svg" alt="Measured and interpolated Characteristic Curve and Grayscale Standard Display Function for a printer producing reflective hard-copies" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure D.3-1. Measured and interpolated Characteristic Curve and Grayscale Standard Display Function for a printer producing reflective hard-copies</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_D.3.2" shape="rect"></a>D.3.2 Application of the Grayscale Standard Display Function</h3>
+                  </div>
+               </div>
+            </div>
+            <p>This last example illustrates how conformance with the Grayscale Standard Display Function may be achieved for a thermal-dye-transfer paper printer/office-light system. The thermal-dye-transfer printer produces black-and-white grayscale prints on a semi-glossy 8-inch x 10-inch heavy-gauge paper. The print is illuminated uniformly by fluorescent lamps so that the minimum reflective density produces a Luminance of 150 cd/m<sup>2</sup>. The hypothetical transformation operator is assumed to have equal input and output digitization resolution of 8 bits.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_D.3.3" shape="rect"></a>D.3.3 Implementation of the Grayscale Standard Display Function</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The measured Characteristic Curve is interpolated for the available DDLs yielding 256 Luminance levels L<sub>I,m</sub>. The Grayscale Standard Display Function is also interpolated between JND<sub>min</sub> and JND<sub>max</sub> (DJND = [JND<sub>max</sub> - JND<sub>min</sub>]/255) yielding 256 Standard Luminance levels L<sub>I,STD</sub>.</p>
+            <p>For every L<sub>I,STD</sub>, the closest L<sub>J,m</sub> is determined. The data pair I,J defines the transformation between D<sub>input</sub> and D<sub>output</sub> (<a class="xref" href="sect_D.3.html#table_D.3-1" title="Table D.3-1. Look-Up Table for Calibrating Reflection Hardcopy System" shape="rect">Table D.3-1</a> and <a class="xref" href="sect_D.3.html#figure_D.3-2" title="Figure D.3-2. Transformation for modifying the Characteristic Curve of the printer to a Display Function that approximates the Grayscale Standard Display Function" shape="rect">Figure D.3-2</a>) by which the Luminance response of the Display System is made to approximates the Grayscale Standard Display Function.</p>
+            <p>
+          </p>
+            <div class="figure">
+               <a id="figure_D.3-2" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.14_D.3-2.svg" alt="Transformation for modifying the Characteristic Curve of the printer to a Display Function that approximates the Grayscale Standard Display Function" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure D.3-2. Transformation for modifying the Characteristic Curve of the printer to a Display Function that approximates the Grayscale Standard Display Function</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+            <div class="table">
+               <a id="table_D.3-1" shape="rect"></a>
+               <p class="title">
+                  <strong>Table D.3-1. Look-Up Table for Calibrating Reflection Hardcopy System</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>P-Value</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>DDL</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1"></th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>P-Value</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>DDL</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1"></th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>P-Value</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>DDL</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1"></th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>P-Value</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>DDL</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>0</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>6</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>9</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>2</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>12</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>3</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>15</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>4</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>18</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>5</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>20</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>6</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>27</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>7</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>29</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>8</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>30</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>9</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>31</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>10</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>31</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>11</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>32</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>12</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>33</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>33</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>14</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>34</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>15</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>36</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>16</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>38</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>17</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>40</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>18</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>41</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>19</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>42</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>20</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>43</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>21</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>44</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>22</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>45</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>23</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>59</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>24</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>60</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>25</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>61</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>26</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>62</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>27</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>62</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>28</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>63</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>29</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>63</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>30</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>64</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>31</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>64</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>32</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>65</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>33</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>65</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>34</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>65</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>35</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>66</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>36</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>66</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>37</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>67</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>38</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>67</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>39</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>68</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>40</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>70</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>41</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>74</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>42</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>75</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>43</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>76</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>44</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>78</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>45</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>84</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>46</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>85</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>47</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>86</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>48</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>87</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>49</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>87</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>50</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>88</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>51</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>89</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>52</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>89</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>53</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>91</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>54</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>92</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>55</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>94</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>56</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>95</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>57</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>96</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>58</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>97</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>59</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>97</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>60</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>98</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>61</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>99</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>62</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>99</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>63</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>100</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>64</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>101</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>65</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>102</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>66</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>103</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>67</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>104</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>68</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>105</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>69</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>106</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>70</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>107</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>71</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>108</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>72</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>109</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>73</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>110</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>74</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>112</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>75</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>114</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>76</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>116</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>77</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>118</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>78</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>119</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>79</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>120</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>80</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>121</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>81</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>122</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>82</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>122</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>83</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>123</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>84</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>123</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>85</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>124</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>86</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>125</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>87</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>125</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>88</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>126</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>89</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>126</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>90</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>127</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>91</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>127</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>92</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>128</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>93</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>129</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>94</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>130</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>95</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>131</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>96</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>133</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>97</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>134</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>98</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>135</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>99</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>136</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>100</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>136</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>101</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>137</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>102</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>138</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>103</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>138</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>104</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>139</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>105</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>139</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>106</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>140</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>107</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>141</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>108</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>143</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>109</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>145</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>110</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>147</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>111</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>148</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>112</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>149</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>113</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>150</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>114</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>151</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>115</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>152</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>116</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>153</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>117</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>154</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>118</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>154</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>119</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>155</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>120</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>156</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>121</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>156</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>122</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>157</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>123</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>158</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>124</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>159</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>125</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>160</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>126</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>160</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>127</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>162</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>128</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>163</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>129</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>164</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>130</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>165</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>131</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>166</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>132</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>167</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>133</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>168</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>134</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>169</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>135</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>170</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>136</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>170</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>137</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>171</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>138</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>172</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>139</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>172</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>140</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>173</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>141</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>174</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>142</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>175</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>143</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>175</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>144</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>176</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>145</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>177</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>146</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>178</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>147</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>179</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>148</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>179</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>149</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>180</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>150</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>181</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>151</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>182</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>152</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>182</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>153</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>183</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>154</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>184</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>155</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>184</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>156</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>185</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>157</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>186</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>158</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>186</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>159</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>187</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>160</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>187</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>161</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>188</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>162</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>188</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>163</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>189</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>164</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>189</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>165</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>190</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>166</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>190</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>167</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>190</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>168</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>191</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>169</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>191</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>170</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>192</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>171</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>192</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>172</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>192</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>173</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>193</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>174</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>194</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>175</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>194</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>176</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>195</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>177</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>195</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>178</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>196</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>179</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>197</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>180</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>198</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>181</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>199</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>182</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>199</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>183</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>200</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>184</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>200</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>185</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>201</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>186</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>202</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>187</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>202</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>188</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>203</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>189</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>203</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>190</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>204</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>191</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>204</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>192</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>205</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>193</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>205</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>194</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>206</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>195</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>207</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>196</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>207</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>197</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>208</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>198</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>209</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>199</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>210</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>200</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>211</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>201</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>212</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>202</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>213</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>203</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>214</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>204</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>214</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>205</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>215</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>206</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>216</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>207</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>216</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>208</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>217</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>209</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>218</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>210</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>219</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>211</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>219</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>212</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>220</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>213</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>220</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>214</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>221</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>215</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>222</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>216</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>222</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>217</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>223</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>218</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>223</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>219</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>224</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>220</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>224</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>221</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>225</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>222</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>226</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>223</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>226</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>224</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>227</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>225</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>228</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>226</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>228</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>227</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>230</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>228</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>231</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>229</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>232</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>230</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>234</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>231</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>235</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>232</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>236</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>233</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>238</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>234</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>238</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>235</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>239</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>236</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>240</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>237</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>241</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>238</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>242</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>239</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>242</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>240</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>243</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>241</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>244</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>242</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>245</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>243</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>246</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>244</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>247</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>245</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>248</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>246</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>249</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>247</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>250</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>248</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>250</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>249</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>251</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>250</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>251</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>251</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>252</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>252</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>252</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>253</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>253</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>254</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>253</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>255</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>254</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_D.3.4" shape="rect"></a>D.3.4 Measures of Conformance</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The FIT and LUM metrics as proposed in <a class="xref" href="chapter_C.html" title="C Measuring the Accuracy With Which a Display System Matches the Grayscale Standard Display Function (Informative)" shape="rect"> Annex C</a> are applied to determine the macroscopic and microscopic approximation of the
+  L<sub>J,m</sub> to the L<sub>I,STD</sub>. <a class="xref" href="sect_D.3.html#figure_D.3-3" title="Figure D.3-3. Transformed Display Function and superimposed Grayscale Standard Display Function for a reflective hard-copy Display System. The transformed Display Function for this Display System matches the Grayscale Standard Display Function and the two curves are superimposed and indistinguishable." shape="rect">Figure D.3-3</a> shows the perceptually linearized Display Function superimposed on the Grayscale Standard Display Function and <a class="xref" href="sect_D.3.html#figure_D.3-4" title="Figure D.3-4. Measures of conformance for a reflective hard-copy Display System with equal input and output digitization resolution of 8 bits" shape="rect">Figure D.3-4</a> summarizes the results of the two metrics. FIT provides as best fit of the JNDs/Luminance interval a straight line almost perfectly parallel to the horizontal axis indicating good global fit of the transformed Display Function with the Grayscale Standard Display Function. The RMSE computed by LUM is relatively large indicating more pronounced local deviations from the Grayscale Standard Display Function as, for example, with the soft-copy Display System illustrated in <a class="xref" href="chapter_D.html#sect_D.1" title="D.1 Emissive Display Systems" shape="rect">Section D.1</a>. At least in part, the larger RMSE is due to the fact that the input and output digitization resolution for the transform are equal. The transformation table (<a class="xref" href="sect_D.3.html#table_D.3-1" title="Table D.3-1. Look-Up Table for Calibrating Reflection Hardcopy System" shape="rect">Table D.3-1</a>) and <a class="xref" href="sect_D.3.html#figure_D.3-2" title="Figure D.3-2. Transformation for modifying the Characteristic Curve of the printer to a Display Function that approximates the Grayscale Standard Display Function" shape="rect">Figure D.3-2</a> show that several P-Values lead to the same Luminance levels on the transformed Display Function. In fact, only 205 of the 255 Luminance intervals lead to JNDs for the Standard Target.</p>
+            <p>
+          </p>
+            <div class="figure">
+               <a id="figure_D.3-3" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.14_D.3-3.svg" alt="Transformed Display Function and superimposed Grayscale Standard Display Function for a reflective hard-copy Display System. The transformed Display Function for this Display System matches the Grayscale Standard Display Function and the two curves are superimposed and indistinguishable." />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure D.3-3. Transformed Display Function and superimposed Grayscale Standard Display Function for a reflective hard-copy Display System. The transformed Display Function for this Display System matches the Grayscale Standard Display Function and the two curves are superimposed and indistinguishable.</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+            <p>
+          </p>
+            <div class="figure">
+               <a id="figure_D.3-4" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.14_D.3-4.svg" alt="Measures of conformance for a reflective hard-copy Display System with equal input and output digitization resolution of 8 bits" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure D.3-4. Measures of conformance for a reflective hard-copy Display System with equal input and output digitization resolution of 8 bits</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_D.2.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_D.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_E.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">D.2 Transparent Hardcopy Devices </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.14.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> E Realizable JND Range of a Display Under Ambient Light (Informative)</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

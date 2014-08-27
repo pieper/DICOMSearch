@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>A Transfer Syntax Specifications (Normative)</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.5.html" title="PS3.5" />
+      <link rel="up" href="PS3.5.html" title="PS3.5" />
+      <link rel="prev" href="sect_10.10.html" title="10.10 Transfer Syntax For MPEG-4 AVC/H.264 HIP@Level 4.1 Image Compression" />
+      <link rel="next" href="sect_A.2.html" title="A.2 DICOM Little Endian Transfer Syntax (Explicit VR)" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">A Transfer Syntax Specifications (Normative)</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_10.10.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_A.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_A" shape="rect"></a>A Transfer Syntax Specifications (Normative)</h1>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_A.1" shape="rect"></a>A.1 DICOM Implicit VR Little Endian Transfer Syntax</h2>
+                  </div>
+               </div>
+            </div>
+            <p>This Transfer Syntax applies to the encoding of the entire DICOM Data Set. This implies that when a DICOM Data Set is being encoded with the DICOM Implicit VR Little Endian Transfer Syntax the following requirements shall be met:</p>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="a">
+                  <li class="listitem">
+                     <p>The Data Elements contained in the Data Set structure shall be encoded with Implicit VR (without a VR Field) as specified in <a class="xref" href="chapter_7.html#sect_7.1.3" title="7.1.3 Data Element Structure with Implicit VR" shape="rect">Section 7.1.3</a>.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>The encoding of the overall Data Set structure (Data Element Tags, Value Length, and Value) shall be in Little Endian as specified in <a class="xref" href="sect_7.3.html" title="7.3 Big Endian Versus Little Endian Byte Ordering" shape="rect">Section 7.3</a>.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>The encoding of the Data Elements of the Data Set shall be as follows according to their Value Representations:</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: disc; ">
+                           <li class="listitem">
+                              <p>For all Value Representations defined in this part, except for the Value Representations OB and OW, the encoding shall be in Little Endian as specified in <a class="xref" href="sect_7.3.html" title="7.3 Big Endian Versus Little Endian Byte Ordering" shape="rect">Section 7.3</a>.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>For the Value Representations OB and OW, the encoding shall meet the following specification depending on the Data Element Tag:</p>
+                              <div class="itemizedlist">
+                                 <ul class="itemizedlist" style="list-style-type: circle; ">
+                                    <li class="listitem">
+                                       <p>Data Element (7FE0,0010) Pixel Data has the Value Representation OW and shall be encoded in Little Endian.</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>Data Element (60xx,3000) Overlay Data has the Value Representation OW and shall be encoded in Little Endian.</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>Data Element (5400,1010) Waveform Data shall have Value Representation OW and shall be encoded in Little Endian.</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>Data Elements (0028,1201), (0028,1202), (0028,1203), (0028,1204) Red, Green, Blue, Alpha Palette Lookup Table Data have the Value Representation OW and shall be encoded in Little Endian.</p>
+                                       <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                                          <h3 class="title">Note</h3>
+                                          <p>Previous versions of the Standard either did not specify the encoding of Data Elements (0028,1201), (0028,1202), (0028,1203) in this Part, but specified a VR of US or SS in PS3.6-1993, or specified OW in this Part but a VR of US, SS or OW in PS3.6-1996. The actual encoding of the values and their byte order would be identical in each case.</p>
+                                       </div>
+                                    </li>
+                                 </ul>
+                              </div>
+                           </li>
+                           <li class="listitem">
+                              <p>Data Elements (0028,1101), (0028,1102),(0028,1103) Red, Green, Blue Palette Lookup Table Descriptor have the Value Representation SS or US (depending on rules specified in the IOD in <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>), and shall be encoded in Little Endian. The first and third values are always interpreted as unsigned, regardless of the Value Representation.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Data Elements (0028,1221),(0028,1222),(0028,1223) Segmented Red, Green, Blue Palette Color Lookup Table Data have the Value Representation OW and shall be encoded in Little Endian.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Data Element (0028,3006) LUT Data has the Value Representation US or OW and shall be encoded in Little Endian.</p>
+                              <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                                 <h3 class="title">Note</h3>
+                                 <p>Previous versions of the Standard did not specify the encoding of these Data Elements in this Part, but specified a VR of US or SS in PS3.6-1998. A VR of OW has been added to support explicit VR transfer syntaxes. Moreover this element is always unsigned, therefore the VR of SS has been removed. The actual encoding of the values and their byte order would be identical in each case.</p>
+                              </div>
+                           </li>
+                        </ul>
+                     </div>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: disc; ">
+                           <li class="listitem">
+                              <p>Data Element (0028,3002) LUT Descriptor has the Value Representation SS or US (depending on rules specified in the IOD in <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>), and shall be encoded in Little Endian. The first and third values are always interpreted as unsigned, regardless of the Value Representation.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Data Element (0028,1408) Blending Lookup Table Data has the Value Representation OW and shall be encoded in Little Endian.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Data Elements (0066,0025) Vertex Point Index List, (0066,0024) Edge Point Index List, (0066,0023) Triangle Point Index List and (0066,0029) Primitive Point Index List have the Value Representation OW and shall be encoded in Little Endian and are always interpreted as unsigned.</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+               </ol>
+            </div>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>Encoding of Curve Data and Audio Sample Data was previously defined but has been retired. See PS3.5-2004.</p>
+            </div>
+            <p>This DICOM Implicit VR Little Endian Transfer Syntax shall be identified by a UID of Value "1.2.840.10008.1.2".</p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_10.10.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_A.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">10.10 Transfer Syntax For MPEG-4 AVC/H.264 HIP@Level 4.1 Image Compression </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.5.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> A.2 DICOM Little Endian Transfer Syntax (Explicit VR)</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

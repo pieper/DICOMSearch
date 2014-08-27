@@ -1,0 +1,606 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>6 Value Encoding</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.5.html" title="PS3.5" />
+      <link rel="up" href="PS3.5.html" title="PS3.5" />
+      <link rel="prev" href="chapter_5.html" title="5 Conventions" />
+      <link rel="next" href="sect_6.2.html" title="6.2 Value Representation (VR)" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">6 Value Encoding</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_5.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_6.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_6" shape="rect"></a>6 Value Encoding</h1>
+               </div>
+            </div>
+         </div>
+         <p>A Data Set is constructed by encoding the values of Attributes specified in the Information Object Definition (IOD) of a Real-World Object. The specific content and semantics of these Attributes are specified in Information Object Definitions (see <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>). The range of possible data types of these values and their encoding are specified in this section. The structure of a Data Set, which is composed of Data Elements containing these values, is specified in <a class="xref" href="chapter_7.html" title="7 The Data Set" shape="rect"> Section 7</a>.</p>
+         <p>Throughout this part, as well as other parts of the DICOM Standard, Tags are used to identify both specific Attributes and their corresponding Data Elements.</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_6.1" shape="rect"></a>6.1 Support of Character Repertoires</h2>
+                  </div>
+               </div>
+            </div>
+            <p>Values that are text or character strings can be composed of Graphic and Control Characters. The Graphic Character set, independent of its encoding, is referred to as a Character Repertoire. Depending on the native language context in which Application Entities wish to exchange data using the DICOM Standard, different Character Repertoires will be used. The Character Repertoires supported by DICOM are:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>ISO 8859</p>
+                  </li>
+                  <li class="listitem">
+                     <p>JIS X 0201-1976 Code for Information Interchange</p>
+                  </li>
+                  <li class="listitem">
+                     <p>JIS X 0208-1990 Code for the Japanese Graphic Character set for information interchange</p>
+                  </li>
+                  <li class="listitem">
+                     <p>JIS X 0212-1990 Code of the supplementary Japanese Graphic Character set for information interchange</p>
+                  </li>
+                  <li class="listitem">
+                     <p>KS X 1001 (registered as ISO-IR 149) for Korean Language</p>
+                  </li>
+                  <li class="listitem">
+                     <p>TIS 620-2533 (1990) Thai Characters Code for Information Interchange</p>
+                  </li>
+                  <li class="listitem">
+                     <p>ISO 10646-1, 10646-2, and their associated supplements and extensions for Unicode character set</p>
+                  </li>
+                  <li class="listitem">
+                     <p>GB 18030</p>
+                  </li>
+                  <li class="listitem">
+                     <p>GB2312</p>
+                  </li>
+                  <li class="listitem">
+                     <p>GBK</p>
+                  </li>
+               </ul>
+            </div>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>The ISO 10646-1, 10646-2, and their associated supplements and extensions correspond to the Unicode version 3.2 character set. The ISO IR 192 corresponds to the use of the UTF-8 encoding for this character set.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The GB 18030 character set is harmonized with the Unicode character set on a regular basis, to reflect updates from both the Chinese language and from Unicode extensions to support other languages.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The issue of font selection is not addressed by the DICOM standard. Issues such as proper display of words like "bone" in Chinese or Japanese usage are managed through font selection. Similarly, other user interface issues like bidirectional character display and text orientation are not addressed by the DICOM standard. The Unicode documents provide extensive documentation on these issues.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The GBK character set is an extension of the GB 2312-1980 character set and supports the Chinese characters in GB 13000.1-93 that is the Chinese adaptation of Unicode 1.1. The GBK is code point backward compatible to GB2312-1980. The GB 18030 character set is an extension of the GBK character set for support of Unicode 3.2, and provides backward code point compatibility.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_6.1.1" shape="rect"></a>6.1.1 Representation of Encoded Character Values</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>As defined in the ISO Standards referenced in this section, byte values used for encoded representations of characters are represented in this section as two decimal numbers in the form column/row.</p>
+               <p>This means that the value can be calculated as (column * 16) + row, e.g., 01/11 corresponds to the value 27 (1BH).</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>Two digit hex notation will be used throughout the remainder of this standard to represent character encoding. The column/row notation is used only within <a class="xref" href="chapter_6.html#sect_6.1" title="6.1 Support of Character Repertoires" shape="rect">Section 6.1</a> to simplify any cross referencing with applicable ISO standards.</p>
+               </div>
+               <p>The byte encoding space is divided into four ranges of values:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>CL bytes from 00/00 to 01/15</p>
+                     </li>
+                     <li class="listitem">
+                        <p>GL bytes from 02/00 to 07/15</p>
+                     </li>
+                     <li class="listitem">
+                        <p>CR bytes from 08/00 to 09/15</p>
+                     </li>
+                     <li class="listitem">
+                        <p>GR bytes from 10/00 to 15/15</p>
+                     </li>
+                  </ul>
+               </div>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>ISO 8859 does not differentiate between a code element, e.g., G0, and the area in the code table, e.g., GL, where it is invoked. The term "G0" specifies the code element as well as the area in the code table. In ISO/IEC 2022 there is a clear distinction between the code elements (G0, G1, G2, and G3) and the areas in which the code elements are invoked (GL or GR). In this Standard the nomenclature of ISO/IEC 2022 is used.</p>
+               </div>
+               <p>The Control Character set C0 shall be invoked in CL and the Graphic Character sets G0 and G1 in GL and GR respectively. Only some Control Characters from the C0 set are used in DICOM (see <a class="xref" href="chapter_6.html#sect_6.1.3" title="6.1.3 Control Characters" shape="rect">Section 6.1.3</a>), and characters from the C1 set shall not be used.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_6.1.2" shape="rect"></a>6.1.2 Graphic Characters</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>A Character Repertoire, or character set, is a collection of Graphic Characters specified independently of their encoding.</p>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_6.1.2.1" shape="rect"></a>6.1.2.1 Default Character Repertoire</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The default repertoire for character strings in DICOM shall be the Basic G0 Set of the International Reference Version of ISO 646:1990 (ISO-IR 6). See <a class="xref" href="chapter_E.html" title="E DICOM Default Character Repertoire (Normative)" shape="rect"> Annex E</a> for a table of the DICOM default repertoire and its encoding.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>This Basic G0 Set is identical with the common character set of ISO 8859.</p>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_6.1.2.2" shape="rect"></a>6.1.2.2 Extension or Replacement of the Default Character Repertoire</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>DICOM Application Entities (AEs) that extend or replace the default repertoire convey this information in the Specific Character Set (0008,0005) Attribute.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>The Attribute Specific Character Set (0008,0005) is encoded using a subset of characters from ISO-IR 6. See the definition for the Value Representation (VR) of Code String (CS) in <a class="xref" href="sect_6.2.html#table_6.2-1" title="Table 6.2-1. DICOM Value Representations" shape="rect">Table 6.2-1</a>.</p>
+                  </div>
+                  <p>For Data Elements with Value Representations of SH (Short String), LO (Long String), ST (Short Text), LT (Long Text), PN (Person Name) or UT (Unlimited Text) the default character repertoire may be extended or replaced (these Value Representations are described in more detail in <a class="xref" href="sect_6.2.html" title="6.2 Value Representation (VR)" shape="rect">Section 6.2</a>). If such an extension or replacement is used, the relevant "Specific Character Set" shall be defined as an attribute of the SOP Common Module (0008,0005) (see <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>) and shall be stated in the Conformance Statement. <a href="../part02/PS3.2.html" class="olink" shape="rect">PS3.2</a> gives conformance guidelines.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <div class="orderedlist">
+                        <ol class="orderedlist" type="1">
+                           <li class="listitem">
+                              <p>Preferred repertoires as defined in ENV 41 503 and ENV 41 508 for the use in Western and Eastern Europe, respectively, are: ISO-IR 100, ISO-IR 101, ISO-IR 144, ISO-IR 126. See <a class="xref" href="chapter_6.html#sect_6.1.2.3" title="6.1.2.3 Encoding of Character Repertoires" shape="rect">Section 6.1.2.3</a>.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Information Object Definitions using different character sets cannot rely¾per se¾ on lexical ordering or string comparison of data elements represented as character strings. These operations can only be carried out within a given character repertoire and not across repertoire boundaries.</p>
+                           </li>
+                        </ol>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_6.1.2.3" shape="rect"></a>6.1.2.3 Encoding of Character Repertoires</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The 7-bit default character repertoire can be replaced for use in Value Representations SH, LO, ST, LT, PN and UT with one of the single-byte codes defined in <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>This replacement character repertoire does not apply to other textual Value Representations (AE and CS).</p>
+                  </div>
+                  <p>The replacement character repertoire shall be specified in value 1 of the Attribute Specific Character Set (0008,0005). Defined Terms for the Attribute Specific Character Set are specified in <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <div class="orderedlist">
+                        <ol class="orderedlist" type="1">
+                           <li class="listitem">
+                              <p>The code table is split into the GL area, which supports a 94 character set only (bit combinations 02/01 to 07/14) plus SPACE in 02/00, and the GR area, which supports either a 94 or 96 character set (bit combinations 10/01 to 15/14 or 10/00 to 15/15). The default character set (ISO-IR 6) is always invoked in the GL area.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>All character sets specified in ISO 8859 include ISO-IR 6. This set will always be invoked in the GL area of the code table and is the equivalent of ASCII (ANSI X3.4:1986), whereas the various extension repertoires are mapped onto the GR area of the code table.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>The 8-bit code table of JIS X 0201 includes ISO-IR 14 (romaji alphanumeric characters) as the G0 code element and ISO-IR 13 (katakana phonetic characters) as the G1 code element. ISO-IR 14 is identical to ISO-IR 6, except that bit combination 05/12 represents a "¥"(YEN SIGN) and bit combination 07/14 represents an over-line.</p>
+                           </li>
+                        </ol>
+                     </div>
+                  </div>
+                  <p>Two character codes of the single-byte character sets invoked in the GL area of the code table, 02/00 and 05/12, have special significance in the DICOM Standard. The character SPACE, represented by bit combination 02/00, shall be used for the padding of Data Element Values that are character strings. The Graphic Character represented by the bit combination 05/12, "\" (BACKSLASH) in the repertoire ISO-IR 6, shall only be used in character strings with Value Representations of UT, ST and LT (see <a class="xref" href="sect_6.2.html" title="6.2 Value Representation (VR)" shape="rect">Section 6.2</a>). Otherwise the character code 05/12 is used as a separator for multiple valued Data Elements (see <a class="xref" href="sect_6.4.html" title="6.4 Value Multiplicity (VM) and Delimitation" shape="rect">Section 6.4</a>).</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>When the value of the Attribute Specific Character Set (0008,0005) is either "ISO_IR 13" or "ISO 2022 IR 13", the graphic character represented by the bit combination 05/12 is a "¥" (YEN SIGN) in the character set of ISO-IR 14.</p>
+                  </div>
+                  <p>The character DELETE (bit combination 07/15) shall not be used in DICOM character strings.</p>
+                  <p>The replacement Character Repertoire specified in value 1 of the Attribute Specific Character Set (0008,0005) (or the default Character Repertoire if value 1 is empty) may be further extended with additional Coded Character Sets, if needed and permitted by the replacement Character Repertoire. The additional Coded Character Sets and extension mechanism shall be specified in additional values of the Attribute Specific Character Set. If Attribute Specific Character Set (0008,0005) has a single value, the DICOM SOP Instance supports only one code table and no Code Extension techniques. If Attribute Specific Character Set (0008,0005) has multiple values, the DICOM SOP Instance supports Code Extension techniques as described in ISO/IEC 2022:1994.</p>
+                  <p>The Character Repertoires that prohibit extension are identified in Part 3.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <div class="orderedlist">
+                        <ol class="orderedlist" type="1">
+                           <li class="listitem">
+                              <p>Considerations on the Handling of Unsupported Character Sets:</p>
+                              <p>In DICOM, character sets are not negotiated between Application Entities but are indicated by a conditional attribute of the SOP Common Module. Therefore, implementations may be confronted with character sets that are unknown to them.</p>
+                              <p>The Unicode Standard includes a substantial discussion of the recommended means for display and print for characters that lack font support. These same recommendations may apply to the mechanisms for unsupported character sets.</p>
+                              <p>The machine should print or display such characters by replacing all unknown characters with the four characters "\nnn", where "nnn" is the three digit octal representation of each byte.</p>
+                              <p>An example of this for an ASCII based machine would be as follows:</p>
+                              <p>Character String: Günther Encoded representation: 04/07 15/12 06/14 07/04 06/08 06/05 07/02ASCII based machine: G\374nther</p>
+                              <p>Implementations may also encounter Control Characters that they have no means to print or display. The machine may print or display such Control Characters by replacing the Control Character with the four characters "\nnn", where "nnn" is the three digit octal representation of each byte.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Considerations for missing fonts</p>
+                              <p>The Unicode standard and the GB18030 standard define mechanisms for print and display of characters that are missing from the available fonts. If GBK is specified in Specific Character Set (0008,0005), the GB 18030 rules of print and display of characters shall apply. The DICOM standard does not specify user interface behavior since it does not affect network or media data exchange.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>The Unicode and GB18030 standards have distinct Yen symbol, backslash, and several forms of reverse solidus. The separator for multi-valued data elements in DICOM is the character valued 05/12 regardless of what glyph is used to enter or display this character. The other reverse solidus characters that have a very similar appearance are not separators. The choice of font can affect the appearance of 05/12 significantly. Multi-byte encoding systems, such as GB18030, GBK and ISO 2022, may generate encodings that contain a byte valued 05/12. Only the character that encodes as a single byte valued 05/12 is a delimiter.</p>
+                              <p>For multi-valued Data Elements, existing implementations that are expecting only single-byte replacement character sets may misinterpret the Value Multiplicity of the Data Element as a consequence of interpreting 05/12 bytes in multi-byte characters or ISO 2022 escape sequences as delimiters, and this may affect the integrity of store-and-forward operations. Applications that do not explicitly state support for GB18030, GBK or ISO 2022 in their conformance statement, might exhibit such behavior.</p>
+                           </li>
+                        </ol>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_6.1.2.4" shape="rect"></a>6.1.2.4 Code Extension Techniques</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>For Data Elements with Value Representations of SH (Short String), LO (Long String), ST (Short Text), LT (Long Text), UT (Unlimited Text) or PN (Person Name), the default character repertoire or the character repertoire specified by value 1 of Attribute Specific Character Set (0008,0005), may be extended using the Code Extension techniques specified by ISO/IEC 2022:1994.</p>
+                  <p>If such Code Extension techniques are used, the related Specific Character Set or Sets shall be specified by value 2 to value n of the Attribute Specific Character Set (0008,0005) of the SOP Common Module (see <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>), and shall be stated in the Conformance Statement.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <div class="orderedlist">
+                        <ol class="orderedlist" type="1">
+                           <li class="listitem">
+                              <p>Defined Terms for Specific Character Set (0008,0005) are defined in <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Support for Japanese kanji (ideographic), hiragana (phonetic), katakana (phonetic), Korean (Hangul phonetic and Hanja ideographic) and Chinese characters is defined in <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>The Chinese Character Set (GB18030) and Unicode (ISO 10646-1, 10646-2) do not allow the use of Code Extension Techniques. If either of these character sets is used, no other character set may be specified in the Specific Character Set (0008,0005) attribute, that is, it may have only one value.</p>
+                           </li>
+                        </ol>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_6.1.2.5" shape="rect"></a>6.1.2.5 Usage of Code Extension</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>DICOM supports Code Extension techniques if the Attribute Specific Character Set (0008,0005) is multi-valued. The method employed for Code Extension in DICOM is as described in ISO/IEC 2022:1994. The following assumptions shall be made and the following restrictions shall apply:</p>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h5 class="title">
+                                 <a id="sect_6.1.2.5.1" shape="rect"></a>6.1.2.5.1 Assumed Initial States</h5>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: disc; ">
+                           <li class="listitem">
+                              <p>Code element G0 and code element G1 (in 8-bit mode only) are always invoked in the GL and GR areas of the code table respectively. Designated character sets for these code elements are immediately in use. Code elements G2 and G3 are not used.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>The primary set of Control Characters shall always be designated as the C0 code element and this shall be invoked in the CL area of the code table. The C1 code element shall not be used.</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h5 class="title">
+                                 <a id="sect_6.1.2.5.2" shape="rect"></a>6.1.2.5.2 Restrictions for Code Extension</h5>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: disc; ">
+                           <li class="listitem">
+                              <p>As code elements G0 and G1 always have shift status, Locking Shifts (SI, SO) are not required and shall not be used.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>As code elements G2 and G3 are not used, Single Shifts (SS2 and SS3) cannot be used.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Only the ESC sequences specified in <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a> shall be used to activate Code Elements.</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h5 class="title">
+                                 <a id="sect_6.1.2.5.3" shape="rect"></a>6.1.2.5.3 Requirements</h5>
+                           </div>
+                        </div>
+                     </div>
+                     <p>The character set specified by value 1 of the Attribute Specific Character Set (0008,0005), or the default character repertoire if value 1 is missing, shall be active at the beginning of each textual Data Element value, and at the beginning of each line (i.e., after a CR and/or LF) or page (i.e., after an FF).</p>
+                     <p>If within a textual value a character set other than the one specified in value 1 of the Attribute Specific Character Set (0008,0005), or the default character repertoire if value 1 is missing, has been invoked, the character set specified in the value 1, or the default character repertoire if value 1 is missing, shall be active in the following instances:</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: disc; ">
+                           <li class="listitem">
+                              <p>before the end of line (i.e., before the CR and/or LF)</p>
+                           </li>
+                           <li class="listitem">
+                              <p>before the end of a page (i.e., before the FF)</p>
+                           </li>
+                           <li class="listitem">
+                              <p>before the end of a Data Element value (e.g., before the 05/12 character code that separates multiple textual Data Element Values - 05/12 corresponds to "\" (BACKSLASH) in the case of default repertoire IR-6 or "¥" (YEN SIGN) in the case of IR-14).</p>
+                           </li>
+                           <li class="listitem">
+                              <p>before the "^" and "=" delimiters separating name components and name component groups in Data Elements with a VR of PN.</p>
+                           </li>
+                        </ul>
+                     </div>
+                     <p>If within a textual value a character set other than the one specified in value 1 of the Attribute Specific Character Set (0008,0005), or the default character repertoire if value 1 is missing, is used, the Escape Sequence of this character set must be inserted explicitly in the following instances:</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: disc; ">
+                           <li class="listitem">
+                              <p>before the first use of the character set in the line</p>
+                           </li>
+                           <li class="listitem">
+                              <p>before the first use of the character set in the page</p>
+                           </li>
+                           <li class="listitem">
+                              <p>before the first use of the character set in the Data Element value</p>
+                           </li>
+                           <li class="listitem">
+                              <p>before the first use of the character set in the name component and name component group in Data Element with a VR of PN</p>
+                           </li>
+                        </ul>
+                     </div>
+                     <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                        <h3 class="title">Note</h3>
+                        <p>These requirements allow an application to skip lines, values, or components in a textual data element and start the new line with a defined character set without the need to track the character set changes in the text skipped. A similar restriction appears in the RFCs describing the use of multi-byte character sets over the Internet. An Escape Sequence switching to the value 1 or default Specific Character Set is not needed within a line, value, or component if no Code Extensions are present. Nor is a switch needed to the value 1 or default Specific Character Set if this character set has only the G0 Code Element defined, and the G0 Code Element is still active.</p>
+                     </div>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h5 class="title">
+                                 <a id="sect_6.1.2.5.4" shape="rect"></a>6.1.2.5.4 Levels of Implementation and Initial Designation</h5>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="orderedlist">
+                        <ol class="orderedlist" type="a">
+                           <li class="listitem">
+                              <p>Attribute Specific Character Set (0008,0005) not present:</p>
+                              <div class="itemizedlist">
+                                 <ul class="itemizedlist" style="list-style-type: disc; ">
+                                    <li class="listitem">
+                                       <p>7-bit code</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>Implementation level: ISO 2022 Level 1 - Elementary 7-bit code (code-level identifier 1)</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>Initial designation: ISO-IR 6 (ASCII) as G0.</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>Code Extension shall not be used.</p>
+                                    </li>
+                                 </ul>
+                              </div>
+                           </li>
+                           <li class="listitem">
+                              <p>Attribute Specific Character Set (0008,0005) single value other than "ISO_IR 192", "GB18030" or "GBK":</p>
+                              <div class="itemizedlist">
+                                 <ul class="itemizedlist" style="list-style-type: disc; ">
+                                    <li class="listitem">
+                                       <p>8-bit code</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>Implementation level: ISO 2022 Level 1 - Elementary 8-bit code (code-level identifier 11)</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>Initial designation: One of the ISO 8859-defined character sets, or the 8-bit code table of JIS X 0201 specified by value 1 of the Attribute Specific Character Set (0008,0005), as G0 and G1.</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>Code Extension shall not be used.</p>
+                                    </li>
+                                 </ul>
+                              </div>
+                           </li>
+                           <li class="listitem">
+                              <p>Attribute Specific Character Set (0008,0005) multi-valued:</p>
+                              <div class="itemizedlist">
+                                 <ul class="itemizedlist" style="list-style-type: disc; ">
+                                    <li class="listitem">
+                                       <p>8-bit code</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>Implementation level: ISO 2022 Level 4 - Redesignation of Graphic Character Sets within a Code (code-level identifier 14)</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>Initial designation: One of the ISO 8859-defined character sets, or the 8-bit code table of JIS X 0201 specified by value 1 of the Attribute Specific Character Set (0008,0005), as G0 and G1. If value 1 of the Attribute Specific Character Set (0008,0005) is empty, ISO-IR 6 (ASCII) is assumed as G0, and G1 is undefined.</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>All character sets specified in the various values of Attribute Specific Character Set (0008,0005), including value 1, may participate in Code Extension.</p>
+                                    </li>
+                                 </ul>
+                              </div>
+                           </li>
+                           <li class="listitem">
+                              <p>Attribute Specific Character Set (0008,0005) single value "ISO_IR 192", "GB18030" or "GBK":</p>
+                              <div class="itemizedlist">
+                                 <ul class="itemizedlist" style="list-style-type: disc; ">
+                                    <li class="listitem">
+                                       <p>variable length code</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>Implementation level: not specified (not compatible with ISO 2022)</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>Initial designation: as specified by value 1 of the Attribute Specific Character Set (0008,0005)</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>Code Extension shall not be used.</p>
+                                    </li>
+                                 </ul>
+                              </div>
+                           </li>
+                        </ol>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_6.1.3" shape="rect"></a>6.1.3 Control Characters</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>Textual data that is interchanged may require some formatting information. Control Characters are used to indicate formatting, but their use in DICOM is kept to a minimum since some machines may handle them inappropriately. ISO 646:1990 and ISO 6429:1990 define Control Characters. As shown in <a class="xref" href="chapter_6.html#table_6.1-1" title="Table 6.1-1. DICOM Control Characters and Their Encoding" shape="rect">Table 6.1-1</a> below, only a subset of four Control Characters from the C0 set shall be used in DICOM for the encoding of Control Characters in text strings.</p>
+               <div class="table">
+                  <a id="table_6.1-1" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table 6.1-1. DICOM Control Characters and Their Encoding</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Acronym</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Name</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Coded Value</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>LF</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Line Feed</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>00/10</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>FF</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Form Feed</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>00/12</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>CR</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Carriage Return</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>00/13</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>ESC</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Escape</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>01/11</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+               <p>The ESC character shall be used only for ISO 2022 character set control sequences, in accordance with <a class="xref" href="chapter_6.html#sect_6.1.2.5" title="6.1.2.5 Usage of Code Extension" shape="rect">Section 6.1.2.5</a>.</p>
+               <p>In text strings (value representation ST, LT, or UT) a new line shall be represented as CR LF.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>Some machines (such as UNIX based machines) may interpret LF (00/10) as a new line. In such cases, it is expected that the DICOM format is converted to the correct internal representation for that machine.</p>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_5.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_6.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">5 Conventions </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.5.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 6.2 Value Representation (VR)</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

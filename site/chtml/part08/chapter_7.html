@@ -1,0 +1,913 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>7 OSI Upper Layer Service for DICOM Application Entities</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.8.html" title="PS3.8" />
+      <link rel="up" href="PS3.8.html" title="PS3.8" />
+      <link rel="prev" href="chapter_6.html" title="6 Network Communication Support Environment" />
+      <link rel="next" href="sect_7.2.html" title="7.2 A-RELEASE Service" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">7 OSI Upper Layer Service for DICOM Application Entities</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_6.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_7.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_7" shape="rect"></a>7 OSI Upper Layer Service for DICOM Application Entities</h1>
+               </div>
+            </div>
+         </div>
+         <p>This section provides a description of how to use the OSI Association Control Service Element (ACSE) and OSI Presentation Layer to provide the Upper Layer Service necessary to support the communication of DICOM Application Entities. This Upper Layer Service is a fully conformant subset of the services offered by the ACSE and the OSI Presentation Layer.</p>
+         <p>The UL Services are listed in <a class="xref" href="chapter_7.html#table_7-1" title="Table 7-1. Upper Layer Services" shape="rect">Table 7-1</a>.</p>
+         <div class="table">
+            <a id="table_7-1" shape="rect"></a>
+            <p class="title">
+               <strong>Table 7-1. Upper Layer Services</strong>
+            </p>
+            <div class="table-contents">
+               <table frame="box" rules="all">
+                  <thead>
+                     <tr valign="top">
+                        <th align="center" rowspan="1" colspan="1">
+                           <p>SERVICE</p>
+                        </th>
+                        <th align="center" rowspan="1" colspan="1">
+                           <p>TYPE</p>
+                        </th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr valign="top">
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>A-ASSOCIATE</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>Confirmed</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>A-RELEASE</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>Confirmed</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>A-ABORT</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>Non-Confirmed</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>A-P-ABORT</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>Provider-initiated</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>P-DATA</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>Non-Confirmed</p>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <br class="table-break" clear="none" />
+         <p>In addition to the Upper Layer Service specification, this section defines at the parameter level the use of each element of this Upper Layer Service by DICOM Application Entities. The rules guiding the use of this Upper Layer Service by the DICOM Application Entities are addressed in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>.</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_7.1" shape="rect"></a>7.1 A-ASSOCIATE Service</h2>
+                  </div>
+               </div>
+            </div>
+            <p>The establishment of an association between two AEs shall be performed through ACSE A-ASSOCIATE request, indication, response and confirmation primitives. The initiator of the service is hereafter called a requestor and the service-user that receives the A-ASSOCIATE indication is hereafter called the acceptor. It shall be a confirmed service.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>The A-ASSOCIATE service supports the equivalent of a channel establishment in a point-to-point interface (see the retired PS3.9).</p>
+            </div>
+            <p>
+               <a class="xref" href="chapter_7.html#figure_7-1" title="Figure 7-1. Associate Request" shape="rect">Figure 7-1</a> illustrates the association establishment between two AEs.</p>
+            <p>
+  </p>
+            <div class="figure">
+               <a id="figure_7-1" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.8_7-1.svg" alt="Associate Request" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure 7-1. Associate Request</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_7.1.1" shape="rect"></a>7.1.1 A-ASSOCIATE Parameters</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>
+                  <a class="xref" href="chapter_7.html#table_7-2" title="Table 7-2. Key A-ASSOCIATE Service Parameters" shape="rect">Table 7-2</a> lists the parameters that shall be required for the A-ASSOCIATE service used by DICOM Application Entities in this standard.</p>
+               <div class="table">
+                  <a id="table_7-2" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table 7-2. Key A-ASSOCIATE Service Parameters</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>A-ASSOCIATE parameter name</p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Request</p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Indication</p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Response</p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Confirmation</p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>application context name</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>M</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>M(=)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>M</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>M(=)</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>calling AE title</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>M</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>M(=)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>M</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>M(=)</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>called AE title</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>M</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>M(=)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>M</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>M(=)</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>user information</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>M</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>M(=)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>M</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>M(=)</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>result</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>M</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>M(=)</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>result source</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>M</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>diagnostic</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>U</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>C(=)</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>calling presentation address</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>M</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>M(=)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>called presentation address</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>M</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>M(=)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>presentation context definition list</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>M</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>M(=)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>presentation context definition list result</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>M</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>M(=)</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>See Section 5 of this part for table conventions.</p>
+               </div>
+               <p>
+                  <a class="xref" href="chapter_7.html#table_7-3" title="Table 7-3. A-ASSOCIATE Service Parameter (Fixed or Not Used)" shape="rect">Table 7-3</a> lists the parameters for the A-ASSOCIATE service that shall contain fixed values or shall not be used by DICOM Application Entities in this standard.</p>
+               <div class="table">
+                  <a id="table_7-3" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table 7-3. A-ASSOCIATE Service Parameter (Fixed or Not Used)</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>A-ASSOCIATE parameter name</p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Request</p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Indication</p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Response</p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Confirmation</p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>mode</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UF</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>MF(=)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>responding AE title</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>MF</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>MF(=)</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>calling/called/responding AE qualifier</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>NU</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>NU</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>NU</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>NU</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>calling/called/responding AP invoc-id</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>NU</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>NU</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>NU</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>NU</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>calling/called/responding AE invoc-id</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>NU</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>NU</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>NU</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>NU</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>responding presentation address</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>MF</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>MF(=)</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>default context name/result</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>NU</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>NU</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>NU</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>NU</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>presentation &amp; session requirements</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UF</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UF(=)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UF</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UF(=)</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>other parameters (see ISO 8822 &amp; 8649)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>NU</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>NU</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>NU</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>NU</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_7.1.1.1" shape="rect"></a>7.1.1.1 Mode (Fixed)</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>This parameter allows the negotiation of the optional Mode OSI-ACSE Service parameter. Only the default value of "normal" is used by DICOM Application Entities. Therefore, this parameter shall always specify the value "normal."</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_7.1.1.2" shape="rect"></a>7.1.1.2 Application Context Name</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>This parameter identifies the application context proposed by the requestor. The acceptor shall return either the same or a different name. The returned name shall specify the application context to be used for this association. Further discussion on Application Context Names can be found in <a class="xref" href="chapter_A.html" title="A Application Context Names (Informative)" shape="rect"> Annex A</a>.</p>
+                  <p>An application context is an explicitly defined set of application service elements, related options, and any other information necessary for the interworking of application entities on an association.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>The offer of an alternate application context by the acceptor provides a mechanism for limited negotiation. If the requestor cannot operate in the acceptor's application context, it shall issue an A-Abort request primitive. Application Context Names for the DICOM Application Entity as well as Application Context Names usage rules are defined in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>.</p>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_7.1.1.3" shape="rect"></a>7.1.1.3 Calling AE Title</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>This parameter identifies the Application Entity (AE) that shall contain the requestor of the A-ASSOCIATE service. It is based on the Source DICOM Application Name. The relationship between DICOM Application Names and AE titles is specified in <a class="xref" href="chapter_C.html" title="C DICOM Addressing (Normative)" shape="rect"> Annex C</a>. The Calling AE title may or may not be the same as the Initiator Address present in DICOM Messages exchanged over the association.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>It is the responsibility of the UL User that received the A-ASSOCIATE-RQ to verify whether the Calling AE Title is one of its known remote DICOM Application Names.</p>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_7.1.1.4" shape="rect"></a>7.1.1.4 Called AE Title</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>This parameter identifies the Application Entity that shall contain the intended acceptor of the A-ASSOCIATE service. It is based on the Destination DICOM Application Name. The relationship between DICOM Application Name and AE titles is specified in <a class="xref" href="chapter_C.html" title="C DICOM Addressing (Normative)" shape="rect"> Annex C</a>. The Called AE title may or may not be the same as the Receiver Address present in DICOM Messages exchanged over the association.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>It is the responsibility of the UL User that received the A-ASSOCIATE-RQ to verify whether the Called AE Title is its (or one of its) DICOM Application Name(s).</p>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_7.1.1.5" shape="rect"></a>7.1.1.5 Responding AE Title (Fixed)</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>This parameter identifies the AE that shall contain the actual acceptor of the A-ASSOCIATE service. In this standard it shall always contain the same value as the Called AE Title of the A-ASSOCIATE indication.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_7.1.1.6" shape="rect"></a>7.1.1.6 User Information</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>This parameter shall be used by the requestor and the acceptor of the association to include DICOM Application Entity user information. Its meaning shall depend on the application context that accompanies the primitive. The usage of this parameter is specified in <a class="xref" href="chapter_D.html" title="D Use and Format of the A-ASSOCIATE User Information Parameter (Normative)" shape="rect"> Annex D</a>.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <div class="orderedlist">
+                        <ol class="orderedlist" type="1">
+                           <li class="listitem">
+                              <p>This parameter is used to carry initialization information for the DICOM Application Entities as defined in the application context specified by the value of the accompanying Application Context Name parameter.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>
+                                 <a class="xref" href="chapter_D.html" title="D Use and Format of the A-ASSOCIATE User Information Parameter (Normative)" shape="rect"> Annex D</a> specifies some user information sub-items, and references <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a> for the specification of additional sub-items. <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>, in turn, references <a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a> for the specification of Service-class-application-information used in some sub-items.</p>
+                           </li>
+                        </ol>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_7.1.1.7" shape="rect"></a>7.1.1.7 Result</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>This parameter shall be provided either by the acceptor of the A-ASSOCIATE request, by the UL service-provider (ACSE related function), or by the UL service-provider (Presentation related function). It shall indicate the result of using the A-ASSOCIATE service. It shall take one of the following symbolic values:</p>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="a">
+                        <li class="listitem">
+                           <p>accepted;</p>
+                        </li>
+                        <li class="listitem">
+                           <p>rejected (permanent);</p>
+                        </li>
+                        <li class="listitem">
+                           <p>rejected (transient).</p>
+                        </li>
+                     </ol>
+                  </div>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>The rejected (permanent) implies that the association calling UL user (when returning such a result to an association request) does not need to "call later." A permanent situation exists that prevents the association establishment (e.g., remote DICOM Application Name unknown).</p>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_7.1.1.8" shape="rect"></a>7.1.1.8 Result Source</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The value of the parameter is supplied by the UL service-provider. It identifies the creating source of the Result parameter and the Diagnostic parameter, if present. It shall take one of the following symbolic values:</p>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="a">
+                        <li class="listitem">
+                           <p>UL service-user;</p>
+                        </li>
+                        <li class="listitem">
+                           <p>UL service-provider (ACSE related function);c) UL service-provider (Presentation related function).</p>
+                        </li>
+                     </ol>
+                  </div>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>If the Result parameter has the value "accepted," the value of this parameter is "UL service-user."</p>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_7.1.1.9" shape="rect"></a>7.1.1.9 Diagnostic</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>This parameter shall only be used if the Result parameter has the value of "rejected (permanent) " or "rejected (transient)." It shall be used to provide diagnostic information about the result of the A-ASSOCIATE service.</p>
+                  <p>If the Result Source parameter has the value "UL service-user," it shall take one of the following symbolic values:</p>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="a">
+                        <li class="listitem">
+                           <p>no-reason-given</p>
+                        </li>
+                        <li class="listitem">
+                           <p>application-context-name not supported</p>
+                        </li>
+                        <li class="listitem">
+                           <p>calling-AE-title not recognized</p>
+                        </li>
+                        <li class="listitem">
+                           <p>called-AE-title not recognized</p>
+                        </li>
+                        <li class="listitem">
+                           <p>calling-AE-qualifier not recognized (see note)</p>
+                        </li>
+                        <li class="listitem">
+                           <p>calling-AP-invocation-identifier not recognized (see note)</p>
+                        </li>
+                        <li class="listitem">
+                           <p>calling-AE-invocation-identifier not recognized (see note)</p>
+                        </li>
+                        <li class="listitem">
+                           <p>called-AE-qualifier not recognized (see note)</p>
+                        </li>
+                        <li class="listitem">
+                           <p>called-AP-invocation-identifier not recognized (see note)</p>
+                        </li>
+                        <li class="listitem">
+                           <p>called-AE-invocation-identifier not recognized (see note)</p>
+                        </li>
+                     </ol>
+                  </div>
+                  <p>If the Result Source parameter has the value "UL service-provider" (ACSE related function), it shall take one of the following symbolic values:</p>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="a">
+                        <li class="listitem">
+                           <p>no-reason-given</p>
+                        </li>
+                        <li class="listitem">
+                           <p>no-common-UL version</p>
+                        </li>
+                     </ol>
+                  </div>
+                  <p>If the result source has the value "UL service-provider" (Presentation related function), it shall take the following symbolic values:</p>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="a">
+                        <li class="listitem">
+                           <p>no-reason-given</p>
+                        </li>
+                        <li class="listitem">
+                           <p>temporary-congestion</p>
+                        </li>
+                        <li class="listitem">
+                           <p>local-limit-exceeded</p>
+                        </li>
+                        <li class="listitem">
+                           <p>called-(Presentation) -address-unknown</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Presentation-protocol version not supported</p>
+                        </li>
+                        <li class="listitem">
+                           <p>no-(Presentation) Service Access Point (SAP) available</p>
+                        </li>
+                     </ol>
+                  </div>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>Even though some of the above symbolic values correspond to parameter errors not used in this standard, they are included to allow the notification of errors resulting from the unauthorized use of these parameters.</p>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_7.1.1.10" shape="rect"></a>7.1.1.10 Calling Presentation Address</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>This parameter shall contain a structured destination address unambiguous within the global network address structure. This shall be a TCP/IP Address. See <a class="xref" href="chapter_C.html" title="C DICOM Addressing (Normative)" shape="rect"> Annex C</a>.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_7.1.1.11" shape="rect"></a>7.1.1.11 Called Presentation Address</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>This parameter shall contain a structured destination address unambiguous within the global network address structure. This shall be a TCP/IP Address. See <a class="xref" href="chapter_C.html" title="C DICOM Addressing (Normative)" shape="rect"> Annex C</a>.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_7.1.1.12" shape="rect"></a>7.1.1.12 Responding Presentation Address</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>In this standard, a responding presentation address shall always contain the same value as the called Presentation Address of the A-ASSOCIATE indication. This parameter shall contain a structured destination address unambiguous within the global network address structure.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_7.1.1.13" shape="rect"></a>7.1.1.13 Presentation Context Definition List</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>This parameter used in an A-ASSOCIATE request or indication shall consist of a list containing one or more presentation contexts. Each item shall contain three components, a presentation context identification, an Abstract Syntax Name, and a list of one or more Transfer Syntax Names.</p>
+                  <p>The presentation context identification components of this parameter exist to distinguish presentation contexts in communication. Such an identification of presentation context(s) applies only within the context of a given association (i.e., different presentation contexts may be identified by the same presentation context identification on different associations). It is the association-requestor's responsibility to assign an arbitrary, but unused identifier for each proposed presentation context on a given association. There is no restriction on the ordering of the presentation contexts in relation to their identifiers.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>A separate presentation context will be associated with each Abstract Syntax Name in each of the elements of the Presentation Context Definition List parameter. If the same Abstract Syntax Name occurs more than once, a separate and distinctly identified presentation context will be generated for each occurrence (as only one Transfer Syntax per presentation context can be accepted).</p>
+                  </div>
+                  <p>Abstract Syntaxes defined by this standard and used by DICOM Application Entites are defined in <a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a>. Transfer Syntaxes defined by this standard and used by DICOM Application Entities are defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>. Further discussion on Abstract Syntaxes and Transfer Syntaxes can be found in <a class="xref" href="chapter_B.html" title="B Abstract and Transfer Syntaxes (Informative)" shape="rect"> Annex B</a>.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_7.1.1.14" shape="rect"></a>7.1.1.14 Presentation Context Definition Result List</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>This parameter used in the A-ASSOCIATE Response and Confirmation indicates the acceptance or rejection of each of the presentation context definitions proposed in the presentation context definition list parameter (<a class="xref" href="chapter_7.html#sect_7.1.1.13" title="7.1.1.13 Presentation Context Definition List" shape="rect">Section 7.1.1.13</a>). The Presentation Context Definition Result List parameter shall take the form of a list of result values. There is a one to one correspondence between each one of these result values and each of the presentation contexts proposed in the Presentation Context Definition List parameter. Each result value represents either "acceptance," "user-rejection," or "provider-rejection." The values of the results are assigned by the UL user on the response service primitive. The result values may be sent in any order.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>The order of the results may be different than the order proposed. The order need not be sorted by identifier, and the Initiator may not assume or depend upon any particular order.</p>
+                  </div>
+                  <p>In this standard only one Transfer Syntax per presentation context shall be agreed to, even though more than one choice of Transfer Syntaxes may have been offered in a specific presentation context of the Presentation Context Definition list.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_7.1.1.15" shape="rect"></a>7.1.1.15 Presentation Requirements (Fixed Value)</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>This parameter allows the negotiation of optional presentation functional units beyond the Presentation Kernel. Only the Kernel Functional Unit is used by DICOM Application Entities. Therefore, this parameter shall always specify "Presentation Kernel."</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_7.1.1.16" shape="rect"></a>7.1.1.16 Session Requirements (Fixed Value)</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>This parameter allows the negotiation of optional session Functional Units beyond the Session Kernel. Only the Kernel functional unit with the Full Duplex Functional Unit shall be used by DICOM Application Entities.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_7.1.1.17" shape="rect"></a>7.1.1.17 Other Parameters</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>A few optional parameters defined in the OSI ACSE (ISO 8649) and OSI Presentation Service (ISO 8822) Standards are not identified here. They are not necessary for the communication of DICOM Application Entities and shall not be used in this standard.</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_7.1.2" shape="rect"></a>7.1.2 A-ASSOCIATE Service Procedure</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>
+                  <span class="bold">
+                     <strong>7.1.2.1</strong>
+                  </span> A DICOM Application Entity (which includes the Upper Layer service-user) that desires to establish an association shall issue an A-ASSOCIATE request primitive. The called AE is identified by parameters of the request primitive. The requestor shall not issue any primitives except an A-ABORT request primitive until it receives an A-ASSOCIATE confirmation primitive.</p>
+               <p>
+                  <span class="bold">
+                     <strong>7.1.2.2</strong>
+                  </span> The Upper Layer (UL) service-provider shall issue an A-ASSOCIATE indication primitive to the called AE.</p>
+               <p>
+                  <span class="bold">
+                     <strong>7.1.2.3</strong>
+                  </span> The called AE shall accept or reject the association by sending an A-ASSOCIATE response primitive with an appropriate Result parameter. The Upper layer service-provider shall issue an A-ASSOCIATE confirmation primitive having the same Result parameter. The Result Source parameter shall be assigned the symbolic value of "UL service-user."</p>
+               <p>
+                  <span class="bold">
+                     <strong>7.1.2.4</strong>
+                  </span> If the acceptor accepts the association, the association is available for use. Both AEs may now use any service provided by the DICOM application context that is in effect (with the exception of A-ASSOCIATE).</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>This implies that once the association has been established, DICOM Messages can be exchanged as defined in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>.</p>
+               </div>
+               <p>
+                  <span class="bold">
+                     <strong>7.1.2.5</strong>
+                  </span> If the called AE rejects the association, the association shall not be established.</p>
+               <p>
+                  <span class="bold">
+                     <strong>7.1.2.6</strong>
+                  </span> The UL service-provider may not be capable of supporting the requested association. In this situation, it shall return an A-ASSOCIATE confirmation primitive to the requestor with an appropriate Result parameter (rejected). The Result Source parameter shall be appropriately assigned either the symbolic value of "UL service-provider (ACSE related function) " or "UL service-provider (Presentation related function)." The indication primitive shall not be issued. The association shall not be established.</p>
+               <p>
+                  <span class="bold">
+                     <strong>7.1.2.7</strong>
+                  </span> Either an association-requestor or acceptor may disrupt the A-ASSOCIATE service procedure by issuing an A-ABORT request primitive (see <a class="xref" href="sect_7.3.html" title="7.3 A-ABORT Service" shape="rect">Section 7.3</a>). The remote AE receives an A-ABORT indication primitive. The association shall not be established.</p>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_6.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_7.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">6 Network Communication Support Environment </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.8.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 7.2 A-RELEASE Service</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

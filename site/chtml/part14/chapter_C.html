@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>C Measuring the Accuracy With Which a Display System Matches the Grayscale Standard Display Function (Informative)</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.14.html" title="PS3.14" />
+      <link rel="up" href="PS3.14.html" title="PS3.14" />
+      <link rel="prev" href="chapter_B.html" title="B Table of the Grayscale Standard Display Function (Informative)" />
+      <link rel="next" href="sect_C.2.html" title="C.2 Methodology" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">C Measuring the Accuracy With Which a Display System Matches the Grayscale Standard Display Function (Informative)</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_B.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_C.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_C" shape="rect"></a>C Measuring the Accuracy With Which a Display System Matches the Grayscale Standard Display Function (Informative)</h1>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_C.1" shape="rect"></a>C.1 General Considerations Regarding Conformance and Metrics</h2>
+                  </div>
+               </div>
+            </div>
+            <p>To demonstrate conformance with the Grayscale Standard Display Function is a much more complex task than, for example, validating the responses of a totally digital system to DICOM messages.</p>
+            <p>Display systems ultimately produce analog output, either directly as Luminances or indirectly as optical densities. For some Display Systems, this analog output can be affected by various imperfections in addition to whatever imperfections exist in the Display System's Display Function that is to be validated. For example, there may be spatial non-uniformities in the final presented image (e.g., arising from film, printing, or processing non-uniformities in the case of a hardcopy printer) that are measurable but are at low spatial frequencies that do not ordinarily pose an image quality problem in diagnostic radiology.</p>
+            <p>It is worth noting that CRTs and light-boxes also introduce their own spatial non-uniformities. These non-uniformities are outside the scope of the Grayscale Standard Display Function and the measurement procedures described here. But because of them, even a test image that is perfectly presented in terms of the Grayscale Standard Display Function will be less than perfectly perceived on a real CRT or a real light-box.</p>
+            <p>Furthermore, the question "How close (to the Grayscale Standard Display Function) is close enough?" is currently unanswered, since the answer depends on psychophysical studies not yet done to determine what difference in Display Function is "just noticeable" when two nearly identical image presentations (e.g., two nearly identical films placed on equivalent side-by-side light-boxes) are presented to an observer.</p>
+            <p>Furthermore, the evaluation of a given Display System could be based either on visual tests (e.g., assessing the perceived contrast of many low-contrast targets in one or more test images) or by quantitative analysis based on measured data obtained from instruments (e.g., photometers or densitometers).</p>
+            <p>Even the quantitative approach could be addressed in different ways. One could, for example, simply superimpose plots of measured and theoretical analog output (i.e., Luminance or optical density) vs. P-Value, perhaps along with "error bars" indicating the expected uncertainty (non-repeatable variations) in the measured output. As a mathematically more elegant alternative, all the measured data points could be used as input to a statistical mathematical analysis that could attempt to determine the underlying Display Function of the Display System, yielding one or more quantitative values (metrics) that define how well the Display System conforms with the Grayscale Standard Display Function.</p>
+            <p>In what follows in this and the following annexes, an example of the latter type of metric analysis is used, in which measured data is analyzed using a "FIT" test that is intended to validate the shape of the Characteristic Curve and a "LUM" test that is intended to show the degree of scatter from the ideal Grayscale Standard Display Function. This approach has been applied, for example, to quantitatively demonstrate how improvements were successfully made to the Display Function of certain Display Systems.</p>
+            <p>Before proceeding with the description of the methodology of this specific metric approach, it should be noted that it is offered as one possible approach, not necessarily as the most appropriate approach for evaluating all Display Systems. In particular, the following notes should be considered before selecting or interpreting results from any particular metric approach.</p>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="1">
+                  <li class="listitem">
+                     <p>There may be practical issues that limit the number of P-Values that can be meaningfully used in the analysis. For example, it may be practical to measure all 256 possible Luminances from a fixed position on the screen of an 8-bit video monitor, but it may be impractical to meaningfully measure all 4096 densities theoretically printable by a 12-bit film printer. One reason for the impracticality is the limited accuracy of densitometers (or even film digitizers). A second reason is that the film density measurements, unlike the CRT photometer measurements, are obtained from different locations on the display area, so any spatial non-uniformity that is present in the film affects the hardcopy measurement. Current hardcopy printers and densitometers both have absolute optical density accuracy limitations that are significantly worse than the change that would be caused by a change in just the least significant bit of a 12-bit P-Value. In general, selecting a larger number
+      of P-Values allows, in principle, more localized aberrations from the Grayscale Standard Display Function to be "caught", but the signal-to-noise ratio (or significance) of each of these will be decreased.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>If the measurement data for a particular Display System has significant "noise" (as indicated by limited repeatability in the data when multiple sets of measurements are taken), it may be desirable to apply a statistical analysis technique that goes beyond the "FIT" and "LUM" metric by explicitly utilizing the known standard deviations in the input data set, along with the data itself, to prevent the fitting technique from over-reacting to noise. See, for example, the section "General Linear Least Squares" in Reference C1 and the chapter "Least-Squares Fit to a Polynomial" in Reference C2. If measurement noise is not explicitly taken into account in the analysis, the metric's returned root-mean-square error of the data points relative to the fit could be misleadingly high, since it would include the combined effect of errors due to incorrectness in the Display Function and errors due to measurement noise.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>If possible, the sensitivity and specificity of the metric being considered should be checked against visual tests. For example, a digital test pattern with many low-contrast steps at many ambient Luminances could be printed on a "laboratory standard" Grayscale Standard Display Function printer and also printed on a printer being evaluated. The resultant films could then be placed side-by-side on light-boxes for comparison by a human observer. A good metric technique should detect as sensitively and repeatably as the human observer the existence of deviations (of any shape) from the Grayscale Standard Display Function. For example, if a Display System has a Characteristic Curve that, for even a very short interval of DDL values, is too contrasty, too flat, or (worse yet) non-monotonic, the metric should be able to detect and respond to that anomaly as strongly as the human observer does.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Finally, in addition to the experimentally encountered non-repeatabilities in the data from a Display System, there may be reason to consider additional possible causes of variations. For example, varying the ordering of P-Values in a test pattern (temporally for CRTs, spatially for printers) might affect the results. For printers, switching to different media might affect the results. A higher confidence can be placed in the results obtained from any metric if the results are stable in the presence of any or all such changes.</p>
+                  </li>
+               </ol>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_B.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_C.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">B Table of the Grayscale Standard Display Function (Informative) </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.14.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> C.2 Methodology</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

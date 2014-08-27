@@ -1,0 +1,1123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Y.4 DIMSE-C Service Groups</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.4.html" title="PS3.4" />
+      <link rel="up" href="chapter_Y.html" title="Y Instance and Frame Level Retrieve SOP Classes (Normative)" />
+      <link rel="prev" href="sect_Y.3.html" title="Y.3 Standard Composite Instance Root Retrieve Information Model" />
+      <link rel="next" href="sect_Y.5.html" title="Y.5 Association Negotiation" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">Y.4 DIMSE-C Service Groups</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_Y.3.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">Y Instance and Frame Level Retrieve SOP Classes (Normative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_Y.5.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_Y.4" shape="rect"></a>Y.4 DIMSE-C Service Groups</h2>
+               </div>
+            </div>
+         </div>
+         <p>A single DIMSE-C Service is used in the construction of SOP Classes of the Composite Instance Root Retrieve Service. The following DIMSE-C operation is used:</p>
+         <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+               <li class="listitem">
+                  <p>C-MOVE</p>
+               </li>
+               <li class="listitem">
+                  <p>C-GET</p>
+               </li>
+            </ul>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_Y.4.1" shape="rect"></a>Y.4.1 C-MOVE Operation</h3>
+                  </div>
+               </div>
+            </div>
+            <p>SCUs of the Composite Instance Root Retrieve Service shall generate retrievals using the C-MOVE operation as described in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>.The C-MOVE operation allows an application entity to instruct another application entity to transfer stored SOP Instances or new SOP Instances extracted from such stored SOP Instances to another application entity using the C-STORE operation. Support for the C-MOVE service shall be agreed upon at Association establishment time by both the SCU and SCP of the C-MOVE in order for a C-MOVE operation to occur over the Association. The C-STORE sub-operations shall always be accomplished over an Association different from the Association that accomplishes the CMOVE operation. Hence, the SCP of the Query/Retrieve Service Class serves as the SCU of the Storage Service Class.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>The application entity that receives the stored SOP Instances may or may not be the originator of the C-MOVE operation.</p>
+            </div>
+            <p>A C-MOVE request may be performed to any level of the Composite Object Instance Root Retrieve Information Model,and the expected SCP behavior depends on the level selected.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_Y.4.1.1" shape="rect"></a>Y.4.1.1 C-MOVE Service Parameters</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_Y.4.1.1.1" shape="rect"></a>Y.4.1.1.1 SOP Class UID</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The SOP Class UID identifies the Query/Retrieve Information Model against which the C-MOVE is to be performed. Support for the SOP Class UID is implied by the Abstract Syntax UID of the Presentation Context used by this C-MOVE operation.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_Y.4.1.1.2" shape="rect"></a>Y.4.1.1.2 Priority</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The Priority Attribute defines the requested priority of the C-MOVE operation and corresponding C-STORE sub-operations with respect to other DIMSE operations being performed by the same SCP.</p>
+                  <p>Processing of priority requests is not required of SCPs. Whether or not an SCP supports priority processing, and the meaning of the different priority levels shall be stated in the Conformance Statement of the SCP. The same priority shall be used for all C-STORE sub-operations.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_Y.4.1.1.3" shape="rect"></a>Y.4.1.1.3 Identifier</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The C-MOVE request shall contain an Identifier. The C-MOVE response shall conditionally contain an Identifier as required in <a class="xref" href="sect_C.4.html#sect_C.4.3.1.3.2" title="C.4.3.1.3.2 Response Identifier Structure" shape="rect">Section C.4.3.1.3.2</a>.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>The Identifier is specified as U in the definition of the C-MOVE primitive in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a> but is specialized for use with this service.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_Y.4.1.1.3.1" shape="rect"></a>Y.4.1.1.3.1 Request Identifier Structure</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>An Identifier in a C-MOVE request shall contain:</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: disc; ">
+                           <li class="listitem">
+                              <p>the Query/Retrieve Level (0008,0052) that defines the level of the retrieval</p>
+                           </li>
+                           <li class="listitem">
+                              <p>SOP Instance UID(s) (0008,0018)</p>
+                           </li>
+                           <li class="listitem">
+                              <p>One of the Frame Range Keys if present in the Information Model for the level of the Retrieval</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Conditionally, the Attribute Query/Retrieve View (0008,0053). This Attribute may be included if Enhanced Multi-Frame Image Conversion has accepted during Association Extended Negotiation. It shall not be included otherwise.</p>
+                           </li>
+                        </ul>
+                     </div>
+                     <p>Specific Character Set (0008,0005) shall not be present.</p>
+                     <p>The Keys at each level of the hierarchy and the values allowable for the level of the retrieval shall be defined in the SOP Class definition for the Query/Retrieve Information Model.</p>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_Y.4.1.1.4" shape="rect"></a>Y.4.1.1.4 Status</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The status code values that might be returned in a C-MOVE response shall be as specified in <a class="xref" href="sect_Y.4.html#table_Y.4-1" title="Table Y.4-1. C-MOVE Response Status Values for Instance Root Retrieve" shape="rect">Table Y.4-1</a>
+                  </p>
+                  <div class="table">
+                     <a id="table_Y.4-1" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table Y.4-1. C-MOVE Response Status Values for Instance Root Retrieve</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Service Status</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Further Meaning</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Status Codes</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Related Fields</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" rowspan="10" colspan="1">
+                                    <p>Failure</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Refused: Out of Resources - Unable to calculate number of matches</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>A701</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,0902)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Refused: Out of Resources - Unable to perform sub-operations</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>A702</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,1020)</p>
+                                    <p>(0000,1021)</p>
+                                    <p>(0000,1022)</p>
+                                    <p>(0000,1023)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Refused: Move Destination unknown</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>A801</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,0902)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Identifier does not match SOP Class</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>A900</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,0901)</p>
+                                    <p>(0000,0902)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Unable to process</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Cxxx</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,0901)</p>
+                                    <p>(0000,0902)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>None of the frames requested were found in the SOP Instance</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>AA00</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,0902)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Unable to create new object for this SOP class</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>AA01</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,0902)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Unable to extract frames</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>AA02</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,0902)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Time-based request received for a non-time-based original SOP Instance.</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>AA03</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,0902)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Invalid Request</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>AA04</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,0901)</p>
+                                    <p>(0000,0902)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Cancel</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Sub-operations terminated due to Cancel Indication</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>FE00</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,1020)</p>
+                                    <p>(0000,1021)</p>
+                                    <p>(0000,1022)</p>
+                                    <p>(0000,1023)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Warning</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Sub-operations Complete - One or more Failures or Warnings</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>B000</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,1020)</p>
+                                    <p>(0000,1021)</p>
+                                    <p>(0000,1022)</p>
+                                    <p>(0000,1023)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Success</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Sub-operations Complete - No Failures or Warnings</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>0000</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,1020)</p>
+                                    <p>(0000,1021)</p>
+                                    <p>(0000,1022)</p>
+                                    <p>(0000,1023)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Pending</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Sub-operations are continuing</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>FF00</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,1020)</p>
+                                    <p>(0000,1021)</p>
+                                    <p>(0000,1022)</p>
+                                    <p>(0000,1023)</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_Y.4.1.1.5" shape="rect"></a>Y.4.1.1.5 Number of Remaining Sub-Operations</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Inclusion of the Number of Remaining Sub-operations shall be as specified in <a class="xref" href="sect_C.4.html#sect_C.4.2.1.6" title="C.4.2.1.6 Number of Remaining Sub-Operations" shape="rect">Section C.4.2.1.6</a>
+                  </p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_Y.4.1.1.6" shape="rect"></a>Y.4.1.1.6 Number of Completed Sub-Operations</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Inclusion of the Number of Completed Sub-operations shall be as specified in <a class="xref" href="sect_C.4.html#sect_C.4.2.1.7" title="C.4.2.1.7 Number of Completed Sub-Operations" shape="rect">Section C.4.2.1.7</a>
+                  </p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_Y.4.1.1.7" shape="rect"></a>Y.4.1.1.7 Number of Failed Sub-Operations</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Inclusion of the Number of Failed Sub-operations shall be as specified in <a class="xref" href="sect_C.4.html#sect_C.4.2.1.8" title="C.4.2.1.8 Number of Failed Sub-Operations" shape="rect">Section C.4.2.1.8</a>
+                  </p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_Y.4.1.1.8" shape="rect"></a>Y.4.1.1.8 Number of Warning Sub-Operations</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Inclusion of the Number of Warning Sub-operations shall be as specified in <a class="xref" href="sect_C.4.html#sect_C.4.2.1.9" title="C.4.2.1.9 Number of Warning Sub-Operations" shape="rect">Section C.4.2.1.9</a>.</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_Y.4.1.2" shape="rect"></a>Y.4.1.2 C-MOVE SCU Behavior</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_Y.4.1.2.1" shape="rect"></a>Y.4.1.2.1 Baseline Behavior of SCU</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>An SCU conveys the following semantics with a C-MOVE request:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>If the Retrieve Level (0000,0052) is IMAGE, the SCU shall specify one SOP Instance UID or a list of SOP Instance UIDs.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>If the Retrieve Level (0000,0052) is FRAME, the SCU shall specify the single SOP Instance UID of the item from which the new Composite SOP Instance should be extracted and the requested Frame List. The Requested Frame List shall be constructed as defined in <a class="xref" href="sect_Y.3.html#sect_Y.3.2" title="Y.3.2 Construction and Interpretation of Frame Range Keys" shape="rect">Section Y.3.2</a>.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The SCU shall accept C-MOVE responses with status equal to Pending during the processing of the C-STORE sub-operations. These responses indicate the number of Remaining, Completed, Failed and Warning C-STORE sub-operations.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The SCU shall interpret a C-MOVE response with a status equal to Success, Warning, Failure, or Refused as a final response. The final response indicates the number of Completed sub-operations and the number of Failed C-STORE sub-operations resulting from the C-MOVE operation. The SCU shall interpret a status of:</p>
+                           <div class="itemizedlist">
+                              <ul class="itemizedlist" style="list-style-type: circle; ">
+                                 <li class="listitem">
+                                    <p>Success to indicate that all sub-operations were successfully completed</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>Failure or Refused to indicate all sub-operations were unsuccessful</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>Warning in all other cases. The Number of Completed Sub-Operations (0000,1021), Number of Warning Sub-Operations (0000,1023), Number of Failed Sub-Operations (0000,1022) can be used to obtain more detailed information.</p>
+                                 </li>
+                              </ul>
+                           </div>
+                        </li>
+                        <li class="listitem">
+                           <p>The SCU may cancel the C-MOVE operation by issuing a C-MOVE-CANCEL request at any time during the processing of the C-MOVE request. A C-MOVE response with a status of Canceled shall indicate to the SCU that the retrieve was canceled. Optionally, the C-MOVE response with a status of Canceled shall indicate the number of Completed, Failed, and Warning C-STORE sub-operations. If present, the Remaining sub-operations count shall contain the number of C-STORE sub-operations that were not initiated due to the C-MOVE-CANCEL request.</p>
+                        </li>
+                     </ul>
+                  </div>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>For FRAME level C-MOVE operations, the application receiving the C-STORE sub-operations will receive a new SOP Instance with a different SOP Instance UID from the one included in the C-MOVE request. If it is required to link the received instance to the request, then it may be necessary to inspect the Frame Extraction Sequence of the instance received, to compare the original Instance UID and Requested Frame List to those in the request.</p>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_Y.4.1.2.2" shape="rect"></a>Y.4.1.2.2 Extended Behavior of SCU</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The extended behavior of the SCU shall be as specified in <a class="xref" href="sect_C.4.html#sect_C.4.2.2.2" title="C.4.2.2.2 Extended Behavior of SCU" shape="rect">Section C.4.2.2.2</a>, except that Relational-retrieve shall not be supported.</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_Y.4.1.3" shape="rect"></a>Y.4.1.3 C-MOVE SCP Behavior</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_Y.4.1.3.1" shape="rect"></a>Y.4.1.3.1 Baseline Behavior of SCP</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>An SCP conveys the following semantics with a C-MOVE response:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>If the Retrieve Level (0000,0052) is IMAGE the SCP shall identify a set of Entities at the level of the transfer based upon the values in the Unique Keys in the Identifier of the C-MOVE request.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>If the Retrieve Level (0000,0052) is FRAME, the SCP shall create a new Composite Instance according to the rules in section <a class="xref" href="sect_Y.3.html#sect_Y.3.2" title="Y.3.2 Construction and Interpretation of Frame Range Keys" shape="rect">Section Y.3.2</a>. The newly created SOP Instance shall be treated in the same manner as the set of Entities identified above.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The SCP shall either re-use an established and compatible Association or establish a new Association for the C-STORE sub-operations</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The SCP shall initiate C-STORE sub-operations over the Association for the identified or newly created SOP Instances.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>A sub-operation is considered a Failure if the SCP is required to create new SOP Instance, but is unable to do so due to inconsistencies in the Frame Range Keys, or if the resulting SOP Instance would not be valid.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Optionally, the SCP may generate responses to the C-MOVE with status equal to Pending during the processing of the C-STORE sub-operations. These responses shall indicate the number of Remaining, Completed, Failure, and Warning C-STORE sub-operations.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>When the number of Remaining sub-operations reaches zero, the SCP shall generate a final response with a status equal to Success, Warning or Failed. The status contained in the C-MOVE response shall contain:</p>
+                           <div class="itemizedlist">
+                              <ul class="itemizedlist" style="list-style-type: circle; ">
+                                 <li class="listitem">
+                                    <p>Success if all sub-operations were successfully completed</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>Failure if all sub-operations were unsuccessful</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>Warning in all other cases.</p>
+                                 </li>
+                              </ul>
+                           </div>
+                        </li>
+                        <li class="listitem">
+                           <p>The SCP may receive a C-MOVE-CANCEL request at any time during the processing of the C-MOVE request. The SCP shall interrupt all C-STORE sub-operation processing and return a status of Canceled in the C-MOVE response. The C-MOVE response with a status of Canceled shall contain the number of Completed, Failed, and Warning C-STORE sub-operations. If present, the Remaining sub-operations count shall contain the number of C-STORE sub-operations that were not initiated due to the C-MOVE-CANCEL request.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>If the SCP manages images in multiple alternate encodings (see <a class="xref" href="sect_C.6.html#sect_C.6.1.1.5.1" title="C.6.1.1.5.1 Alternate Representation Sequence" shape="rect">Section C.6.1.1.5.1</a>), only one of the alternate encodings of an image shall be used as the existing SOP Instance from which frames are to be extracted.</p>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_Y.4.1.3.2" shape="rect"></a>Y.4.1.3.2 Extended Behavior of SCP</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The extended behavior of the SCP shall be as specified in <a class="xref" href="sect_C.4.html#sect_C.4.2.3.2" title="C.4.2.3.2 Extended Behavior of SCP" shape="rect">Section C.4.2.3.2</a>, except that Relational-retrieve shall not be supported.</p>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_Y.4.2" shape="rect"></a>Y.4.2 C-GET Operation</h3>
+                  </div>
+               </div>
+            </div>
+            <p>SCUs of the Composite Instance Root Retrieve Service shall generate retrievals using the C-GET operation as described in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>. The C-GET operation allows an application entity to instruct another application entity to transfer stored SOP Instances or new SOP Instances derived from such stored SOP Instances to the initiating application entity using the C-STORE operation. Support for the C-GET service shall be agreed upon at Association establishment time by both the SCU and SCP of the C-GET in order for a C-GET operation to occur over the Association. The C-STORE Sub-operations shall be accomplished on the same Association as the C-GET operation. Hence, the SCP of the Query/Retrieve Service Class serves as the SCU of the Storage Service Class.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>The Application Entity that receives the stored SOP Instances is always the originator of the C-GET operation.</p>
+            </div>
+            <p>A C-GET request may be performed to any level of the Composite Instance Root Retrieve Information Model, and the expected SCP behavior depends on the level selected.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_Y.4.2.1" shape="rect"></a>Y.4.2.1 C-GET Service Parameters</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_Y.4.2.1.1" shape="rect"></a>Y.4.2.1.1 SOP Class UID</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The SOP Class UID identifies the Query/Retrieve Information Model against which the C-GET is to be performed. Support for the SOP Class UID is implied by the Abstract Syntax UID of the Presentation Context used by this C-GET operation.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_Y.4.2.1.2" shape="rect"></a>Y.4.2.1.2 Priority</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The Priority Attribute defines the requested priority of the C-GET operation and corresponding C-STORE sub-operations with respect to other DIMSE operations being performed by the same SCP.</p>
+                  <p>Processing of priority requests is not required of SCPs. Whether or not an SCP supports priority processing, and the meaning of the different priority levels shall be stated in the Conformance Statement of the SCP. The same priority shall be used for all C-STORE sub-operations.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_Y.4.2.1.3" shape="rect"></a>Y.4.2.1.3 Identifier</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The C-GET request shall contain an Identifier. The C-GET response shall conditionally contain an Identifier as required in <a class="xref" href="sect_C.4.html#sect_C.4.3.1.3.2" title="C.4.3.1.3.2 Response Identifier Structure" shape="rect">Section C.4.3.1.3.2</a>.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>The Identifier is specified as U in the definition of the C-GET primitive in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a> but is specialized for use with this service.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_Y.4.2.1.3.1" shape="rect"></a>Y.4.2.1.3.1 Request Identifier Structure</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>An Identifier in a C-GET request shall contain:</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: disc; ">
+                           <li class="listitem">
+                              <p>the Query/Retrieve Level (0008,0052) that defines the level of the retrieval</p>
+                           </li>
+                           <li class="listitem">
+                              <p>SOP Instance UID(s) (0008,0018)</p>
+                           </li>
+                           <li class="listitem">
+                              <p>One of the Frame Range Keys if present in the Information Model for the level of the Retrieval</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Conditionally, the Attribute Query/Retrieve View (0008,0053). This Attribute may be included if Enhanced Multi-Frame Image Conversion has accepted during Association Extended Negotiation. It shall not be included otherwise.</p>
+                           </li>
+                        </ul>
+                     </div>
+                     <p>Specific Character Set (0008,0005) shall not be present.</p>
+                     <p>The Keys at each level of the hierarchy and the values allowable for the level of the retrieval shall be defined in the SOP Class definition for the Query/Retrieve Information Model.</p>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_Y.4.2.1.4" shape="rect"></a>Y.4.2.1.4 Status</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The status code values that might be returned in a C-GET response shall be as specified in <a class="xref" href="sect_Y.4.html#table_Y.4-2" title="Table Y.4-2. C-GET Response Status Values for Instance Root Retrieve" shape="rect">Table Y.4-2</a>
+                  </p>
+                  <div class="table">
+                     <a id="table_Y.4-2" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table Y.4-2. C-GET Response Status Values for Instance Root Retrieve</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Service Status</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Further Meaning</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Status Codes</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Related Fields</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" rowspan="9" colspan="1">
+                                    <p>Failure</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Refused: Out of Resources - Unable to calculate number of matches</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>A701</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,0902)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Refused: Out of Resources - Unable to perform sub-operations</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>A702</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,1020)</p>
+                                    <p>(0000,1021)</p>
+                                    <p>(0000,1022)</p>
+                                    <p>(0000,1023)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Identifier does not match SOP Class</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>A900</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,0901)</p>
+                                    <p>(0000,0902)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Unable to process</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Cxxx</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,0901)</p>
+                                    <p>(0000,0902)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>None of the frames requested were found in the SOP Instance</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>AA00</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,0902)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Unable to create new object for this SOP class</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>AA01</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,0902)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Unable to extract frames</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>AA02</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,0902)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Time-based request received for a non-time-based original SOP Instance.</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>AA03</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,0902)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Invalid Request</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>AA04</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,0901)</p>
+                                    <p>(0000,0902)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Cancel</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Sub-operations terminated due to Cancel Indication</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>FE00</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,1020)</p>
+                                    <p>(0000,1021)</p>
+                                    <p>(0000,1022)</p>
+                                    <p>(0000,1023)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Warning</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Sub-operations Complete - One or more Failures or Warnings</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>B000</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,1020)</p>
+                                    <p>(0000,1021)</p>
+                                    <p>(0000,1022)</p>
+                                    <p>(0000,1023)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Success</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Sub-operations Complete - No Failures or Warnings</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>0000</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,1020)</p>
+                                    <p>(0000,1021)</p>
+                                    <p>(0000,1022)</p>
+                                    <p>(0000,1023)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Pending</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Sub-operations are continuing</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>FF00</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,1020)</p>
+                                    <p>(0000,1021)</p>
+                                    <p>(0000,1022)</p>
+                                    <p>(0000,1023)</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_Y.4.2.1.5" shape="rect"></a>Y.4.2.1.5 Number of Remaining Sub-Operations</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Inclusion of the Number of Remaining Sub-operations shall be as specified in <a class="xref" href="sect_C.4.html#sect_C.4.3.1.5" title="C.4.3.1.5 Number of Remaining Sub-Operations" shape="rect">Section C.4.3.1.5</a>
+                  </p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_Y.4.2.1.6" shape="rect"></a>Y.4.2.1.6 Number of Completed Sub-Operations</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Inclusion of the Number of Completed Sub-operations shall be as specified in <a class="xref" href="sect_C.4.html#sect_C.4.3.1.6" title="C.4.3.1.6 Number of Completed Sub-Operations" shape="rect">Section C.4.3.1.6</a>
+                  </p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_Y.4.2.1.7" shape="rect"></a>Y.4.2.1.7 Number of Failed Sub-Operations</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Inclusion of the Number of Failed Sub-operations shall be as specified in <a class="xref" href="sect_C.4.html#sect_C.4.3.1.7" title="C.4.3.1.7 Number of Failed Sub-Operations" shape="rect">Section C.4.3.1.7</a>
+                  </p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_Y.4.2.1.8" shape="rect"></a>Y.4.2.1.8 Number of Warning Sub-Operations</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Inclusion of the Number of Warning Sub-operations shall be as specified in <a class="xref" href="sect_C.4.html#sect_C.4.3.1.8" title="C.4.3.1.8 Number of Warning Sub-Operations" shape="rect">Section C.4.3.1.8</a>.</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_Y.4.2.2" shape="rect"></a>Y.4.2.2 C-GET SCU Behavior</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_Y.4.2.2.1" shape="rect"></a>Y.4.2.2.1 Baseline Behavior of SCU</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>An SCU conveys the following semantics with a C-GET request:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>If the Retrieve Level (0000,0052) is IMAGE, the SCU shall specify one SOP Instance UID or a list of SOP Instance UIDs.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>If the Retrieve Level (0000,0052) is FRAME, the SCU shall specify the single SOP Instance UID of the item from which the new Composite SOP Instance should be extracted and the Requested Frame List. The Requested Frame List shall be constructed as a Frame List as defined in <a class="xref" href="sect_Y.3.html#sect_Y.3.2" title="Y.3.2 Construction and Interpretation of Frame Range Keys" shape="rect">Section Y.3.2</a>.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The SCU shall have proposed sufficient presentation contexts at Association establishment time to accommodate expected C-STORE sub-operations that will occur over the same Association. The SCU of the Query/Retrieve Service Class shall serve as the SCP of the Storage Service Class.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The SCU shall accept C-GET responses with status equal to Pending during the processing of the C-STORE sub-operations. These responses indicate the number of Remaining, Completed, Failed and Warning C-STORE sub-operations.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The SCU shall interpret a C-GET response with a status equal to Success, Warning, Failure, or Refused as a final response. The final response indicates the number of Completed sub-operations and the number of Failed C-STORE sub-operations resulting from the C-GET operation. The SCU shall interpret a status of:</p>
+                           <div class="itemizedlist">
+                              <ul class="itemizedlist" style="list-style-type: circle; ">
+                                 <li class="listitem">
+                                    <p>Success to indicate that all sub-operations were successfully completed</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>Failure or Refused to indicate all sub-operations were unsuccessful</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>Warning in all other cases. The Number of Completed Sub-Operations (0000,1021), Number of Warning Sub-Operations (0000,1023), Number of Failed Sub-Operations (0000,1022) can be used to obtain more detailed information.</p>
+                                 </li>
+                              </ul>
+                           </div>
+                        </li>
+                        <li class="listitem">
+                           <p>The SCU may cancel the C-GET operation by issuing a C-GET-CANCEL request at any time during the processing of the C-GET request. A C-GET response with a status of Canceled shall indicate to the SCU that the retrieve was canceled. Optionally, the C-GET response with a status of Canceled shall indicate the number of Completed, Failed, and Warning C-STORE sub-operations. If present, the Remaining sub-operations count shall contain the number of C-STORE sub-operations that were not initiated due to the C-GET-CANCEL request.</p>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_Y.4.2.2.2" shape="rect"></a>Y.4.2.2.2 Extended Behavior of SCU</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The extended behavior of the SCU shall be as specified in <a class="xref" href="sect_C.4.html#sect_C.4.3.2.2" title="C.4.3.2.2 Extended Behavior of SCU" shape="rect">Section C.4.3.2.2</a>, except that Relational-retrieve shall not be supported.</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_Y.4.2.3" shape="rect"></a>Y.4.2.3 C-GET SCP Behavior</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_Y.4.2.3.1" shape="rect"></a>Y.4.2.3.1 Baseline Behavior of SCP</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>An SCP conveys the following semantics with a C-GET response:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>If the Retrieve Level (0000,0052) is IMAGE the SCP shall identify a set of Entities at the level of the transfer based upon the values in the Unique Keys in the Identifier of the C-GET request.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>If the Retrieve Level (0000,0052) is FRAME, the SCP shall create a new Composite Instance according to the rules in section <a class="xref" href="sect_Y.3.html#sect_Y.3.3" title="Y.3.3 New Instance Creation At the Frame Level" shape="rect">Section Y.3.3</a>. The newly created SOP Instance shall be treated in the same manner as the set of Entities identified above.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The SCP shall initiate C-STORE sub-operations for the identified or newly created SOP Instances. The SCP of the Query/Retrieve Service Class shall serve as an SCU of the Storage Service Class.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The SCP shall initiate C-STORE sub-operations over the same Association for all identified or newly created SOP Instances specified in the C-GET request.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>A sub-operation is considered a Failure if the SCP is required to create new SOP Instance, but is unable to do so due to inconsistencies in the Frame Range Keys, or if the resulting SOP Instance would not be valid.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>A sub-operation is considered a Failure if the SCP is unable to initiate a C-STORE sub-operation because the Query/Retrieve SCU did not offer an appropriate presentation context for a given stored SOP Instance.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Optionally, the SCP may generate responses to the C-GET with status equal to Pending during the processing of the C-STORE sub-operations. These responses shall indicate the number of Remaining, Completed, Failure, and Warning C-STORE sub-operations.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>When the number of Remaining sub-operations reaches zero, the SCP shall generate a final response with a status equal to Success, Warning or Failed. The status contained in the C-GET response shall contain:</p>
+                           <div class="itemizedlist">
+                              <ul class="itemizedlist" style="list-style-type: circle; ">
+                                 <li class="listitem">
+                                    <p>Success if all sub-operations were successfully completed</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>Failure if all sub-operations were unsuccessful</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>Warning in all other cases.</p>
+                                 </li>
+                              </ul>
+                           </div>
+                        </li>
+                        <li class="listitem">
+                           <p>The SCP may receive a C-GET-CANCEL request at any time during the processing of the C-GET request. The SCP shall interrupt all C-STORE sub-operation processing and return a status of Canceled in the C-GET response. The C-GET response with a status of Canceled shall contain the number of Completed, Failed, and Warning C-STORE sub-operations. If present, the Remaining sub-operations count shall contain the number of C-STORE sub-operations that were not initiated due to the C-GET-CANCEL request.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>If the SCP manages images in multiple alternate encodings (see <a class="xref" href="sect_C.6.html#sect_C.6.1.1.5.1" title="C.6.1.1.5.1 Alternate Representation Sequence" shape="rect">Section C.6.1.1.5.1</a>), only one of the alternate encodings of an image shall be used as the existing SOP Instance from which frames are to be extracted.</p>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_Y.4.2.3.2" shape="rect"></a>Y.4.2.3.2 Extended Behavior of SCP</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The extended behavior of the SCP shall be as specified in <a class="xref" href="sect_C.4.html#sect_C.4.3.3.2" title="C.4.3.3.2 Extended Behavior of SCP" shape="rect">Section C.4.3.3.2</a>, except that Relational-retrieve shall not be supported.</p>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_Y.3.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_Y.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_Y.5.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">Y.3 Standard Composite Instance Root Retrieve Information Model </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.4.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> Y.5 Association Negotiation</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

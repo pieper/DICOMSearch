@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>GGG.3 Other Features</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="chapter_GGG.html" title="GGG Unified Worklist and Procedure Step - UPS (Informative)" />
+      <link rel="prev" href="sect_GGG.2.html" title="GGG.2 Implementation Examples" />
+      <link rel="next" href="chapter_HHH.html" title="HHH Evolution of WADO to Web and Rest Services (Informative)" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">GGG.3 Other Features</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_GGG.2.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">GGG Unified Worklist and Procedure Step - UPS (Informative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_HHH.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_GGG.3" shape="rect"></a>GGG.3 Other Features</h2>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_GGG.3.1" shape="rect"></a>GGG.3.1 What Was Scheduled Vs. What Was Performed</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The performing system for a UPS instance determines what details to put in the attributes of the Performed Procedure Information Module. It is possible that the procedure performed may differ in some details from the procedure scheduled. It is up to the performing system to decide how much the performed procedure can differ from the scheduled procedure before it is considered a different procedure, or how much must be performed before the procedure is considered complete.</p>
+            <p>In the case of cancellation, it is possible that some details of the situation may be indeterminable. Beyond meeting the Final State requirements, accurately reflecting in the CANCELED UPS instance the actual state of the task (e.g., reflecting partial work completed and/or any cleanup performed during cancellation), is at the discretion of the performing system.</p>
+            <p>In general it is expected that:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>An SCU that completes a UPS differently than described in the scheduled details, but accomplishes the intended goal, would record the details as performed in the existing UPS and set it to COMPLETED. Interested systems may choose to N-GET the Performed Codes from the UPS and confirm whether they match the Scheduled Codes.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>An SCU that completes part of the work described in a UPS, but does not accomplish the intended goal, would set the Performed Protocol Codes to reflect what work was fully or partially completed, set the Output Sequence to reflect the created objects and set the UPS state to CANCELED since the goal was not completed.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>An SCU that completes a step with a different intent and scope in place of a scheduled UPS would cancel the original scheduled UPS, listing no work output products, and schedule a new UPS describing what was actually done, and reference the original UPS that it replaces in the Replaced Procedure Step Sequence to facilitate monitoring systems "closing the loop".</p>
+                  </li>
+                  <li class="listitem">
+                     <p>An SCU that completes multiple steps, scheduled as separate UPS instances (e.g., a dictation &amp; a transcription &amp; a verification), as a block would individually report each of them as completed.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>An SCU that completes additional unscheduled work in the course of completing a scheduled UPS would either report additional procedure codes in the completed UPS, or create one or more new UPS instances to record the unscheduled work.</p>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_GGG.3.2" shape="rect"></a>GGG.3.2 Complex Procedure Steps</h3>
+                  </div>
+               </div>
+            </div>
+            <p>There are cases where it may be useful to schedule a complex procedure that is essentially a grouping of multiple workitems. Placing multiple workitem codes in the Scheduled Workitem Code Sequence is not permitted (partly due to the additional complexities that would result related to sequencing, dependency, partial completion, etc.)</p>
+            <p>One approach is to schedule separate UPS instances for each of the component workitems and to identify the related UPS instances based on their use of a common Study UID or Order Number.</p>
+            <p>Another approach is for the site to define a single workitem code that means a pre-defined combination of what would otherwise be separate workitems, along with describing the necessary sequencing, dependencies, etc.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_GGG.3.3" shape="rect"></a>GGG.3.3 Gift Subscriptions</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The UPS Subscription allows the Receiving AE Title to be different than the AE Title of the SCU of the N-ACTION request. This allows an SCU to sign up someone else who would be interested for a subscription. For example, a reporting workflow manager could subscribe the RIS to UPSs the reporting workflow manager creates for radiology studies, and subscribe the CIS to UPSs it creates for cardiology studies. Or a RIS could subscribe the MPPS broker or the order tracking system to the high level UPS instances and save them from having independent business logic to determine which ones are significant.</p>
+            <p>This can provide an alternative to systems using global subscriptions to stay on top of things. It also has the benefit of providing a way to avoid having to "forward" events. All interested SCUs get their events directly from the SCP. Instead of SCU A forwarding relevant events to SCU B, SCU A can simply subscribe SCU B to the relevant events.</p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_GGG.2.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_GGG.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_HHH.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">GGG.2 Implementation Examples </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> HHH Evolution of WADO to Web and Rest Services (Informative)</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

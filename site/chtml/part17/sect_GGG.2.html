@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>GGG.2 Implementation Examples</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="chapter_GGG.html" title="GGG Unified Worklist and Procedure Step - UPS (Informative)" />
+      <link rel="prev" href="chapter_GGG.html" title="GGG Unified Worklist and Procedure Step - UPS (Informative)" />
+      <link rel="next" href="sect_GGG.3.html" title="GGG.3 Other Features" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">GGG.2 Implementation Examples</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_GGG.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">GGG Unified Worklist and Procedure Step - UPS (Informative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_GGG.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_GGG.2" shape="rect"></a>GGG.2 Implementation Examples</h2>
+               </div>
+            </div>
+         </div>
+         <p>The following sections describe ways UPS workflows could be used to address some typical scenarios.</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_GGG.2.1" shape="rect"></a>GGG.2.1 Typical SOP Class Implementations</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The decision of which SOP Classes to implement in which systems will revolve partly around where it makes the most sense for the business logic to reside, what information each system would have access to, and what kind of workflow is most effective for the users.</p>
+            <p>
+               <a class="xref" href="sect_GGG.2.html#table_GGG.1-1" title="Table GGG.1-1. SOP Classes for Typical Implementation Examples" shape="rect">Table GGG.1-1</a> shows a number of hypothetical systems and the combination of SOP Classes they might implement. For example, a typical worklist manager would support all four SOP Classes as an SCP. A typical scheduling system might want to be a UPS Push SCU to submit work items to the worklist manager, a UPS Watch SCU to subscribe for notifications and get details of the results, and a UPS Event SCU to receive the progress notifications. A simple "pull performer" might only be a UPS Pull SCU, similar to modalities today.</p>
+            <p>Other examples are listed for:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>"Minimal Scheduler", a requesting system that is not interested in monitoring progress or results.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>"Watcher", a system interested in tracking the progress and/or results of Unified Procedure Steps.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>"General Contractor", a system that accepts work items pushed to it, then uses internal business logic to subdivide/create work items that it pushes or makes available to systems that will actually perform the work.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>"Push Performer", a system, for example a CAD system, that has work pushed to it, and provides status and results information to interested observers.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>"Self-Scheduled Performer", which internally schedules it's own work, but supports notifications and N-GET so the details of the work can be made available to other departmental systems.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>"Self-Scheduled Pull Performer", which pushes a workitem onto a worklist manager and then pulls it off to perform it. This allows it to work on "unscheduled" procedures without taking on the responsibility of being an SCP for notifications and events.</p>
+                  </li>
+               </ul>
+            </div>
+            <div class="table">
+               <a id="table_GGG.1-1" shape="rect"></a>
+               <p class="title">
+                  <strong>Table GGG.1-1. SOP Classes for Typical Implementation Examples</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="2" colspan="1">
+                              <p>SOP Classes</p>
+                           </th>
+                           <th align="center" colspan="4" rowspan="1">
+                              <p>SCU</p>
+                           </th>
+                           <th align="center" colspan="4" rowspan="1">
+                              <p>SCP</p>
+                           </th>
+                        </tr>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>UPS Push</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>UPS Watch</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>UPS Event</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>UPS Pull</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>UPS Push</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>UPS Watch</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>UPS Event</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>UPS Pull</p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="center" colspan="9" rowspan="1">
+                              <p>Non-Performing SCUs</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Minimal Scheduler</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>X</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Typical Scheduler</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>X</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>X</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>X</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Watcher</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>X</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>X</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" colspan="9" rowspan="1">
+                              <p>Worklist SCPs</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Worklist Manager</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>X</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>X</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>X</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>X</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>General Contractor</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>X</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>X</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>X</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>X</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>X</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>X</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>X</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" colspan="9" rowspan="1">
+                              <p>Performing SCPs</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Push Performer</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>X</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>X</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>X</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Self-Scheduled Performer</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>X</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>X</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" colspan="9" rowspan="1">
+                              <p>Performing SCUs</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Pull Performer</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>X</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Self-Scheduled Pull Performer</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>X</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>X</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <p>A system that implements UPS Watch as an SCP will also need to implement UPS Event as an SCP to be able to send Event Reports to the systems from whom it accepts subscriptions.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_GGG.2.2" shape="rect"></a>GGG.2.2 Typical Pull Workflow</h3>
+                  </div>
+               </div>
+            </div>
+            <p>This example shows how a typical pull workflow could be used to manage the work of a 3D Lab. A group of 3D Workstations query a 3D Worklist Manager for work items that they perform and report their progress. In this example, the RIS would be a "Typical Scheduler", the 3D Workstation is a "Pull Performer" as seen in <a class="xref" href="sect_GGG.2.html#table_GGG.1-1" title="Table GGG.1-1. SOP Classes for Typical Implementation Examples" shape="rect">Table GGG.1-1</a> and the PACS and Modality do not implement any UPS SOP Classes.</p>
+            <p>We will assume the RIS decides which studies require 3D views and puts them on the worklist once the acquiring modality has reported it's MPPS complete. The RIS identifies the required 3D views and lists the necessary input objects in the UPS based on the image references recorded in the MPPS.</p>
+            <p>Assume the RIS has subscribed globally for all UPS instances managed by the 3D Worklist Manager.</p>
+            <p>
+          </p>
+            <div class="figure">
+               <a id="figure_GGG.2-1" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.17_GGG.2-1.svg" alt="Diagram of Typical Pull Workflow" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure GGG.2-1. Diagram of Typical Pull Workflow</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_GGG.2.3" shape="rect"></a>GGG.2.3 Reporting Workflow With "hand-off"</h3>
+                  </div>
+               </div>
+            </div>
+            <p>This example shows a reporting workflow with a "hand-off". Reporting Workstations query a RIS for work items to interpret/report. In this example, the RIS is a "Worklist Manager", the Reporting Workstation is both a "Pull Performer" and a "Minimal Scheduler" as shown in <a class="xref" href="sect_GGG.2.html#table_GGG.1-1" title="Table GGG.1-1. SOP Classes for Typical Implementation Examples" shape="rect">Table GGG.1-1</a> and the PACS and Modality do not implement any UPS SOP Classes. A reporting workstation claims Task X but can't complete it and "puts it back on the worklist" by canceling Task X and creating Task Y as a replacement, recording Task X as the Replaced Procedure Step.</p>
+            <p>Assume the RIS is picking up where example GGG.2.2 left off and was waiting for the 3D view generation task to be complete before putting the study on the reading worklist. The RIS identifies the necessary input objects in the UPS based on the image references recorded in the acquisition MPPS and the 3D UPS.</p>
+            <p>
+          </p>
+            <div class="figure">
+               <a id="figure_GGG.3-1" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.17_GGG.3-1.svg" alt="Diagram of Reporting Workflow" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure GGG.3-1. Diagram of Reporting Workflow</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+            <p>You could also imagine the 3D workstation is a Mammo CAD workstation. If the first radiologist completed the report, the RIS could easily schedule Task Y as the over-read by another radiologist.</p>
+            <p>For further discussion, refer to the <a class="xref" href="sect_GGG.2.html#sect_GGG.2.7" title="GGG.2.7 Other Examples" shape="rect">Section GGG.2.7</a> material on Hand-offs, Fail-overs and Putting Tasks Back on the Worklist.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_GGG.2.4" shape="rect"></a>GGG.2.4 Third Party Cancel</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Cancel requests are always directed to the system managing the UPS instance since it is the SCP. When the UPS is being managed by one system (for example a Treatment Management System) and performed by a second system (for example a Treatment Delivery System), a third party would send the cancel request to the TMS and cancellation would take place as shown below.</p>
+            <p>Performing SCUs are not <span class="italic">required</span> to react to cancel requests, or even to listen for them, and in some situations would be unable to abort the task represented by the UPS even if they were listening. In the diagram below we assume the performing SCU is listening, willing, and able to cancel the task.</p>
+            <p>If the User had sent the cancel request while the UPS was still in the SCHEDULED state, the SCP (i.e., the TMS) could simply have canceled the UPS internally. Since the UPS state was IN PROGRESS, it was necessary to send the messages as shown. Note that since the TDS has no need for the UPS instance to persist, it subscribed without setting a Deletion Lock, and so it didn't need to bother unsubscribing later.</p>
+            <p>
+          </p>
+            <div class="figure">
+               <a id="figure_GGG.4-1" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.17_GGG.4-1.svg" alt="Diagram of Third Party Cancel" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure GGG.4-1. Diagram of Third Party Cancel</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_GGG.2.5" shape="rect"></a>GGG.2.5 Radiation Therapy Dose Calculation Push Workflow</h3>
+                  </div>
+               </div>
+            </div>
+            <p>In this example, users schedule tasks to a shared dose calculation system and need to track progress. This example is intended as a demonstration of UPS and should not be taken as prescriptive of RT Therapy procedures.</p>
+            <p>Pushing the tasks avoids problems with a pull workflow such as the server having to continually poll worklists on (a large number of) possible clients; needing to configure the server to know about all the clients; reporting results to a user who might be at several locations; and associating the results with clients automatically. Also, when performing machines each have unique capabilities, the scheduling must target individual machines, and there can be advantages for integrating the scheduling and performing activities like this.</p>
+            <p>Although not shown in the diagram, the User could have gone to a User Terminal ("Watcher") and monitored the progress from there by doing a C-FIND and selecting/subscribing to Task X.</p>
+            <p>
+          </p>
+            <div class="figure">
+               <a id="figure_GGG.5-1" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.17_GGG.5-1.svg" alt="Diagram of Radiation Therapy Planning Push Workflow" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure GGG.5-1. Diagram of Radiation Therapy Planning Push Workflow</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+            <p>In a second example, the User monitors progress from another User Terminal ("Watcher") and decides to request cancellation after 3 beams.</p>
+            <p>
+          </p>
+            <div class="figure">
+               <a id="figure_GGG.5-2" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.17_GGG.5-2.svg" alt="Diagram of Remote Monitoring and Cancel" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure GGG.5-2. Diagram of Remote Monitoring and Cancel</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_GGG.2.6" shape="rect"></a>GGG.2.6 X-Ray Clinic Push Workflow</h3>
+                  </div>
+               </div>
+            </div>
+            <p>In this example, arriving patients are admitted at the RIS and sent to a specific X-Ray room for their exam.</p>
+            <p>The RIS is shown here subscribing globally for events from each Room. Alternatively the RIS could subscribe individually to each Task right after the N-CREATE is requested.</p>
+            <p>It is left open whether the patient demographics have been previously registered and the patients scheduled on the RIS or whether they are registered on the RIS when they arrive.</p>
+            <p>
+          </p>
+            <div class="figure">
+               <a id="figure_GGG.6-1" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.17_GGG.6-1.svg" alt="Diagram of X-Ray Clinic Push Workflow" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure GGG.6-1. Diagram of X-Ray Clinic Push Workflow</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_GGG.2.7" shape="rect"></a>GGG.2.7 Other Examples</h3>
+                  </div>
+               </div>
+            </div>
+            <p>A wide variety of workflow methods are possible using the UPS SOP Classes. In addition to those diagrammed in the previous sections, a few more are briefly described here. These include examples of ways to handle unscheduled tasks, grouped tasks, append cases, "event forwarding", etc.</p>
+            <p>
+               <span class="bold">
+                  <strong>Self-Scheduling Push &amp; Pull: Unscheduled and Append Cases</strong>
+               </span>
+            </p>
+            <p>In radiation therapy a previously unscheduled ("emergency") procedure may be performed on a Treatment Delivery System. Normally a TDS performs scheduled procedures as a Performing SCU in a Typical Pull Workflow like that shown in GGG.2.2. A TDS that might need to perform unscheduled procedures could additionally implement UPS Push (as an SCU) and push the "unscheduled" procedure to the departmental worklist server then immediately set it IN PROGRESS as a UPS Pull SCU. The initial Push to the departmental server allows the rest of the departmental workflow to "sync up" normally to the new task on the schedule.</p>
+            <p>A modality choosing to append some additional images after the original UPS was completed could use a similar method. Since the original UPS can no longer be modified, the modality could push a new UPS instance to the Worklist Manager and then immediately set it IN PROGRESS. Many of the attribute values in the new UPS would be the same as the original UPS.</p>
+            <p>Note that for a Pull Performer that wants to handle unscheduled cases, this Push &amp; Pull approach is pretty simple to implement. Becoming a UPS Push SCU just requires N-CREATE and N-ACTION (Request Cancel) that are quite similar to the N-SET and N-ACTION it already supports as a UPS Pull SCU.</p>
+            <p>The alternative would be implementing both UPS Watch and UPS Event as an SCP, which would be more work. Further, potential listeners would have to be aware of and monitor the performing system to track the unscheduled steps, instead of just monitoring the departmental Pull SCP.</p>
+            <p>
+               <span class="bold">
+                  <strong>Self-Scheduling Performer</strong>
+               </span>
+            </p>
+            <p>An example of an alternative method for handling unscheduled procedures is a CAD workstation that decides for itself to perform processing on a study. By implementing UPS Watch as an SCP and UPS Event as an SCP, the workstation can create UPS instances internally and departmental systems such as the RIS can subscribe globally to the workstation to monitor its activities.</p>
+            <p>The workstation might create the UPS tasks in response to having data pushed to it, or potentially the workstation could itself also be a Watch and Event SCU and subscribe globally to relevant modality or PACS systems and watch for appropriate studies.</p>
+            <p>
+               <span class="bold">
+                  <strong>Push Daisy Chain</strong>
+               </span>
+            </p>
+            <p>Sometimes the performer of the current task is in the best position to decide what the next task should be.</p>
+            <p>An alternative to centralized task management is daisy-chaining where each system pushes the next task to the next performer upon completion of the current task. Using a workflow similar to the X-Ray Clinic example in GGG.6, a modality could push a task to a CAD workstation to process the images created by the modality. The task would specify the necessary images and perhaps parameters relevant to the acquisition technique. The RIS could subscribe globally with the CAD workstation to track events. Another example of push daisy chain would be for the task completed at each step in a reporting process to be followed by scheduling the next logical task.</p>
+            <p>
+               <span class="bold">
+                  <strong>Hand-offs, Fail-overs and Putting Tasks Back on the Worklist</strong>
+               </span>
+            </p>
+            <p>Sometimes the performer of the current task, after setting it to IN PROGRESS, may determine it cannot complete the task and would like the task performed by another system. It is not permitted to move the task backwards to the SCHEDULED state.</p>
+            <p>One approach is for the performer to cancel the old UPS and schedule a new UPS to be pulled off the worklist by another system or by itself at some point in the future. The new UPS would be populated with details from the original. The details of the new UPS, such as the Input Information Sequence (0040,4021), the Scheduled Workitem Code Sequence (0040,4018), and the Scheduled Processing Parameters Sequence (0074,1210), might be revised to reflect any work already completed in the old UPS. By including the "Discontinued Procedure Step rescheduled" code in the Procedure Step Discontinuation Reason Code Sequence (0074,100e) of the old UPS, the performer can allow watchers and other systems monitoring the task to know that there is a replacement for the old canceled UPS. By referencing the UID of the old UPS in the Replaced Procedure Step Sequence (0074,1224) of the new UPS, the performer can allow watchers and other systems to find the new UPS that replaced the old. A
+        proactive SCP might even subscribe watchers of the old UPS to the new UPS that replaces it.</p>
+            <p>Alternatively, if the performer does not have the capability to create a new UPS, it could include the "Discontinued Procedure Step rescheduling recommended" code in the Procedure Step Discontinuation Reason Code Sequence (0074,100e). A very smart scheduling system could observe the cancellation reason and create the new replacement UPS as described above on behalf of the performer.</p>
+            <p>Another approach is for the performer to "sub-contract" to another system by pushing a new UPS onto that system and marking the original UPS complete after the sub-contractor finishes.</p>
+            <p>Yet another approach would be for the performer to deliver the Locking UID (by some unspecified mechanism) to another system allowing the new system to continue the work on the existing UPS. Coordination and reconciliation would be very important since the new system would need to review the current contents of the UPS, understand the current state, update the performing system information, etc.</p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_GGG.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_GGG.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_GGG.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">GGG Unified Worklist and Procedure Step - UPS (Informative) </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> GGG.3 Other Features</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

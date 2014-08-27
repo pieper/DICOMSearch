@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>7.2 Transactions</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.15.html" title="PS3.15" />
+      <link rel="up" href="chapter_7.html" title="7 Configuration Profiles" />
+      <link rel="prev" href="chapter_7.html" title="7 Configuration Profiles" />
+      <link rel="next" href="chapter_A.html" title="A Secure Use Profiles (Normative)" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">7.2 Transactions</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_7.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">7 Configuration Profiles</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_A.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_7.2" shape="rect"></a>7.2 Transactions</h2>
+               </div>
+            </div>
+         </div>
+         <p>The following transactions are used to provide communications between actors in accordance with one or more of the DICOM Configuration protocols.</p>
+         <p>
+            <span class="bold">
+               <strong>Configure DHCP Server</strong>
+            </span>
+         </p>
+         <p>This transaction changes the configuration on a DHCP server to reflect additions, deletions, and changes to the IP parameters that have been established for this network.</p>
+         <p>
+            <span class="bold">
+               <strong>Find and Use DHCP Server</strong>
+            </span>
+         </p>
+         <p>This transaction is a sequence of network messages that comply with the rules of the DHCP protocol. It allows a DHCP client to find available DHCP servers and select the server appropriate for that client. This transaction obtains the mandatory IP parameter information from the DHCP server and obtains additional optional parameters from the DHCP server.</p>
+         <p>
+            <span class="bold">
+               <strong>Configure Client</strong>
+            </span>
+         </p>
+         <p>The service staff uses this transaction to set the initial configuration for a client.</p>
+         <p>
+            <span class="bold">
+               <strong>Maintain Lease</strong>
+            </span>
+         </p>
+         <p>This transaction deals with how the DHCP client should behave when its IP lease is not renewed.</p>
+         <p>
+            <span class="bold">
+               <strong>DDNS Coordination</strong>
+            </span>
+         </p>
+         <p>This transaction documents whether the DHCP server is coordinating with a DNS server so that access to the DHCP client can be maintained using the hostname assigned to the DHCP client.</p>
+         <p>
+            <span class="bold">
+               <strong>Resolve Hostname</strong>
+            </span>
+         </p>
+         <p>
+  This transaction obtains the IP address for a computer when given a hostname.</p>
+         <p>
+            <span class="bold">
+               <strong>Maintain Time</strong>
+            </span>
+         </p>
+         <p>These transactions are the activities needed for an NTP or SNTP client to maintain time synchronization with a master time service.</p>
+         <p>
+            <span class="bold">
+               <strong>Find NTP Server</strong>
+            </span>
+         </p>
+         <p>This transaction is the autodiscovery procedure defined for NTP. This may use either a broadcast method or a DHCP supported method.</p>
+         <p>
+            <span class="bold">
+               <strong>Find LDAP Server</strong>
+            </span>
+         </p>
+         <p>In this transaction the DNS server is queried to obtain the IP address, port, and name of the LDAP server.</p>
+         <p>
+            <span class="bold">
+               <strong>Query LDAP Server</strong>
+            </span>
+         </p>
+         <p>
+  In this transaction the LDAP server is queried regarding contents of the LDAP database.</p>
+         <p>
+            <span class="bold">
+               <strong>Client Update LDAP Server</strong>
+            </span>
+         </p>
+         <p>This transaction updates the configuration database using LDAP update instructions from the client being configured.</p>
+         <p>
+            <span class="bold">
+               <strong>Maintain LDAP Server</strong>
+            </span>
+         </p>
+         <p>This transaction updates the configuration database using local services of the LDAP server.</p>
+         <p>
+            <a class="xref" href="sect_7.2.html#figure_7-1" title="Figure 7-1. Transactions and Actors" shape="rect">Figure 7-1</a> shows the actors and their transactions. The usual device will have an NTP Client, DHCP Client, and LDAP client in addition to the other applications actors. The transactions "Configure DHCP Server", "Configure Client", and "Maintain LDAP Server" are not shown because these transactions are between a software actor and a human actor. DICOM does not specify the means or user interface. It only requires that certain capabilities be supported.</p>
+         <p>
+  </p>
+         <div class="figure">
+            <a id="figure_7-1" shape="rect"></a>
+            <div class="figure-contents">
+               <div class="mediaobject">
+                  <img src="figures/PS3.15_7-1.svg" alt="Transactions and Actors" />
+               </div>
+            </div>
+            <p class="title">
+               <strong>Figure 7-1. Transactions and Actors</strong>
+            </p>
+         </div>
+         <p>
+            <br class="figure-break" clear="none" />
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_7.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_7.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_A.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">7 Configuration Profiles </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.15.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> A Secure Use Profiles (Normative)</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

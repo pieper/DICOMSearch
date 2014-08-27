@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>E Mammography CAD (Informative)</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="PS3.17.html" title="PS3.17" />
+      <link rel="prev" href="chapter_D.html" title="D SR Encoding Example (Informative)" />
+      <link rel="next" href="sect_E.2.html" title="E.2 Mammography CAD SR Observation Context Encoding" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">E Mammography CAD (Informative)</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_D.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_E.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_E" shape="rect"></a>E Mammography CAD (Informative)</h1>
+               </div>
+            </div>
+         </div>
+         <p>This Annex was formerly located in <a href="../part03/chapter_L.html" class="olink" shape="rect"> Annex L in PS3.3</a> in the 2003 and earlier revisions of the standard.</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_E.1" shape="rect"></a>E.1 Mammography CAD SR Content Tree Structure</h2>
+                  </div>
+               </div>
+            </div>
+            <p>The templates for the Mammography CAD SR IOD are defined in <a href="../part16/sect_MammographyCADSRIODTemplates.html" class="olink" shape="rect">Mammography CAD SR IOD Templates in <span class="olinkdocname">PS3.16</span>
+               </a>. Relationships defined in the Mammography CAD SR IOD templates are by-value, unless otherwise stated. Content items referenced from another SR object instance, such as a prior Mammography CAD SR, are inserted by-value in the new SR object instance, with appropriate original source observation context. It is necessary to update Rendering Intent, and referenced content item identifiers for by-reference relationships, within content items paraphrased from another source.</p>
+            <p>
+        </p>
+            <div class="figure">
+               <a id="figure_E.1-1" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.17_E.1-1.svg" alt="Top Levels of Mammography CAD SR Content Tree" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure E.1-1. Top Levels of Mammography CAD SR Content Tree</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+            <p>The Document Root, Image Library, Summaries of Detections and Analyses, and CAD Processing and Findings Summary sub-trees together form the content tree of the Mammography CAD SR IOD. There are no constraints regarding the 1-n multiplicity of the Individual Impression/Recommendation or its underlying structure, other than the <a href="../part16/sect_MammographyCADSRIODTemplates.html#sect_TID_4001" class="olink" shape="rect">TID 4001 “Mammography CAD Overall Impression/Recommendation”</a> and <a href="../part16/sect_MammographyCADSRIODTemplates.html#sect_TID_4003" class="olink" shape="rect">TID 4003 “Mammography CAD Individual Impression/Recommendation”</a> requirements in <a href="../part16/PS3.16.html" class="olink" shape="rect">PS3.16</a>. Individual Impression/Recommendation containers may be organized, for example per image, per finding or composite feature, or some combination thereof.</p>
+            <p>
+        </p>
+            <div class="figure">
+               <a id="figure_E.1-2" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.17_E.1-2.svg" alt="Summary of Detections and Analyses Levels of Mammography CAD SR Content Tree" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure E.1-2. Summary of Detections and Analyses Levels of Mammography CAD SR Content Tree</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+            <p>The Summary of Detections and Summary of Analyses sub-trees identify the algorithms used and the work done by the CAD device, and whether or not each process was performed on one or more entire images or selected regions of images. The findings of the detections and analyses are not encoded in the summary sub-trees, but rather in the CAD Processing and Findings Summary sub-tree. CAD processing may produce no findings, in which case the sub-trees of the CAD Processing and Findings Summary sub-tree are incompletely populated. This occurs in the following situations:</p>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="a">
+                  <li class="listitem">
+                     <p>All algorithms succeeded, but no findings resulted</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Some algorithms succeeded, some failed, but no findings resulted</p>
+                  </li>
+                  <li class="listitem">
+                     <p>All algorithms failed</p>
+                  </li>
+               </ol>
+            </div>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>If the tree contains no Individual Impression/Recommendation nodes and all attempted detections and analyses succeeded then the mammography CAD device made no findings.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Detections and Analyses that are not attempted are not listed in the Summary of Detections and Summary of Analyses trees.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>If the code value of the Summary of Detections or Summary of Analyses codes in <a href="../part16/sect_MammographyCADSRIODTemplates.html#sect_TID_4000" class="olink" shape="rect">TID 4000 “Mammography CAD Document Root”</a> is "Not Attempted" then no detail is provided as to which algorithms were not attempted.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <p>
+        </p>
+            <div class="figure">
+               <a id="figure_E.1-3" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.17_E.1-3.svg" alt="Example of Individual Impression/Recommendation Levels of Mammography CAD SR Content Tree" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure E.1-3. Example of Individual Impression/Recommendation Levels of Mammography CAD SR Content Tree</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+            <p>The shaded area in <a class="xref" href="chapter_E.html#figure_E.1-3" title="Figure E.1-3. Example of Individual Impression/Recommendation Levels of Mammography CAD SR Content Tree" shape="rect">Figure E.1-3</a> demarcates information resulting from Detection, whereas the unshaded area is information resulting from Analysis. This distinction is used in determining whether to place algorithm identification information in the Summary of Detections or Summary of Analyses sub-trees.</p>
+            <p>The clustering of calcifications within a single image is considered to be a Detection process that results in a Single Image Finding. The spatial correlation of a calcification cluster in two views, resulting in a Composite Feature, is considered Analysis. The clustering of calcifications in a single image is the only circumstance in which a Single Image Finding can result from the combination of other Single Image Findings, which must be Individual Calcifications.</p>
+            <p>Once a Single Image Finding or Composite Feature has been instantiated, it may be referenced by any number of Composite Features higher in the tree.</p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_D.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_E.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">D SR Encoding Example (Informative) </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> E.2 Mammography CAD SR Observation Context Encoding</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

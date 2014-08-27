@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>E.2 WADO WS Request Example (Informative)</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.18.html" title="PS3.18" />
+      <link rel="up" href="chapter_E.html" title="E WADO WS Schemas and Examples" />
+      <link rel="prev" href="chapter_E.html" title="E WADO WS Schemas and Examples" />
+      <link rel="next" href="sect_E.3.html" title="E.3 WADO WS Response Example" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">E.2 WADO WS Request Example (Informative)</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_E.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">E WADO WS Schemas and Examples</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_E.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_E.2" shape="rect"></a>E.2 WADO WS Request Example (Informative)</h2>
+               </div>
+            </div>
+         </div>
+         <pre class="programlisting" xml:space="preserve">
+POST /tf6/services/xdsrepositoryb HTTP/1.1
+Content-Type: multipart/related; boundary=MIMEBoundaryurn_uuid_DCD262C64C22DB97351256303951323;
+   type="application/xop+xml"; start="&lt;0.urn:uuid:DCD262C64C22DB97351256303951324@apache.org&gt;";
+   start-info="application/soap+xml";
+   action="urn:dicom:ws:wado:2011:RetrieveRenderedImagingDocumentSet"
+User-Agent: Axis2
+Host: localhost:5000
+
+--MIMEBoundaryurn_uuid_DCD262C64C22DB97351256303951323
+Content-Type: application/xop+xml; charset=UTF-8; type="application/soap+xml"
+Content-Transfer-Encoding: binary
+Content-ID: &lt;0.urn:uuid:DCD262C64C22DB97351256303951324@apache.org&gt;
+&lt;s:Envelope 
+    xmlns:s="http://www.w3.org/2003/05/soap-envelope" 
+    xmlns:a="http://www.w3.org/2005/08/addressing"&gt;
+  &lt;s:Header&gt;
+    &lt;a:Action s:mustUnderstand="1"&gt;
+       urn:dicom:ws:wado:2011:RetrieveRenderedImagingDocumentSet&lt;/a:Action&gt;
+    &lt;a:MessageID&gt;urn:uuid:0fbfdced-6c01-4d09-a110-2201afedaa02&lt;/a:MessageID&gt;
+    &lt;a:ReplyTo s:mustUnderstand="1"&gt;
+      &lt;a:Address&gt;http://www.w3.org/2005/08/addressing/anonymous&lt;/a:Address&gt;
+    &lt;/a:ReplyTo&gt;
+    &lt;a:To &gt;http://localhost:2647/XdsService/DocSource.svc&lt;/a:To&gt;
+  &lt;/s:Header&gt;
+  &lt;s:Body&gt;
+    &lt;RetrieveImagingDocumentSetRequest xmlns:iherad="urn:ihe:rad:xdsi-b:2009"
+                                       xmlns:ihe="urn:ihe:iti:xds-b:2007"&gt;
+      &lt;StudyRequest studyInstanceUID="1.3.6.1.4...101"&gt;
+          &lt;SeriesRequest seriesInstanceUID="1.3.6.1.4...201"&gt;
+              &lt;ihe:DocumentRequest&gt;
+                  &lt;ihe:RepositoryUniqueId&gt;1.3.6.1.4...1000&lt;/ihe:RepositoryUniqueId&gt;
+                  &lt;ihe:DocumentUniqueId&gt;1.3.6.1.4...2300&lt;/ihe:DocumentUniqueId&gt;
+                  &lt;Rows&gt;300&lt;/Rows&gt;
+                  &lt;Columns&gt;300&lt;/Columns&gt;
+                  &lt;ContentTypeList&gt;
+                    &lt;ContentType&gt;image/jpeg&lt;/ContentType&gt;
+                  &lt;/ContentTypeList&gt;
+              &lt;/ihe:DocumentRequest&gt;
+              &lt;ihe:DocumentRequest&gt;
+  &lt;ihe:RepositoryUniqueId&gt;1.3.6.1.4...1000&lt;/ihe:RepositoryUniqueId&gt;
+                  &lt;ihe:DocumentUniqueId&gt;1.3.6.1.4...2301&lt;/ihe:DocumentUniqueId&gt;
+                  &lt;Rows&gt;300&lt;/Rows&gt;
+                  &lt;Columns&gt;300&lt;/Columns&gt;
+                  &lt;ContentTypeList&gt;
+                    &lt;ContentType&gt;image/jpeg&lt;/ContentType&gt;
+                  &lt;/ContentTypeList&gt;
+              &lt;/ihe:DocumentRequest&gt;
+          &lt;/SeriesRequest&gt;
+      &lt;/StudyRequest&gt;
+    &lt;/RetrieveRenderedImagingDocumentSetRequest&gt;
+  &lt;/s:Body&gt;
+&lt;/s:Envelope&gt; 
+
+--MIMEBoundaryurn_uuid_DCD262C64C22DB97351256303951323—
+</pre>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_E.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_E.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_E.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">E WADO WS Schemas and Examples </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.18.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> E.3 WADO WS Response Example</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

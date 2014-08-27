@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>8.3 DataExchange Interface</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.19.html" title="PS3.19" />
+      <link rel="up" href="chapter_8.html" title="8 Interfaces" />
+      <link rel="prev" href="sect_8.2.html" title="8.2 Host Interface" />
+      <link rel="next" href="chapter_9.html" title="9 Data Types and Structures" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">8.3 DataExchange Interface</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_8.2.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">8 Interfaces</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_9.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_8.3" shape="rect"></a>8.3 DataExchange Interface</h2>
+               </div>
+            </div>
+         </div>
+         <p>The interface used to exchange information about data being transferred between a source and a recipient is the same for both the Hosting System and the Hosted Application. Implementations of the Application interface shall also include the DataExchange interface. Implementations of the Host interface shall also include the DataExchange interface. In other words, the DataExchange interface is symmetric with respect to the Hosting System and Hosting Application.</p>
+         <p>The data being exchanged between the Hosting System and the Hosted Application can either be passed as files, or may be described in models that might be queried by the recipient.</p>
+         <p>Recipients that can parse DICOM objects are able to request the file-based methods. The sequence diagram in <a class="xref" href="sect_8.3.html#figure_8.3-1" title="Figure 8.3-1. Example File-based Data Exchange Sequence" shape="rect">Figure 8.3-1</a> illustrates one potential exchange using the file-based methods.</p>
+         <p>
+        </p>
+         <div class="figure">
+            <a id="figure_8.3-1" shape="rect"></a>
+            <div class="figure-contents">
+               <div class="mediaobject">
+                  <img src="figures/PS3.19_8.3-1.svg" alt="Example File-based Data Exchange Sequence" />
+               </div>
+            </div>
+            <p class="title">
+               <strong>Figure 8.3-1. Example File-based Data Exchange Sequence</strong>
+            </p>
+         </div>
+         <p>
+            <br class="figure-break" clear="none" />
+         </p>
+         <p>The advantage of using the model-based methods is that the recipient need not know how to parse the data formats, but instead can use commonly available tools for manipulating XML Infosets to extract data from the models.</p>
+         <p>The model-based interfaces can work with a variety of models. Particular models are identified by a UID. The models can either be an abstraction of the data, or can be a model of some native format. Models defined by the DICOM Standard are described in <a class="xref" href="chapter_A.html" title="A Data Exchange Models" shape="rect"> Annex A</a>. Models are described as XML Infosets, even though the original data might never be actually represented in XML form. The source providing the data handles the mapping from the models back to the original data format.</p>
+         <p>Abstract models allow a recipient to work with data without regard to what its native form is. For example, data from a variety of image formats, such as DICOM, TIFF, JPEG, NIfTI, or Analyze, could be included in an abstract image model. The recipient can then work with the data even though the recipient has no knowledge of how the data was natively represented. Abstract models may have been derived from data referenced in multiple ObjectDescriptors (e.g., multiple CT slices combined into a single volume).</p>
+         <p>Abstract models generally do not include the full richness of data that is available in native representations. For example, an abstract image model derived from DICOM data normally would include references to 'cooked' pixel data and its spatial organization, but might not include many of the modality-specific Attributes. To allow recipients to access such details the supplier of an abstract model can provide references to the ObjectDescriptors, in the form of UUIDs, from which that abstract model was derived. The recipient may gain access to any attribute of the original data formats through the source ObjectDescriptors.</p>
+         <p>The sequence diagram in <a class="xref" href="sect_8.3.html#figure_8.3-2" title="Figure 8.3-2. Example Model-based Data Exchange Sequence (continued on next page)" shape="rect">Figure 8.3-2</a> illustrates one potential exchange using the model-based methods. It also illustrates the Hosted Application returning partial outputs, one potential way a Hosted Application might use the getOutputLocation() method, and potential uses of the releaseModel() and releaseData() methods.</p>
+         <p>
+        </p>
+         <div class="figure">
+            <a id="figure_8.3-2" shape="rect"></a>
+            <div class="figure-contents">
+               <div class="mediaobject">
+                  <img src="figures/PS3.19_8.3-2.svg" alt="Example Model-based Data Exchange Sequence (continued on next page)" />
+               </div>
+            </div>
+            <p class="title">
+               <strong>Figure 8.3-2. Example Model-based Data Exchange Sequence (continued on next page)</strong>
+            </p>
+         </div>
+         <p>
+            <br class="figure-break" clear="none" />
+         </p>
+         <p>
+        </p>
+         <div class="figure">
+            <a id="figure_8.3-2b" shape="rect"></a>
+            <div class="figure-contents">
+               <div class="mediaobject">
+                  <img src="figures/PS3.19_8.3-2b.svg" alt="Example Model-based Data Exchange Sequence (continued from previous page)" />
+               </div>
+            </div>
+            <p class="title">
+               <strong>Figure 8.3-2b. Example Model-based Data Exchange Sequence (continued from previous page)</strong>
+            </p>
+         </div>
+         <p>
+            <br class="figure-break" clear="none" />
+         </p>
+         <p>Hosting Systems shall support both the file-based and model-based interfaces, both as a data source as well as a data recipient.</p>
+         <p>Hosted Applications shall support at least one of the file-based or model-based interfaces, as either a data source or as a data recipient, as needed by the Hosted Application. If a Hosted Application supports the model-based interfaces, it shall support at least one of the models defined in <a class="xref" href="chapter_A.html" title="A Data Exchange Models" shape="rect"> Annex A</a>. Hosted Applications may choose to implement only those portions of those interfaces that the Hosted Application actually uses; however, all interface methods that a Hosting System may call must be available for the Hosting System to call, even if the Hosted Application does not do anything but return appropriately.</p>
+         <p>The following sections describe the methods of the DataExchange interface.</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_8.3.1" shape="rect"></a>8.3.1 notifyDataAvailable(data : AvailableData, lastData : boolean) : boolean</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The source of the data calls this method with descriptions of the available data that it can provide to the recipient. If the source of the data expects that additional data will become available, it shall pass FALSE in the lastData parameter. Otherwise, it shall pass TRUE in the lastData parameter, and shall not make any further calls to notifyDataAvailable until after it has transitioned through the IDLE state once more.</p>
+            <p>The source of the data shall be able to provide the data in the form identified in the AvailableData structure.</p>
+            <p>A Hosting System uses this method to inform a Hosted Application of input data that the Hosted Application should work with. A Hosted Application uses this method to inform the Hosting System of outputs produced by the Hosted Application.</p>
+            <p>This method returns TRUE if the recipient of the data successfully received the AvailableData list. Otherwise this method returns FALSE.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>A Hosted Application that is recipient of this call, but that was unsuccessful in receiving the AvailableData list might report a reason for the failure in a notifyStatus method call.</p>
+            </div>
+            <p>The source of the data shall not include in AvailableData any references to data that were sent in a previous successful notifyDataAvailable call (i.e., one where the method call returned TRUE).</p>
+            <p>A Hosted Application shall not transition into the COMPLETED state if it has received or sent a notifyDataAvailable() call with a lastData indicator of FALSE.</p>
+            <p>The source of the data may call notifyDataAvailable() with an empty data list.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>Calling notifyDataAvailable() with an empty list is useful for setting the lastData indicator to TRUE.</p>
+            </div>
+            <p>This method shall only be called if the Hosted Application is at the INPROGRESS state.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_8.3.2" shape="rect"></a>8.3.2 getData(objectUUIDs : ArrayOfUUID, acceptableTransferSyntaxUIDs : ArrayOfUID, includeBulkData : boolean) : ArrayOfObjectLocator</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The recipient of data invokes this method to gain access to binary data provided by the source of the data. The source of the data provides a URI that the recipient may open as a byte stream to retrieve the data.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>The provider of the data may delay the actual preparation of binary data until the recipient actually requests it.</p>
+            </div>
+            <p>The objectUUIDs array provides the UUIDs of the binary data that the source wishes to retrieve. Each of the UUIDs in that array are drawn either from the ObjectDescriptors provided in the AvailableData structure received by the recipient in one or more notifyDataAvailable() method calls, or from bulk data pointers in models accessed by the recipient.</p>
+            <p>If the UUID came from an ObjectDescriptor, the source returns ObjectLocators of the binary objects using the MIME content type and class UID listed in the ObjectDescriptor within the AvailableData structure associated with each UUID. If the UUID came from a Data Exchange Model, then the source returns the binary bulk data described within the model.</p>
+            <p>The recipient lists the desired Transfer Syntax for the bulk data via the acceptableTransferSyntaxUIDs parameter. The recipient shall list in order of preference in the acceptableTransferSyntaxUIDs parameter the UIDs of the Transfer Syntaxes that it will accept for the data represented by objectUUIDs. The provider of the data shall select and use the first transfer syntax in the list that it supports. For DICOM data, the provider of data shall as a minimum support the Explicit VR Little Endian transfer syntax. The acceptableTransferSyntaxUIDs may be empty for those MIME content types where Transfer Syntax has no meaning.</p>
+            <p>When retrieving binary data identified by a UUID from an ObjectDescriptor, if the recipient sets the includeBulkData flag to TRUE, then the source shall supply the bulk data within the data stream. Otherwise, the source may, but is not required to, omit bulk data such as pixel data.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>The includeBulkData flag is useful, for example, when the recipient wishes to work with the description of the pixel data in binary DICOM form, in order to decide whether or not to retrieve the pixel data itself.</p>
+            </div>
+            <p>The method returns one ObjectLocator for each UUID passed into the method within the objectUUIDs array. The ObjectLocator describes a file where the recipient can read in the data referred to by that particular object's UUID.</p>
+            <p>When the recipient is finished with data referred to by an ObjectLocator URI, it may call the releaseData() method to free up the resources being consumed to provide those URIs. Any data references not explicitly released by the recipient of the data are released implicitly when the Hosted Application enters the IDLE state.</p>
+            <p>The recipient may call getData() multiple times for data referenced by a given ObjectDescriptor or bulk data UUID. Each call to getData() shall be matched by either an explicit or implicit call to releaseData().</p>
+            <p>This method shall only be called if the Hosted Application is at the INPROGRESS or COMPLETED states. A Hosting System may also call this method when the Hosted Application is in the SUSPENDED state.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_8.3.3" shape="rect"></a>8.3.3 getAsModels(objectUUIDs : ArrayOfUUID, classUID : UID, supportedInfosetTypes : ArrayOfMimeType) : ModelSetDescriptor</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The recipient of data invokes this method to ask that the source of the data provide the data referenced by objectUUIDs array as models of the type referenced by classUID. The objectUUIDs are drawn from the ObjectDescriptors passed to the recipient of the data in one or more notifyDataAvailable() calls.</p>
+            <p>The recipient of the data shall list in supportedInfosetTypes in order of preference the MIME types that the recipient can process as Infosets. Recipients of data shall support the "text/xml" MIME type, which shall always be included in the supportedInfosetTypes array. The provider of data shall select the first entry in that array that it supports.</p>
+            <p>The ModelSetDescriptor returned by this method contains the UUIDs of the models provided by the source, as well as the UUIDs of data objects referred to by the objectUUIDs array that could not be represented in the requested model.</p>
+            <p>The recipient may call getAsModels() multiple times for data referenced by a given UUID. Each successful call returns a different model UUID.</p>
+            <p>When the recipient is finished with a set of models, it may call the releaseModels() method to free up the resources being consumed to provide those models. Any models not explicitly released by the recipient of the data are released implicitly when the Hosted Application enters the IDLE state.</p>
+            <p>This method shall only be called if the Hosted Application is at the INPROGRESS or COMPLETED states. A Hosting System may also call this method when the Hosted Application is in the SUSPENDED state.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_8.3.4" shape="rect"></a>8.3.4 queryModel(models : ArrayOfUUID, xpaths : ArrayOfString) : ArrayOfQueryResult</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The recipient of data invokes this method to request that the source of the data return the subset of data referred to in each of the XPath query strings passed in the xpath parameter from each of the models identified by the UUIDs passed in the model array. Each of the XPath query strings is applied to each of the models referred to in the model array.</p>
+            <p>The UUIDs passed in the model array shall be chosen from those returned by one or more getAsModels() method calls.</p>
+            <p>The results of the query are returned by the method as XML Infosets, encoded in XML returned as a string. Each result from a particular model UUID is returned as a QueryResult element in the returned array for each xpath string. In other words, the number of QueryResults returned is the number of UUIDs in the model array times the number of XPath queries strings in the xpath array.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>This method is principally used when the infoset type is "text/xml".</p>
+            </div>
+            <p>This method shall only be called if the Hosted Application is at the INPROGRESS or COMPLETED states. A Hosting System may also call this method when the Hosted Application is in the SUSPENDED state.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_8.3.5" shape="rect"></a>8.3.5 queryInfoset(models : ArrayOfUUID, xpaths : ArrayOfString) : ArrayOfQueryResultInfoset</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The recipient of data invokes this method to request that the source of the data return the subset of data referred to in each of the XPath query strings passed in the xpath parameter from each of the models identified by the UUIDs passed in the model array. Each of the XPath query strings is applied to each of the models referred to in the model array.</p>
+            <p>The UUIDs passed in the model array shall be chosen from those returned by one or more getAsModels() method calls.</p>
+            <p>The results of the query are returned by the method as XML Infosets, encoded in XML, returned as a byte array encoded in the form negotiated during the getAsModel() call.. Each result from a particular model UUID is returned as a QueryResultInfoset element in the returned array for each xpath string. In other words, the number of QueryResultInfoset structures returned is the number of UUIDs in the model array times the number of XPath queries strings in the xpath array.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>This method is principally used when the infoset type is not string based, for example a "application\fastinfoset". If called on a model using the "text/xml" infoset type, a conversion from a byte array to a string would be needed.</p>
+            </div>
+            <p>This method shall only be called if the Hosted Application is at the INPROGRESS or COMPLETED states. A Hosting System may also call this method when the Hosted Application is in the SUSPENDED state.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_8.3.6" shape="rect"></a>8.3.6 releaseData(objectUUIDs : ArrayOfUUID) : void</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The recipient of data invokes this method to release access to binary data provided by the source of the data through a getData() call. The ArrayOfUUID identifies the data streams that the recipient is releasing. The UUIDs in this array shall be drawn from the locator fields in ObjectLocators returned by calls to getData().</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_8.3.7" shape="rect"></a>8.3.7 releaseModels(objectUUIDs : ArrayOfUUID) : void</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The recipient of data invokes this method to release access to models provided by the source of the data. The ArrayOfUUID identifies the models that the recipient is releasing. The UUIDs in this array shall be drawn from the models fields in ModelSetDescriptors returned by calls to getAsModels().</p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_8.2.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_8.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_9.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">8.2 Host Interface </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.19.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 9 Data Types and Structures</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

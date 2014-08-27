@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>F.9 Modality Performed Procedure Step Notification SOP Class</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.4.html" title="PS3.4" />
+      <link rel="up" href="chapter_F.html" title="F Procedure Step SOP Classes (Normative)" />
+      <link rel="prev" href="sect_F.8.html" title="F.8 Modality Performed Procedure Step Retrieve SOP Class" />
+      <link rel="next" href="sect_F.10.html" title="F.10 General Purpose Scheduled Procedure Step SOP Class (Retired)" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">F.9 Modality Performed Procedure Step Notification SOP Class</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_F.8.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">F Procedure Step SOP Classes (Normative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_F.10.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_F.9" shape="rect"></a>F.9 Modality Performed Procedure Step Notification SOP Class</h2>
+               </div>
+            </div>
+         </div>
+         <p>The Modality Performed Procedure Step Notification SOP Class is intended for those Application Entities requiring notifications of Modality Performed Procedure Step's changes in state.</p>
+         <p>An Application Entity may choose to take some actions based upon a notification or request for information but is in no way required to do so.</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="1">
+                  <li class="listitem">
+                     <p>For example, in one configuration, an IS could be responsible for maintaining data related to performed procedure steps. A PACS reviewing workstation may need to display the images for any study viewed. In order for the PACS to link the images to the study, a PACS may receive a notification whenever a procedure step has been performed. In such a configuration the IS is the SCP and the PACS is the SCU. When the PACS receives this notification, it may link the images and the performed procedure step to the study within its internal database or may choose to take no action.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>The terms IS and PACS used in the previous example are provided for clarification purposes only. This document does not define nor constrain the purpose or role of any IS, PACS or acquisition Application Entity conforming to this Service Class Specification.</p>
+                  </li>
+               </ol>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_F.9.1" shape="rect"></a>F.9.1 DIMSE Service Group</h3>
+                  </div>
+               </div>
+            </div>
+            <p>
+               <a class="xref" href="sect_F.9.html#table_F.9.1-1" title="Table F.9.1-1. DIMSE-N Service Group" shape="rect">Table F.9.1-1</a> shows the DIMSE-N Services applicable to the Modality Performed Procedure Step IOD under the Modality Performed Procedure Step Notification SOP Class.</p>
+            <p>The DIMSE-N Services and Protocol are specified in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>.</p>
+            <div class="table">
+               <a id="table_F.9.1-1" shape="rect"></a>
+               <p class="title">
+                  <strong>Table F.9.1-1. DIMSE-N Service Group</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>DIMSE Service Element</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Usage SCU/SCP</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>N-EVENT-REPORT</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>M/M</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_F.9.2" shape="rect"></a>F.9.2 Notifications</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The Application Entity that claims conformance as an SCU to this SOP Class shall be permitted to receive the following notification. The Application Entity that claims conformance as an SCP to this SOP Class shall be capable of providing the notifications defined in <a class="xref" href="sect_F.9.html#table_F.9.2-1" title="Table F.9.2-1. Performed Procedure Step Notification Event Information" shape="rect">Table F.9.2-1</a>.</p>
+            <div class="table">
+               <a id="table_F.9.2-1" shape="rect"></a>
+               <p class="title">
+                  <strong>Table F.9.2-1. Performed Procedure Step Notification Event Information</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Event Type Name</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Event Type ID</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Attribute</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Tag</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Req. Type SCU/SCP</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Performed Procedure Step In Progress</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Performed Procedure Step Completed</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>2</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Performed Procedure Step Discontinued</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>3</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Performed Procedure Step Updated</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>4</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>An Update event shall not be used to notify changes in Performed Procedure Step Status (0040,0252).</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Performed Procedure Step Deleted</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>5</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>The Notification Event Information contains no Attributes, beyond those defined in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>. An SCU receiving a Notification and requiring further information may also be an SCU of the Modality Performed Procedure Step Retrieval SOP Class and may use the Affected SOP Instance UID (0000,1000) to perform an N-GET of the Modality Performed Procedure Step SOP Instance.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_F.9.2.1" shape="rect"></a>F.9.2.1 Receive Modality Performed Procedure Step Event Notification</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>This notification allows an SCU to receive from the SCP an unsolicited notification of a change in a Modality Performed Procedure Step SOP Instance. These notifications shall be invoked by the SCP through the use of the DIMSE N-EVENT-REPORT Service used in conjunction with the related Modality Performed Procedure Step SOP Instance.</p>
+               <p>The SCU shall return, via the N-EVENT-REPORT response primitive, the N-EVENT-REPORT Response Status Code applicable to the associated request. The SCU shall accept all Attributes included in any notification. This Service Class Specification places no requirements on what the SCU shall do as a result of receiving this information.</p>
+               <p>The same SOP Instance UID is shared by all three Modality Performed Procedure Step SOP Classes. This means that the SOP Instance created and set using the services of the Modality Performed Procedure Step SOP Class can be retrieved using its SOP Instance UID within the service of the Modality Performed Procedure Step Retrieve SOP Class. Changes in its state can be notified by using its SOP Instance UID within the request primitive of the Modality Performed Procedure Step Notification SOP Class.</p>
+               <p>The Modality Performed Procedure Step Notification SOP Instance UID shall not be used to identify a SOP Instance of the Study Component Service Class.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_F.9.2.2" shape="rect"></a>F.9.2.2 Provide Modality Performed Procedure Step Event Notification</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>These notifications allow an SCU to receive from the SCP an unsolicited notification of a change in the state of a real-world performed procedure step. This notification shall be invoked by the SCP through the use of the DIMSE N-EVENT-REPORT Service used in conjunction with the related Modality Performed Procedure Step SOP Instance.</p>
+               <p>The SCP shall specify in the N-EVENT-REPORT request primitive the UID of the Modality Performed Procedure Step SOP Instance with which the event is associated and the Event Type ID. The Affected SOP Class UID specified in the DIMSE N-EVENT-REPORT request primitive shall be the UID of the Modality Performed Procedure Step Notification SOP Class.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>The encoding of Notification Event Information is defined in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>.</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_F.9.2.3" shape="rect"></a>F.9.2.3 Status Codes</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>There are no specific status codes. See <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a> for response status codes.</p>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_F.9.3" shape="rect"></a>F.9.3 Modality Performed Procedure Step Notification SOP Class UID</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The Modality Performed Procedure Step Notification SOP Class shall be uniquely identified by the Modality Performed Procedure Step Notification SOP Class UID that shall have the value "1.2.840.10008.3.1.2.3.5".</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_F.9.4" shape="rect"></a>F.9.4 Conformance Requirements</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Implementations providing Standard SOP Class Conformance to the Modality Performed Procedure Step Notification SOP Class shall be conformant as described in the following sections and shall include within their Conformance Statement information as described in the following sections.</p>
+            <p>An implementation may conform to this SOP Class as an SCU, SCP or both. The Conformance Statement shall be in the format defined in <a href="../part02/PS3.2.html" class="olink" shape="rect">PS3.2</a>.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_F.9.4.1" shape="rect"></a>F.9.4.1 SCU Conformance</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>An implementation that is conformant to this SOP Class as an SCU shall meet conformance requirements for the:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>notifications that it receives</p>
+                     </li>
+                  </ul>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_F.9.4.1.1" shape="rect"></a>F.9.4.1.1 Notifications</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>All standard event types for which notifications may be requested by the SCU shall be enumerated in the SCU Notifications Statement. The SCU Notifications Statement shall include an enumerated list of the event types supported:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>Performed Procedure Step In Progress</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Performed Procedure Step Completed</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Performed Procedure Step Discontinued</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Performed Procedure Step Updated</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Performed Procedure Step Deleted</p>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_F.9.4.2" shape="rect"></a>F.9.4.2 SCP Conformance</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>An implementation that is conformant to this SOP Class as an SCP shall meet conformance requirements for:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>notifications that it invokes</p>
+                     </li>
+                  </ul>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_F.9.4.2.1" shape="rect"></a>F.9.4.2.1 Notifications</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Any optional Attributes that may be included in Standard notifications to the SCU shall be enumerated in the SCP Notifications Statement. The SCP Notifications Statement shall be formatted as defined in <a href="../part02/PS3.2.html" class="olink" shape="rect">PS3.2</a>. Following this statement shall be the list of event types and optional Attributes.</p>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_F.8.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_F.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_F.10.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">F.8 Modality Performed Procedure Step Retrieve SOP Class </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.4.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> F.10 General Purpose Scheduled Procedure Step SOP Class (Retired)</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

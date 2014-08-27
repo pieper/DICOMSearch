@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>B.4 Conformance</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.4.html" title="PS3.4" />
+      <link rel="up" href="chapter_B.html" title="B Storage Service Class (Normative)" />
+      <link rel="prev" href="sect_B.3.html" title="B.3 Association Negotiation" />
+      <link rel="next" href="sect_B.5.html" title="B.5 Standard SOP Classes" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">B.4 Conformance</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_B.3.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">B Storage Service Class (Normative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_B.5.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_B.4" shape="rect"></a>B.4 Conformance</h2>
+               </div>
+            </div>
+         </div>
+         <p>An implementation that conforms to Storage SOP Classes shall meet the:</p>
+         <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+               <li class="listitem">
+                  <p>C-STORE Service requirements as defined in <a class="xref" href="sect_B.2.html" title="B.2 Behavior" shape="rect">Section B.2</a>
+                  </p>
+               </li>
+               <li class="listitem">
+                  <p>Association requirements as defined in <a class="xref" href="sect_B.3.html" title="B.3 Association Negotiation" shape="rect">Section B.3</a>
+                  </p>
+               </li>
+            </ul>
+         </div>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <p>No SCU or SCP behavior requirements other than those in this section are specified. In particular, an SCP of the Storage SOP Classes may not attach any significance to the particular association or associations over which C-STORE operations are requested, nor the order in which C-STORE operations occur within an association. No constraints are placed on the operations an SCU may perform during any particular association, other than those defined during association negotiation. An SCP may not expect an SCU to perform C-STORE operations in a particular order.</p>
+         </div>
+         <p>Similarly, no semantics are attached to the closing of an Association, such as the end of a Study or Performed Procedure Step.</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_B.4.1" shape="rect"></a>B.4.1 Conformance as an SCP</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Three levels of conformance to the Storage SOP Classes as an SCP may be provided:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>Level 0 (Local). Level 0 conformance indicates that a user-defined subset of the Attributes of the image will be stored, and all others will be discarded. This subset of the Attributes shall be defined in the Conformance Statement of the implementer.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Level 1 (Base). Level 1 conformance indicates that all Type 1 and 2 Attributes defined in the IOD associated with the SOP Class will be stored, and may be accessed. All other elements may be discarded. The SCP may, but is not required to validate that the Attributes of the SOP Instance meets the requirements of the IOD.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Level 2 (Full). Level 2 conformance indicates that all Type 1, Type 2, and Type 3 Attributes defined in the Information Object Definition associated with the SOP Class, as well as any Standard Extended Attributes (including Private Attributes) included in the SOP Instance, will be stored and may be accessed. The SCP may, but is not required to validate that the Attributes of the SOP Instance meet the requirements of the IOD.</p>
+                  </li>
+               </ul>
+            </div>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>A Level 2 SCP may discard (not store) Type 3 Attributes that are empty (zero length and no Value), since the meaning of an empty Type 3 Attribute is the same as absence of the Attribute. See <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a> definition of "Type 3 Optional Data Elements".</p>
+            </div>
+            <p>An SCP that claims conformance to Level 2 (Full) support of the Storage Service Class may accept any Presentation Context negotiation of a SOP Class that specifies the Storage Service Class during the SOP Class Common Extended Negotiation, without asserting conformance to that SOP Class in its Conformance Statement.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>The SCP may support storage of all SOP Classes of the Storage Service Class, preserving all Attributes as a Level 2 SCP.</p>
+            </div>
+            <p>An SCP that claims conformance to Level 2 (Full) support of a Related General SOP Class may accept any Presentation Context negotiation of a SOP Class that specifies that Related General SOP Class during the SOP Class Common Extended Negotiation, without asserting conformance to that specialized SOP Class in its Conformance Statement.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>The term "specialized" in this section is used generically, including both Implementation-defined Specialized SOP Classes and Standard SOP Classes specified in <a class="xref" href="sect_B.3.html#table_B.3-3" title="Table B.3-3. Standard and Related General SOP Classes" shape="rect">Table B.3-3</a>.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The SCP may handle instances of such specialized SOP Classes using the semantics of the Related General SOP Class, but preserving all additional (potentially Type 1 or 2) Attributes as a Level 2 SCP.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <p>Level 2 (Full) Storage SCP Conformance is required for support of the Enhanced Multi-Frame Image Conversion Extended Negotiation of the Query/Retrieve Service Class, since effective use of that option requires the storage of Type 3 Attributes. See <a class="xref" href="sect_C.3.html#sect_C.3.5" title="C.3.5 New Instance Creation for Enhanced Multi-Frame Image Conversion" shape="rect">Section C.3.5</a> New Instance Creation for Enhanced Multi-frame Image Conversion.</p>
+            <p>At any level of conformance, the SCP of the Storage Service Class may modify the values of certain Attributes in order to coerce the SOP Instance into the Query Model of the SCP. The Attributes that may be modified are shown in <a class="xref" href="sect_B.4.html#table_B.4-1" title="Table B.4-1. Attributes Subject to Coercion" shape="rect">Table B.4-1</a>.</p>
+            <div class="table">
+               <a id="table_B.4-1" shape="rect"></a>
+               <p class="title">
+                  <strong>Table B.4-1. Attributes Subject to Coercion</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Attribute</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Tag</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Patient ID</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0010,0020)</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Study Instance UID</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0020,000D)</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Series Instance UID</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0020,000E)</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <p>The SCP of the Storage Service Class may modify the values of Code Sequence Attributes to convert from one coding scheme into another. This includes changing from deprecated values of Coding Scheme Designator (0008,0102) or Code Value (0008,0100) to currently valid values.</p>
+            <p>If an SCP performs such a modification, it shall return a C-STORE response with a status of Warning.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>Modification of these Attributes may be necessary if the SCP is also an SCP of a Query/Retrieve SOP Classes. These SOP Classes are described in this Standard. For example, an MR scanner may be implemented to generate Study Instance UIDs for images generated on the MR. When these images are sent to an archive that is HIS/RIS aware, it may choose to change the UID of the study assigned to the study by the PACS. The mechanism by which it performs this coercion is implementation dependent.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>An SCP may, for instance, convert Coding Scheme Designator values "SNM3" to "SRT", in accordance with the DICOM conventions for SNOMED (see <a href="../part16/PS3.16.html" class="olink" shape="rect">PS3.16</a>).</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Modification of Attributes that may be used to reference a SOP Instance by another SOP Instance (such as Study Instance UID and Series Instance UID Attributes) will make that reference invalid. Modification of these Attributes is strongly discouraged.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Other Attributes may be modified/corrected by an SCP of a Storage SOP Class.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Modification of Attributes may affect digital signatures referencing the content of the SOP Instance.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <p>Three levels of Digital Signature support are defined for an SCP that claims conformance to Level 2 (Full) storage support:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>Signature Level 1. SCP may not preserve Digital Signatures and does not replace them.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Signature Level 2. SCP does not preserve the integrity of incoming Digital Signatures, but does validate the signatures of SOP Instances being stored, takes implementation-specific measures for insuring the integrity of data stored, and will add replacement Digital Signatures before sending SOP Instances elsewhere.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Signature Level 3. SCP does preserve the integrity of incoming Digital Signatures (i.e., is bit-preserving and stores and retrieves all Attributes regardless of whether they are defined in the IOD).</p>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_B.4.2" shape="rect"></a>B.4.2 Conformance as an SCU</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The SCU shall generate only C-STORE requests with SOP Instances that meet the requirements of the IOD associated with the SOP Class.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_B.4.2.1" shape="rect"></a>B.4.2.1 SCU Fall-Back Behavior</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>During Association Negotiation, an application may propose a specialized SOP Class and its related general SOP Class in separate Presentation Contexts as a Storage SCU. If the Association Acceptor rejects the specialized SOP Class Presentation Context, but accepts the related general SOP Class Presentation Context, the application may send instances of the specialized SOP Class as instances of the related general SOP Class. In this fall-back behavior, the SOP Class UID of the instance shall be the UID of the related general SOP Class, and any special semantics associated with the specialized SOP Class may be lost; the SOP Instance UID shall remain the same.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>The SCU may include the SOP Class UID of the original intended specialized SOP Class in the Attribute Original Specialized SOP Class UID (0008,001B) of the instance sent under the related general SOP Class. In some cases, e.g., when all intermediate storage applications are Level 2 SCPs, this may allow an ultimate receiver of the instance to recast it as an instance of the specialized SOP Class IOD. However, this transformation is not guaranteed.</p>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_B.4.3" shape="rect"></a>B.4.3 Conformance Statement Requirements</h3>
+                  </div>
+               </div>
+            </div>
+            <p>An implementation may conform to a SOP Class of the Storage Service Class as an SCU, SCP or both. The Conformance Statement shall be in the format defined in <a href="../part02/PS3.2.html" class="olink" shape="rect">PS3.2</a>.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_B.4.3.1" shape="rect"></a>B.4.3.1 Conformance Statement for an SCU</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The following issues shall be documented in the Conformance Statement of any implementation claiming conformance to the Storage SOP Class as an SCU:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>The behavior of the SCU in the case of a successful C-STORE response status shall be described.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The behavior of the SCU in each case of an unsuccessful C-STORE response status shall be described.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The behavior of the SCU in the case of a Warning status received in response to a C-STORE operation.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Whether extended negotiation is supported.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The optional elements that may be included in Storage SOP Instances for each IOD supported shall be listed.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The standard and privately defined Functional Groups that may be included in Storage SOP Instances for each Multi-frame IOD that support Functional Groups.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The behavior of the SCU in the case of a C-STORE operation using a referenced pixel data transfer syntax such as JPIP Referenced Pixel Data Transfer Syntax shall be described. This includes the duration of validity of the reference</p>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_B.4.3.2" shape="rect"></a>B.4.3.2 Conformance Statement for an SCP</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The following issues shall be documented in the Conformance Statement of any implementation claiming conformance to the Storage Service Class as an SCP:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>The level of conformance, as defined by <a class="xref" href="sect_B.4.html#sect_B.4.1" title="B.4.1 Conformance as an SCP" shape="rect">Section B.4.1</a>, shall be stated.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The level of Digital Signature support, as defined by <a class="xref" href="sect_B.4.html#sect_B.4.1" title="B.4.1 Conformance as an SCP" shape="rect">Section B.4.1</a>, shall be stated.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The optional elements that will be discarded (if any) shall be listed for each IOD supported.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The Conformance Statement shall document the policies concerning the Attribute Lossy Image Compression (0028,2110).</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The behavior of the SCP in the case of a successful C-STORE operation shall be described. This includes the following:</p>
+                        <div class="itemizedlist">
+                           <ul class="itemizedlist" style="list-style-type: circle; ">
+                              <li class="listitem">
+                                 <p>the access method for a stored SOP Instance</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>the duration of the storage</p>
+                              </li>
+                           </ul>
+                        </div>
+                     </li>
+                     <li class="listitem">
+                        <p>The meaning of each case of an unsuccessful C-STORE response status shall be described, as well as appropriate recovery action.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The meaning of each case of a warning C-STORE response status shall be described, as well as appropriate action.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>If the SCP performs coercion on any Attributes, this shall be stated, and the conditions under which it may occur shall be described.</p>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_B.4.4" shape="rect"></a>B.4.4 Specialized Conformance</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Implementations may provide Specialized SOP Class conformance by providing a proper superset of the SOP Instances to be stored. Implementations providing Specialized SOP Class Conformance to one of the SOP Classes defined in this Annex shall be conformant as described in the following sections and shall include within their Conformance Statement information as described in the following sections.</p>
+            <p>An implementation shall be permitted to conform as a Specialization of the standard SOP Class as an SCU, SCP or both. The Conformance Statement shall be in the format defined in <a href="../part02/PS3.2.html" class="olink" shape="rect">PS3.2</a>.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_B.4.4.1" shape="rect"></a>B.4.4.1 Specialized SOP Class Identification</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>Any implementation that specializes the standard SOP Class shall define its specialization as an Allomorphic subclass of the standard SOP Class. As such, the specialization shall have its own unique SOP Class identification.</p>
+               <p>The Conformance Statement shall include a SOP Class Identification Statement as defined in <a href="../part02/PS3.2.html" class="olink" shape="rect">PS3.2</a>, declaring a SOP Name and SOP Class UID that identify the Specialized SOP Class. The SOP Name is not guaranteed to be unique (unless the implementer chooses to copyright it) but is provided for informal identification of the SOP Class. The SOP Class UID shall uniquely identify the Specialized SOP Class and conform to the DICOM UID requirements as specified in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_B.4.4.2" shape="rect"></a>B.4.4.2 Specialized Information Object Definition</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The standard SOP Class may be specialized by supporting additional private Attributes. The SCU Operations Statement shall describe these specializations and be formatted as defined in <a href="../part02/PS3.2.html" class="olink" shape="rect">PS3.2</a>. Following this statement shall be the list of Attributes that may be sent or stored with SOP Instances.</p>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_B.3.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_B.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_B.5.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">B.3 Association Negotiation </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.4.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> B.5 Standard SOP Classes</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

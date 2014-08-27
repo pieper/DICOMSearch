@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>C.7 Harmonization With SCP-ECG</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="chapter_C.html" title="C Waveforms (Informative)" />
+      <link rel="prev" href="sect_C.6.html" title="C.6 Harmonization With HL7" />
+      <link rel="next" href="chapter_D.html" title="D SR Encoding Example (Informative)" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">C.7 Harmonization With SCP-ECG</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_C.6.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">C Waveforms (Informative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_D.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_C.7" shape="rect"></a>C.7 Harmonization With SCP-ECG</h2>
+               </div>
+            </div>
+         </div>
+         <p>The SCP-ECG standard is designed for recording routine resting electrocardiograms. Such ECGs are reviewed prior to cardiac imaging procedures, and a typical use case would be for SCP-ECG waveforms to be translated to DICOM for inclusion with the full cardiac imaging patient record.</p>
+         <p>SCP-ECG provides for either simultaneous or non-simultaneous recording of the channels, but does not provide a multiplexed data format (each channel is separately encoded). When translating to DICOM, each subset of simultaneously recorded channels may be encoded in a Waveform Sequence Item (multiplex group), and the delay to the recording of each multiplex group shall be encoded in the Multiplex Group Time Offset (0018,1068).</p>
+         <p>The electrode configuration of SCP-ECG Section 1 may be translated to the DICOM Acquisition Context (0040,0555) sequence items using <a href="../part16/chapter_C.html#sect_TID_3401" class="olink" shape="rect">TID 3401 “ECG Acquisition Context”</a> and Context Groups 3263 and 3264.</p>
+         <p>The lead identification of SCP-ECG Section 3, a term coded as an unsigned integer, may be translated to the DICOM Waveform Channel Source (003A,0208) coded sequence using <a href="../part16/sect_CID_3001.html" class="olink" shape="rect">CID 3001 “ECG Leads”</a>.</p>
+         <p>Pacemaker spike records of SCP-ECG Section 7 may be translated to items in the Waveform Annotations Sequence (0040,B020) with a code term from <a href="../part16/sect_CID_3335.html" class="olink" shape="rect">CID 3335 “ECG Annotations”</a>. The annotation sequence item may record the spike amplitude in its Numeric Value and Measurement Units attributes.</p>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_C.6.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_C.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_D.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">C.6 Harmonization With HL7 </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> D SR Encoding Example (Informative)</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

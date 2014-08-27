@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>B.5 Media Interchange</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.2.html" title="PS3.2" />
+      <link rel="up" href="chapter_B.html" title="B Conformance Statement Sample Integrated Modality (Informative)" />
+      <link rel="prev" href="sect_B.4.html" title="B.4 Networking" />
+      <link rel="next" href="sect_B.6.html" title="B.6 Support of Character Sets" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">B.5 Media Interchange</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_B.4.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">B Conformance Statement Sample Integrated Modality (Informative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_B.6.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_B.5" shape="rect"></a>B.5 Media Interchange</h2>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_B.5.1" shape="rect"></a>B.5.1 Implementation Model</h3>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_B.5.1.1" shape="rect"></a>B.5.1.1 Application Data Flow</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>
+            </p>
+               <div class="figure">
+                  <a id="figure_B.5.1-1" shape="rect"></a>
+                  <div class="figure-contents">
+                     <div class="mediaobject">
+                        <img src="figures/PS3.2_B.5.1-1.svg" alt="Application Data Flow Diagram for Media Storage" />
+                     </div>
+                  </div>
+                  <p class="title">
+                     <strong>Figure B.5.1-1. Application Data Flow Diagram for Media Storage</strong>
+                  </p>
+               </div>
+               <p>
+                  <br class="figure-break" clear="none" />
+               </p>
+               <p>The Offline-Media Application Entity exports images and Presentation States to a CD-R Storage medium. It is associated with the local real-world activity "Export to CD-R". "Export to CD-R" is performed upon user request for selected patients, studies, series or instances (images or presentation states).</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_B.5.1.2" shape="rect"></a>B.5.1.2 Functional Definition of AEs</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_B.5.1.2.1" shape="rect"></a>B.5.1.2.1 Functional Definition of Offline-Media Application Entity</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Activation of the "Export to CD-R" icon or menu entry will pass the currently selected patients, studies, series or instances (images or presentation states) to the Offline-Media Application Entity. The SOP Instances associated with the selection will be collected into one or more export jobs. The contents of each export job will be written to a single CD-R media.</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_B.5.1.3" shape="rect"></a>B.5.1.3 Sequencing of Real-World Activities</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>At least one image or presentation state must exist and be selected before the Offline-Media Application Entity can be invoked. The operator can insert a new CD-R media at any time before or after invocation of the Offline-Media Application Entity. The Offline-Media Application Entity will wait indefinitely for a media to be inserted before starting to write to the CD-R device. If no CD-R media is available the export job can be canceled from the job queue.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_B.5.1.4" shape="rect"></a>B.5.1.4 File Meta Information Options</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The implementation information written to the File Meta Header in each file is:</p>
+               <div class="table">
+                  <a id="table_B.5.1-1" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table B.5.1-1. DICOM Implementation Class and Version for Media Storage</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Implementation Class UID</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>1.xxxxxxx.yyy.etc.ad.inf.usw</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Implementation Version Name</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>EXINTMOD_01</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_B.5.2" shape="rect"></a>B.5.2 AE Specifications</h3>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_B.5.2.1" shape="rect"></a>B.5.2.1 Offline-Media Application Entity Specification</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The Offline-Media Application Entity provides standard conformance to the Media Storage Service Class. The Application Profiles and roles are listed below:</p>
+               <div class="table">
+                  <a id="table_B.5.2-1" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table B.5.2-1. Application Profiles, Activities and Roles for Offline-Media</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Application Profiles Supported</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Real World Activity</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Role</p>
+                              </td>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>STD-GEN-CD</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Export to CD-R</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>FSC</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_B.5.2.1.1" shape="rect"></a>B.5.2.1.1 File Meta Information for the Application Entity</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The Source Application Entity Title included in the File Meta Header is configurable (see <a class="xref" href="sect_B.5.html#sect_B.5.4" title="B.5.4 Media Configuration" shape="rect">Section B.5.4</a>).</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_B.5.2.1.2" shape="rect"></a>B.5.2.1.2 Real-World Activities</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_B.5.2.1.2.1" shape="rect"></a>B.5.2.1.2.1 Activity - Export to CD-R</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>The Offline-Media Application Entity acts as an FSC when requested to export SOP Instances from the local database to a CD-R medium.</p>
+                     <p>A dialogue will be presented allowing the user to modify the suggested media label and provides control over the available media capacity. If the contents of the current selection do not fit on a single media an automatic separation into multiple export jobs will be suggested that can be adapted by the user.</p>
+                     <p>The user will be prompted to insert an empty CD-R for each export job. The contents of the export job will be written together with a corresponding DICOMDIR to a single-session CD­R. Writing in multi-session mode is not supported. The user can cancel an export job in the job queue.</p>
+                     <div class="section">
+                        <div class="titlepage">
+                           <div>
+                              <div>
+                                 <h6 class="title">
+                                    <a id="sect_B.5.2.1.2.1.1" shape="rect"></a>B.5.2.1.2.1.1 Media Storage Application Profiles</h6>
+                              </div>
+                           </div>
+                        </div>
+                        <p>The Offline-Media Application Entity support the STD-GEN-CD Application Profile.</p>
+                        <div class="section">
+                           <div class="titlepage">
+                              <div>
+                                 <div>
+                                    <h6 class="title">
+                                       <a id="sect_B.5.2.1.2.1.1.1" shape="rect"></a>B.5.2.1.2.1.1.1 Options</h6>
+                                 </div>
+                              </div>
+                           </div>
+                           <p>The Offline-Media Application Entity supports the SOP Classes and Transfer Syntaxes listed in the Table below:</p>
+                           <div class="table">
+                              <a id="table_B.5.2-2" shape="rect"></a>
+                              <p class="title">
+                                 <strong>Table B.5.2-2. IODs, SOP Classes and Transfer Syntaxes for Offline­Media</strong>
+                              </p>
+                              <div class="table-contents">
+                                 <table frame="box" rules="all">
+                                    <thead>
+                                       <tr valign="top">
+                                          <th align="center" rowspan="1" colspan="1">
+                                             <p>Information Object Definition</p>
+                                          </th>
+                                          <th align="center" rowspan="1" colspan="1">
+                                             <p>SOP Class UID</p>
+                                          </th>
+                                          <th align="center" rowspan="1" colspan="1">
+                                             <p>Transfer Syntax</p>
+                                          </th>
+                                          <th align="center" rowspan="1" colspan="1">
+                                             <p>Transfer Syntax UID</p>
+                                          </th>
+                                       </tr>
+                                    </thead>
+                                    <tbody>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Media Storage Directory Storage</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>1.2.840.10008.1.3.10</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Explicit VR Little Endian</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>1.2.840.10008.1.2.1</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>X-Ray Radio Fluoroscopic Image Storage</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>1.2.840.10008.5.1.4.1.1.12.2</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Explicit VR Little Endian</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>1.2.840.10008.1.2.1</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Grayscale Softcopy Presentation State Storage</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>1.2.840.10008.5.1.4.1.1.11.1</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Explicit VR Little Endian</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>1.2.840.10008.1.2.1</p>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </div>
+                           </div>
+                           <br class="table-break" clear="none" />
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_B.5.3" shape="rect"></a>B.5.3 Augmented and Private Application Profiles</h3>
+                  </div>
+               </div>
+            </div>
+            <p>EXAMPLE-INTEGRATED-MODALITY does not support any augmented for private application profiles.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_B.5.4" shape="rect"></a>B.5.4 Media Configuration</h3>
+                  </div>
+               </div>
+            </div>
+            <p>All local applications use the AE Titles configured via the Service/Installation Tool. The Application Entity Titles configurable for Media Services are listed in the Table below:</p>
+            <div class="table">
+               <a id="table_B.5.4-1" shape="rect"></a>
+               <p class="title">
+                  <strong>Table B.5.4-1. AE Title Configuration Table</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Application Entity</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Default AE Title</p>
+                           </td>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Offline-Media</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>EXINTMOD_MEDIA</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_B.4.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_B.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_B.6.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">B.4 Networking </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.2.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> B.6 Support of Character Sets</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>
