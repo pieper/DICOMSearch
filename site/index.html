@@ -151,7 +151,7 @@ $(function() {
             citation = $(this).attr("data-location").split(',');
             partFile = sprintf("part%02d", citation[0].split('.')[1])
             partSection = ''
-            dicomBaseURL = "ftp://medical.nema.org/medical/dicom/2013/output"
+            dicomBaseURL = "ftp://medical.nema.org/medical/dicom/2014a/output"
             dicomBaseURL = "."
             for(var idx=2;idx<citation.length;idx++){
               partSection = citation[citation.length-idx]
@@ -193,8 +193,14 @@ $(function() {
                 thisLink = allLinks[i];
                 origHref = thisLink.href.split('/');
                 fileName = origHref[origHref.length-1];
-                thisLink.href='http://medical.nema.org/dicom/2014a/output/chtml/'+partFile+'/'+fileName;
+                thisLink.href='http://medical.nema.org/medical/dicom/2014a/output/chtml/'+partFile+'/'+fileName;
                 thisLink.target='_blank';
+              };
+              var allImages = $(this).find('img');
+              for(var i=0;i<allImages.length;i++){
+                thisImage = allImages[i];
+                figPath = thisImage.src.substr(thisImage.src.search('figures'),thisImage.src.length-1);
+                thisImage.src = dicomBaseURL+'/chtml/'+partFile+'/'+figPath;
               };
             });
             
@@ -256,7 +262,7 @@ $(function() {
 
 <body>
 	<div class="header">
-			<h1>A Searchable Index of the DICOM Standard</h1>
+			<h1>A Searchable Index of the DICOM Base Standard 2014a</h1>
   </div>
 
   <div class="main">
