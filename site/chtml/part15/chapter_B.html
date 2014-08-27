@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>B Secure Transport Connection Profiles (Normative)</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.15.html" title="PS3.15" />
+      <link rel="up" href="PS3.15.html" title="PS3.15" />
+      <link rel="prev" href="sect_A.7.html" title="A.7 Audit Trail Message Transmission Profile - SYSLOG-UDP" />
+      <link rel="next" href="sect_B.2.html" title="B.2 ISCL Secure Transport Connection Profile" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">B Secure Transport Connection Profiles (Normative)</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_A.7.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_B.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_B" shape="rect"></a>B Secure Transport Connection Profiles (Normative)</h1>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_B.1" shape="rect"></a>B.1 The Basic TLS Secure Transport Connection Profile</h2>
+                  </div>
+               </div>
+            </div>
+            <p>An implementation that supports the Basic TLS Secure Transport Connection Profile shall utilize the framework and negotiation mechanism specified by the Transport Layer Security Version 1.0 protocol. <a class="xref" href="chapter_B.html#table_B.1-1" title="Table B.1-1. Minimum Mechanisms for TLS Features" shape="rect">Table B.1-1</a> specifies mechanisms that shall be supported if the corresponding features within TLS are supported by the Application Entity. The profile does not require the implementation to support all of the features (entity authentication, encryption, integrity checks) of TLS. Other mechanisms may also be used if agreed to by negotiation during establishment of the TLS channel.</p>
+            <div class="table">
+               <a id="table_B.1-1" shape="rect"></a>
+               <p class="title">
+                  <strong>Table B.1-1. Minimum Mechanisms for TLS Features</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Supported TLS Feature</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Minimum Mechanism</p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Entity Authentication</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>RSA based certificates</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Exchange of Master Secrets</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>RSA</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Data Integrity</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>SHA</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Privacy</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Triple DES EDE, CBC</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <p>IP ports on which an implementation accepts TLS connections, or the mechanism by which this port number is selected or configured, shall be specified in the Conformance Statement. This port shall be different from ports used for other types of transport connections (secure or unsecure).</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>It is strongly recommended that systems supporting the Basic TLS Secure Transport Connection Profile use as their port the registered port number "2762 dicom-tls" for the DICOM Upper Layer Protocol on TLS: (decimal).</p>
+            </div>
+            <p>The Conformance Statement shall also indicate what mechanisms the implementation supports for Key Management.</p>
+            <p>The profile does not specify how a TLS Secure Transport Connection is established, or the significance of any certificates exchanged during peer entity authentication. These issues are left up to the Application Entity, which presumably is following some site specified security policy. The identities of the certificate owners can by used by the application entity for audit log support, or to restrict access based on some external access rights control framework. Once the Application Entity has established a Secure Transport Connection, then an Upper Layer Association can use that secure channel.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>There may be an interaction between PDU size and TLS Record size that impacts efficiency of transport. The maximum allowed TLS record size is smaller than the maximum allowed PDU size.</p>
+            </div>
+            <p>When an integrity check fails, the connection shall be dropped per the TLS protocol, causing both the sender and the receiver to issue an A-P-ABORT indication to the upper layers with an implementation-specific provider reason. The provider reason used shall be documented in the conformance statement.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>An integrity check failure indicates that the security of the channel may have been compromised.</p>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_A.7.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_B.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">A.7 Audit Trail Message Transmission Profile - SYSLOG-UDP </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.15.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> B.2 ISCL Secure Transport Connection Profile</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,1396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>A.2 Abstract Multi-Dimensional Image Model</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.19.html" title="PS3.19" />
+      <link rel="up" href="chapter_A.html" title="A Data Exchange Models" />
+      <link rel="prev" href="chapter_A.html" title="A Data Exchange Models" />
+      <link rel="next" href="chapter_B.html" title="B Interface Definitions" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">A.2 Abstract Multi-Dimensional Image Model</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_A.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">A Data Exchange Models</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_B.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_A.2" shape="rect"></a>A.2 Abstract Multi-Dimensional Image Model</h2>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_A.2.1" shape="rect"></a>A.2.1 Usage</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The Abstract Multi-Dimensional Image Model can be used to refer to a discretely-sampled, multi-dimensional image data. The sample values may either be single-valued (a scalar) or a vector of values (a vector). An example would be a time varying series of three dimensional images set at multiple energy levels. The Abstract Multi-Dimensional Image Model is patterned after the Enhanced Multi-frame family of DICOM objects. In mathematical terms, this is any data set that is defined by a function <span class="italic">I (x,y,z,t,…)</span>, where <span class="italic">(x,y,z,t,…)</span> are the dimensions, and the sample value of <span class="italic">I</span> is either a vector of components or a scalar (i.e., a single component). The primary purpose of this model is to allow applications to process image data without concern as to the underlying format of the data.</p>
+            <p>When converting DICOM SOP Instances into Abstract Multi-Dimensional Image Models, a provider of data shall follow these rules as closely as it practically can:</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>Deterministic behavior is not expected nor guaranteed when making conversions between DICOM SOP Instances and Abstract Multi-Dimensional Image Models. For example, given the same DICOM SOP Instances, different Hosting Systems may create Abstract Multi-Dimensional Image Models that differ in some details, such as the Units of the Component values or in the Dimensions.</p>
+            </div>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="1">
+                  <li class="listitem">
+                     <p>Multiple DICOM SOP Instances from the same series that have the same Frame of Reference UID shall be combined into a single instance of the Abstract Multi-Dimensional Image Model. DICOM SOP Instances from multiple series that have the same Frame of Reference UUID may be combined into a single instance of the Abstract Multi-Dimensional Image Model, if appropriate.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>A single DICOM SOP Instance shall not be divided into multiple instances of the Abstract Multi-Dimensional Image Model.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>The coordinate system utilized within the Abstract Multi-Dimensional Image Model shall use the coordinate system defined by the DICOM objects utilized in the creation of the Abstract Multi-Dimensional Image Model instance if applicable. Where practical, the coordinate system and Dimension definitions utilized within the Abstract Multi-Dimensional Image Model shall be chosen such that interpolation is not required to covert the source data into the Abstract Multi-Dimensional Image Model.</p>
+                     <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                        <h3 class="title">Note</h3>
+                        <p>Interpolation may be necessary if the source data is not laid out on a frame-based Cartesian coordinate grid.</p>
+                     </div>
+                  </li>
+                  <li class="listitem">
+                     <p>Spatial coordinates, such as Image Position (Patient) (0020,0032), shall be transformed into the coordinate system utilized within the Abstract Multi-Dimensional Image Model instance.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>The Pixel Data shall be spatially transformed as needed to match the Semantics and Units of the Dimensions of the Abstract Multi-Dimensional Image Model into which the pixels values are being placed.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Any embedded overlays within the Pixel Data (7FE0,0010) Attribute shall be stripped out of the pixel values and the pixel values sign extended or converted as needed to match the datatype of the Component of the Abstract Multi-Dimensional Image Model into which the pixels values are being placed.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>The pixel values of the Pixel Data shall be transformed as needed to match the Semantics and Units of the Component of the Abstract Multi-Dimensional Image Model into which the pixels values are being placed.</p>
+                     <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                        <h3 class="title">Note</h3>
+                        <p>Typically presentation settings such as VOI and Presentation LUTs are not used in creating Abstract Multi-Dimensional Image Models from DICOM SOP Instances. The exception is when the application of such LUTs is needed to match the Semantics and Units of the Component. Modality LUTs or Rescale Slope and Intercept often must be applied to match the Semantics and Units of the Abstract Multi-Dimensional Image Model.</p>
+                     </div>
+                  </li>
+                  <li class="listitem">
+                     <p>Any pixel values that correspond to the pixel padding values shall be stripped out (i.e., set to zero or other suitable replacement value) and the spatially corresponding values in the PixelMapOfValidData shall be set to the outValue or something other than the inValue, as appropriate.</p>
+                  </li>
+               </ol>
+            </div>
+            <p>When converting data within an instance of the Abstract Multi-Dimensional Image Models into DICOM SOP Instances, the recipient of an abstract model instance shall convert the pixel data back into values compatible with the native form of the DICOM SOP Instances being created. This conversion may include recreating Modality LUT information, inserting pixel padding values, converting pixel spacing and origins, etc. as dictated by the SOP Class the data is being converted to. When converting a single Abstract Multi-Dimensional Image Model into multiple DICOM SOP Instances, the DICOM SOP Instances shall all have the same Frame of Reference UID (0020,0052), if permitted by the SOP Class.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_A.2.2" shape="rect"></a>A.2.2 Identification</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The ObjectDescriptors MIME content type for the Abstract Multi-Dimensional Image Model is "application/x-dicom.abstract".</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>This is an experimental MIME type. A formal MIME type will be applied for. Implementations will be expected to support both the experimental and formal MIME type going forward without a version change to the interface.</p>
+            </div>
+            <p>The ObjectDescriptors class UID for the Abstract Multi-Dimensional Image Model is "1.2.840.10008.7.1.2".</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_A.2.3" shape="rect"></a>A.2.3 Support</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Support of the Abstract Multi-Dimensional Image Model as both a data source and a data recipient is required of all Hosting Systems implementing the interface.</p>
+            <p>Support of the Abstract Multi-Dimensional Image Model as either a data source or a data recipient is optional for all Hosted Applications implementing the interface.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_A.2.4" shape="rect"></a>A.2.4 Information Model</h3>
+                  </div>
+               </div>
+            </div>
+            <p>A diagram of the Abstract Multi-Dimensional Image Model appears in <a class="xref" href="sect_A.2.html#figure_A.2.4-1" title="Figure A.2.4-1. Abstract Multi-Dimensional Image Model" shape="rect">Figure A.2.4-1</a>.</p>
+            <p>
+          </p>
+            <div class="figure">
+               <a id="figure_A.2.4-1" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.19_A.2.4-1.svg" alt="Abstract Multi-Dimensional Image Model" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure A.2.4-1. Abstract Multi-Dimensional Image Model</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_A.2.5" shape="rect"></a>A.2.5 Description</h3>
+                  </div>
+               </div>
+            </div>
+            <div class="table">
+               <a id="table_A.2.5-1" shape="rect"></a>
+               <p class="title">
+                  <strong>Table A.2.5-1. Abstract Image Model</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Name</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Optionality</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Cardinality</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Description</p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>AbstractImageDataSet</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>R</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>The top level element required of all abstract image models, holding the entire abstract image Data Set.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Component</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>R</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1-n</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Describes a component of the function output. If the output is a scalar, there is only one Component. Vector outputs require a Component for each position in the vector. When there are multiple components, the components appear in each value in the order defined by their respective idNumbers.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;idNumber</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>R</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>A</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Identifies this particular component, with numbering monotonically increasing from 1.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;datatype</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>R</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>A</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Describes how this component value is represented. Enumerated values are:</p>
+                              <p>SIGNED_INT8</p>
+                              <p>SIGNED_INT16</p>
+                              <p>SIGNED_INT32</p>
+                              <p>UNSIGNED_INT8</p>
+                              <p>UNSIGNED_INT16</p>
+                              <p>UNSIGNED_INT32</p>
+                              <p>FLOAT32</p>
+                              <p>FLOAT64</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;minValue</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>O</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>A</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>The minimum value that this component takes on. If this XML Attribute is missing, this is the minimum value that can be represented by the Datatype.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;maxValue</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>O</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>A</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>The maximum value that this component takes on. If this XML Attribute is missing, this is the maximum value that can be represented by the Datatype.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;Semantics</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>R</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>A coded value describing what this component represents.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" colspan="3" rowspan="1">
+                              <p>&gt;&gt;&gt;<span class="italic">Include <a class="xref" href="chapter_10.html#table_10.1-1" title="Table 10.1-1. Coded Terminology Macro" shape="rect">Table 10.1-1 “Coded Terminology Macro”</a>
+                                 </span>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Defined <a href="../part16/sect_CID_7180.html" class="olink" shape="rect">CID 7180 “Abstract Multi-dimensional Image Model Component Semantics”</a>.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;Unit</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>R</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>A coded value describing what units this dimension is in.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" colspan="3" rowspan="1">
+                              <p>&gt;&gt;&gt;<span class="italic">Include <a class="xref" href="chapter_10.html#table_10.1-1" title="Table 10.1-1. Coded Terminology Macro" shape="rect">Table 10.1-1 “Coded Terminology Macro”</a>
+                                 </span>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Defined <a href="../part16/sect_CID_7181.html" class="olink" shape="rect">CID 7181 “Abstract Multi-dimensional Image Model Component Units”</a>.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Dimension</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>R</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1-n</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Describes a dimension.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;idNumber</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>R</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>A</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Identifies this particular dimension, with numbering starting from 1. Dimensions with a lower idNumber vary faster than those with a higher idNumber.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;numberOfSamples</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>R</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>A</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>The number of samples in this dimension, for example:the number of columns along the X-axis,the number of rows along the Y-axis,the number of slices along the Z-axis,the number of qualitative descriptions.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;Semantics</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>R</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>A coded value describing what this dimension represents.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" colspan="3" rowspan="1">
+                              <p>&gt;&gt;&gt;<span class="italic">Include <a class="xref" href="chapter_10.html#table_10.1-1" title="Table 10.1-1. Coded Terminology Macro" shape="rect">Table 10.1-1 “Coded Terminology Macro”</a>
+                                 </span>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Defined <a href="../part16/sect_CID_7182.html" class="olink" shape="rect">CID 7182 “Abstract Multi-dimensional Image Model Dimension Semantics”</a>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt; Regular</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>C</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Used to describe regularly spaced samples in this dimension. Required if neither Irregular nor Qualitative are present. Shall not be present otherwise.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;&gt;width</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>R</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>A</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>The sample width.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;&gt;spacing</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>R</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>A</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>The sample spacing.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;&gt;Unit</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>R</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>A coded value describing what units the sample width and spacing are in.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" colspan="3" rowspan="1">
+                              <p>&gt;&gt;&gt;&gt;<span class="italic">Include <a class="xref" href="chapter_10.html#table_10.1-1" title="Table 10.1-1. Coded Terminology Macro" shape="rect">Table 10.1-1 “Coded Terminology Macro”</a>
+                                 </span>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Defined <a href="../part16/sect_CID_7183.html" class="olink" shape="rect">CID 7183 “Abstract Multi-dimensional Image Model Dimension Units”</a>.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;&gt;AxisDirection</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>O</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>The direction of the axis of this dimension.</p>
+                              <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                                 <h3 class="title">Note</h3>
+                                 <p>This XML Element might only be applicable to spatial dimensions, such as those dealing with linear displacement. Typically this is in relationship to the patient.</p>
+                              </div>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" colspan="3" rowspan="1">
+                              <p>&gt;&gt;&gt;&gt;<span class="italic">Include <a class="xref" href="chapter_10.html#table_10.1-1" title="Table 10.1-1. Coded Terminology Macro" shape="rect">Table 10.1-1 “Coded Terminology Macro”</a>
+                                 </span>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Defined <a href="../part16/sect_CID_7184.html" class="olink" shape="rect">CID 7184 “Abstract Multi-dimensional Image Model Axis Direction”</a>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;&gt;AxisOrientation</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>O</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>The orientation of the axis of this dimension along which values are increasing.</p>
+                              <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                                 <h3 class="title">Note</h3>
+                                 <p>This XML Element might only be applicable to spatial dimensions, such as those dealing with linear displacement. Typically this is in relationship to the patient.</p>
+                              </div>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" colspan="3" rowspan="1">
+                              <p>&gt;&gt;&gt;&gt;<span class="italic">Include <a class="xref" href="chapter_10.html#table_10.1-1" title="Table 10.1-1. Coded Terminology Macro" shape="rect">Table 10.1-1 “Coded Terminology Macro”</a>
+                                 </span>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Defined <a href="../part16/sect_CID_7185.html" class="olink" shape="rect">CID 7185 “Abstract Multi-dimensional Image Model Axis Orientation”</a>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;Irregular</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>C</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Used to describe irregularly spaced samples in this dimension. Required if neither Regular nor Qualitative are present. Shall not be present otherwise.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;&gt;origin</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>R</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>A</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>The reference location from which each of the sample locations are measured.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;&gt;SampleLocation</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>R</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1-n</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Describes the locations of each sample as an offset from the origin. There shall be numberOfSamples SampleLocation XML Elements in this sequence.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;&gt;&gt;index</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>R</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>A</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>The index value of this sample location, with numbering starting from 1 and incrementing to numberOfSamples.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;&gt;&gt;width</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>R</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>A</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>The sample width.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;&gt;&gt;distanceToOrigin</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>R</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>A</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>The distance of this sample location from the Origin location.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;&gt;Unit</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>R</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>A coded value describing what units the sample widths and locations are in.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" colspan="3" rowspan="1">
+                              <p>&gt;&gt;&gt;&gt;<span class="italic">Include <a class="xref" href="chapter_10.html#table_10.1-1" title="Table 10.1-1. Coded Terminology Macro" shape="rect">Table 10.1-1 “Coded Terminology Macro”</a>
+                                 </span>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Defined <a href="../part16/sect_CID_7183.html" class="olink" shape="rect">CID 7183 “Abstract Multi-dimensional Image Model Dimension Units”</a>.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;&gt;AxisDirection</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>O</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>The direction of the axis of this dimension.</p>
+                              <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                                 <h3 class="title">Note</h3>
+                                 <p>This XML Element might only be applicable to spatial dimensions, such as those dealing with linear displacement. Typically this is in relationship to the patient.</p>
+                              </div>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" colspan="3" rowspan="1">
+                              <p>&gt;&gt;&gt;&gt;<span class="italic">Include <a class="xref" href="chapter_10.html#table_10.1-1" title="Table 10.1-1. Coded Terminology Macro" shape="rect">Table 10.1-1 “Coded Terminology Macro”</a>
+                                 </span>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Defined <a href="../part16/sect_CID_7184.html" class="olink" shape="rect">CID 7184 “Abstract Multi-dimensional Image Model Axis Direction”</a>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;&gt;AxisOrientation</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>O</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>The orientation of the axis of this dimension along which values are increasing.</p>
+                              <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                                 <h3 class="title">Note</h3>
+                                 <p>This XML Element might only be applicable to spatial dimensions, such as those dealing with linear displacement. Typically this is in relationship to the patient.</p>
+                              </div>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" colspan="3" rowspan="1">
+                              <p>&gt;&gt;&gt;&gt;<span class="italic">Include <a class="xref" href="chapter_10.html#table_10.1-1" title="Table 10.1-1. Coded Terminology Macro" shape="rect">Table 10.1-1 “Coded Terminology Macro”</a>
+                                 </span>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Defined <a href="../part16/sect_CID_7185.html" class="olink" shape="rect">CID 7185 “Abstract Multi-dimensional Image Model Axis Orientation”</a>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;Qualitative</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>C</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Used to describe a qualitative dimension. Required if neither Regular nor Irregular are present. Shall not be present otherwise.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;&gt;Sample</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>R</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1-n</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Description of what each sample along this dimension represents. There shall be numberOfSamples Sample XML Elements in this sequence.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;&gt;&gt;index</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>R</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>A</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>The index value of this sample, with numbering starting from 1 and increasing to numberOfSamples.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;&gt;&gt;Semantics</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>R</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>A coded value describing what this sample represents.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" colspan="3" rowspan="1">
+                              <p>&gt;&gt;&gt;&gt;&gt;<span class="italic">Include <a class="xref" href="chapter_10.html#table_10.1-1" title="Table 10.1-1. Coded Terminology Macro" shape="rect">Table 10.1-1 “Coded Terminology Macro”</a>
+                                 </span>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Defined <a href="../part16/sect_CID_7186.html" class="olink" shape="rect">CID 7186 “Abstract Multi-dimensional Image Model Qualitative Dimension Sample Semantics”</a>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;Origin</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>O</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>0-n</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Specifies the spatial position in the coordinate system of the Abstract Multi-Dimensional Image Model of the spatial frames or volumes of image data values. Different frames or volumes may either share an origin, or have a different origin for each frame or volume. If there is only a single Origin XML element within this Dimension, then this Origin applies to all samples along this Dimension. Otherwise, there shall be numberOfSamples Origin XML elements, one for each sample along this Dimension. Sample index values for Dimensions whose idNumbers are less than this Dimension's idNumber, are all equal to 1.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;&gt;index</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>R</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>A</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Index of the sample to which this Origin,. If this is a single Origin that applies to all samples along this Dimension, then index shall either be left out or given a value of "0" (zero). Otherwise, the value shall be the appropriate number between 1 and nubmerOfSamples.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;&gt;xCoord</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>R</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>A</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>The X position of this Origin in the coordinate system of the Abstract Multi-Dimensional Image Model.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;&gt;yCoord</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>R</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>A</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>The Y position of this Origin in the coordinate system of the Abstract Multi-Dimensional Image Model.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;&gt;zCoord</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>R</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>A</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>The Z position of this Origin in the coordinate system of the Abstract Multi-Dimensional Image Model.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;DirectionCosines</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>O</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>0-n</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Specifies the direction in the coordinate system of the Abstract Multi-Dimensional Image Model of the Dimension whose idNumber is given in concernedSpatialDimension. The idNumber of the concernedSpatialDimension shall be less than the idNumber of this Dimension. If there is only a single DirectionCosines XML element within this Dimension XML element with a particular concernedSpatialDimension, then this Direction Cosine applies to all samples along this Dimension. Otherwise, there shall be numberOfSamples DirectionCosines XML elements with this particular concernedSpatialDimension, one for each sample along this Dimension.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;&gt;concernedSpatialDimension</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>R</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>A</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>The idNumber of the particular Dimension for which this DirectionCosines XML element applies. The value of concernedSpatialDimension shall be less than the idNumber of this Dimension.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;&gt;index</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>C</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>A</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Index of this direction specification, with numbering starting from 1. If this is a single-valued DirectionCosines that applies to all samples along this Dimension then index shall either be left out or given a value of "0" (zero). Otherwise, the value of index refers to the DirectionCosines of a particular sample value along this Dimension.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;&gt;cosAlongX</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>R</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>A</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>The direction cosine along the X axis of the coordinate system of the Abstract Multi-Dimensional Image Model for this concernedSpatialDimension.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;&gt;cosAlongY</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>R</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>A</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>The direction cosine along the Y axis of the coordinate system of the Abstract Multi-Dimensional Image Model for this concernedSpatialDimension.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;&gt;cosAlongZ</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>R</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>A</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>The direction cosine along the Z axis of the coordinate system of the Abstract Multi-Dimensional Image Model for this concernedSpatialDimension.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;PixelData</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>R</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Structure that defines where the pixel data is located, organized along dimensional lines.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" colspan="4" rowspan="1">
+                              <p>
+                                 <span class="italic">&gt;&gt;Include <a class="xref" href="sect_A.2.html#table_A.2.5-2" title="Table A.2.5-2. Dimensional Data Macro" shape="rect">Table A.2.5-2 “Dimensional Data Macro”</a>
+                                 </span>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;PixelMapOfValidData</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>O</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>0-1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>A pixel map that identifies which pixels either belong in or out of the Data Set. The dimensions of the pixel map match the dimensions of the image data, i.e., there is a one-to-one correspondence between samples in the image data and samples in the pixel map. The pointers to the pixel map data are included one of the Dimension XML elements.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;datatype</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>R</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>A</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Describes how samples in the pixel map are encoded. Enumerated values are:</p>
+                              <p>BIT1</p>
+                              <p>UNSIGNED_INT8</p>
+                              <p>For BIT1, the bit ordering starts from the least significant bit going to the most significant bit within an UNSIGNED_INT8 (i.e., 8 bit) byte. The bits are zero-padded to make a full 8-bit byte at the end of the most rapidly changing dimension (i.e., the Dimension whose idNumber is 1).</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;inValue</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>C</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>A</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>The value within the pixel map that indicates that this sample shall be considered as part of the Data Set. All samples whose pixel map values do not match inValue shall not be considered as part of the Data Set. Required if outValue is not present. Shall not be present if outValue is present.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;outValue</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>C</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>A</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>The value within the pixel map that indicates that this sample shall not be considered as part of the Data Set. All samples whose pixel map values do not match outValue shall be considered as part of the Data Set. Required if inValue is not present. Shall not be present if inValue is present.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" colspan="4" rowspan="1">
+                              <p>&gt;&gt;<span class="italic">Include <a class="xref" href="sect_A.2.html#table_A.2.5-2" title="Table A.2.5-2. Dimensional Data Macro" shape="rect">Table A.2.5-2 “Dimensional Data Macro”</a>
+                                 </span>
+                              </p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <div class="table">
+               <a id="table_A.2.5-2" shape="rect"></a>
+               <p class="title">
+                  <strong>Table A.2.5-2. Dimensional Data Macro</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;dimensionID</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>R</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>A</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>The idNumber of the Dimension in this AbstractImageDataSet to which this DimensionalData refers.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;DataAt</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>O</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1-n</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>References to where the image data is located. Only one Dimension XML Element within this AbstractImageDataSet shall have UUIDs for bulk pixel data (i.e., all bulk data references are at the same dimensional level).</p>
+                              <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                                 <h3 class="title">Note</h3>
+                                 <p>If the source of the data, as part of the model preparation, creates a single file for pixel data from multiple smaller native objects, then in order to provide the descriptorUUID XML Attributes the source may need to create multiple bulkDataUUIDs referring to different offsets within that single pixel data file.</p>
+                              </div>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;indexWithinDimension</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>R</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>A</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>The ordinal position (e.g., index number) of this sample point in the array of data at this level. Numbering starts from 1.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;descriptorUUID</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>C</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>A</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>A UUID that refers to the ObjectDescriptor from which this data is drawn, formatted in the hexadecimal representation defined by ITU-T Recommendation X.667.</p>
+                              <p>Required at the level of the nested tree structure where the source added the data from the descriptorUUID into the Abstract Multi-Dimensional Image Model.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;&gt;bulkDataUUID</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>C</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>A</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>The identifier that the recipient of the data may use in a getData() call to gain access to the bulk pixel data formatted as a UUID using the hexadecimal representation defined in ITU-T Recommendation X.667.</p>
+                              <p>Required if the Dimensional Data Macro is not present at this level of the nested tree structure. Shall not be present otherwise.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" colspan="3" rowspan="1">
+                              <p>&gt;&gt;<span class="italic">Conditionally include <a class="xref" href="sect_A.2.html#table_A.2.5-2" title="Table A.2.5-2. Dimensional Data Macro" shape="rect">Table A.2.5-2 “Dimensional Data Macro”</a>
+                                 </span>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Only one of bulkDataUUID or Dimensional Data shall be included at each level. If Dimensional Data is included, it shall be the next lower level of the nested tree structure, that is the Dimension with an idNumber one less than the Dimension referred to by the enclosing DimensionalData.</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_A.2.6" shape="rect"></a>A.2.6 Schema</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The Relax NG Compact schema for the Abstract Multi-Dimensional Image Model follows:</p>
+            <pre class="programlisting" xml:space="preserve">
+default namespace = "http://dicom.nema.org/PS3.19/models/AbstractImage"
+
+start = AbstractImageDataSet
+AbstractImageDataSet = 
+
+ element AbstractImageDataSet {
+    element Component{
+      attribute idNumber { xsd:positiveInteger },
+      attribute datatype { ComponentDatatype },
+      attribute minValue { xsd:double }?,
+      attribute maxValue { xsd:double }?,
+      element Semantics { CodedTerm },
+      element Unit { CodedTerm  },
+      element RealWordMapping {
+        attribute rescaleSlope { xsd:double },
+        attribute rescaleIntercept { xsd:double },
+        element Unit { CodedTerm },
+        element Semantics { CodedTerm }
+      }*
+    }+,
+    element Dimension {
+      attribute idNumber { xsd:positiveInteger },
+      attribute numberOfSamples { xsd:positiveInteger },
+      element Semantics { CodedTerm },
+      (element Regular {
+         attribute width { xsd:double },
+         attribute spacing { xsd:double },
+         element Unit { CodedTerm  },
+         element AxisDirection { CodedTerm  }?,
+         element AxisOrientation { CodedTerm  }?
+       }
+       | element Irregular {
+           element origin { xsd:double },
+           element SampleLocation {
+             attribute index { xsd:positiveInteger },
+             attribute width { xsd:double },
+             attribute distanceToOrigin { xsd:double }
+           }+,
+         element Unit { CodedTerm  },
+         element AxisDirection { CodedTerm  }?,
+         element AxisOrientation { CodedTerm  }?
+         }
+       | element Qualitative {
+           element Sample {
+             attribute index { xsd:positiveInteger },
+             element Semantics { CodedTerm }
+           }+
+         }),
+      element Origin {
+        attribute index { xsd:positiveInteger }?,
+        attribute xCoord { xsd:double },
+        attribute yCoord { xsd:double },
+        attribute zCoord { xsd:double }
+      }*,
+      element DirectionCosines {
+        attribute concernedSpatialDimension { xsd:positiveInteger },
+        attribute index { xsd:positiveInteger }?,
+        attribute cosAlongX { xsd:double },
+        attribute cosAlongY { xsd:double },
+        attribute cosAlongZ { xsd:double }
+      }*
+    }+,
+    element PixelData { DimensionalData },
+    element PixelMapOfValidData {
+      attribute datatype { PixelMapDatatype },
+      (
+        attribute inValue { xsd:positiveInteger }
+        | attribute outValue { xsd:positiveInteger }
+      ),
+      DimensionalData
+    }?
+  }
+
+ComponentDatatype =
+    "SIGNED_INT8"
+    | "SIGNED_INT16"
+    | "SIGNED_INT32"
+    | "UNSIGNED_CHAR8"
+    | "UNSIGNED_INT16"
+    | "UNSIGNED_INT32"
+    | "FLOAT32"
+    | "FLOAT64"
+  
+PixelMapDatatype = 
+    "BIT1"
+    | "UNSIGNED_INT8"
+
+DimensionalData =
+  element DimensionalData {
+    attribute dimensionID { xsd:positiveInteger },
+    element DataAt 
+    {
+      attribute sampleNumber { xsd:positiveInteger },
+      attribute descriptorUUID { xsd:string }?,
+      (DimensionalData | BulkDataPointer)
+    }+
+  }
+
+BulkDataPointer = 
+    attribute UUID { xsd:string }
+
+CodedTerm = 
+    element CodeValue { xsd:string },
+    element CodingSchemeDesignator { xsd:string },
+    element CodingSchemeVersion { xsd:string }?,
+    element CodeMeaning { xsd:string }?,
+    (
+      element ContextIdentifier { xsd:string },
+      element MappingResource { xsd:string },
+      element ContextGroupVersion { xsd:string }
+    )?,
+    (
+      element ContextGroupExtensionFlag { xsd:string },
+      element ContextGroupLocalVersion { xsd:string }?,
+      element ContextGroupExtensionCreatorUID { xsd:string }?
+    )?
+</pre>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_A.2.7" shape="rect"></a>A.2.7 Examples</h3>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_A.2.7.1" shape="rect"></a>A.2.7.1 Simple 3D Volume</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>
+            </p>
+               <div class="figure">
+                  <a id="figure_A.2.7.1-1" shape="rect"></a>
+                  <div class="figure-contents">
+                     <div class="mediaobject">
+                        <img src="figures/PS3.19_A.2.7.1-1.svg" alt="Simple 3D Volume Example" />
+                     </div>
+                  </div>
+                  <p class="title">
+                     <strong>Figure A.2.7.1-1. Simple 3D Volume Example</strong>
+                  </p>
+               </div>
+               <p>
+                  <br class="figure-break" clear="none" />
+               </p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_A.2.7.2" shape="rect"></a>A.2.7.2 Simple 4D Volume</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>
+            </p>
+               <div class="figure">
+                  <a id="figure_A.2.7.2-1" shape="rect"></a>
+                  <div class="figure-contents">
+                     <div class="mediaobject">
+                        <img src="figures/PS3.19_A.2.7.2-1.svg" alt="Simple 4D Volume Example" />
+                     </div>
+                  </div>
+                  <p class="title">
+                     <strong>Figure A.2.7.2-1. Simple 4D Volume Example</strong>
+                  </p>
+               </div>
+               <p>
+                  <br class="figure-break" clear="none" />
+               </p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_A.2.7.3" shape="rect"></a>A.2.7.3 2D Ultrasound</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>
+            </p>
+               <div class="figure">
+                  <a id="figure_A.2.7.3-1" shape="rect"></a>
+                  <div class="figure-contents">
+                     <div class="mediaobject">
+                        <img src="figures/PS3.19_A.2.7.3-1.svg" alt="2D Ultrasound Example" />
+                     </div>
+                  </div>
+                  <p class="title">
+                     <strong>Figure A.2.7.3-1. 2D Ultrasound Example</strong>
+                  </p>
+               </div>
+               <p>
+                  <br class="figure-break" clear="none" />
+               </p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>In this particular case, we have three dimensions, numbered #1 for displacements along X, #2 for displacements along Y, and #3 to index the time series. If we have 200 images along time (i.e., the <span class="italic">numberOfSamples</span> XML Attribute is set to 200), we will then have 400 occurrences of the <span class="italic">DirectionCosines</span> XML Element within the <span class="italic">Dimension</span> XML Element whose <span class="italic">idNumber</span> XML Attribute is set to #3 (the dimension referring to time). The 200 first occurrences will have the XML Attribute <span class="italic">concernedSpatialDimension</span> with value #1 (to specify direction cosines along the X axis) and will be indexed by the XML Attribute <span class="italic">index</span> varying from 1 to 200 corresponding to the 200 images along time. The 200 following occurrences will have the XML Attribute <span class="italic">concernedSpatialDimension</span> with value #2 (to specify direction cosines along the Y axis), and will also be indexed by the XML Attribute <span class="italic">index</span> varying from 1 to 200.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Similarly, in this example we will have 200 occurrences of the <span class="italic">Origin</span> XML Element within the Dimension XML Element that has the <span class="italic">idNumber</span> XML Attribute set to the value 3, and of course by the XML Attribute <span class="italic">index</span> varying from 1 to 200.</p>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_A.2.7.4" shape="rect"></a>A.2.7.4 3D MR Metabolite Map - Single Component</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>
+            </p>
+               <div class="figure">
+                  <a id="figure_A.2.7.4-1" shape="rect"></a>
+                  <div class="figure-contents">
+                     <div class="mediaobject">
+                        <img src="figures/PS3.19_A.2.7.4-1.svg" alt="Single Component 3D MR Metabolite Example" />
+                     </div>
+                  </div>
+                  <p class="title">
+                     <strong>Figure A.2.7.4-1. Single Component 3D MR Metabolite Example</strong>
+                  </p>
+               </div>
+               <p>
+                  <br class="figure-break" clear="none" />
+               </p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_A.2.7.5" shape="rect"></a>A.2.7.5 3D MR Metabolite Map - Multiple Component</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>
+            </p>
+               <div class="figure">
+                  <a id="figure_A.2.7.5-1" shape="rect"></a>
+                  <div class="figure-contents">
+                     <div class="mediaobject">
+                        <img src="figures/PS3.19_A.2.7.5-1.svg" alt="Multiple Component 3D MR Metabolite Map Example" />
+                     </div>
+                  </div>
+                  <p class="title">
+                     <strong>Figure A.2.7.5-1. Multiple Component 3D MR Metabolite Map Example</strong>
+                  </p>
+               </div>
+               <p>
+                  <br class="figure-break" clear="none" />
+               </p>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_A.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_A.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_B.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">A Data Exchange Models </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.19.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> B Interface Definitions</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

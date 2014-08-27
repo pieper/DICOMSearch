@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>8.2 File IDs</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.10.html" title="PS3.10" />
+      <link rel="up" href="chapter_8.html" title="8 DICOM File Service" />
+      <link rel="prev" href="chapter_8.html" title="8 DICOM File Service" />
+      <link rel="next" href="sect_8.3.html" title="8.3 File Management Roles and Services" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">8.2 File IDs</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_8.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">8 DICOM File Service</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_8.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_8.2" shape="rect"></a>8.2 File IDs</h2>
+               </div>
+            </div>
+         </div>
+         <p>Files are identified by a File ID that is unique within the context of a File-set. A File ID is an ordered sequence of File ID Components. A File ID may contain one to eight components. Each Component is a string of one to eight characters from a subset of the G0 repertoire of ISO 8859 (see <a class="xref" href="sect_8.5.html" title="8.5 Character Set" shape="rect">Section 8.5</a>)</p>
+         <p>Such a structure for File IDs (a sequence of components) allows the DICOM File Service to organize file selection in a hierarchical mode. No conventions are defined by the DICOM Standard for the use of the structure of File IDs components and their content (except for the reserved File ID DICOMDIR, see <a class="xref" href="sect_8.6.html" title="8.6 Reserved DICOMDIR File ID" shape="rect">Section 8.6</a>). Furthermore, no semantics shall be conveyed by the structure and content of such File IDs. This implies that when a File ID is assigned to any File in a File-set, the creating DICOM Application Entity may choose to structure the File ID as it wishes. Any other AE reading existing files or creating new files shall not be required to know any semantics the original creator may have associated with such a structure.</p>
+         <p>The File ID used to access a File through the abstract DICOM File Service is not necessarily the sole file identifier. The interchange Media Format (file system) may allow multiple file names to address the same physical file. Any use of alternate file names is beyond the scope of the DICOM Standard.</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="1">
+                  <li class="listitem">
+                     <p>A DICOM File ID is equivalent to the commonly used concept of "path name" concatenated with a "file name". An example of a valid DICOM File ID with four components shown separated by backslashes is:SUBDIR1\SUBDIR2\SUBDIR3\ABCDEFGH</p>
+                  </li>
+                  <li class="listitem">
+                     <p>As specified in the DICOM Storage Media Model, no semantics is attached to File ID content and structure as it relates to the DICOM Information Objects stored in these files. If used, the hierarchical structure simply provides a means to organize the Files of a File-set and facilitate their selection.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>The DICOM File Service does not specify any "separator" between the Components of the File ID. This is a Value Representation issue that may be addressed in a specific manner by each Media Format Layer. In DICOM IODs, File ID Components are generally handled as multiple Values and separated by "backslashes". There is no requirement that Media Format Layers use this separator.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>DICOM files stored on interchange media may have an alternate file name or link that uses less restricted file names, such as a filename extension (e.g., ".dcm" in accordance with RFC 3240).</p>
+                  </li>
+               </ol>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_8.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_8.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_8.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">8 DICOM File Service </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.10.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 8.3 File Management Roles and Services</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,857 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>HHH Evolution of WADO to Web and Rest Services (Informative)</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="PS3.17.html" title="PS3.17" />
+      <link rel="prev" href="sect_GGG.3.html" title="GGG.3 Other Features" />
+      <link rel="next" href="sect_HHH.2.html" title="HHH.2 Web and Rest Services Implementation" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">HHH Evolution of WADO to Web and Rest Services (Informative)</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_GGG.3.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_HHH.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_HHH" shape="rect"></a>HHH Evolution of WADO to Web and Rest Services (Informative)</h1>
+               </div>
+            </div>
+         </div>
+         <p>This annex discusses the design considerations that went into the definition of the WADO extension to Web and REST services.</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_HHH.1" shape="rect"></a>HHH.1 Request and Response Parameters</h2>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_HHH.1.1" shape="rect"></a>HHH.1.1 Request Parameters</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>The new service based on WS should continue to support all the request parameters defined by WADO, for maintaining backward compatibility with the present URI based WADO, including the options to return either native DICOM objects or a rendered object (JPEG, PDF etc.).</p>
+               <p>The WADO-RS and STOW-RS requests have no parameters because data is requested through well defined URLs and content negotiation through HTTP headers.</p>
+               <p>The WADO-WS request parameters are summarized as below:</p>
+               <div class="table">
+                  <a id="table_HHH.1-1" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table HHH.1-1. Summary of DICOM/Rendered URI Based WADO Parameters</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Parameter</p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Allowed for</p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Requirement in Request</p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>requestType</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>DICOM &amp; Rendered</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Required</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>studyUID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>DICOM &amp; Rendered</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Required</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>seriesUID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>DICOM &amp; Rendered</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Required</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>objectUID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>DICOM &amp; Rendered</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Required</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>contentType</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>DICOM &amp; Rendered</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Optional</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>charset</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>DICOM &amp; Rendered</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Optional</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>anonymize</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>DICOM</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Optional</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>annotation</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Rendered</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Optional</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Rows, columns</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Rendered</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Optional</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>region</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Rendered</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Optional</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>windowCenter, windowWidth</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Rendered</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Optional</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>imageQuality</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>DICOM &amp; Rendered</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Optional</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>presentationUID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Rendered</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Optional</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>presentationSeriesUID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Rendered</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Optional</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>transferSyntax</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>DICOM</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Optional</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>frameNumber</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>DICOM &amp; Rendered</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Optional</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+               <p>For the WS "DICOM Requester" transaction, the parameters will be the following:</p>
+               <div class="table">
+                  <a id="table_HHH.1-2" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table HHH.1-2. Summary of "DICOM Requester" WADO-WS Parameters</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Parameter</p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Requirement in Request</p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Multiplicity</p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>StudyRequest</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Required</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>One</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>&gt;SeriesRequest</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Required</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>One or more</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>&gt;&gt;DocumentRequest</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Required</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>One or more</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>&gt;&gt;&gt;RepositoryUniqueId</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Optional</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>One</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>&gt;&gt;&gt;DocumentUniqueId</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Required</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>One</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>&gt;&gt;&gt;HomeCommunityId</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Optional</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>One</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>&gt;&gt;&gt;FrameNumber</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Optional</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>One</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>&gt;&gt;&gt;Anonymize</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Optional</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>One</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>&gt;&gt;&gt;TransferSyntaxUIDList</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Optional</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>One</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>&gt;&gt;&gt;&gt;TransferSyntaxUID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Required</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>One or more</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+               <div class="table">
+                  <a id="table_HHH.1-3" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table HHH.1-3. Summary of "Rendered Requester" WADO-WS Parameters</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Parameter</p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Requirement in Request</p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Multiplicity</p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>StudyRequest</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Required</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>One</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>&gt;SeriesRequest</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Required</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>One or more</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>&gt;&gt;DocumentRequest</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Required</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>One or more</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>&gt;&gt;&gt;RepositoryUniqueId</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Optional</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>One</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>&gt;&gt;&gt;DocumentUniqueId</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Required</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>One</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>&gt;&gt;&gt;HomeCommunityId</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Optional</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>One</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>&gt;&gt;&gt;Annotation</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Optional</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>One</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>&gt;&gt;&gt;Rows / Columns</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Optional</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>One</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>&gt;&gt;&gt;Region</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Optional</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>One</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>&gt;&gt;&gt;WindowCenter/ WindowWidth</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Optional</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>One</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>&gt;&gt;&gt;ImageQuality</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Optional</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>One</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>&gt;&gt;&gt;PresentationUID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Optional</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>One</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>&gt;&gt;&gt;PresentationSeriesUID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Optional</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>One</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>&gt;&gt;&gt;FrameNumber</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Optional</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>One</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>&gt;&gt;&gt;Anonymize</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Optional</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>One</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>&gt;&gt;&gt;ContentTypeList</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Required</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>One</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>&gt;&gt;&gt;&gt;ContentType</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Required</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>One or more</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>&gt;&gt;&gt;CharsetList</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Optional</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>One</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>&gt;&gt;&gt;&gt;Charset</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Required</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>One or more</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+               <div class="table">
+                  <a id="table_HHH.1-4" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table HHH.1-4. Summary of "Metadata Requester" WADO-WS Parameters</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Parameter</p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Requirement in Request</p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Multiplicity</p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>StudyRequest</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Required</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>One</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>&gt;SeriesRequest</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Required</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>One or more</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>&gt;&gt;DocumentRequest</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Required</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>One or more</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>&gt;&gt;&gt;RepositoryUniqueId</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Optional</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>One</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>&gt;&gt;&gt;DocumentUniqueId</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Required</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>One</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>&gt;&gt;&gt;HomeCommunityId</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Optional</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>One</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>&gt;&gt;&gt;Anonymize</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Optional</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>One</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>&gt;&gt;&gt;XPath</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Required</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>One</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_HHH.1.2" shape="rect"></a>HHH.1.2 Response Parameters</h3>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_HHH.1.2.1" shape="rect"></a>HHH.1.2.1 URI WADO-URI</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>In the URI based WADO, the response is the single payload returned in the HTTP Get response. It may be the DICOM object in a DICOM format or in a rendered format.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_HHH.1.2.2" shape="rect"></a>HHH.1.2.2 WADO-WS</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>In the Web Services implementation, for the "DICOM Requester" and the "Rendered Requester" transactions, one or more DICOM objects are returned using the MTOM/XOP mechanism as well as associated metadata.</p>
+                  <p>For the "Metadata Requester" transaction, the response will contain the an XML encoded part containing the information selected from the retrieved objects header using the "XPath" filter as described in the Native DICOM Model defined in <a href="../part19/PS3.19.html" class="olink" shape="rect">PS3.19</a>.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_HHH.1.2.3" shape="rect"></a>HHH.1.2.3 WADO-RS</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The WADO-RS Service is a transport service, as opposed to a rendering service, which provides resources that enable machine to machine transfers of binary instances, pixel data, bulk data, and metadata. These services are not primarily intended to be directly displayable in a browser.</p>
+                  <p>In the REST Services implementation:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>For the "DICOM Requester", one or more multipart/related parts are returned containing <a href="../part10/PS3.10.html" class="olink" shape="rect">PS3.10</a> binary DICOM instances of a Study, Series, or a single Instance.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>For the "Frame Pixel Data Requester", one or more multipart/related parts are returned containing the pixel data of a multi-frame SOP Instance.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>For the "Bulk Data Requester", one or more multipart/related parts are returned containing the bulk data of a Study, Series or SOP Instance.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>For the "Metadata Requester", an item is returned containing the XML encoded metadata selected from the retrieved objects header as described in the Native DICOM Model defined in <a href="../part19/PS3.19.html" class="olink" shape="rect">PS3.19</a>.</p>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_HHH.1.2.4" shape="rect"></a>HHH.1.2.4 STOW-RS</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The STOW-RS Service provides the ability to STore Over the Web using RESTful Services (i.e., HTTP/1.1 based functionality equivalent to C-Store).</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>For the "DICOM Creator", one or more multipart/related parts are stored (posted to a STOW-RS Service) containing one or more DICOM Composite SOP Instances.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>For the "Metadata and Bulk Data Creator", one or more multipart/related parts are stored (posted to a STOW-RS Service) containing the XML encoded metadata defined in <a href="../part19/PS3.19.html" class="olink" shape="rect">PS3.19</a> and one or more parts containing the bulk data of a Study, Series or SOP Instance.</p>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_GGG.3.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_HHH.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">GGG.3 Other Features </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> HHH.2 Web and Rest Services Implementation</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

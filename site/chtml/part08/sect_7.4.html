@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>7.4 A-P-ABORT Service</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.8.html" title="PS3.8" />
+      <link rel="up" href="chapter_7.html" title="7 OSI Upper Layer Service for DICOM Application Entities" />
+      <link rel="prev" href="sect_7.3.html" title="7.3 A-ABORT Service" />
+      <link rel="next" href="sect_7.5.html" title="7.5 Sequencing Information" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">7.4 A-P-ABORT Service</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_7.3.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">7 OSI Upper Layer Service for DICOM Application Entities</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_7.5.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_7.4" shape="rect"></a>7.4 A-P-ABORT Service</h2>
+               </div>
+            </div>
+         </div>
+         <p>The ACSE A-P-ABORT service shall be used by the UL service-provider to signal the abnormal release of the association due to problems in services at the Presentation Layer and below. This occurrence indicates the possible loss of information in transit. A-P-ABORT is a provider-initiated service.</p>
+         <p>
+            <a class="xref" href="sect_7.4.html#figure_7-4" title="Figure 7-4. Provider Initiated Abort" shape="rect">Figure 7-4</a> illustrates aborting an established association by an UL service-provider.</p>
+         <p>
+  </p>
+         <div class="figure">
+            <a id="figure_7-4" shape="rect"></a>
+            <div class="figure-contents">
+               <div class="mediaobject">
+                  <img src="figures/PS3.8_7-4.svg" alt="Provider Initiated Abort" />
+               </div>
+            </div>
+            <p class="title">
+               <strong>Figure 7-4. Provider Initiated Abort</strong>
+            </p>
+         </div>
+         <p>
+            <br class="figure-break" clear="none" />
+         </p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_7.4.1" shape="rect"></a>7.4.1 A-P-ABORT Parameter</h3>
+                  </div>
+               </div>
+            </div>
+            <p>
+               <a class="xref" href="sect_7.4.html#table_7-6" title="Table 7-6. A-P-ABORT Service Parameters" shape="rect">Table 7-6</a> lists the parameter that shall be required for the A-P-ABORT service.</p>
+            <div class="table">
+               <a id="table_7-6" shape="rect"></a>
+               <p class="title">
+                  <strong>Table 7-6. A-P-ABORT Service Parameters</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>A-P-ABORT Parameter Name</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Indication</p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>provider reason</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>P</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <p>The provider reason parameter shall be used to convey one of the following reasons:</p>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="a">
+                  <li class="listitem">
+                     <p>reason-not-specified</p>
+                  </li>
+                  <li class="listitem">
+                     <p>unrecognized-pdu</p>
+                  </li>
+                  <li class="listitem">
+                     <p>unexpected-pdu</p>
+                  </li>
+                  <li class="listitem">
+                     <p>unexpected-session-service primitive</p>
+                  </li>
+                  <li class="listitem">
+                     <p>unrecognized-pdu parameter</p>
+                  </li>
+                  <li class="listitem">
+                     <p>unexpected-pdu parameter</p>
+                  </li>
+                  <li class="listitem">
+                     <p>invalid-pdu-parameter value</p>
+                  </li>
+               </ol>
+            </div>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>In addition to these reasons, a locally defined list of reasons may be used to reflect errors that caused the abort and originated in the Session, Transport, Network, Data Link, and Physical layers. The generation and handling of such errors is internal to an implementation and, therefore, is outside the scope of this communications standard.</p>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_7.4.2" shape="rect"></a>7.4.2 A-P-ABORT Service Procedure</h3>
+                  </div>
+               </div>
+            </div>
+            <p>When the UL service-provider detects an internal error, A-P-ABORT indication primitives shall be issued to acceptors in both AEs. The association shall be abnormally released. Requestors in both AEs shall not issue any further primitives for the association.</p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_7.3.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_7.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_7.5.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">7.3 A-ABORT Service </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.8.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 7.5 Sequencing Information</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

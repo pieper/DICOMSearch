@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>7.8 Private Data Elements</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.5.html" title="PS3.5" />
+      <link rel="up" href="chapter_7.html" title="7 The Data Set" />
+      <link rel="prev" href="sect_7.7.html" title="7.7 Retired Data Elements" />
+      <link rel="next" href="chapter_8.html" title="8 Encoding of Pixel, Overlay and Waveform Data" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">7.8 Private Data Elements</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_7.7.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">7 The Data Set</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_8.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_7.8" shape="rect"></a>7.8 Private Data Elements</h2>
+               </div>
+            </div>
+         </div>
+         <p>Implementations may require communication of information that cannot be contained in Standard Data Elements. Private Data Elements are intended to be used to contain such information. Such Private Data Elements shall not change the semantics of the Information Object Definition or SOP Class Definition.</p>
+         <p>Private Data Elements have the same structure as Standard Data Elements specified earlier in <a class="xref" href="chapter_7.html#sect_7.1" title="7.1 Data Elements" shape="rect">Section 7.1</a> (i.e., Data Element Tag field, optional VR field, length field, and value field). The Group Number used in the Element Tag of Private Data Elements shall be an odd number. Private Data Elements shall be contained in the Data Set in increasing numeric order of Data Element Tag. The Value Field of a Private data element shall have one of the VRs specified by this standard in <a class="xref" href="sect_6.2.html" title="6.2 Value Representation (VR)" shape="rect">Section 6.2</a>.</p>
+         <p>For each Information Object Definition or SOP Class Definition, certain Data Elements are required (Data Element Type 1, 1C, 2, or 2C) as specified in <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a> and <a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a>. Private Data Elements shall not be used in place of required Standard Data Elements.</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_7.8.1" shape="rect"></a>7.8.1 Private Data Element Tags</h3>
+                  </div>
+               </div>
+            </div>
+            <p>It is possible that multiple implementers may define Private Elements with the same (odd) group number. To avoid conflicts, Private Elements shall be assigned Private Data Element Tags according to the following rules.</p>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="a">
+                  <li class="listitem">
+                     <p>Private Creator Data Elements numbered (gggg,0010-00FF) (gggg is odd) shall be used to reserve a block of Elements with Group Number gggg for use by an individual implementer. The implementer shall insert an identification code in the first unused (unassigned) Element in this series to reserve a block of Private Elements. The VR of the private identification code shall be LO (Long String) and the VM shall be equal to 1.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Private Creator Data Element (gggg,0010), is a Type 1 Data Element that identifies the implementer reserving element (gggg,1000-10FF), Private Creator Data Element (gggg,0011) identifies the implementer reserving elements (gggg,1100-11FF), and so on, until Private Creator Data Element (gggg,00FF) identifies the implementer reserving elements (gggg,FF00-FFFF).</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Encoders of Private Data Elements shall be able to dynamically assign private data to any available (unreserved) block(s) within the Private group, and specify this assignment through the blocks corresponding Private Creator Data Element(s). Decoders of Private Data shall be able to accept reserved blocks with a given Private Creator identification code at any position within the Private group specified by the blocks corresponding Private Creator Data Element.</p>
+                     <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                        <h3 class="title">Note</h3>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>The versions of this standard prior to V3.0 described shadow groups. These were groups with a group number one greater than the standard groups. Elimination of conflicts in Private Data Element Tags have made this distinction obsolete and this terminology has been retired.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The versions of this standard prior to V3.0 specified private group element numbers (gggg,10FF-7FFF) reserved for manufacturers and private group element numbers (gggg, 8100-FFFF) reserved for users. Elimination of conflicts in Private Data Element Tags has made this distinction obsolete and this specification has been retired.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The requirements of this section do not allow any use of elements in the ranges (gggg,0001-000F) and (gggg,0100-0FFF) where gggg is odd.</p>
+                              </li>
+                           </ol>
+                        </div>
+                     </div>
+                  </li>
+                  <li class="listitem">
+                     <p>Elements with Tags (0001,xxxx), (0003,xxxx), (0005,xxxx), and (0007,xxxx) shall not be used.</p>
+                  </li>
+               </ol>
+            </div>
+            <p>Since each Item within a sequence is a self contained Data Set (see <a class="xref" href="sect_7.5.html" title="7.5 Nesting of Data Sets" shape="rect">Section 7.5</a> on the nesting of Data Sets via Sequences of Items), any Item that contains Private Data Elements shall also have Private Creator Data Elements reserving blocks of Elements for those Private Data Elements. The scope of the reservation is just within the Item. Items do not inherit the Private Data Element reservations made by Private Creator Data Elements in the Data Set in which the Item is nested.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>If a sequence is itself a Private Data Element and the Items within the sequence also have Private Data Elements, then there will be Private Creator Data Elements both outside the sequence and within the sequence Items.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Different Items may reserve the same block of Private Data Elements for different private creators. This is necessary to allow the nesting of Data Sets collected from multiple sources into folders.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_7.8.2" shape="rect"></a>7.8.2 Encoding of Private Elements</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The Value Representations used for Private Data Elements shall be the same as those VRs specified for Standard Data Elements in <a class="xref" href="sect_6.2.html" title="6.2 Value Representation (VR)" shape="rect">Section 6.2</a>. The encoding shall conform to the requirements for those VRs and shall be in accordance with the negotiated Transfer Syntax. A Private Data Element with SQ VR (a Private Data Sequence) may include Items with both Standard and Private Data Elements. Standard Data Elements used within a Private Data Sequence shall use the VRs as defined in <a href="../part06/PS3.6.html" class="olink" shape="rect">PS3.6</a> for those data elements.</p>
+            <p>The semantics of Standard Data Elements within a Private Data Sequence, and the definition of Attribute Values, are implementation dependent.</p>
+            <p>For a Standard Extended SOP Class the Attributes Pixel Data (07FE,0010), Waveform Data (5400,1010), and Overlay Data (60xx,3000) shall not be included within a Private Sequence Item, nor within a standard Sequence Item nested directly or indirectly within a Private Sequence Item.</p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_7.7.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_7.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_8.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">7.7 Retired Data Elements </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.5.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 8 Encoding of Pixel, Overlay and Waveform Data</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

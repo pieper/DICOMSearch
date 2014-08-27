@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>7.3 Extension of the DICOM Model of the Real World</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.3.html" title="PS3.3" />
+      <link rel="up" href="chapter_7.html" title="7 DICOM Model of the Real World" />
+      <link rel="prev" href="sect_7.2.html" title="7.2 Organization of Annexes A, B and C" />
+      <link rel="next" href="sect_7.4.html" title="7.4 Extension of the DICOM Model of the Real World for the General Purpose Worklist (Retired)" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">7.3 Extension of the DICOM Model of the Real World</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_7.2.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">7 DICOM Model of the Real World</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_7.4.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_7.3" shape="rect"></a>7.3 Extension of the DICOM Model of the Real World</h2>
+               </div>
+            </div>
+         </div>
+         <p>For the purpose of the Basic Worklist Management Service Class and the Modality Performed Procedure Step SOP Classes an enhancement of the original DICOM Model of the Real World is made, as depicted in <a class="xref" href="chapter_7.html#figure_7-3" title="Figure 7-3. Model of the Real World for the Purpose of Modality-IS Interface" shape="rect">Figure 7-3</a>.</p>
+         <p>
+            <a href="../part17/chapter_B.html" class="olink" shape="rect"> Annex B “Integration of Modality Worklist and Modality Performed Procedure Step in The Original DICOM Standard (Informative)” in PS3.17</a> discusses the relationship of this extension to the original DICOM model of the real world.</p>
+         <p>
+            <a class="xref" href="chapter_7.html#figure_7-3" title="Figure 7-3. Model of the Real World for the Purpose of Modality-IS Interface" shape="rect">Figure 7-3</a> is an abstract description of the real world objects invoked in the Modality-IS Interface. It is not to be seen as a database scheme for an implementation.</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_7.3.1" shape="rect"></a>7.3.1 Definition of the Extensions of the DICOM Real World Model</h3>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_7.3.1.1" shape="rect"></a>7.3.1.1 Patient</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>A Patient is a person receiving, or registered to receive, healthcare services, or is the subject of one or more studies for some other purpose, such as research.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>A patient may be a human or an animal.</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_7.3.1.2" shape="rect"></a>7.3.1.2 Service Episode and Visit</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>A Service Episode is a collection of events, aggregated during an interval bounded by start and stop times. A Service Episode is the context in which the treatment or management of an arbitrary subset of a Patient's medical conditions occurs. The definition of the start time, stop time, and included events of a Service Episode is entirely arbitrary; it may include a single outpatient visit or a hospitalization, or extend over significant period of time, e.g., the duration of a pregnancy, or an oncology treatment regimen, or a cardiac episode from infarction through rehabilitation. A Service Episode may involve one or more Healthcare Organizations (administrative entities that authorize Healthcare Providers to provide services within their legal administrative domain, e.g., hospitals, private physician's offices, multispecialty clinics, nursing homes).</p>
+               <p>A subset of Service Episode, the Visit, is the collection of events that fall under the accountability of a particular Healthcare Organization in a single facility. A Visit may be associated with one or more physical locations (e.g., different rooms, departments, or buildings) within the Healthcare Organization's definition of a facility, with admission and discharge diagnoses and with time boundaries of the visit.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="1">
+                        <li class="listitem">
+                           <p>The Visit is a part of the Service Episode. The Service Episode describes several administrative aspects of healthcare, while the Visit is limited to the description of one visit of a Patient to a facility.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>In the context of the Modality Worklist SOP Class, the attributes of the Service Episode are defined in the Visit modules.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The attributes for Visit often use the term "admission" for historical reasons, although a visit in an ambulatory clinic does not involve an admission as an in-patient.</p>
+                        </li>
+                     </ol>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_7.3.1.3" shape="rect"></a>7.3.1.3 Imaging Service Request</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>An Imaging Service Request is a set of one or more Requested Procedures selected from a list of Procedure Types. An Imaging Service Request is submitted by one authorized imaging service requester to one authorized imaging service provider in the context of one Service Episode. An Imaging Service Request includes pertinent specific and general information. Each instance of an Imaging Service Request carries the information common to one or more Requested Procedures requested at the same moment. An Imaging Service Request may be associated with one or more Visits that occur within the same Service Episode. The existence of an Imaging Service Request will typically result in the creation of one or more Imaging Service Reports and the distribution of Imaging Service Reports to one or more destinations.</p>
+               <p>In the context of the Modality Worklist the information provided by the Imaging Service Request aims at performing one or more imaging procedures, i.e., at acquiring new images.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_7.3.1.4" shape="rect"></a>7.3.1.4 Procedure Type</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>A Procedure Type identifies a class of procedures. In the context of imaging services, a Procedure Type is an item in a catalog of imaging procedures that can be requested and reported upon in an imaging service facility. An instance of a Procedure Type typically has a name and one or more other identifiers. A Procedure Type is associated with one or more Procedure Plans.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>The information content of this entity relates to the general identification of a Procedure Type rather than to its decomposition into the protocol(s) required to perform a specific instance of a Requested Procedure for a particular Patient.</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_7.3.1.5" shape="rect"></a>7.3.1.5 Requested Procedure</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>A Requested Procedure is an instance of a Procedure of a given Procedure Type. An instance of a Requested Procedure includes all of the items of information that are specified by an instance of a Procedure Plan that is selected for the Requested Procedure by the imaging service provider. This Procedure Plan is defined by the imaging service provider on the basis of the Procedure Plan templates associated with the considered Procedure Type. An Imaging Service Request may include requests for several different Requested Procedures. The purpose of this entity is to establish the association between Imaging Service Requests and Procedure Types, to convey the information that belongs to this association and to establish the relationships between Requested Procedures and the other entities that are needed to describe them. A single Requested Procedure of one Procedure Type is the smallest unit of service that can be requested, reported, coded and billed. Performance of one
+          instance of a Requested Procedure is specified by exactly one Procedure Plan. A Requested Procedure leads to one or more Scheduled Procedure Steps involving Protocols as specified by a Procedure Plan. A Requested Procedure may be associated with one or more Visits. A Requested Procedure may involve one or more pieces of equipment.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_7.3.1.6" shape="rect"></a>7.3.1.6 Scheduled Procedure Step</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>A Modality Scheduled Procedure Step is an arbitrarily defined scheduled unit of service, that is specified by the Procedure Plan for a Requested Procedure. A Modality Scheduled Procedure Step prescribes a Protocol, which may be identified by one or more protocol codes. A Modality Scheduled Procedure Step involves equipment (e.g., imaging Modality equipment, anesthesia equipment, surgical equipment, transportation equipment), human resources, consumable supplies, location, and time (e.g., start time, stop time, duration). While in the context of imaging services the scheduling of a Modality Scheduled Procedure Step might include only a general designation of imaging Modality that could be satisfied by multiple pieces of the same equipment type, the performance of one instance of a Modality Scheduled Procedure Step involves one and only one piece of imaging Modality equipment.</p>
+               <p>The performance of a Modality Scheduled Procedure Step may result in the creation of zero or more Modality Performed Procedure Step instances.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="1">
+                        <li class="listitem">
+                           <p>The Procedure Step entity is provided to support management of the logistical aspects of procedures (e.g., materials management, human resources, scheduling). The full definition of the contents of Procedure Steps and protocols according to which they are performed is implementation dependent and is beyond the scope of this Standard.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>A Modality Scheduled Procedure Step may contribute to more than one Requested Procedure (e.g., a Modality Scheduled Procedure Step requiring an intravenous iodine contrast injection might be shared by an intravenous pyelogram and a CT examination). However, for billing purposes an instance of a Modality Scheduled Procedure Step is typically considered to be a part of only one Requested Procedure.</p>
+                        </li>
+                     </ol>
+                  </div>
+               </div>
+               <p></p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_7.3.1.7" shape="rect"></a>7.3.1.7 Procedure Plan</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>A Procedure Plan is a specification that defines the set of Protocols that must be done in order to perform the Scheduled Procedure Steps of a Requested Procedure. Each Scheduled Procedure Step is performed according to a single Protocol, which may be identified by one or more Protocol Codes. The Protocols actually performed during a Procedure Step may differ from those prescribed in the related Procedure Plan. Audit of actually performed Protocols versus the prescribed Procedure Plan is an important element of quality control, but is not specified by this Standard.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>The fact that Protocols Codes are in a given order in a Procedure Plan is not evident in <a class="xref" href="chapter_7.html#figure_7-3" title="Figure 7-3. Model of the Real World for the Purpose of Modality-IS Interface" shape="rect">Figure 7-3</a>. However, the order of Protocols is represented at the syntax level (i.e., as the sequence of items present in the Protocol Code Sequence (0040,0008)).</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_7.3.1.8" shape="rect"></a>7.3.1.8 Protocol</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>A Protocol is a specification of actions prescribed by a Procedure Plan to perform a specific Procedure Step. A Scheduled Procedure Step contains only one Protocol, which may be conveyed by one or more Protocol Codes. Typically, the code or codes identifying a Protocol instance would be selected from a catalog of protocols. Multiple Protocols may not exist in one Scheduled Procedure Step.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_7.3.1.9" shape="rect"></a>7.3.1.9 Modality Performed Procedure Step</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>A Performed Procedure Step is an arbitrarily defined unit of service that has actually been performed (not just scheduled). Logically it corresponds to a Scheduled Procedure Step, but real-world conditions may dictate that what is actually performed does not correspond exactly with what was requested or scheduled.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>For example, two or more Scheduled Procedure Steps, Requested Procedures or Imaging Service Requests may have been generated by different Referring Physicians but may be satisfied be a single Performed Procedure Step at the discretion of a Performing Physician or Operator. Alternatively, a single Scheduled Procedure Step may need to be satisfied by multiple Performed Procedure Steps on different types or instances of equipment, due to clinical need or failure conditions, or over extended periods of time.</p>
+               </div>
+               <p>It contains information describing the type of procedure actually performed. This information is represented by the Performed Protocol that may be defined by one or more Protocol Codes.</p>
+               <p>A Requested Procedure results in the creation of zero or more Performed Procedure Steps.</p>
+               <p>A Scheduled Procedure Step results in the creation of zero or more Performed Procedure Steps.</p>
+               <p>The Performed Procedure Step contains information about its state (e.g., in progress, discontinued or completed).</p>
+               <p>A Modality Performed Procedure Step is a Performed Procedure Step that results from activity (such as the acquisition of images from a Patient or other Imaging Subject) on a Modality.</p>
+               <p>It contains information describing the performance of a step of an imaging procedure, including data about the performance of the procedure itself, and data for billing and material management.</p>
+               <p>The Modality Performed Procedure Step contains references to zero or more Series of Images and other Composite SOP Instances that may be created as part of the procedure step. A particular Series is part of only one Modality Performed Procedure Step.</p>
+               <p>The purpose of the Modality Performed Procedure Step is to report what was performed; it does not imply any storage semantics. While the MPPS represents a unit of service within a workflow, the specification of the workflow itself is beyond the scope of the Standard, and the MPPS does not identify or control any subsequent activities to be performed.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="1">
+                        <li class="listitem">
+                           <p>For example, a modality may create both "for processing" images for automated analysis and "for presentation" images for human review from the same acquisition. The Standard does not specify whether the production of these is a single unit of service, or two. A single Modality Performed Procedure Step instance could list both the "for processing" images and the "for presentation" images, regardless of whether or not both sets of images were stored to the same or different AEs, or indeed were stored at all, since the MPPS is independent of the storage semantics. Alternatively, the modality may treat these two sets of images as two separate units of service, and send two separate MPPS Instances.</p>
+                           <p>A Radiation Dose SR from the irradiation events of an acquisition could be referenced in the same MPPS Instance as that of the acquired images, again irrespective of where such a Radiation Dose Structured Report might be sent, if at all. Alternatively, the modality may treat the production of the Radiation Dose SR as a separate unit of service, and report it in a distinct MPPS.</p>
+                           <p>Another example is the case of thin and thick slice CT images acquired from the same acquisition (raw) data. When the reconstruction of both sets of images is prospectively defined and automatically initiated by the protocol selection, then both sets might be referenced from a single MPPS Instance. However, if the reconstruction of one or the other set is performed retrospectively by manual intervention some time after the acquisition MPPS had been completed, the subsequent instances will necessarily be referenced in a new MPPS Instance, since the acquisition MPPS cannot be modified once completed.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The completion of an MPPS may be a significant event that triggers or enables downstream activity, but it is not the intent to require the modality to be configured to "manage" such activity. The "units of service" that the modality describes in an MPPS, and how the modality relates those Performed Procedure Steps to Scheduled Procedure Steps, are implementation decisions beyond the scope of the Standard. The IHE Radiology Scheduled Workflow Profile provides additional guidance for implementation.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>An MPPS may describe instances that were acquired but that have not been, nor may ever be, stored. For example, a modality may be capable of storing a CT acquisition as multiple single frame CT Image Storage SOP Instances, as a single multi-frame Enhanced CT Image Storage SOP Instance, or as several Enhanced CT Image Storage SOP Instances that together comprise a Concatenation. An MPPS may describe all three possibilities, even though only one choice may ultimately be stored, perhaps depending on the negotiated capabilities of the storage recipient. Alternatively, separate MPPS instances could be used for different storage SOP Classes.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The MPPS contains only the instances that the modality created, not instances converted and created subsequently in response to a query (e.g., during legacy conversion).</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The MPPS is not a substitute for, nor is equivalent to, a Storage Commitment request, nor an Instance Availability Notification.</p>
+                        </li>
+                     </ol>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_7.3.1.10" shape="rect"></a>7.3.1.10 General Purpose Scheduled Procedure Step (Retired)</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>Retired. See <a class="link" href="ftp://medical.nema.org/MEDICAL/Dicom/2011/11_03pu.pdf" target="_top" shape="rect">PS3.3-2011</a>.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_7.3.1.11" shape="rect"></a>7.3.1.11 General Purpose Performed Procedure Step (Retired)</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>Retired. See <a class="link" href="ftp://medical.nema.org/MEDICAL/Dicom/2011/11_03pu.pdf" target="_top" shape="rect">PS3.3-2011</a>.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_7.3.1.12" shape="rect"></a>7.3.1.12 Workitem (Retired)</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>Retired. See <a class="link" href="ftp://medical.nema.org/MEDICAL/Dicom/2011/11_03pu.pdf" target="_top" shape="rect">PS3.3-2011</a>.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_7.3.1.13" shape="rect"></a>7.3.1.13 Clinical Document</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>A Clinical Document is a part of the medical record of a patient. A Clinical Document is a documentation of clinical observations and services and has the following characteristics:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>Persistence - A clinical document continues to exist in an unaltered state, for a time period defined by local and regulatory requirements.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Stewardship - A clinical document is maintained by an organization entrusted with its care.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Potential for authentication - A clinical document is an assemblage of information that is intended to be legally authenticated.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Context - A clinical document establishes the default context for its contents.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Wholeness - Authentication of a clinical document applies to the whole and does not apply to portions of the document without the full context of the document.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Human readability - A clinical document is human readable.</p>
+                     </li>
+                  </ul>
+               </div>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>This definition is from ANSI/HL7 CDA R1.0-2000, and HL7 v3 CDA R2-2005.</p>
+               </div>
+               <p>Clinical Documents may provide significant context for the performance of imaging and related procedures, e.g., patient clinical history, pre-imaging-procedure lab test results, or patient advance medical directives.</p>
+               <p>Clinical Documents may be associated with Service Episodes, Service Requests, Requested Procedures, or other entities subsidiary to the Patient in the Real-World Model. Such associations are not explicitly modeled for the purposes of the Modality-IS context.</p>
+               <p>Clinical Documents are one sub-class of the class of healthcare Structured Documents; Structured Documents, in general, are not necessarily related to a patient. Structured Documents may be used for imaging procedure operational instructions, e.g., in product labeling, Procedure Plans, or patient care plans.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="1">
+                        <li class="listitem">
+                           <p>The format and semantics of Structured Documents, including Clinical Documents, are defined outside the scope of the DICOM Standard (e.g., by HL7). DICOM provides the means to reference Structured Documents within the Modality-IS context.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The general class of Structured Documents is not modeled in the Real-World Model; only specific sub-classes, e.g., Clinical Documents, are modeled.</p>
+                        </li>
+                     </ol>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_7.2.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_7.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_7.4.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">7.2 Organization of Annexes A, B and C </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.3.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 7.4 Extension of the DICOM Model of the Real World for the General Purpose Worklist (Retired)</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

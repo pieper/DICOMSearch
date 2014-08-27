@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>E WADO WS Schemas and Examples</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.18.html" title="PS3.18" />
+      <link rel="up" href="PS3.18.html" title="PS3.18" />
+      <link rel="prev" href="chapter_D.html" title="D IANA Mapping (Informative)" />
+      <link rel="next" href="sect_E.2.html" title="E.2 WADO WS Request Example (Informative)" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">E WADO WS Schemas and Examples</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_D.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_E.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_E" shape="rect"></a>E WADO WS Schemas and Examples</h1>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_E.1" shape="rect"></a>E.1 WADO WS XSD Schema (Informative)</h2>
+                  </div>
+               </div>
+            </div>
+            <p>The following XSD schema can be used for the WADO WS implementation:</p>
+            <pre class="programlisting" xml:space="preserve">
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;xs:schema xmlns="urn:ihe:rad:xdsi-b:2009"
+xmlns:xs="http://www.w3.org/2001/XMLSchema"
+targetNamespace="urn:ihe:rad:xdsi-b:2009" elementFormDefault="qualified"
+attributeFormDefault="unqualified"
+xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"&gt;
+  &lt;xs:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" /&gt;
+  &lt;xs:import namespace="urn:ihe:iti:xds-b:2007" /&gt;
+  &lt;xs:simpleType name="LongName"&gt;
+    &lt;xs:restriction base="xs:string"&gt;
+      &lt;xs:maxLength value="256" /&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+  &lt;xs:complexType name="RetrieveDocumentSetRequestType"&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element name="DocumentRequest" maxOccurs="unbounded"&gt;
+        &lt;xs:complexType&gt;
+          &lt;xs:sequence&gt;
+            &lt;xs:element name="HomeCommunityId" type="LongName" minOccurs="0"&gt;
+              &lt;xs:annotation&gt;
+                &lt;xs:documentation&gt;This corresponds to the home attribute of the
+                Identifiable class in regrep RIM (regrep-rim-3.0-os.pdf, page
+                20)&lt;/xs:documentation&gt;
+              &lt;/xs:annotation&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="RepositoryUniqueId" type="LongName"
+            minOccurs="0"&gt;
+              &lt;xs:annotation&gt;
+                &lt;xs:documentation&gt;This is the
+                XDSDocumentEntry.repositoryUniqueId attribute in the XDS
+                metadata&lt;/xs:documentation&gt;
+              &lt;/xs:annotation&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="DocumentUniqueId" type="LongName"&gt;
+              &lt;xs:annotation&gt;
+                &lt;xs:documentation&gt;This is the XDSDocumentEntry.uniqueId
+                attribute in the XDS metadata&lt;/xs:documentation&gt;
+              &lt;/xs:annotation&gt;
+            &lt;/xs:element&gt;
+          &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:complexType name="RegistryErrorType"&gt;
+    &lt;xs:simpleContent&gt;
+      &lt;xs:extension base="xs:string"&gt;
+        &lt;xs:attribute name="codeContext" type="xs:string" use="required" /&gt;
+        &lt;xs:attribute name="errorCode" type="xs:string" use="required" /&gt;
+        &lt;xs:attribute default="urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error"
+        name="severity" type="xs:anyURI" /&gt;
+        &lt;xs:attribute name="location" type="xs:string" use="optional" /&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:simpleContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:complexType name="RegistryErrorListType"&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation xml:lang="en"&gt;The RegistryErrorList is derived from the
+      ErrorList element from the ebXML Message Service
+      Specification&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element maxOccurs="unbounded" name="RegistryError"
+      type="RegistryErrorType" /&gt;
+    &lt;/xs:sequence&gt;
+    &lt;xs:attribute name="highestSeverity" type="xs:anyURI" use="optional" /&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:complexType name="RegistryResponseType"&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation xml:lang="en"&gt;Base type for all ebXML Registry
+      responses&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+    &lt;xs:sequence&gt;
+      &lt;!-- every response may be extended using Slots. --&gt;
+      &lt;xs:element minOccurs="0" type="RegistryErrorListType"
+      name="RegistryErrorList" /&gt;
+    &lt;/xs:sequence&gt;
+    &lt;xs:attribute name="status" type="xs:anyURI" use="required" /&gt;
+    &lt;!-- id is the request if for the request for which this is a response --&gt;
+    &lt;xs:attribute name="requestId" type="xs:anyURI" use="optional" /&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element name="RetrieveDocumentSetRequest"
+  type="RetrieveDocumentSetRequestType" /&gt;
+  &lt;xs:complexType name="RetrieveDocumentSetResponseType"&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element name="RegistryResponse" type="RegistryResponseType" /&gt;
+      &lt;xs:sequence minOccurs="0"&gt;
+        &lt;xs:element maxOccurs="unbounded" name="DocumentResponse"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element minOccurs="0" name="HomeCommunityId" type="LongName"&gt;
+                &lt;xs:annotation&gt;
+                  &lt;xs:documentation&gt;This corresponds to the home attribute of
+                  the Identifiable class in regrep RIM (regrep-rim-3.0-os.pdf,
+                  page 20)&lt;/xs:documentation&gt;
+                &lt;/xs:annotation&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="RepositoryUniqueId" type="LongName"&gt;
+                &lt;xs:annotation&gt;
+                  &lt;xs:documentation&gt;This is the
+                  XDSDocumentEntry.repositoryUniqueId attribute in the XDS
+                  metadata&lt;/xs:documentation&gt;
+                &lt;/xs:annotation&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="DocumentUniqueId" type="LongName"&gt;
+                &lt;xs:annotation&gt;
+                  &lt;xs:documentation&gt;This is the XDSDocumentEntry.uniqueId
+                  attribute in the XDS metadata&lt;/xs:documentation&gt;
+                &lt;/xs:annotation&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element minOccurs="0" name="Document"
+              type="xs:base64Binary" /&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element name="RetrieveDocumentSetResponse"
+  type="RetrieveDocumentSetResponseType" /&gt;
+  &lt;xs:complexType name="RetrieveRenderedImagingDocumentSetRequestType"&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element maxOccurs="unbounded" name="StudyRequest"&gt;
+        &lt;xs:complexType&gt;
+          &lt;xs:sequence&gt;
+            &lt;xs:element maxOccurs="unbounded" name="SeriesRequest"&gt;
+              &lt;xs:complexType&gt;
+                &lt;xs:sequence&gt;
+                  &lt;xs:element maxOccurs="unbounded"
+                  name="RenderedDocumentRequest"&gt;
+                    &lt;xs:complexType&gt;
+                      &lt;xs:sequence&gt;
+                        &lt;xs:element name="HomeCommunityId" type="LongName"
+                        minOccurs="0"&gt;
+                          &lt;xs:annotation&gt;
+                            &lt;xs:documentation&gt;This corresponds to the home
+                            attribute of the Identifiable class in regrep RIM
+                            (regrep-rim-3.0-os.pdf, page 20)&lt;/xs:documentation&gt;
+                          &lt;/xs:annotation&gt;
+                        &lt;/xs:element&gt;
+                        &lt;xs:element name="RepositoryUniqueId" type="LongName"
+                        minOccurs="0"&gt;
+                          &lt;xs:annotation&gt;
+                            &lt;xs:documentation&gt;This is the
+                            XDSDocumentEntry.repositoryUniqueId attribute in
+                            the XDS metadata&lt;/xs:documentation&gt;
+                          &lt;/xs:annotation&gt;
+                        &lt;/xs:element&gt;
+                        &lt;xs:element name="DocumentUniqueId" type="LongName"&gt;
+                          &lt;xs:annotation&gt;
+                            &lt;xs:documentation&gt;This is the
+                            XDSDocumentEntry.uniqueId attribute in the XDS
+                            metadata&lt;/xs:documentation&gt;
+                          &lt;/xs:annotation&gt;
+                        &lt;/xs:element&gt;
+                        &lt;xs:element minOccurs="0" name="Annotation"
+                        type="xs:string" /&gt;
+                        &lt;xs:element minOccurs="0" name="Rows"
+                        type="xs:string" /&gt;
+                        &lt;xs:element minOccurs="0" name="Columns"
+                        type="xs:string" /&gt;
+                        &lt;xs:element minOccurs="0" name="Region"
+                        type="xs:string" /&gt;
+                        &lt;xs:element minOccurs="0" name="WindowWidth"
+                        type="xs:string" /&gt;
+                        &lt;xs:element minOccurs="0" name="WindowCenter"
+                        type="xs:string" /&gt;
+                        &lt;xs:element minOccurs="0" name="ImageQuality"
+                        type="xs:string" /&gt;
+                        &lt;xs:element minOccurs="0" name="PresentationSeriesUID"
+                        type="xs:string" /&gt;
+                        &lt;xs:element minOccurs="0" name="Anonymize"
+                        type="xs:string" /&gt;
+                        &lt;xs:element minOccurs="0" name="FrameNumber"
+                        type="xs:string" /&gt;
+                        &lt;xs:element minOccurs="1" name="ContentTypeList"
+                        type="xs:string" maxOccurs="unbounded" /&gt;
+                        &lt;xs:element minOccurs="1" name="CharsetList"
+                        type="xs:string" maxOccurs="unbounded" /&gt;
+                      &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                  &lt;/xs:element&gt;
+                &lt;/xs:sequence&gt;
+              &lt;/xs:complexType&gt;
+            &lt;/xs:element&gt;
+          &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element name="RetrieveRenderedImagingDocumentSetRequest"
+  type="RetrieveRenderedImagingDocumentSetRequestType" /&gt;
+  &lt;xs:complexType name="RetrieveRenderedImagingDocumentSetResponseType"&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element name="RegistryResponse" type="RegistryResponseType" /&gt;
+      &lt;xs:element maxOccurs="unbounded" name="RenderedDocumentSetResponse"
+      minOccurs="0"&gt;
+        &lt;xs:complexType&gt;
+          &lt;xs:sequence&gt;
+            &lt;xs:element name="HomeCommunityId" type="LongName" minOccurs="0"&gt;
+              &lt;xs:annotation&gt;
+                &lt;xs:documentation&gt;This corresponds to the home attribute of the
+                Identifiable class in regrep RIM (regrep-rim-3.0-os.pdf, page
+                20)&lt;/xs:documentation&gt;
+              &lt;/xs:annotation&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="RepositoryUniqueId" type="LongName"
+            minOccurs="1"&gt;
+              &lt;xs:annotation&gt;
+                &lt;xs:documentation&gt;This is the
+                XDSDocumentEntry.repositoryUniqueId attribute in the XDS
+                metadata&lt;/xs:documentation&gt;
+              &lt;/xs:annotation&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="SourceDocumentUniqueId" type="LongName"&gt;
+              &lt;xs:annotation&gt;
+                &lt;xs:documentation&gt;This is the XDSDocumentEntry.uniqueId
+                attribute in the XDS metadata&lt;/xs:documentation&gt;
+              &lt;/xs:annotation&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element minOccurs="1" name="Annotation" type="xs:string" /&gt;
+            &lt;xs:element minOccurs="1" name="Rows" type="xs:string" /&gt;
+            &lt;xs:element minOccurs="1" name="Columns" type="xs:string" /&gt;
+            &lt;xs:element minOccurs="1" name="Region" type="xs:string" /&gt;
+            &lt;xs:element name="WindowWidth" type="xs:string" /&gt;
+            &lt;xs:element minOccurs="1" name="WindowCenter" type="xs:string" /&gt;
+            &lt;xs:element minOccurs="1" name="ImageQuality" type="xs:string" /&gt;
+            &lt;xs:element minOccurs="1" name="PresentationSeriesUID"
+            type="xs:string" /&gt;
+            &lt;xs:element minOccurs="0" name="Anonymize" type="xs:string" /&gt;
+            &lt;xs:element minOccurs="0" name="FrameNumber" type="xs:string" /&gt;
+            &lt;xs:element minOccurs="1" name="mimeType" type="xs:string"
+            maxOccurs="1" /&gt;
+            &lt;xs:element minOccurs="1" name="Document" type="xs:base64Binary" /&gt;
+          &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element name="RetrieveRenderedImagingDocumentSetResponse"
+  type="RetrieveRenderedImagingDocumentSetResponseType" /&gt;
+  &lt;xs:complexType name="RetrieveImagingDocumentSetInformationRequestType"&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element maxOccurs="unbounded" name="StudyRequest"&gt;
+        &lt;xs:complexType&gt;
+          &lt;xs:sequence&gt;
+            &lt;xs:element maxOccurs="unbounded" name="SeriesRequest"&gt;
+              &lt;xs:complexType&gt;
+                &lt;xs:sequence&gt;
+                  &lt;xs:element maxOccurs="unbounded"
+                  name="DocumentInformationRequest"&gt;
+                    &lt;xs:complexType&gt;
+                      &lt;xs:sequence&gt;
+                        &lt;xs:element name="HomeCommunityId" type="LongName"
+                        minOccurs="0"&gt;
+                          &lt;xs:annotation&gt;
+                            &lt;xs:documentation&gt;This corresponds to the home
+                            attribute of the Identifiable class in regrep RIM
+                            (regrep-rim-3.0-os.pdf, page 20)&lt;/xs:documentation&gt;
+                          &lt;/xs:annotation&gt;
+                        &lt;/xs:element&gt;
+                        &lt;xs:element name="RepositoryUniqueId" type="LongName"
+                        minOccurs="1"&gt;
+                          &lt;xs:annotation&gt;
+                            &lt;xs:documentation&gt;This is the
+                            XDSDocumentEntry.repositoryUniqueId attribute in
+                            the XDS metadata&lt;/xs:documentation&gt;
+                          &lt;/xs:annotation&gt;
+                        &lt;/xs:element&gt;
+                        &lt;xs:element name="DocumentUniqueId" type="LongName"&gt;
+                          &lt;xs:annotation&gt;
+                            &lt;xs:documentation&gt;This is the
+                            XDSDocumentEntry.uniqueId attribute in the XDS
+                            metadata&lt;/xs:documentation&gt;
+                          &lt;/xs:annotation&gt;
+                        &lt;/xs:element&gt;
+                        &lt;xs:element minOccurs="0" name="Anonymize"
+                        type="xs:string" /&gt;
+                        &lt;xs:element minOccurs="1" name="XPath" type="xs:string"
+                        maxOccurs="1" /&gt;
+                      &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                  &lt;/xs:element&gt;
+                &lt;/xs:sequence&gt;
+              &lt;/xs:complexType&gt;
+            &lt;/xs:element&gt;
+          &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element name="RetrieveImagingDocumentSetInformationRequest"
+  type="RetrieveImagingDocumentSetInformationRequestType" /&gt;
+  &lt;xs:complexType name="RetrieveImagingDocumentSetInformationResponseType"&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element name="RegistryResponse" type="RegistryResponseType" /&gt;
+      &lt;xs:element maxOccurs="unbounded" name="DocumentInformationResponse"
+      minOccurs="0"&gt;
+        &lt;xs:complexType&gt;
+          &lt;xs:sequence&gt;
+            &lt;xs:element name="HomeCommunityId" type="LongName" minOccurs="0"&gt;
+              &lt;xs:annotation&gt;
+                &lt;xs:documentation&gt;This corresponds to the home attribute of the
+                Identifiable class in regrep RIM (regrep-rim-3.0-os.pdf, page
+                20)&lt;/xs:documentation&gt;
+              &lt;/xs:annotation&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="RepositoryUniqueId" type="LongName"
+            minOccurs="1"&gt;
+              &lt;xs:annotation&gt;
+                &lt;xs:documentation&gt;This is the
+                XDSDocumentEntry.repositoryUniqueId attribute in the XDS
+                metadata&lt;/xs:documentation&gt;
+              &lt;/xs:annotation&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name="DocumentUniqueId" type="LongName"&gt;
+              &lt;xs:annotation&gt;
+                &lt;xs:documentation&gt;This is the XDSDocumentEntry.uniqueId
+                attribute in the XDS metadata&lt;/xs:documentation&gt;
+              &lt;/xs:annotation&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element minOccurs="0" name="FrameNumber" type="xs:string" /&gt;
+            &lt;xs:element minOccurs="1" name="XPathResponseList"&gt;
+              &lt;xs:complexType&gt;
+                &lt;xs:sequence&gt;
+                  &lt;xs:element maxOccurs="unbounded" name="XPathResponse"
+                  type="xs:string" /&gt;
+                &lt;/xs:sequence&gt;
+              &lt;/xs:complexType&gt;
+            &lt;/xs:element&gt;
+          &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element name="RetrieveImagingDocumentSetInformationResponse"
+  type="RetrieveImagingDocumentSetInformationResponseType" /&gt;
+&lt;/xs:schema&gt;
+</pre>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_D.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_E.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">D IANA Mapping (Informative) </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.18.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> E.2 WADO WS Request Example (Informative)</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

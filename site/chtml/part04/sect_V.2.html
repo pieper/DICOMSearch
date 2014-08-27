@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>V.2 Substance Administration Query Information Model Definition</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.4.html" title="PS3.4" />
+      <link rel="up" href="chapter_V.html" title="V Substance Administration Query Service Class (Normative)" />
+      <link rel="prev" href="chapter_V.html" title="V Substance Administration Query Service Class (Normative)" />
+      <link rel="next" href="sect_V.3.html" title="V.3 Query Information Models" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">V.2 Substance Administration Query Information Model Definition</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_V.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">V Substance Administration Query Service Class (Normative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_V.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_V.2" shape="rect"></a>V.2 Substance Administration Query Information Model Definition</h2>
+               </div>
+            </div>
+         </div>
+         <p>The Substance Administration Query Information Model is identified by the SOP Class negotiated at Association establishment time. The SOP Class is composed of both an Information Model and a DIMSE-C Service Group.</p>
+         <p>Information Model Definitions for standard SOP Classes of the Substance Administration Query Service Class are defined in this Annex. A Substance Administration Query Information Model Definition contains:</p>
+         <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+               <li class="listitem">
+                  <p>an Entity-Relationship Model Definition</p>
+               </li>
+               <li class="listitem">
+                  <p>a Key Attributes Definition.</p>
+               </li>
+            </ul>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_V.2.1" shape="rect"></a>V.2.1 Entity-Relationship Model Definition</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Substance Administration Query Information Models consist of a single level that includes all Matching Key Attributes and all Return Key Attributes that may be sent from the SCU to the SCP in the request, and whose values are expected to be returned from the SCP to the SCU in the response (or Query items). The Matching Key Attribute values in the request specify the Query items that are to be returned in the response. All Key Attributes (the Matching Key Attributes and the Return Key Attributes) in the request determine which Attribute values are returned in the response for that Query.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_V.2.2" shape="rect"></a>V.2.2 Attributes Definition</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Attributes are defined for each entity in the internal Entity-Relationship Model. An Identifier in a C-FIND request shall contain values to be matched against the Attributes of the Entities in a Substance Administration Query Information Model. For any Query request, the set of entities for which Attributes are returned shall be determined by the set of Matching and Return Key Attributes specified in the Identifier.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_V.2.2.1" shape="rect"></a>V.2.2.1 Attribute Types</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>All Attributes of entities in a Substance Administration Query Information Model shall be specified both as a Matching Key Attribute (either required or optional) and as a Return Key Attribute.</p>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_V.2.2.1.1" shape="rect"></a>V.2.2.1.1 Matching Key Attributes</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The Matching Key Attributes are Keys, which select Query items to be included in a requested Query.</p>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_V.2.2.1.1.1" shape="rect"></a>V.2.2.1.1.1 Required Matching Key Attributes</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>A Substance Administration Query Service SCP shall support matching based on values of all Required Matching Key Attributes of the C-FIND request.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_V.2.2.1.1.2" shape="rect"></a>V.2.2.1.1.2 Optional Matching Key Attributes</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>In the Substance Administration Query Information Model, a set of Attributes may be defined as Optional Matching Key Attributes. Optional Matching Key Attributes contained in the Identifier of a C-FIND request may induce two different types of behavior depending on support for matching by the SCP. If the SCP</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: disc; ">
+                           <li class="listitem">
+                              <p>does not support matching on the Optional Matching Key Attribute, then the Optional Matching Key Attribute shall be ignored for matching but shall be processed in the same manner as a Return Key Attribute.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>supports matching of the Optional Matching Key Attribute, then the Optional Matching Key Attribute shall be processed in the same manner as a Required Matching Key.</p>
+                           </li>
+                        </ul>
+                     </div>
+                     <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                        <h3 class="title">Note</h3>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>The Conformance Statement of the SCP lists the Optional Matching Key Attributes that are supported for matching.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>An SCU can not expect the SCP to support a match on an Optional Matching Key.</p>
+                              </li>
+                           </ol>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_V.2.2.1.2" shape="rect"></a>V.2.2.1.2 Return Key Attributes</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The values of Return Key Attributes to be retrieved with the Query are specified with zero-length (universal matching) in the C-FIND request. SCPs shall support Return Key Attributes defined by a Substance Administration Query Information Model according to the Data Element Type (1, 1C, 2, 2C, 3) as defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>.</p>
+                  <p>Every Matching Key Attribute shall also be considered as a Return Key Attribute. Therefore the C-FIND response shall contain, in addition to the values of the requested Return Key Attributes, the values of the requested Matching Key Attributes.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <div class="orderedlist">
+                        <ol class="orderedlist" type="1">
+                           <li class="listitem">
+                              <p>The Conformance Statement of the SCP lists the Return Key Attributes of Type 3 that are supported.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>An SCU may choose to supply any subset of Return Key Attributes.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>An SCU can not expect to receive any Type 3 Return Key Attributes.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Return Key Attributes with VR of SQ may be specified either with zero-length, or with a zero-length item in the sequence.</p>
+                           </li>
+                        </ol>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_V.2.2.2" shape="rect"></a>V.2.2.2 Attribute Matching</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The following types of matching, which are defined by the Query/Retrieve Service Class in <a class="xref" href="chapter_C.html" title="C Query/Retrieve Service Class (Normative)" shape="rect"> Annex C</a>, may be performed on Matching Key Attributes in the Substance Administration Query Service Class. Different Matching Key Attributes may be subject for different matching types. The Substance Administration Query Information Model defines the type of matching for each Required Matching Key Attribute. The Conformance Statement of the SCP shall define the type of matching for each Optional Matching Key Attribute. The types of matching are:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>Single Value Matching</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Sequence Matching</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>The following type of matching, which is defined by the Query/Retrieve Service Class in <a class="xref" href="chapter_C.html" title="C Query/Retrieve Service Class (Normative)" shape="rect"> Annex C</a> of this Part, shall be performed on Return Key Attributes in the Substance Administration Query Service Class.</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>Universal Matching</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>See <a class="xref" href="sect_C.2.html#sect_C.2.2.2" title="C.2.2.2 Attribute Matching" shape="rect">Section C.2.2.2</a> and subsections for specific rules governing of Matching Key Attribute encoding for and performing of different types of matching.</p>
+               <p>The Specific Character Set (0008,0005) Attribute may be present in the Identifier but is never matched, i.e., it is not considered a Matching Key Attribute. See <a class="xref" href="sect_C.2.html#sect_C.2.2.2" title="C.2.2.2 Attribute Matching" shape="rect">Section C.2.2.2</a> for details.</p>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_V.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_V.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_V.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">V Substance Administration Query Service Class (Normative) </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.4.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> V.3 Query Information Models</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

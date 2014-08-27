@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>X.2 Transcribed Diagnostic Imaging SR Instance Content</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="chapter_X.html" title="X Dictation-based Reporting With Image References (Informative)" />
+      <link rel="prev" href="chapter_X.html" title="X Dictation-based Reporting With Image References (Informative)" />
+      <link rel="next" href="sect_X.3.html" title="X.3 Transcribed Diagnostic Imaging CDA Instance Content" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">X.2 Transcribed Diagnostic Imaging SR Instance Content</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_X.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">X Dictation-based Reporting With Image References (Informative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_X.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_X.2" shape="rect"></a>X.2 Transcribed Diagnostic Imaging SR Instance Content</h2>
+               </div>
+            </div>
+         </div>
+         <p>This section describes the use of transcribed dictation and Key Object Selection (KO) instances to produce a DICOM Basic Text SR instance. A specific SR Template, <a href="../part16/chapter_A.html#sect_TID_2005" class="olink" shape="rect">TID 2005 “Transcribed Diagnostic Imaging Report”</a>, is defined to support transcribed diagnostic imaging reports created using this data flow.</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_X.2.1" shape="rect"></a>X.2.1 SR Header Content</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The attributes of the Patient and Study Modules will be identical to those of the Study being reported. The following information is encoded in the SR Document General Module:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>Identity of the dictating physician (observer context) in the Author Sequence</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Identity of the transcriptionist or transcribing device (voice recognition) in the Participant Sequence</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Identity of the report signing physician in the Verifying Observer Sequence</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Identity of the institution owning the report in the Custodial Organization Sequence</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Linkages to the order and requested procedures in the Referenced Request Sequence</p>
+                  </li>
+                  <li class="listitem">
+                     <p>A list of all images in the study in the Current Requested Procedure Evidence Sequence (from MPPS SOP Instances of the Study, or from query of the image repository)</p>
+                  </li>
+                  <li class="listitem">
+                     <p>A list of all images not in the study, but also attached to the report as referenced significant images, in the Pertinent Other Evidence Sequence</p>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_X.2.2" shape="rect"></a>X.2.2 Transcribed Text Data Format</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The transcribed dictation is used to populate one or more section containers in the content tree of the SR Instance. If the transcription consists of a single undifferentiated text stream, it will typically be encoded using a single CONTAINER content item with Concept Name "Findings", and the text encoded as the value in a subsidiary TEXT content item with Concept Name "Finding". When the transcription is differentiated into multiple sections with captions, e.g., using the concepts in <a href="../part16/sect_CID_7001.html" class="olink" shape="rect">CID 7001 “Diagnostic Imaging Report Headings”</a>, each section may be encoded in a separate CONTAINER, with the concept from <a href="../part16/sect_CID_7001.html" class="olink" shape="rect">CID 7001 “Diagnostic Imaging Report Headings”</a> as the container Concept Name, and the corresponding term from <a href="../part16/sect_CID_7002.html" class="olink" shape="rect">CID 7002 “Diagnostic Imaging Report Elements”</a> as the Concept Name for a subsidiary TEXT content item. See <a class="xref" href="sect_X.2.html#figure_X.2-1" title="Figure X.2-1. Transcribed Text Content Tree" shape="rect">Figure X.2-1</a>.</p>
+            <p>
+          </p>
+            <div class="figure">
+               <a id="figure_X.2-1" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.17_X.2-1.svg" alt="Transcribed Text Content Tree" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure X.2-1. Transcribed Text Content Tree</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_X.2.3" shape="rect"></a>X.2.3 Image Reference Format</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The content items from each associated KO object will be included in the SR in a separate CONTAINER with Concept Name (121180, DCM, "Key Images"). The text item "Key Object Description" and all image reference items shall be copied from the KO content tree to the corresponding SR container. See <a class="xref" href="sect_X.2.html#figure_X.2-2" title="Figure X.2-2. Inputs to SR Basic Text Object Content Tree" shape="rect">Figure X.2-2</a>.</p>
+            <p>
+          </p>
+            <div class="figure">
+               <a id="figure_X.2-2" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.17_X.2-2.svg" alt="Inputs to SR Basic Text Object Content Tree" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure X.2-2. Inputs to SR Basic Text Object Content Tree</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+            <p>The KO and SR IMAGE content item format allows the encoding of an icon (image thumbnail) with the image reference, as well as a reference to a GSPS instance controlling image presentation. Whether or not to include icons or GSPS references is an implementation decision of the softcopy review station that creates the KO; the IMAGE content item as a whole may be simply copied by the report management system from the KO to the Basic Text SR instance.</p>
+            <p>The intended process is that all KOs "For Report Attachment" are to be automatically included in the draft report. Therefore, the correction and signature function of the report management system should allow the physician to delete image references that were included, perhaps unintentionally, by the automatic process.</p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_X.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_X.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_X.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">X Dictation-based Reporting With Image References (Informative) </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> X.3 Transcribed Diagnostic Imaging CDA Instance Content</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

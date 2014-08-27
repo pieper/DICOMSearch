@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>N Softcopy Presentation State Storage SOP Classes (Normative)</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.4.html" title="PS3.4" />
+      <link rel="up" href="PS3.4.html" title="PS3.4" />
+      <link rel="prev" href="chapter_M.html" title="M Handling of Identifying Parameters (Informative)" />
+      <link rel="next" href="sect_N.2.html" title="N.2 Pixel Transformation Sequence" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">N Softcopy Presentation State Storage SOP Classes (Normative)</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_M.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_N.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_N" shape="rect"></a>N Softcopy Presentation State Storage SOP Classes (Normative)</h1>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_N.1" shape="rect"></a>N.1 Overview</h2>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_N.1.1" shape="rect"></a>N.1.1 Scope</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>The Softcopy Presentation State Storage SOP Classes extend the functionality of the Storage Service class (defined in <a class="xref" href="chapter_B.html" title="B Storage Service Class (Normative)" shape="rect"> Annex B</a>) to add the ability to convey an intended presentation state or record an existing presentation state. The SOP Classes specify the information and behavior that may be used to present (display) images that are referenced from within the SOP Classes.</p>
+               <p>They include capabilities for specifying:</p>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="a">
+                     <li class="listitem">
+                        <p>the output grayscale space in P-Values</p>
+                     </li>
+                     <li class="listitem">
+                        <p>the color output space as PCS-Values</p>
+                     </li>
+                     <li class="listitem">
+                        <p>grayscale contrast transformations including modality, VOI and presentation LUT</p>
+                     </li>
+                     <li class="listitem">
+                        <p>mask subtraction for multi-frame grayscale images</p>
+                     </li>
+                     <li class="listitem">
+                        <p>selection of the area of the image to display and whether to rotate or flip it</p>
+                     </li>
+                     <li class="listitem">
+                        <p>image and display relative annotations, including graphics, text and overlays</p>
+                     </li>
+                     <li class="listitem">
+                        <p>the blending of two image sets into a single presentation</p>
+                     </li>
+                  </ol>
+               </div>
+               <p>The grayscale softcopy presentation state refers to the grayscale image transformations that are to be applied in an explicitly defined manner to convert the stored image pixel data values in a Composite Image Instance to presentation values (P-Values) when an image is displayed on a softcopy device. The P-Values are in a device independent perceptually linear space that is formally defined in <a href="../part14/PS3.14.html" class="olink" shape="rect"> PS3.14 Grayscale Standard Display Function</a>.</p>
+               <p>The color and pseudo-color softcopy presentation states refer to the color image transformations that are to be applied in an explicitly defined manner to convert the stored image pixel data values in a Composite Image Instance to Profile Connection Space values (PCS-Values) when an image is displayed on a softcopy device. The PCS-Values are in a device independent space that is formally defined in the ICC Profiles as CIEXYZ or CIELab values.</p>
+               <p>The blending presentation states specify two sets of images, an underlying set, and a superimposed set, and the manner in which their pixel values are blended. The underlying set is rendered as grayscale and the superimposed set is rendered as color. The blending is not defined in a pair wise image-by-image or frame-by-frame manner, but rather the manner in which the two sets are combined is left to the discretion of the implementation. Specifically, matters of spatial registration, and any re-sampling and the mechanism of interpolation are not specified.</p>
+               <p>The Softcopy Presentation State Storage SOP Classes may be used to store a single state per image, or a common state to be shared by multiple selected images. All images to which the Grayscale, Color and Pseudo-Color Presentation States apply must be a part of the same study that the stored state is a part of, and be of a single Composite Image Storage SOP Class.</p>
+               <p>The two sets of images to which the Blended Presentation State applies may be in separate Studies, Each set shall be within a single study. Each set shall be of a single Composite Image Storage SOP Class.</p>
+               <p>How an SCU of this SOP Class records or generates this state is beyond the scope of the standard.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>For example, an acquisition device may acquire, reconstruct and store to a workstation or archive images that are later examined by an operator for the purpose of quality assurance or printing. At that time a selected grayscale transformation (such as a window level/width operation) may be applied by the operator, and that activity captured and saved as a Grayscale Softcopy Presentation State Storage SOP Instance to the same workstation or archive, from which it is subsequently available for use by another user. Another workstation may retrieve the state for later use. Alternatively, an automated algorithm may derive a state from analysis of image statistics, body part examined, or other characteristics.</p>
+               </div>
+               <p>How an SCP of this SOP Class chooses between multiple states that may apply to an image is beyond the scope of this standard, other than to state that a claim of conformance as an SCP of this SOP Class implies that the SCP shall make the presentation state available to the user of the device, and if selected by the user, shall apply all the transformations stored in the state in the manner in which they are defined in the standard.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="1">
+                        <li class="listitem">
+                           <p>For example, an acquisition device may automatically store appropriate presentation states for series of images as they are reconstructed that represent adequate defaults. A user or algorithm may subsequently determine a more appropriate presentation state that more effectively displays the contents of an image, or record some annotation related directly to the image, and record that as another presentation state for an image. An application subsequently may display the image by automatically choosing to use the more recently saved or more specific presentation state, or may use the more general default presentation state for all images but notify the user that alternative presentation states are available.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Choice of the same presentation state to display a grayscale image on two devices claiming conformance to these SOP Classes implies through the definition of the P-Value space that the displayed image on both devices will be perceptually similar within the limits defined in <a href="../part14/PS3.14.html" class="olink" shape="rect"> PS3.14 Grayscale Standard Display Function</a>, regardless of the actual capabilities of the display systems.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Choice of the same presentation state to display a color image on two devices claiming conformance to these SOP Classes implies through the definition of the PCS-Value space that the displayed image on both devices will appear similar in color regardless of the actual capabilities of the display systems.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>DICOM color images without an embedded optional ICC profile have no defined color space, regardless of their representation. The implementation creating a Color Softcopy Presentation State with an ICC profile is explicitly defining a color space in which to interpret that image, even if one was not known at the time that the image was created. Often a well-known color space such as sRGB will be used in the presentation state under such circumstances.</p>
+                        </li>
+                     </ol>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_M.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_N.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">M Handling of Identifying Parameters (Informative) </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.4.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> N.2 Pixel Transformation Sequence</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

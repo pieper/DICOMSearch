@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>8.3 Waveform Data and Related Data Elements</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.5.html" title="PS3.5" />
+      <link rel="up" href="chapter_8.html" title="8 Encoding of Pixel, Overlay and Waveform Data" />
+      <link rel="prev" href="sect_8.2.html" title="8.2 Native or Encapsulated Format Encoding" />
+      <link rel="next" href="sect_8.4.html" title="8.4 Pixel Data Provider Service" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">8.3 Waveform Data and Related Data Elements</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_8.2.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">8 Encoding of Pixel, Overlay and Waveform Data</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_8.4.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_8.3" shape="rect"></a>8.3 Waveform Data and Related Data Elements</h2>
+               </div>
+            </div>
+         </div>
+         <p>The DICOM protocol provides for the exchange of encoded time-based signals, or waveforms, encoded in the Waveform Data Element (5400,1010).</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <p>Per <a class="xref" href="sect_7.6.html" title="7.6 Repeating Groups" shape="rect">Section 7.6</a>, an IOD supporting multiple sets of Waveform Data will encapsulate Data Element (5400,1010) within a Sequence.</p>
+         </div>
+         <p>Encoded Waveform Data of various bit depths is accommodated through the Waveform Bits Allocated (5400,1004) Data Element. This element defines the size of each waveform data sample within the Waveform Data (5400,1010). Allowed values are 8 and 16 bits.</p>
+         <p>The Value Representation of the Waveform Data (5400,1010) shall be OW; OB shall be used in cases where Waveform Bits Allocated has a value of 8, but only with Transfer Syntaxes where the Value Representation is explicitly conveyed.</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="1">
+                  <li class="listitem">
+                     <p>Under the Default Transfer Syntax, OB and OW VRs have the identical byte transfer order.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Conversion of a SOP Instance from the Default Transfer Syntax to an Explicit VR Transfer Syntax (uncompressed) requires the interpretation of the Waveform Bits Allocated (5400,1004) Data Element, to determine the proper VR of the Waveform Data.</p>
+                  </li>
+               </ol>
+            </div>
+         </div>
+         <p>The following data elements related to Waveform Data shall be encoded with the same VR as Waveform Data: Channel Minimum Value (5400,0110), Channel Maximum Value (5400,0112) and Waveform Padding Value (5400,100A).</p>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_8.2.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_8.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_8.4.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">8.2 Native or Encapsulated Format Encoding </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.5.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 8.4 Pixel Data Provider Service</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

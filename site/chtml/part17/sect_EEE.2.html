@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>EEE.2 IVOCT For Processing Parameters</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="chapter_EEE.html" title="EEE Intravascular OCT Image (Informative)" />
+      <link rel="prev" href="chapter_EEE.html" title="EEE Intravascular OCT Image (Informative)" />
+      <link rel="next" href="sect_EEE.3.html" title="EEE.3 Intravascular Longitudinal Image" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">EEE.2 IVOCT For Processing Parameters</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_EEE.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">EEE Intravascular OCT Image (Informative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_EEE.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_EEE.2" shape="rect"></a>EEE.2 IVOCT For Processing Parameters</h2>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_EEE.2.1" shape="rect"></a>EEE.2.1 Z Offset Correction</h3>
+                  </div>
+               </div>
+            </div>
+            <p>When an OCT image is acquired, the path length difference between the reference and sample arms may vary, resulting in a shift along the axial direction of the image, known as the Z Offset. With FOR PROCESSING images, in order to convert the image in Cartesian coordinates and make measurements, this Z Offset should be corrected, typically on a per-frame or per-image basis. Z Offset is corrected by shifting Polar data rows (A-lines) + OCT Z Offset Correction (0052,0030) pixels along the axial dimension of the image.</p>
+            <p>Z Offset correction may be either a positive or negative value. Positive values mean that the A-lines are shifted further away from the catheter optics. Negative values mean that the A-lines are shifted closer to the catheter optics. <a class="xref" href="sect_EEE.2.html#figure_EEE.2-1" title="Figure EEE.2-1. Z Offset Correction" shape="rect">Figure EEE.2-1</a> illustrates a negative Z Offset Correction.</p>
+            <p>
+          </p>
+            <div class="figure">
+               <a id="figure_EEE.2-1" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.17_EEE.2-1.svg" alt="Z Offset Correction" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure EEE.2-1. Z Offset Correction</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_EEE.2.2" shape="rect"></a>EEE.2.2 Refractive Index Correction</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The axial distances in an OCT image are dependent on the refractive index of the material that IVOCT light passes through. As a result, in order to accurately make measurements in images derived from FOR PROCESSING data, the axial dimension of the pixels should be globally corrected by dividing the A-line Pixel Spacing (0052,0014) value (in air) by the Effective Refractive Index (0052,0004) and setting the Refractive Index Applied (0052,003A) to YES. Although not recommended, if A-line Pixel Spacing (0052,0014) is reported in air (i.e., not corrected by dividing by Effective Refractive Index) then the Refractive Index Applied value shall be set to NO.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_EEE.2.3" shape="rect"></a>EEE.2.3 Polar-Cartesian Conversion</h3>
+                  </div>
+               </div>
+            </div>
+            <p>FOR PROCESSING Polar data is specified such that each column represents a subsequent axial (z) location and each row an angular (q) coordinate. Following Z Offset and Refractive Index Correction, Polar data can be converted to Cartesian data by first orienting the seam line position so that it is at the correct row location. This can be accomplished by shifting the rows Seam Line Index (0052,0036) pixels so that its Seam Line Location (0052,0033) is located at row "A-lines Per Frame * Seam Line Location / 360". Once the seam line is positioned correctly, the Cartesian data can be obtained by remapping the Polar (z, q) data into Cartesian (x, y) space, where the leftmost column of the Polar image corresponds to the center of the Cartesian image. <a class="xref" href="sect_EEE.2.html#figure_EEE.2-2" title="Figure EEE.2-2. Polar to Cartesian Conversion" shape="rect">Figure EEE.2-2</a> illustrates the Polar to Cartesian conversion. The scan-converted frames are constructed using the Catheter Direction of Rotation (0052,0031) attribute to determine the order in which the A-lines are acquired.
+        Scan-converted frames are constructed using A-lines that contain actual data (I.e., not padded A-lines). Padded A-lines are added at the end of the frame and are contiguous. <a class="xref" href="sect_EEE.2.html#figure_EEE.2-2" title="Figure EEE.2-2. Polar to Cartesian Conversion" shape="rect">Figure EEE.2-2</a> is an example of Polar to Cartesian conversion.</p>
+            <p>
+          </p>
+            <div class="figure">
+               <a id="figure_EEE.2-2" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.17_EEE.2-2.svg" alt="Polar to Cartesian Conversion" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure EEE.2-2. Polar to Cartesian Conversion</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_EEE.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_EEE.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_EEE.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">EEE Intravascular OCT Image (Informative) </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> EEE.3 Intravascular Longitudinal Image</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

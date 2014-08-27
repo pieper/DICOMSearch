@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>K DICOM MIME Media (Normative)</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.12.html" title="PS3.12" />
+      <link rel="up" href="PS3.12.html" title="PS3.12" />
+      <link rel="prev" href="sect_J.3.html" title="J.3 Media Formats" />
+      <link rel="next" href="sect_K.3.html" title="K.3 Logical Format" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">K DICOM MIME Media (Normative)</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_J.3.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_K.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_K" shape="rect"></a>K DICOM MIME Media (Normative)</h1>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_K.1" shape="rect"></a>K.1 DICOM Mapping to MIME Formats</h2>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_K.1.1" shape="rect"></a>K.1.1 DICOM File Set</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>One DICOM File set shall be contained in a MIME Multipart/mixed or Multipart/related Media Type, called "DICOM File set" MIME Entity.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="1">
+                        <li class="listitem">
+                           <p>It may be necessary to fragment a message by using the Message/partial Media Type format.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>A "DICOM File set" MIME Entity may contain MIME Parts other than Application/dicom, which may be ignored by the DICOM application.</p>
+                        </li>
+                     </ol>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_K.1.2" shape="rect"></a>K.1.2 DICOM File</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>Each generic DICOM file shall be encoded as a MIME Application/dicom Media Type, called "DICOM File" MIME Part, with the following parameters:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>"id" is constructed from the DICOM File ID. The total length is limited to 71 characters (to avoid that the e-mail application splits the id string). Each component is limited to 8 characters. The delimiter is a forward slash "/". There is never a leading delimiter (i.e., this is not a traditional path from a root directory).</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>For example: "ROOTDIR/SUBDIR1/MRSCAN/A789FD07/19991024/ST00234/S00003/I00023"</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>"name" is constructed from the last DICOM File ID component (that means the "file name" without "path" information) and the extension ".dcm" (except for the DICOMDIR).</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>For example: "I00023.dcm"</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="1">
+                        <li class="listitem">
+                           <p>Email clients typically use this parameter as the default name with which to save the file. If used for only one "DICOM File" Part (versus one DICOM File set), the length of this parameter is not restricted (unlike the "id" parameter).</p>
+                        </li>
+                        <li class="listitem">
+                           <p>This name can not be the same as the name inside the DICOMDIR where the file extension is forbidden.</p>
+                        </li>
+                     </ol>
+                  </div>
+               </div>
+               <p>The other fields of the header of this "DICOM File" MIME Part are respecting the general rules of MIME.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="1">
+                        <li class="listitem">
+                           <p>RFC 3240 describes under the heading of additional information that a Macintosh File Type Code of "DICM" be used for DICOM files.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Where Universal Type Identifiers (UTIs) are in use, it is recommended that a UTI of org.nema.dicom be used for DICOM files, which is defined here as conforming to public.data (not public.image, since not all DICOM files are images), and is defined to correspond to the tags 'DICM', .dcm and Application/dicom. The UTI property UTTypeIdentifier is "DICOM" and the UTI property UTTypeReferenceURL is http://dicom.nema.org/.</p>
+                           <p>See also "http://developer.apple.com/documentation/Carbon/Conceptual/understanding_utis/index.html".</p>
+                        </li>
+                     </ol>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_K.1.2.1" shape="rect"></a>K.1.2.1 DICOMDIR</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>One and only one DICOMDIR File may be present in any "DICOM File set" MIME Entity. It is encoded as the generic "DICOM File" MIME Part, with a DICOM File ID set to "DICOMDIR" and the "id" parameter set to "DICOMDIR".</p>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_J.3.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_K.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">J.3 Media Formats </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.12.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> K.3 Logical Format</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

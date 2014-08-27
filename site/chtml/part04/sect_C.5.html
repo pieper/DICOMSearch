@@ -1,0 +1,740 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>C.5 Association Negotiation</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.4.html" title="PS3.4" />
+      <link rel="up" href="chapter_C.html" title="C Query/Retrieve Service Class (Normative)" />
+      <link rel="prev" href="sect_C.4.html" title="C.4 DIMSE-C Service Groups" />
+      <link rel="next" href="sect_C.6.html" title="C.6 SOP Class Definitions" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">C.5 Association Negotiation</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_C.4.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">C Query/Retrieve Service Class (Normative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_C.6.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_C.5" shape="rect"></a>C.5 Association Negotiation</h2>
+               </div>
+            </div>
+         </div>
+         <p>Association establishment is the first phase of any instance of communication between peer DICOM AEs. AEs supporting DICOM Query/Retrieve SOP Classes utilize Association establishment negotiation by defining the use of Application Association Information. See <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a> for an overview of Association negotiation.</p>
+         <p>SOP Classes of the Query/Retrieve Service Class, which include query services based on the C-FIND operation, may use SOP Class Extended Negotiation Sub-Item to negotiate options such as Relational-queries and Enhanced Multi-Frame Image Conversion.</p>
+         <p>SOP Classes of the Query/Retrieve Service Class, which include retrieval services based on the C-MOVE and C-GET operations, may use the SOP Class Extended Negotiation Sub-Item to negotiate relational-retrieval and Enhanced Multi-Frame Image Conversion.</p>
+         <p>SOP Classes of the Query/Retrieve Service Class, which include retrieval services based on the C-GET operation, use the SCP/SCU Role Selection Sub-Item to identify the SOP Classes that may be used for retrieval.</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_C.5.1" shape="rect"></a>C.5.1 Association Negotiation for C-FIND SOP Classes</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The following negotiation rules apply to DICOM SOP Classes and Specialized DICOM SOP Classes of the Query/Retrieve Service Class that include the C-FIND operation.</p>
+            <p>The Association-requester (query SCU role) shall convey in the A-ASSOCIATE request:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>one Abstract Syntax, in a Presentation Context, for each query based SOP Class supported</p>
+                  </li>
+                  <li class="listitem">
+                     <p>optionally, one SOP Class Extended Negotiation Sub-Item, for each query based SOP Class</p>
+                  </li>
+               </ul>
+            </div>
+            <p>The Association-acceptor (query SCP role) of an A-ASSOCIATE request shall accept:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>one Abstract Syntax, in a Presentation Context, for each query based SOP Class supported</p>
+                  </li>
+                  <li class="listitem">
+                     <p>optionally, one SOP Class Extended Negotiation Sub-Item, for each query based SOP Class</p>
+                  </li>
+               </ul>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_C.5.1.1" shape="rect"></a>C.5.1.1 SOP Class Extended Negotiation</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The SOP Class Extended Negotiation allows, at Association establishment, peer DICOM AEs to exchange application Association information defined by specific SOP Classes. This is achieved by defining the Service-class-application-information field. The Service-class-application-information field is used to define support for relational-queries, combined date time matching, fuzzy semantic matching of person names, timezone query adjustment and Enhanced Multi-Frame Image Conversion.</p>
+               <p>This negotiation is optional. If absent, the default conditions shall be:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>no relational-query support</p>
+                     </li>
+                     <li class="listitem">
+                        <p>separate (independent) range matching of date and time Attributes</p>
+                     </li>
+                     <li class="listitem">
+                        <p>literal matching of person names with case sensitivity unspecified</p>
+                     </li>
+                     <li class="listitem">
+                        <p>timezone query adjustment unspecified</p>
+                     </li>
+                     <li class="listitem">
+                        <p>no Enhanced Multi-Frame Image Conversion support</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>The Association-requester, for each SOP Class, may use one SOP Class Extended Negotiation Sub-Item. The SOP Class is identified by the corresponding Abstract Syntax Name (as defined by <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>) followed by the Service-class-application-information field. This field defines one or more sub-fields:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>relational-query support by the Association-requester</p>
+                     </li>
+                     <li class="listitem">
+                        <p>combined date and time range matching by the Association-requester</p>
+                     </li>
+                     <li class="listitem">
+                        <p>literal or fuzzy semantic matching of person names by the Association-requester</p>
+                     </li>
+                     <li class="listitem">
+                        <p>timezone query adjustment by the Association-requester</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Enhanced Multi-Frame Image Conversion support by the Association-requester</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>The Association-acceptor shall return a single byte field (single sub-field) if offered a single byte field (single sub-field) by the Association-requester. The Association-acceptor may return either a single byte field (single sub-field) or a multiple byte field if offered a multiple byte field by the Association-requester. A one byte response to a multiple byte request means that the missing sub-fields shall be treated as 0 values.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>The restriction to return only a single byte field if that was all that was offered is because the original DICOM standard only contained one byte and older systems may not be expecting more.</p>
+               </div>
+               <p>The Association-acceptor, for each sub-field of the SOP Class Extended Negotiation Sub-Item offered, either accepts the Association-requester proposal by returning the same value (1) or turns down the proposal by returning the value (0).</p>
+               <p>If the SOP Class Extended Negotiation Sub-Item is not returned by the Association-acceptor then relational-queries are not supported over the Association (default condition).</p>
+               <p>If the SOP Class Extended Negotiation Sub-Items do not exist in the A-ASSOCIATE indication they shall be omitted in the A-ASSOCIATE response.</p>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.5.1.1.1" shape="rect"></a>C.5.1.1.1 SOP Class Extended Negotiation Sub-Item Structure (A-ASSOCIATE-RQ)</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The SOP Class Extended Negotiation Sub-Item consists of a sequence of mandatory fields as defined by <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>. <a class="xref" href="sect_C.5.html#table_C.5-1" title="Table C.5-1. SOP Class Extended Negotiation Sub-Item (Service-Class-Application-Information Field) - A-ASSOCIATE-RQ" shape="rect">Table C.5-1</a> defines the Service-class-application-information field for DICOM Query/Retrieve SOP Classes and Specialized DICOM Query/Retrieve SOP Classes that include the C-FIND operation. This field may be either one or more bytes in length (i.e., item bytes 2, 3, 4 and 5 are optional).</p>
+                  <div class="table">
+                     <a id="table_C.5-1" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table C.5-1. SOP Class Extended Negotiation Sub-Item (Service-Class-Application-Information Field) - A-ASSOCIATE-RQ</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Item Bytes</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Field Name</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Description of Field</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Relational-queries</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This byte field defines relational-query support by the Association-requester. It shall be encoded as an unsigned binary integer and shall use one of the following values</p>
+                                    <p>0 - relational queries not supported</p>
+                                    <p>1 - relational queries supported</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Date-time matching</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This byte field defines whether or not combined date and time Attribute range matching is requested by the Association-requester. It shall be encoded as an unsigned binary integer and shall use one of the following values</p>
+                                    <p>0 - combined matching not requested</p>
+                                    <p>1 - combined matching requested</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Fuzzy semantic matching of person names</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This byte field defines whether or not fuzzy semantic person name Attribute matching is requested by the Association-requester. It shall be encoded as an unsigned binary integer and shall use one of the following values</p>
+                                    <p>0 - fuzzy semantic matching not requested</p>
+                                    <p>1 - fuzzy semantic matching requested</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>4</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Timezone query adjustment</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This byte field defines whether or not the Attribute Timezone Offset From UTC (0008,0201) shall be used to adjust the query meaning for time and datetime fields in queries. It shall be encoded as an unsigned binary integer and shall use one of the following values</p>
+                                    <p>0 - Timezone query adjustment not requested</p>
+                                    <p>1 - Timezone query adjustment requested</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>5</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Enhanced Multi-Frame Image Conversion</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This byte field defines whether or not the Attribute Query/Retrieve View (0008,0053) shall be used to adjust the view returned in queries to consider conversion to or from Enhanced Multi-Frame Images. It shall be encoded as an unsigned binary integer and shall use one of the following values</p>
+                                    <p>0 - Query/Retrieve View not supported</p>
+                                    <p>1 - Query/Retrieve View supported</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.5.1.1.2" shape="rect"></a>C.5.1.1.2 SOP Class Extended Negotiation Sub-Item Structure (A-ASSOCIATE-AC)</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The SOP Class Extended Negotiation Sub-Item is made of a sequence of mandatory fields as defined by <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>. <a class="xref" href="sect_C.5.html#table_C.5-2" title="Table C.5-2. SOP Class Extended Negotiation Sub-Item (Service-Class-Application-Information Field) - A-ASSOCIATE-AC" shape="rect">Table C.5-2</a> defines the Service-class-application-information field for DICOM Query/Retrieve SOP Classes and Specialized DICOM Query/Retrieve SOP Classes that include the C-FIND operation. This field may be either one or more bytes in length (i.e., item bytes 2, 3, 4 and 5 are optional).</p>
+                  <div class="table">
+                     <a id="table_C.5-2" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table C.5-2. SOP Class Extended Negotiation Sub-Item (Service-Class-Application-Information Field) - A-ASSOCIATE-AC</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Item Bytes</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Field Name</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Description of Field</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Relational-queries</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This byte field defines relational-query support for the Association-acceptor. It shall be encoded as an unsigned binary integer and shall use one of the following values</p>
+                                    <p>0 - relational-queries not supported</p>
+                                    <p>1 - relational-queries supported</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Date-time matching</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This byte field defines whether or not combined date and time Attribute range matching will be performed by the Association-acceptor. It shall be encoded as an unsigned binary integer and shall use one of the following values</p>
+                                    <p>0 - combined matching not performed</p>
+                                    <p>1 - combined matching performed</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Fuzzy semantic matching of person names</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This byte field defines whether or not fuzzy semantic person name Attribute matching will be performed by the Association-acceptor. It shall be encoded as an unsigned binary integer and shall use one of the following values</p>
+                                    <p>0 - fuzzy semantic matching not performed</p>
+                                    <p>1 - fuzzy semantic matching performed</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>4</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Timezone query adjustment</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This byte field defines whether or not the Attribute Timezone Offset From UTC (0008,0201) shall be used to adjust the query meaning for time and datetime fields in queries. It shall be encoded as an unsigned binary integer and shall use one of the following values</p>
+                                    <p>0 - Timezone adjustment of queries not performed</p>
+                                    <p>1 - Timezone adjustment of queries performed</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>5</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Enhanced Multi-Frame Image Conversion</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This byte field defines whether or not the Attribute Query/Retrieve View (0008,0053) shall be used to adjust the view returned in queries to consider conversion to or from Enhanced Multi-Frame Images. It shall be encoded as an unsigned binary integer and shall use one of the following values</p>
+                                    <p>0 - Query/Retrieve View not supported</p>
+                                    <p>1 - Query/Retrieve View supported</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_C.5.2" shape="rect"></a>C.5.2 Association Negotiation for C-MOVE SOP Classes</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The following negotiation rules apply to DICOM SOP Classes and Specialized DICOM SOP Classes of the Query/Retrieve Service Class that include the C-MOVE operation.</p>
+            <p>The Association-requester (retrieval SCU role) shall convey in the A-ASSOCIATE request:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>one Abstract Syntax, in a Presentation Context, for each retrieval based SOP Class supported</p>
+                  </li>
+                  <li class="listitem">
+                     <p>optionally, one SOP Class Extended Negotiation Sub-Item, for each retrieval based SOP Class</p>
+                  </li>
+               </ul>
+            </div>
+            <p>The Association-acceptor (retrieval SCP role) of an A-ASSOCIATE request shall accept:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>one Abstract Syntax, in a Presentation Context, for each retrieval based SOP Class supported</p>
+                  </li>
+                  <li class="listitem">
+                     <p>optionally, one SOP Class Extended Negotiation Sub-Item, for each retrieval based SOP Class</p>
+                  </li>
+               </ul>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_C.5.2.1" shape="rect"></a>C.5.2.1 SOP Class Extended Negotiation</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The SOP Class Extended Negotiation allows, at Association establishment, peer DICOM AEs to exchange application Association information defined by specific SOP Classes. This is achieved by defining the Service-class-application-information field. The Service-class-application-information field is used to define support for relational-retrievals.</p>
+               <p>This negotiation is optional. If absent, the default condition shall be:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>no relational-retrieval support</p>
+                     </li>
+                     <li class="listitem">
+                        <p>no Enhanced Multi-Frame Image Conversion support</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>The Association-requester, for each SOP Class, may use one SOP Class Extended Negotiation Sub-Item. The SOP Class is identified by the corresponding Abstract Syntax Name (as defined by <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>) followed by the Service-class-application-information field. This field defines:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>relational-retrieval support by the Association-requester</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Enhanced Multi-Frame Image Conversion support by the Association-requester</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>The Association-acceptor shall return a single byte field (single sub-field) if offered a single byte field (single sub-field) by the Association-requester. The Association-acceptor may return either a single byte field (single sub-field) or a multiple byte field if offered a multiple byte field by the Association-requester. A one byte response to a multiple byte request means that the missing sub-fields shall be treated as 0 values.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>The restriction to return only a single byte field if that was all that was offered is because the original DICOM standard only contained one byte and older systems may not be expecting more.</p>
+               </div>
+               <p>The Association-acceptor, for each SOP Class Extended Negotiation Sub-Item offered, either accepts the Association-requester proposal by returning the same value (1) or turns down the proposal by returning the value (0).</p>
+               <p>If the SOP Class Extended Negotiation Sub-Item is not returned by the Association-acceptor then relational-retrievals and Enhanced Multi-Frame Image Conversion are not supported (default condition).</p>
+               <p>If the SOP Class Extended Negotiation Sub-Items do not exist in the A-ASSOCIATE indication they shall be omitted in the A-ASSOCIATE response.</p>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.5.2.1.1" shape="rect"></a>C.5.2.1.1 SOP Class Extended Negotiation Sub-Item Structure (A-ASSOCIATE-RQ)</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The SOP Class Extended Negotiation Sub-Item consists of a sequence of mandatory fields as defined by <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>. <a class="xref" href="sect_C.5.html#table_C.5-3" title="Table C.5-3. SOP Class Extended Negotiation Sub-Item (Service-Class-Application-Information Field) - A-ASSOCIATE-RQ" shape="rect">Table C.5-3</a> defines the Service-class-application-information field for DICOM Query/Retrieve SOP Classes and Specialized DICOM Query/Retrieve SOP Classes that include the C-MOVE and C-GET operations.</p>
+                  <div class="table">
+                     <a id="table_C.5-3" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table C.5-3. SOP Class Extended Negotiation Sub-Item (Service-Class-Application-Information Field) - A-ASSOCIATE-RQ</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Item Bytes</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Field Name</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Description of Field</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Relational-retrieval</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This byte field defines relational-retrieval support by the Association-requester. It shall be encoded as an unsigned binary integer and shall use one of the following values</p>
+                                    <p>0 - relational-retrieval not supported</p>
+                                    <p>1 - relational-retrieval supported</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Enhanced Multi-Frame Image Conversion</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This byte field defines whether or not the Attribute Query/Retrieve View (0008,0053) shall be used to adjust the view returned in queries to consider conversion to or from Enhanced Multi-Frame Images. It shall be encoded as an unsigned binary integer and shall use one of the following values</p>
+                                    <p>0 - Query/Retrieve View not supported</p>
+                                    <p>1 - Query/Retrieve View supported</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.5.2.1.2" shape="rect"></a>C.5.2.1.2 SOP Class Extended Negotiation Sub-Item Structure (A-ASSOCIATE-AC)</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The SOP Class Extended Negotiation Sub-Item consists of a sequence of mandatory fields as defined by <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>. <a class="xref" href="sect_C.5.html#table_C.5-4" title="Table C.5-4. SOP Class Extended Negotiation Sub-Item (Service-Class-Application-Information Field) - A-ASSOCIATE-AC" shape="rect">Table C.5-4</a> defines the Service-class-application-information field for DICOM Query/Retrieve SOP Classes and Specialized DICOM Query/Retrieve SOP Classes that include the C-MOVE and C-GET operations.</p>
+                  <div class="table">
+                     <a id="table_C.5-4" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table C.5-4. SOP Class Extended Negotiation Sub-Item (Service-Class-Application-Information Field) - A-ASSOCIATE-AC</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Item Bytes</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Field Name</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Description of Field</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Relational-retrieval</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This byte field defines relational-retrieval support for the Association-acceptor. It shall be encoded as an unsigned binary integer and shall use one of the following values</p>
+                                    <p>0 - relational-retrievals not supported</p>
+                                    <p>1 - relational-retrievals supported</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Enhanced Multi-Frame Image Conversion</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This byte field defines whether or not the Attribute Query/Retrieve View (0008,0053) shall be used to adjust the view returned in queries to consider conversion to or from Enhanced Multi-Frame Images. It shall be encoded as an unsigned binary integer and shall use one of the following values</p>
+                                    <p>0 - Query/Retrieve View not supported</p>
+                                    <p>1 - Query/Retrieve View supported</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_C.5.3" shape="rect"></a>C.5.3 Association Negotiation for C-GET SOP Classes</h3>
+                  </div>
+               </div>
+            </div>
+            <p>When an SCP performs the C-GET operation it induces a C-STORE operation for the purpose of transmitting composite SOP Instances for Storage. This induced C-STORE operation (called a sub-operation) requires a switch from the C-GET Presentation Context to a Presentation Context that supports the specific C-STORE sub-operation.</p>
+            <p>The following negotiation rules apply to retrieval based DICOM Query/Retrieve SOP Classes and Specialized DICOM Query/Retrieve SOP Classes that include the C-GET operation.</p>
+            <p>The Association-requester (retrieve SCU role) in the A-ASSOCIATE request shall convey:</p>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="a">
+                  <li class="listitem">
+                     <p>C-GET operation support with:</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: disc; ">
+                           <li class="listitem">
+                              <p>one Abstract Syntax, in a Presentation Context, for each SOP Class supported</p>
+                           </li>
+                           <li class="listitem">
+                              <p>and optionally, one SOP Class Extended Negotiation Sub-Item, for each retrieval based SOP Class</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li class="listitem">
+                     <p>Induced Storage sub-operation support where the SOP Class (in the retrieval SCU role) is acting as a Storage SOP Class in the SCP Role. See <a class="xref" href="sect_C.5.html#figure_C.5-1" title="Figure C.5-1. An Example of the Sub-Operation SCU/SCP Roles" shape="rect">Figure C.5-1</a>. For each supported Storage SOP Class, the A-ASSOCIATE request contains:</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: disc; ">
+                           <li class="listitem">
+                              <p>one Abstract Syntax in a Presentation Context</p>
+                           </li>
+                           <li class="listitem">
+                              <p>one SCP/SCU Role Selection Negotiation Sub-item with the SCP-role field set to indicate support of the SCP role. The SCP/SCU Role Selection Negotiation shall be used as defined in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>.</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+               </ol>
+            </div>
+            <p>
+          </p>
+            <div class="figure">
+               <a id="figure_C.5-1" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.4_C.5-1.svg" alt="An Example of the Sub-Operation SCU/SCP Roles" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure C.5-1. An Example of the Sub-Operation SCU/SCP Roles</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>This negotiation does not place any requirements on the SCU-flag of the SCP/SCU Role Selection Negotiation Sub-Item. It may be set if the Association-requester supports the Storage Service Class in the SCU role.</p>
+            </div>
+            <p>The Association-acceptor (retrieve SCP role) in the A-ASSOCIATE response shall convey:</p>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="a">
+                  <li class="listitem">
+                     <p>C-GET operation support with:</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: disc; ">
+                           <li class="listitem">
+                              <p>one Abstract Syntax, in a Presentation Context, for each SOP Class supported</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li class="listitem">
+                     <p>Induced Storage sub-operation support where the SOP Class (using the retrieval SCP role) is acting as a Storage SOP Class in the SCU Role. See <a class="xref" href="sect_C.5.html#figure_C.5-1" title="Figure C.5-1. An Example of the Sub-Operation SCU/SCP Roles" shape="rect">Figure C.5-1</a>. For each supported Storage SOP Class, the A-ASSOCIATE response contains both:</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: disc; ">
+                           <li class="listitem">
+                              <p>one Abstract Syntax, in a Presentation Context</p>
+                           </li>
+                           <li class="listitem">
+                              <p>one SCP/SCU Role Selection Negotiation Sub-item with the SCP-role field set to indicate the acceptance of the Association-requester's support of the SCP role. The SCP/SCU Role Selection Negotiation shall be used as defined in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>.</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+               </ol>
+            </div>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>The negotiation does not place any requirements on the SCU-flag of the SCP/SCU Role Selection Negotiation Sub-Item. It may be set if the Association-acceptor accepts the Storage SCP role. <a class="xref" href="sect_C.5.html#figure_C.5-2" title="Figure C.5-2. An Example of the Retrieve (C-GET) Negotiation" shape="rect">Figure C.5-2</a> illustrates an example of the retrieve (C-GET) negotiation.</p>
+            </div>
+            <p>
+               <a class="xref" href="sect_C.5.html#figure_C.5-2" title="Figure C.5-2. An Example of the Retrieve (C-GET) Negotiation" shape="rect">Figure C.5-2</a> illustrates an example of the retrieve (C-GET) negotiation.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_C.5.3.1" shape="rect"></a>C.5.3.1 SOP Class Extended Negotiation</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The SOP Class Extended Negotiation allows, at Association establishment, peer DICOM AEs to exchange application Association information defined by specific SOP Classes.</p>
+               <p>This is achieved by defining the Service-class-application-information field. The Service-class-application-information field is used to define support for relational-retrievals and alternative views for Enhanced Multi-Frame Image Conversion.</p>
+               <p>
+            </p>
+               <div class="figure">
+                  <a id="figure_C.5-2" shape="rect"></a>
+                  <div class="figure-contents">
+                     <div class="mediaobject">
+                        <img src="figures/PS3.4_C.5-2.svg" alt="An Example of the Retrieve (C-GET) Negotiation" />
+                     </div>
+                  </div>
+                  <p class="title">
+                     <strong>Figure C.5-2. An Example of the Retrieve (C-GET) Negotiation</strong>
+                  </p>
+               </div>
+               <p>
+                  <br class="figure-break" clear="none" />
+               </p>
+               <p>Extended negotiation for SOP Classes based on the retrieval services that include C-GET operations is identical to the negotiation defined for C-MOVE, which is defined in <a class="xref" href="sect_C.5.html#sect_C.5.2.1" title="C.5.2.1 SOP Class Extended Negotiation" shape="rect">Section C.5.2.1</a> of this Annex.</p>
+               <p>Extended negotiation for the SOP Classes of the Storage Service Class (for the C-STORE sub-operation) is defined in <a class="xref" href="chapter_B.html" title="B Storage Service Class (Normative)" shape="rect"> Annex B</a>.</p>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_C.4.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_C.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_C.6.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">C.4 DIMSE-C Service Groups </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.4.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> C.6 SOP Class Definitions</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

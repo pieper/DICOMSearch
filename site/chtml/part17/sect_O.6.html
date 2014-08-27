@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>O.6 Spatial Fiducials</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="chapter_O.html" title="O Registration (Informative)" />
+      <link rel="prev" href="sect_O.5.html" title="O.5 Matrix Registration" />
+      <link rel="next" href="chapter_P.html" title="P Transforms and Mappings (Informative)" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">O.6 Spatial Fiducials</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_O.5.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">O Registration (Informative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_P.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_O.6" shape="rect"></a>O.6 Spatial Fiducials</h2>
+               </div>
+            </div>
+         </div>
+         <p>Fiducials are image-derived reference markers of location, orientation, or scale. These may be labeled points or collections of points in a data volume that specify a shape. Most commonly, fiducials are individual points.</p>
+         <p>Correlated fiducials of separate image sets may serve as inputs to a registration process to estimate the spatial registration between similar objects in the images. The correlation may, or may not, be expressed in the fiducial identifiers. A fiducial identifier may be an arbitrary number or text string to uniquely identify each fiducial from others in the set. In this case, fiducial correlation relies on operator recognition and control.</p>
+         <p>Alternatively, coded concepts may identify the acquired fiducials so that systems can automatically correlate them. Examples of such coded concepts are points of a stereotactic frame, prosthesis points, or well-resolved anatomical landmarks such as bicuspid tips. Such codes could be established and used locally by a department, over a wider area by a society or research study coordinator, or from a standardized set.</p>
+         <p>The table below shows each case of identifier encoding. A and B represent two independent registrations: one to some image set A, and the other to image set B.</p>
+         <div class="informaltable">
+            <table frame="box" rules="all">
+               <thead>
+                  <tr valign="top">
+                     <th align="center" rowspan="1" colspan="1"></th>
+                     <th align="center" rowspan="1" colspan="1">
+                        <p>
+                           <span class="bold">
+                              <strong>Fiducial Identifier (0070,0310)</strong>
+                           </span>
+                        </p>
+                     </th>
+                     <th align="center" rowspan="1" colspan="1">
+                        <p>
+                           <span class="bold">
+                              <strong>Fiducial Identifier Code Sequence (0070,0311)</strong>
+                           </span>
+                        </p>
+                     </th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr valign="top">
+                     <td align="left" rowspan="1" colspan="1">
+                        <p>Uncorrelated</p>
+                     </td>
+                     <td align="left" rowspan="1" colspan="1">
+                        <p>A: 1, 2, 3</p>
+                        <p>B: 4, 5, 6</p>
+                     </td>
+                     <td align="left" rowspan="1" colspan="1">
+                        <p>A: (1, 99_A_CSD, <span class="italic">label A1</span>) …</p>
+                        <p>B: (4, 99_B_CSD, <span class="italic">label B4</span>) …</p>
+                     </td>
+                  </tr>
+                  <tr valign="top">
+                     <td align="left" rowspan="1" colspan="1">
+                        <p>Correlated</p>
+                     </td>
+                     <td align="left" rowspan="1" colspan="1">
+                        <p>A: 1, 2, 3 …</p>
+                        <p>B: 1, 2, 3 …</p>
+                     </td>
+                     <td align="left" rowspan="1" colspan="1">
+                        <p>A: (1, 99_MY_CSD, <span class="italic">label 1</span>) …</p>
+                        <p>B: (1, 99_MY_CSD, <span class="italic">label 1</span>) …</p>
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+         <p>Fiducials may be a point or some other shape. For example, three or more arbitrarily chosen points might designate the inter-hemispheric plane for the registration of head images. Many arbitrarily chosen points may identify a surface such as the inside of the skull.</p>
+         <p>A fiducial also has a Fiducial UID. This UID identifies the creation of the fiducial and allows other SOP Instances to reference the fiducial assignment.</p>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_O.5.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_O.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_P.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">O.5 Matrix Registration </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> P Transforms and Mappings (Informative)</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

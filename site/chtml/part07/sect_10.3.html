@@ -1,0 +1,2754 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>10.3 Protocol</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.7.html" title="PS3.7" />
+      <link rel="up" href="chapter_10.html" title="10 DIMSE-N" />
+      <link rel="prev" href="sect_10.2.html" title="10.2 Sequencing" />
+      <link rel="next" href="chapter_A.html" title="A Application Context Usage (Normative)" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">10.3 Protocol</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_10.2.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">10 DIMSE-N</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_A.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_10.3" shape="rect"></a>10.3 Protocol</h2>
+               </div>
+            </div>
+         </div>
+         <p>This section specifies the protocol necessary to perform the set of DIMSE-N operations and notifications. The Value Representations (VR) specified in the following tables shall be encoded as defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>.</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_10.3.1" shape="rect"></a>10.3.1 N-EVENT-REPORT Protocol</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The information necessary for the N-EVENT-REPORT request and indication DIMSE-N primitives are conveyed in the N-EVENT-REPORT-RQ Message. The information necessary for the N-EVENT-REPORT response and confirmation DIMSE-N primitives are conveyed in the N-EVENT-REPORT-RSP Message.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_10.3.1.1" shape="rect"></a>10.3.1.1 N-EVENT-REPORT-RQ</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The N-EVENT-REPORT-RQ Message contains fields as defined in <a class="xref" href="sect_10.3.html#table_10.3-1" title="Table 10.3-1. N-EVENT-REPORT-RQ Message Fields" shape="rect">Table 10.3-1</a>. Each field shall conform to DICOM encoding and Value Representation as defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>. Fields are required as specified in the N-EVENT-REPORT service definition unless otherwise noted in <a class="xref" href="sect_10.3.html#table_10.3-1" title="Table 10.3-1. N-EVENT-REPORT-RQ Message Fields" shape="rect">Table 10.3-1</a>. Fields not specified in the N-EVENT-REPORT service definition but present in <a class="xref" href="sect_10.3.html#table_10.3-1" title="Table 10.3-1. N-EVENT-REPORT-RQ Message Fields" shape="rect">Table 10.3-1</a> are required by the DIMSE-N protocol.</p>
+               <div class="table">
+                  <a id="table_10.3-1" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table 10.3-1. N-EVENT-REPORT-RQ Message Fields</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Message Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Tag</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VR</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VM</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Description of Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Group Length</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0000)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UL</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The even number of bytes from the end of the value field to the beginning of the next group.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Affected SOP Class UID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0002)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UI</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>SOP Class UID of the SOP Instance for which this event occurred.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Field</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0100)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field distinguishes the DIMSE-N notification conveyed by this Message. The value of this field shall be set to 0100H for the N-EVENT-REPORT-RQ Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Message ID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0110)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Implementation-specific value that distinguishes this Message from other Messages.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Data Set Type</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0800)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field indicates if a Data Set is present in the Message. This field shall be set to the value of 0101H if no Data Set is present; any other value indicates a Data Set is included in the Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Affected SOP Instance UID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,1000)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UI</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Contains the UID of the SOP Instance for which this event occurred.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Event Type ID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,1002)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Values for this field are application-specific.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Event Information</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(no tag)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>-</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>-</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Application-specific Data Set containing additional information related to the operation.</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="1">
+                        <li class="listitem">
+                           <p>Service Class Specifications contained in <a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a> defines the values needed for the Event Type ID parameter.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Service Class Specifications contained in <a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a> defines the Data Set needed for the Event Information parameter.</p>
+                        </li>
+                     </ol>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_10.3.1.2" shape="rect"></a>10.3.1.2 N-EVENT-REPORT-RSP</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The N-EVENT-REPORT-RSP Message contains fields as defined in <a class="xref" href="sect_10.3.html#table_10.3-2" title="Table 10.3-2. N-EVENT-REPORT-RSP Message Fields" shape="rect">Table 10.3-2</a> and <a class="xref" href="chapter_C.html" title="C Status Type Encoding (Normative)" shape="rect"> Annex C</a>. Each field shall conform to DICOM encoding and Value Representation as defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>. Fields are required as specified in the N-EVENT-REPORT service definition unless otherwise noted in <a class="xref" href="sect_10.3.html#table_10.3-2" title="Table 10.3-2. N-EVENT-REPORT-RSP Message Fields" shape="rect">Table 10.3-2</a>. Fields not specified in the N-EVENT-REPORT service definition but present in <a class="xref" href="sect_10.3.html#table_10.3-2" title="Table 10.3-2. N-EVENT-REPORT-RSP Message Fields" shape="rect">Table 10.3-2</a> are required by the DIMSE-N protocol.</p>
+               <div class="table">
+                  <a id="table_10.3-2" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table 10.3-2. N-EVENT-REPORT-RSP Message Fields</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Message Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Tag</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VR</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VM</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Description of Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Group Length</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0000)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UL</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The even number of bytes from the end of the value field to the beginning of the next group.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Affected SOP Class UID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0002)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UI</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>SOP Class UID of the SOP Instance for which this event occurred.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Field</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0100)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field distinguishes the DIMSE-N operation conveyed by this Message. The value of this field shall be set to 8100H for the N-EVENT-REPORT-RSP Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Message ID Being Responded To</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0120)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Shall be set to the value of the Message ID (0000,0110) field used in associated N-EVENT-REPORT-RQ Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Data Set Type</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0800)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field indicates if a Data Set is present in the Message. This field shall be set to the value of 0101H if no Data Set is present; any other value indicates a Data Set is included in the Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Status</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0900)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The value of this field depends upon the status type. <a class="xref" href="chapter_C.html" title="C Status Type Encoding (Normative)" shape="rect"> Annex C</a> defines the encoding of the status types defined in the service definition.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Affected SOP Instance UID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,1000)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UI</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Contains the UID of the SOP Instance for which this event occurred.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Event Type ID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,1002)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Values for this field are application-specific.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Event Reply</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(no tag)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>-</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>-</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Application-specific Data Set containing additional information related to the operation.</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="1">
+                        <li class="listitem">
+                           <p>Service Class Specifications contained in <a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a> defines the values needed for the Event Type ID parameter.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Service Class Specifications contained in <a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a> defines the Data Set needed for the Event Reply parameter related to each defined Event Type ID.</p>
+                        </li>
+                     </ol>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_10.3.1.3" shape="rect"></a>10.3.1.3 N-EVENT-REPORT Protocol Procedures</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The N-EVENT-REPORT reporting procedures are initiated by the invoking DIMSE-service-user issuing an N-EVENT-REPORT request primitive. On receipt of the N-EVENT-REPORT request primitive the DIMSE-N protocol machine shall:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>construct a Message conveying the N-EVENT-REPORT-RQ</p>
+                     </li>
+                     <li class="listitem">
+                        <p>send the Message using the P-DATA request service (see 8.1)</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>On receipt of a Message conveying an N-EVENT-REPORT-RQ the DIMSE-N protocol machine shall issue an N-EVENT-REPORT indication primitive to the performing DIMSE-service-user.</p>
+               <p>On receipt of the N-EVENT-REPORT response primitive issued by the performing DIMSE-service-user
+  <span class="bold">
+                     <strong>,</strong>
+                  </span>the DIMSE-N protocol machine shall:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>construct a Message conveying the N-EVENT-REPORT-RSP</p>
+                     </li>
+                     <li class="listitem">
+                        <p>send the Message using the P-DATA request service (see <a class="xref" href="chapter_8.html#sect_8.1" title="8.1 DIMSE Protocol" shape="rect">Section 8.1</a>)</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>On receipt of a Message conveying an N-EVENT-REPORT-RSP the DIMSE-N protocol machine shall issue an N-EVENT-REPORT confirmation primitive to the invoking DIMSE-service-user, thus completing the notification procedure.</p>
+               <p>The performing DIMSE-service-user may return an N-EVENT-REPORT-RSP with the status of Failed or Refused before the complete N-EVENT-REPORT-RQ request Message has been completely transmitted by the invoking DIMSE-service-user (this is called an early failed response). Upon receipt of this Failed or Refused N-EVENT-REPORT-RSP the invoking DIMSE-service-user may terminate the Message before it is completely sent (i.e., set the Last Fragment bit to 1 in a Data PDV for this Message, see <a class="xref" href="chapter_F.html" title="F Usage of the P-DATA Service By the DICOM Application Entity (Normative)" shape="rect"> Annex F</a>). Following this, it may invoke another operation or notification. It is a protocol violation for an invoking DIMSE-service-user to set the Last Fragment bit to 1 before an N-EVENT-REPORT-RQ Message has been completely transmitted if it has not received a Failed or Refused N-EVENT-REPORT-RSP to that request.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>When an Association is operating in asynchronous mode, it is possible for an invoking DIMSE-service-user to transmit several Messages before a response. Therefore, while sending a Message it may receive a response to a previously transmitted Message. In this case this response is not an early failed response because the related Message has already been sent.</p>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_10.3.2" shape="rect"></a>10.3.2 N-GET Protocol</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The information necessary for the N-GET request and indication DIMSE-N primitives are conveyed in the N-GET-RQ Message. The information necessary for the N-GET response and confirmation DIMSE-N primitives are conveyed in the N-GET-RSP Message.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_10.3.2.1" shape="rect"></a>10.3.2.1 N-GET-RQ</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The N-GET-RQ Message contains fields as defined in <a class="xref" href="sect_10.3.html#table_10.3-3" title="Table 10.3-3. N-GET-RQ Message Fields" shape="rect">Table 10.3-3</a>. Each field shall conform to DICOM encoding and Value Representation as defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>. Fields are required as specified in the N-GET service definition unless otherwise noted in <a class="xref" href="sect_10.3.html#table_10.3-3" title="Table 10.3-3. N-GET-RQ Message Fields" shape="rect">Table 10.3-3</a>. Fields not specified in the N-GET service definition but present in <a class="xref" href="sect_10.3.html#table_10.3-3" title="Table 10.3-3. N-GET-RQ Message Fields" shape="rect">Table 10.3-3</a> are required by the DIMSE-N protocol.</p>
+               <div class="table">
+                  <a id="table_10.3-3" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table 10.3-3. N-GET-RQ Message Fields</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Message Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Tag</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VR</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VM</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Description of Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Group Length</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0000)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UL</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The even number of bytes from the end of the value field to the beginning of the next group.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Requested SOP Class UID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0003)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UI</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>SOP Class UID of the SOP Instance for which Attribute Values are to be retrieved.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Field</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0100)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field distinguishes the DIMSE-N operation conveyed by this Message. The value of this field shall be set to 0110H for the N-GET-RQ Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Message ID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0110)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Implementation-specific value that distinguishes this Message from other Messages.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Data Set Type</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0800)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field indicates that no Data Set shall be present in the Message. This field shall be set to the value of 0101H).</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Requested SOP Instance UID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,1001)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UI</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Contains the UID of the SOP Instance for which Attribute Values are to be retrieved.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Attribute Identifier List</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,1005)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>AT</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1-n</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field contains an Attribute Tag for each of the n Attributes applicable to the N-GET operation.</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_10.3.2.2" shape="rect"></a>10.3.2.2 N-GET-RSP</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The N-GET-RSP Message contains fields as defined in <a class="xref" href="sect_10.3.html#table_10.3-4" title="Table 10.3-4. N-GET-RSP Message Fields" shape="rect">Table 10.3-4</a> and <a class="xref" href="chapter_C.html" title="C Status Type Encoding (Normative)" shape="rect"> Annex C</a>. Each field shall conform to DICOM encoding and Value Representation as defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>. Fields are required as specified in the N-GET service definition unless otherwise noted in <a class="xref" href="sect_10.3.html#table_10.3-4" title="Table 10.3-4. N-GET-RSP Message Fields" shape="rect">Table 10.3-4</a>. Fields not specified in the N-GET service definition but present in <a class="xref" href="sect_10.3.html#table_10.3-4" title="Table 10.3-4. N-GET-RSP Message Fields" shape="rect">Table 10.3-4</a> are required by the DIMSE-N protocol.</p>
+               <div class="table">
+                  <a id="table_10.3-4" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table 10.3-4. N-GET-RSP Message Fields</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Message Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Tag</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VR</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VM</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Description of Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Group Length</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0000)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UL</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The even number of bytes from the end of the value field to the beginning of the next group.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Affected SOP Class UID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0002)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UI</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>SOP Class UID of the SOP Instance for which Attribute Values are returned.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Field</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0100)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field distinguishes the DIMSE-N operation conveyed by this Message. The value of this field shall be set to 8110H for the N-GET-RSP Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Message ID Being Responded To</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0120)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Shall be set to the value of the Message ID (0000,0110) field used in associated N-GET-RQ Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Data Set Type</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0800)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field indicates if a Data Set is present in the Message. This field shall be set to the value of 0101H if no Data Set is present; any other value indicates a Data Set is included in the Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Status</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0900)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The value of this field depends upon the status type. <a class="xref" href="chapter_C.html" title="C Status Type Encoding (Normative)" shape="rect"> Annex C</a> defines the encoding of the status types defined in the service definition.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Affected SOP Instance UID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,1000)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UI</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Contains the UID of the SOP Instance for which Attribute Values are returned.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Attribute List</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(no tag)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>-</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>-</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>T his field is encoded as a Data Set. One Data Element is encoded for each Attribute Value returned.</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>The permitted contents of Attribute List, encoded as a series of Data Elements, are defined in the Information Object Definition (<a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>) and Service Class Specifications (<a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a>).</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_10.3.2.3" shape="rect"></a>10.3.2.3 N-GET Protocol Procedures</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The N-GET procedures are initiated by the invoking DIMSE-service-user issuing an N-GET request primitive. On receipt of the N-GET request primitive the DIMSE-N protocol machine shall:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>construct a Message conveying the N-GET-RQ</p>
+                     </li>
+                     <li class="listitem">
+                        <p>send the Message using the P-DATA request service (see 8.1)</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>On receipt of a Message conveying an N-GET-RQ the DIMSE-N protocol machine shall issue an N-GET indication primitive to the performing DIMSE-service-user.</p>
+               <p>On receipt of the N-GET response primitive, issued by the performing DIMSE-service-user, the DIMSE-N protocol machine shall:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>construct a Message conveying the N-GET-RSP</p>
+                     </li>
+                     <li class="listitem">
+                        <p>send the Message using the P-DATA request service (see 8.1)</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>On receipt of a Message conveying an N-GET-RSP the DIMSE-N protocol machine shall issue an N-GET confirmation primitive to the invoking DIMSE-service-user, thus completing the N-GET procedure.</p>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_10.3.3" shape="rect"></a>10.3.3 N-SET Protocol</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The information necessary for the N-SET request and indication DIMSE-N primitives are conveyed in the N-SET-RQ Message. The information necessary for the N-SET response and confirmation DIMSE-N primitives are conveyed in the N-SET-RSP Message. Fields not specified in the N-SET service definition but present in <a class="xref" href="sect_10.3.html#table_10.3-3" title="Table 10.3-3. N-GET-RQ Message Fields" shape="rect">Table 10.3-3</a> are required by the DIMSE-N protocol.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_10.3.3.1" shape="rect"></a>10.3.3.1 N-SET-RQ</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The N-SET-RQ Message contains fields as defined in <a class="xref" href="sect_10.3.html#table_10.3-5" title="Table 10.3-5. N-SET-RQ Message Fields" shape="rect">Table 10.3-5</a>. Each field shall conform to DICOM encoding and Value Representation as defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>. Fields are required as specified in the N-SET service definition unless otherwise noted in <a class="xref" href="sect_10.3.html#table_10.3-5" title="Table 10.3-5. N-SET-RQ Message Fields" shape="rect">Table 10.3-5</a>. Fields not specified in the N-SET service definition but present in <a class="xref" href="sect_10.3.html#table_10.3-5" title="Table 10.3-5. N-SET-RQ Message Fields" shape="rect">Table 10.3-5</a> are required by the DIMSE-N protocol.</p>
+               <div class="table">
+                  <a id="table_10.3-5" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table 10.3-5. N-SET-RQ Message Fields</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Message Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Tag</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VR</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VM</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Description of Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Group Length</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0000)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UL</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The even number of bytes from the end of the value field to the beginning of the next group.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Requested SOP Class UID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0003)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UI</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>SOP Class UID of the SOP Instance for which Attribute values are to be modified.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Field</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0100)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field distinguishes the DIMSE-N operation conveyed by this Message. The value of this field shall be set to 0120H for the N-SET-RQ Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Message ID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0110)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Implementation-specific value that distinguishes this Message from other Messages.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Data Set Type</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0800)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field indicates that a Data Set is present in the Message. It shall be set to any value other than 0101H (Null).</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Requested SOP Instance UID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,1001)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UI</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Contains the UID of the SOP Instance for which Attribute values are to be modified.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Modification List</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(no tag)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>-</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>-</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field is encoded as a Data Set. One Data Element is encoded for each Attribute and Attribute Value applicable to the operation.</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>The permitted contents of Modification List, encoded as a series of Data Elements, are defined in the Information Object Definition (<a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>) and Service Class Specifications (<a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a>).</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_10.3.3.2" shape="rect"></a>10.3.3.2 N-SET-RSP</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The N-SET-RSP Message contains all fields as defined in <a class="xref" href="sect_10.3.html#table_10.3-6" title="Table 10.3-6. N-SET-RSP Message Fields" shape="rect">Table 10.3-6</a> and in <a class="xref" href="chapter_C.html" title="C Status Type Encoding (Normative)" shape="rect"> Annex C</a>. Each field shall conform to DICOM encoding and Value Representation as defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>. Fields are required as specified in the N-SET service definition unless otherwise noted. Fields not specified in the N-SET service definition but present in <a class="xref" href="sect_10.3.html#table_10.3-6" title="Table 10.3-6. N-SET-RSP Message Fields" shape="rect">Table 10.3-6</a> are required by the DIMSE-N protocol.</p>
+               <div class="table">
+                  <a id="table_10.3-6" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table 10.3-6. N-SET-RSP Message Fields</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Message Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Tag</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VR</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VM</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Description of Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Group Length</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0000)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UL</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The even number of bytes from the end of the value field to the beginning of the next group.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Affected SOP Class UID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0002)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UI</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>SOP Class UID of the SOP Instance for which Attribute Values were modified.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Field</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0100)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field distinguishes the DIMSE-N operation conveyed by this Message. The value of this field shall be set to 8120H for the N-SET-RSP Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Message ID Being Responded To</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0120)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Shall be set to the value of the Message ID (0000,0110) field used in associated N-SET-RQ Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Data Set Type</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0800)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field indicates if a Data Set is present in the Message. This field shall be set to the value of 0101H if no Data Set is present; any other value indicates a Data Set is included in the Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Status</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0900)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The value of this field depends upon the status type. <a class="xref" href="chapter_C.html" title="C Status Type Encoding (Normative)" shape="rect"> Annex C</a> defines the encoding of the status types defined in the service definition.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Affected SOP Instance UID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,1000)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UI</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Contains the UID of the SOP Instance for which Attribute Values were modified.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Attribute List</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(no tag)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>-</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>-</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field is encoded as a Data Set. One Data Element is encoded for each Attribute and Attribute Value applicable to the operation.</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>The permitted contents of Attribute List, encoded as a series of Data Elements, are defined in the Information Object Definition (<a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>) and Service Class Specifications (<a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a>).</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_10.3.3.3" shape="rect"></a>10.3.3.3 N-SET Protocol Procedures</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The N-SET procedures are initiated by the invoking DIMSE-service-user issuing an N-SET request primitive. On receipt of the N-SET request primitive the DIMSE-N protocol machine shall:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>construct a Message conveying the N-SET-RQ</p>
+                     </li>
+                     <li class="listitem">
+                        <p>send the Message using the P-DATA request service (see 8.1)</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>On receipt of a Message conveying an N-SET-RQ the DIMSE-N protocol machine shall issue an N-SET indication primitive to the performing DIMSE-service-user.</p>
+               <p>On receipt of the N-SET response primitive, issued by the performing DIMSE-service-user, the DIMSE-N protocol machine shall:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>construct a Message conveying the N-SET-RSP</p>
+                     </li>
+                     <li class="listitem">
+                        <p>send the Message using the P-DATA request service (see 8.1)</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>On receipt of a Message conveying an N-SET-RSP the DIMSE-N protocol machine shall issue an N-SET confirmation primitive to the invoking DIMSE-service-user, thus completing the N-SET procedure.</p>
+               <p>The performing DIMSE-service-user may return an N-SET-RSP with the status of Failed or Refused before the complete N-SET-RQ request Message has been completely transmitted by the invoking DIMSE-service-user (this is called an early failed response). Upon receipt of this Failed or Refused N-SET-RSP the invoking DIMSE-service-user may terminate the Message before it is completely sent (i.e., set the Last Fragment bit to 1 in a Data PDV for this Message, see <a class="xref" href="chapter_F.html" title="F Usage of the P-DATA Service By the DICOM Application Entity (Normative)" shape="rect"> Annex F</a>). Following this, it may invoke another operation or notification. It is a protocol violation for an invoking DIMSE-service-user to set the Last Fragment bit to 1 before an N-SET-RQ Message has been completely transmitted if it has not received a Failed or Refused N-SET-RSP to that request.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>When an Association is operating in asynchronous mode, it is possible for an invoking DIMSE-service-user to transmit several Messages before a response. Therefore, while sending a Message it may receive a response to a previously transmitted Message. In this case this response is not an early failed response because the related Message has already been sent.</p>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_10.3.4" shape="rect"></a>10.3.4 N-ACTION Protocol</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The information necessary for the N-ACTION request and indication DIMSE-N primitives are conveyed in the N-ACTION-RQ Message. The information necessary for the N-ACTION response and confirmation DIMSE-N primitives are conveyed in the N-ACTION-RSP Message.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_10.3.4.1" shape="rect"></a>10.3.4.1 N-ACTION-RQ</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The N-ACTION-RQ Message contains fields as defined in <a class="xref" href="sect_10.3.html#table_10.3-7" title="Table 10.3-7. N-ACTION-RQ Message Fields" shape="rect">Table 10.3-7</a>. Each field shall conform to DICOM encoding and Value Representation as defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>. Fields are required as specified in the N-ACTION service definition unless otherwise noted in <a class="xref" href="sect_10.3.html#table_10.3-7" title="Table 10.3-7. N-ACTION-RQ Message Fields" shape="rect">Table 10.3-7</a>. Fields not specified in the N-ACTION service definition but present in <a class="xref" href="sect_10.3.html#table_10.3-7" title="Table 10.3-7. N-ACTION-RQ Message Fields" shape="rect">Table 10.3-7</a> are required by the DIMSE-N protocol.</p>
+               <div class="table">
+                  <a id="table_10.3-7" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table 10.3-7. N-ACTION-RQ Message Fields</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Message Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Tag</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VR</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VM</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Description of Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Group Length</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0000)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UL</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The even number of bytes from the end of the value field to the beginning of the next group.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Requested SOP Class UID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0003)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UI</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>SOP Class UID of the SOP Instance for which the action is to be performed.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Field</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0100)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field distinguishes the DIMSE-N operation conveyed by this Message. The value of this field shall be set to 0130H for the N-ACTION-RQ Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Message ID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0110)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Implementation-specific value that distinguishes this Message from other Messages.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Data Set Type</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0800)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field indicates if a Data Set is present in the Message. This field shall be set to the value of 0101H if no Data Set is present; any other value indicates a Data Set is included in the Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Requested SOP Instance UID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,1001)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UI</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Contains the UID of the SOP Instance for which the action is to be performed.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Action Type ID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,1008)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Values for this field are application-specific.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Action Information</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(no tag)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>-</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>-</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Application-specific Data Set containing additional information related to the operation.</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="1">
+                        <li class="listitem">
+                           <p>Service Class Specifications contained in <a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a> define the values needed for the Action Type ID (0000,1008) parameter.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Service Class Specifications contained in <a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a> define the Data Set needed for the Action Information parameter.</p>
+                        </li>
+                     </ol>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_10.3.4.2" shape="rect"></a>10.3.4.2 N-ACTION-RSP</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The N-ACTION-RSP Message contains fields as defined in <a class="xref" href="sect_10.3.html#table_10.3-8" title="Table 10.3-8. N-ACTION-RSP Message Fields" shape="rect">Table 10.3-8</a> and <a class="xref" href="chapter_C.html" title="C Status Type Encoding (Normative)" shape="rect"> Annex C</a>. Each field shall conform to DICOM encoding and Value Representation as defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>. Fields are required as specified in the N-ACTION service definition unless otherwise noted in <a class="xref" href="sect_10.3.html#table_10.3-8" title="Table 10.3-8. N-ACTION-RSP Message Fields" shape="rect">Table 10.3-8</a>. Fields not specified in the N-ACTION service definition but present in <a class="xref" href="sect_10.3.html#table_10.3-8" title="Table 10.3-8. N-ACTION-RSP Message Fields" shape="rect">Table 10.3-8</a> are required by the DIMSE-N protocol.</p>
+               <div class="table">
+                  <a id="table_10.3-8" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table 10.3-8. N-ACTION-RSP Message Fields</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Message Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Tag</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VR</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VM</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Description of Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Group Length</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0000)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UL</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The even number of bytes from the end of the value field to the beginning of the next group.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Affected SOP Class UID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0002)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UI</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>SOP Class UID of the SOP Instance for which the action was performed.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Field</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0100)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field distinguishes the DIMSE-N operation conveyed by this Message. The value of this field shall be set to 8130H for the N-ACTION-RSP Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Message ID Being Responded To</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0120)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Shall be set to the value of the Message ID (0000,0110) field used in associated N-ACTION-RQ Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Data Set Type</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0800)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field indicates if a Data Set is present in the Message. This field shall be set to the value of 0101H if no Data Set is present; any other value indicates a Data Set is included in the Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Status</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0900)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The value of this field depends upon the status type. <a class="xref" href="chapter_C.html" title="C Status Type Encoding (Normative)" shape="rect"> Annex C</a> defines the encoding of the status types defined in the service definition.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Affected SOP Instance UID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,1000)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UI</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Contains the UID of the SOP Instance for which the action was performed.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Action Type ID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,1008)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Values for this field are application-specific.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Action Reply</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(no tag)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>-</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>-</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Application-specific Data Set containing additional information related to the operation.</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="1">
+                        <li class="listitem">
+                           <p>Service Class Specifications contained in <a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a> define the values needed for the Action Type ID (0000,1008) parameter.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Service Class Specifications contained in <a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a> define the Data Set needed for the Action Reply parameter related to each defined Action Type ID.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Service Class Specifications contained in <a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a> define the encoding of the Action Reply parameter.</p>
+                        </li>
+                     </ol>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_10.3.4.3" shape="rect"></a>10.3.4.3 N-ACTION Protocol Procedures</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The N-ACTION procedures are initiated by the invoking DIMSE-service-user issuing an N-ACTION request primitive. On receipt of the N-ACTION request primitive the DIMSE-N protocol machine shall:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>construct a Message conveying the N-ACTION-RQ</p>
+                     </li>
+                     <li class="listitem">
+                        <p>send the Message using the P-DATA request service (see 8.1)</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>On receipt of a Message conveying an N-ACTION-RQ the DIMSE-N protocol machine shall issue an N-ACTION indication primitive to the performing DIMSE-service-user.</p>
+               <p>On receipt of the N-ACTION response primitive, issued by the performing DIMSE-service-user, the DIMSE-N protocol machine shall:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>construct a Message conveying the N-ACTION-RSP</p>
+                     </li>
+                     <li class="listitem">
+                        <p>send the Message using the P-DATA request service (see 8.1)</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>On receipt of a Message conveying an N-ACTION-RSP the DIMSE-N protocol machine shall issue an N-ACTION confirmation primitive to the invoking DIMSE-service-user, thus completing the N-ACTION procedure.</p>
+               <p>The performing DIMSE-service-user may return an N-ACTION-RSP with the status of Failed or Refused before the complete N-ACTION-RQ request Message has been completely transmitted by the invoking DIMSE-service-user (this is called an early failed response). Upon receipt of this Failed or Refused N-ACTION-RSP the invoking DIMSE-service-user may terminate the Message before it is completely sent (i.e., set the Last Fragment bit to 1 in a Data PDV for this Message, see <a class="xref" href="chapter_F.html" title="F Usage of the P-DATA Service By the DICOM Application Entity (Normative)" shape="rect"> Annex F</a>). Following this, it may invoke another operation or notification. It is a protocol violation for an invoking DIMSE-service-user to set the Last Fragment bit to 1 before an N-ACTION-RQ Message has been completely transmitted if it has not received a Failed or Refused N-ACTION-RSP to that request.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>When an Association is operating in asynchronous mode, it is possible for an invoking DIMSE-service-user to transmit several Messages before a response. Therefore, while sending a Message it may receive a response to a previously transmitted Message. In this case this response is not an early failed response because the related Message has already been sent.</p>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_10.3.5" shape="rect"></a>10.3.5 N-CREATE Protocol</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The information necessary for the N-CREATE request and indication DIMSE-N primitives are conveyed in the N-CREATE-RQ Message. The information necessary for the N-CREATE response and confirmation DIMSE-N primitives are conveyed in the N-CREATE-RSP Message.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_10.3.5.1" shape="rect"></a>10.3.5.1 N-CREATE-RQ</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The N-CREATE-RQ Message contains fields as defined in <a class="xref" href="sect_10.3.html#table_10.3-9" title="Table 10.3-9. N-CREATE-RQ Message Fields" shape="rect">Table 10.3-9</a>. Each field shall conform to DICOM encoding and Value Representation as defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>. Fields are required as specified in the N-CREATE service definition unless otherwise noted in <a class="xref" href="sect_10.3.html#table_10.3-9" title="Table 10.3-9. N-CREATE-RQ Message Fields" shape="rect">Table 10.3-9</a>. Fields not specified in the N-CREATE service definition but present in <a class="xref" href="sect_10.3.html#table_10.3-9" title="Table 10.3-9. N-CREATE-RQ Message Fields" shape="rect">Table 10.3-9</a> are required by the DIMSE-N protocol.</p>
+               <div class="table">
+                  <a id="table_10.3-9" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table 10.3-9. N-CREATE-RQ Message Fields</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Message Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Tag</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VR</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VM</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Description of Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Group Length</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0000)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UL</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The even number of bytes from the end of the value field to the beginning of the next group.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Affected SOP Class UID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0002)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UI</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>SOP Class UID of the SOP Instance to be created.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Field</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0100)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field distinguishes the DIMSE-N operation conveyed by this Message. The value of this field shall be set to 0140H for the N-CREATE-RQ Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Message ID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0110)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Implementation-specific value that distinguishes this Message from other Messages.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Data Set Type</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0800)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field indicates that if a Data Set is present in the Message. This field shall be set to the value of 0101H if no Data Set is present; any other value indicates a Data Set is included in the Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Affected SOP Instance UID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,1000)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UI</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Contains the UID of the SOP Instance to be created.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Attribute List</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(no tag)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>-</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>-</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field is encoded as a Data Set. One Data Element is encoded for each Attribute and Attribute Value applicable to the operation.</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>The permitted contents of Attribute List, encoded as a series of Data Elements, are defined in the Information Object Definition (<a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>) and Service Class Specifications (<a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a>).</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_10.3.5.2" shape="rect"></a>10.3.5.2 N-CREATE-RSP</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The N-CREATE-RSP Message contains fields as defined in <a class="xref" href="sect_10.3.html#table_10.3-10" title="Table 10.3-10. N-CREATE-RSP Message Fields" shape="rect">Table 10.3-10</a> and <a class="xref" href="chapter_C.html" title="C Status Type Encoding (Normative)" shape="rect"> Annex C</a>. Each field shall conform to DICOM encoding and Value Representation as defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>. Fields are required as specified in the N-CREATE service definition unless otherwise noted in Table10.3-10. Fields not specified in the N-CREATE service definition but present in <a class="xref" href="sect_10.3.html#table_10.3-10" title="Table 10.3-10. N-CREATE-RSP Message Fields" shape="rect">Table 10.3-10</a> are required by the DIMSE-N protocol.</p>
+               <div class="table">
+                  <a id="table_10.3-10" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table 10.3-10. N-CREATE-RSP Message Fields</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Message Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Tag</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VR</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VM</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Description of Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Group Length</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0000)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UL</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The even number of bytes from the end of the value field to the beginning of the next group.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Affected SOP Class UID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0002)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UI</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>SOP Class UID of the SOP Instance that was created.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Field</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0100)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field distinguishes the DIMSE-N operation conveyed by this Message. The value of this field shall be set to 8140H for the N-CREATE-RSP Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Message ID Being Responded To</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0120)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Shall be set to the value of the Message ID (0000,0110) field used in associated N-CREATE-RQ Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Data Set Type</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0800)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field indicates if a Data Set is present in the Message. This field shall be set to the value of 0101H if no Data Set is present; any other value indicates a Data Set is included in the Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Status</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0900)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The value of this field depends upon the status type. <a class="xref" href="chapter_C.html" title="C Status Type Encoding (Normative)" shape="rect"> Annex C</a> defines the encoding of the status types defined in the service definition.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Affected SOP Instance UID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,1000)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UI</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Contains the UID of the SOP Instance that was created.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Attribute List</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(no tag)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>-</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>-</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field is encoded as a Data Set. One Data Element is encoded for each Attribute and Attribute Value applicable to the operation.</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>The permitted contents of Attribute List, encoded as a series of Data Elements, are defined in the Information Object Definition (<a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>) and Service Class Specifications (<a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a>).</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_10.3.5.3" shape="rect"></a>10.3.5.3 N-CREATE Protocol Procedures</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The N-CREATE procedures are initiated by the invoking DIMSE-service-user issuing an N-CREATE request primitive. On receipt of the N-CREATE request primitive the DIMSE-N protocol machine shall:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>construct a Message conveying the N-CREATE-RQ</p>
+                     </li>
+                     <li class="listitem">
+                        <p>send the Message using the P-DATA request service (see 8.1)</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>On receipt of a Message conveying an N-CREATE-RQ the DIMSE-N protocol machine shall issue an N-CREATE indication primitive to the performing DIMSE-service-user.</p>
+               <p>On receipt of the N-CREATE response primitive, issued by the performing DIMSE-service-user, the DIMSE-N protocol machine shall:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>construct a Message conveying the N-CREATE-RSP</p>
+                     </li>
+                     <li class="listitem">
+                        <p>send the Message using the P-DATA request service (see 8.1)</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>On receipt of a Message conveying an N-CREATE-RSP the DIMSE-N protocol machine shall issue an N-CREATE confirmation primitive to the invoking DIMSE-service-user, thus completing the N-CREATE procedure.</p>
+               <p>The performing DIMSE-service-user may return an N-CREATE-RSP with the status of Failed or Refused before the complete N-CREATE-RQ request Message has been completely transmitted by the invoking DIMSE-service-user (this is called an early failed response). Upon receipt of this Failed or Refused N-CREATE-RSP the invoking DIMSE-service-user may terminate the Message before it is completely sent (i.e., set the Last Fragment bit to 1 in a Data PDV for this Message, see <a class="xref" href="chapter_F.html" title="F Usage of the P-DATA Service By the DICOM Application Entity (Normative)" shape="rect"> Annex F</a>). Following this, it may invoke another operation or notification. It is a protocol violation for an invoking DIMSE-service-user to set the Last Fragment bit to 1 before an N-CREATE-RQ Message has been completely transmitted if it has not received a Failed or Refused N-CREATE-RSP to that request.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>When an Association is operating in asynchronous mode, it is possible for an invoking DIMSE-service-user to transmit several Messages before a response. Therefore, while sending a Message it may receive a response to a previously transmitted Message. In this case this response is not an early failed response because the related Message has already been sent.</p>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_10.3.6" shape="rect"></a>10.3.6 N-DELETE Protocol</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The information necessary for the N-DELETE request and indication DIMSE-N primitives are conveyed in the N-DELETE-RQ Message. The information necessary for the N-DELETE response and confirmation DIMSE-N primitives are conveyed in the N-DELETE-RSP Message.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_10.3.6.1" shape="rect"></a>10.3.6.1 N-DELETE-RQ</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The N-DELETE-RQ Message contains fields as defined in <a class="xref" href="sect_10.3.html#table_10.3-11" title="Table 10.3-11. N-DELETE-RQ Message Fields" shape="rect">Table 10.3-11</a>. Each field shall conform to DICOM encoding and Value Representation as defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>. Fields are required as specified in the N-DELETE service definition unless otherwise noted in <a class="xref" href="sect_10.3.html#table_10.3-11" title="Table 10.3-11. N-DELETE-RQ Message Fields" shape="rect">Table 10.3-11</a>. Fields not specified in the N-DELETE service definition but present in <a class="xref" href="sect_10.3.html#table_10.3-11" title="Table 10.3-11. N-DELETE-RQ Message Fields" shape="rect">Table 10.3-11</a> are required by the DIMSE-N protocol.</p>
+               <div class="table">
+                  <a id="table_10.3-11" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table 10.3-11. N-DELETE-RQ Message Fields</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Message Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Tag</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VR</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VM</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Description of Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Group Length</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0000)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UL</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The even number of bytes from the end of the value field to the beginning of the next group.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Requested SOP Class UID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0003)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UI</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>SOP Class UID of the SOP Instance to be deleted.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Field</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0100)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field distinguishes the DIMSE-N operation conveyed by this Message. The value of this field shall be set to 0150H for the N-DELETE-RQ Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Message ID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0110)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Implementation-specific value that distinguishes this Message from other Messages.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Data Set Type</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0800)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field indicates that no Data Set is present in the Message. It shall be set to the value of 0101H.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Requested SOP Instance UID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,1001)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UI</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Contains the UID of the SOP Instance to be deleted.</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_10.3.6.2" shape="rect"></a>10.3.6.2 N-DELETE-RSP</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The N-DELETE-RSP Message contains fields as defined in <a class="xref" href="sect_10.3.html#table_10.3-12" title="Table 10.3-12. N-DELETE-RSP Message Fields" shape="rect">Table 10.3-12</a> and <a class="xref" href="chapter_C.html" title="C Status Type Encoding (Normative)" shape="rect"> Annex C</a>. Each field shall conform to DICOM encoding and Value Representation as defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>. Fields are required as specified in the N-DELETE service definition unless otherwise noted in <a class="xref" href="sect_10.3.html#table_10.3-12" title="Table 10.3-12. N-DELETE-RSP Message Fields" shape="rect">Table 10.3-12</a>. Fields not specified in the N-DELETE service definition but present in <a class="xref" href="sect_10.3.html#table_10.3-12" title="Table 10.3-12. N-DELETE-RSP Message Fields" shape="rect">Table 10.3-12</a> are required by the DIMSE-N protocol.</p>
+               <div class="table">
+                  <a id="table_10.3-12" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table 10.3-12. N-DELETE-RSP Message Fields</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Message Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Tag</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VR</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VM</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Description of Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Group Length</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0000)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UL</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The even number of bytes from the end of the value field to the beginning of the next group.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Affected SOP Class UID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0002)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UI</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>SOP Class UID of the SOP Instance that was deleted.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Field</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0100)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field distinguishes the DIMSE-N operation conveyed by this Message. The value of this field shall be set to 8150H for the N-DELETE-RSP Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Message ID Being Responded To</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0120)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Shall be set to the value of the Message ID (0000,0110) field used in associated N-DELETE-RQ Message.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Command Data Set Type</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0800)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This field indicates that no Data Set is present in the Message. This field shall be set to the value of 0101H).</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Status</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,0900)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>US</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>The value of this field depends upon the status type. <a class="xref" href="chapter_C.html" title="C Status Type Encoding (Normative)" shape="rect"> Annex C</a> defines the encoding of the status types defined in the service definition.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Affected SOP Instance UID</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0000,1000)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>UI</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Contains the UID of the SOP Instance that was deleted.</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_10.3.6.3" shape="rect"></a>10.3.6.3 N-DELETE Protocol Procedures</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The N-DELETE procedures are initiated by the invoking DIMSE-service-user issuing an N-DELETE request primitive. On receipt of the N-DELETE request primitive the DIMSE-N protocol machine shall:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>construct a Message conveying the N-DELETE-RQ</p>
+                     </li>
+                     <li class="listitem">
+                        <p>end the Message using the P-DATA request service (see 8.1)</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>On receipt of a Message conveying an N-DELETE-RQ the DIMSE-N protocol machine shall issue an N-DELETE indication primitive to the performing DIMSE-service-user.</p>
+               <p>On receipt of the N-DELETE response primitive, issued by the performing DIMSE-service-user, the DIMSE-N protocol machine shall:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>construct a Message conveying the N-DELETE-RSP</p>
+                     </li>
+                     <li class="listitem">
+                        <p>send the Message using the P-DATA request service (see 8.1)</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>On receipt of a Message conveying an N-DELETE-RSP the DIMSE-N protocol machine shall issue an N-DELETE confirmation primitive to the invoking DIMSE-service-user, thus completing the N-DELETE procedure.</p>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_10.2.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_10.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_A.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">10.2 Sequencing </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.7.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> A Application Context Usage (Normative)</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

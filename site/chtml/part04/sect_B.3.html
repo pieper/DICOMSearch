@@ -1,0 +1,587 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>B.3 Association Negotiation</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.4.html" title="PS3.4" />
+      <link rel="up" href="chapter_B.html" title="B Storage Service Class (Normative)" />
+      <link rel="prev" href="sect_B.2.html" title="B.2 Behavior" />
+      <link rel="next" href="sect_B.4.html" title="B.4 Conformance" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">B.3 Association Negotiation</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_B.2.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">B Storage Service Class (Normative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_B.4.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_B.3" shape="rect"></a>B.3 Association Negotiation</h2>
+               </div>
+            </div>
+         </div>
+         <p>SCUs and SCPs of Storage SOP Classes operate on SOP Instances specific to the SOP Class. They may use the SOP Class Extended Negotiation Sub-Item defined in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>. This Sub-Item allows DICOM AEs to exchange application information specific to SOP Class specifications. This is achieved by defining the Service-class-application-information field.</p>
+         <p>SCUs may use the SOP Class Common Extended Negotiation Sub-Item defined in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>. This Sub-Item allows DICOM AEs to exchange information about the nature of the SOP Classes.</p>
+         <p>The SOP Class Extended Negotiation Sub-Item and SOP Class Common Extended Negotiation Sub-Item negotiation is optional for storage based SOP Classes.</p>
+         <p>The following negotiation rules apply to all DICOM SOP Classes and Specialized SOP Classes of the Storage Service Class.</p>
+         <p>The Association-requester (Storage SCU role) in the A-ASSOCIATE request shall convey:</p>
+         <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+               <li class="listitem">
+                  <p>one Abstract Syntax, in a Presentation Context, for each supported SOP Class of the Storage Service Class</p>
+               </li>
+               <li class="listitem">
+                  <p>optionally, one SOP Class Extended Negotiation Sub-Item, for each supported SOP Class of the Storage Service Class</p>
+               </li>
+               <li class="listitem">
+                  <p>optionally, one SOP Class Common Extended Negotiation Sub-Item, for each supported SOP Class of the Storage Service Class</p>
+               </li>
+            </ul>
+         </div>
+         <p>The Association-acceptor (Storage SCP role) in the A-ASSOCIATE request shall accept:</p>
+         <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+               <li class="listitem">
+                  <p>one Abstract Syntax, in a Presentation Context, for each supported SOP Class of the Storage Service Class</p>
+               </li>
+               <li class="listitem">
+                  <p>optionally, one SOP Class Extended Negotiation Sub-Item, for each supported SOP Class of the Storage Service Class</p>
+               </li>
+            </ul>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_B.3.1" shape="rect"></a>B.3.1 Extended Negotiation</h3>
+                  </div>
+               </div>
+            </div>
+            <p>At the time of Association establishment implementations may exchange information about their respective capabilities, as described in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a> and <a href="../part08/PS3.8.html" class="olink" shape="rect">PS3.8</a>. SCUs and SCPs may use the SOP Class Extended Negotiation Sub-Item Structure as described in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a> to exchange information about the level of conformance and options supported. SCUs may use the SOP Class Common Extended Negotiation Sub-Item defined in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a> to exchange information about the nature of the SOP Classes.</p>
+            <p>Extended negotiation is optional. In the event that either the SCU or the SCP does not support extended negotiation, the defaults shall apply.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_B.3.1.1" shape="rect"></a>B.3.1.1 Service-Class-Application-Information (A-ASSOCIATE-RQ)</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The SOP Class Extended Negotiation Sub-item is made of a sequence of mandatory fields as defined by <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>. <a class="xref" href="sect_B.3.html#table_B.3-1" title="Table B.3-1. Service-Class-Application-Information (A-ASSOCIATE-RQ)" shape="rect">Table B.3-1</a> shows the format of the Service-class-application-information field of the SOP Class Extended Negotiation Sub-Item for SOP Classes of the Storage Service Class in the A-ASSOCIATE-RQ.</p>
+               <div class="table">
+                  <a id="table_B.3-1" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table B.3-1. Service-Class-Application-Information (A-ASSOCIATE-RQ)</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Item Bytes</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Field Name</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Description of Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Level of support</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This byte field defines the supported storage level of the Association-requester. It shall be encoded as an unsigned binary integer and shall use one of the following values:</p>
+                                 <p>0 - level 0 SCP</p>
+                                 <p>1 - level 1 SCP</p>
+                                 <p>2 - level 2 SCP</p>
+                                 <p>3 - N/A Association-requester is SCU only</p>
+                                 <p>If extended negotiation is not supported, the default shall have a value of 3.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>2</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Reserved</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This reserved field shall be sent with a value 00H but not tested to this value when received.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>3</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Level of Digital Signature support</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>A Level 2 SCP may further define its behavior in this byte field.</p>
+                                 <p>0 - The signature level is unspecified, the AE is an SCU only, or the AE is not a level 2 SCP</p>
+                                 <p>1 - signature level 1</p>
+                                 <p>2 - signature level 2</p>
+                                 <p>3 - signature level 3</p>
+                                 <p>If extended negotiation is not supported, the default shall have a value of 0.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>4</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Reserved</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This reserved field shall be sent with a value 00H but not tested to this value when received.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>5</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Element Coercion</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This byte field defines whether the Association-requester may coerce Data Elements. It shall be encoded as an unsigned binary integer and shall use one of the following values:</p>
+                                 <p>0 - does not coerce any Data Element</p>
+                                 <p>1 - may coerce Data Elements</p>
+                                 <p>2 - N/A - Association-requester is SCU only</p>
+                                 <p>If extended negotiation is not supported, the default shall have a value of 2.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>6</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Reserved</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This reserved field shall be sent with a value 00H but not tested to this value when received.</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_B.3.1.2" shape="rect"></a>B.3.1.2 Service-Class-Application-Information (A-ASSOCIATE-AC)</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The SOP Class Extended Negotiation Sub-item is made of a sequence of mandatory fields as defined by <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>. <a class="xref" href="sect_B.3.html#table_B.3-2" title="Table B.3-2. Service-Class-Application-Information (A-ASSOCIATE-AC)" shape="rect">Table B.3-2</a> shows the format of the Service-class-application-information field of the SOP Class Extended Negotiation Sub-Item for SOP Classes of the Storage Service Class in the A-ASSOCIATE-AC.</p>
+               <div class="table">
+                  <a id="table_B.3-2" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table B.3-2. Service-Class-Application-Information (A-ASSOCIATE-AC)</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Item Bytes</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Field Name</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Description of Field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Level of support</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This byte field defines the supported storage level of the Association-acceptor. It shall be encoded as an unsigned binary integer and shall use one of the following values:</p>
+                                 <p>0 - level 0 SCP</p>
+                                 <p>1 - level 1 SCP</p>
+                                 <p>2 - level 2 SCP</p>
+                                 <p>3 - N/A - Association-acceptor is SCU only</p>
+                                 <p>If extended negotiation is not supported, no assumptions shall be made by the Association-requester about the capabilities of the Association-acceptor based upon this extended negotiation.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>2</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Reserved</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This reserved field shall be sent with a value 00H but not tested to this value when received.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>3</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Level of Digital Signature support</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>A Level 2 SCP may further define its behavior in this byte field.</p>
+                                 <p>0 - The signature level is unspecified, the AE is an SCU only, or the AE is not a level 2 SCP</p>
+                                 <p>1 - signature level 1</p>
+                                 <p>2 - signature level 2</p>
+                                 <p>3 - signature level 3</p>
+                                 <p>If extended negotiation is not supported, no assumptions shall be made by the Association-requester about the capabilities of the Association-acceptor based upon this extended negotiation.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>4</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Reserved</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This reserved field shall be sent with a value 00H but not tested to this value when received.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>5</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Element Coercion</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This byte field defines whether the Association-acceptor may coerce Data Elements. It shall be encoded as an unsigned binary integer and shall use one of the following values:</p>
+                                 <p>0 - does not coerce any Data Element</p>
+                                 <p>1 - may coerce Data Elements</p>
+                                 <p>2 - N/A - Association-acceptor is SCU only</p>
+                                 <p>If extended negotiation is not supported, no assumptions shall be made by the Association-requester about the capabilities of the Association-acceptor based upon this extended negotiation.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>6</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Reserved</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This reserved field shall be sent with a value 00H but not tested to this value when received.</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_B.3.1.3" shape="rect"></a>B.3.1.3 Service Class UID (A-ASSOCIATE-RQ)</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>SOP Class Common Extended Negotiation Sub-Item allows the SCU to convey the Service Class UID of each proposed SOP Class.</p>
+               <p>The Storage Service Class UID shall be "1.2.840.10008.4.2".</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_B.3.1.4" shape="rect"></a>B.3.1.4 Related General SOP Classes (A-ASSOCIATE-RQ)</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>A limited set of Standard SOP Classes in the Storage Service Class are defined to have one or more Related General SOP Classes. The Related General SOP Classes may be conveyed using the SOP Class Relationship Extended Negotiation during association establishment as defined in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>. <a class="xref" href="sect_B.3.html#table_B.3-3" title="Table B.3-3. Standard and Related General SOP Classes" shape="rect">Table B.3-3</a> identifies which Standard SOP Classes participate in this mechanism. If a Standard SOP Class is not listed in this table, Related General SOP Classes shall not be included in a Related Storage SOP Class Extended Negotiation Sub-Item.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>Implementation-defined Specialized SOP Classes (see <a href="../part02/PS3.2.html" class="olink" shape="rect">PS3.2</a>) of the Storage Service Class may convey a Related General SOP Class.</p>
+               </div>
+               <div class="table">
+                  <a id="table_B.3-3" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table B.3-3. Standard and Related General SOP Classes</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>SOP Class Name</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Related General SOP Class Name</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>12-lead ECG Waveform Storage</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>General ECG Waveform Storage</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Digital Mammography X-Ray Image Storage - For Presentation</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Digital X-Ray Image Storage - For Presentation</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Digital Mammography X-Ray Image Storage - For Processing</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Digital X-Ray Image Storage - For Processing</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Digital Intra-Oral X-Ray Image Storage - For Presentation</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Digital X-Ray Image Storage - For Presentation</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Digital Intra-Oral X-Ray Image Storage - For Processing</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Digital X-Ray Image Storage - For Processing</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="3" colspan="1">
+                                 <p>Basic Text SR</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Enhanced SR</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Comprehensive SR</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Comprehensive 3D SR</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="2" colspan="1">
+                                 <p>Enhanced SR</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Comprehensive SR</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Comprehensive 3D SR</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="3" colspan="1">
+                                 <p>Procedure Log</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Enhanced SR</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Comprehensive SR</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Comprehensive 3D SR</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="3" colspan="1">
+                                 <p>X-Ray Radiation Dose SR</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Enhanced SR</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Comprehensive SR</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Comprehensive 3D SR</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="3" colspan="1">
+                                 <p>Radiopharmaceutical Radiation Dose SR</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Enhanced SR</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Comprehensive SR</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Comprehensive 3D SR</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Spectacle Prescription Report</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Enhanced SR</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Macular Grid Thickness and Volume Report</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Enhanced SR</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Enhanced CT Image Storage</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Legacy Converted Enhanced CT Image Storage</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Enhanced MR Image Storage</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Legacy Converted Enhanced MR Image Storage</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Enhanced PET Image Storage</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Legacy Converted Enhanced PET Image Storage</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_B.2.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_B.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_B.4.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">B.2 Behavior </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.4.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> B.4 Conformance</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,1053 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>F.3 Transformation with other DICOM Formats</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.18.html" title="PS3.18" />
+      <link rel="up" href="chapter_F.html" title="F DICOM JSON Model" />
+      <link rel="prev" href="sect_F.2.html" title="F.2 DICOM JSON Model" />
+      <link rel="next" href="sect_F.4.html" title="F.4 DICOM JSON Model Example" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">F.3 Transformation with other DICOM Formats</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_F.2.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">F DICOM JSON Model</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_F.4.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_F.3" shape="rect"></a>F.3 Transformation with other DICOM Formats</h2>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_F.3.1" shape="rect"></a>F.3.1 Native DICOM Model XML</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The transformation between the Native DICOM Model XML and the DICOM JSON model cannot be done through the use of generic XML - JSON converters.</p>
+            <p>The mapping between the two formats is as follows (see also <a class="xref" href="sect_F.3.html#table_F.3.1-1" title="Table F.3.1-1. XML to JSON Mapping" shape="rect">Table F.3.1-1</a>):</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>The XML "NativeDicomModel" element maps to the DICOM JSON Model Object</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Each "DicomAttribute" element maps to an attribute object within the DICOM JSON model object</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: circle; ">
+                           <li class="listitem">
+                              <p>The "tag" attribute maps to the JSON object name</p>
+                              <div class="itemizedlist">
+                                 <ul class="itemizedlist" style="list-style-type: square; ">
+                                    <li class="listitem">
+                                       <p>The Native DICOM Model XML allows for duplicate Tag values and the DICOM JSON model does not. To resolve this, private attribute Tag values must be remapped according to the conflict avoidance rules specified in <a href="../part05/sect_7.8.html#sect_7.8.1" class="olink" shape="rect">Section 7.8.1 “Private Data Element Tags” in <span class="olinkdocname">PS3.5</span>
+                                          </a>.</p>
+                                    </li>
+                                 </ul>
+                              </div>
+                           </li>
+                           <li class="listitem">
+                              <p>The "vr" attribute maps to the "vr" child string</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li class="listitem">
+                     <p>"Value" elements map to members of the "Value" child array</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: circle; ">
+                           <li class="listitem">
+                              <p>A "Value" element with the attribute "number=n" maps to "Value[n-1]"</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Empty "Value" elements are represented by "null" entries in the "Value" array</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li class="listitem">
+                     <p>"PersonName" elements map to objects within the "Value" array. For a "PersonName" element with the attribute "number=n":</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: circle; ">
+                           <li class="listitem">
+                              <p>The "Alphabetic" element maps to "Value[<span class="bold">
+                                    <strong>
+                                       <span class="italic">n-1</span>
+                                    </strong>
+                                 </span>].Alphabetic"</p>
+                           </li>
+                           <li class="listitem">
+                              <p>The "Ideographic" element maps to "PersonName[<span class="bold">
+                                    <strong>
+                                       <span class="italic">n</span>
+                                    </strong>
+                                 </span>].Ideographic"</p>
+                           </li>
+                           <li class="listitem">
+                              <p>The "Phonetic" element maps to "PersonName[<span class="bold">
+                                    <strong>
+                                       <span class="italic">n</span>
+                                    </strong>
+                                 </span>].Phonetic"</p>
+                           </li>
+                        </ul>
+                     </div>
+                     <p>- "Item" elements map to members of the "Value" child array</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: circle; ">
+                           <li class="listitem">
+                              <p>An "Item" element with the attribute "number=n" maps to "Value[n-1]"</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Empty "Item" elements are represented by empty JSON property entries in the "Value" array</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li class="listitem">
+                     <p>The "uri" attribute of the "BulkData" element maps to the "BulkDataURI" string</p>
+                  </li>
+                  <li class="listitem">
+                     <p>The "InlineBinary" element maps to the "InlineBinary" string</p>
+                  </li>
+               </ul>
+            </div>
+            <div class="table">
+               <a id="table_F.3.1-1" shape="rect"></a>
+               <p class="title">
+                  <strong>Table F.3.1-1. XML to JSON Mapping</strong>
+               </p>
+               <div class="table-contents">
+                  <table rules="all" frame="box">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>DICOM <a href="../part19/PS3.19.html" class="olink" shape="rect">PS3.19</a> XML</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>DICOM JSON Model</p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <code class="computeroutput">&lt;NativeDicomModel&gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;DicomAttribute tag=</code>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">ggggee01</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                                 <code class="computeroutput">… /&gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;DicomAttribute tag=</code>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">ggggee02</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                                 <code class="computeroutput">… /&gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">…</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;/NativeDicomModel&gt;</code>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <code class="computeroutput">{</code>
+                              </p>
+                              <p>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">ggggee01</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                                 <code class="computeroutput">: { … },</code>
+                              </p>
+                              <p>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">ggggee02</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                                 <code class="computeroutput">: { … },</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">…</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">}</code>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <code class="computeroutput">&lt;DicomAttribute</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">tag=</code>
+                                 <span class="bold">
+                                    <strong>
+                                       <code class="computeroutput">ggggeeee</code>
+                                    </strong>
+                                 </span>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">vr=</code>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">VR</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                                 <code class="computeroutput">&gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;Value number="1"&gt;</code>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">Value</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                                 <code class="computeroutput">&lt;/Value&gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;/DicomAttribute&gt;</code>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">ggggeeee</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                                 <code class="computeroutput">: {</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">"vr":</code>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">VR</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                                 <code class="computeroutput">,</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">"Value": [</code>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">Value</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                                 <code class="computeroutput">]</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">}</code>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <code class="computeroutput">&lt;DicomAttribute tag=</code>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">ggggeeee</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                                 <code class="computeroutput">… &gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;Value number="1"&gt;</code>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">Value1</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                                 <code class="computeroutput">&lt;/Value&gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;Value number="2"&gt;</code>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">Value2</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                                 <code class="computeroutput">&lt;/Value&gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">…</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;/DicomAttribute&gt;</code>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">ggggeeee</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                                 <code class="computeroutput">: {</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">…</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">"Value": [</code>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">Value1</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                                 <code class="computeroutput">,</code>
+                              </p>
+                              <p>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">Value2</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                                 <code class="computeroutput">, …</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">]</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">}</code>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <code class="computeroutput">&lt;DicomAttribute tag=</code>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">ggggeeee</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                                 <code class="computeroutput">… &gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;/DicomAttribute&gt;</code>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">ggggeeee</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                                 <code class="computeroutput">: {</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">…</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">}</code>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <code class="computeroutput">&lt;DicomAttribute tag=</code>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">ggggeeee</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                                 <code class="computeroutput">vr="PN" … &gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;PersonName number="1"&gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;Alphabetic&gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;FamilyName&gt;</code>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">SB1</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;/FamilyName&gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;GivenName&gt;</code>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">SB2</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;/GivenName&gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;MiddleName&gt;</code>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">SB3</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;/MiddleName&gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;NamePrefix&gt;</code>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">SB4</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;/NamePrefix&gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;NameSuffix&gt;</code>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">SB5</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;/NameSuffix&gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;/Alphabetic&gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;Ideographic&gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;FamilyName&gt;</code>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">ID1</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;/FamilyName&gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">…</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;/Ideographic&gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;Phonetic&gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;FamilyName&gt;</code>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">PH1</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;/FamilyName&gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">…</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;/Phonetic&gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;/PersonName&gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;PersonName number="2"&gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;Alphabetic&gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;FamilyName&gt;</code>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">SB6</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;/FamilyName&gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;/Alphabetic&gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;/PersonName&gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;/DicomAttribute&gt;</code>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">ggggeeee</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                                 <code class="computeroutput">: {</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">…</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">"vr": "PN",</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">"Value": [</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">{</code>
+                              </p>
+                              <p>
+                                 <span class="bold">
+                                    <strong>
+                                       <code class="computeroutput">"</code>
+                                    </strong>
+                                 </span>
+                                 <code class="computeroutput">Alphabetic</code>
+                                 <span class="bold">
+                                    <strong>
+                                       <code class="computeroutput">"</code>
+                                    </strong>
+                                 </span>
+                                 <code class="computeroutput">:</code>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">"SB1^SB2^SB3^SB4^SB5",</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">"Ideographic":</code>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">"ID1^ID2^ID3^ID4^ID5"</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                                 <code class="computeroutput">,</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">"Phonetic":</code>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">"PH1^PH2^PH3^PH4^PH5"</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">},</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">{</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">"Alphabetic":</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">"</code>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">SB6</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                                 <code class="computeroutput">"</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">}</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">]</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">}</code>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <code class="computeroutput">&lt;DicomAttribute tag=</code>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">ggggeeee</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                                 <code class="computeroutput">vr="SQ" … &gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;Item number="1"&gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;DicomAttribute tag=</code>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">ggggee01</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                                 <code class="computeroutput">… /&gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;DicomAttribute tag=</code>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">ggggee02</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                                 <code class="computeroutput">… /&gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">…</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;/Item&gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;Item number="2"&gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;DicomAttribute tag=</code>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">ggggee01</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                                 <code class="computeroutput">… /&gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;DicomAttribute tag=</code>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">ggggee02</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                                 <code class="computeroutput">… /&gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">…</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;/Item&gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;Item number="3"&gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;/Item&gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">…</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;/DicomAttribute&gt;</code>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">ggggeeee</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                                 <code class="computeroutput">: {</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">…</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">"vr": "SQ",</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">"Value":</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">[</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">{</code>
+                              </p>
+                              <p>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">ggggee01</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                                 <code class="computeroutput">: { … },</code>
+                              </p>
+                              <p>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">ggggee02</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                                 <code class="computeroutput">: { … },</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">…</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">}</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">{</code>
+                              </p>
+                              <p>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">ggggee01</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                                 <code class="computeroutput">: { … },</code>
+                              </p>
+                              <p>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">ggggee02</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                                 <code class="computeroutput">: { … },</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">…</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">}</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">{ }</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">…</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">]</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">}</code>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <code class="computeroutput">&lt;DicomAttribute tag=</code>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">ggggeeee</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                                 <code class="computeroutput">… &gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;BulkData URI=</code>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">BulkDataURI</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                                 <code class="computeroutput">&gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;/DicomAttribute&gt;</code>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">ggggeeee</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                                 <code class="computeroutput">: {</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">…</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">"BulkDataURI":</code>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">BulkDataURI</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">}</code>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <code class="computeroutput">&lt;DicomAttribute tag=</code>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">ggggeeee</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                                 <code class="computeroutput">… &gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;InlineBinary&gt;</code>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">Base64String</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                                 <code class="computeroutput">&lt;/InlineBinary&gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;/DicomAttribute&gt;</code>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">ggggeeee</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                                 <code class="computeroutput">: {</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">…</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">"InlineBinary": "</code>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">Base64String"</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">}</code>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <code class="computeroutput">&lt;DicomAttribute tag=</code>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">gggg00ee</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                                 <code class="computeroutput">PrivateCreator=</code>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">PrivateCreator</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                                 <code class="computeroutput">… &gt;</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">…</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">&lt;/DicomAttribute&gt;</code>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>
+                                       <span class="italic">
+                                          <code class="computeroutput">ggggXXee</code>
+                                       </span>
+                                    </strong>
+                                 </span>
+                                 <code class="computeroutput">: {</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">…</code>
+                              </p>
+                              <p>
+                                 <code class="computeroutput">}</code>
+                              </p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_F.2.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_F.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_F.4.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">F.2 DICOM JSON Model </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.18.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> F.4 DICOM JSON Model Example</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

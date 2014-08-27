@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>B.8 Secure Use of Email Transport</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.15.html" title="PS3.15" />
+      <link rel="up" href="chapter_B.html" title="B Secure Transport Connection Profiles (Normative)" />
+      <link rel="prev" href="sect_B.7.html" title="B.7 Generic SAML Assertion Identity Negotiation Association Profile" />
+      <link rel="next" href="chapter_C.html" title="C Digital Signature Profiles (Normative)" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">B.8 Secure Use of Email Transport</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_B.7.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">B Secure Transport Connection Profiles (Normative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_C.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_B.8" shape="rect"></a>B.8 Secure Use of Email Transport</h2>
+               </div>
+            </div>
+         </div>
+         <p>When a DICOM File Set is sent over Email transport in compliance with this profile the following rules shall be followed:</p>
+         <div class="orderedlist">
+            <ol class="orderedlist" type="a">
+               <li class="listitem">
+                  <p>The File Set shall be an attachment to the email body.</p>
+               </li>
+               <li class="listitem">
+                  <p>The entire email (body, File Set attachment, and any other attachments) shall be encrypted using AES, in accordance with RFC 3851 and RFC 3853.</p>
+               </li>
+               <li class="listitem">
+                  <p>The email body and attachments may be compressed in accordance with RFC 3851.</p>
+               </li>
+               <li class="listitem">
+                  <p>The email shall be digitally signed by the sender. The signing may be applied before or after encryption. This digital signature shall be interpreted to mean that the sender is attesting to his authorization to disclose the information in this email to the recipient.</p>
+               </li>
+            </ol>
+         </div>
+         <p>The email signature is present to provide minimum sender information and to confirm the integrity of the email transmission (body contents, attachment, etc.). The email signature is separate from other signatures that may be present in DICOM reports and objects contained in the File set attached to the email. Those signatures are defined in terms of clinical uses. Any clinical content attestations shall be encoded as digital signatures in the DICOM SOP instances, not as the email signature. The email may be composed by someone who cannot make clinical attestations. Through the use of the email signature, the composer attests that he or she is authorized to transmit the data to the recipient.</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="1">
+                  <li class="listitem">
+                     <p>This profile is separate from the underlying use of ZIP File or other File Set packaging over email.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Where private information is being conveyed, most country regulations require the use of encryption or equivalent protections. This Profile meets the most common requirements of regulations, but there may be additional local requirements. Additional requirements may include mandatory statements in the email body and prohibitions on contents of the email body to protect patient privacy.</p>
+                  </li>
+               </ol>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_B.7.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_B.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_C.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">B.7 Generic SAML Assertion Identity Negotiation Association Profile </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.15.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> C Digital Signature Profiles (Normative)</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

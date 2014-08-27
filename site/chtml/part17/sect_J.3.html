@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>J.3 Non-integrated Environment</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="chapter_J.html" title="J Handling of Identifying Parameters (Informative)" />
+      <link rel="prev" href="sect_J.2.html" title="J.2 Integrated Environment" />
+      <link rel="next" href="sect_J.4.html" title="J.4 One MPPS Is Created in Response to Two Or More Requested Procedures" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">J.3 Non-integrated Environment</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_J.2.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">J Handling of Identifying Parameters (Informative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_J.4.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_J.3" shape="rect"></a>J.3 Non-integrated Environment</h2>
+               </div>
+            </div>
+         </div>
+         <p>"Non-Integrated" means in this context that the Acquisition Modality is not connected to an Information System Systems, does not receive Attribute values from an SCP of the Modality Worklist SOP Class, and cannot create a Performed Procedure Step SOP Instance.</p>
+         <p>The modality may:</p>
+         <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+               <li class="listitem">
+                  <p>In the absence of the ability to N-CREATE a MPPS SOP Instance, generate a MPPS SOP Instance UID and include it into the Referenced Performed Procedure Step Sequence Attribute of the Image SOP Instances. A system that later N-CREATEs a MPPS SOP Instance may use this UID extracted from the related Image SOP Instances.</p>
+               </li>
+               <li class="listitem">
+                  <p>Create the following Attribute values and include them in the Image SOP Instances:</p>
+               </li>
+               <li class="listitem">
+                  <p>Study Instance UID</p>
+               </li>
+               <li class="listitem">
+                  <p>Performed Procedure Step ID</p>
+               </li>
+            </ul>
+         </div>
+         <p>A system that later N-CREATEs a MPPS SOP Instance may use these Attribute values extracted from the related Image SOP Instances.</p>
+         <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+               <li class="listitem">
+                  <p>Copy the following Attribute values, if available to the Modality, into the Image SOP Instances:</p>
+               </li>
+               <li class="listitem">
+                  <p>Accession Number</p>
+               </li>
+               <li class="listitem">
+                  <p>Patient ID</p>
+               </li>
+               <li class="listitem">
+                  <p>Patient's Name</p>
+               </li>
+               <li class="listitem">
+                  <p>Patient's Birth Date</p>
+               </li>
+               <li class="listitem">
+                  <p>Patient's Sex</p>
+               </li>
+            </ul>
+         </div>
+         <p>If sufficient identifying information is be included, it will allow the Image SOP Instances to be later related to the Requested Procedure and the actual or conceptual Detached Study Management entity.</p>
+         <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+               <li class="listitem">
+                  <p>Include the following Attribute values that may be generated during image acquisition, if supported, into the Image SOP Instances:</p>
+               </li>
+               <li class="listitem">
+                  <p>Performed Procedure Step Start Date</p>
+               </li>
+               <li class="listitem">
+                  <p>Performed Procedure Step Start Time</p>
+               </li>
+               <li class="listitem">
+                  <p>Performed Procedure Step Description</p>
+               </li>
+               <li class="listitem">
+                  <p>Study ID</p>
+               </li>
+            </ul>
+         </div>
+         <p>A system that later N-CREATEs a MPPS SOP Instance may use these Attribute values extracted from the related Image SOP Instances.</p>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_J.2.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_J.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_J.4.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">J.2 Integrated Environment </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> J.4 One MPPS Is Created in Response to Two Or More Requested Procedures</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

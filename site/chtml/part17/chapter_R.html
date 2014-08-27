@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>R Configuration Use Cases (Informative)</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="PS3.17.html" title="PS3.17" />
+      <link rel="prev" href="sect_Q.2.html" title="Q.2 Breast Imaging Report Examples" />
+      <link rel="next" href="sect_R.2.html" title="R.2 Legacy Compatibility" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">R Configuration Use Cases (Informative)</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_Q.2.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_R.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_R" shape="rect"></a>R Configuration Use Cases (Informative)</h1>
+               </div>
+            </div>
+         </div>
+         <p>The following use cases are the basis for the decisions made in defining the Configuration Management Profiles specified in <a href="../part15/PS3.15.html" class="olink" shape="rect">PS3.15</a>. Where possible specific protocols that are commonly used in IT system management are specifically identified.</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_R.1" shape="rect"></a>R.1 Install A New Machine</h2>
+                  </div>
+               </div>
+            </div>
+            <p>When a new machine is added there need to be new entries made for:</p>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="a">
+                  <li class="listitem">
+                     <p>TCP/IP parameters</p>
+                  </li>
+                  <li class="listitem">
+                     <p>DICOM Application Entity Related Parameters</p>
+                  </li>
+               </ol>
+            </div>
+            <p>The service staff effort needed for either of these should be minimal. To the extent feasible these parameters should be generated and installed automatically.</p>
+            <p>The need for some sort of ID is common to most of the use cases, so it is assumed that each machine has sufficient non-volatile storage to at least remember its own name for later use.</p>
+            <p>Updates may be made directly to the configuration databases or made via the machine being configured. A common procedure for large networks is for the initial network design to assign these parameters and create the initial databases during the complete initial network design. Updates can be made later as new devices are installed.</p>
+            <p>One step that specifically needs automation is the allocation of AE Titles. These must be unique. Their assignment has been a problem with manual procedures. Possibilities include:</p>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="a">
+                  <li class="listitem">
+                     <p>Fully automatic allocation of AE Titles as requested. This interacts with the need for AE title stability in some use cases. The automatic process should permit AE Titles to be persistently associated with particular devices and application entities. The automatic process should permit the assignment of AE titles that comply with particular internal structuring rules.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Assisted manual allocation, where the service staff proposes AE Titles (perhaps based on examining the list of present AE Titles) and the system accepts them as unique or rejects them when non-unique.</p>
+                  </li>
+               </ol>
+            </div>
+            <p>These AE Titles can then be associated with the other application entity related information. This complete set of information needs to be provided for later uses.</p>
+            <p>The local setup may also involve searches for other AEs on the network. For example, it is likely that a search will be made for archives and printers. These searches might be by SOP class or device type. This is related to vendor specific application setup procedures, which are outside the scope of DICOM.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_R.1.1" shape="rect"></a>R.1.1 Configure DHCP</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>The network may have been designed in advance and the configuration specified in advance. It should be possible to pre-configure the configuration servers prior to other hardware installation. This should not preclude later updates or later configuration at specific devices.</p>
+               <p>The DHCP servers have a database that is manually maintained defining the relationship between machine parameters and IP parameters. This defines:</p>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="a">
+                     <li class="listitem">
+                        <p>Hardware MAC addresses that are to be allocated specific fixed IP information.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Client machine names that are to be allocated specific fixed IP information.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Hardware MAC addresses and address ranges that are to be allocated dynamically assigned IP addresses and IP information.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Client machine name patterns that are to be allocated dynamically assigned IP addresses and IP information.</p>
+                     </li>
+                  </ol>
+               </div>
+               <p>The IP information that is provided will be a specific IP address together with other information. The present recommendation is to provide all of the following information when available.</p>
+               <p>The manual configuration of DHCP is often assisted by automated user interface tools that are outside the scope of DICOM. Some people utilize the DHCP database as a documentation tool for documenting the assignment of IP addresses that are preset on equipment. This does not interfere with DHCP operation and can make a gradual transition from equipment presets to DHCP assignments easier. It also helps avoid accidental re-use of IP addresses that are already manually assigned. However, DHCP does not verify that these entries are in fact correct.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_R.1.2" shape="rect"></a>R.1.2 Configure LDAP</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>There are several ways that the LDAP configuration information can be obtained.</p>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="a">
+                     <li class="listitem">
+                        <p>A complete installation may be pre-designed and the full configuration loaded into the LDAP server, with the installation attribute set to false. Then as systems are installed, they acquire their own configurations from the LDAP server. The site administration can set the installation attribute to true when appropriate.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>When the LDAP server permits network clients to update the configuration, they can be individually installed and configured. Then after each device is configured, that device uploads its own configuration to the LDAP server.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>When the LDAP server does not permit network clients to update configurations, they can be individually installed and configured. Then, instead of uploading their own configuration, they create a standard format file with their configuration objects. This file is then manually added to the LDAP server (complying with local security procedures) and any conflicts resolved manually.</p>
+                     </li>
+                  </ol>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_R.1.2.1" shape="rect"></a>R.1.2.1 Pre-configure</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The network may have been designed in advance and the configuration specified in advance. It should be possible to pre-configure the configuration servers prior to other hardware installation. This should not preclude later updates or later configuration at specific devices.</p>
+                  <p>LDAP defines a standard file exchange format for transmitting LDAP database subsets in an ASCII format. This file exchange format can be created by a variety of network configuration tools. There are also systems that use XML tools to create database subsets that can be loaded into LDAP servers. It is out of scope to specify these tools in any detail. The use case simply requires that such tools be available.</p>
+                  <p>When the LDAP database is pre-configured using these tools, it is the responsibility of the tools to ensure that the resulting database entries have unique names. The unique name requirement is common to any LDAP database and not just to DICOM AE Titles. Consequently, most tools have mechanisms to ensure that the database updates that they create do have unique names.</p>
+                  <p>
+            </p>
+                  <div class="figure">
+                     <a id="figure_R.1-1" shape="rect"></a>
+                     <div class="figure-contents">
+                        <div class="mediaobject">
+                           <img src="figures/PS3.17_R.1-1.svg" alt="System Installation with Pre-configured Configuration" />
+                        </div>
+                     </div>
+                     <p class="title">
+                        <strong>Figure R.1-1. System Installation with Pre-configured Configuration</strong>
+                     </p>
+                  </div>
+                  <p>
+                     <br class="figure-break" clear="none" />
+                  </p>
+                  <p>At an appropriate time, the installed attribute is set on the device objects in the LDAP configuration.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_R.1.2.2" shape="rect"></a>R.1.2.2 Updating Configuration During Installation</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The "unconfigured" device start up begins with use of the pre-configured services from DHCP, DNS, and NTP. It then performs device configuration and updates the LDAP database. This description assumes that the device has been given permission to update the LDAP database directly.</p>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="a">
+                        <li class="listitem">
+                           <p>DHCP is used to obtain IP related parameters. The DHCP request can indicate a desired machine name that DHCP can associate with a configuration saved at the DHCP server. DHCP does not guarantee that the desired machine name will be granted because it might already be in use, but this mechanism is often used to maintain specific machine configurations. The DHCP will also update the DNS server (using the DDNS mechanisms) with the assigned IP address and hostname information. Legacy note: A machine with pre-configured IP addresses, DNS servers, and NTP servers may skip this step. As an operational and documentation convenience, the DHCP server database may contain the description of this pre-configured machine.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The list of NTP servers is used to initiate the NTP process for obtaining and maintaining the correct time. This is an ongoing process that continues for the duration of device activity. See Time Synchronization below.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The list of DNS servers is used to obtain the address of the DNS servers at this site. Then the DNS servers are queried to get the list of LDAP servers. This utilizes a relatively new addition to the DNS capabilities that permit querying DNS to obtain servers within a domain that provide a particular service.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The LDAP servers are queried to find the server that provides DICOM configuration services, and then obtain a description for the device matching the assigned machine name. This description includes device specific configuration information and a list of Network AEs. For the unconfigured device there will be no configuration found.</p>
+                           <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                              <h3 class="title">Note</h3>
+                              <p>These first four steps are the same as a normal start up (described below).</p>
+                           </div>
+                        </li>
+                        <li class="listitem">
+                           <p>Through a device specific process it determines its internal AE structure. During initial device installation it is likely that the LDAP database lacks information regarding the device. Using some vendor specific mechanism, e.g., service procedures, the device configuration is obtained. This device configuration includes all the information that will be stored in the LDAP database. The fields for "device name" and "AE Title" are tentative at this point.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Each of the Network AE objects is created by means of the LDAP object creation process. It is at this point that LDAP determines whether the AE Title is in fact unique among all AE Titles. If the title is unique, the creation succeeds. If there is a conflict, the creation fails and "name already in use" is given as a reasonless uses propose/create as an atomic operation for creating unique items. The LDAP approach permits unique titles that comply with algorithms for structured names, check digits, etc. DICOM does not require structured names, but they are a commonplace requirement for other LDAP users. It may take multiple attempts to find an unused name. This multiple probe behavior can be a problem if "unconfigured device" is a common occurrence and name collisions are common. Name collisions can be minimized at the expense of name structure by selecting names such as "AExxxxxxxxxxxxxx" where "xxxxxxxxxxxxxx" is a truly randomly selected number. The odds of
+          collision are then exceedingly small, and a unique name will be found within one or two probes.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The device object is created. The device information is updated to reflect the actual AE titles of the AE objects. As with AE objects, there is the potential for device name collisions.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The network connection objects are created as subordinates to the device object.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The AE objects are updated to reflect the names of the network connection objects.</p>
+                        </li>
+                     </ol>
+                  </div>
+                  <p>The "unconfigured device" now has a saved configuration. The LDAP database reflects its present configuration.</p>
+                  <p>In the following example, the new system needs two AE Titles. During its installation another machine is also being installed and takes one of the two AE Titles that the first machine expected to use. The new system then claims another different EYE-title that does not conflict.</p>
+                  <p>
+            </p>
+                  <div class="figure">
+                     <a id="figure_R.1-2" shape="rect"></a>
+                     <div class="figure-contents">
+                        <div class="mediaobject">
+                           <img src="figures/PS3.17_R.1-2.svg" alt="Configuring a System when network LDAP updates are permitted" />
+                        </div>
+                     </div>
+                     <p class="title">
+                        <strong>Figure R.1-2. Configuring a System when network LDAP updates are permitted</strong>
+                     </p>
+                  </div>
+                  <p>
+                     <br class="figure-break" clear="none" />
+                  </p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_R.1.2.3" shape="rect"></a>R.1.2.3 Configure Client Then Update Server</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Much of the initial start up is the same for restarting a configured device and for configuring a client first and then updating the server. The difference is two-fold.</p>
+                  <p>The AE Title uniqueness must be established manually, and the configuration information saved at the client onto a file that can then be provided to the LDAP server. There is a risk that the manually assigned AE Title is not unique, but this can be managed and is easier than the present entirely manual process for assigning AE Titles.</p>
+                  <p>
+            </p>
+                  <div class="figure">
+                     <a id="figure_R.1-3" shape="rect"></a>
+                     <div class="figure-contents">
+                        <div class="mediaobject">
+                           <img src="figures/PS3.17_R.1-3.svg" alt="Configuring a system when LDAP network updates are not permitted" />
+                        </div>
+                     </div>
+                     <p class="title">
+                        <strong>Figure R.1-3. Configuring a system when LDAP network updates are not permitted</strong>
+                     </p>
+                  </div>
+                  <p>
+                     <br class="figure-break" clear="none" />
+                  </p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_R.1.3" shape="rect"></a>R.1.3 Distributed Update Propagation</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>The larger enterprise networks require prompt database responses and reliable responses during network disruptions. This implies the use of a distributed or federated database. These have update propagation issues. There is not a requirement for a complete and accurate view of the DICOM network at all times. There is a requirement that local subsets of the network maintain an accurate local view. E.g., each hospital in a large hospital chain may tolerate occasional disconnections or problems in viewing the network information in other hospitals in that chain, but they require that their own internal network be reliably and accurately described.</p>
+               <p>LDAP supports a variety of federation and distribution schemes. It specifically states that it is designed and appropriate for federated situations where distribution of updates between federated servers may be slow. It is specifically designed for situations where database updates are infrequent and database queries dominate.</p>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_Q.2.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_R.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">Q.2 Breast Imaging Report Examples </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> R.2 Legacy Compatibility</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

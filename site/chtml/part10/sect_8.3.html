@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>8.3 File Management Roles and Services</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.10.html" title="PS3.10" />
+      <link rel="up" href="chapter_8.html" title="8 DICOM File Service" />
+      <link rel="prev" href="sect_8.2.html" title="8.2 File IDs" />
+      <link rel="next" href="sect_8.4.html" title="8.4 File Content Access" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">8.3 File Management Roles and Services</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_8.2.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">8 DICOM File Service</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_8.4.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_8.3" shape="rect"></a>8.3 File Management Roles and Services</h2>
+               </div>
+            </div>
+         </div>
+         <p>When DICOM Application Entities participate in the exchange of information by the interchange of Storage Media, they perform through the DICOM File Service a number of Media Storage Services:</p>
+         <div class="orderedlist">
+            <ol class="orderedlist" type="a">
+               <li class="listitem">
+                  <p>M-WRITE, to create new files in a File-set and assign them a File ID;</p>
+               </li>
+               <li class="listitem">
+                  <p>M-READ to read existing files based on their File ID;</p>
+               </li>
+               <li class="listitem">
+                  <p>M-DELETE to delete existing files based on their File ID;</p>
+               </li>
+               <li class="listitem">
+                  <p>M-INQUIRE FILE-SET to inquire free space available for creating new files within the File-set;</p>
+               </li>
+               <li class="listitem">
+                  <p>M-INQUIRE FILE to inquire date and time of file creation (or last update if applicable) for any file within the File-set.</p>
+               </li>
+            </ol>
+         </div>
+         <p>A DICOM Application Entity may take one or more of the following three roles:</p>
+         <div class="orderedlist">
+            <ol class="orderedlist" type="a">
+               <li class="listitem">
+                  <p>File-set Creator (FSC). Such an Application Entity, exercises this role by means of M-WRITE Operations to create the DICOMDIR File (see <a class="xref" href="sect_8.6.html" title="8.6 Reserved DICOMDIR File ID" shape="rect">Section 8.6</a>) and zero or more DICOM Files;</p>
+               </li>
+               <li class="listitem">
+                  <p>File-set Reader (FSR). Such an Application Entity, exercises this role by means of M-READ Operations to access one or more Files in a File-set. A File-set Reader shall not modify any of the files of the File-set (including the DICOMDIR File);</p>
+               </li>
+               <li class="listitem">
+                  <p>File-set Updater (FSU). Such an Application Entity, exercises this role by means of M-READ, M-WRITE, and M-DELETE Operations. It reads, but shall not modify, the content of any of the DICOM files in a File-set except for the DICOMDIR File. It may create additional Files by means of an M-WRITE or delete existing Files in a File-set by means of an M-DELETE.</p>
+               </li>
+            </ol>
+         </div>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <p>Although a File-set Updater (FSU) may include the functions corresponding to a File-set Creator (FSC) and a File-set Reader (FSR), it is not required that implementations supporting an FSU role also support an FSC or an FSR role..</p>
+         </div>
+         <p>The use of the concept of roles in DICOM Conformance Statements will result in a more precise expression of the capabilities of implementations supporting DICOM Media Storage. Conforming implementations shall support one of the following choices:</p>
+         <div class="orderedlist">
+            <ol class="orderedlist" type="a">
+               <li class="listitem">
+                  <p>File-set Creator,</p>
+               </li>
+               <li class="listitem">
+                  <p>File-set Reader,</p>
+               </li>
+               <li class="listitem">
+                  <p>File-set Creator and File-set Reader,</p>
+               </li>
+               <li class="listitem">
+                  <p>File-set Updater,</p>
+               </li>
+               <li class="listitem">
+                  <p>File-set Updater and File-set Creator,</p>
+               </li>
+               <li class="listitem">
+                  <p>File-set Updater and File-set Reader,</p>
+               </li>
+               <li class="listitem">
+                  <p>File-set Updater, File-set Creator and File-set Reader.</p>
+               </li>
+            </ol>
+         </div>
+         <p>Based on the roles supported by a DICOM Application Entity, the DICOM File Service shall support the Media Operations defined in <a class="xref" href="sect_8.3.html#table_8.3-1" title="Table 8.3-1. Media Operations and Roles" shape="rect">Table 8.3-1</a>.</p>
+         <div class="table">
+            <a id="table_8.3-1" shape="rect"></a>
+            <p class="title">
+               <strong>Table 8.3-1. Media Operations and Roles</strong>
+            </p>
+            <div class="table-contents">
+               <table rules="all" frame="box">
+                  <thead>
+                     <tr valign="top">
+                        <th align="center" rowspan="1" colspan="1">
+                           <p>Media Operations Roles</p>
+                        </th>
+                        <th align="center" rowspan="1" colspan="1">
+                           <p>M-WRITE</p>
+                        </th>
+                        <th align="center" rowspan="1" colspan="1">
+                           <p>M-READ</p>
+                        </th>
+                        <th align="center" rowspan="1" colspan="1">
+                           <p>M-DELETE</p>
+                        </th>
+                        <th align="center" rowspan="1" colspan="1">
+                           <p>M-INQUIRE FILE-SET</p>
+                        </th>
+                        <th align="center" rowspan="1" colspan="1">
+                           <p>M-INQUIRE FILE</p>
+                        </th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr valign="top">
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>FSC</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>Mandatory</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>
+                              <span class="italic">Not required</span>
+                           </p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>
+                              <span class="italic">Not required</span>
+                           </p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>Mandatory</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>
+                              <span class="italic">Not required</span>
+                           </p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>FSR</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>
+                              <span class="italic">Not required</span>
+                           </p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>Mandatory</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>
+                              <span class="italic">Not required</span>
+                           </p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>
+                              <span class="italic">Not required</span>
+                           </p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>Mandatory</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>FSC+FSR</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>Mandatory</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>Mandatory</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>
+                              <span class="italic">Not required</span>
+                           </p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>Mandatory</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>Mandatory</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>FSU</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>Mandatory</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>Mandatory</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>Mandatory</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>Mandatory</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>Mandatory</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>FSU+FSC</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>Mandatory</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>Mandatory</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>Mandatory</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>Mandatory</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>Mandatory</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>FSU+FSR</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>Mandatory</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>Mandatory</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>Mandatory</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>Mandatory</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>Mandatory</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>FSU+FSC+FSR</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>Mandatory</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>Mandatory</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>Mandatory</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>Mandatory</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>Mandatory</p>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <br class="table-break" clear="none" />
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="1">
+                  <li class="listitem">
+                     <p>Media Preparation is outside the scope of this Part of the DICOM Standard. However it is assumed to be performed by the FS Creator.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>The DICOM File Service does not require that file update capabilities (e.g., append) be supported by every Media Format Definition selected. The non-support of such file update capabilities to the DICOMDIR File may simply result in having to delete and create a new file in order to keep the directory information consistent.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>If the content of a file needs to be updated or changed by an FSU, it is considered by this Part of the DICOM Standard as an M-DELETE Operation followed by an M-WRITE Operation. The FSU is responsible for ensuring the internal consistency of the File and its conformance to PS3.10 and the specific SOP Class stored, exactly as if the FSU was creating a new File. In particular, if an FSU implementation needs to update the file content but is not able to recognize and fully process the content of the File Preamble (see <a class="xref" href="chapter_7.html#sect_7.1" title="7.1 DICOM File Meta Information" shape="rect">Section 7.1</a>), it may consider setting the first four bytes of the Preamble to "DICM" followed by 124 bytes to 00H. This would avoid introducing inconsistencies between the content of the File Preamble and the remainder of the file content. An example of this situation may occur when a TIFF IFD 0 Offset in the File Preamble points at a further TIFF IFD embedded in the DICOM Data Set, and the update operation changes the location of this embedded TIFF IFD.</p>
+                  </li>
+               </ol>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_8.2.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_8.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_8.4.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">8.2 File IDs </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.10.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 8.4 File Content Access</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

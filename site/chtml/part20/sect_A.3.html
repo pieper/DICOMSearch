@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>A.3 Structure of DICOM SR Documents</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.20.html" title="PS3.20" />
+      <link rel="up" href="chapter_A.html" title="A SR Diagnostic Imaging Report Transformation Guide" />
+      <link rel="prev" href="sect_A.2.html" title="A.2 Use Cases" />
+      <link rel="next" href="sect_A.4.html" title="A.4 Structure of HL7 CDA Release 2 Documents" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">A.3 Structure of DICOM SR Documents</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_A.2.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">A SR Diagnostic Imaging Report Transformation Guide</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_A.4.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_A.3" shape="rect"></a>A.3 Structure of DICOM SR Documents</h2>
+               </div>
+            </div>
+         </div>
+         <p>DICOM SR documents can be thought of as consisting of a document header and a document body. The header metadata attribute values are grouped into modules such as "Patient", "General Study" in <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>.</p>
+         <p>The SR Document Content Module contains the attributes for the root content item that includes the coded report title. The content tree (structured content) of the document body is contained in the nested Content Sequence Items of that module. "Container" content items are part of the Content Sequence. They are structural elements of the SR document body structure. Content items are DICOM SR document nodes within the content tree that are connected through "by-value" relationships (at least for Enhanced SR IODs).</p>
+         <p>
+        </p>
+         <div class="figure">
+            <a id="figure_A.3-1" shape="rect"></a>
+            <div class="figure-contents">
+               <div class="mediaobject">
+                  <img src="part20_fromword_files/image004.png" alt="SR Document Structure" />
+               </div>
+            </div>
+            <p class="title">
+               <strong>Figure A.3-1. SR Document Structure</strong>
+            </p>
+         </div>
+         <p>
+            <br class="figure-break" clear="none" />
+         </p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_A.3.1" shape="rect"></a>A.3.1 Header</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Enhanced SR Information Object Definition (IOD) header relevant for <a href="../part16/chapter_A.html#sect_TID_2000" class="olink" shape="rect">TID 2000</a> as specified in <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>. The contents of any module not covered by this transformation guideline will not be included in the generated CDA document.</p>
+            <div class="table">
+               <a id="table_A.3.1-1" shape="rect"></a>
+               <p class="title">
+                  <strong>Table A.3.1-1. DICOM Enhanced SR IOD Modules</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>IE</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Module</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Reference</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Usage</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Covered by this Transformation Guideline</p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="2" colspan="1">
+                              <p>Patient</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Patient</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <a href="../part03/sect_C.7.html#sect_C.7.1.1" class="olink" shape="rect">C.7.1.1</a>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>M</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Yes</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Clinical Trial Subject</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <a href="../part03/sect_C.7.html#sect_C.7.1.3" class="olink" shape="rect">C.7.1.3</a>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>U</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>No</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="3" colspan="1">
+                              <p>Study</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>General Study</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <a href="../part03/sect_C.7.html#sect_C.7.2.1" class="olink" shape="rect">C.7.2.1</a>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>M</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Yes</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Patient Study</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <a href="../part03/sect_C.7.html#sect_C.7.2.2" class="olink" shape="rect">C.7.2.2</a>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>U</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>No</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Clinical Trial Study</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <a href="../part03/sect_C.7.html#sect_C.7.2.3" class="olink" shape="rect">C.7.2.3</a>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>U</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>No</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="2" colspan="1">
+                              <p>Series</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>SR Document Series</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <a href="../part03/sect_C.17.html#sect_C.17.1" class="olink" shape="rect">C.17.1</a>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>M</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Yes</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Clinical Trial Series</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <a href="../part03/sect_C.7.html#sect_C.7.3.2" class="olink" shape="rect">C.7.3.2</a>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>U</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>No</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Equipment</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>General Equipment</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <a href="../part03/sect_C.7.html#sect_C.7.5.1" class="olink" shape="rect">C.7.5.1</a>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>M</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Yes</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="3" colspan="1">
+                              <p>Document</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>SR Document General</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <a href="../part03/sect_C.17.html#sect_C.17.2" class="olink" shape="rect">C.17.2</a>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>M</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Yes</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>SR Document Content</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <a href="../part03/sect_C.17.html#sect_C.17.3" class="olink" shape="rect">C.17.3</a>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>M</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Yes</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>SOP Common</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <a href="../part03/sect_C.12.html#sect_C.12.1" class="olink" shape="rect">C.12.1</a>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>M</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Yes</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <p>
+               <span class="bold">
+                  <strong>DICOM SR Header Modules:</strong>
+               </span>
+            </p>
+            <p>Refer to <a class="xref" href="sect_A.6.html#sect_A.6.1" title="A.6.1 DICOM SR &quot;Basic Diagnostic Imaging Report&quot; (TID 2000)" shape="rect">Section A.6.1</a> for details.</p>
+            <p>
+               <span class="bold">
+                  <strong>Patient Module</strong>
+               </span>
+            </p>
+            <p>The patient module specifies the Attributes of the Patient that describe and identify the Patient who is the subject of a diagnostic Study. This Module contains Attributes of the patient that are needed for diagnostic interpretation of the Image and are common for all studies performed on the patient.</p>
+            <p>
+               <span class="bold">
+                  <strong>Clinical Trial Subject Module</strong>
+               </span>
+            </p>
+            <p>The Clinical Trial Subject Module contains attributes that identify a Patient as a clinical trial Subject. This Annex does not provide mappings for this module since they are outside the scope of this transformation.</p>
+            <p>
+               <span class="bold">
+                  <strong>General Study</strong>
+               </span>
+               <span class="bold">
+                  <strong>Module</strong>
+               </span>
+            </p>
+            <p>The General Study Module specifies the Attributes that describe and identify the Study performed upon the Patient.</p>
+            <p>
+               <span class="bold">
+                  <strong>Patient Study Module</strong>
+               </span>
+            </p>
+            <p>The Patient Study Module defines the attributes that provide information about the Patient at the time the Study was performed. This Annex does not provide mappings for the module since they would need to be inserted in the content tree.</p>
+            <p>
+               <span class="bold">
+                  <strong>Clinical Trial Study Module</strong>
+               </span>
+            </p>
+            <p>The Clinical Trial Study Module contains attributes that identify a Study in the context of a clinical trial. This Annex does not provide mappings for this module.</p>
+            <p>
+               <span class="bold">
+                  <strong>SR Document Series Module</strong>
+               </span>
+            </p>
+            <p>The SR Document Series Module defines the Attributes of the SR Document Series. A Series of SR Documents may contain any number of SR Documents.</p>
+            <p>
+               <span class="bold">
+                  <strong>Clinical Trial Series Module</strong>
+               </span>
+            </p>
+            <p>The Clinical Trial Series Module contains attributes that identify a Series in the context of a clinical trial. This Annex does not provide mappings for this module.</p>
+            <p>
+               <span class="bold">
+                  <strong>General Equipment Module</strong>
+               </span>
+            </p>
+            <p>The General Equipment Module specifies the Attributes that identify and describe the piece of equipment that produced a Series of Composite Instances.</p>
+            <p>
+               <span class="bold">
+                  <strong>SR Document General Module</strong>
+               </span>
+            </p>
+            <p>The SR Document General Module defines the general Attributes of an SR Document Instance. These Attributes identify the SR Document and provide context for the entire document.</p>
+            <p>
+               <span class="bold">
+                  <strong>SOP Common Module</strong>
+               </span>
+            </p>
+            <p>The SOP Common Module defines the Attributes that are required for proper functioning and identification of the associated SOP Instances.</p>
+            <p>
+               <span class="bold">
+                  <strong>SR Document Content Module</strong>
+               </span>
+            </p>
+            <p>The Attributes in this Module convey the content of an SR Document. It specifies the root content item and the content tree (refer to <a class="xref" href="sect_A.3.html#figure_A.3-1" title="Figure A.3-1. SR Document Structure" shape="rect">Figure A.3-1</a>).</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_A.3.2" shape="rect"></a>A.3.2 Document Body</h3>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_A.3.2.1" shape="rect"></a>A.3.2.1 DICOM SR "Basic Diagnostic Imaging Report" Template Structure</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>
+                  <a href="../part16/chapter_A.html#sect_TID_2000" class="olink" shape="rect">TID 2000</a> is the top-level template of DICOM SR Basic Diagnostic Imaging Reports (<a href="../part16/PS3.16.html" class="olink" shape="rect">PS3.16</a>). It includes sub-templates as shown in <a class="xref" href="sect_A.3.html#figure_A.3.2.1-1" title="Figure A.3.2.1-1. Template Structure Summarized from PS 3.16" shape="rect">Figure A.3.2.1-1</a>. The root content item (coded report title) and the Content Sequence details (structure and contents) are specified by those templates.</p>
+               <p>
+            </p>
+               <div class="figure">
+                  <a id="figure_A.3.2.1-1" shape="rect"></a>
+                  <div class="figure-contents">
+                     <div class="mediaobject">
+                        <img src="part20_fromword_files/image006.png" alt="Template Structure Summarized from PS 3.16" />
+                     </div>
+                  </div>
+                  <p class="title">
+                     <strong>Figure A.3.2.1-1. Template Structure Summarized from PS 3.16</strong>
+                  </p>
+               </div>
+               <p>
+                  <br class="figure-break" clear="none" />
+               </p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_A.3.2.2" shape="rect"></a>A.3.2.2 Mapping Requirements</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The goal of this document is to specify a mapping between constrained <a href="../part16/chapter_A.html#sect_TID_2000" class="olink" shape="rect">TID 2000 Basic Diagnostic Imaging Report</a> DICOM SR documents and HL7 CDA Diagnostic Imaging Reports (HL7 CDA R2 DIR IG, R1-2009). The following constraints apply to DICOM SR Basic Diagnostic Imaging Reports that are mapped to CDA Diagnostic Imaging Reports:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>
+                           <a href="../part16/chapter_A.html#sect_TID_1007" class="olink" shape="rect">TID 1007 Subject Context, Patient</a>: The constrained DICOM SR Basic Diagnostic Imaging Report is restricted to cover exactly one patient subject.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>
+                           <a href="../part16/chapter_A.html#sect_TID_1009" class="olink" shape="rect">TID 1009 Subject Context, Specimen</a>: The mapping of "Subject Context, Specimen" (<a href="../part16/chapter_A.html#sect_TID_1009" class="olink" shape="rect">TID 1009</a>) is out of scope for this version of the implementation guide.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>
+                           <a href="../part16/chapter_A.html#sect_TID_1010" class="olink" shape="rect">TID 1010 Subject Context, Device</a> and reports on animals are not addressed by this implementation guide.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The mapping of DICOM SR clinical trial header data (Clinical Trial Subject Module, Clinical Trial Study Module, Clinical Trial Series Module) is out of scope for this version of the implementation guide.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The transformation of de-identified SR documents (e.g., for clinical trials and educational purposes) is not addressed in this version of the implementation guide. CDA Release 2 does not address de-identification explicitly (e.g., by definition of flags). De-identified SR documents that have been transformed in accordance with this guide will not be able to have original patient information recovered.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The transformation of DICOM Patient Study Module attributes in the document header is out of scope. Pertinent clinical information may be present in the SR content tree and will be mapped to the CDA document body.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The transcoding of encrypted DICOM SR documents to CDA Release 2 is not addressed in this version of the implementation guide.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Since the use of digital signatures for transcoded DICOM SR documents is not primarily a mapping question, this topic is not addressed in the implementation guide.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>SR Document General Module, Verifying Observer Sequence (0040,A073): The constrained DICOM SR Basic Diagnostic Imaging Report is restricted to cover exactly one Verifying Observer since CDA R2 only allows for a single Legal Authenticator.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>SR Document General Module, Participant Sequence (0040,A07A): The constrained DICOM SR Basic Diagnostic Imaging Report is restricted to cover exactly one Data Enterer since CDA R2 only allows for a single dataEnterer.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>For automated transformation of DICOM SR diagnostic imaging report it is recommended to transform only SR documents where the DICOM Completion Flag (0040,A491) value equals "COMPLETE" to make sure that only SR documents get exported that contain all significant observations (the completeness of the content will be attested or verified by an authorized user). The value of the completion flag can be ignored, if an authorized user confirms that the SR document contains all significant observations. The Completion Flag (0040,A491) cannot be mapped since CDA Release 2 does not specify such flags.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Spatial coordinates contained in the content tree of the original DICOM SR document are not mapped because this guideline assumes that Presentation States are used to convey such information.</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>The CDA Diagnostic Imaging Report Implementation Guide (HL7 CDA R2 DIR IG, R1-2009) defines constraints on CDA Header and Body elements used in a Diagnostic Imaging Report document. Performing the mapping and setting CDA specific values as specified in this transformation guide and adhering to the constraints of CDA Diagnostic Imaging Reports (DIR) results in CDA DIR conformant reports. Validation of the generated CDA DIR documents is based on the constraints specified for CDA Diagnostic Imaging Reports (HL7 CDA R2 DIR IG, R1-2009).</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_A.3.2.3" shape="rect"></a>A.3.2.3 DICOM Composite Object References Context Requirements</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The attributes of DICOM composite object references are specified in <a class="xref" href="sect_A.7.html" title="A.7 HL7 V3 DICOM CMETS" shape="rect">Section A.7 HL7 V3 DICOM CMETS</a> (Common Message Element Types). These CDA mapping patterns shall be used to reference DICOM composite objects. Information on relevant DICOM objects referenced within the CDA target document's body and on the original DICOM SR document shall be included in the CDA DICOM object catalog section.</p>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_A.2.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_A.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_A.4.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">A.2 Use Cases </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.20.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> A.4 Structure of HL7 CDA Release 2 Documents</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

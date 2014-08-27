@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>8.2 Host Interface</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.19.html" title="PS3.19" />
+      <link rel="up" href="chapter_8.html" title="8 Interfaces" />
+      <link rel="prev" href="chapter_8.html" title="8 Interfaces" />
+      <link rel="next" href="sect_8.3.html" title="8.3 DataExchange Interface" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">8.2 Host Interface</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_8.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">8 Interfaces</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_8.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_8.2" shape="rect"></a>8.2 Host Interface</h2>
+               </div>
+            </div>
+         </div>
+         <p>The following sections describe the methods of the Host interface.</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_8.2.1" shape="rect"></a>8.2.1 generateUID() : UID</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Returns a newly created DICOM UID that the Hosted Application might use, e.g., to create new data objects and structures.</p>
+            <p>This method may be called at any time.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_8.2.2" shape="rect"></a>8.2.2 getAvailableScreen(appPreferredScreen : Rectangle) : Rectangle</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The Hosted Application supplies its preferred screen size in the appPreferredScreen parameter. The Hosting System may utilize this information as a hint, but may return a window location and size that best suits the Hosting System's GUI.</p>
+            <p>The method returns the window location and size that the Hosting System would prefer that the Hosted Application utilize. However, there are no requirements that the Hosted Application act on that information.</p>
+            <p>This method may be called at any time.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_8.2.3" shape="rect"></a>8.2.3 getOutputLocation(preferredProtocols: ArrayOfString) : String</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The method returns a URI that a Hosted Application may use to store output that it may provide back to the Hosting System (e.g., in response to a getData() call).</p>
+            <p>The Hosted Application indicates, in order of preference, the protocols it can use to store data. The Hosted Application shall at least support both the http: and the file: protocols. The Hosting System selects the most appropriate protocol, potentially taking into account system or security considerations as well as the order of preference. The Hosting System uses the selected protocol in setting up the resources and generating the URI returned to the Hosted Application.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>There may be limitations when using the http: protocol when compared to the file: protocol. Some functions that might work with a file: protocol such as seek, rewrite, and delete, may not work with the http: protocol. The Hosted Application should assume that it can only write once in sequential order when the returned output location uses the http: protocol.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>If any authentication information is needed in order to access the data, this authentication information may be included in the URI.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <p>The Hosting System shall keep the URI active while the Hosted Application is in any state other than IDLE or EXIT, or until such time that the Hosted Application returns the URI to the Hosting System (e.g., in an ObjectLocator returned to the Hosting System in response to a getData() call). The disposition of the data that the Hosted Application sends to this URI is the responsibility of the Hosting System after the Hosted Application transitions to the IDLE state or after the Hosted Application returns the URI to the Hosting System (e.g., in an ObjectLocator returned to the Hosting System in response to a getData() call). After the Hosted Application transitions to IDLE state, the Hosting System need not keep the URI active.</p>
+            <p>The Hosted Application shall only call this method if the Hosted Application is at the INPROGRESS or COMPLETED states.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_8.2.4" shape="rect"></a>8.2.4 notifyStateChanged(state : State) : void</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The Hosted Application shall invoke this method each time the Hosted Application successfully transitions to a new state. The new state is passed in the state parameter.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>While all Hosting Systems need to accept this interface call method, they may track the current Application State in other ways, such as by polling for the state using the Application getState() method.</p>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_8.2.5" shape="rect"></a>8.2.5 notifyStatus(status : Status) : void</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The Hosted Application may inform the Hosting System of notable events that occur during execution by invoking this method, passing the information in the status parameter.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>The Hosting System typically would log these events to facilitate debugging. It may, at its discretion, display the information to the user.</p>
+            </div>
+            <p>This method may be called at any time.</p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_8.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_8.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_8.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">8 Interfaces </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.19.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 8.3 DataExchange Interface</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

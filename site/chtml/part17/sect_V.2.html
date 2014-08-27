@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>V.2 Hanging Protocol Internal Process Model</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="chapter_V.html" title="V Hanging Protocols (Informative)" />
+      <link rel="prev" href="chapter_V.html" title="V Hanging Protocols (Informative)" />
+      <link rel="next" href="sect_V.3.html" title="V.3 Chest X-Ray Hanging Protocol Example" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">V.2 Hanging Protocol Internal Process Model</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_V.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">V Hanging Protocols (Informative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_V.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_V.2" shape="rect"></a>V.2 Hanging Protocol Internal Process Model</h2>
+               </div>
+            </div>
+         </div>
+         <p>The overall process flow of Hanging Protocols can be seen in <a class="xref" href="sect_V.2.html#figure_V.2-1" title="Figure V.2-1. Hanging Protocol Internal Process Model" shape="rect">Figure V.2-1</a>, and consists of three main steps: selection, processing, and layout. The selection is defined in the 
+      <span class="bold">
+               <strong>
+                  <span class="italic">Hanging Protocol Definition Module</span>
+               </strong>
+            </span>. The processing and layout are defined in the 
+      <span class="italic">
+               <span class="bold">
+                  <strong>Hanging Protocol Display Module</strong>
+               </span>.</span> The first process step, the selection of sets of images that need to be available from DICOM image objects, is defined by the Image Sets Sequence of the 
+      <span class="bold">
+               <strong>
+                  <span class="italic">Hanging Protocol Definition Module</span>
+               </strong>
+            </span>. This is a N:M mapping, with multiple image sets potentially drawing from the same image objects.</p>
+         <p>The second part of the process flow consists of the filtering, reformatting, sorting, and presentation intent operations that map the Image Sets into their final form, the Display Sets. This is defined in the 
+      <span class="italic">
+               <span class="bold">
+                  <strong>Hanging Protocol Display Module</strong>
+               </span>
+            </span>. This is a 1:M relationship, as multiple Display Sets may draw their images from the same Image Set. The filtering operation allows for selecting a subset of the Image Set and is defined by the Hanging Protocol Display Module Filter Operations Sequence. Reformatting allows operations such as multiplanar reformatting to resample images from a volume (Reformatting Operation Type, Reformatting Thickness, Reformatting Interval, Reformatting Operation Initial View Direction, 3D Rendering Type). The Hanging Protocol Display Module Sorting Operations Sequence allows for ordering of the images. Default presentation intent (a subset of the Presentation State operations such as intensity window default setting) is defined by the Hanging Protocol Display Module presentation intent attributes. The Display Sets are containers holding the final sets of images after all operations have occurred. These sets contain the images ready for rendering to locations on the screen(s).</p>
+         <p>The rendering of a Display Set to the screen is determined by the layout information in the Image Boxes Sequence within a Display Sets Sequence Item in the Hanging Protocol Display Module. A Display Set is mapped to a single Image Boxes Sequence. This is generally a single Image Box (rectangular area on screen), but may be an ordered set of image boxes. The mapping to an ordered set of image boxes is a special case to allow the images to flow in an ordered sequence through multiple locations on the screen (e.g., newspaper columns). Display Environment Spatial Position specifies rectangular locations on the screen where the images from the Display Sets will be rendered. The type of interaction to be used is defined by the Image Boxes Sequence Item attributes. A vertically scrolling alternator could be specified by having Image Box Layout Type equal TILED and Image Box Scroll Direction equal VERTICAL.</p>
+         <p>An example of this processing is shown in <a class="xref" href="sect_V.2.html#figure_V.2-2" title="Figure V.2-2. Example Process Flow" shape="rect">Figure V.2-2</a>. The figure is based on the Neurosurgery Planning Hanging Protocol Example contained in this Annex, and corresponds to the display sets for Display Set Presentation Group #1 (CT only display of current CT study).</p>
+         <p>
+        </p>
+         <div class="figure">
+            <a id="figure_V.2-1" shape="rect"></a>
+            <div class="figure-contents">
+               <div class="mediaobject">
+                  <img src="figures/PS3.17_V.2-1.svg" alt="Hanging Protocol Internal Process Model" />
+               </div>
+            </div>
+            <p class="title">
+               <strong>Figure V.2-1. Hanging Protocol Internal Process Model</strong>
+            </p>
+         </div>
+         <p>
+            <br class="figure-break" clear="none" />
+         </p>
+         <p>
+        </p>
+         <div class="figure">
+            <a id="figure_V.2-2" shape="rect"></a>
+            <div class="figure-contents">
+               <div class="mediaobject">
+                  <img src="figures/PS3.17_V.2-2.svg" alt="Example Process Flow" />
+               </div>
+            </div>
+            <p class="title">
+               <strong>Figure V.2-2. Example Process Flow</strong>
+            </p>
+         </div>
+         <p>
+            <br class="figure-break" clear="none" />
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_V.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_V.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_V.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">V Hanging Protocols (Informative) </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> V.3 Chest X-Ray Hanging Protocol Example</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

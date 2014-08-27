@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>3.11 DICOM Conformance</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.2.html" title="PS3.2" />
+      <link rel="up" href="chapter_3.html" title="3 Definitions" />
+      <link rel="prev" href="sect_3.10.html" title="3.10 Media Storage and File Format for Data Interchange" />
+      <link rel="next" href="chapter_4.html" title="4 Symbols and Abbreviations" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">3.11 DICOM Conformance</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_3.10.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">3 Definitions</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_4.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_3.11" shape="rect"></a>3.11 DICOM Conformance</h2>
+               </div>
+            </div>
+         </div>
+         <p>This Part uses the following definitions:</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_3.11.1" shape="rect"></a>3.11.1 Conformance Statement</h3>
+                  </div>
+               </div>
+            </div>
+            <p>A formal statement associated with a specific implementation of the DICOM Standard. It specifies the Service Classes, Information Objects, Communications Protocols and Media Storage Application Profiles supported by the implementation.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_3.11.2" shape="rect"></a>3.11.2 Standard SOP Class</h3>
+                  </div>
+               </div>
+            </div>
+            <p>A SOP Class defined in the DICOM Standard that is used in an implementation with no modifications.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_3.11.3" shape="rect"></a>3.11.3 Standard Extended SOP Class</h3>
+                  </div>
+               </div>
+            </div>
+            <p>A SOP Class defined in the DICOM Standard extended in an implementation with additional Type 3 Attributes. The additional Attributes may either be drawn from the Data Dictionary in <a href="../part06/PS3.6.html" class="olink" shape="rect">PS3.6</a>, or may be Private Attributes. The semantics of the related Standard SOP Class shall not be modified by the additional Type 3 Attributes when absent. Therefore, the Standard Extended SOP Class utilizes the same UID as the related Standard SOP Class.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>IODs from a Standard Extended SOP Class may be freely exchanged between DICOM implementations since implementations unfamiliar with the additional Type 3 Attributes would simply ignore them.</p>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_3.11.4" shape="rect"></a>3.11.4 Specialized SOP Class</h3>
+                  </div>
+               </div>
+            </div>
+            <p>A SOP Class derived from a Standard SOP Class that has been specialized in an implementation by additional Type 1, 1C, 2, 2C, or 3 Attributes, by enumeration of specific permitted values for Attributes, or by enumeration of specific permitted Templates. The additional Attributes may either be drawn from the Data Dictionary in <a href="../part06/PS3.6.html" class="olink" shape="rect">PS3.6</a>, or may be Private Attributes. The enumeration of permitted Attribute values or Templates shall be a subset of those permitted in the related Standard SOP Class. Since the semantics of the related Standard SOP Class may be modified by the additional Attributes, a Specialized SOP Class utilizes a Privately Defined UID that differs from the UID for the related Standard SOP Class.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>Since a Specialized SOP Class has a different UID than a Standard or Standard Extended SOP Class, other DICOM implementations may not recognize the Specialized SOP Class. Because of this limitation, a Specialized SOP Class should only be used when a Standard or Standard Extended SOP Class would not be appropriate. Before different implementations can exchange Instances in a Specialized SOP Class, the implementations must agree on the UID, content (in particular the additional Type 1, 1C, 2, and 2C Attributes), and semantics of the Specialized SOP Class. A Specialized SOP Class may be used to create a new or experimental SOP Class that is closely related to a Standard SOP Class.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The Association Negotiation for a Specialized SOP Class may include a SOP Class Common Extended Negotiation Sub-Item (as defined in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>) for identification of the Service Class and of the Related General SOP Class from which it was specialized. This may allow a receiving application, without prior agreement on the Specialized SOP Class IOD, to process Instances of that class as if they were instances of a Related General SOP Class.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_3.11.5" shape="rect"></a>3.11.5 Private SOP Class</h3>
+                  </div>
+               </div>
+            </div>
+            <p>A SOP Class that is not defined in the DICOM Standard, but is published in an implementation's Conformance Statement.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>Since a Private SOP Class is not defined in the DICOM Standard, other DICOM implementations may not recognize the Private SOP Class. Because of this limitation, a Private SOP Class should only be used when a Standard or Standard Extended SOP Class would not be appropriate. In order for different implementations to exchange Instances in a Private SOP Class, the implementations must agree on the UID, content (in particular the Type 1, 1C, 2, and 2C Attributes), and semantics of the Private SOP Class. A Private SOP class may be used to create a totally new or experimental SOP Class.</p>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_3.11.6" shape="rect"></a>3.11.6 Standard Attribute</h3>
+                  </div>
+               </div>
+            </div>
+            <p>An Attribute defined in the Data Dictionary in <a href="../part06/PS3.6.html" class="olink" shape="rect">PS3.6</a>.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_3.11.7" shape="rect"></a>3.11.7 Private Attribute</h3>
+                  </div>
+               </div>
+            </div>
+            <p>An Attribute that is not defined in the DICOM Standard.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_3.11.8" shape="rect"></a>3.11.8 Standard Application Profile</h3>
+                  </div>
+               </div>
+            </div>
+            <p>An Application Profile defined in the DICOM Standard that is used in an implementation with no modifications.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_3.11.9" shape="rect"></a>3.11.9 Augmented Application Profile</h3>
+                  </div>
+               </div>
+            </div>
+            <p>An Application Profile derived from a Standard Application Profile by incorporating support for additional Standard or Standard Extended SOP Classes.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_3.11.10" shape="rect"></a>3.11.10 Private Application Profile</h3>
+                  </div>
+               </div>
+            </div>
+            <p>An Application Profile that is not defined in the DICOM Standard, but is published in an implementation's Conformance Statement.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_3.11.11" shape="rect"></a>3.11.11 Security Profile</h3>
+                  </div>
+               </div>
+            </div>
+            <p>A mechanism for selecting an appropriate set of choices from the Parts of the DICOM standard along with corresponding security mechanisms (e.g., encryption algorithms) for the support of security facilities.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_3.11.12" shape="rect"></a>3.11.12 Transformation of DICOM SR to CDA</h3>
+                  </div>
+               </div>
+            </div>
+            <p>A mechanism for mapping and transforming DICOM SR objects to HL7 CDA documents.</p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_3.10.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_3.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_4.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">3.10 Media Storage and File Format for Data Interchange </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.2.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 4 Symbols and Abbreviations</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

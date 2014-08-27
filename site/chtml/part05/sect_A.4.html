@@ -1,0 +1,1182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>A.4 Transfer Syntaxes For Encapsulation of Encoded Pixel Data</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.5.html" title="PS3.5" />
+      <link rel="up" href="chapter_A.html" title="A Transfer Syntax Specifications (Normative)" />
+      <link rel="prev" href="sect_A.3.html" title="A.3 DICOM Big Endian Transfer Syntax (Explicit VR)" />
+      <link rel="next" href="sect_A.5.html" title="A.5 DICOM Deflated Little Endian Transfer Syntax (Explicit VR)" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">A.4 Transfer Syntaxes For Encapsulation of Encoded Pixel Data</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_A.3.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">A Transfer Syntax Specifications (Normative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_A.5.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_A.4" shape="rect"></a>A.4 Transfer Syntaxes For Encapsulation of Encoded Pixel Data</h2>
+               </div>
+            </div>
+         </div>
+         <p>These Transfer Syntaxes apply to the encoding of the entire DICOM Data Set, even though the image Pixel Data (7FE0,0010) portion of the DICOM Data Set is the only portion that is encoded by an encapsulated format. This implies that when a DICOM Message is being encoded according to an encapsulation Transfer Syntax the following requirements shall be met:</p>
+         <div class="orderedlist">
+            <ol class="orderedlist" type="1">
+               <li class="listitem">
+                  <p>The Data Elements contained in the Data Set structure shall be encoded with Explicit VR (with a VR Field) as specified in <a class="xref" href="chapter_7.html#sect_7.1.2" title="7.1.2 Data Element Structure with Explicit VR" shape="rect">Section 7.1.2</a>.</p>
+               </li>
+               <li class="listitem">
+                  <p>The encoding of the overall Data Set structure (Data Element Tags, Value Length, etc.) shall be in Little Endian as specified in <a class="xref" href="sect_7.3.html" title="7.3 Big Endian Versus Little Endian Byte Ordering" shape="rect">Section 7.3</a>.</p>
+               </li>
+               <li class="listitem">
+                  <p>The encoding of the Data Elements of the Data Set shall be as follows according to their Value Representations:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>For all Value Representations defined in this part of the DICOM Standard, except for the Value Representations OB and OW, the encoding shall be in Little Endian as specified in <a class="xref" href="sect_7.3.html" title="7.3 Big Endian Versus Little Endian Byte Ordering" shape="rect">Section 7.3</a>.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>For the Value Representations OB and OW, the encoding shall meet the following specification depending on the Data Element Tag:</p>
+                           <div class="itemizedlist">
+                              <ul class="itemizedlist" style="list-style-type: circle; ">
+                                 <li class="listitem">
+                                    <p>Data Element (7FE0,0010) Pixel Data may be encapsulated or native.</p>
+                                    <p>It shall be encapsulated if present in the top-level Data Set (i.e., not nested within a Sequence Data Element).</p>
+                                    <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                                       <h3 class="title">Note</h3>
+                                       <p>The distinction between fixed value length (native) and undefined value length (encapsulated) is present so that the top level Data Set Pixel Data can be compressed (and hence encapsulated), but the Pixel Data within an Icon Image Sequence may or may not be compressed.</p>
+                                    </div>
+                                    <p>If native, it shall have a defined Value Length, and be encoded as follows:</p>
+                                    <div class="itemizedlist">
+                                       <ul class="itemizedlist" style="list-style-type: square; ">
+                                          <li class="listitem">
+                                             <p>where Bits Allocated (0028,0100) has a value greater than 8 shall have Value Representation OW and shall be encoded in Little Endian;</p>
+                                          </li>
+                                          <li class="listitem">
+                                             <p>where Bits Allocated (0028,0100) has a value less than or equal to 8 shall have the Value Representation OB or OW and shall be encoded in Little Endian.</p>
+                                          </li>
+                                       </ul>
+                                    </div>
+                                    <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                                       <h3 class="title">Note</h3>
+                                       <p>That is, as if the transfer syntax were Explicit VR Little Endian.</p>
+                                    </div>
+                                    <p>If encapsulated, it has the Value Representation OB and is a sequence of bytes resulting from one of the encoding processes. It contains the encoded pixel data stream fragmented into one or more Item(s). This Pixel Data Stream may represent a Single or Multi-frame Image. See <a class="xref" href="sect_A.4.html#table_A.4-1" title="Table A.4-1. Example for Elements of an Encoded Single-Frame Image Defined as a Sequence of Three Fragments Without Basic Offset Table Item Value" shape="rect">Table A.4-1</a> and <a class="xref" href="sect_A.4.html#table_A.4-2" title="Table A.4-2. Examples of Elements for an Encoded Two-Frame Image Defined as a Sequence of Three Fragments with Basic Table Item Values" shape="rect">Table A.4-2</a>.</p>
+                                    <div class="itemizedlist">
+                                       <ul class="itemizedlist" style="list-style-type: square; ">
+                                          <li class="listitem">
+                                             <p>The Length of the Data Element (7FE0,0010) shall be set to the Value for Undefined Length (FFFFFFFFH).</p>
+                                          </li>
+                                          <li class="listitem">
+                                             <p>Each Data Stream Fragment encoded according to the specific encoding process shall be encapsulated as a DICOM Item with a specific Data Element Tag of Value (FFFE,E000). The Item Tag is followed by a 4 byte Item Length field encoding the explicit number of bytes of the Item.</p>
+                                             <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                                                <h3 class="title">Note</h3>
+                                                <p>Whether more than one fragment per frame is permitted or not is defined per Transfer Syntax.</p>
+                                             </div>
+                                          </li>
+                                          <li class="listitem">
+                                             <p>All items containing an encoded fragment shall be made of an even number of bytes greater or equal to two. The last fragment of a frame may be padded, if necessary, to meet the sequence item format requirements of the DICOM Standard.</p>
+                                             <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                                                <h3 class="title">Note</h3>
+                                                <div class="orderedlist">
+                                                   <ol class="orderedlist" type="1">
+                                                      <li class="listitem">
+                                                         <p>Any necessary padding may be added in the JPEG or JPEG-LS compressed data stream as per ISO 10918-1 and ISO 14495-1 such that the End of Image (EOI) marker ends on an even byte boundary, or may be appended after the EOI marker, depending on the implementation.</p>
+                                                      </li>
+                                                      <li class="listitem">
+                                                         <p>ISO 10918-1 and ISO 14495-1 define the ability to add any number of padding bytes FFH before any marker (all of which also begin with FFH). It is strongly recommended that FFH padding bytes not be added before the Start of Image (SOI) marker.</p>
+                                                      </li>
+                                                   </ol>
+                                                </div>
+                                             </div>
+                                          </li>
+                                          <li class="listitem">
+                                             <p>The first Item in the Sequence of Items before the encoded Pixel Data Stream shall be a Basic Offset Table item. The Basic Offset Table Item Value, however, is not required to be present:</p>
+                                             <div class="itemizedlist">
+                                                <ul class="itemizedlist" style="list-style-type: disc; ">
+                                                   <li class="listitem">
+                                                      <p>When the Item Value is not present, the Item Length shall be zero (00000000H) (see <a class="xref" href="sect_A.4.html#table_A.4-1" title="Table A.4-1. Example for Elements of an Encoded Single-Frame Image Defined as a Sequence of Three Fragments Without Basic Offset Table Item Value" shape="rect">Table A.4-1</a>).</p>
+                                                   </li>
+                                                   <li class="listitem">
+                                                      <p>When the Item Value is present, the Basic Offset Table Item Value shall contain concatenated 32-bit unsigned integer values that are byte offsets to the first byte of the Item Tag of the first fragment for each frame in the Sequence of Items. These offsets are measured from the first byte of the first Item Tag following the Basic Offset Table item (see <a class="xref" href="sect_A.4.html#table_A.4-2" title="Table A.4-2. Examples of Elements for an Encoded Two-Frame Image Defined as a Sequence of Three Fragments with Basic Table Item Values" shape="rect">Table A.4-2</a>).</p>
+                                                      <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                                                         <h3 class="title">Note</h3>
+                                                         <div class="orderedlist">
+                                                            <ol class="orderedlist" type="1">
+                                                               <li class="listitem">
+                                                                  <p>For a Multi-Frame Image containing only one frame or a Single Frame Image, the Basic Offset Table Item Value may be present or not. If present it will contain a single 00000000H value.</p>
+                                                               </li>
+                                                               <li class="listitem">
+                                                                  <p>Decoders of encapsulated pixel data, whether Single Frame or Multi-Frame, need to accept both an empty Basic Offset Table (zero length) and a Basic Offset Table filled with 32 bit offset values.</p>
+                                                               </li>
+                                                            </ol>
+                                                         </div>
+                                                      </div>
+                                                   </li>
+                                                </ul>
+                                             </div>
+                                          </li>
+                                          <li class="listitem">
+                                             <p>This Sequence of Items is terminated by a Sequence Delimiter Item with the Tag (FFFE,E0DD) and an Item Length Field of Value (00000000H) (i.e., no Value Field shall be present).</p>
+                                          </li>
+                                       </ul>
+                                    </div>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>Data Element (60xx,3000) Overlay Data</p>
+                                    <div class="itemizedlist">
+                                       <ul class="itemizedlist" style="list-style-type: square; ">
+                                          <li class="listitem">
+                                             <p>shall have the Value Representation OB or OW and shall be encoded in Little Endian.</p>
+                                          </li>
+                                       </ul>
+                                    </div>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>Data Element (5400,1010) Waveform Data has the Value Representation specified in its Explicit VR Field. The component points shall be encoded in Little Endian.</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>Data Elements (0028,1201), (0028,1202), (0028,1203), (0028,1204) Red, Green, Blue, Alpha Palette Lookup Table Data have the Value Representation OW and shall be encoded in Little Endian.</p>
+                                    <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                                       <h3 class="title">Note</h3>
+                                       <p>Previous versions of the Standard either did not specify the encoding of Data Elements 0028,1201), (0028,1202), (0028,1203) in this Part, but specified a VR of US or SS in PS3.6-1993, or specified OW in this Part but a VR of US, SS or OW in PS3.6-1996. The actual encoding of the values and their byte order would be identical in each case, though the explicitly encoded VR field would be different. However, an explicit VR of US or SS cannot be used to encode a table of 2<sup>16</sup> elements, since the Value Length is restricted to 16 bits.</p>
+                                    </div>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>Data Elements (0028,1101), (0028,1102),(0028,1103) Red, Green, Blue Palette Lookup Table Descriptor have the Value Representation SS or US (depending on rules specified in the IOD in <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>), and shall be encoded in Little Endian. The first and third values are always interpreted as unsigned, regardless of the Value Representation.</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>Data Elements (0028,1221), (0028,1222), (0028,1223) Segmented Red, Green, Blue Palette Color Lookup Table Data have the Value Representation OW and shall be encoded in Little Endian.</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>Data Element (0028,3006) LUT Data has the Value Representation US or OW and shall be encoded in Little Endian.</p>
+                                    <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                                       <h3 class="title">Note</h3>
+                                       <p>Previous versions of the Standard did not specify the encoding of these Data Elements in this Part, but specified a VR of US or SS in PS3.6-1998. However, an explicit VR of US or SS cannot be used to encode a table of 2<sup>16</sup> elements, since the Value Length is restricted to 16 bits. Hence a VR of OW has been added. Moreover this element is always unsigned, therefore the VR of SS has been removed. The actual encoding of the values and their byte order would be identical in each case, though the explicitly encoded VR field would be different.</p>
+                                    </div>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>Data Element (0028,3002) LUT Descriptor has the Value Representation SS or US (depending on rules specified in the IOD in <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>), and shall be encoded in Little Endian. The first and third values are always interpreted as unsigned, regardless of the Value Representation.</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>Data Element (0028,1408) Blending Lookup Table Data has the Value Representation OW and shall be encoded in Little Endian.</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>Data Elements (0066,0025) Vertex Point Index List, (0066,0024) Edge Point Index List, (0066,0023) Triangle Point Index List and (0066,0029) Primitive Point Index List have the Value Representation OW and shall be encoded in Little Endian and are always interpreted as unsigned.</p>
+                                 </li>
+                              </ul>
+                           </div>
+                        </li>
+                     </ul>
+                  </div>
+               </li>
+            </ol>
+         </div>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="1">
+                  <li class="listitem">
+                     <p>For Data encoded with the Value Representation OB, the Data encoding is unaffected by Little Endian or Big Endian byte ordering.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Encoding of Curve Data and Audio Sample Data was previously defined but has been retired. See PS3.5-2004.</p>
+                  </li>
+               </ol>
+            </div>
+         </div>
+         <div class="table">
+            <a id="table_A.4-1" shape="rect"></a>
+            <p class="title">
+               <strong>Table A.4-1. Example for Elements of an Encoded Single-Frame Image Defined as a Sequence of Three Fragments Without Basic Offset Table Item Value</strong>
+            </p>
+            <div class="table-contents">
+               <table frame="box" rules="all">
+                  <thead>
+                     <tr valign="top">
+                        <th align="center" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Pixel Data Element Tag</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="center" colspan="2" rowspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Value Representation</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="center" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Data Element Length</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="left" colspan="5" rowspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Data Element</strong>
+                              </span>
+                           </p>
+                        </th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr valign="top">
+                        <td align="left" rowspan="3" colspan="1">
+                           <p>(7FE0, 0010) with VR of OB</p>
+                        </td>
+                        <td align="left" rowspan="3" colspan="1">
+                           <p>OB</p>
+                        </td>
+                        <td align="left" rowspan="3" colspan="1">
+                           <p>0000H Reserved</p>
+                        </td>
+                        <td align="left" rowspan="3" colspan="1">
+                           <p>FFFF FFFFH undefined length</p>
+                        </td>
+                        <th align="left" colspan="2" rowspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Basic Offset Table with NO Item Value</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="left" colspan="3" rowspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>First Fragment (Single Frame) of Pixel Data</strong>
+                              </span>
+                           </p>
+                        </th>
+                     </tr>
+                     <tr valign="top">
+                        <th align="left" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Item Tag</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="left" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Item Length</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="left" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Item Tag</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="left" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Item Length</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="left" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Item Value</strong>
+                              </span>
+                           </p>
+                        </th>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>(FFFE, E000)</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>0000 0000H</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>(FFFE, E000)</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>0000 04C6H</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Compressed Fragment</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>4 bytes</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>2 bytes</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>2 bytes</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>4 bytes</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>4 bytes</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>4 bytes</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>4 bytes</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>4 bytes</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>04C6H bytes</p>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <br class="table-break" clear="none" />
+         <div class="table">
+            <a id="table_A.4-1b" shape="rect"></a>
+            <p class="title">
+               <strong>Table A.4-1b. Example for Elements of an Encoded Single-Frame Image Defined as a Sequence of Three Fragments Without Basic Offset Table Item Value (continued)</strong>
+            </p>
+            <div class="table-contents">
+               <table frame="box" rules="all">
+                  <thead>
+                     <tr valign="top">
+                        <th align="left" colspan="8" rowspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Data Element Continued</strong>
+                              </span>
+                           </p>
+                        </th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr valign="top">
+                        <th align="left" colspan="3" rowspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Second Fragment (Single Frame) of Pixel Data</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="left" colspan="3" rowspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Third Fragment (Single Frame) of Pixel Data</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="left" colspan="2" rowspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Sequence Delimiter Item</strong>
+                              </span>
+                           </p>
+                        </th>
+                     </tr>
+                     <tr valign="top">
+                        <th align="left" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Item Tag</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="left" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Item Length</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="left" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Item Value</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="left" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Item Tag</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="left" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Item Length</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="left" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Item Value</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="left" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Sequence Delim. Tag</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="left" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Item Length</strong>
+                              </span>
+                           </p>
+                        </th>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>(FFFE, E000)</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>0000 024AH</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Compressed Fragment</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>(FFFE, E000)</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>0000 0628H</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Compressed Fragment</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>(FFFE,E0DD)</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>0000 000H</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>4 bytes</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>4 bytes</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>024AH bytes</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>4 bytes</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>4 bytes</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>0628Hbytes</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>4 bytes</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>4 bytes</p>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <br class="table-break" clear="none" />
+         <div class="table">
+            <a id="table_A.4-2" shape="rect"></a>
+            <p class="title">
+               <strong>Table A.4-2. Examples of Elements for an Encoded Two-Frame Image Defined as a Sequence of Three Fragments with Basic Table Item Values</strong>
+            </p>
+            <div class="table-contents">
+               <table frame="box" rules="all">
+                  <thead>
+                     <tr valign="top">
+                        <th align="center" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Pixel Data Element Tag</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="center" colspan="2" rowspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Value Representation</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="center" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Data Element Length</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="left" colspan="6" rowspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Data Element</strong>
+                              </span>
+                           </p>
+                        </th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr valign="top">
+                        <td align="left" rowspan="3" colspan="1">
+                           <p>(7FE0, 0010) with VR of OB</p>
+                        </td>
+                        <td align="left" rowspan="3" colspan="1">
+                           <p>OB</p>
+                        </td>
+                        <td align="left" rowspan="3" colspan="1">
+                           <p>0000H Reserved</p>
+                        </td>
+                        <td align="left" rowspan="3" colspan="1">
+                           <p>FFFF FFFFH undefined length</p>
+                        </td>
+                        <th align="left" colspan="3" rowspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Basic Offset Table with Item Value</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="left" colspan="3" rowspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>First Fragment (Frame 1) of Pixel Data</strong>
+                              </span>
+                           </p>
+                        </th>
+                     </tr>
+                     <tr valign="top">
+                        <th align="left" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Item Tag</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="left" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Item Length</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="left" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Item Value</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="left" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Item Tag</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="left" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Item Length</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="left" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Item Value</strong>
+                              </span>
+                           </p>
+                        </th>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>(FFFE, E000)</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>0000 0008H</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>0000 0000H 0000 0646H</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>(FFFE, E000)</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>0000 02C8H</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Compressed Fragment</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>4 bytes</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>2 bytes</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>2 bytes</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>4 bytes</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>4 bytes</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>4 bytes</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>0008H bytes</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>4 bytes</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>4 bytes</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>02C8H bytes</p>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <br class="table-break" clear="none" />
+         <div class="table">
+            <a id="table_A.4-2b" shape="rect"></a>
+            <p class="title">
+               <strong>Table A.4-2b. Examples of Elements for an Encoded Two-Frame Image Defined as a Sequence of Three Fragments with Basic Table Item Values (continued)</strong>
+            </p>
+            <div class="table-contents">
+               <table frame="box" rules="all">
+                  <thead>
+                     <tr valign="top">
+                        <th align="left" colspan="8" rowspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Data Element Continued</strong>
+                              </span>
+                           </p>
+                        </th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr valign="top">
+                        <th align="left" colspan="3" rowspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Second Fragment (Frame 1) of Pixel Data</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="left" colspan="3" rowspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Third Fragment (Frame 2) of Pixel Data</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="left" colspan="2" rowspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Sequence Delimiter Item</strong>
+                              </span>
+                           </p>
+                        </th>
+                     </tr>
+                     <tr valign="top">
+                        <th align="left" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Item Tag</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="left" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Item Length</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="left" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Item Value</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="left" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Item Tag</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="left" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Item Length</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="left" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Item Value</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="left" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Sequence Delimiter Tag</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="left" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Item Length</strong>
+                              </span>
+                           </p>
+                        </th>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>(FFFE, E000)</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>0000 036EH</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Compressed Fragment</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>(FFFE, E000)</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>0000 0BC8H</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Compressed Fragment</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>(FFFE, E0DD)</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>0000 0000H</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>4 bytes</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>4 bytes</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>036EH bytes</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>4 bytes</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>4 bytes</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>0BC8H bytes</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>4 bytes</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>4 bytes</p>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <br class="table-break" clear="none" />
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_A.4.1" shape="rect"></a>A.4.1 JPEG Image Compression</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The International Standards Organization ISO/IEC JTC1 has developed an International Standard, ISO/IS-10918-1 (JPEG Part 1) and an International Draft Standard, ISO/IS-10918-2 (JPEG Part 2), known as the JPEG Standard, for digital compression and coding of continuous-tone still images (see <a class="xref" href="chapter_F.html" title="F Encapsulated Images As Part of A DICOM Message (Informative)" shape="rect"> Annex F</a> for further details).</p>
+            <p>A DICOM Transfer Syntax for JPEG Image Compression shall be identified by a UID value, appropriate to its JPEG coding process, chosen from <a class="xref" href="sect_A.4.html#table_A.4-3" title="Table A.4-3. DICOM Transfer Syntax UIDs for JPEG" shape="rect">Table A.4-3</a>.</p>
+            <div class="table">
+               <a id="table_A.4-3" shape="rect"></a>
+               <p class="title">
+                  <strong>Table A.4-3. DICOM Transfer Syntax UIDs for JPEG</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>DICOM Transfer Syntax UID</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>JPEG coding process</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>JPEG description</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1.2.840.10008.1.2.4.50</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>baseline</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1.2.840.10008.1.2.4.51</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>2(8-bit),4(12-bit)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>extended</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1.2.840.10008.1.2.4.57</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>14</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>lossless, non-hierarchical</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1.2.840.10008.1.2.4.70</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>14</p>
+                              <p>(Selection Value 1)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>lossless, non-hierarchical, first-order prediction</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>DICOM identifies, to increase the likelihood of successful association, three Transfer Syntaxes for Default JPEG Compression Image processes (see <a class="xref" href="sect_8.2.html#sect_8.2.1" title="8.2.1 JPEG Image Compression" shape="rect">Section 8.2.1</a> and <a class="xref" href="chapter_10.html" title="10 Transfer Syntax" shape="rect"> Section 10</a>).</p>
+            </div>
+            <p>If the object allows multi-frame images in the pixel data field, then each frame shall be encoded separately. Each fragment shall contain encoded data from a single-frame image.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>Though a fragment may not contain encoded data from more than one frame, the encoded data from one frame may span multiple fragments. See note in <a class="xref" href="sect_8.2.html" title="8.2 Native or Encapsulated Format Encoding" shape="rect">Section 8.2</a>.</p>
+            </div>
+            <p>For all images, including all frames of a multi-frame image, the JPEG Interchange Format shall be used (the table specification shall be included).</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>This refers to the ISO 10918-1 "interchange format", not the DIS 10918-5 JPEG File Interchange Format (JFIF).</p>
+            </div>
+            <p>If images with Photometric Interpretation (0028,0004) YBR_FULL_422 or YBR_PARTIAL_422, are encoded with JPEG coding Process 1 (non hierarchical with Huffman coding), identified by DICOM Transfer Syntax UID "1.2.840.10008.1.2.4.50"the minimum compressible unit is YYCBCR, where Y, CB, and CR are 8 by 8 blocks of pixel values. The data stream encodes two Y blocks followed by the corresponding CB and CR blocks.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_A.4.2" shape="rect"></a>A.4.2 RLE Compression</h3>
+                  </div>
+               </div>
+            </div>
+            <p>
+               <a class="xref" href="chapter_G.html" title="G Encapsulated RLE Compressed Images (Normative)" shape="rect"> Annex G</a> defines a RLE Compression Transfer Syntax. This transfer Syntax is identified by the UID value "1.2.840.10008.1.2.5". If the object allows multi-frame images in the pixel data field, then each frame shall be encoded separately. Each frame shall be encoded in one and only one Fragment (see <a class="xref" href="sect_8.2.html" title="8.2 Native or Encapsulated Format Encoding" shape="rect">Section 8.2</a>).</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_A.4.3" shape="rect"></a>A.4.3 JPEG-LS Image Compression</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The International Standards Organization ISO/IEC JTC1 has developed an International Standard, ISO/IS-14495-1 (JPEG-LS Part 1), for digital compression and coding of continuous-tone still images (see <a class="xref" href="chapter_F.html" title="F Encapsulated Images As Part of A DICOM Message (Informative)" shape="rect"> Annex F</a> for further details).</p>
+            <p>A DICOM Transfer Syntax for JPEG-LS Image Compression shall be identified by a UID value, appropriate to its JPEG-LS coding process.</p>
+            <p>Two Transfer Syntaxes are specified for JPEG-LS:</p>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="1">
+                  <li class="listitem">
+                     <p>A Transfer Syntax with a UID of "1.2.840.10008.1.2.4.80 ", which specifies the use of the lossless mode of JPEG-LS. In this mode the absolute error between the source and reconstructed images will be zero.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>A Transfer Syntax with a UID of "1.2.840.10008.1.2.4.81 ", which specifies the use of the near-lossless mode of JPEG-LS. In this mode, the absolute error between the source and reconstructed images will be constrained to a finite value that is conveyed in the compressed bit stream. Note that this process can, at the discretion of the encoder, be used to compress images with an error constrained to a value of zero, resulting in no loss of information.</p>
+                  </li>
+               </ol>
+            </div>
+            <p>If the object allows multi-frame images in the pixel data field, then each frame shall be encoded separately. Each fragment shall contain encoded data from a single-frame image.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>Though a fragment may not contain encoded data from more than one frame, the encoded data from one frame may span multiple fragments. See note in <a class="xref" href="sect_8.2.html" title="8.2 Native or Encapsulated Format Encoding" shape="rect">Section 8.2</a>.</p>
+            </div>
+            <p>For all images, including all frames of a multi-frame image, the JPEG-LS Interchange Format shall be used (all parameter specifications shall be included).</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_A.4.4" shape="rect"></a>A.4.4 JPEG 2000 Image Compression</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The International Standards Organization ISO/IEC JTC1 has developed an International Standard, ISO/IS 15444-1 (JPEG 2000 Part 1), for digital compression and coding of continuous-tone still images (see <a class="xref" href="chapter_F.html" title="F Encapsulated Images As Part of A DICOM Message (Informative)" shape="rect"> Annex F</a> for further details).</p>
+            <p>A DICOM Transfer Syntax for JPEG 2000 Image Compression shall be identified by a UID value, appropriate to the choice of JPEG 2000 coding process.</p>
+            <p>Two Transfer Syntaxes are specified for JPEG 2000 Part 1:</p>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="1">
+                  <li class="listitem">
+                     <p>A Transfer Syntax with a UID of "1.2.840.10008.1.2.4.90 ", which specifies the use of the lossless (reversible) mode of JPEG 2000 Part 1 (ISO/IEC 15444-1) (i.e., the use of a reversible wavelet transformation and a reversible color component transformation, if applicable, and no quantization).</p>
+                  </li>
+                  <li class="listitem">
+                     <p>A Transfer Syntax with a UID of "1.2.840.10008.1.2.4.91", which specifies the use of either:</p>
+                     <div class="orderedlist">
+                        <ol class="orderedlist" type="a">
+                           <li class="listitem">
+                              <p>the lossless (reversible) mode of JPEG 2000 Part 1 (ISO/IEC 15444-1) (i.e., the use of a reversible wavelet transformation and a reversible color component transformation, if applicable, and no quantization or code stream truncation), or</p>
+                           </li>
+                           <li class="listitem">
+                              <p>the lossy (irreversible) mode of JPEG 2000 Part 1 (ISO/IEC 15444-1) (i.e., the use of an irreversible wavelet transformation and an irreversible color component transformation, if applicable, and optionally quantization, or the use of a reversible wavelet transformation and a reversible color component transformation, if applicable, followed by code stream truncation).</p>
+                           </li>
+                        </ol>
+                     </div>
+                     <p>The choice reversible versus irreversible is at the discretion of the sender (SCU or FSC/FSU).</p>
+                     <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                        <h3 class="title">Note</h3>
+                        <p>When using the irreversible wavelet transformation and an irreversible color component transformation, if applicable, even if no quantization is performed, some loss will always occur due to the finite precision of the calculation of the wavelet and multi-component transformations.</p>
+                     </div>
+                  </li>
+               </ol>
+            </div>
+            <p>Only the features defined in JPEG 2000 Part 1 (ISO/IEC 15444-1) are permitted for these two Transfer Syntaxes. Additional features and extensions that may be defined in other parts of JPEG 2000 shall not be included in the compressed bitstream unless they can be decoded or ignored without loss of fidelity by all Part 1 compliant implementations.</p>
+            <p>If the object allows multi-frame images in the pixel data field, then for these JPEG 2000 Part 1 Transfer Syntaxes, each frame shall be encoded separately. Each fragment shall contain encoded data from a single frame.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>That is, the processes defined in ISO/IEC 15444-1 shall be applied on a per-frame basis. The proposal for encapsulation of multiple frames in a non-DICOM manner in so-called "Motion-JPEG" or "M-JPEG" defined in 15444-3 is not used.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Though a fragment may not contain encoded data from more than one frame, the encoded data from one frame may span multiple fragments. See note in <a class="xref" href="sect_8.2.html" title="8.2 Native or Encapsulated Format Encoding" shape="rect">Section 8.2</a>.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <p>For all images, including all frames of a multi-frame image, the JPEG 2000 bitstream specified in ISO/IEC 15444-1 shall be used. The optional JP2 file format header shall NOT be included.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>The role of the JP2 file format header is fulfilled by the non-pixel data attributes in the DICOM Data Set.</p>
+            </div>
+            <p>The International Standards Organization ISO/IEC JTC1 has also developed JPEG 2000 Part 2 (ISO/IEC 15444-2), which includes Extensions to the compression techniques described in Part 1 of the JPEG 200 Standard. Annex J of JPEG 2000 Part 2 describes extensions to the ICT and RCT multiple component transformations allowed in Part 1. Two types of multiple component transformations are defined in Annex J of Part 2 of JPEG 2000:</p>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="1">
+                  <li class="listitem">
+                     <p>Array based multiple component transforms that form linear combinations of components to reduce the correlation between components. Array based transforms include prediction based transformations such as DPCM as well as more complicated transformations such as the KLT. These array based transformations can be implemented reversibly or irreversibly.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Wavelet based multiple component transformations using the same two wavelet filters as used in Part 1 of JPEG 2000 (5-3 reversible wavelet and 9-7 irreversible wavelet).</p>
+                  </li>
+               </ol>
+            </div>
+            <p>Annex J of JPEG 2000 Part 2 also describes a flexible mechanism to allow these techniques to be applied in sequence. Furthermore, it provides mechanisms that allow components to be re-ordered and grouped into component collections. Different multiple component transformation can then be applied to each component collection.</p>
+            <p>Two additional Transfer Syntaxes are specified for Part 2 JPEG 2000:</p>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="1">
+                  <li class="listitem">
+                     <p>A Transfer Syntax with a UID of 1.2.840.10008.1.2.4.92, which specifies the use of the lossless (reversible) mode of JPEG 2000 Part 2 (ISO/IEC 15444-2) multiple component transformation extensions, as defined in Annex J of JPEG 2000 Part 2 (i.e., the use of a reversible wavelet transformation and a reversible multiple component transformation, and no quantization or code stream truncation).</p>
+                  </li>
+                  <li class="listitem">
+                     <p>A Transfer Syntax with a UID of 1.2.840.10008.1.2.4.93, which specifies the use of either:</p>
+                     <div class="orderedlist">
+                        <ol class="orderedlist" type="a">
+                           <li class="listitem">
+                              <p>the lossless (reversible) mode of JPEG 2000 Part 2 (ISO/IEC 15444-2) multiple component transformation extensions, as defined in Annex J of JPEG 2000 Part 2 (i.e., the use of a reversible wavelet transformation and a reversible multiple component transformation, and no quantization), or</p>
+                           </li>
+                           <li class="listitem">
+                              <p>the lossy (irreversible) mode of JPEG 2000 Part 2 (ISO/IEC 15444-2) multiple component transformation extensions, as defined in Annex J of JPEG 2000 Part 2 (i.e., the use of an irreversible wavelet transformation and an irreversible multiple component transformation, and optionally quantization, or the use of an reversible wavelet transformation and a reversible multiple component transformation, followed by code stream truncation).</p>
+                           </li>
+                        </ol>
+                     </div>
+                  </li>
+               </ol>
+            </div>
+            <p>Only the multiple component transformation extensions defined in Annex J of JPEG 2000 Part 2 (ISO/IEC 15444-2) are permitted for these two Transfer Syntaxes. Additional features and extensions that may be defined in other Annexes of JPEG 2000 Part 2 shall not be included in the compressed bitstream.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>the arbitrary wavelet transformations, as defined in Annex H of JPEG 2000 Part 2 (ISO/IEC 15444-2) are not allowed for these two Transfer Syntaxes. The only wavelet transformations that are allowed to be used as multiple component transformations are the reversible 5-3 wavelet transformation and the irreversible 9-7 wavelet transformation, as defined in Annex F of JPEG 2000 Part 1 (ISO/IEC 15444-1).</p>
+            </div>
+            <p>If the object allows multi-frame images in the pixel data field, then, for these JPEG 2000 Part 2 Transfer Syntaxes, the frames in the object are first processed using the multi-component transformation. After the multiple component transformation has been applied, the transformed frames are encoded using the process described in JPEG 2000 Part 1.</p>
+            <p>Optionally, the frames can be grouped into one or more component collections. The multiple component transformations are then applied to each component collection independently. The use of component collections can be used to reduce computational complexity and to improve access to specific frames on the decoder. If component collections are used, each fragment shall contain encoded data from a single component collection.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>The 3<sup>rd</sup> dimension transformations that are described in this Supplement are treated in Part 2 of JPEG 2000 as direct extensions to the color component transformations (RGB to YUV) that are described in Part 1 of JPEG 2000. For this reason, each image or frame in the sequence is called a "component". Although the term component is used as a generic term to identify an element of the 3<sup>rd</sup> dimension, no restriction is made or implied that the transformations in this Supplement apply only to multi-component (or multiple color channel) data. To compress a volumetric data set using this transfer syntax, each frame of the DICOM image is treated as a component of a multi-component image.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The progressive nature of the JPEG 2000 code stream allows for the decompression of the image before the complete image has been transferred. If a Storage SCP truncates the code stream by aborting the association, the instance has not been completely transferred and hence should not persist unless different UIDs are assigned (even though it may have been transiently used for display purposes).</p>
+                     </li>
+                     <li class="listitem">
+                        <p>It has been shown that the use of component collections does not significantly affect the compression efficiency (for details, see <a class="link" href="http://medical.nema.org/Dicom/minutes/WG-04/2004/2004-02-18/3D_compression_RSNA_2003_ver2.pdf" target="_top" shape="rect">http://medical.nema.org/Dicom/minutes/WG-04/2004/2004-02-18/3D_compression_RSNA_2003_ver2.pdf</a>).</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Though a fragment may not contain encoded data from more than one component collection, the encoded data from one component collection may span multiple fragments.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_A.4.5" shape="rect"></a>A.4.5 MPEG2 Image Compression</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The International Standards Organization ISO/IEC MPEG2 has developed an International Standard, ISO/IEC 13818-2 'Information Technology - Generic coding of moving pictures and associated audio information: video -- part 2', referred to as "MPEG-2".</p>
+            <p>A DICOM Transfer Syntax for MPEG2 Image Compression shall be identified by a UID value of either:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>1.2.840.10008.1.2.4.100corresponding to MPEG2 MP@ML option of the ISO/IEC MPEG2 Video standard</p>
+                  </li>
+                  <li class="listitem">
+                     <p>1.2.840.10008.1.2.4.101 corresponding to the MPEG2 MP@HL option of the ISO/IEC MPEG2 Video standard.</p>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_A.4.6" shape="rect"></a>A.4.6 MPEG-4 AVC/H.264 HIP@Level4.1 Video Compression</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The International Standards Organization ISO/IEC MPEG4 has developed an International Standard, ISO/IEC 14496-10 (MPEG-4 Part 10), for the video compression of generic coding of moving pictures and associated audio information. This standard is jointly maintained and has identical technical content as the ITU-T H.264 standard.</p>
+            <p>A DICOM Transfer Syntax for MPEG-4 AVC/H.264 Image Compression shall be identified by a UID value of either:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>1.2.840.10008.1.2.4.102 corresponding to the MPEG-4 AVC/H.264 High Profile / Level 4.1 of the ITU-T H.264 Video standard</p>
+                  </li>
+                  <li class="listitem">
+                     <p>1.2.840.10008.1.2.4.103 corresponding to the MPEG-4 AVC/H.264 BD-compatible High Profile / Level 4.1 of the ITU-T H.264 Video standard with the temporal and spatial resolution restrictions defined in <a class="xref" href="sect_8.2.html#table_8-4" title="Table 8-4. Values Permitted for MPEG-4 AVC/H.264 BD-compatible High Profile / Level 4.1" shape="rect">Table 8-4</a>.</p>
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_A.3.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_A.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_A.5.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">A.3 DICOM Big Endian Transfer Syntax (Explicit VR) </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.5.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> A.5 DICOM Deflated Little Endian Transfer Syntax (Explicit VR)</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

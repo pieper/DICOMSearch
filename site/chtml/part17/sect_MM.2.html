@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>MM.2 Frame Extraction Issues</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="chapter_MM.html" title="MM Considerations For Applications Creating New Images From Multi-frame Images" />
+      <link rel="prev" href="chapter_MM.html" title="MM Considerations For Applications Creating New Images From Multi-frame Images" />
+      <link rel="next" href="sect_MM.3.html" title="MM.3 Frame Numbers" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">MM.2 Frame Extraction Issues</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_MM.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">MM Considerations For Applications Creating New Images From Multi-frame Images</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_MM.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_MM.2" shape="rect"></a>MM.2 Frame Extraction Issues</h2>
+               </div>
+            </div>
+         </div>
+         <p>There are many different aspects to consider when extracting frames to make a new object, to ensure that the new image remains a fully valid SOP Instance, and the following is a non-exhaustive list of important issues</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_MM.2.1" shape="rect"></a>MM.2.1 Number of Frames</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The Number of Frames (0028,0008) attribute will need to be updated.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_MM.2.2" shape="rect"></a>MM.2.2 Start and End Times</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Any attributes that refer to start and end times such as Acquisition Time (0008,0032) and Content Time (0008,0033) must be updated to reflect the new start time if the first frame is not the same as the original. This is typically the case where the multi-frame object is a "video" and where the first frame is not included. Likewise, Image Trigger Delay (0018,1067) may need to be updated.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_MM.2.3" shape="rect"></a>MM.2.3 Time Interval versus Frame Increment Vector</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The Frame Time (0018,1063) may need to be modified if frames in the new image are not a simple contiguous sequence from the original, and if they are irregular, then the Frame Time Vector (0018,1065) will need to be used in its place, with a corresponding change to the Frame Increment Pointer (0028,0009). This also needs careful consideration if non-consecutive frames are requested from an image with non-linearly spaced frames.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_MM.2.4" shape="rect"></a>MM.2.4 MPEG-2 or MPEG-4 AVC/H.264</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Identifying the location of the requested frames within an MPEG-2 or MPEG-4 AVC/H.264 data stream is non-trivial, but if achieved, then little else other than changes to the starting times are likely to be required for MPEG-2 or MPEG-4 AVC/H.264 encoded data, as the use-cases for such encoded data (e.g., endoscopy) are unlikely to include explicit frame related data. See the note below however for comments on "single-frame" results.</p>
+            <p>An application holding data in MPEG-2 or MPEG-4 AVC/H.264 format is unlikely to be able to create a range with a frame increment of greater than one (a calculated frame list with a 3<sup>rd</sup> value greater than one), and if such a request is made, it might return a status of AA02: Unable to extract Frames.</p>
+            <p>The approximation feature of the Time Range form of request is especially suitable for data held in MPEG-2 or MPEG-4 AVC/H.264 form, as it allows the application to find the nearest surrounding key frames, which greatly simplifies editing and improves quality.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_MM.2.5" shape="rect"></a>MM.2.5 JPEG 2000 Part 2 Multi-Component Transform</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Similar issues exist as for MPEG-2 and MPEG-4 AVC/H.264 data and similar solutions apply.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_MM.2.6" shape="rect"></a>MM.2.6 Functional Groups For Enhanced CT, MR, etc.</h3>
+                  </div>
+               </div>
+            </div>
+            <p>It is very important that functional groups for enhanced image objects are properly re-created to reflect the reduced set of frames, as they include important clinical information. The requirement in the standard that the resulting object be a valid SOP instance does make such re-creations mandatory.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_MM.2.7" shape="rect"></a>MM.2.7 Nuclear Medicine Images</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Images of the Nuclear Medicine SOP class are described by the Frame Increment Pointer (0028,0009), which in turn references a number of different "Vectors" as defined in Table "NM Multi-frame Module" in <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>. Like the Functional Groups above, these Vectors are required to contain one value for each frame in the Image, and so their contents must be modified to match the list of frames extracted, ensuring that the values retained are those corresponding to the extracted frames.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_MM.2.8" shape="rect"></a>MM.2.8 A "Single Frame" Multi-frame Image</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The requirement that the newly created image object generated in response to a Frame level retrieve request must be the same as the SOP class will frequently result in the need to create a single frame instance of an object that is more commonly a multi-frame object, but this should not cause any problems with the IOD rules, as all such objects may quite legally have Number of Frames = 1.</p>
+            <p>However, a single frame may well cause problems for a transfer syntax based on "video" such as those using MPEG-2 or MPEG-4 AVC/H.264, and therefore the SCU when negotiating a C-GET should consider this problem, and include one or more transfer syntaxes suitable for holding single or non-contiguous frames where such a retrieval request is being made.</p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_MM.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_MM.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_MM.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">MM Considerations For Applications Creating New Images From Multi-frame Images </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> MM.3 Frame Numbers</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

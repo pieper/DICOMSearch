@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>7.5 Nesting of Data Sets</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.5.html" title="PS3.5" />
+      <link rel="up" href="chapter_7.html" title="7 The Data Set" />
+      <link rel="prev" href="sect_7.4.html" title="7.4 Data Element Type" />
+      <link rel="next" href="sect_7.6.html" title="7.6 Repeating Groups" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">7.5 Nesting of Data Sets</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_7.4.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">7 The Data Set</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_7.6.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_7.5" shape="rect"></a>7.5 Nesting of Data Sets</h2>
+               </div>
+            </div>
+         </div>
+         <p>The VR identified "SQ" shall be used for Data Elements with a Value consisting of a Sequence of zero or more Items, where each Item contains a set of Data Elements. SQ provides a flexible encoding scheme that may be used for simple structures of repeating sets of Data Elements, or the encoding of more complex Information Object Definitions often called folders. SQ Data Elements can also be used recursively to contain multi-level nested structures.</p>
+         <p>Items present in an SQ Data Element shall be an ordered set where each Item may be referenced by its ordinal position. Each Item shall be implicitly assigned an ordinal position starting with the value 1 for the first Item in the Sequence, and incremented by 1 with each subsequent Item. The last Item in the Sequence shall have an ordinal position equal to the number of Items in the Sequence.</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="1">
+                  <li class="listitem">
+                     <p>This clause implies that item ordering is preserved during transfer and storage.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>An IOD or Module Definition may choose to not use this ordering property of a Data Element with VR of SQ. This is simply done by not specifying any specific semantics to the ordering of Items, or by not specifying usage of the referencing of Items by ordering position.</p>
+                  </li>
+               </ol>
+            </div>
+         </div>
+         <p>The definition of the Data Elements encapsulated in each Item is provided by the specification of the Data Element (or associated Attribute) of Value Representation SQ. Items in a sequence of Items may or may not contain the same set of Data Elements. Data Elements with a VR of SQ may contain multiple Items but shall always have a Value Multiplicity of one (i.e., a single Sequence).</p>
+         <p>There are three special SQ related Data Elements that are not ruled by the VR encoding rules conveyed by the Transfer Syntax. They shall be encoded as Implicit VR. These special Data Elements are Item (FFFE,E000), Item Delimitation Item (FFFE,E00D), and Sequence Delimitation Item (FFFE,E0DD). However, the Data Set within the Value Field of the Data Element Item (FFFE,E000) shall be encoded according to the rules conveyed by the Transfer Syntax.</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_7.5.1" shape="rect"></a>7.5.1 Item Encoding Rules</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Each Item of a Data Element of Value Representation SQ shall be encoded as a DICOM Standard Data Element with a specific Data Element Tag of Value (FFFE,E000). The Item Tag is followed by a 4 byte Item Length field encoded in one of the following two ways:</p>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="a">
+                  <li class="listitem">
+                     <p>Explicit Length: The number of bytes (even) contained in the Sequence Item Value (following but not including the Item Length Field) is encoded as a 32-bit unsigned integer value (see <a class="xref" href="chapter_7.html#sect_7.1" title="7.1 Data Elements" shape="rect">Section 7.1</a>). This length shall include the total length of all Data Elements conveyed by this Item. This Item Length shall be equal to 00000000H if the Item contains no Data Set.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Undefined Length: The Item Length Field shall contain the value FFFFFFFFH to indicate an undefined Item length. It shall be used in conjunction with an Item Delimitation Data Element. This Item Delimitation Data Element has a Data Element Tag of (FFFE,E00D) and shall follow the Data Elements encapsulated in the Item. No Value shall be present in the Item Delimitation Data Element and its Length shall be 00000000H. An Item containing no Data Set is encoded by an Item Delimitation Data Element only.</p>
+                  </li>
+               </ol>
+            </div>
+            <p>The encoder of a Data Set may choose either one of the two ways of encoding. Both ways of encoding shall be supported by decoders of Data Sets. Data Element Tags (FFFF,eeee) are reserved by this standard and shall not be used.</p>
+            <p>Each Item Value shall contain a DICOM Data Set composed of Data Elements. Within the context of each Item, these Data Elements shall be ordered by increasing Data Element Tag value and appear only once (as Data Set is defined in <a class="xref" href="chapter_7.html#sect_7.1" title="7.1 Data Elements" shape="rect">Section 7.1</a>). There is no relationship between the ordering of the Data Elements contained within an Item and the ordering of the Data Element Tag of SQ Value Representation that contains that Item. One or more Data Elements in an Item may be of Value Representation SQ, thus allowing for recursion.</p>
+            <p>Data Elements with a group of 0000, 0002 and 0006 shall not be present within Sequence Items.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>The use of Transfer Syntax UID (0002,0010) in particular is forbidden, since were it to differ from the Transfer Syntax of the enclosing Data Set then a change in encoding would be implied, which is not allowed.</p>
+            </div>
+            <p>
+               <a class="xref" href="sect_7.8.html" title="7.8 Private Data Elements" shape="rect">Section 7.8</a> specifies rules for incorporating Private Data Elements into Sequence Items.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_7.5.2" shape="rect"></a>7.5.2 Delimitation of The Sequence of Items</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Delimitation of the last Item of a Sequence of Items, encapsulated in a Data Element of Value Representation SQ, shall be in one of the two following ways:</p>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="a">
+                  <li class="listitem">
+                     <p>Explicit Length: The number of bytes (even) contained in the Data Element Value (following but not including the Data Element Length Field) is encoded as a 32-bit unsigned integer value (see <a class="xref" href="chapter_7.html#sect_7.1" title="7.1 Data Elements" shape="rect">Section 7.1</a>). This length shall include the total length resulting from the sequence of zero or more items conveyed by this Data Element. This Data Element Length shall be equal to 00000000H if the sequence of Items contains zero Items.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Undefined Length: The Data Element Length Field shall contain a Value FFFFFFFFH to indicate an Undefined Sequence length. It shall be used in conjunction with a Sequence Delimitation Item. A Sequence Delimitation Item shall be included after the last Item in the sequence. Its Item Tag shall be (FFFE,E0DD) with an Item Length of 00000000H. No Value shall be present. A Sequence containing zero Items is encoded by a Sequence Delimitation Item only.</p>
+                  </li>
+               </ol>
+            </div>
+            <p>The encoder of a Sequence of Items may choose either one of the two ways of encoding. Both ways of encoding shall be supported by decoders of the Sequence of Items.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>The Sequence Delimitation Item Tag (FFFE,E0DD) is different from the Item Delimitation Tag (FFFE,E00D) introduced above in that it indicates the end of a Sequence of Items whose Length was left undefined. If an undefined length Item is the last Item of a Sequence of Items of undefined length, then an Item Delimitation Tag will be followed by a Sequence Delimitation Tag.</p>
+            </div>
+            <p>For an example of an SQ Data Element of Explicit Length encapsulating Items of Explicit Length see <a class="xref" href="sect_7.5.html#table_7.5-1" title="Table 7.5-1. Example of a Data Element with Implicit VR Defined as a Sequence of Items (VR = SQ) with Three Items of Explicit Length" shape="rect">Table 7.5-1</a>.</p>
+            <p>For an example of an SQ Data Element of Undefined Length encapsulating Items of Explicit Length see <a class="xref" href="sect_7.5.html#table_7.5-2" title="Table 7.5-2. Example of a Data Element with Explicit VR Defined as a Sequence of Items (VR = SQ) of Undefined Length, Containing Two Items of Explicit Length" shape="rect">Table 7.5-2</a>.</p>
+            <p>For an example of an SQ Data Element of Undefined Length encapsulating Items of both Explicit and Undefined Length see <a class="xref" href="sect_7.5.html#table_7.5-3" title="Table 7.5-3. Example of a Data Element with Implicit VR Defined as a Sequence of Items (VR = SQ) of Undefined Length, Containing Two Items Where One Item is of Explicit Length and the Other Item is of Undefined Length" shape="rect">Table 7.5-3</a>.</p>
+            <div class="table">
+               <a id="table_7.5-1" shape="rect"></a>
+               <p class="title">
+                  <strong>Table 7.5-1. Example of a Data Element with Implicit VR Defined as a Sequence of Items (VR = SQ) with Three Items of Explicit Length</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Data Element Tag</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Data Element Length</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="left" colspan="9" rowspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Data Element Value</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="center" rowspan="2" colspan="1">
+                              <p>(gggg, eeee) with VR of SQ</p>
+                           </td>
+                           <td align="center" rowspan="2" colspan="1">
+                              <p>0000 0F00H</p>
+                           </td>
+                           <th align="left" colspan="3" rowspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>First Item</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <td align="left" colspan="3" rowspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Second Item</strong>
+                                 </span>
+                              </p>
+                           </td>
+                           <td align="left" colspan="3" rowspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Third Item</strong>
+                                 </span>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Item Tag (FFFE, E000)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Item Length 0000 04F8H</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Item Value Data Set</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Item Tag (FFFE, E000)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Item Length 0000 04F8H</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Item Value Data Set</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Item Tag (FFFE, E000)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Item Length 0000 04F8H</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Item Value Data Set</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>4 bytes</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>4 bytes</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>4 bytes</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>4 bytes</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>04F8H bytes</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>4 bytes</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>4 bytes</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>04F8H bytes</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>4 bytes</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>4 bytes</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>04F8H bytes</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <div class="table">
+               <a id="table_7.5-2" shape="rect"></a>
+               <p class="title">
+                  <strong>Table 7.5-2. Example of a Data Element with Explicit VR Defined as a Sequence of Items (VR = SQ) of Undefined Length, Containing Two Items of Explicit Length</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Data Element Tag</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" colspan="2" rowspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Value Representation</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Data Element Length</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <td align="left" colspan="8" rowspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Data Element Value</strong>
+                                 </span>
+                              </p>
+                           </td>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="center" rowspan="2" colspan="1">
+                              <p>(gggg, eeee) with VR of SQ</p>
+                           </td>
+                           <td align="center" rowspan="2" colspan="1">
+                              <p>SQ</p>
+                           </td>
+                           <td align="center" rowspan="2" colspan="1">
+                              <p>0000H Reserved</p>
+                           </td>
+                           <td align="center" rowspan="2" colspan="1">
+                              <p>FFFF FFFFH undefined length</p>
+                           </td>
+                           <td align="left" colspan="3" rowspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>First Item</strong>
+                                 </span>
+                              </p>
+                           </td>
+                           <td align="left" colspan="3" rowspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Second Item</strong>
+                                 </span>
+                              </p>
+                           </td>
+                           <td align="left" colspan="2" rowspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Sequence Delimitation Item</strong>
+                                 </span>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Item Tag (FFFE, E000)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Item Length 98A5 2C68H</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Item Value Data Set</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Item Tag (FFFE, E000)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Item Length B321 762CH</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Item Value Data Set</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Seq. Delim. Tag (FFFE, E0DD)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Item Length 0000 0000H</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>4 bytes</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>2 bytes</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>2 bytes</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>4 bytes</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>4 bytes</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>4 bytes</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>98A5 2C68H bytes</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>4 bytes</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>4 bytes</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>B321 762CH bytes</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>4 bytes</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>4 bytes</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>The Data Set within the Item Values in <a class="xref" href="sect_7.5.html#table_7.5-2" title="Table 7.5-2. Example of a Data Element with Explicit VR Defined as a Sequence of Items (VR = SQ) of Undefined Length, Containing Two Items of Explicit Length" shape="rect">Table 7.5-2</a> have VRs Explicitly defined.</p>
+            </div>
+            <div class="table">
+               <a id="table_7.5-3" shape="rect"></a>
+               <p class="title">
+                  <strong>Table 7.5-3. Example of a Data Element with Implicit VR Defined as a Sequence of Items (VR = SQ) of Undefined Length, Containing Two Items Where One Item is of Explicit Length and the Other Item is of Undefined Length</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Data Element Tag</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Data Element Length</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <td align="center" colspan="10" rowspan="1">
+                              <p>
+                                 <span class="left">Data Element Value</span>
+                              </p>
+                           </td>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="center" rowspan="2" colspan="1">
+                              <p>(gggg, eeee) with VR of SQ</p>
+                           </td>
+                           <td align="center" rowspan="2" colspan="1">
+                              <p>FFFF FFFFH undefined length</p>
+                           </td>
+                           <td align="left" colspan="3" rowspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>First Item</strong>
+                                 </span>
+                              </p>
+                           </td>
+                           <td align="left" colspan="5" rowspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Second Item</strong>
+                                 </span>
+                              </p>
+                           </td>
+                           <td align="left" colspan="2" rowspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Sequence Delimitation Item</strong>
+                                 </span>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Item Tag (FFFE, E000)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Item Length 0000 17B6H</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Item Value Data Set</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Item Tag (FFFE, E000)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Item Length FFFF FFFFH undefined length</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Item Value Data Set</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Item Delim. Tag (FFFE, E00D)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Length 0000 0000H</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Seq. Delim. Tag (FFFE, E0DD)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Item Length 0000 0000H</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>4 bytes</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>4 bytes</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>4 bytes</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>4 bytes</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>17B6H bytes</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>4 bytes</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>4 bytes</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>undefined length</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>4 bytes</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>4 bytes</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>4 bytes</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>4 bytes</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_7.5.3" shape="rect"></a>7.5.3 Sequence Inheritance</h3>
+                  </div>
+               </div>
+            </div>
+            <p>An encapsulated Data Set shall only include the Specific Character Set (0008,0005) data element if the Attribute Specific Character Set is defined in the IOD for that sequence of items.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>An encapsulated Data Set does not include the Specific Character Set data element unless the Specific Character Set Attribute is defined as part of the IOD for that sequence.</p>
+            </div>
+            <p>If an encapsulated Data Set includes the Specific Character Set Attribute, it shall apply only to the encapsulated Data Set. If the Attribute Specific Character Set is not explicitly included in an encapsulated Data Set, then the Specific Character Set value of the encapsulating Data Set applies.</p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_7.4.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_7.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_7.6.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">7.4 Data Element Type </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.5.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 7.6 Repeating Groups</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

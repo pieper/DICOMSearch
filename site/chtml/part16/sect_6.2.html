@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>6.2 Special Conventions for Template Tables</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.16.html" title="PS3.16" />
+      <link rel="up" href="chapter_6.html" title="6 Form of Template Specifications" />
+      <link rel="prev" href="chapter_6.html" title="6 Form of Template Specifications" />
+      <link rel="next" href="chapter_7.html" title="7 DCMR Context Group Specifications" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">6.2 Special Conventions for Template Tables</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_6.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">6 Form of Template Specifications</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_7.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_6.2" shape="rect"></a>6.2 Special Conventions for Template Tables</h2>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_6.2.1" shape="rect"></a>6.2.1 Multiple Value Sets Depending On Different Conditions</h3>
+                  </div>
+               </div>
+            </div>
+            <p>When a Content Item may have different value sets, each depending on different conditions, the description of each different case begins in a separate row of the Template Table.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_6.2.2" shape="rect"></a>6.2.2 Target Content Items of Relationships</h3>
+                  </div>
+               </div>
+            </div>
+            <p>When it is necessary to specify the Target Content Item(s) of a relationship, they are specified in the row(s) immediately following the Source Content Item. The Nesting level of a Target Content Item (or set of Target Content Items specified indirectly via an 'include Template' macro) is one greater than the Nesting Level of the corresponding Source Content Item, as indicated by an increase in the number of "&gt;" characters in the nesting level.</p>
+            <p>When a Content Item may be the Source of multiple relationships having different Relationship Types and/or different Relationship Modes and/or different patterns of Target Content Item(s), the description of each different case begins in a separate row of the Template Table.</p>
+            <p>When the Source Content Item of a relationship has VM of greater than 1, the specified pattern of Target Content Items applies to all instantiations of the Source Content Item.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>For example, if a Template specifies that the VM of a Source Content Item is 1-n and specifies a By-value relationship to two CODE Content Items with particular value set constraints, then each instantiation of the Source Content Item has a By-value relationship to two CODE Content Items with the specified value constraints.</p>
+            </div>
+            <p>When a Source Content Item that has a Requirement Type of U, UC or MC is not present (is not instantiated), no Target Content Items of that Source Content Item are present, even if one or more of the Target Content Items is designated with a Requirement Type of M or MC.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>In other words, potential children are not present when there is no parent.</p>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_6.2.3" shape="rect"></a>6.2.3 Inclusion of Templates</h3>
+                  </div>
+               </div>
+            </div>
+            <p>A Template may specify another Template to be included by specifying "INCLUDE" in the Value Type field and the identifier of the included Template in the Concept Name field. All of the rows of the specified Template are in included in the invoking Template, effectively substituting the specified template for the row where the inclusion is invoked. Whether or not the inclusion is user optional, mandatory or conditional is specified in the Requirement and Condition fields. The number of times the included Template may be repeated is specified in the VM field.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_6.2.3.1" shape="rect"></a>6.2.3.1 Template Parameters</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>A Template that is included by another Template may include parameters that are replaced by values defined in the invoking Template. Parameters may be used to specify coded concepts or Context Groups in the Concept Name, Condition, or Value Set Constraint fields of a Template.</p>
+               <p>An included Template that accepts parameters shall be introduced by a table listing those parameters of the form:</p>
+               <div class="informaltable">
+                  <table rules="all" frame="box">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Parameter Name</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Parameter Usage</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>...</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>...</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>...</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>...</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+               <p>Parameters are indicated by a name beginning with the character "$".</p>
+               <p>The invoking Template may specify the value of the parameters in the included Template by name in the Value Set Constraint field of the INCLUDE row. The parameter in the included Template shall be replaced by the specified parameter value. Specification of a parameter value shall be of one of the following forms:</p>
+               <div class="informaltable">
+                  <table rules="all" frame="box">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Notation</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Definition</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>$parametername = EV or DT (CV, CSD, "CM")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>The parameter passed to the template is the specified coded term.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>$parametername = (CV, CSD, "CM")</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>The parameter passed to the template is the specified coded term, used as a parameter in a Condition field of the included Template.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>$parametername = BCID or DCID (CID) CNAME</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>The parameter passed to the template is the Context Group.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>$parametername = MemberOf {BCID or DCID (CID) CNAME}</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>The parameter passed to the template is a single coded term from the Context Group in curly braces.</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+               <p>The specification of a parameter value is valid only for the directly included template. Therefore, it needs to be explicitly respecified in templates intermediate between the originally specifying Template and the target Template. The intermediate Template may use the same parameter name as used by the Template it invokes; in such a case, the intermediate Template would invoke the subsidiary Template with a specification in the Value Set Constraint field such as:</p>
+               <p>$parametername = $parametername</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>In this case, the left hand instance of $parametername is the name in the
+              subsidiary template, and the right hand instance is the (parametrized) value passed
+              into the current template.</p>
+               </div>
+               <p>The invoking template is not required to specify all parameters of included templates. If not specified, the value set (term or context group) for that parameter is unconstrained. An unconstrained value in a Condition will cause the condition to fail.</p>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_6.2.4" shape="rect"></a>6.2.4 Post-coordinated Codes and Has Concept Modifier Relationship</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Though it may not be explicitly shown in a particular Template, the use of any coded Concept Name in any Content Item may be defined in a post-coordinated rather than pre-coordinated manner, unless explicitly forbidden by the IOD or the Template.</p>
+            <p>Accordingly, any such Content Item may have any number of Target Content Items via a
+          "HAS CONCEPT MOD" relationship, even if not explicitly specified in a Template. Each
+          Target Content Item of such a relationship may be more complicated than a single Content
+          Item if the IOD permits (i.e., the post-coordinated concept may potentially be defined by
+          a complex sub-tree).</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_6.2.5" shape="rect"></a>6.2.5 Extension of Templates</h3>
+                  </div>
+               </div>
+            </div>
+            <p>An Extensible Template may be extended in an Application generating SOP Instances to include additional Content Items in its definition. Such Content Items shall not duplicate concepts for which an encoding is defined in the Template. I.e., if a method is provided for the encoding of a concept in the Template, that concept shall not be encoded using a different Content Item in an extension to the Template.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>There is no requirement that the included additional Content Items in a Template extension be placed at the end of the Template. The additional Content Items may be included at any semantically appropriate location in the Template, regardless of whether the order of Content Items in the Template is significant.</p>
+            </div>
+            <p>A Non-extensible Template shall not be modified in an Application by the addition of Content Items to its definition.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>The set of Content Items in either an Extensible or a Non-extensible Template may be changed in subsequent editions of the Standard, in accordance with the procedures of the DICOM Standards Committee.</p>
+            </div>
+            <p>A Non-Extensible Template may include a Template that is Extensible. In invoking such a Template, the content structure of SOP Instances created from the Non-Extensible Template may vary according to the varying content structure allowed by the extension of the included Template.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>Specification of such extensible content in a Non-Extensible Template may be desirable if the Template defines, e.g., a fixed top level structure into which a variety of lower level structures may be "plugged".</p>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_6.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_6.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_7.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">6 Form of Template Specifications </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.16.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 7 DCMR Context Group Specifications</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

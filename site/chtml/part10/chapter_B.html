@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>B HL7 Structured Document Files</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.10.html" title="PS3.10" />
+      <link rel="up" href="PS3.10.html" title="PS3.10" />
+      <link rel="prev" href="sect_A.2.html" title="A.2 Example of DICOMDIR File Content With Multiple Referenced Files" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">B HL7 Structured Document Files</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_A.2.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_B" shape="rect"></a>B HL7 Structured Document Files</h1>
+               </div>
+            </div>
+         </div>
+         <p>Structured Documents as defined by an HL7 standard may be stored on DICOM Interchange Media, and may be referenced from within DICOM SOP Instances (including the DICOMDIR Media Storage Directory). There are two alternatives for storage of such documents - they may be encapsulated in DICOM SOP Instances, or they may be stored as native HL7 objects (unencapsulated),</p>
+         <p>An Encapsulated CDA is referenced from the Media Storage Directory like any other DICOM SOP Instance.</p>
+         <p>References to a native (unencapsulated) Structured Document use a SOP Class UID, identifying the document class, and a SOP Instance UID. The SOP Instance UID is arbitrary, and the native document instance identifier is encoded in the HL7 Instance Identifier (0040,E001) attribute (see <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>, "HL7 Structured Document Directory Record Definition" and "HL7 Structured Document Reference Sequence" for further information).</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="1">
+                  <li class="listitem">
+                     <p>The HL7 standards that define such documents include the Clinical Document Architecture (CDA), Structured Product Labeling (SPL), and Structured Clinical Trial Protocol (SCTP) standards.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>The SOP Instance UID used to reference a particular HL7 Structured Document is not necessarily the same in all DICOM Instances. E.g., an SR Document and a DICOMDIR, both stored on the same media, may
+            <span class="italic">internally</span> use different SOP Instance UIDs to reference the same HL7 Structured Document, but they will each provide a mapping to the same HL7 Instance Identifier as the
+            <span class="italic">external</span> identifier.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>It is recommended that an HL7 Structured Document that can be associated with a patient and study be encapsulated in a DICOM SOP Instance, and that the SOP Instance UID of that encapsulation be used consistently for all references.</p>
+                  </li>
+               </ol>
+            </div>
+         </div>
+         <p>An HL7 Structured Document is an aggregate multimedia object, consisting of a base XML-encoded document, plus zero or more multimedia components (e.g., graphics) that are considered an integral part of the object. The multimedia components may be encoded in-line in the XML document, or they may be referenced external objects.</p>
+         <p>Such a document stored on DICOM Interchange Media shall be encoded as either:</p>
+         <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+               <li class="listitem">
+                  <p>an XML document with any multimedia components encoded in-line, and stored in a single file. The file shall be stored on the media with a File ID as defined for DICOM files. There shall be no preamble or header in the file prior to the XML content. For the purpose of identifying the Transfer Syntax of such a stored file from the DICOMDIR, the Transfer Syntax UID "1.2.840.10008.1.2.6.2" is specified for an XML encoded document.</p>
+               </li>
+               <li class="listitem">
+                  <p>a Multipart MIME package, as described in RFC 2557 "MIME Encapsulation of Aggregate Documents, such as HTML (MHTML) " (http://www.ietf.org/rfc/rfc2557.txt). A single package shall be stored in a single file, and shall encapsulate a single HL7 Structured Document and its referenced multimedia. The file shall be stored on the media with a File ID as defined for DICOM files. There shall be no preamble or header in the file prior to the MIME headers. For the purpose of identifying the Transfer Syntax of such a stored file from the DICOMDIR, the Transfer Syntax UID "1.2.840.10008.1.2.6.1" is specified for RFC 2557 MIME Encapsulation.</p>
+               </li>
+            </ul>
+         </div>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <p>The File ID, consistent with DICOM file naming rules, is limited to eight characters with no extension, in a directory structure where each directory is limited to an eight character name. There may also be alternate file identifiers (e.g., links) to those files that use less restricted file names (see <a class="xref" href="sect_8.2.html" title="8.2 File IDs" shape="rect">Section 8.2</a>).</p>
+         </div>
+         <p>Any multimedia component that is included by reference in multiple HL7 Structured Documents stored on the same media shall be replicated into each referencing document MIME package.</p>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_A.2.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">A.2 Example of DICOMDIR File Content With Multiple Referenced Files </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.10.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> </td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,1407 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>C.18 Content Macros</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.3.html" title="PS3.3" />
+      <link rel="up" href="chapter_C.html" title="C Information Module Definitions (Normative)" />
+      <link rel="prev" href="sect_C.17.html" title="C.17 SR Document Modules" />
+      <link rel="next" href="sect_C.19.html" title="C.19 Raw Data Specific Modules" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">C.18 Content Macros</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_C.17.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">C Information Module Definitions (Normative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_C.19.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_C.18" shape="rect"></a>C.18 Content Macros</h2>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_C.18.1" shape="rect"></a>C.18.1 Numeric Measurement Macro</h3>
+                  </div>
+               </div>
+            </div>
+            <p>
+               <a class="xref" href="sect_C.18.html#table_C.18.1-1" title="Table C.18.1-1. Numeric Measurement Macro Attributes" shape="rect">Table C.18.1-1</a> specifies the Attributes that convey a NUM (numeric measurement) value.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>The Measured Value Sequence (0040,A300) may be empty to convey the concept of a measurement whose value is unknown or missing, or a measurement or calculation failure.</p>
+            </div>
+            <div class="table">
+               <a id="table_C.18.1-1" shape="rect"></a>
+               <p class="title">
+                  <strong>Table C.18.1-1. Numeric Measurement Macro Attributes</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Attribute Name</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Tag</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Type</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Attribute Description</p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Measured Value Sequence</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,A300)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>2</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This is the value of the Content Item.</p>
+                              <p>Shall consist of a Sequence of Items conveying the measured value(s), which represent integers or real numbers and units of measurement.</p>
+                              <p>Zero or one Item shall be included in this sequence.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Numeric Value</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,A30A)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Numeric measurement value.</p>
+                              <p>Only a single value shall be present.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Floating Point Value</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,A161)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1C</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>The floating point representation of Numeric Value (0040,A30A). Only a single value shall be present.</p>
+                              <p>Required if Numeric Value (0040,A30A) has insufficient precision to represent the value as a string. May be present otherwise.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Rational Numerator Value</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,A162)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1C</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>The integer numerator of a rational representation of Numeric Value (0040,A30A). Encoded as a signed integer value. Only a single value shall be present.</p>
+                              <p>Required if Numeric Value (0040,A30A) has insufficient precision to represent a rational value as a string. May be present otherwise.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Rational Denominator Value</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,A163)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1C</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>The integer denominator of a rational representation of Numeric Value (0040,A30A). Encoded as a non-zero unsigned integer value. Only a single value shall be present.</p>
+                              <p>Required if Rational Numerator Value (0040,A162) is present.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Measurement Units Code Sequence</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,08EA)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Units of measurement.</p>
+                              <p>Only a single Item shall be included in this sequence.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" colspan="3" rowspan="1">
+                              <p>
+                                 <span class="italic">&gt;&gt;Include <a class="xref" href="sect_8.8.html#table_8.8-1" title="Table 8.8-1. Code Sequence Macro Attributes" shape="rect">Table 8.8-1 “Code Sequence Macro Attributes”</a>
+                                 </span>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="italic">Defined <a href="../part16/sect_CID_82.html" class="olink" shape="rect">CID 82 “Units of Measurement”</a>.</span>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Numeric Value Qualifier Code Sequence</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,A301)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>3</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Qualification of Numeric Value in Measured Value Sequence, or reason for absence of Measured Value Sequence Item.</p>
+                              <p>Only a single Item is permitted in this sequence.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" colspan="3" rowspan="1">
+                              <p>
+                                 <span class="italic">&gt;Include <a class="xref" href="sect_8.8.html#table_8.8-1" title="Table 8.8-1. Code Sequence Macro Attributes" shape="rect">Table 8.8-1 “Code Sequence Macro Attributes”</a>
+                                 </span>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="italic">Defined <a href="../part16/sect_CID_42.html" class="olink" shape="rect">CID 42 “Numeric Value Qualifier”</a>.</span>
+                              </p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_C.18.2" shape="rect"></a>C.18.2 Code Macro</h3>
+                  </div>
+               </div>
+            </div>
+            <p>
+               <a class="xref" href="sect_C.18.html#table_C.18.2-1" title="Table C.18.2-1. Code Macro Attributes" shape="rect">Table C.18.2-1</a> specifies the Attributes that convey a CODE value.</p>
+            <div class="table">
+               <a id="table_C.18.2-1" shape="rect"></a>
+               <p class="title">
+                  <strong>Table C.18.2-1. Code Macro Attributes</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Attribute Name</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Tag</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Type</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Attribute Description</p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Concept Code Sequence</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,A168)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This is the value of the Content Item.</p>
+                              <p>Only a single Item shall be included in this sequence.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" colspan="3" rowspan="1">
+                              <p>
+                                 <span class="italic">&gt;Include <a class="xref" href="sect_8.8.html#table_8.8-1" title="Table 8.8-1. Code Sequence Macro Attributes" shape="rect">Table 8.8-1 “Code Sequence Macro Attributes”</a>
+                                 </span>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="italic">No Baseline CID is defined.</span>
+                              </p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_C.18.3" shape="rect"></a>C.18.3 Composite Object Reference Macro</h3>
+                  </div>
+               </div>
+            </div>
+            <p>
+               <a class="xref" href="sect_C.18.html#table_C.18.3-1" title="Table C.18.3-1. Composite Object Reference Macro Attributes" shape="rect">Table C.18.3-1</a> specifies the Attributes that convey a reference to a DICOM Composite Object that is not a DICOM Image or Waveform (such as an SR Document), or to an HL7 Structured Document.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>If a Softcopy Presentation State is to be applied to an Image, it should be referenced by an Image Reference Macro.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Other SR Documents may be referenced by this macro, but there is no facility to reference individual Content Items within those reports.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>HL7 Structured Documents include, in particular, those conforming to the Clinical Document Architecture (CDA). See <a class="xref" href="sect_C.12.html#sect_C.12.1.1.6" title="C.12.1.1.6 HL7 Structured Document Reference Sequence" shape="rect">Section C.12.1.1.6</a> for further details about this type of referenced object.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <div class="table">
+               <a id="table_C.18.3-1" shape="rect"></a>
+               <p class="title">
+                  <strong>Table C.18.3-1. Composite Object Reference Macro Attributes</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Attribute Name</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Tag</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Type</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Attribute Description</p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Referenced SOP Sequence</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0008,1199)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>References to Composite Object SOP Class/SOP Instance pairs.</p>
+                              <p>Only a single Item shall be included in this Sequence.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" colspan="3" rowspan="1">
+                              <p>
+                                 <span class="italic">&gt;Include <a class="xref" href="sect_10.8.html#table_10-11" title="Table 10-11. SOP Instance Reference Macro Attributes" shape="rect">Table 10-11 “SOP Instance Reference Macro Attributes”</a>
+                                 </span>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_C.18.4" shape="rect"></a>C.18.4 Image Reference Macro</h3>
+                  </div>
+               </div>
+            </div>
+            <p>
+               <a class="xref" href="sect_C.18.html#table_C.18.4-1" title="Table C.18.4-1. Image Reference Macro Attributes" shape="rect">Table C.18.4-1</a> specifies the Attributes that convey a reference to a DICOM image.</p>
+            <div class="table">
+               <a id="table_C.18.4-1" shape="rect"></a>
+               <p class="title">
+                  <strong>Table C.18.4-1. Image Reference Macro Attributes</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Attribute Name</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Tag</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Type</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Attribute Description</p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" colspan="3" rowspan="1">
+                              <p>
+                                 <span class="italic">Include <a class="xref" href="sect_C.18.html#table_C.18.3-1" title="Table C.18.3-1. Composite Object Reference Macro Attributes" shape="rect">Table C.18.3-1 “Composite Object Reference Macro Attributes”</a>
+                                 </span>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Referenced Frame Number</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0008,1160)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1C</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Identifies the frame numbers within the Referenced SOP Instance to which the reference applies. The first frame shall be denoted as frame number 1.</p>
+                              <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                                 <h3 class="title">Note</h3>
+                                 <p>This Attribute may be multi-valued.</p>
+                              </div>
+                              <p>Required if the Referenced SOP Instance is a multi-frame image and the reference does not apply to all frames, and Referenced Segment Number (0062,000B) is not present.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Referenced Segment Number</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0062,000B)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1C</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Identifies the segments to which the reference applies identified by Segment Number (0062,0004). Required if the Referenced SOP Instance is a Segmentation and the reference does not apply to all segments and Referenced Frame Number (0008,1160) is not present.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Referenced SOP Sequence</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0008,1199)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>3</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Reference to a Softcopy Presentation State SOP Class/SOP Instance pair.</p>
+                              <p>Only a single Item is permitted in this sequence.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" colspan="3" rowspan="1">
+                              <p>
+                                 <span class="italic">&gt;&gt;Include <a class="xref" href="sect_10.8.html#table_10-11" title="Table 10-11. SOP Instance Reference Macro Attributes" shape="rect">Table 10-11 “SOP Instance Reference Macro Attributes”</a>
+                                 </span>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Referenced Real World Value Mapping Instance Sequence</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0008,114B)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>3</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Reference to a Real World Value Mapping SOP Class/SOP Instance pair.</p>
+                              <p>Only a single Item is permitted in this sequence.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" colspan="3" rowspan="1">
+                              <p>
+                                 <span class="italic">&gt;&gt;Include <a class="xref" href="sect_10.8.html#table_10-11" title="Table 10-11. SOP Instance Reference Macro Attributes" shape="rect">Table 10-11 “SOP Instance Reference Macro Attributes”</a>
+                                 </span>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Icon Image Sequence</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0088,0200)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>3</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This Icon Image is representative of the Image.</p>
+                              <p>Only a single Item is permitted in this Sequence.</p>
+                              <p>The Icon Image may be no greater than 128 rows by 128 columns.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" colspan="3" rowspan="1">
+                              <p>
+                                 <span class="italic">&gt;&gt;Include <a class="xref" href="sect_C.7.html#table_C.7-11b" title="Table C.7-11b. Image Pixel Macro Attributes" shape="rect">Table C.7-11b “Image Pixel Macro Attributes”</a>
+                                 </span>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>See <a class="xref" href="sect_F.7.html" title="F.7 Icon Image Key Definition" shape="rect">Section F.7</a>.</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_C.18.5" shape="rect"></a>C.18.5 Waveform Reference Macro</h3>
+                  </div>
+               </div>
+            </div>
+            <p>
+               <a class="xref" href="sect_C.18.html#table_C.18.5-1" title="Table C.18.5-1. Waveform Reference Macro Attributes" shape="rect">Table C.18.5-1</a> specifies the Attributes that convey a reference to a DICOM waveform.</p>
+            <div class="table">
+               <a id="table_C.18.5-1" shape="rect"></a>
+               <p class="title">
+                  <strong>Table C.18.5-1. Waveform Reference Macro Attributes</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Attribute Name</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Tag</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Type</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Attribute Description</p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" colspan="3" rowspan="1">
+                              <p>
+                                 <span class="italic">Include <a class="xref" href="sect_C.18.html#table_C.18.3-1" title="Table C.18.3-1. Composite Object Reference Macro Attributes" shape="rect">Table C.18.3-1 “Composite Object Reference Macro Attributes”</a>
+                                 </span>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p></p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Referenced Waveform Channels</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,A0B0)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1C</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>List of channels in Waveform to which the reference applies. See <a class="xref" href="sect_C.18.html#sect_C.18.5.1.1" title="C.18.5.1.1 Referenced Waveform Channels" shape="rect">Section C.18.5.1.1</a>
+                              </p>
+                              <p>Required if the Referenced SOP Instance is a Waveform that contains multiple Channels and not all Channels in the Waveform are referenced.</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_C.18.5.1" shape="rect"></a>C.18.5.1 Waveform Reference Macro Attribute Descriptions</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.18.5.1.1" shape="rect"></a>C.18.5.1.1 Referenced Waveform Channels</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Referenced Waveform Channels (0040,A0B0) is a multi-value attribute that lists the channels referenced. Each channel is specified as a pair of values (M,C), where the first value is the sequence item number of Waveform Sequence (5400,0100) in the referenced object (i.e., the Multiplex Group Number), and the second value is the sequence item number of Channel Definition Sequence (003A,0200) (i.e., the Channel Number) within the multiplex group.</p>
+                  <p>If the specified channel number is 0, the annotation applies to all channels in the multiplex group.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>As an example, an annotation that applies to the entire first multiplex group and channels 2 and 3 of the third multiplex group would have Referenced Waveform Channels (0040,A0B0) value 0001 0000 0003 0002 0003 0003.</p>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_C.18.6" shape="rect"></a>C.18.6 Spatial Coordinates Macro</h3>
+                  </div>
+               </div>
+            </div>
+            <p>
+               <a class="xref" href="sect_C.18.html#table_C.18.6-1" title="Table C.18.6-1. Spatial Coordinates Macro Attributes" shape="rect">Table C.18.6-1</a> specifies the Attributes that convey Spatial Coordinates in an SCOORD Content Item. An SCOORD Content Item shall always be the Source Content Item of one or more SELECTED FROM Relationships with IMAGE Target Content Items. Each IMAGE Target Content Item shall contain a reference to one single frame or multi-frame Image.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>The same set of spatial coordinates may be selected from more than one single-frame image, or more than one frame of a multi-frame image when the purpose of reference is applicable to multiple images. For example, the spatial coordinates may specify the outline of a sampling region at the same spatial location on multiple images acquired over time.</p>
+            </div>
+            <div class="table">
+               <a id="table_C.18.6-1" shape="rect"></a>
+               <p class="title">
+                  <strong>Table C.18.6-1. Spatial Coordinates Macro Attributes</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Attribute Name</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Tag</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Type</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Attribute Description</p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Graphic Data</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0070,0022)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>An ordered set of (column,row) pairs that denote positions in an image specified with sub-pixel resolution such that the origin at the TLHC of the TLHC pixel is 0.0\0.0, the BRHC of the TLHC pixel is 1.0\1.0, and the BRHC of the BRHC pixel is Columns\Rows. The values must be within the range 0\0 to Columns\Rows. The maximum values are those contained in the referenced image in attributes Columns (0028,0011) and Rows (0028,0010), or in the case of spatial coordinates with Pixel Origin Interpretation (0048,0301) value VOLUME, in attributes Total Pixel Matrix Columns (0048,0006) and Total Pixel Matrix Rows (0048,0007).</p>
+                              <p>See <a class="xref" href="sect_C.18.html#sect_C.18.6.1.1" title="C.18.6.1.1 Graphic Data" shape="rect">Section C.18.6.1.1</a> for further explanation.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Graphic Type</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0070,0023)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>See <a class="xref" href="sect_C.18.html#sect_C.18.6.1.2" title="C.18.6.1.2 Graphic Type" shape="rect">Section C.18.6.1.2</a> for Enumerated Values.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Pixel Origin Interpretation</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0048,0301)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1C</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>For a referenced multi-frame image, specifies whether the Graphic Data (0070,0022) values are to be interpreted relative to the individual frame pixel origins, or relative to the Total Pixel Matrix origin (see <a class="xref" href="sect_C.8.html#sect_C.8.12.4.1.4" title="C.8.12.4.1.4 Total Pixel Matrix Origin Sequence and Image Orientation (slide)" shape="rect">Section C.8.12.4.1.4</a>).</p>
+                              <p>Required if the value of Referenced SOP Class UID (0008,1150) of the referenced image is 1.2.840.10008.5.1.4.1.1.77.1.6 (VL Whole Slide Microscopy Image). May be present otherwise.</p>
+                              <div class="variablelist">
+                                 <p class="title">
+                                    <strong>Enumerated Values:</strong>
+                                 </p>
+                                 <dl class="variablelist compact">
+                                    <dt>
+                                       <span class="term">FRAME</span>
+                                    </dt>
+                                    <dd>
+                                       <p>relative to individual frame</p>
+                                    </dd>
+                                    <dt>
+                                       <span class="term">VOLUME</span>
+                                    </dt>
+                                    <dd>
+                                       <p>relative to Total Image Matrix</p>
+                                    </dd>
+                                 </dl>
+                              </div>
+                              <p>If not present, Graphic Data values are defined relative to the frame pixel origin.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Fiducial UID</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0070,031A)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>3</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>The globally unique identifier for this fiducial item.</p>
+                              <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                                 <h3 class="title">Note</h3>
+                                 <p>The fiducial UID can be used to associate this set of graphics with other Content Items.</p>
+                              </div>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_C.18.6.1" shape="rect"></a>C.18.6.1 Spatial Coordinates Macro Attribute Descriptions</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.18.6.1.1" shape="rect"></a>C.18.6.1.1 Graphic Data</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Graphic Data may be used to associate an anatomic or spatial Concept with a defined subset of one or more images. Graphic Data may be explicitly defined as a single point (i.e., to denote the epicenter of an anatomic site or lesion) or more than one point (i.e., representing a set of points or an open or closed polygon).</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>Spatial coordinates may be used to associate observational data with a set of Image features. Spatial coordinates also may be used to convey coordinates that are input data for a measurement.</p>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.18.6.1.2" shape="rect"></a>C.18.6.1.2 Graphic Type</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>When annotation applies to an image, this attribute defines the type of geometry of the annotated region of interest.</p>
+                  <div class="variablelist">
+                     <p class="title">
+                        <strong>Enumerated Values:</strong>
+                     </p>
+                     <dl class="variablelist compact">
+                        <dt>
+                           <span class="term">POINT</span>
+                        </dt>
+                        <dd>
+                           <p>a single pixel denoted by a single (column,row) pair</p>
+                        </dd>
+                        <dt>
+                           <span class="term">MULTIPOINT</span>
+                        </dt>
+                        <dd>
+                           <p>multiple pixels each denoted by an (column,row) pair</p>
+                        </dd>
+                        <dt>
+                           <span class="term">POLYLINE</span>
+                        </dt>
+                        <dd>
+                           <p>a series of connected line segments with ordered vertices denoted by (column,row) pairs; if the first and last vertices are the same it is a closed polygon</p>
+                        </dd>
+                        <dt>
+                           <span class="term">CIRCLE</span>
+                        </dt>
+                        <dd>
+                           <p>a circle defined by two (column,row) pairs. The first point is the central pixel. The second point is a pixel on the perimeter of the circle.</p>
+                        </dd>
+                        <dt>
+                           <span class="term">ELLIPSE</span>
+                        </dt>
+                        <dd>
+                           <p>an ellipse defined by four pixel (column,row) pairs, the first two points specifying the endpoints of the major axis and the second two points specifying the endpoints of the minor axis of an ellipse</p>
+                        </dd>
+                     </dl>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_C.18.7" shape="rect"></a>C.18.7 Temporal Coordinates Macro</h3>
+                  </div>
+               </div>
+            </div>
+            <p>
+               <a class="xref" href="sect_C.18.html#table_C.18.7-1" title="Table C.18.7-1. Temporal Coordinates Macro Attributes" shape="rect">Table C.18.7-1</a> specifies the Attributes that convey TCOORD Content Items. A TCOORD Content Item shall be the Source Content Item of one or more SELECTED FROM relationships with one or more SCOORD Content Items, one or more IMAGE Content Items, or one or more WAVEFORM Content Items.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>The same set of temporal coordinates may be selected from more than one single-frame image, or more than one frame of a multi-frame image, or from images and waveforms when the purpose of reference is applicable to multiple objects. For example, the definition of a sampling period at different spatial locations on multiple images and a synchronously acquired waveform.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Temporal coordinates may refer to spatial coordinates, which in turn refer to one or more frames or images, for example to indicate a region localized in both time and space.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <div class="table">
+               <a id="table_C.18.7-1" shape="rect"></a>
+               <p class="title">
+                  <strong>Table C.18.7-1. Temporal Coordinates Macro Attributes</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Attribute Name</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Tag</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Type</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Attribute Description</p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Temporal Range Type</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,A130)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>See <a class="xref" href="sect_C.18.html#sect_C.18.7.1.1" title="C.18.7.1.1 Temporal Range Type" shape="rect">Section C.18.7.1.1</a> for Enumerated Values.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Referenced Sample Positions</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,A132)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1C</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>List of samples within a multiplex group specifying temporal points of the referenced data. Position of first sample is 1.</p>
+                              <p>Required if the Referenced SOP Instance is a Waveform and Referenced Time Offsets (0040,A138) and Referenced DateTime (0040,A13A) are not present.</p>
+                              <p>May be used only if Referenced Channels (0040,A0B0) refers to channels within a single multiplex group.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Referenced Time Offsets</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,A138)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1C</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Specifies temporal points for reference by number of seconds after start of data.</p>
+                              <p>Required if Referenced Sample Positions (0040,A132) and Referenced DateTime (0040,A13A) are not present.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Referenced DateTime</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,A13A)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1C</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Specifies temporal points for reference by absolute time.</p>
+                              <p>Required if Referenced Sample Positions (0040,A132) and Referenced Time Offsets (0040,A138) are not present.</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_C.18.7.1" shape="rect"></a>C.18.7.1 Temporal Coordinates Macro Attribute Descriptions</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.18.7.1.1" shape="rect"></a>C.18.7.1.1 Temporal Range Type</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>This Attribute defines the type of temporal extent of the region of interest. A temporal point (or instant of time) may be defined by a waveform sample offset (for a single waveform multiplex group only), time offset, or absolute time.</p>
+                  <div class="variablelist">
+                     <p class="title">
+                        <strong>Enumerated Values:</strong>
+                     </p>
+                     <dl class="variablelist compact">
+                        <dt>
+                           <span class="term">POINT</span>
+                        </dt>
+                        <dd>
+                           <p>a single temporal point</p>
+                        </dd>
+                        <dt>
+                           <span class="term">MULTIPOINT</span>
+                        </dt>
+                        <dd>
+                           <p>multiple temporal points</p>
+                        </dd>
+                        <dt>
+                           <span class="term">SEGMENT</span>
+                        </dt>
+                        <dd>
+                           <p>a range between two temporal points</p>
+                        </dd>
+                        <dt>
+                           <span class="term">MULTISEGMENT</span>
+                        </dt>
+                        <dd>
+                           <p>multiple segments, each denoted by two temporal points</p>
+                        </dd>
+                        <dt>
+                           <span class="term">BEGIN</span>
+                        </dt>
+                        <dd>
+                           <p>a range beginning at one temporal point, and extending beyond the end of the acquired data</p>
+                        </dd>
+                        <dt>
+                           <span class="term">END</span>
+                        </dt>
+                        <dd>
+                           <p>a range beginning before the start of the acquired data, and extending to (and including) the identified temporal point</p>
+                        </dd>
+                     </dl>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_C.18.8" shape="rect"></a>C.18.8 Container Macro</h3>
+                  </div>
+               </div>
+            </div>
+            <p>
+               <a class="xref" href="sect_C.18.html#table_C.18.1-1" title="Table C.18.1-1. Numeric Measurement Macro Attributes" shape="rect">Table C.18.1-1</a> specifies the Attributes that convey a CONTAINER content item.</p>
+            <div class="table">
+               <a id="table_C.18.8-1" shape="rect"></a>
+               <p class="title">
+                  <strong>Table C.18.8-1. Container Macro Attributes</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Attribute Name</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Tag</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Type</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Attribute Description</p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Continuity of Content</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,A050)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This flag specifies for a CONTAINER whether or not its contained Content Items are logically linked in a continuous textual flow, or are separate items.</p>
+                              <div class="variablelist">
+                                 <p class="title">
+                                    <strong>Enumerated Values:</strong>
+                                 </p>
+                                 <dl class="variablelist compact">
+                                    <dt>
+                                       <span class="term">SEPARATE</span>
+                                    </dt>
+                                    <dd>
+                                       <p></p>
+                                    </dd>
+                                    <dt>
+                                       <span class="term">CONTINUOUS</span>
+                                    </dt>
+                                    <dd>
+                                       <p></p>
+                                    </dd>
+                                 </dl>
+                              </div>
+                              <p>See <a class="xref" href="sect_C.18.html#sect_C.18.8.1.1" title="C.18.8.1.1 Continuity of Content" shape="rect">Section C.18.8.1.1</a> for further explanation.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Content Template Sequence</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,A504)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1C</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Template that describes the content of this Content Item and its subsidiary Content Items.</p>
+                              <p>Only a single Item shall be included in this sequence.</p>
+                              <p>Required if a template was used to define the content of this Item, and the template consists of a single CONTAINER with nested content, and it is the outermost invocation of a set of nested templates that start with the same CONTAINER (see <a class="xref" href="sect_C.18.html#sect_C.18.8.1.2" title="C.18.8.1.2 Content Template Sequence" shape="rect">Section C.18.8.1.2</a>).</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Mapping Resource</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0008,0105)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Mapping Resource that defines the template. See <a class="xref" href="sect_8.4.html" title="8.4 Mapping Resource" shape="rect">Section 8.4</a>.</p>
+                              <div class="variablelist">
+                                 <p class="title">
+                                    <strong>Defined Terms:</strong>
+                                 </p>
+                                 <dl class="variablelist compact">
+                                    <dt>
+                                       <span class="term">DCMR</span>
+                                    </dt>
+                                    <dd>
+                                       <p>DICOM Content Mapping Resource</p>
+                                    </dd>
+                                 </dl>
+                              </div>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&gt;Template Identifier</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0040,DB00)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Template identifier.</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_C.18.8.1" shape="rect"></a>C.18.8.1 Container Macro Attribute Descriptions</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.18.8.1.1" shape="rect"></a>C.18.8.1.1 Continuity of Content</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Continuity of Content (0040,A050) specifies whether or not all the Content Items contained in a CONTAINER are logically linked in a continuous textual flow, or are separate entities. It only applies to the children contained in the container, and not their children (which if containers themselves, will have the attribute specified explicitly).</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <div class="orderedlist">
+                        <ol class="orderedlist" type="1">
+                           <li class="listitem">
+                              <p>This allows the interspersing of measurements, codes, and image references, amongst text. For example, the following: "A mass of diameter = 3 cm was detected." can be represented by the following Content Items in a CONTAINER with a Continuity of Content (0040,A050) of CONTINUOUS:</p>
+                              <p>TEXT "A mass of"</p>
+                              <p>NUM "Diameter" 3 "cm"</p>
+                              <p>TEXT "was detected."</p>
+                           </li>
+                           <li class="listitem">
+                              <p>The Continuity of Content applies only to subsidiary Content Items with Relationship Type CONTAINS. Other subsidiary items, e.g., with Relationship Type HAS CONCEPT MOD or HAS OBS CONTEXT, are not part of the Continuity of Content, but apply to the Container as a whole.</p>
+                           </li>
+                        </ol>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.18.8.1.2" shape="rect"></a>C.18.8.1.2 Content Template Sequence</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>A Template for SR Documents defines a set of constraints on the relationships and content (Value Types, Codes, etc.) of Content Items. Specific Templates for SR Documents are defined either by the DICOM Standard (see <a href="../part16/PS3.16.html" class="olink" shape="rect">PS3.16</a>) or by users of the Standard for particular purposes. Usage of Templates for SR Documents may improve comparability of essential data, facilitate data-entry and revisions, enable automatic processing and simplify presentation of information to the user.</p>
+                  <p>An SR Document consists of a Root CONTAINER Content Item with nested content, and as such may be defined by a Template specifying a single CONTAINER with nested content. Sub-trees of an SR Document may similarly be defined by a Template specifying a single CONTAINER with nested content. If created using such a Template, the Root and/or sub-tree shall identify the Template in the CONTAINER Content Item. When a Template invokes (includes) another Template, the outermost invoking Template is the one identified as the defining Template for the CONTAINER in the Content Template Sequence (0040,A504).</p>
+                  <p>The Content Template Sequence (0040,A504) identifies the Template that was used in the creation of the associated Content Item and its subsidiary Content Items. A Template is identified by a Mapping Resource (0008,0105) (the entity that manages or registers the Template), and an identifier of the Template. DICOM Standard Templates are identified in Template Identifier (0040,DB00) using the CS value representation.</p>
+                  <p>The DICOM Template identifier (0040,DB00) is a string of digits, without leading zeroes, and does not include the string "TID".</p>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_C.18.9" shape="rect"></a>C.18.9 3D Spatial Coordinates Macro</h3>
+                  </div>
+               </div>
+            </div>
+            <p>
+               <a class="xref" href="sect_C.18.html#table_C.18.9-1" title="Table C.18.9-1. 3D Spatial Coordinates Macro Attributes" shape="rect">Table C.18.9-1</a> specifies the Attributes that convey 3D Spatial Coordinates in an SCOORD3D Content Item.</p>
+            <div class="table">
+               <a id="table_C.18.9-1" shape="rect"></a>
+               <p class="title">
+                  <strong>Table C.18.9-1. 3D Spatial Coordinates Macro Attributes</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Attribute Name</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Tag</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Type</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Attribute Description</p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Referenced Frame of Reference UID</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(3006,0024)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Uniquely identifies the Frame of Reference within which the coordinates are defined.</p>
+                              <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                                 <h3 class="title">Note</h3>
+                                 <p>There is no requirement that the Frame of Reference be the same for all SCOORD3D Content Items in the same SR SOP Instance, nor is there any requirement that the Frame of Reference Module be present.</p>
+                              </div>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Graphic Data</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0070,0022)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>An ordered set of (x,y,z) triplets (in mm and may be negative) that define a region of interest in the patient-relative Reference Coordinate System defined by Referenced Frame of Reference UID (3006,0024). See <a class="xref" href="chapter_3.html#glossentry_RCS" title="Reference Coordinate System" shape="rect">Reference Coordinate System</a>.</p>
+                              <p>See <a class="xref" href="sect_C.18.html#sect_C.18.9.1.1" title="C.18.9.1.1 Graphic Data" shape="rect">Section C.18.9.1.1</a> for further explanation.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Graphic Type</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0070,0023)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>See <a class="xref" href="sect_C.18.html#sect_C.18.9.1.2" title="C.18.9.1.2 Graphic Type" shape="rect">Section C.18.9.1.2</a> for Enumerated Values.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Fiducial UID</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0070,031A)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>3</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>The globally unique identifier for this fiducial item.</p>
+                              <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                                 <h3 class="title">Note</h3>
+                                 <p>The fiducial UID can be used to associate this set of graphics with other Content Items.</p>
+                              </div>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_C.18.9.1" shape="rect"></a>C.18.9.1 3D Spatial Coordinates Macro Attribute Descriptions</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.18.9.1.1" shape="rect"></a>C.18.9.1.1 Graphic Data</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Graphic Data may be used to associate an anatomic or spatial Concept with a defined set of patient relative 3D locations in a defined frame of reference, independent of any image. Graphic Data may be defined explicitly as a single point (i.e., to denote the epicenter of an anatomic site or lesion) or more than one point (i.e., representing a set of points or an open or closed polygon).</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.18.9.1.2" shape="rect"></a>C.18.9.1.2 Graphic Type</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>This attribute defines the type of geometry of the region of interest.</p>
+                  <div class="variablelist">
+                     <p class="title">
+                        <strong>Enumerated Values:</strong>
+                     </p>
+                     <dl class="variablelist compact">
+                        <dt>
+                           <span class="term">POINT</span>
+                        </dt>
+                        <dd>
+                           <p>a single location denoted by a single (x,y,z) triplet</p>
+                        </dd>
+                        <dt>
+                           <span class="term">MULTIPOINT</span>
+                        </dt>
+                        <dd>
+                           <p>multiple locations each denoted by an (x,y,z) triplet; the points need not be coplanar</p>
+                        </dd>
+                        <dt>
+                           <span class="term">POLYLINE</span>
+                        </dt>
+                        <dd>
+                           <p>a series of connected line segments with ordered vertices denoted by (x,y,z) triplets; the points need not be coplanar</p>
+                        </dd>
+                        <dt>
+                           <span class="term">POLYGON</span>
+                        </dt>
+                        <dd>
+                           <p>a series of connected line segments with ordered vertices denoted by (x,y,z) triplets, where the first and last vertices shall be the same forming a polygon; the points shall be coplanar</p>
+                        </dd>
+                        <dt>
+                           <span class="term">ELLIPSE</span>
+                        </dt>
+                        <dd>
+                           <p>an ellipse defined by four (x,y,z) triplets, the first two triplets specifying the endpoints of the major axis and the second two triplets specifying the endpoints of the minor axis</p>
+                        </dd>
+                        <dt>
+                           <span class="term">ELLIPSOID</span>
+                        </dt>
+                        <dd>
+                           <p>a three-dimensional geometric surface whose plane sections are either ellipses or circles and contains three intersecting orthogonal axes, "a", "b", and "c"; the ellipsoid is defined by six (x,y,z) triplets, the first and second triplets specifying the endpoints of axis "a", the third and fourth triplets specifying the endpoints of axis "b", and the fifth and sixth triplets specifying the endpoints of axis "c"</p>
+                        </dd>
+                     </dl>
+                  </div>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <div class="orderedlist">
+                        <ol class="orderedlist" type="1">
+                           <li class="listitem">
+                              <p>A circle is a special case of ELLIPSE where the major and minor axis points are equidistant from the center.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Coplanar is in the mathematical sense and is not necessarily related to a specific image instance.</p>
+                           </li>
+                        </ol>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_C.17.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_C.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_C.19.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">C.17 SR Document Modules </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.3.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> C.19 Raw Data Specific Modules</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

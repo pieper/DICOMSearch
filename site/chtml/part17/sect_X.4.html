@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>X.4 Simultaneous SR and CDA Instance Creation</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="chapter_X.html" title="X Dictation-based Reporting With Image References (Informative)" />
+      <link rel="prev" href="sect_X.3.html" title="X.3 Transcribed Diagnostic Imaging CDA Instance Content" />
+      <link rel="next" href="chapter_Y.html" title="Y VOI LUT Functions (Informative)" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">X.4 Simultaneous SR and CDA Instance Creation</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_X.3.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">X Dictation-based Reporting With Image References (Informative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_Y.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_X.4" shape="rect"></a>X.4 Simultaneous SR and CDA Instance Creation</h2>
+               </div>
+            </div>
+         </div>
+         <p>The report may be created as both an SR instance and a CDA instance. In this case, the two instances are equivalent, and can cross-reference each other.</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_X.4.1" shape="rect"></a>X.4.1 Equivalence</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The CDA Document shall contain clinical content equivalent to the SR Document.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>The HL7 CDA standard specifically addresses transformation of documents from a non-CDA format. The requirement in the CDA specification is: "A proper transformation must ensure that the human readable clinical content of the report is not impacted."</p>
+            </div>
+            <p>There is no requirement that the transform or transcoding between DICOM SR and HL7 CDA be reversible. In particular, some attributes of the DICOM Patient, Study, and Series IEs have no corresponding standard encoding in the HL7 CDA Header, and vice versa. Such data elements, if transcoded, may need to be encoded in "local markup" (in HL7 CDA) or private data elements (in DICOM SR) in an implementation-dependent manner; and some such data elements may not be transcoded at all. It is a responsibility of the transforming application to ensure clinical equivalence.</p>
+            <p>Many attributes of the SR Document General Module can be transcoded to CDA Header participations or related acts.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_X.4.2" shape="rect"></a>X.4.2 Document Cross-reference</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Due to the inherent differences between DICOM SR and HL7 CDA, a transcoded document will have a different UID than the source document. However, the SR Document may reference the CDA Document as equivalent using the Equivalent CDA Document Sequence (0040,A090) attribute, and the CDA Document may reference the SR Document with a relatedDocument act relationship.</p>
+            <p>Since the ParentDocument target of the relatedDocument relationship is constrained to be a simple DOCCLIN act, it is recommended that the reference to the DICOM SR be encoded per <a class="xref" href="sect_X.3.html#table_X.3-4" title="Table X.3-4. Modality Qualifier for The Series Act.Code" shape="rect">Table X.3-4</a>, without explicit identification of the Study and Series Instance UIDs, and with classCode DOCCLIN (rather than DGIMG).</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>The Study and Series Instance UIDs would be encoded in the WADO reference in the Act.Text ED data type.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>CDA Release 1 does not provide a standard for the relatedDocument relationship to another document.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_X.3.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_X.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_Y.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">X.3 Transcribed Diagnostic Imaging CDA Instance Content </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> Y VOI LUT Functions (Informative)</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

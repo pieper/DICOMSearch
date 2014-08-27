@@ -1,0 +1,2328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>F.7 Modality Performed Procedure Step SOP Class</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.4.html" title="PS3.4" />
+      <link rel="up" href="chapter_F.html" title="F Procedure Step SOP Classes (Normative)" />
+      <link rel="prev" href="sect_F.6.html" title="F.6 Specialized SOP Class Conformance(Retired)" />
+      <link rel="next" href="sect_F.8.html" title="F.8 Modality Performed Procedure Step Retrieve SOP Class" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">F.7 Modality Performed Procedure Step SOP Class</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_F.6.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">F Procedure Step SOP Classes (Normative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_F.8.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_F.7" shape="rect"></a>F.7 Modality Performed Procedure Step SOP Class</h2>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_F.7.1" shape="rect"></a>F.7.1 DIMSE Service Group</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The DIMSE Services shown in <a class="xref" href="sect_F.7.html#table_F.7.1-1" title="Table F.7.1-1. DIMSE Service Group" shape="rect">Table F.7.1-1</a> are applicable to the Modality Performed Procedure Step IOD under the Modality Performed Procedure Step SOP Class.</p>
+            <div class="table">
+               <a id="table_F.7.1-1" shape="rect"></a>
+               <p class="title">
+                  <strong>Table F.7.1-1. DIMSE Service Group</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>DIMSE Service Element</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Usage SCU/SCP</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>N-CREATE</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>M/M</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>N-SET</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>M/M</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <p>The DIMSE Services and Protocols are specified in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>
+            </p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_F.7.2" shape="rect"></a>F.7.2 Operations</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The Application Entity that claims conformance to this SOP Class as an SCU shall be permitted to invoke the following operations and the Application Entity that claims conformance as an SCP shall be capable of providing the following operations.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_F.7.2.1" shape="rect"></a>F.7.2.1 Create Modality Performed Procedure Step SOP Instance</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>This operation allows an SCU to create an instance of the Modality Performed Procedure Step SOP Class and provide information about a specific real-world Performed Procedure Step that is under control of the SCU. This operation shall be invoked through the DIMSE N-CREATE Service.</p>
+               <p>Note : The modality should inform the Information System as soon as possible that the performance of the Procedure Step has been started by sending the N-CREATE Service Request. This allows an SCP of the Modality Worklist SOP Class (if supported) to update the Modality Worklist. Some of the Attribute values are already known at the beginning of the Procedure Step, they are required to be sent in the N-CREATE command. Other mandatory Attributes are known only at the end of the Performed Procedure Step, they are assigned a value in the N-SET command.</p>
+               <p>The same SOP Instance UID is shared by all three Modality Performed Procedure Step SOP Classes. This means that the SOP Instance created and set using the services of the Modality Performed Procedure Step SOP Class can be retrieved using its SOP Instance UID within the service of the Modality Performed Procedure Step Retrieve SOP Class. Changes in its state can be notified by using its SOP Instance UID within the service of the Modality Performed Procedure Step Notification SOP Class. The SOP Class UID specified in the DIMSE N-CREATE and N-SET request primitives shall be the UID of the Modality Performed Procedure Step SOP Class.</p>
+               <p>The Modality Performed Procedure Step SOP Instance UID shall not be used to identify a SOP Instance of the Study Component Service Class.</p>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_F.7.2.1.1" shape="rect"></a>F.7.2.1.1 Modality Performed Procedure Step Subset Specification</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The Application Entity that claims conformance to this SOP Class as an SCU must provide all Required Attributes as specified in <a class="xref" href="sect_F.7.html#table_F.7.2-1" title="Table F.7.2-1. Modality Performed Procedure Step SOP Class N-CREATE, N-SET and Final State Attributes" shape="rect">Table F.7.2-1</a>. Optional Attributes maintained by the SCP may be provided as well. The Application Entity that claims conformance as an SCP to this SOP Class shall support the subset of the Modality Performed Procedure Step Attributes specified in <a class="xref" href="sect_F.7.html#table_F.7.2-1" title="Table F.7.2-1. Modality Performed Procedure Step SOP Class N-CREATE, N-SET and Final State Attributes" shape="rect">Table F.7.2-1</a>.</p>
+                  <div class="table">
+                     <a id="table_F.7.2-1" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table F.7.2-1. Modality Performed Procedure Step SOP Class N-CREATE, N-SET and Final State Attributes</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Attribute Name</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Tag</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Req. Type N-CREATE (SCU/SCP)</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Req. Type N-SET (SCU/SCP)</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Requirement Type Final State (see Note 1)</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Specific Character Set</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0005)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1C/1C</p>
+                                    <p>(Required if an extended or replacement character set is used)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1C/1C</p>
+                                    <p>(Required if an extended or replacement character set is used in an Attribute that is set)</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" colspan="5" rowspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Performed Procedure Step Relationship</strong>
+                                       </span>
+                                    </p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Scheduled Step Attribute Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0270)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Study Instance UID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0020,000D)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Referenced Study Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,1110)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2/2</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Referenced SOP Class UID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,1150)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Referenced SOP Instance UID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,1155)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Accession Number</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0050)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2/2</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Issuer of Accession Number Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0051)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Local Namespace Entity ID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0031)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1C/1C</p>
+                                    <p>Required if Universal Entity ID (0040,0032) is not present; may be present otherwise</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Universal Entity ID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0032)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1C/1C</p>
+                                    <p>Required if Local Namespace Entity ID (0040,0031) is not present; may be present otherwise.</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Universal Entity ID Type</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0033)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1C/1C</p>
+                                    <p>Required if Universal Entity ID (0040,0032) is present.</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Placer Order Number/Imaging Service Request</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,2016)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Order Placer Identifier Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0026)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Local Namespace Entity ID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0031)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1C/1C</p>
+                                    <p>Required if Universal Entity ID (0040,0032) is not present; may be present otherwise</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Universal Entity ID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0032)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1C/1C</p>
+                                    <p>Required if Local Namespace Entity ID (0040,0031) is not present; may be present otherwise..</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Universal Entity ID Type</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0033)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1C/1C</p>
+                                    <p>Required if Universal Entity ID (0040,0032) is present.</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Filler Order Number/Imaging Service Request</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,2017)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Order Filler Identifier Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0027)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Local Namespace Entity ID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0031)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1C/1C</p>
+                                    <p>Required if Universal Entity ID (0040,0032) is not present; may be present otherwise</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Universal Entity ID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0032)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1C/1C</p>
+                                    <p>Required if Local Namespace Entity ID (0040,0031) is not present; may be present otherwise..</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Universal Entity ID Type</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0033)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1C/1C</p>
+                                    <p>Required if Universal Entity ID (0040,0032) is present.</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Requested Procedure ID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,1001)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2/2</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Requested Procedure Code Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0032,1064)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Code Value</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0100)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Coding Scheme Designator</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0102)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Code Meaning</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0104)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Requested Procedure Description</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0032,1060)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2/2</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Scheduled Procedure Step ID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0009)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2/2</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Scheduled Procedure Step Description</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0007)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2/2</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Scheduled Protocol Code Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0008)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2/2</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Code Value</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0100)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Coding Scheme designator</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0102)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Coding Scheme Version</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0103)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Code Meaning</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0104)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="italic">&gt;&gt;All other Attributes from Scheduled Protocol Code Sequence</span>
+                                    </p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Patient's Name</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0010,0010)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2/2</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Patient ID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0010,0020)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2/2</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Issuer of Patient ID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0010,0021)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Issuer of Patient ID Qualifiers Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0010,0024)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Universal Entity ID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0032)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Universal Entity ID Type</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0033)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1C/1C</p>
+                                    <p>Required if Universal Entity ID (0040,0032) is present.</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="italic">&gt;All other Attributes of Issuer of Patient ID Qualifiers Sequence</span>
+                                    </p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Patient's Birth Date</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0010,0030)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2/2</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Patient's Sex</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0010,0040)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2/2</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Referenced Patient Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,1120)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2/2</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Referenced SOP Class UID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,1150)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Referenced Instance UID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,1155)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Admission ID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0038,0010)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not Allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Issuer of Admission ID Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0038,0014)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Local Namespace Entity ID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0031)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1C/1C</p>
+                                    <p>Required if Universal Entity ID (0040,0032) is not present; may be present otherwise</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Universal Entity ID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0032)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1C/1C</p>
+                                    <p>Required if Local Namespace Entity ID (0040,0031) is not present; may be present otherwise..</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Universal Entity ID Type</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0033)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1C/1C</p>
+                                    <p>Required if Universal Entity ID (0040,0032) is present.</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Service Episode ID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0038,0060)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Issuer of Service Episode ID Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0038,0064)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Local Namespace Entity ID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0031)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1C/1C</p>
+                                    <p>Required if Universal Entity ID (0040,0032) is not present; may be present otherwise</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Universal Entity ID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0032)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1C/1C</p>
+                                    <p>Required if Local Namespace Entity ID (0040,0031) is not present; may be present otherwise..</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Universal Entity ID Type</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0033)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1C/1C</p>
+                                    <p>Required if Universal Entity ID (0040,0032) is present.</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Service Episode Description</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0038,0062)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" colspan="5" rowspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Performed Procedure Step Information</strong>
+                                       </span>
+                                    </p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Performed Procedure Step ID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0253)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Performed Station AE Title</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0241)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Performed Station Name</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0242)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2/2</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Performed Location</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0243)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2/2</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Performed Procedure Step Start Date</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0244)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Performed Procedure Step Start Time</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0245)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Performed Procedure Step Status</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0252)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Performed Procedure Step Description</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0254)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2/2</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Performed Procedure Type Description</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0255)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2/2</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Procedure Code Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,1032)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2/2</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Code Value</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0100)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Coding Scheme Designator</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0102)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Coding Scheme Version</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0103)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Code Meaning</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0104)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Reason For Performed Procedure Code Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,1012)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Code Value</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0100)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Coding Scheme Designator</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0102)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Coding Scheme Version</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0103)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Code Meaning</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0104)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Performed Procedure Step End Date</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0250)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2/2</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Performed Procedure Step End Time</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0251)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2/2</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Comments on the Performed Procedure Step</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0280)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Performed Procedure Step Discontinuation Reason Code Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0281)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Code Value</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0100)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Coding Scheme Designator</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0102)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Coding Scheme Version</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0103)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Code Meaning</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0104)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" colspan="5" rowspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Image Acquisition Results</strong>
+                                       </span>
+                                    </p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Modality</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0060)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Study ID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0020,0010)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2/2</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Performed Protocol Code Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0260)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2/2</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Code Value</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0100)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Coding Scheme Designator</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0102)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Coding Scheme Version</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0103)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Code Meaning</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0104)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="italic">&gt;All other Attributes from Performed Protocol Code Sequence</span>
+                                    </p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Not allowed</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Performed Series Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0340)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2/2</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                    <p>(see note 2)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Performing Physician's Name</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,1050)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2/2</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2/2</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Protocol Name</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0018,1030)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Operators' Name</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,1070)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2/2</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2/2</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Series Instance UID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0020,000E)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Series Description</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,103E)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2/2</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2/2</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Retrieve AE Title</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0054)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2/2</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2/2</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Archive Requested</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,A494)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Referenced Image Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,1140)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2/2</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2/2</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>See <a class="xref" href="sect_F.7.html#sect_F.7.2.2.2" title="F.7.2.2.2 Service Class User" shape="rect">Section F.7.2.2.2</a>
+                                    </p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Referenced SOP Class UID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,1150)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Referenced SOP Instance UID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,1155)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Container Identifier</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0512)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Specimen Description Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0560)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;&gt;Specimen Identifier</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0551)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;&gt;Specimen UID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0554)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Referenced Non-Image Composite SOP Instance Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0220)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2/2</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2/2</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>See <a class="xref" href="sect_F.7.html#sect_F.7.2.2.2" title="F.7.2.2.2 Service Class User" shape="rect">Section F.7.2.2.2</a>
+                                    </p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Referenced SOP Class UID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,1150)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Referenced SOP Instance UID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,1155)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1/1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="italic">&gt;All other Attributes from Performed Series Sequence</span>
+                                    </p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="italic">All other Attributes from Radiation Dose Module and Billing and Material Code Module</span>
+                                    </p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3/3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <div class="orderedlist">
+                        <ol class="orderedlist" type="1">
+                           <li class="listitem">
+                              <p>The requirement for the final state is that which applies at the time that the Performed Procedure Step Status (0040,0252) is N-SET to a value of COMPLETED or DISCONTINUED, as described in <a class="xref" href="sect_F.7.html#sect_F.7.2.2.2" title="F.7.2.2.2 Service Class User" shape="rect">Section F.7.2.2.2</a>. It is only described if it is different from the SCP requirement for the N-CREATE.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>The Performed Series Sequence (0040,0340) may not be empty (zero length) at the time that the Performed Procedure Step Status (0040,0252) is N-SET to a value of COMPLETED or DISCONTINUED. In other words a Series must exist for every Performed Procedure Step, though it may contain no Images or Non-Image Composite objects, if none were created, as described in <a class="xref" href="sect_F.7.html#sect_F.7.2.2.2" title="F.7.2.2.2 Service Class User" shape="rect">Section F.7.2.2.2</a>.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Attributes (0040,1006) Placer Order Number/Procedure and (0040,1007) Filler Order Number/Procedure were previously defined in DICOM. They are now retired (see PS3.3-1998).</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Attributes (0040,2006) and (0040,2007) were previously defined in DICOM. They are now retired (see PS3.3-1998).</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Only Attributes that are specified in a SOP Instance at N-CREATE may later be updated through the N-SET. If an SCU wishes to use the PPS Discontinuation Reason Code Sequence (0040,0281), it must create that Attribute (zero-length) during MPPS N-CREATE.</p>
+                           </li>
+                        </ol>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_F.7.2.1.2" shape="rect"></a>F.7.2.1.2 Service Class User</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The SCU shall specify in the N-CREATE request primitive the Class and Instance UIDs of the Modality Performed Procedure Step SOP Instance that is created and for which Attribute Values are to be provided.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>This requirement facilitates the inclusion of relevant Attributes in the Composite SOP Instances generated during the Performed Procedure Step.</p>
+                  </div>
+                  <p>The SCU shall provide Attribute values for the Modality Performed Procedure Step SOP Class Attributes as specified in <a class="xref" href="sect_F.7.html#table_F.7.2-1" title="Table F.7.2-1. Modality Performed Procedure Step SOP Class N-CREATE, N-SET and Final State Attributes" shape="rect">Table F.7.2-1</a>. Additionally, values may be provided for optional Modality Performed Procedure Step IOD Attributes that are supported by the SCP. The encoding rules for Modality Performed Procedure Step Attributes are specified in the N-CREATE request primitive specification in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>.</p>
+                  <p>The SCU shall be capable of providing all required Attribute values to the SCP in the N-CREATE request primitive. The SCU may provide Attribute values for optional Attributes that are not maintained by the SCP. In such case the SCU shall function properly regardless of whether the SCP accepts values for those Attributes or not.</p>
+                  <p>All Attributes shall be created before they can be set. Sequence Attributes shall be created before they can be filled. Sequence Item Attributes shall not be created at zero length.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>Not all the Attributes that can be created can be set afterward (see <a class="xref" href="sect_F.7.html#table_F.7.2-1" title="Table F.7.2-1. Modality Performed Procedure Step SOP Class N-CREATE, N-SET and Final State Attributes" shape="rect">Table F.7.2-1</a>).</p>
+                  </div>
+                  <p>The SCU shall only send the N-CREATE request primitive with the value for the Attribute "Performed Procedure Step Status" (0040,0252) set to "IN PROGRESS".</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <div class="orderedlist">
+                        <ol class="orderedlist" type="1">
+                           <li class="listitem">
+                              <p>It is assumed but not required that the SCU (the modality) received the Study Instance UID within the scope of the Basic Worklist Management SOP Class.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>If the SCU has grouped multiple Requested Procedures into a single performed step the Study Instance UID (0020,000D) Attribute within the Scheduled Step Attributes Sequence (0040,0270) may be the Study Instance UID (0020,000D) for the study that contains all images and non-image composite instances created during performance of the current step. This value may be generated by the SCU and may be the same for all items of the sequence. In addition, the Referenced Study Sequence (0008,1110) may contain the Study Instance UIDs from the Requested Procedures being grouped. If Referenced Study Sequence (0008,1110) is present with an Item, the SOP Class UID of the Detached Study Management SOP Class (Retired) may be used in Referenced SOP Class UID (0008,1150).</p>
+                           </li>
+                           <li class="listitem">
+                              <p>If the SCU does not have available Scheduled Procedure Step data applicable to the current step, the SCU may generate a value for the Study Instance UID (0020,000D) Attribute within the Scheduled Step Attributes Sequence (0040,0270). This value of the Study Instance UID (0020,000D) may be stored in all images and non-image composite SOP instances created during performance of this step. All other Attributes within the Scheduled Step Attribute Sequence (0040,0270) may be set to zero length for 2/2 requirement types or absent for 3/3 requirement types (see <a class="xref" href="sect_F.7.html#table_F.7.2-1" title="Table F.7.2-1. Modality Performed Procedure Step SOP Class N-CREATE, N-SET and Final State Attributes" shape="rect">Table F.7.2-1</a>).</p>
+                           </li>
+                        </ol>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_F.7.2.1.3" shape="rect"></a>F.7.2.1.3 Service Class Provider</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The N-CREATE operation allows the SCU to provide to the SCP selected Attribute values for a specific Modality Performed Procedure Step SOP Instance. This operation shall be invoked through the use of the DIMSE N-CREATE Service used in conjunction with the appropriate Modality Performed Procedure Step SOP Instance.</p>
+                  <p>The SCP shall return, via the N-CREATE response primitive, the N-CREATE Response Status Code applicable to the associated request.</p>
+                  <p>The SCP shall accept N-CREATE request primitives only if the value of the Attribute "Performed Procedure Step Status" (0040,0252) is "IN PROGRESS". If the Performed Procedure Step Status Attribute has another value, the SCP shall set the failure status code "Invalid Attribute value" (Code: 0106H) with an Attribute List.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>The SCP may update the scheduling information on which the Modality Worklist is based, including the values of Study Date (0008,0020) and Study Time (0008,0030) using the earliest corresponding values of Performed Procedure Step Date (0040,0244) and Performed Procedure Step Time (0040,0245), in order to achieve consistency of Study level Attributes when multiple procedure steps are performed on different devices.</p>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_F.7.2.1.4" shape="rect"></a>F.7.2.1.4 Status Codes</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>There are no specific status codes. See <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a> for response status codes.</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_F.7.2.2" shape="rect"></a>F.7.2.2 Set Modality Performed Procedure Step Information</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>This operation allows an SCU to set Attribute Values of an instance of the Modality Performed Procedure Step SOP Class and provide information about a specific real-world Modality Performed Procedure Step that is under control of the SCU. This operation shall be invoked through the DIMSE N-SET Service.</p>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_F.7.2.2.1" shape="rect"></a>F.7.2.2.1 Modality Performed Procedure Step IOD Subset Specification</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The Application Entity that claims conformance to this SOP Class as an SCU may choose to modify a subset of the Attributes maintained by the SCP. The Application Entity that claims conformance as an SCP to this SOP Class shall support the subset of the Modality Performed Procedure Step Attributes specified in <a class="xref" href="sect_F.7.html#table_F.7.2-1" title="Table F.7.2-1. Modality Performed Procedure Step SOP Class N-CREATE, N-SET and Final State Attributes" shape="rect">Table F.7.2-1</a>.</p>
+                  <p>The character set used for Attribute Values updated using the N-SET shall be the same as that specified by the N-CREATE Request Primitive.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_F.7.2.2.2" shape="rect"></a>F.7.2.2.2 Service Class User</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The SCU shall specify in the N-SET request primitive the UID of the Modality Performed Procedure Step SOP Instance for which it wants to set Attribute Values.</p>
+                  <p>The SCU shall be permitted to set Attribute values for any Modality Performed Procedure Step SOP Class Attribute specified in <a class="xref" href="sect_F.7.html#table_F.7.2-1" title="Table F.7.2-1. Modality Performed Procedure Step SOP Class N-CREATE, N-SET and Final State Attributes" shape="rect">Table F.7.2-1</a>. The SCU shall specify the list of Modality Performed Procedure Step SOP Class Attributes for which it wants to set the Attribute Values. The SCU shall provide, with one or more N-SET request primitives, the Attribute values specified in <a class="xref" href="sect_F.7.html#table_F.7.2-1" title="Table F.7.2-1. Modality Performed Procedure Step SOP Class N-CREATE, N-SET and Final State Attributes" shape="rect">Table F.7.2-1</a>. The encoding rules for Modality Performed Procedure Step Attributes are specified in the N-SET request primitive specification in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>. The SCU shall only set Attribute Values that are already created with an N-CREATE request.</p>
+                  <p>The SCU shall not send N-SET request primitives for a Modality Performed Procedure Step SOP Instance after a N-SET request primitive with a value for the Attribute "Performed Procedure Step Status" (0040,0252) is "COMPLETED" or "DISCONTINUED" has been sent.</p>
+                  <p>If Sequences are included in a N-SET command, all Items of a Sequence are to be included in the command and not only the Items to be updated.</p>
+                  <p>Once the Modality Performed Procedure Step Status (0040,0252) has been set to "COMPLETED" or "DISCONTINUED" the SCU shall no longer modify the Modality Performed Procedure Step SOP Instance, and shall not create new Composite SOP Instances as part of the same Modality Performed Procedure Step SOP Instance.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>A Modality that wishes to continue or resume creating Composite SOP Instances may create a new Modality Performed Procedure Step.</p>
+                  </div>
+                  <p>Before or when Modality Performed Procedure Step Status (0040,0252) is set to "COMPLETED" or "DISCONTINUED" the SCU shall have created or set all the Attributes according to the requirements in the Final State column of <a class="xref" href="sect_F.7.html#table_F.7.2-1" title="Table F.7.2-1. Modality Performed Procedure Step SOP Class N-CREATE, N-SET and Final State Attributes" shape="rect">Table F.7.2-1</a>.</p>
+                  <p>Before or when Modality Performed Procedure Step Status (0040,0252) is set to "COMPLETED" or "DISCONTINUED" the SCU shall have sent to the SCP a list of all Image SOP Instances and all Non-Image Composite SOP Instances created during the Procedure Step in Referenced Image Sequence (0008,1140) and Referenced Non-Image Composite SOP Instance Sequence (0040,0220) respectively.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <div class="orderedlist">
+                        <ol class="orderedlist" type="1">
+                           <li class="listitem">
+                              <p>The intent is that a completed or discontinued Modality Performed Procedure Step entity will contain a complete list of all the Images and Non-Image Composite SOP Instances that were created.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>The distinction between the list of images and non-images is present for historic reasons only, and has no semantic significance.</p>
+                           </li>
+                        </ol>
+                     </div>
+                  </div>
+                  <p>The Modality Performed Procedure Step Status (0040,0252) shall not be set to "COMPLETED" or "DISCONTINUED" if the list contains neither Image references nor Non-Image Composite SOP Instance references, unless no such Instances were created.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_F.7.2.2.3" shape="rect"></a>F.7.2.2.3 Service Class Provider</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The N-SET operation allows the SCU to request that the SCP update selected Attribute values for a specific Modality Performed Procedure Step SOP Instance. This operation shall be invoked through the use of the DIMSE N-SET Service used in conjunction with the appropriate Modality Performed Procedure Step SOP Instance. The N-SET value for Specific Character Set (0008,0005) does not replace the previous value. The SCP shall appropriately modify its internal representation so that subsequent operations reflect the combination of the character sets in use by the Attributes in this N-SET and those used by Attributes that have not been modified.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>The SCP may need to convert the text for instance to the Unicode character set. If the SCP is not able to perform a necessary conversion it may return the Invalid Attribute value error code (0106H).</p>
+                  </div>
+                  <p>The SCP shall return, via the N-SET response primitive, the N-SET Response Status Code applicable to the associated request. Contingent on the N-SET Response Status, the SCP shall update the Referenced Performed Procedure Step Attributes.</p>
+                  <p>The SCP shall accept N-SET request primitives only if the value of the already existing Attribute "Performed Procedure Step Status" (0040,0252) is "IN PROGRESS". If the already existing Performed Procedure Step Status Attribute has another value, the SCP shall set the failure status code "Processing failure" (Code: 0110H) with a Specific Error Comment (see <a class="xref" href="sect_F.7.html#sect_F.7.2.2.4" title="F.7.2.2.4 Status Codes" shape="rect">Section F.7.2.2.4</a>).</p>
+                  <p>The SCP may itself modify any Attributes of the Modality Performed Procedure Step SOP Instance only after the "Performed Procedure Step Status" (0040,0252) has been set to "COMPLETED" or "DISCONTINUED".</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <div class="orderedlist">
+                        <ol class="orderedlist" type="1">
+                           <li class="listitem">
+                              <p>Such coercion of Attributes by the SCP may be necessary to correct, for example, patient identification information or incorrectly selected scheduling information. Such an operation is not permitted to the SCU by the requirements described in <a class="xref" href="sect_F.7.html#table_F.7.2-1" title="Table F.7.2-1. Modality Performed Procedure Step SOP Class N-CREATE, N-SET and Final State Attributes" shape="rect">Table F.7.2-1</a>, which might create a new Modality Performed Procedure Step SOP Instance to achieve the same objective.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Under exceptional circumstances, it may be necessary for the SCP to itself set the Performed Procedure Step Status (0040,0252) to COMPLETED or DISCONTINUED, for example if the Modality has failed. When the Modality recovers, subsequent N-SETs may fail.</p>
+                           </li>
+                        </ol>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_F.7.2.2.4" shape="rect"></a>F.7.2.2.4 Status Codes</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The specific error comment that may be returned as a status code in a N-SET-RSP is defined in <a class="xref" href="sect_F.7.html#table_F.7.2-2" title="Table F.7.2-2. N-SET Status" shape="rect">Table F.7.2-2</a>. See <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a> for additional response status codes.</p>
+                  <div class="table">
+                     <a id="table_F.7.2-2" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table F.7.2-2. N-SET Status</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Service Status</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Further Meaning</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Status Code</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Error Comment (0000,0902)</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Error ID (0000,0903)</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Failure</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Processing Failure</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>0110</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Performed Procedure Step Object may no longer be updated</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>A710</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_F.7.3" shape="rect"></a>F.7.3 Modality Performed Procedure Step SOP Class UID</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The Modality Performed Procedure Step SOP Class shall be uniquely identified by the Modality Performed Procedure Step SOP Class UID that shall have the value "1.2.840.10008.3.1.2.3.3".</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_F.7.4" shape="rect"></a>F.7.4 Conformance Requirements</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Implementations providing conformance to the Modality Performed Procedure Step SOP Class shall be conformant as described in the following sections and shall include within their Conformance Statement information as described below.</p>
+            <p>An implementation may conform to this SOP Class as an SCU or as an SCP. The Conformance Statement shall be in the format defined in <a href="../part02/PS3.2.html" class="olink" shape="rect">PS3.2</a>.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_F.7.4.1" shape="rect"></a>F.7.4.1 SCU Conformance</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>An implementation that is conformant to this SOP Class as an SCU shall meet conformance requirements for the operations that it invokes.</p>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_F.7.4.1.1" shape="rect"></a>F.7.4.1.1 Operations</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Any Attributes for which Attribute Values may be provided (using the N-CREATE Service) by the SCU shall be enumerated in the Conformance Statement.</p>
+                  <p>Any Attributes for which Attribute Values may be provided (using the N-SET Service) by the SCU shall be enumerated in the Conformance Statement.</p>
+                  <p>An implementation that conforms to this SOP Class as an SCU shall specify under which conditions during the performance of the real-world Performed Procedure Step it will create the SOP Class Instance and under which conditions it will set the status value to COMPLETED and DISCONTINUED.</p>
+                  <p>An implementation that conforms to this SOP Class as an SCU shall specify what strategy it applies to group Storage SOP Class Instances referenced in a Performed Procedure Step.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>For example, whether or not Radiation Dose SR instances are sent within the same Performed Procedure Step as the images to which it applies, or a different Performed Procedure Step. See the discussion of the MPPS in the DICOM real-world model in <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>.</p>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_F.7.4.2" shape="rect"></a>F.7.4.2 SCP Conformance</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>An implementation that is conformant to this SOP Class as an SCP shall meet conformance requirements for the operations that it performs.</p>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_F.7.4.2.1" shape="rect"></a>F.7.4.2.1 Operations</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Any Attributes for which Attribute Values may be provided (using the N-CREATE Service) by the SCU shall be enumerated in the Conformance Statement.</p>
+                  <p>Any Attributes for which Attribute Values may be updated (using the N-SET Service) by the SCU shall be enumerated in the Conformance Statement.</p>
+                  <p>The Conformance Statement shall also provide information on the behavior of the SCP at the following occurrences:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>The creation of a new Instance of the Modality Performed Procedure Step SOP Class with the status "IN PROGRESS". The result of that process on the scheduling information and on the Attributes values of the Modality Worklist SOP Class shall be specified.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The update of the Attribute "Performed Procedure Step Status", i.e., the change from the state "IN PROGRESS" to "DISCONTINUED" or to "COMPLETED".</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Which Attributes the SCP may coerce after the state has been set to "IN PROGRESS" or "DISCONTINUED" or to "COMPLETED".</p>
+                        </li>
+                        <li class="listitem">
+                           <p>For how long the Modality Performed Procedure Step SOP Instance will persist on the SCP.</p>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_F.6.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_F.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_F.8.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">F.6 Specialized SOP Class Conformance(Retired) </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.4.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> F.8 Modality Performed Procedure Step Retrieve SOP Class</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

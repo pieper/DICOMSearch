@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>P Transforms and Mappings (Informative)</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="PS3.17.html" title="PS3.17" />
+      <link rel="prev" href="sect_O.6.html" title="O.6 Spatial Fiducials" />
+      <link rel="next" href="chapter_Q.html" title="Q Breast Imaging Report (Informative)" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">P Transforms and Mappings (Informative)</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_O.6.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_Q.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_P" shape="rect"></a>P Transforms and Mappings (Informative)</h1>
+               </div>
+            </div>
+         </div>
+         <p>The Affine Transform Matrix is of the following form.</p>
+         <div class="equation">
+            <a id="equation_P-1" shape="rect"></a>
+            <p class="title">
+               <strong>Equation P-1. </strong>
+            </p>
+            <div class="equation-contents">
+               <object type="image/svg+xml" data="figures/chapter_P_withmml_image_1.svg" style="">
+                  <param name="src" value="image_1.svg" />
+               </object>
+            </div>
+         </div>
+         <br class="equation-break" clear="none" />
+         <p>This matrix requires the bottom row to be [0 0 0 1] to preserve the homogeneous coordinates.</p>
+         <p>The matrix can be of type: RIGID, RIGID_SCALE and AFFINE. These different types represent different conditions on the allowable values for the matrix elements.</p>
+         <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+               <li class="listitem">
+                  <p>RIGID:</p>
+                  <p>This transform requires the matrix obey orthonormal transformation properties:</p>
+                  <div class="equation">
+                     <a id="equation_P-2" shape="rect"></a>
+                     <p class="title">
+                        <strong>Equation P-2. </strong>
+                     </p>
+                     <div class="equation-contents">
+                        <object type="image/svg+xml" data="figures/chapter_P_withmml_image_2.svg" style="">
+                           <param name="src" value="image_2.svg" />
+                        </object>
+                     </div>
+                  </div>
+                  <br class="equation-break" clear="none" />
+                  <p>for all combinations of j = 1,2,3 and k = 1,2,3 where δ = 1 for i = j and zero otherwise.</p>
+                  <p>The expansion into non-matrix equations is:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: none; ">
+                        <li class="listitem" style="list-style-type: none">
+                           <p>M<sub>11</sub> M<sub>11</sub> + M<sub>21</sub> M<sub>21</sub> + M<sub>31</sub> M<sub>31</sub> = 1 where j = 1, k = 1</p>
+                        </li>
+                        <li class="listitem" style="list-style-type: none">
+                           <p>M<sub>11</sub> M<sub>12</sub> + M<sub>21</sub> M<sub>22</sub> + M<sub>31</sub> M<sub>32</sub> = 0 where j = 1, k = 2</p>
+                        </li>
+                        <li class="listitem" style="list-style-type: none">
+                           <p>M<sub>11</sub> M<sub>13</sub> + M<sub>21</sub> M<sub>23</sub> + M<sub>31</sub> M<sub>33</sub> = 0 where j = 1, k = 3</p>
+                        </li>
+                        <li class="listitem" style="list-style-type: none">
+                           <p>M<sub>12</sub> M<sub>11</sub> + M<sub>22</sub> M<sub>21</sub> + M<sub>32</sub> M<sub>31</sub> = 0 where j = 2, k = 1</p>
+                        </li>
+                        <li class="listitem" style="list-style-type: none">
+                           <p>M<sub>12</sub> M<sub>12</sub> + M<sub>22</sub> M<sub>22</sub> + M<sub>32</sub> M<sub>32</sub> = 1 where j = 2, k = 2</p>
+                        </li>
+                        <li class="listitem" style="list-style-type: none">
+                           <p>M<sub>12</sub> M<sub>13</sub> + M<sub>22</sub> M<sub>23</sub> + M<sub>32</sub> M<sub>33</sub> = 0 where j = 2, k = 3</p>
+                        </li>
+                        <li class="listitem" style="list-style-type: none">
+                           <p>M<sub>13</sub> M<sub>11</sub> + M<sub>23</sub> M<sub>21</sub> + M<sub>33</sub> M<sub>31</sub> = 0 where j = 3, k = 1</p>
+                        </li>
+                        <li class="listitem" style="list-style-type: none">
+                           <p>M<sub>13</sub> M<sub>12</sub> + M<sub>23</sub> M<sub>22</sub> + M<sub>33</sub> M<sub>32</sub> = 0 where j = 3, k = 2</p>
+                        </li>
+                        <li class="listitem" style="list-style-type: none">
+                           <p>M<sub>13</sub> M<sub>13</sub> + M<sub>23</sub> M<sub>23</sub> + M<sub>33</sub> M<sub>33</sub> = 1 where j = 3, k = 3</p>
+                        </li>
+                     </ul>
+                  </div>
+                  <p>The Frame of Reference Transformation Matrix <sup>A</sup>M<sub>B</sub> describes how to transform a point (B<sub>x</sub>,B<sub>y</sub>,B<sub>z</sub>) with respect to RCS<sub>B</sub> into (A<sub>x</sub>,A<sub>y</sub>,A<sub>z</sub>) with respect to RCS<sub>A</sub>.</p>
+                  <div class="equation">
+                     <a id="equation_P-3" shape="rect"></a>
+                     <p class="title">
+                        <strong>Equation P-3. </strong>
+                     </p>
+                     <div class="equation-contents">
+                        <object type="image/svg+xml" data="figures/chapter_P_withmml_image_3.svg" style="">
+                           <param name="src" value="image_3.svg" />
+                        </object>
+                     </div>
+                  </div>
+                  <br class="equation-break" clear="none" />
+                  <p>The matrix above consists of two parts: a rotation and translation as shown below;</p>
+                  <p>Rotation:</p>
+                  <div class="equation">
+                     <a id="equation_P-4" shape="rect"></a>
+                     <p class="title">
+                        <strong>Equation P-4. </strong>
+                     </p>
+                     <div class="equation-contents">
+                        <object type="image/svg+xml" data="figures/chapter_P_withmml_image_4.svg" style="">
+                           <param name="src" value="image_4.svg" />
+                        </object>
+                     </div>
+                  </div>
+                  <br class="equation-break" clear="none" />
+                  <p>Translation:</p>
+                  <div class="equation">
+                     <a id="equation_P-5" shape="rect"></a>
+                     <p class="title">
+                        <strong>Equation P-5. </strong>
+                     </p>
+                     <div class="equation-contents">
+                        <object type="image/svg+xml" data="figures/chapter_P_withmml_image_5.svg" style="">
+                           <param name="src" value="image_5.svg" />
+                        </object>
+                     </div>
+                  </div>
+                  <br class="equation-break" clear="none" />
+                  <p>The first column [M<sub>11</sub>,M<sub>21</sub>,M<sub>31</sub> ] are the direction cosines (projection) of the X-axis of RCS<sub>B</sub> with respect to RCS<sub>A</sub>
+                     <span class="italic">.</span> The second column [M<sub>12</sub>,M<sub>22</sub>,M<sub>32</sub>] are the direction cosines (projection) of the Y-axis of RCS<sub>B</sub> with respect to RCS<sub>A.</sub> The third column [M<sub>13</sub>,M<sub>23</sub>,M<sub>33</sub>] are the direction cosines (projection) of the Z-axis of RCS<sub>B</sub> with respect to RCS<sub>A.</sub> The fourth column [T<sub>1</sub>,T<sub>2</sub>,T<sub>3</sub>] is the origin of RCS<sub>B</sub> with respect to RCS<sub>A</sub>.</p>
+                  <p>There are three degrees of freedom representing rotation, and three degrees of freedom representing translation, giving a total of six degrees of freedom.</p>
+               </li>
+               <li class="listitem">
+                  <p>RIGID_SCALE</p>
+                  <p>The following constraint applies:</p>
+                  <div class="equation">
+                     <a id="equation_P-6" shape="rect"></a>
+                     <p class="title">
+                        <strong>Equation P-6. </strong>
+                     </p>
+                     <div class="equation-contents">
+                        <object type="image/svg+xml" data="figures/chapter_P_withmml_image_6.svg" style="">
+                           <param name="src" value="image_6.svg" />
+                        </object>
+                     </div>
+                  </div>
+                  <br class="equation-break" clear="none" />
+                  <p>for all combinations of j = 1,2,3 and k = 1,2,3 where δ = 1 for i=j and zero otherwise.</p>
+                  <p>The expansion into non-matrix equations is:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: none; ">
+                        <li class="listitem" style="list-style-type: none">
+                           <p>M<sub>11</sub> M<sub>11</sub> + M<sub>21</sub> M<sub>21</sub> + M<sub>31</sub> M<sub>31</sub> = S<sub>1</sub>
+                              <sup>2</sup> where j = 1, k = 1</p>
+                        </li>
+                        <li class="listitem" style="list-style-type: none">
+                           <p>M<sub>11</sub> M<sub>12</sub> + M<sub>21</sub> M<sub>22</sub> + M<sub>31</sub> M<sub>32</sub> = 0 where j = 1, k = 2</p>
+                        </li>
+                        <li class="listitem" style="list-style-type: none">
+                           <p>M<sub>11</sub> M<sub>13</sub> + M<sub>21</sub> M<sub>23</sub> + M<sub>31</sub> M<sub>33</sub> = 0 where j = 1, k = 3</p>
+                        </li>
+                        <li class="listitem" style="list-style-type: none">
+                           <p>M<sub>12</sub> M<sub>11</sub> + M<sub>22</sub> M<sub>21</sub> + M<sub>32</sub> M<sub>31</sub> = 0 where j = 2, k = 1</p>
+                        </li>
+                        <li class="listitem" style="list-style-type: none">
+                           <p>M<sub>12</sub> M<sub>12</sub> + M<sub>22</sub> M<sub>22</sub> + M<sub>32</sub> M<sub>32</sub> = S<sub>2</sub>
+                              <sup>2</sup> where j = 2, k = 2</p>
+                        </li>
+                        <li class="listitem" style="list-style-type: none">
+                           <p>M<sub>12</sub> M<sub>13</sub> + M<sub>22</sub> M<sub>23</sub> + M<sub>32</sub> M<sub>33</sub> = 0 where j = 2, k = 3</p>
+                        </li>
+                        <li class="listitem" style="list-style-type: none">
+                           <p>M<sub>13</sub> M<sub>11</sub> + M<sub>23</sub> M<sub>21</sub> + M<sub>33</sub> M<sub>31</sub> = 0 where j = 3, k = 1</p>
+                        </li>
+                        <li class="listitem" style="list-style-type: none">
+                           <p>M<sub>13</sub> M<sub>12</sub> + M<sub>23</sub> M<sub>22</sub> + M<sub>33</sub> M<sub>32</sub> = 0 where j = 3, k = 2</p>
+                        </li>
+                        <li class="listitem" style="list-style-type: none">
+                           <p>M<sub>13</sub> M<sub>13</sub> + M<sub>23</sub> M<sub>23</sub> + M<sub>33</sub> M<sub>33</sub> = S<sub>3</sub>
+                              <sup>2</sup> where j = 3, k = 3</p>
+                        </li>
+                     </ul>
+                  </div>
+                  <p>The above equations show a simple way of extracting the spatial scaling parameters Sj from a given matrix. The units of S<sub>j</sub>
+                     <sup>2</sup> is the RCS unit dimension of one millimeter.</p>
+                  <p>This type can be considered a simple extension of the type RIGID. The RIGID_SCALE is easily created by pre-multiplying a RIGID matrix by a diagonal scaling matrix as follows:</p>
+                  <div class="equation">
+                     <a id="equation_P-7" shape="rect"></a>
+                     <p class="title">
+                        <strong>Equation P-7. </strong>
+                     </p>
+                     <div class="equation-contents">
+                        <object type="image/svg+xml" data="figures/chapter_P_withmml_image_7.svg" style="">
+                           <param name="src" value="image_7.svg" />
+                        </object>
+                     </div>
+                  </div>
+                  <br class="equation-break" clear="none" />
+                  <p>where M<sub>RBWS</sub> is a matrix of type RIGID_SCALE and M<sub>RB</sub> is a matrix of type RIGID.</p>
+               </li>
+               <li class="listitem">
+                  <p>AFFINE:</p>
+                  <p>No constraints apply to this matrix, so it contains twelve degrees of freedom. This type of Frame of Reference Transformation Matrix allows shearing in addition to rotation, translation and scaling.</p>
+               </li>
+            </ul>
+         </div>
+         <p>For a RIGID type of Frame of Reference Transformation Matrix, the inverse is easily computed using the following formula (inverse of an orthonormal matrix):</p>
+         <div class="equation">
+            <a id="equation_P-8" shape="rect"></a>
+            <p class="title">
+               <strong>Equation P-8. </strong>
+            </p>
+            <div class="equation-contents">
+               <object type="image/svg+xml" data="figures/chapter_P_withmml_image_8.svg" style="">
+                  <param name="src" value="image_8.svg" />
+               </object>
+            </div>
+         </div>
+         <br class="equation-break" clear="none" />
+         <p>For RIGID_SCALE and AFFINE types of Registration Matrices, the inverse cannot be calculated using the above equation, and must be calculated using a conventional matrix inverse operation.</p>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_O.6.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_Q.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">O.6 Spatial Fiducials </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> Q Breast Imaging Report (Informative)</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

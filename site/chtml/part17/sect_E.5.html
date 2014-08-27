@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>E.5 Mammography CAD SR and For Processing / For Presentation Images</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="chapter_E.html" title="E Mammography CAD (Informative)" />
+      <link rel="prev" href="sect_E.4.html" title="E.4 CAD Operating Point" />
+      <link rel="next" href="chapter_F.html" title="F Chest CAD (Informative)" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">E.5 Mammography CAD SR and For Processing / For Presentation Images</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_E.4.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">E Mammography CAD (Informative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_F.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_E.5" shape="rect"></a>E.5 Mammography CAD SR and For Processing / For Presentation Images</h2>
+               </div>
+            </div>
+         </div>
+         <p>If a Mammography CAD SR Instance references Digital Mammography X-ray Image Storage - For Processing Instances, but a review workstation has access only to Digital Mammography X-Ray Image Storage - For Presentation Instances, the following steps are recommended in order to display such Mammography CAD SR content with Digital Mammography X-Ray Image - For Presentation Instances.</p>
+         <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+               <li class="listitem">
+                  <p>In most scenarios, the Mammography CAD SR Instance is assigned to the same DICOM Patient and Study as the corresponding Digital Mammography "For Processing" and "For Presentation" image Instances.</p>
+               </li>
+               <li class="listitem">
+                  <p>If a workstation has a Mammography CAD SR Instance, but does not have images for the same DICOM Patient and Study, the workstation may use the Patient and Study attributes of the Mammography CAD SR Instance in order to Query/Retrieve the Digital Mammography "For Presentation" images for that Patient and Study.</p>
+               </li>
+               <li class="listitem">
+                  <p>Once a workstation has the Mammography CAD SR Instance and Digital Mammography "For Presentation" image Instances for the Patient and Study, the Source Image Sequence (0008,2112) attribute of each Digital Mammography "For Presentation" Instance will reference the corresponding Digital Mammography "For Processing" Instance. The workstation can match the referenced Digital Mammography "For Processing" Instance to a Digital Mammography "For Processing" Instance referenced in the Mammography CAD SR.</p>
+               </li>
+               <li class="listitem">
+                  <p>The workstation should check for Spatial Locations Preserved (0028,135A) in the Source Image Sequence of each Digital Mammography "For Presentation" image Instance, to determine whether it is spatially equivalent to the corresponding Digital Mammography "For Processing" image Instance.</p>
+               </li>
+               <li class="listitem">
+                  <p>If the value of Spatial Locations Preserved (0028,135A) is YES, then the CAD results should be displayed.</p>
+               </li>
+               <li class="listitem">
+                  <p>If the value of Spatial Locations Preserved (0028,135A) is NO, then the CAD results should not be displayed.</p>
+               </li>
+               <li class="listitem">
+                  <p>If Spatial Locations Preserved (0028,135A) is not present, whether or not the images are spatially equivalent is not known. If the workstation chooses to proceed with attempting to display CAD results, then compare the Image Library (see <a href="../part16/sect_MammographyCADSRIODTemplates.html#sect_TID_4020" class="olink" shape="rect">TID 4020 “CAD Image Library Entry”</a>) content item values of the Mammography CAD SR Instance to the associated attribute values in the corresponding Digital Mammography "For Presentation" image Instance. The content items (111044, DCM, "Patient Orientation Row"), (111043, DCM, "Patient Orientation Column"), (111026, DCM, "Horizontal Pixel Spacing"), and (111066, DCM, "Vertical Pixel Spacing") may be used for this purpose. If the values do not match, the workstation needs to adjust the coordinates of the findings in the Mammography CAD SR content to match the spatial characteristics of the Digital Mammography "For Presentation" image Instance.</p>
+               </li>
+            </ul>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_E.4.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_E.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_F.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">E.4 CAD Operating Point </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> F Chest CAD (Informative)</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

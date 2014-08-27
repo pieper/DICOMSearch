@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>WW Audit Messages (Informative)</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="PS3.17.html" title="PS3.17" />
+      <link rel="prev" href="sect_VV.3.html" title="VV.3 Measurement Terminology Composition" />
+      <link rel="next" href="sect_WW.2.html" title="WW.2 Workflow Example" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">WW Audit Messages (Informative)</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_VV.3.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_WW.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_WW" shape="rect"></a>WW Audit Messages (Informative)</h1>
+               </div>
+            </div>
+         </div>
+         <p>This annex holds examples of audit messaging, as described by the Audit Trail Message Format Secure Use Profile in <a href="../part15/PS3.15.html" class="olink" shape="rect">PS3.15</a>.</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_WW.1" shape="rect"></a>WW.1 Message Example</h2>
+                  </div>
+               </div>
+            </div>
+            <p>An example of one of the DICOM Instances Transferred messages is shown in <a class="xref" href="chapter_WW.html#example_WW.1-1" title="Example WW.1-1. Sample Audit Event Report" shape="rect">Example WW.1-1</a>.</p>
+            <div class="example">
+               <a id="example_WW.1-1" shape="rect"></a>
+               <p class="title">
+                  <strong>Example WW.1-1. Sample Audit Event Report</strong>
+               </p>
+               <div class="example-contents">
+                  <pre class="programlisting" xml:space="preserve">
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;AuditMessage
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	  xsi:noNamespaceSchemaLocation="D:\data\DICOM\security\audit-message.rnc"&gt;
+  &lt;EventIdentification
+      EventActionCode="C"
+      EventDateTime="2001-12-17T09:30:47"
+      EventOutcomeIndicator="0"&gt;
+    &lt;EventID code="110104"
+      codeSystemName="DCM"
+      displayName="DICOM Instances Transferred"/&gt;
+  &lt;/EventIdentification&gt;
+  
+  &lt;ActiveParticipant
+      UserID="123"
+      AlternativeUserID="AETITLE=AEFOO"
+      UserIsRequestor="false" 
+		  NetworkAccessPointID="192.168.1.2"
+		  NetworkAccessPointTypeCode="2"&gt;
+    &lt;RoleIDCode
+        code="110153"
+        codeSystemName="DCM"
+        displayName="Source Role ID"/&gt;
+  &lt;/ActiveParticipant&gt;
+  
+  &lt;ActiveParticipant
+      UserID="67562"
+      AlternativeUserID="AETITLE=AEPACS"
+      UserIsRequestor="false" 
+		  NetworkAccessPointID="192.168.1.5"
+		  NetworkAccessPointTypeCode="2"&gt;
+    &lt;RoleIDCode
+        code="110152"
+        codeSystemName="DCM"
+        displayName="Destination Role ID"/&gt;
+  &lt;/ActiveParticipant&gt;
+  
+  &lt;ActiveParticipant
+      UserID="smitty@readingroom.hospital.org"
+		  AlternativeUserID="smith@nema"
+		  UserName="Dr. Smith" 
+		  UserIsRequestor="true"
+		  NetworkAccessPointID="192.168.1.2"
+		  NetworkAccessPointTypeCode="2"&gt;
+    &lt;RoleIDCode
+        code="110153"
+        codeSystemName="DCM"
+        displayName="Source Role ID"/&gt;
+  &lt;/ActiveParticipant&gt;
+  
+  &lt;AuditSourceIdentification
+      AuditEnterpriseSiteID="Hospital"
+      AuditSourceID="ReadingRoom"&gt;
+    &lt;AuditSourceTypeCode code="1"/&gt;
+  &lt;/AuditSourceIdentification&gt;
+  
+  &lt;ParticipantObjectIdentification
+      ParticipantObjectID="1.2.840.10008.2.3.4.5.6.7.78.8" 
+			ParticipantObjectTypeCode="2"
+			ParticipantObjectTypeCodeRole="3" 
+			ParticipantObjectDataLifeCycle="1"&gt;
+    &lt;ParticipantObjectIDTypeCode
+        code="110180"
+        codeSystemName="DCM"
+        displayName="Study Instance UID"/&gt;
+    &lt;ParticipantObjectDescription&gt;
+      &lt;MPPS UID="1.2.840.10008.1.2.3.4.5"/&gt;
+      &lt;Accession Number="12341234" /&gt;
+      &lt;SOPClass UID="1.2.840.10008.5.1.4.1.1.2" NumberOfInstances="1500"/&gt;
+      &lt;SOPClass UID="1.2.840.10008.5.1.4.1.1.11.1" NumberOfInstances="3"/&gt;
+    &lt;/ParticipantObjectDescription&gt;
+  &lt;/ParticipantObjectIdentification&gt;
+  
+  &lt;ParticipantObjectIdentification
+      ParticipantObjectID="ptid12345"
+      ParticipantObjectTypeCode="1"
+		  ParticipantObjectTypeCodeRole="1"&gt;
+    &lt;ParticipantObjectIDTypeCode code="2"/&gt;
+    &lt;ParticipantObjectName&gt;John Doe&lt;/ParticipantObjectName&gt;
+  &lt;/ParticipantObjectIdentification&gt;
+&lt;/AuditMessage&gt;
+</pre>
+               </div>
+            </div>
+            <br class="example-break" clear="none" />
+            <p>The message describes a study transfer initiated at the request of Dr. Smith on the system at the IP address 192.168.1.2 to a system at IP address 192.168.1.5. The study contains 1500 CT SOP Instances and 3 GSPS SOP Instances. The audit report came from the audit source "ReadingRoom".</p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_VV.3.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_WW.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">VV.3 Measurement Terminology Composition </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> WW.2 Workflow Example</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

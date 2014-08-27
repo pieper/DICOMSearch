@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>8 DICOM File Service</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.10.html" title="PS3.10" />
+      <link rel="up" href="PS3.10.html" title="PS3.10" />
+      <link rel="prev" href="sect_7.4.html" title="7.4 Secure DICOM File Format" />
+      <link rel="next" href="sect_8.2.html" title="8.2 File IDs" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">8 DICOM File Service</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_7.4.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_8.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_8" shape="rect"></a>8 DICOM File Service</h1>
+               </div>
+            </div>
+         </div>
+         <p>The DICOM File Service specifies an abstract view of files from the point of view of a service user in the Data Format Layer. Constraining access to the content of files by Application Entities through such a DICOM File Service ensures independence of the Data Format Layer functions from specific Media Format and Physical Media selections.</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <p>This DICOM File Service definition is abstract in the sense that it is only the specification of a boundary. Its focus is limited to the aspects directly related to the access to the data structures of the Media Format Layer (not the specifications of the data structures themselves). Even though the DICOM File Service may be described by means of a number of abstract primitives such as read, write, delete, etc., it is not intended to be the definition of an Application Programming Interface (API).</p>
+         </div>
+         <p>The DICOM File Service specified for Media Storage offers a basic service, simple enough to be supported by a wide range of commonly available Media Format (or file systems), but rich enough to provide the key functions to effectively manage files and access their content. The following sections specify the minimum mandatory requirements that shall be met by any physical media and associated media format to comply with the DICOM Media Storage model.</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <p>It is acceptable that a specific Media Format offers more file services than those specified in the DICOM File Service. Such services may be internal to an implementation (i.e., not visible through the data structures on the Storage Media). Their usage is beyond the scope of the DICOM Standard. However, in cases where such services are reflected in the file structures of the Media format Layer or in the Data Set encoding an Information Object, the extension of such services in a manner that jeopardizes interoperability should not be done (e.g., File IDs longer than specified in the DICOM File Service).</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_8.1" shape="rect"></a>8.1 File-set</h2>
+                  </div>
+               </div>
+            </div>
+            <p>The DICOM File Service offers the ability to create and access one or more files in a File-set. A File-set is a collection of files that share a common naming space within which File IDs (see <a class="xref" href="sect_8.2.html" title="8.2 File IDs" shape="rect">Section 8.2</a>) are unique. No semantics is attached to the order of Files within a File-set.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>The DICOM File Service does not require that Files within a File-set be simultaneously accessible (e.g., sequentially accessed media such as tapes are supported).</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The DICOM File Service does not explicitly include the notion of distributing a File-set or a File across multiple "volumes/physical medium". However the transparent support by the Media Format Layer of such a feature is not precluded.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <p>A File ID naming space (corresponding to a File-set) shall be associated with an appropriate feature of a Media Format defined structure. This mapping shall be specified in <a href="../part12/PS3.12.html" class="olink" shape="rect">PS3.12</a> for each Media Format specification (this is integral to the specification of the relationship between any specific Media Format services and the DICOM File Services defined in this part).</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>An example of such a relationship is to map the File ID naming space to a volume in a personal computer Media Format or a partition in a workstation File System on a removable medium. Another example is to map the File ID naming space to a directory and its tree of sub-directories. In this case it could offer the possibility of supporting multiple File-sets (one per directory) on the same physical medium. Each File-set would have its own DICOMDIR File. To ensure interoperability, <a href="../part12/PS3.12.html" class="olink" shape="rect">PS3.12</a> shall specify these specific mapping rules between the directories and the File ID naming space of a File-set (including the rules to unambiguously locate the DICOMDIR File).</p>
+            </div>
+            <p>A single File with the File ID DICOMDIR shall be included in each File-set.</p>
+            <p>Each File-set shall be uniquely identified by a File-set UID that shall be registered according to the UID registration rules specified in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>. When Files are added or removed from a File-set, the File-set UID shall not change.</p>
+            <p>A File-set may also be identified by a File-set ID, which provides a simple (but possibly not globally unique) human readable reference. A File-set ID is string of zero (0) to sixteen (16) characters from the subset of the G0 repertoire of ISO 8859 (see <a class="xref" href="sect_8.5.html" title="8.5 Character Set" shape="rect">Section 8.5</a>). A File-set ID may be associated or mapped to an appropriate identifier at the Media Format Layer.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>Continuing with the personal computer Media Format example used first in the previous note, a File-set ID may be defined to be identical to a volume label.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Non-DICOM Files (Files with a content not formatted according to the requirements of this Part of the DICOM Standard) may be present in a File-set. Such files should not contain the DICOM File Meta Information specified in <a class="xref" href="chapter_7.html#table_7.1-1" title="Table 7.1-1. DICOM File Meta Information" shape="rect">Table 7.1-1</a> and may not be referenced by the DICOM Media Storage Directory (see <a class="xref" href="sect_8.6.html" title="8.6 Reserved DICOMDIR File ID" shape="rect">Section 8.6</a>).</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <p>A File-set Descriptor File (a "readme" file) may also be attached to a File-set. See <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a> for a detailed specification of the Basic Directory IOD.</p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_7.4.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_8.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">7.4 Secure DICOM File Format </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.10.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 8.2 File IDs</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>D Use and Format of the A-ASSOCIATE User Information Parameter (Normative)</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.8.html" title="PS3.8" />
+      <link rel="up" href="PS3.8.html" title="PS3.8" />
+      <link rel="prev" href="sect_C.2.html" title="C.2 Naming and Addressing Usage Rules" />
+      <link rel="next" href="sect_D.2.html" title="D.2 Extended User Information Negotiation" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">D Use and Format of the A-ASSOCIATE User Information Parameter (Normative)</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_C.2.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_D.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_D" shape="rect"></a>D Use and Format of the A-ASSOCIATE User Information Parameter (Normative)</h1>
+               </div>
+            </div>
+         </div>
+         <p>This parameter allows for the negotiation of a number of features related to the communication of DICOM Application Entities at association establishment.</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_D.1" shape="rect"></a>D.1 Maximum Length Negotiation</h2>
+                  </div>
+               </div>
+            </div>
+            <p>This negotiation allows the receivers to limit the size of the Presentation Data Values List parameters of each P-DATA Indication. The association-requestor shall specify in the user information parameter of the A-ASSOCIATE request primitive the maximum length in bytes for the PDV list parameter it is ready to receive in each P-DATA indication. The association-acceptor shall ensure in its fragmentation of the DICOM Messages that the list of PDVs included in each P-DATA request does not exceed this maximum length. Likewise, the association-acceptor can specify in the user information parameter of A-ASSOCIATE response primitive the maximum length in bytes for the PDV list parameter it is ready to receive in each P-DATA indication. The association-requestor shall ensure in its fragmentation of the DICOM Messages that the list of PDVs included in each P-DATA request does not exceed this maximum length. Different maximum lengths can be specified for each direction of data flow on
+  the association.</p>
+            <p>The Maximum Length Item support is required for all DICOM V3.0 conforming implementations.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_D.1.1" shape="rect"></a>D.1.1 Maximum Length Sub-Item Structure (A-ASSOCIATE-RQ)</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>The Maximum Length Sub-Item shall be made of a sequence of mandatory fixed length fields. Only one Maximum Length Sub-Item shall be present in the User Data information in the A-ASSOCIATE-RQ. <a class="xref" href="chapter_D.html#table_D.1-1" title="Table D.1-1. Maximum Length Sub-Item Fields (A-ASSOCIATE-RQ)" shape="rect">Table D.1-1</a> shows the sequence of the mandatory fields.</p>
+               <div class="table">
+                  <a id="table_D.1-1" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table D.1-1. Maximum Length Sub-Item Fields (A-ASSOCIATE-RQ)</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Item bytes</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Field name</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Description of field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Item-type</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>51H</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>2</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Reserved</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This reserved field shall be sent with a value 00H but not tested to this value when received.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>3-4</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Item-length</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This Item-length shall be the number of bytes from the first byte of the following field to the last byte of the Maximum-length-received field. In the case of this Item, it shall have the fixed value of 00000004H encoded as an unsigned binary number.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>5-8</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Maximum-length-received</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This parameter allows the association-requestor to restrict the maximum length of the variable field of the P-DATA-TF PDUs sent by the acceptor on the association once established. This length value is indicated as a number of bytes encoded as an unsigned binary number. The value of (0) indicates that no maximum length is specified. This maximum length value shall never be exceeded by the PDU length values used in the PDU-length field of the P-DATA-TF PDUs received by the association-requestor. Otherwise, it shall be a protocol error.</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_D.1.2" shape="rect"></a>D.1.2 Maximum Length Sub-Item Structure (A-ASSOCIATE-AC)</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>The Maximum Length Sub-Item shall be made of a sequence of mandatory fixed length fields. Only one Maximum Length Sub-Item shall be present in the User Data information in the A-ASSOCIATE-AC. <a class="xref" href="chapter_D.html#table_D.1-2" title="Table D.1-2. Maximum Length Sub-Item Fields (A-ASSOCIATE-AC)" shape="rect">Table D.1-2</a> shows the sequence of the mandatory fields.</p>
+               <div class="table">
+                  <a id="table_D.1-2" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table D.1-2. Maximum Length Sub-Item Fields (A-ASSOCIATE-AC)</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Item bytes</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Field name</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Description of field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Item-type</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>51H</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>2</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Reserved</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This reserved field shall be sent with a value 00H but not tested to this value when received.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>3-4</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Item-length</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This Item-length shall be the number of bytes from the first byte of the following field to the last byte of the Maximum-length-received field. In the case of this Item, it shall have the fixed value of 00000004H encoded as an unsigned binary number.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>5-8</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Maximum-length-received</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This parameter allows the association-acceptor to restrict the maximum length of the variable field of the P-DATA-TF PDUs sent by the requestor on the association once established. This length value is indicated as a number of bytes encoded as an unsigned binary number. The value of (0) indicates that no maximum length is specified. This maximum length value shall never be exceeded by the PDU length values used in the PDU-length field of the P-DATA-TF PDUs received by the association-acceptor. Otherwise, it shall be a protocol error.</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_C.2.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_D.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">C.2 Naming and Addressing Usage Rules </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.8.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> D.2 Extended User Information Negotiation</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

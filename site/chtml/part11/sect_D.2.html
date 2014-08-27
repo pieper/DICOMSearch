@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>D.2 Clinical Context</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.11.html" title="PS3.11" />
+      <link rel="up" href="chapter_D.html" title="D General Purpose CD-R, DVD and BD Interchange Profiles (Normative)" />
+      <link rel="prev" href="chapter_D.html" title="D General Purpose CD-R, DVD and BD Interchange Profiles (Normative)" />
+      <link rel="next" href="sect_D.3.html" title="D.3 STD-GEN Profile Class" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">D.2 Clinical Context</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_D.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">D General Purpose CD-R, DVD and BD Interchange Profiles (Normative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_D.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_D.2" shape="rect"></a>D.2 Clinical Context</h2>
+               </div>
+            </div>
+         </div>
+         <p>This Application Profile facilitates the interchange of images and related data on CD-R, DVD-RAM and BD media. Typical interchange would be between acquisition devices, archives and workstations.</p>
+         <p>This Application Profile facilitates the creation of a multi-modality medium for image interchange, useful for clinical, patient record, teaching and research applications, within and between institutions.</p>
+         <p>This profile is intended only for general purpose applications. It is not intended as a replacement for specific Application Profiles that may be defined for a particular clinical context. The latter may support compression transfer syntaxes, limitations on the form and content of SOP Class instances, and specific media choices that preclude the use of the General Purpose Interchange Profile.</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <p>The creation of a CD, DVD-RAM or BD is considerably more complex than the reading thereof. Therefore the clinical context for this Application profile is likely to be asymmetric, with a sophisticated File Set Creator and relatively simple File Set Readers.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_D.2.1" shape="rect"></a>D.2.1 Roles and Service Class Options</h3>
+                  </div>
+               </div>
+            </div>
+            <p>This Application Profile uses the Media Storage Service Class defined in <a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a>.</p>
+            <p>The Application Entity shall support one or more of the roles of File Set Creator (FSC), File Set Reader (FSR), and File Set Updater (FSU), defined in <a href="../part10/PS3.10.html" class="olink" shape="rect">PS3.10</a>.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_D.2.1.1" shape="rect"></a>D.2.1.1 File Set Creator</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The role of File Set Creator shall be used by Application Entities that generate a File Set under this Image Interchange Class of Application Profiles.</p>
+               <p>File Set Creators shall be able to generate the Basic Directory SOP Class in the DICOMDIR file with all the subsidiary Directory Records related to the Image SOP Classes stored in the File Set. The Application Entity acting as a File Set Creator generates a File Set under a STD-GEN Application Profile.</p>
+               <p>FSC shall offer the ability to either finalize the physical volume at the completion of the most recent write session (no additional information can be subsequently added to the volume) or to allow multi-session (additional information may be subsequently added to the volume) or to allow packet-writing, if supported by the media and file system specified in the profile.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>A multiple volume (i.e., a logical volume that can cross multiple physical media) is not supported by this class of Application profile. If a set of Files, e.g., a Study, cannot be written entirely on one physical volume (side of one piece of media), the FSC will create multiple independent DICOM File Sets such that each File Set can reside on a single physical volume (side of a single piece of media) controlled by its individual DICOMDIR file. The user of the FSC can opt to use written labels on the physical volumes to indicate that there is more than one physical volume for this set of files (e.g., a study).</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_D.2.1.2" shape="rect"></a>D.2.1.2 File Set Reader</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The role of File Set Reader shall be used by Application Entities that receive a transferred File Set under the Image Interchange Class of Application Profiles. Typical entities using this role would include image generating systems, display workstations, and archive systems that receive a patient record; e.g., transferred from another institution.</p>
+               <p>File Set Readers shall be able to read the DICOMDIR directory file and all the SOP Instance files defined for this Application Profile, for which a Conformance Statement is made, using the defined Transfer Syntax.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_D.2.1.3" shape="rect"></a>D.2.1.3 File Set Updater</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The role of File Set Updater is used by Application Entities that receive a transferred File Set under the Image Exchange Class of Application Profiles and update it by the addition (or deletion) of images or information to (or from) the medium. Typical entities using this role would include image generating systems and workstations that process or modify images.</p>
+               <p>File Set Updaters shall be able to generate one or more of the SOP Instances defined for this Application Profile, for which a Conformance Statement is made, and to read and update the DICOMDIR file.</p>
+               <p>FSU shall offer the ability to either finalize the physical volume at the completion of the most recent write session (no additional information can be subsequently added to the volume) or to allow multi-session (additional information may be subsequently added to the volume) or to allow packet-writing. if supported by the media and file system specified in the profile.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>If the volume has not been finalized, the File Set Updater will be able to update information assuming there is enough space on the volume to write a new DICOMDIR file, the information, and the fundamental volume control structures. Volume control structures are the structures that are inherent to the standards of the physical volume, see <a href="../part12/PS3.12.html" class="olink" shape="rect">PS3.12</a>.</p>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_D.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_D.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_D.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">D General Purpose CD-R, DVD and BD Interchange Profiles (Normative) </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.11.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> D.3 STD-GEN Profile Class</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

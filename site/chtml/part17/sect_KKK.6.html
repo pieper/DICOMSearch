@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>KKK.6 Referential Integrity</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="chapter_KKK.html" title="KKK Use-cases For Conversion of Classic Single Frame Images to Legacy Converted Enhanced Multi-frame Images (Informative)" />
+      <link rel="prev" href="sect_KKK.5.html" title="KKK.5 Query and Retrieval" />
+      <link rel="next" href="sect_KKK.7.html" title="KKK.7 Persistence and Determinism" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">KKK.6 Referential Integrity</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_KKK.5.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">KKK Use-cases For Conversion of Classic Single Frame Images to Legacy Converted Enhanced Multi-frame Images (Informative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_KKK.7.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_KKK.6" shape="rect"></a>KKK.6 Referential Integrity</h2>
+               </div>
+            </div>
+         </div>
+         <p>Often instances within a Study will cross-reference each other. For example, a Presentation State or a Structured Report or an RT Structure Set will reference the images to which they apply, cross-sectional images may reference localizer images, and images that were acquired with annotations may contain references to Presentation States encoding those annotations.</p>
+         <p>Accordingly, when there are multiple "views" of the same study content (classic or enhanced), the instances will have different SOP Instance and Series Instance UIDs for converted content in each view. Hence any references within an instance to a converted instance needs to be updated as well. In doing such an update of references to UIDs, instances that might not otherwise have needed to be converted do need to be converted, and so on, until the entire set of instances within the scope of the conversion for the view has referential integrity.</p>
+         <p>In practice, the only instances that do not need to be converted (and assigned new UIDs) are those that contain no references and are not classic or enhanced images to be converted.</p>
+         <p>Whether or not assignment of a converted instance to a new Series triggers the need to convert all instances in that Series to the new Series, even if they would not otherwise be converted, is not defined (i.e., it is neither required nor prohibited, and hence a Series can be "split" as a consequence of conversion).</p>
+         <p>The scope of referential integrity required is defined to be the Patient. Instances in one Study may be referenced from another (e.g., as prior images).</p>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_KKK.5.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_KKK.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_KKK.7.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">KKK.5 Query and Retrieval </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> KKK.7 Persistence and Determinism</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

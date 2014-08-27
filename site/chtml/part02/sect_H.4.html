@@ -1,0 +1,2673 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>H.4 Networking</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.2.html" title="PS3.2" />
+      <link rel="up" href="chapter_H.html" title="H DICOM Conformance Statement Medication‑System‑Gateway (Informative)" />
+      <link rel="prev" href="sect_H.3.html" title="H.3 Introduction" />
+      <link rel="next" href="sect_H.5.html" title="H.5 Media Interchange" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">H.4 Networking</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_H.3.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">H DICOM Conformance Statement Medication‑System‑Gateway (Informative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_H.5.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_H.4" shape="rect"></a>H.4 Networking</h2>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_H.4.1" shape="rect"></a>H.4.1 Implementation Model</h3>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_H.4.1.1" shape="rect"></a>H.4.1.1 Application Data Flow</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The division of EXAMPLE-MEDICATION-SYSTEM-GATEWAY into the separate DICOM Application Entities represents their independent logical functionality.</p>
+               <p>By default all of the defined Application Entities have different AE Titles. However, EXAMPLE-MEDICATION-SYSTEM-GATEWAY can be configured so that the PHARMACY-SCP AE and MAR-SCP AE share the same Application Entity Title.</p>
+               <p>
+            </p>
+               <div class="figure">
+                  <a id="figure_H.4.2-1" shape="rect"></a>
+                  <div class="figure-contents">
+                     <div class="mediaobject">
+                        <img src="figures/PS3.2_H.4.2-1.svg" alt="Example-Medication-System-Gateway DICOM Data Flow Diagram" />
+                     </div>
+                  </div>
+                  <p class="title">
+                     <strong>Figure H.4.2-1. Example-Medication-System-Gateway DICOM Data Flow Diagram</strong>
+                  </p>
+               </div>
+               <p>
+                  <br class="figure-break" clear="none" />
+               </p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_H.4.1.2" shape="rect"></a>H.4.1.2 Functional Definition of AEs</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_H.4.1.2.1" shape="rect"></a>H.4.1.2.1 Functional Definition of PHARMACY-SCP Application Entity</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The PHARMACY-SCP AE handles incoming external queries for pharmacy (drug and contrast agent) product data, and also handles requests for approval of administration of pharmacy product. The PHARMACY-SCP AE handles queries by translating the standard DICOM queries to the non-standard interface of the Pharmacy Information System and the Patient Registration System.</p>
+                  <p>The PHARMACY-SCP AE waits for another application to connect at the presentation address configured for its Application Entity Title. PHARMACY-SCP AE will accept Associations with Presentation Contexts for SOP Classes of the DICOM Substance Administration Information Service Class, and Verification Service Class. It will handle query requests on these Presentation Contexts and respond with values corresponding to the information provided by the Pharmacy Information System.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_H.4.1.2.2" shape="rect"></a>H.4.1.2.2 Functional Definition of MAR-SCP Application Entity</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The MAR-SCP AE receives incoming DICOM notifications of drug or contrast agent administration, and adds them to the Medication Administration Record System database.</p>
+                  <p>The MAR-SCP AE waits for another application to connect at the presentation address configured for its Application Entity Title. The MAR-SCP AE will accept Associations with Presentation Contexts for SOP Classes of the Substance Administration Logging and Verification SOP Classes. Any drug or contrast agent administration images notifications received on such Presentation Contexts will be added to the Medication Administration Record System database.</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_H.4.1.3" shape="rect"></a>H.4.1.3 Sequencing of Real-World Activities</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>There are no sequencing constraints across the EXAMPLE-MEDICATION-SYSTEM-GATEWAY Application Entities. Each query or notification is handled independently.</p>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_H.4.2" shape="rect"></a>H.4.2 AE Specifications</h3>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_H.4.2.1" shape="rect"></a>H.4.2.1 PHARMACY-SCP Application Entity Specification</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_H.4.2.1.1" shape="rect"></a>H.4.2.1.1 SOP Classes</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The PHARMACY-SCP AE provides Standard Conformance to the following DICOM SOP Classes:</p>
+                  <div class="table">
+                     <a id="table_H.4.2-1" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table H.4.2-1. SOP Classes for PHARMACY-SCP AE</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>SOP Class Name</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>SOP Class UID</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>SCU</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>SCP</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Verification</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>1.2.840.10008.1.1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>No</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Yes</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Product Characteristics Query</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>1.2.840.10008.5.1.4.41</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>No</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Yes</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Substance Approval Query</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>1.2.840.10008.5.1.4.42</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>No</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Yes</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_H.4.2.1.2" shape="rect"></a>H.4.2.1.2 Association Policies</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_H.4.2.1.2.1" shape="rect"></a>H.4.2.1.2.1 General</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>The PHARMACY-SCP AE will never initiate Associations; it only accepts Association Requests from external DICOM AEs. The PHARMACY-SCP AE will accept Associations for Verification (C-ECHO) and Query (C-FIND) requests.</p>
+                     <p>The DICOM standard Application Context Name for DICOM is always accepted:</p>
+                     <div class="table">
+                        <a id="table_H.4.2-2" shape="rect"></a>
+                        <p class="title">
+                           <strong>Table H.4.2-2. DICOM Application Context for PHARMACY-SCP AE</strong>
+                        </p>
+                        <div class="table-contents">
+                           <table frame="box" rules="all">
+                              <tbody>
+                                 <tr valign="top">
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Application Context Name</p>
+                                    </td>
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>1.2.840.10008.3.1.1.1</p>
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                     <br class="table-break" clear="none" />
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_H.4.2.1.2.2" shape="rect"></a>H.4.2.1.2.2 Number of Associations</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>The PHARMACY-SCP AE can support multiple simultaneous Associations. Each time the PHARMACY-SCP AE receives an Association, a child process will be spawned to process the Verification or Query request. The maximum number of child processes, and thus the maximum number of simultaneous Associations that can be processed, is set by configuration. The default maximum is 10 in total.</p>
+                     <div class="table">
+                        <a id="table_H.4.2-3" shape="rect"></a>
+                        <p class="title">
+                           <strong>Table H.4.2-3. Number of Simultaneous Associations as a SCP for PHARMACY-SCP AE</strong>
+                        </p>
+                        <div class="table-contents">
+                           <table frame="box" rules="all">
+                              <tbody>
+                                 <tr valign="top">
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Maximum number of simultaneous Associations</p>
+                                    </td>
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>10 (Configurable)</p>
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                     <br class="table-break" clear="none" />
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_H.4.2.1.2.3" shape="rect"></a>H.4.2.1.2.3 Asynchronous Nature</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>The PHARMACY-SCP AE does not support asynchronous communication (multiple outstanding transactions over a single Association). All Association requests must be completed and acknowledged before a new operation can be initiated.</p>
+                     <div class="table">
+                        <a id="table_H.4.2-4" shape="rect"></a>
+                        <p class="title">
+                           <strong>Table H.4.2-4. Asynchronous Nature as a SCP for PHARMACY-SCP AE</strong>
+                        </p>
+                        <div class="table-contents">
+                           <table frame="box" rules="all">
+                              <tbody>
+                                 <tr valign="top">
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Maximum number of outstanding asynchronous transactions</p>
+                                    </td>
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>1 (Not Configurable)</p>
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                     <br class="table-break" clear="none" />
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_H.4.2.1.2.4" shape="rect"></a>H.4.2.1.2.4 Implementation Identifying Information</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>The implementation information for the Application Entity is:</p>
+                     <div class="table">
+                        <a id="table_H.4.2-5" shape="rect"></a>
+                        <p class="title">
+                           <strong>Table H.4.2-5. DICOM Implementation Class and Version for PHARMACY-SCP AE</strong>
+                        </p>
+                        <div class="table-contents">
+                           <table frame="box" rules="all">
+                              <tbody>
+                                 <tr valign="top">
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Implementation Class UID</p>
+                                    </td>
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>1.840.xxxxxxx.yyy.etc…</p>
+                                    </td>
+                                 </tr>
+                                 <tr valign="top">
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Implementation Version Name</p>
+                                    </td>
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>EX_VERS_01</p>
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                     <br class="table-break" clear="none" />
+                     <p>Note that all EXAMPLE-MEDICATION-SYSTEM-GATEWAY AEs use the same Implementation Class UID and Implementation Version Name. This Version Name is updated with each new release of the product software, as the different AE versions are never released independently.</p>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_H.4.2.1.3" shape="rect"></a>H.4.2.1.3 Association Initiation Policy</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The PHARMACY-SCP AE does not initiate Associations.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_H.4.2.1.4" shape="rect"></a>H.4.2.1.4 Association Acceptance Policy</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_H.4.2.1.4.1" shape="rect"></a>H.4.2.1.4.1 Activity - Handling Query Requests</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="section">
+                        <div class="titlepage">
+                           <div>
+                              <div>
+                                 <h6 class="title">
+                                    <a id="sect_H.4.2.1.4.1.1" shape="rect"></a>H.4.2.1.4.1.1 Description and Sequencing of Activity</h6>
+                              </div>
+                           </div>
+                        </div>
+                        <p>The PHARMACY-SCP AE accepts Associations only if they have valid Presentation Contexts. If none of the requested Presentation Contexts are accepted then the Association Request itself is rejected. It can be configured to only accept Associations with certain hosts (using TCP/IP address) and/or Application Entity Titles.</p>
+                        <p>The following sequencing applies to the PHARMACY-SCP AE for handling queries (C-FIND-Requests) :</p>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>Peer AE opens an Association with the PHARMACY-SCP AE.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>Peer AE sends a C-FIND-RQ Message</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>If the query is for a Substance Administration Approval, PHARMACY-SCP AE requests basic patient demographic data (e.g., name, sex) from the Patient Registration System</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>PHARMACY-SCP AE translates the query into a request for the Pharmacy Information System (for either Product Information or for Substance Administration Approval), which responds with the requested data (or an indication of no matching data for the query).</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>If matching information is provided, PHARMACY-SCP AE returns a C-FIND-RSP Message to the peer AE with the matching information.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>A final C-FIND-RSP is sent indicating that the matching is complete.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>Peer AE closes the Association. Note that the peer AE does not have to close the Association immediately. Further C-FIND Requests can be sent over the Association before it is closed.</p>
+                              </li>
+                           </ol>
+                        </div>
+                        <p>The PHARMACY-SCP AE may reject Association attempts as shown in the table below. The Result, Source and Reason/Diag columns represent the values returned in the corresponding fields of an ASSOCIATE-RJ PDU (see <a href="../part08/sect_9.3.html#sect_9.3.4" class="olink" shape="rect">Section 9.3.4 “A-ASSOCIATE-RJ PDU Structure” in <span class="olinkdocname">PS3.8</span>
+                           </a>). The following abbreviations are used in the Source column:</p>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="a">
+                              <li class="listitem">
+                                 <p>1 - DICOM UL service-user</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>2 - DICOM UL service-provider (ASCE related function)</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>3 - DICOM UL service-provider (Presentation related function)</p>
+                              </li>
+                           </ol>
+                        </div>
+                        <div class="table">
+                           <a id="table_H.4.2-6" shape="rect"></a>
+                           <p class="title">
+                              <strong>Table H.4.2-6. Association Rejection Reasons</strong>
+                           </p>
+                           <div class="table-contents">
+                              <table frame="box" rules="all">
+                                 <thead>
+                                    <tr valign="top">
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Result</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Source</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Reason/Diag</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Explanation</p>
+                                       </th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>2 - rejected-transient</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>c</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>2 - local-limit-exceeded</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>The (configurable) maximum number of simultaneous Associations has been reached. An Association request with the same parameters may succeed at a later time.</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>2 - rejected-transient</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>c</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>1 - temporary-congestion</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>No Associations can be accepted at this time due to the real-time requirements of higher priority activities or because insufficient resources are available (e.g., memory, processes, threads). An Association request with the same parameters may succeed at a later time.</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>1 - rejected-permanent</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>a</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>2 - application-context-name-not-supported</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>The Association request contained an unsupported Application Context Name. An association request with the same parameters will not succeed at a later time.</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>1 - rejected-permanent</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>a</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>7 - called-AE-title-not-recognized</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>The Association request contained an unrecognized Called AE Title. An Association request with the same parameters will not succeed at a later time unless configuration changes are made. This rejection reason normally occurs when the Association initiator is incorrectly configured and attempts to address the Association acceptor using the wrong AE Title.</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>1 - rejected-permanent</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>a</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>3 - calling-AE-title-not-recognized</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>The Association request contained an unrecognized Calling AE Title. An Association request with the same parameters will not succeed at a later time unless configuration changes are made. This rejection reason normally occurs when the Association acceptor has not been configured to recognize the AE Title of the Association initiator.</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>1 - rejected-permanent</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>b</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>1 - no-reason-given</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>The Association request could not be parsed. An Association request with the same format will not succeed at a later time.</p>
+                                       </td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                        <br class="table-break" clear="none" />
+                        <p>The PHARMACY-SCP AE will close the Association under the exceptional circumstances listed in <a class="xref" href="sect_H.4.html#table_H.4.2-7" title="Table H.4.2-7. PHARMACY-SCP AE Communication Failure Behavior" shape="rect">Table H.4.2-7</a>.</p>
+                        <div class="table">
+                           <a id="table_H.4.2-7" shape="rect"></a>
+                           <p class="title">
+                              <strong>Table H.4.2-7. PHARMACY-SCP AE Communication Failure Behavior</strong>
+                           </p>
+                           <div class="table-contents">
+                              <table frame="box" rules="all">
+                                 <thead>
+                                    <tr valign="top">
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Exception</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Behavior</p>
+                                       </th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Timeout expiry for an expected DICOM Message Request (DIMSE level timeout). I.e. The PHARMACY-SCP AE is waiting for the next C-FIND Request on an open Association but the timer expires.</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>The Association is aborted by issuing a DICOM A-ABORT.</p>
+                                          <p>Error message is output to the Service Audit Trail.</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Timeout expiry for an expected DICOM PDU or TCP/IP packet (Low-level timeout). I.e. The PHARMACY-SCP AE is waiting for the next message PDU but the timer expires.</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>The Association is aborted by issuing a DICOM A-ABORT.</p>
+                                          <p>Error message is output to the Service Audit Trail.</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Association aborted by the SCU or the network layers indicate communication loss (i.e., low-level TCP/IP socket closure)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Error message is output to the Service Audit Trail.</p>
+                                       </td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                        <br class="table-break" clear="none" />
+                     </div>
+                     <div class="section">
+                        <div class="titlepage">
+                           <div>
+                              <div>
+                                 <h6 class="title">
+                                    <a id="sect_H.4.2.1.4.1.2" shape="rect"></a>H.4.2.1.4.1.2 Accepted Presentation Contexts</h6>
+                              </div>
+                           </div>
+                        </div>
+                        <p>The PHARMACY-SCP AE will accept Presentation Contexts as shown in <a class="xref" href="sect_H.4.html#table_H.4.2-8" title="Table H.4.2-8. Accepted Presentation Contexts By the PHARMACY-SCP AE" shape="rect">Table H.4.2-8</a>.</p>
+                        <div class="table">
+                           <a id="table_H.4.2-8" shape="rect"></a>
+                           <p class="title">
+                              <strong>Table H.4.2-8. Accepted Presentation Contexts By the PHARMACY-SCP AE</strong>
+                           </p>
+                           <div class="table-contents">
+                              <table frame="box" rules="all">
+                                 <thead>
+                                    <tr valign="top">
+                                       <th align="center" colspan="6" rowspan="1">
+                                          <p>Presentation Context Table</p>
+                                       </th>
+                                    </tr>
+                                    <tr valign="top">
+                                       <th align="center" colspan="2" rowspan="1">
+                                          <p>Abstract Syntax</p>
+                                       </th>
+                                       <th align="center" colspan="2" rowspan="1">
+                                          <p>Transfer Syntax</p>
+                                       </th>
+                                       <th align="center" rowspan="2" colspan="1">
+                                          <p>Role</p>
+                                       </th>
+                                       <th align="center" rowspan="2" colspan="1">
+                                          <p>Extended Negotiation</p>
+                                       </th>
+                                    </tr>
+                                    <tr valign="top">
+                                       <th align="left" rowspan="1" colspan="1">
+                                          <p>Name</p>
+                                       </th>
+                                       <th align="left" rowspan="1" colspan="1">
+                                          <p>UID</p>
+                                       </th>
+                                       <th align="left" rowspan="1" colspan="1">
+                                          <p>Name</p>
+                                       </th>
+                                       <th align="left" rowspan="1" colspan="1">
+                                          <p>UID</p>
+                                       </th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Verification</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>1.2.840.10008.1.1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>DICOM Implicit VR Little Endian</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>1.2.840.10008.1.2</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>SCP</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>None</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="2" colspan="1">
+                                          <p>Product Characteristics Query</p>
+                                       </td>
+                                       <td align="left" rowspan="2" colspan="1">
+                                          <p>1.2.840.10008.5.1.4.41</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>DICOM Implicit VR Little Endian</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>1.2.840.10008.1.2</p>
+                                       </td>
+                                       <td align="left" rowspan="2" colspan="1">
+                                          <p>SCP</p>
+                                       </td>
+                                       <td align="left" rowspan="2" colspan="1">
+                                          <p>None</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>DICOM Explicit VR Little Endian</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>1.2.840.10008.1.2.1</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="2" colspan="1">
+                                          <p>Substance Approval Query</p>
+                                       </td>
+                                       <td align="left" rowspan="2" colspan="1">
+                                          <p>1.2.840.10008.5.1.4.42</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>DICOM Implicit VR Little Endian</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>1.2.840.10008.1.2</p>
+                                       </td>
+                                       <td align="left" rowspan="2" colspan="1">
+                                          <p>SCP</p>
+                                       </td>
+                                       <td align="left" rowspan="2" colspan="1">
+                                          <p>None</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>DICOM Explicit VR Little Endian</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>1.2.840.10008.1.2.1</p>
+                                       </td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                        <br class="table-break" clear="none" />
+                     </div>
+                     <div class="section">
+                        <div class="titlepage">
+                           <div>
+                              <div>
+                                 <h6 class="title">
+                                    <a id="sect_H.4.2.1.4.1.3" shape="rect"></a>H.4.2.1.4.1.3 SOP Specific Conformance for Verification SOP Class</h6>
+                              </div>
+                           </div>
+                        </div>
+                        <p>The PHARMACY -SCP AE provides standard conformance to the Verification SOP Class as an SCP.</p>
+                     </div>
+                     <div class="section">
+                        <div class="titlepage">
+                           <div>
+                              <div>
+                                 <h6 class="title">
+                                    <a id="sect_H.4.2.1.4.1.4" shape="rect"></a>H.4.2.1.4.1.4 SOP Specific Conformance for Product Characteristics Query SOP Class</h6>
+                              </div>
+                           </div>
+                        </div>
+                        <p>The PHARMACY-SCP AE supports the Return Key Attributes shown in Tables H.4.2-9 and H.4.2-10. Only those attributes requested in the query identifier are returned. Note that queries about devices are not supported.</p>
+                        <div class="table">
+                           <a id="table_H.4.2-9" shape="rect"></a>
+                           <p class="title">
+                              <strong>Table H.4.2-9. Return Key Attributes Supported for Product Characteristics Query</strong>
+                           </p>
+                           <div class="table-contents">
+                              <table frame="box" rules="all">
+                                 <thead>
+                                    <tr valign="top">
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Product Package Identifier</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>(0044,0001)</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Returned with query match value</p>
+                                       </th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Product Type Code Sequence</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0044,0007)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>RxNorm coded type of drug</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Manufacturer</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0008,0070)</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1"></td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Product Name</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0044,0008)</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1"></td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Product Description</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0044,0009)</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1"></td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Product Lot Identifier</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0044,000A)</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1"></td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Product Expiration DateTime</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0044,000B)</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1"></td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Product Parameter Sequence</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0044,0013)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>See <a class="xref" href="sect_H.4.html#table_H.4.2-10" title="Table H.4.2-10. Product Parameter Sequence Item Concepts Supported" shape="rect">Table H.4.2-10</a> for parameters supported</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Pertinent Documents Sequence</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0038,0100)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Zero or one item returned</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>&gt;Retrieve URI</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0040,E010)</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1"></td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                        <br class="table-break" clear="none" />
+                        <div class="table">
+                           <a id="table_H.4.2-10" shape="rect"></a>
+                           <p class="title">
+                              <strong>Table H.4.2-10. Product Parameter Sequence Item Concepts Supported</strong>
+                           </p>
+                           <div class="table-contents">
+                              <table frame="box" rules="all">
+                                 <thead>
+                                    <tr valign="top">
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>
+                                             <span class="bold">
+                                                <strong>Concept Name Code Sequence (0040,A043)</strong>
+                                             </span>
+                                          </p>
+                                       </th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>(G-D705, SRT, "Volume")</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>(G-C52F, SRT, "Active Ingredient")</p>
+                                       </td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                        <br class="table-break" clear="none" />
+                        <p>Only the ASCII (DICOM Default) character set is supported by the Pharmacy Information System; Specific Character Set (0008,0005) is not used.</p>
+                     </div>
+                     <div class="section">
+                        <div class="titlepage">
+                           <div>
+                              <div>
+                                 <h6 class="title">
+                                    <a id="sect_H.4.2.1.4.1.5" shape="rect"></a>H.4.2.1.4.1.5 SOP Specific Conformance for Substance Approval Query SOP Class</h6>
+                              </div>
+                           </div>
+                        </div>
+                        <p>The PHARMACY-SCP AE supports the Matching Key Attributes shown in <a class="xref" href="sect_H.4.html#table_H.4.2-11" title="Table H.4.2-11. Matching Key Attributes Supported for Substance Approval Query" shape="rect">Table H.4.2-11</a>. It can be configured to match on Patient ID, or on Admission ID, or on a combination of Patient ID and Issuer of Patient ID, or on a combination of Admission ID and Issuer of Admission ID. As required by the SOP Class, one of Patient ID or Admission ID must be present in the query, as must Product Package Identifier and Administration Route Code Sequence. Note, however, that the Pharmacy Information System does not support verification of administration route. Also note that queries about devices are not supported.</p>
+                        <div class="table">
+                           <a id="table_H.4.2-11" shape="rect"></a>
+                           <p class="title">
+                              <strong>Table H.4.2-11. Matching Key Attributes Supported for Substance Approval Query</strong>
+                           </p>
+                           <div class="table-contents">
+                              <table frame="box" rules="all">
+                                 <tbody>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Patient ID</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0010,0020)</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Issuer of Patient ID</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0010,0021)</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Admission ID</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0038,0010)</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Issuer of Admission ID</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0038,0011)</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Product Package Identifier</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0044,0001)</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Administration Route Code Sequence</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0054,0302)</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>&gt;Code Value</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0008,0100)</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>&gt;Coding Scheme Designator</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0008,0102)</p>
+                                       </td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                        <br class="table-break" clear="none" />
+                        <p>The PHARMACY-SCP AE supports the Return Key Attributes shown in <a class="xref" href="sect_H.4.html#table_H.4.2-12" title="Table H.4.2-12. Return Key Attributes Supported for Substance Approval Query" shape="rect">Table H.4.2-12</a>. Only those attributes requested in the query identifier are returned.</p>
+                        <div class="table">
+                           <a id="table_H.4.2-12" shape="rect"></a>
+                           <p class="title">
+                              <strong>Table H.4.2-12. Return Key Attributes Supported for Substance Approval Query</strong>
+                           </p>
+                           <div class="table-contents">
+                              <table frame="box" rules="all">
+                                 <thead>
+                                    <tr valign="top">
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Patient's Name</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>(0010,0010)</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Obtained from Patient Registration System</p>
+                                       </th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Patient ID</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0010,0020)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Obtained from Patient Registration System if AE configured for Admission ID matching, or Admission ID + Issuer of Admission ID matching</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Issuer of Patient ID</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0010,0021)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Returned only if AE configured for Patient ID + Issuer of Patient ID matching</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Patient's Birth Date</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0010,0030)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Obtained from Patient Registration System</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Patient's Sex</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0010,0040)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Obtained from Patient Registration System</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Admission ID</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0038,0010)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Returned only if AE configured for Admission ID matching, or Admission ID + Issuer of Admission ID matching</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Issuer of Admission ID</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0038,0011)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Returned only if AE configured for Admission ID + Issuer of Admission ID matching</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Product Package Identifier</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0044,0001)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Returned with query match value</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Administration Route Code Sequence</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0054,0302)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Returned with query match value</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Substance Administration Approval</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0044,0002)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Obtained from Pharmacy Information System</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Approval Status Further Description</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0044,0003)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Obtained from Pharmacy Information System</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Approval Status DateTime</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0044,0004)</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1"></td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                        <br class="table-break" clear="none" />
+                        <p>Specific Character Set (0008,0005) is returned with value ISO_IR 192 if the Patient Registration System provides non-ASCII Unicode characters in Patient Name.</p>
+                     </div>
+                     <div class="section">
+                        <div class="titlepage">
+                           <div>
+                              <div>
+                                 <h6 class="title">
+                                    <a id="sect_H.4.2.1.4.1.6" shape="rect"></a>H.4.2.1.4.1.6 PHARMACY-SCP AE C-FIND Response Behavior</h6>
+                              </div>
+                           </div>
+                        </div>
+                        <p>The PHARMACY-SCP AE supports the C-FIND Response Status return values and behavior shown in <a class="xref" href="sect_H.4.html#table_H.4.2-13" title="Table H.4.2-13. PHARMACY-SCP AE C-FIND Response Status Return Behavior" shape="rect">Table H.4.2-13</a>.</p>
+                        <div class="table">
+                           <a id="table_H.4.2-13" shape="rect"></a>
+                           <p class="title">
+                              <strong>Table H.4.2-13. PHARMACY-SCP AE C-FIND Response Status Return Behavior</strong>
+                           </p>
+                           <div class="table-contents">
+                              <table frame="box" rules="all">
+                                 <thead>
+                                    <tr valign="top">
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Service Status</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Further Meaning</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Error Code</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Behavior</p>
+                                       </th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Success</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Success</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>0000</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Matching is complete. No final identifier is supplied.</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="6" colspan="1">
+                                          <p>Failure</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Out of Resources</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>A700</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>System reached the limit in memory usage for queuing requests to the Pharmacy Information System.</p>
+                                          <p>Error message is output to as an alert to the Service Audit Trail.</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Identifier does not match SOP Class</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>A900</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>The C-FIND query identifier contains invalid Elements or values, or is missing mandatory Elements or values for the specified SOP Class.</p>
+                                          <p>Error message is output to the Service Audit Trail.</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Unable to process</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>C001</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>The AE is unable to establish a session with the Pharmacy Information System.</p>
+                                          <p>Error message is output to the Service Audit Trail.</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Unable to process</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>C002</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>The AE is unable to establish a session with the Patient Registration System.</p>
+                                          <p>Error message is output to the Service Audit Trail.</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Unable to process</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>C110</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>The AE is unable to identify the Patient.</p>
+                                          <p>Error message is output to the Service Audit Trail.</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Unable to process</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>C120</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>The AE is unable to identify the Product.</p>
+                                          <p>Error message is output to the Service Audit Trail.</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Cancel</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Matching terminated due to Cancel Request</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>FE00</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>The C-FIND SCU sent a Cancel Request. This has been acknowledged and the search for matches has been halted.</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="2" colspan="1">
+                                          <p>Pending</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Matches are continuing and current match is supplied.</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>FF00</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Indicates that the successful match is returned and a further response (0000) is forthcoming. This status code is returned if all Optional keys in the query identifier are actually supported.</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Matches are continuing but one or more Optional Keys were not supported.</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>FF01</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Indicates that the successful match is returned and a further response (0000) is forthcoming. This status code is returned if there are Optional keys in the query identifier that are not supported.</p>
+                                       </td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                        <br class="table-break" clear="none" />
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_H.4.2.2" shape="rect"></a>H.4.2.2 MAR-SCP Application Entity Specification</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_H.4.2.2.1" shape="rect"></a>H.4.2.2.1 SOP Classes</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The MAR-SCP AE provides Standard Conformance to the following DICOM SOP Classes:</p>
+                  <div class="table">
+                     <a id="table_H.4.2-14" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table H.4.2-14. SOP Classes for MAR-SCP AE</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>SOP Class Name</p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>SOP Class UID</p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>SCU</p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>SCP</p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Verification</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>1.2.840.10008.1.1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>No</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Yes</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Substance Administration Logging</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>1.2.840.10008.1.42</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>No</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Yes</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_H.4.2.2.2" shape="rect"></a>H.4.2.2.2 Association Policies</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_H.4.2.2.2.1" shape="rect"></a>H.4.2.2.2.1 General</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>The MAR-SCP AE will never initiate Associations; it only accepts Association Requests from external DICOM AEs. The MAR-SCP AE will accept Associations for Verification (C-ECHO) and Substance Administration Logging (N-ACTION) requests.</p>
+                     <p>The DICOM standard Application Context Name for DICOM 3.0 is always accepted and proposed:</p>
+                     <div class="table">
+                        <a id="table_H.4.2-15" shape="rect"></a>
+                        <p class="title">
+                           <strong>Table H.4.2-15. DICOM Application Context for MAR-SCP AE</strong>
+                        </p>
+                        <div class="table-contents">
+                           <table frame="box" rules="all">
+                              <tbody>
+                                 <tr valign="top">
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Application Context Name</p>
+                                    </td>
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>1.2.840.10008.3.1.1.1</p>
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                     <br class="table-break" clear="none" />
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_H.4.2.2.2.2" shape="rect"></a>H.4.2.2.2.2 Number of Associations</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>The MAR-SCP AE can support multiple simultaneous Associations. Each time the MAR-SCP AE receives an Association, a child process will be spawned to process the Verification or Substance Administration Logging request. The maximum number of child processes, and thus the maximum number of simultaneous Associations that can be processed, is set by configuration. The default maximum number is 10 in total.</p>
+                     <div class="table">
+                        <a id="table_H.4.2-16" shape="rect"></a>
+                        <p class="title">
+                           <strong>Table H.4.2-16. Number of Simultaneous Associations as an SCP for MAR-SCP AE</strong>
+                        </p>
+                        <div class="table-contents">
+                           <table frame="box" rules="all">
+                              <tbody>
+                                 <tr valign="top">
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Maximum number of simultaneous Associations requested by peer AEs</p>
+                                    </td>
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>10 (Configurable)</p>
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                     <br class="table-break" clear="none" />
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_H.4.2.2.2.3" shape="rect"></a>H.4.2.2.2.3 Asynchronous Nature</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>The MAR-SCP AE does not support asynchronous communication (multiple outstanding transactions over a single Association). All Association requests must be completed and acknowledged before a new operation can be initiated.</p>
+                     <div class="table">
+                        <a id="table_H.4.2-17" shape="rect"></a>
+                        <p class="title">
+                           <strong>Table H.4.2-17. Asynchronous Nature as a SCP for MAR-SCP AE</strong>
+                        </p>
+                        <div class="table-contents">
+                           <table frame="box" rules="all">
+                              <tbody>
+                                 <tr valign="top">
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Maximum number of outstanding asynchronous transactions</p>
+                                    </td>
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>1 (Not Configurable)</p>
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                     <br class="table-break" clear="none" />
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_H.4.2.2.2.4" shape="rect"></a>H.4.2.2.2.4 Implementation Identifying Information</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>The implementation information for this Application Entity is:</p>
+                     <div class="table">
+                        <a id="table_H.4.2-18" shape="rect"></a>
+                        <p class="title">
+                           <strong>Table H.4.2-18. DICOM Implementation Class and Version for MAR-SCP AE</strong>
+                        </p>
+                        <div class="table-contents">
+                           <table frame="box" rules="all">
+                              <tbody>
+                                 <tr valign="top">
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Implementation Class UID</p>
+                                    </td>
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>1.840.xxxxxxx.yyy.etc…</p>
+                                    </td>
+                                 </tr>
+                                 <tr valign="top">
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Implementation Version Name</p>
+                                    </td>
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>EX_VERS_01</p>
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                     <br class="table-break" clear="none" />
+                     <p>Note that all EXAMPLE-MEDICATION-SYSTEM-GATEWAY AEs use the same Implementation Class UID and Implementation Version Name. This Version Name is updated with each new release of the product software, as the different AE versions are never released independently.</p>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_H.4.2.2.3" shape="rect"></a>H.4.2.2.3 Association Initiation Policy</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The MAR-SCP AE does not initiate Associations.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_H.4.2.2.4" shape="rect"></a>H.4.2.2.4 Association Acceptance Policy</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_H.4.2.2.4.1" shape="rect"></a>H.4.2.2.4.1 Activity - Handling Substance Administration Logging Requests</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="section">
+                        <div class="titlepage">
+                           <div>
+                              <div>
+                                 <h6 class="title">
+                                    <a id="sect_H.4.2.2.4.1.1" shape="rect"></a>H.4.2.2.4.1.1 Description and Sequencing of Activity</h6>
+                              </div>
+                           </div>
+                        </div>
+                        <p>The MAR-SCP AE accepts Associations only if they have valid Presentation Contexts. If none of the requested Presentation Contexts are accepted then the Association Request itself is rejected. It can be configured to only accept Associations with certain hosts (using TCP/IP address) and/or Application Entity Titles.</p>
+                        <p>The following sequencing applies to the MAR-SCP AE for handling Substance Administration Logging Requests (N-ACTION) :</p>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>Peer AE opens an Association with the MAR-SCP AE.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>Peer AE sends N-ACTION-RQ to request logging of a substance administration event.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>If the request does not include the Patient ID, MAR-SCP AE requests the Patient ID corresponding to the Admission ID from the Patient Registration System</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>MAR-SCP AE translates the logging request into a database operation on the Medication Administration Record System database.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>MAR-SCP AE responds with N-ACTION-RSP to indicate that it received and processed the request.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>Peer AE closes the Association. Note that the peer AE does not have to close the Association immediately. Further N-ACTION Requests can be sent over the Association before it is closed.</p>
+                              </li>
+                           </ol>
+                        </div>
+                        <p>The MAR-SCP AE may reject Association attempts as shown in the Table below. The Result, Source and Reason/Diag columns represent the values returned in the corresponding fields of an ASSOCIATE-RJ PDU (see <a href="../part08/sect_9.3.html#sect_9.3.4" class="olink" shape="rect">Section 9.3.4 “A-ASSOCIATE-RJ PDU Structure” in <span class="olinkdocname">PS3.8</span>
+                           </a>). The following abbreviations are used in the Source column:</p>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="a">
+                              <li class="listitem">
+                                 <p>1 - DICOM UL service-user</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>2 - DICOM UL service-provider (ASCE related function)</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>3 - DICOM UL service-provider (Presentation related function)</p>
+                              </li>
+                           </ol>
+                        </div>
+                        <div class="table">
+                           <a id="table_H.4.2-19" shape="rect"></a>
+                           <p class="title">
+                              <strong>Table H.4.2-19. Association Rejection Reasons</strong>
+                           </p>
+                           <div class="table-contents">
+                              <table frame="box" rules="all">
+                                 <thead>
+                                    <tr valign="top">
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Result</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Source</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Reason/Diag</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Explanation</p>
+                                       </th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>2 - rejected-transient</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>c</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>2 - local-limit-exceeded</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>The (configurable) maximum number of simultaneous Associations has been reached. An Association request with the same parameters may succeed at a later time.</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>2 - rejected-transient</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>c</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>1 - temporary-congestion</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>No Associations can be accepted at this time due to the real-time requirements of higher priority activities (e.g., during image acquisition no Associations will be accepted) or because insufficient resources are available (e.g., memory, processes, threads). An Association request with the same parameters may succeed at a later time.</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>1 - rejected-permanent</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>a</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>2 - application-context-name-not-supported</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>The Association request contained an unsupported Application Context Name. An association request with the same parameters will not succeed at a later time.</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>1 - rejected-permanent</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>a</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>7 - called-AE-title-not-recognized</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>The Association request contained an unrecognized Called AE Title. An Association request with the same parameters will not succeed at a later time unless configuration changes are made. This rejection reason normally occurs when the Association initiator is incorrectly configured and attempts to address the Association acceptor using the wrong AE Title.</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>1 - rejected-permanent</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>a</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>3 - calling-AE-title-not-recognized</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>The Association request contained an unrecognized Calling AE Title. An Association request with the same parameters will not succeed at a later time unless configuration changes are made. This rejection reason normally occurs when the Association acceptor has not been configured to recognize the AE Title of the Association initiator.</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>1 - rejected-permanent</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>b</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>1 - no-reason-given</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>The Association request could not be parsed. An Association request with the same format will not succeed at a later time.</p>
+                                       </td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                        <br class="table-break" clear="none" />
+                        <p>The MAR-SCP AE will close the Association under the exceptional circumstances listed in <a class="xref" href="sect_H.4.html#table_H.4.2-20" title="Table H.4.2-20. PHARMACY-SCP AE Communication Failure Behavior" shape="rect">Table H.4.2-20</a>.</p>
+                        <div class="table">
+                           <a id="table_H.4.2-20" shape="rect"></a>
+                           <p class="title">
+                              <strong>Table H.4.2-20. PHARMACY-SCP AE Communication Failure Behavior</strong>
+                           </p>
+                           <div class="table-contents">
+                              <table frame="box" rules="all">
+                                 <thead>
+                                    <tr valign="top">
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Exception</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Behavior</p>
+                                       </th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Timeout expiry for an expected DICOM Message Request (DIMSE level timeout). I.e. The MAR-SCP AE is waiting for the next N-ACTION Request on an open Association but the timer expires.</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>The Association is aborted by issuing a DICOM A-ABORT.</p>
+                                          <p>Error message is output to the Service Audit Trail.</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Timeout expiry for an expected DICOM PDU or TCP/IP packet (Low-level timeout). I.e. The MAR-SCP AE is waiting for the next message PDU but the timer expires.</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>The Association is aborted by issuing a DICOM A-ABORT.</p>
+                                          <p>Error message is output to the Service Audit Trail.</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Association aborted by the SCU or the network layers indicate communication loss (i.e., low-level TCP/IP socket closure)</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Error message is output to the Service Audit Trail.</p>
+                                       </td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                        <br class="table-break" clear="none" />
+                     </div>
+                     <div class="section">
+                        <div class="titlepage">
+                           <div>
+                              <div>
+                                 <h6 class="title">
+                                    <a id="sect_H.4.2.2.4.1.2" shape="rect"></a>H.4.2.2.4.1.2 Accepted Presentation Contexts</h6>
+                              </div>
+                           </div>
+                        </div>
+                        <p>The MAR-SCP AE will accept Presentation Contexts as shown in <a class="xref" href="sect_H.4.html#table_H.4.2-21" title="Table H.4.2-21. Accepted Presentation Contexts By MAR-SCP AE" shape="rect">Table H.4.2-21</a>.</p>
+                        <div class="table">
+                           <a id="table_H.4.2-21" shape="rect"></a>
+                           <p class="title">
+                              <strong>Table H.4.2-21. Accepted Presentation Contexts By MAR-SCP AE</strong>
+                           </p>
+                           <div class="table-contents">
+                              <table frame="box" rules="all">
+                                 <thead>
+                                    <tr valign="top">
+                                       <th align="center" colspan="6" rowspan="1">
+                                          <p>Presentation Context Table</p>
+                                       </th>
+                                    </tr>
+                                    <tr valign="top">
+                                       <th align="center" colspan="2" rowspan="1">
+                                          <p>Abstract Syntax</p>
+                                       </th>
+                                       <th align="center" colspan="2" rowspan="1">
+                                          <p>Transfer Syntax</p>
+                                       </th>
+                                       <th align="center" rowspan="2" colspan="1">
+                                          <p>Role</p>
+                                       </th>
+                                       <th align="center" rowspan="2" colspan="1">
+                                          <p>Extended Negotiation</p>
+                                       </th>
+                                    </tr>
+                                    <tr valign="top">
+                                       <th align="left" rowspan="1" colspan="1">
+                                          <p>Name</p>
+                                       </th>
+                                       <th align="left" rowspan="1" colspan="1">
+                                          <p>UID</p>
+                                       </th>
+                                       <th align="left" rowspan="1" colspan="1">
+                                          <p>Name</p>
+                                       </th>
+                                       <th align="left" rowspan="1" colspan="1">
+                                          <p>UID</p>
+                                       </th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Verification</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>1.2.840.10008.1.1</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>DICOM Implicit VR Little Endian</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>1.2.840.10008.1.2</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>SCP</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>None</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="2" colspan="1">
+                                          <p>Substance Administration Logging</p>
+                                       </td>
+                                       <td align="left" rowspan="2" colspan="1">
+                                          <p>1.2.840.10008.1.42</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>DICOM Implicit VR Little Endian</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>1.2.840.10008.1.2</p>
+                                       </td>
+                                       <td align="left" rowspan="2" colspan="1">
+                                          <p>SCP</p>
+                                       </td>
+                                       <td align="left" rowspan="2" colspan="1">
+                                          <p>None</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>DICOM Explicit VR Little Endian</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>1.2.840.10008.1.2.1</p>
+                                       </td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                        <br class="table-break" clear="none" />
+                     </div>
+                     <div class="section">
+                        <div class="titlepage">
+                           <div>
+                              <div>
+                                 <h6 class="title">
+                                    <a id="sect_H.4.2.2.4.1.3" shape="rect"></a>H.4.2.2.4.1.3 SOP Specific Conformance for Verification SOP Class</h6>
+                              </div>
+                           </div>
+                        </div>
+                        <p>The MAR-SCP AE provides standard conformance to the Verification SOP Class as an SCP.</p>
+                     </div>
+                     <div class="section">
+                        <div class="titlepage">
+                           <div>
+                              <div>
+                                 <h6 class="title">
+                                    <a id="sect_H.4.2.2.4.1.4" shape="rect"></a>H.4.2.2.4.1.4 SOP Specific Conformance for Substance Administration Logging SOP Classes</h6>
+                              </div>
+                           </div>
+                        </div>
+                        <p>As required by the SOP Class, one of Patient ID or Admission ID must be present in the Substance Administration Logging request. If the request does not include the Patient ID, the MAR-SCP AE requests the Patient ID corresponding to the Admission ID from the Patient Registration System.</p>
+                        <p>The MAR-SCP AE SCP translates the attributes shown in <a class="xref" href="sect_H.4.html#table_H.4.2-22" title="Table H.4.2-22. Attributes of Logging Request Imported to Mar Database" shape="rect">Table H.4.2-22</a> into database fields of the Medication Administration Record System. All other provided attributes are converted to text strings and placed in the ClinicalNotes field of the database.</p>
+                        <div class="table">
+                           <a id="table_H.4.2-22" shape="rect"></a>
+                           <p class="title">
+                              <strong>Table H.4.2-22. Attributes of Logging Request Imported to Mar Database</strong>
+                           </p>
+                           <div class="table-contents">
+                              <table frame="box" rules="all">
+                                 <tbody>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Patient ID</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0010,0020)</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Product Package Identifier</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0044,0001)</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Product Name</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0044,0008)</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Substance Administration DateTime</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0044,0010)</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Administration Route Code Sequence</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0054,0302)</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Operator Identification Sequence</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1">
+                                          <p>(0008,1072)</p>
+                                       </td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                        <br class="table-break" clear="none" />
+                        <p>The MAR-SCP AE supports the N-ACTION Response Status return values and behavior shown in <a class="xref" href="sect_H.4.html#table_H.4.2-23" title="Table H.4.2-23. MAR-SCP AE N-ACTION Response Status Return Reasons" shape="rect">Table H.4.2-23</a>.</p>
+                        <div class="table">
+                           <a id="table_H.4.2-23" shape="rect"></a>
+                           <p class="title">
+                              <strong>Table H.4.2-23. MAR-SCP AE N-ACTION Response Status Return Reasons</strong>
+                           </p>
+                           <div class="table-contents">
+                              <table frame="box" rules="all">
+                                 <thead>
+                                    <tr valign="top">
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Service Status</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Further Meaning</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Status Code</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Reason</p>
+                                       </th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Success</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Success</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>0000</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>The log entry was successfully received and stored in the Medication Administration Record System database.</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="4" colspan="1">
+                                          <p>Failure</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Processing failure</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>0110</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>The AE is unable to establish a session with the Medication Administration Record System (Error ID=C003), or with the Patient Registration System (Error ID=C002).</p>
+                                          <p>Error message is output to the Service Audit Trail.</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Operator not authorized to add entry to Medication Administration Record</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>C10E</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>The AE received a user authorization rejection from the Medication Administration Record System.</p>
+                                          <p>Error message is output to the Service Audit Trail.</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Patient cannot be identified from Patient ID or Admission ID</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>C110</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>The AE is unable to identify the Patient.</p>
+                                          <p>Error message is output to the Service Audit Trail.</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Update of Medication Administration Record failed</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>C111</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>The Medication Administration Record System reported a database error.</p>
+                                          <p>Error message is output to the Service Audit Trail.</p>
+                                       </td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                        <br class="table-break" clear="none" />
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_H.4.3" shape="rect"></a>H.4.3 Network Interfaces</h3>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_H.4.3.1" shape="rect"></a>H.4.3.1 Physical Network Interface</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The EXAMPLE-MEDICATION-SYSTEM-GATEWAY supports a single network interface. One of the following physical network interfaces will be available depending on installed hardware options:</p>
+               <div class="table">
+                  <a id="table_H.4.3-1" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table H.4.3-1. Supported Physical Network Interfaces</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Ethernet 100baseT</p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Gigabit Ethernet</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_H.4.3.2" shape="rect"></a>H.4.3.2 Additional Protocols</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>EXAMPLE-MEDICATION-SYSTEM-GATEWAY conforms to the System Management Profiles listed in <a class="xref" href="sect_F.4.html#table_F.4.3-2" title="Table F.4.3-2. Supported System Management Profiles" shape="rect">Table F.4.3-2</a>. All requested transactions for the listed profiles and actors are supported. It does not support any optional transactions.</p>
+               <div class="table">
+                  <a id="table_H.4.3-2" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table H.4.3-2. Supported System Management Profiles</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Profile Name</p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Actor</p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Protocols Used</p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Optional Transactions</p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Security Support</p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Network Address Management</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>DHCP Client</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>DHCP</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>N/A</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>DNS Client</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>DNS</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>N/A</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_H.4.3.2.1" shape="rect"></a>H.4.3.2.1 DHCP</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>DHCP can be used to obtain TCP/IP network configuration information. The network parameters obtainable via DHCP are shown in <a class="xref" href="sect_F.4.html#table_F.4.3-3" title="Table F.4.3-3. Supported DHCP Parameters" shape="rect">Table F.4.3-3</a>. The Default Value column of the table shows the default used if the DHCP server does not provide a value. Values for network parameters set in the Service/Installation tool take precedence over values obtained from the DHCP server. Support for DHCP can be configured via the Service/Installation Tool. The Service/Installation tool can be used to configure the machine name. If DHCP is not in use, TCP/IP network configuration information can be manually configured via the Service/Installation Tool.</p>
+                  <div class="table">
+                     <a id="table_H.4.3-3" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table H.4.3-3. Supported DHCP Parameters</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>DHCP Parameter</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Default Value</p>
+                                 </td>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>IP Address</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>None</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Hostname</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Requested machine name</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>List of NTP servers</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Empty list</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>List of DNS servers</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Empty list</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Routers</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Empty list</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Static routes</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>None</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Domain name</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>None</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Subnet mask</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Derived from IP Address (see service manual)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Broadcast address</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Derived from IP Address (see service manual)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Default router</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>None</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Time offset</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Site configurable (from Time zone)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>MTU</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Network Hardware Dependent</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Auto-IP permission</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>No permission</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+                  <p>If the DHCP server refuses to renew a lease on the assigned IP address all active DICOM Associations will be aborted.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_H.4.3.2.2" shape="rect"></a>H.4.3.2.2 DNS</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>DNS can be used for address resolution. If DHCP is not in use or the DHCP server does not return any DNS server addresses, the identity of a DNS server can be configured via the Service/Installation Tool. If a DNS server is not in use, local mapping between hostname and IP address can be manually configured via the Service/Installation Tool.</p>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_H.4.4" shape="rect"></a>H.4.4 Configuration</h3>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_H.4.4.1" shape="rect"></a>H.4.4.1 AE Title/Presentation Address Mapping</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_H.4.4.1.1" shape="rect"></a>H.4.4.1.1 Local AE Titles</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The mapping from AE Title to TCP/IP addresses and ports is configurable and set at the time of installation by Installation Personnel.</p>
+                  <div class="table">
+                     <a id="table_H.4.4-1" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table H.4.4-1. Default Application Entity Characteristics</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>Application Entity</p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>Role</p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>Default AE Title</p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>Default TCP/IP Port</p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>PHARMACY-SCP</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>SCP</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>EX_PHAR_SCP</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>5000</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>MAR-SCP</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>SCP</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>EX_MAR_SCP</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>4000</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+                  <p>The PHARMACY-SCP and MAR-SCP Application Entities can be configured to have the same AE Title.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_H.4.4.1.2" shape="rect"></a>H.4.4.1.2 Remote AE Title/Presentation Address Mapping</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The mapping of external AE Titles to TCP/IP addresses and ports is configurable and set at the time of installation by Installation Personnel. This mapping is necessary for resolving the IP address and port of C-MOVE Destination Application Entities and must be correctly configured for the PHARMACY-SCP AE to correctly function as a C-MOVE SCP.</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_H.4.4.2" shape="rect"></a>H.4.4.2 Parameters</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="table">
+                  <a id="table_H.4.4-2" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table H.4.4-2. Configuration Parameters</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Parameter</p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Configurable</p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Default Value</p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="center" colspan="3" rowspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>General Parameters</strong>
+                                    </span>
+                                 </p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Maximum PDU size I can receive</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Yes</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>128kbytes</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Maximum PDU size I can send</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Yes</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>128kbytes</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Time-out waiting for response to TCP/IP connect() request. (Low-level timeout)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Yes</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>10 s</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Time-out waiting for A-ASSOCIATE RQ PDU on open TCP/IP connection. (ARTIM timeout)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Yes</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>30 s</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Time-out waiting for acceptance or rejection response to an Association Open Request. (Application Level timeout)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Yes</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>30s</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Time-out waiting for acceptance of a TCP/IP message over the network. (Low-level timeout)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Yes</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>30 s</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Time-out for waiting for data between TCP/IP packets. (Low-level timeout)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Yes</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>30 s</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" colspan="3" rowspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>PHARMACY-SCP AE Parameters</strong>
+                                    </span>
+                                 </p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Maximum number of simultaneous Associations</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Yes</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>10</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>AE time-out waiting on an open Association for the next message (C-FIND-RQ, Association Close Request. etc.) (DIMSE timeout)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Yes</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>1 minute</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" colspan="3" rowspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>MAR-SCP AE Parameters</strong>
+                                    </span>
+                                 </p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Maximum number of simultaneous Associations</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Yes</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>10</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>AE time-out waiting on an open Association for the next Request message (N-ACTION-RQ, Association Close Request. etc.) (DIMSE timeout)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>Yes</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>1 minute</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_H.3.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_H.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_H.5.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">H.3 Introduction </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.2.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> H.5 Media Interchange</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

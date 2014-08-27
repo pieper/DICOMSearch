@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>6.3 Enumerated Values and Defined Terms</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.5.html" title="PS3.5" />
+      <link rel="up" href="chapter_6.html" title="6 Value Encoding" />
+      <link rel="prev" href="sect_6.2.html" title="6.2 Value Representation (VR)" />
+      <link rel="next" href="sect_6.4.html" title="6.4 Value Multiplicity (VM) and Delimitation" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">6.3 Enumerated Values and Defined Terms</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_6.2.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">6 Value Encoding</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_6.4.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_6.3" shape="rect"></a>6.3 Enumerated Values and Defined Terms</h2>
+               </div>
+            </div>
+         </div>
+         <p>The value of certain Data Elements may be chosen among a set of explicit Values satisfying its VR. These explicit Values are either Enumerated Values or Defined Terms and are specified in <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a> and <a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a>.</p>
+         <p>Enumerated Values are used when the specified explicit Values are the only Values allowed for a Data Element. A Data Element with Enumerated Values that does not have a Value equivalent to one of the Values specified in this standard has an invalid value within the scope of a specific Information Object/SOP Class definition.</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="1">
+                  <li class="listitem">
+                     <p>Patient Sex (0010, 0040) is an example of a Data Element having Enumerated Values. It is defined to have a Value that is either "M", "F", or "O" (see <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>). No other Value shall be given to this Data Element.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Future modifications of this standard may add to the set of allowed values for Data Elements with Enumerated Values. Such additions by themselves may or may not require a change in SOP Class UIDs, depending on the semantics of the Data Element.</p>
+                  </li>
+               </ol>
+            </div>
+         </div>
+         <p>Defined Terms are used when the specified explicit Values may be extended by implementers to include additional new Values. These new Values shall be specified in the Conformance Statement (see <a href="../part02/PS3.2.html" class="olink" shape="rect">PS3.2</a>) and shall not have the same meaning as currently defined Values in this standard. A Data Element with Defined Terms that does not contain a Value equivalent to one of the Values currently specified in this standard shall not be considered to have an invalid value. An empty (zero length) value is not a valid new Value for a Defined Term; empty values shall be considered invalid unless the standard specifically permits empty values. New Values shall not have a meaning of unknown, since that concept, if permitted by the standard, shall be conveyed explicitly either by allowing the Data Element to be zero length or by provision of a standard Defined Term with such a meaning.</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="1">
+                  <li class="listitem">
+                     <p>Reporting Priority (0040,1009) is an example of a Data Element having Defined Terms. It is defined to have a Value that may be one of the set of standard Values; HIGH, ROUTINE, MEDIUM, or LOW (see <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>). Because this Data Element has Defined Terms other reporting priorities may be defined by the implementer.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>The validity of empty values is usually specified by the attribute being defined as Type 2 (see <a class="xref" href="sect_7.4.html#sect_7.4.3" title="7.4.3 Type 2 Required Data Elements" shape="rect">Section 7.4.3</a>). However, in the context of a required Type 1 attribute with multiple values, some (but not all) values may be allowed to be empty (see <a class="xref" href="sect_7.4.html#sect_7.4.1" title="7.4.1 Type 1 Required Data Elements" shape="rect">Section 7.4.1</a>); in this case the standard explicitly specifies the validity of empty values in the list of Defined Terms for each value. Specific Character Set (0008,0005) is an example of a Data Element for which the standard specifically permits the first value to be empty when multiple values are present. Image Type (0008,0008) is an example of a Data Element that in some IODs defined in <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a> is required to be present with multiple values, but if an empty value is not explicitly listed in the Defined Terms for Value 3 by an IOD an empty value is invalid.</p>
+                  </li>
+               </ol>
+            </div>
+         </div>
+         <p>The Value Representation may affect the interpretation of Defined Terms and Enumerated Values for numeric values. For binary Value Representations, the textual representation of the Value in the standard does not affect the interpretation. For string Value Representations (IS and DS), the meaning of the Value in the standard shall be used, not the literal string.</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <p>For example, an Enumerated Value of "1" expressed in the text of the standard matches an IS or DS value encoded as "001", or a DS value encoded as "1.0" or "1." or "1.0000E+00" or any permitted encoding. Leading and trailing spaces are defined in <a class="xref" href="sect_6.2.html#table_6.2-1" title="Table 6.2-1. DICOM Value Representations" shape="rect">Table 6.2-1</a> not to be significant and hence do not affect the interpretation.</p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_6.2.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_6.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_6.4.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">6.2 Value Representation (VR) </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.5.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 6.4 Value Multiplicity (VM) and Delimitation</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

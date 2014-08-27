@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>O Registration (Informative)</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="PS3.17.html" title="PS3.17" />
+      <link rel="prev" href="sect_N.5.html" title="N.5 IVUS Report" />
+      <link rel="next" href="sect_O.2.html" title="O.2 Functional Use Cases" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">O Registration (Informative)</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_N.5.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_O.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_O" shape="rect"></a>O Registration (Informative)</h1>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_O.1" shape="rect"></a>O.1 Spatial Registration and Spatial Fiducials SOP Classes</h2>
+                  </div>
+               </div>
+            </div>
+            <p>These SOP Classes allow describing spatial relationships between sets of images. Each instance can describe any number of registrations as shown in <a class="xref" href="chapter_O.html#figure_O.1-1" title="Figure O.1-1. Registration of Image SOP Instances" shape="rect">Figure O.1-1</a>. It may also reference prior registration instances that contribute to the creation of the registrations in the instance.</p>
+            <p>A Reference Coordinate System (RCS) is a spatial Frame of Reference described by the DICOM Frame of Reference Module. The chosen Frame of Reference of the Registration SOP Instance may be the same as one or more of the Referenced SOP Instances. In this case, the Frame of Reference UID (0020,0052) is the same, as shown by the Registered RCS in the figure. The registration information is a sequence of spatial transformations, potentially including deformation information. The composite of the specified spatial transformations defines the complete transformation from one RCS to the other.</p>
+            <p>Image instances may have no DICOM Frame of Reference, in which case the registration is to that single image (or frame, in the case of a multi-frame image). The Spatial Registration IOD may also be used to establish a coordinate system for an image that has no defined Frame of Reference. To do this, the center of the top left pixel of the source image is treated as being located at (0, 0, 0). Offsets from the first pixel are computed using the resolution specified in the Source IOD. Multiplying that coordinate by the Transformation matrix gives the patient coordinate in the new Frame of Reference.</p>
+            <p>A special case is an atlas. DICOM has defined Well-Known Frame of Reference UIDs for several common atlases. There is not necessarily image data associated with an atlas.</p>
+            <p>When using the Spatial Registration or Deformable Registration SOP Classes there are two types of coordinate systems. The coordinate system of the referenced data is the 
+      <span class="italic">Source RCS</span>. The coordinate system established by the SOP instance is the 
+      <span class="italic">Registered RCS</span>.</p>
+            <p>The sense of the direction of transformation differs between the Spatial Registration SOP Class and the Deformable Spatial Registration SOP Class. The Spatial Registration SOP Class specifies a transformation that maps Source coordinates, in the Source RCS, to Registered coordinates, in the Registered RCS. The Deformable Spatial Registration SOP Class specifies transformations that map Registered coordinates, in the Registered RCS, to coordinates in the Source RCS.</p>
+            <p>The Spatial Fiducials SOP Class stores spatial fiducials as implicit registration information.</p>
+            <p>
+        </p>
+            <div class="figure">
+               <a id="figure_O.1-1" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.17_O.1-1.svg" alt="Registration of Image SOP Instances" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure O.1-1. Registration of Image SOP Instances</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_N.5.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_O.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">N.5 IVUS Report </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> O.2 Functional Use Cases</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

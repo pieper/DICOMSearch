@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Y.3 Standard Composite Instance Root Retrieve Information Model</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.4.html" title="PS3.4" />
+      <link rel="up" href="chapter_Y.html" title="Y Instance and Frame Level Retrieve SOP Classes (Normative)" />
+      <link rel="prev" href="sect_Y.2.html" title="Y.2 Composite Instance Root Retrieve Information Model Definition" />
+      <link rel="next" href="sect_Y.4.html" title="Y.4 DIMSE-C Service Groups" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">Y.3 Standard Composite Instance Root Retrieve Information Model</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_Y.2.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">Y Instance and Frame Level Retrieve SOP Classes (Normative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_Y.4.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_Y.3" shape="rect"></a>Y.3 Standard Composite Instance Root Retrieve Information Model</h2>
+               </div>
+            </div>
+         </div>
+         <p>One standard Composite Instance Root Retrieve Information Model is defined in this Annex. The Composite Instance Root Retrieve Information Model is associated with a number of SOP Classes. The following hierarchical Composite Instance Root Retrieve Information Model is defined:</p>
+         <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+               <li class="listitem">
+                  <p>Composite Instance Root</p>
+               </li>
+            </ul>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_Y.3.1" shape="rect"></a>Y.3.1 Composite Instance Root Information Model</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The Composite Instance Root Information Model is based upon a two level hierarchy:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>Composite Instance</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Frame</p>
+                  </li>
+               </ul>
+            </div>
+            <p>The Composite Instance level is the top level and contains only the SOP Instance UID. The Frame level is below the Composite Instance level and contains only the Attributes that refer to a selection of the frames from a single multi-frame image object.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_Y.3.2" shape="rect"></a>Y.3.2 Construction and Interpretation of Frame Range Keys</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The following rules for the use of Frame Range Keys apply to both an SCU creating such keys and to an SCP interpreting them.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_Y.3.2.1" shape="rect"></a>Y.3.2.1 Frame List definitions</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The selection of frames to be included in a new created SOP Instance made in response to a FRAME level Composite Instance Root Retrieve request shall be defined by one of the mechanisms defined in this section, and the list of frames so specified shall be referred to as the "Frame List".</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="1">
+                        <li class="listitem">
+                           <p>Re-ordering of frames is not supported, and order of the frames in the Frame List will always be the same as in the original SOP Instance.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>New allowable frame selection mechanisms may be defined in the future by the addition of new SOP classes</p>
+                        </li>
+                     </ol>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_Y.3.2.1.1" shape="rect"></a>Y.3.2.1.1 Simple Frame List</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Simple Frame List (0008,1161) is a multi-valued Attribute containing a list of frame numbers, each specifying a frame to be included in the returned object. The first frame of the source instance shall be denoted as frame number 1.</p>
+                  <p>The frame numbers in the list shall not contain any duplicates, and shall increase monotonically.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>Due to the use of UL for this element, a maximum of 16383 values may be specified, as only a 2 byte length is available when an explicit VR Transfer Syntax is used.</p>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_Y.3.2.1.2" shape="rect"></a>Y.3.2.1.2 Calculated Frame List</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Calculated Frame List (0008,1162) is a multi-valued Attribute containing a list of 3-tuples, each representing a sub-range of frames to be included in the returned object. The first frame of the source instance shall be denoted as frame number 1.For each 3-tuple: .</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>The first number shall be the frame number of the first frame of the sub-range.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The second number shall be the upper limit of the sub-range, and shall be greater than or equal to the first number.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The third number shall be the increment between requested frames of the sub-range. This shall be greater than zero.</p>
+                        </li>
+                     </ul>
+                  </div>
+                  <p>The difference between the first and second numbers is not required to be an exact multiple of the increment.</p>
+                  <p>If the difference between the first and second numbers is an exact multiple of the increment, then the last frame of the sub-range shall be the second number.</p>
+                  <p>If the first number is greater than the number of frames in the referenced SOP Instance then that sub-range shall be ignored.</p>
+                  <p>The sub-ranges shall be non-overlapping such that the sequence of frame numbers determined by concatenating all the sub-ranges shall not contain any duplicates, and shall increase monotonically. A value of FFFFFFFFH or any value greater than the number of frames in the referenced SOP Instance as the second value shall denote the end of the set of frames in the referenced SOP Instance, and may only occur in the last 3-tuple.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>For example, if the Calculated Frame List contains 6 values, 2, 9, 3, 12, FFFFFFFFH, 5 and is applied to an Instance containing 25 frames. The resulting Frame List will contain the values 2, 5, 8, 12, 17 and 22.</p>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_Y.3.2.1.3" shape="rect"></a>Y.3.2.1.3 Time Range</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Time Range (0008,1163) contains the start and end times to be included in the returned object. Times are in seconds, relative to the value of the Content Time (0008,0033) in the parent object.</p>
+                  <p>The range shall include all frames between the specified times including any frames at the specified times.</p>
+                  <p>The range may be expanded as a consequence of the format in which the information is stored. Where such expansion occurs, any embedded audio data shall be similarly selected. Under all circumstances, the returned Composite SOP Instance shall retain the relationship between image and audio data.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>For MPEG-2 and MPEG-4 AVC/H.264 this would be to the nearest surrounding Key Frames.</p>
+                  </div>
+                  <p>For JPEG 2000 Part 2, this would be to nearest surrounding precinct or tile boundary</p>
+                  <p>Time Range shall only be used to specify extraction from SOP instances where the times of frames can be ascertained using one or more of the following Attributes:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>Frame Time (0018,1063)</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Frame Time Vector (0018,1065)</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Frame Reference DateTime (0018,9151) in the Frame Content Sequence (0020,9111)</p>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_Y.3.3" shape="rect"></a>Y.3.3 New Instance Creation At the Frame Level</h3>
+                  </div>
+               </div>
+            </div>
+            <p>When a C-MOVE or C-GET operation is performed on a source Composite Instance at the FRAME level then the SCP shall create a new Composite Instance according to the following rules:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>The new Composite Instance shall be extracted from the source Composite Instance specified by the SOP Instance UID Unique Key present at the Composite Instance Level.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>The new Composite Instance shall be an instance of the same SOP Class as the source Composite Instance.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>The new Composite Instance shall have a new SOP Instance UID.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>The new Composite Instance shall be a valid SOP Instance.</p>
+                  </li>
+               </ul>
+            </div>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>The new Composite Instance is required to be internally consistent and valid. This may require the SCP to make consistent modification of any Attributes that reference frames or the relationship between them such as start time, time offsets, and modifying the Per-frame Functional Group Sequence (5200,9230).</p>
+            </div>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>The new Composite Instance shall contain the frames from the source Composite Object as requested in the Requested Frame List. The Requested Frame List shall be interpreted according to the rules in <a class="xref" href="sect_Y.3.html#sect_Y.3.2" title="Y.3.2 Construction and Interpretation of Frame Range Keys" shape="rect">Section Y.3.2</a>. The frames shall be in the same order as in the source Composite Instance.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>The new Composite Instance shall include the Frame Extraction Module, which shall contain appropriate Attributes from the identifier of the C-GET or C-MOVE request that caused this instance to be created. If the Frame Extraction Module already exists in the source Composite Instance, then a new item shall be appended as an additional item into the Frame Extraction Sequence.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>The new Composite Instance shall contain the Contributing Equipment Sequence (0018,A001). If the source Composite Object contains the Contributing Equipment Sequence, then a new Item shall be appended to the copy of the sequence in the new Composite Instance, and if the source Composite Object does not contain the Contributing Equipment Sequence, then it shall be created, containing one new Item. In either case, the new Item shall describe the equipment that is extracting the frames, and the Purpose of Reference Code Sequence (0040,A170) within the Item shall be (109105, DCM, "Frame Extracting Equipment").</p>
+                  </li>
+               </ul>
+            </div>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>The existing General Equipment Module cannot be used to hold details of the creating equipment, as it is a Series level Module. The new Composite Instance is part of the same Series as the source Instance, and therefore the Series level information cannot be altered.</p>
+            </div>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>The new Composite Instance shall have the same Patient, Study and Series level information as the source Instance, including Study and Series Instance UIDs.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>The new Composite Instance shall have the same values for the Attributes of the Image Pixel Module of the source Composite Instance except that the Pixel Data Provider URL (0028,7FE0) Attribute shall not be present,Pixel Data (7FE0,0010) shall be replaced by the subset of frames, as specified in section <a class="xref" href="sect_Y.3.html#sect_Y.3.3" title="Y.3.3 New Instance Creation At the Frame Level" shape="rect">Section Y.3.3</a>, and Number of Frames (0028,0008) shall contain the number of frames in the new Composite Instance.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>The new Composite Instance shall have the same values for other Type 1 and Type 2 Image level Attributes that are not otherwise specified. Other Attributes may be included in the new Composite Instance if consistent with the new Composite Instance.</p>
+                  </li>
+               </ul>
+            </div>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>In most cases private Attributes should not be copied unless their full significance is known. See <a href="../part17/chapter_ZZ.html" class="olink" shape="rect"> Annex ZZ “Implant Template Description”</a>for more guidance.</p>
+            </div>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>The new Composite Instance shall not be contained in a Concatenation. This means that it shall not contain a Concatenation UID (0020,9161) Attribute or other Concatenation Attributes. If the existing Composite Instance contains such Attributes, they shall not be included in the new Composite Instance.</p>
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_Y.2.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_Y.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_Y.4.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">Y.2 Composite Instance Root Retrieve Information Model Definition </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.4.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> Y.4 DIMSE-C Service Groups</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

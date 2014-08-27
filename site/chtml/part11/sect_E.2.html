@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>E.2 Clinical Context</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.11.html" title="PS3.11" />
+      <link rel="up" href="chapter_E.html" title="E CT and MR Image Application Profiles (Normative)" />
+      <link rel="prev" href="chapter_E.html" title="E CT and MR Image Application Profiles (Normative)" />
+      <link rel="next" href="sect_E.3.html" title="E.3 STD-CTMR Profiles" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">E.2 Clinical Context</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_E.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">E CT and MR Image Application Profiles (Normative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_E.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_E.2" shape="rect"></a>E.2 Clinical Context</h2>
+               </div>
+            </div>
+         </div>
+         <p>These Application Profiles facilitate the interchange and storage of primary CT and MR images as well as related Secondary Capture Images with certain defined attributes, including grayscale and palette color images. CT, MR and SC images may co-exist within the same File-set.</p>
+         <p>Typical interchanges would be between acquisition devices, archives and workstations, within and between institutions.</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_E.2.1" shape="rect"></a>E.2.1 Roles and Service Class Options</h3>
+                  </div>
+               </div>
+            </div>
+            <p>These Application Profiles uses the Media Storage Service Class defined in <a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a>.</p>
+            <p>The Application Entity shall support one or more of the roles of File-set Creator, File-set Reader, and File-set Updater, defined in <a href="../part10/PS3.10.html" class="olink" shape="rect">PS3.10</a>.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_E.2.1.1" shape="rect"></a>E.2.1.1 File Set Creator</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The Application entity acting as a File-Set Creator generates a File Set under a STD-CTMR Application Profile. Typical entities using this role would include CT or MR equipment, and archive systems that generate a patient record for transfer to another institution. File Set Creators shall be able to generate the Basic Directory SOP Class in the DICOMDIR File with all types of Directory Records related to the SOP Classes stored in the File-set.</p>
+               <p>An FSC shall offer the ability to either finalize the disc at the completion of the most recent write session (no additional information can be subsequently added to the disc) or to allow multi-session (additional information may be subsequently added to the disc) or to allow packet-writing, if supported by the media and file system specified in the profile.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>A multiple volume (a logical volume that can cross multiple physical media) is not supported by this class of Application profile. If a set of Files, e.g., a Study, cannot be written entirely on one physical volume, the FSC will create multiple independent DICOM File-sets such that each File-set can reside on a single physical volume controlled by its individual DICOMDIR file. The user of the FSC can opt to use written labels on the physical volumes to indicate that there is more than one physical volume for this set of files (e.g., a study).</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_E.2.1.2" shape="rect"></a>E.2.1.2 File Set Reader</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The role of File Set Reader is used by Application Entities that receive a transferred File Set. Typical entities using this role would include display workstations, and archive systems that receive a patient record transferred from another institution. File Set Readers shall be able to read all the SOP Classes defined for the specific Application Profile for which a Conformance Statement is made, using all the defined Transfer Syntaxes.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_E.2.1.3" shape="rect"></a>E.2.1.3 File Set Updater</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The role of File Set Updater is used by Application Entities that receive a transferred File Set and update it by the addition of information. Typical entities using this role would include analytic workstations, which, for instance, may add to the File-set an information object containing a processed image. Stations that update patient information objects would also use this role. File-set Updaters do not have to read the images. File-set Updaters shall be able to generate one or more of the SOP Instances defined for the specific Application Profile for which a conformance statement is made, and to read and update the DICOMDIR file.</p>
+               <p>An FSU shall offer the ability to either finalize the disc at the completion of the most recent write session (no additional information can be subsequently added to the disc) or to allow multi-session (additional information may be subsequently added to the disc) or to allow packet-writing if supported by the media and file system specified in the profile.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>If the volume has not been finalized, the File Set Updater will be able to update information assuming there is enough space on the volume to write a new DICOMDIR file, the information, and the fundamental volume control structures. Volume control structures are the structures that are inherent to the standards of the physical volume, see <a href="../part12/PS3.12.html" class="olink" shape="rect">PS3.12</a>.</p>
+               </div>
+               <p>The FSU role is not defined for the STD-CTMR-DVD profile.</p>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_E.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_E.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_E.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">E CT and MR Image Application Profiles (Normative) </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.11.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> E.3 STD-CTMR Profiles</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

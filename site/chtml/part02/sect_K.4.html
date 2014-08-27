@@ -1,0 +1,1402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>K.4 Networking</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.2.html" title="PS3.2" />
+      <link rel="up" href="chapter_K.html" title="K Conformance Statement Sample QIDO-RS Provider (Informative)" />
+      <link rel="prev" href="sect_K.3.html" title="K.3 Introduction" />
+      <link rel="next" href="sect_K.5.html" title="K.5 Media Interchange" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">K.4 Networking</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_K.3.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">K Conformance Statement Sample QIDO-RS Provider (Informative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_K.5.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_K.4" shape="rect"></a>K.4 Networking</h2>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_K.4.1" shape="rect"></a>K.4.1 Implementation Model</h3>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_K.4.1.1" shape="rect"></a>K.4.1.1 Application Data Flow</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>
+            </p>
+               <div class="figure">
+                  <a id="figure_K.4.1-1" shape="rect"></a>
+                  <div class="figure-contents">
+                     <div class="mediaobject">
+                        <img src="figures/PS3.2_K.4.1-1.svg" alt="Application Data Flow Diagram" />
+                     </div>
+                  </div>
+                  <p class="title">
+                     <strong>Figure K.4.1-1. Application Data Flow Diagram</strong>
+                  </p>
+               </div>
+               <p>
+                  <br class="figure-break" clear="none" />
+               </p>
+               <p>The QIDO-RS Provider Application receives QIDO requests from a remote AE. These requests are HTTP/1.1 GET requests. It is associated with the local real-world activity "Query Remote Device". It uses the request to select matching Studies, Series or Instances. It then returns a set of matching Studies, Series or Instances or a response code indicating warning or failure back to the requesting device.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_K.4.1.2" shape="rect"></a>K.4.1.2 Functional Definition of AEs</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_K.4.1.2.1" shape="rect"></a>K.4.1.2.1 Functional Definition of QIDO Service Application</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The reception of a QIDO-RS GET request will activate the QIDO-RS Provider. An internal query request is sent to the search capabilities of the associated PACS or Vendor Neutral Archive (VNA). The search result is based upon the URL of the QIDO-RS GET request. The response is a status code indicating the success, warning, or failure of the search along with any matching results stored in the Remote PACS or VNA.</p>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_K.4.2" shape="rect"></a>K.4.2 AE Specifications</h3>
+                  </div>
+               </div>
+            </div>
+            <p>This AE complies with <a href="../part18/sect_6.7.html" class="olink" shape="rect">Section 6.7 in <span class="olinkdocname">PS3.18</span>
+               </a>, specification for QIDO-RS.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_K.4.2.1" shape="rect"></a>K.4.2.1 QIDO-RS Specifications</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_K.4.2.1.1" shape="rect"></a>K.4.2.1.1 QIDO-RS Search for Studies</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="table">
+                     <a id="table_K.4.2-1" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table K.4.2-1. QIDO-RS Search for Studies Specification</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Parameter</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Restrictions</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Media Types</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Restricted to "multipart/related; type=application/dicom+xml" or "application/json"</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Matching Attributes</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>See <a class="xref" href="sect_K.4.html#table_K.4.2-1a" title="Table K.4.2-1a. QIDO-RS Study Attribute Matching" shape="rect">Table K.4.2-1a</a>
+                                    </p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Return Attributes</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>See <a class="xref" href="sect_K.4.html#table_K.4.2-1a" title="Table K.4.2-1a. QIDO-RS Study Attribute Matching" shape="rect">Table K.4.2-1a</a>
+                                    </p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Limit and Offset supported</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Yes</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Person Name Matching</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Literal, case insensitive. Section <a class="xref" href="sect_K.4.html#sect_K.4.2.2" title="K.4.2.2 Extended Negotiation" shape="rect">Section K.4.2.2 “Extended Negotiation”</a>.</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+                  <div class="table">
+                     <a id="table_K.4.2-1a" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table K.4.2-1a. QIDO-RS Study Attribute Matching</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>Key Word</p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>Tag</p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>Types of Matching</p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>STUDY Level</strong>
+                                       </span>
+                                    </p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>StudyDate</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00080020</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>S,*,U,R</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>StudyTime</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00080030</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>S,*,U,R</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>AccessionNumber</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00080050</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>S,*,U</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>ModalitiesInStudy</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00080061</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>S,*,U</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>ReferringPhysiciansName</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00080090</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>S,*,U</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>StudyDescription</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00081030</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>S,*,U</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>PhysicianOfRecord</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00081048</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>U</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>PatientsName</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00100010</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>S,*,U</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>PatientID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00100020</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>S,*,U</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>PatientBirthDate</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00100030</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>NONE</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>PatientSex</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00100040</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>NONE</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>StudyInstanceUID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>0020000D</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>UNIQUE</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>StudyID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00200010</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>S,*,U</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>NumberOfStudyRelatedSeries</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00201206</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>NONE</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>NumberOfStudyRelatedInstances</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00201208</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>NONE</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>RetrieveURL</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00081190</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>NONE</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Common to all query levels</strong>
+                                       </span>
+                                    </p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>InstanceAvailability</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00080056</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>S,*,U</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>SpecificCharacterSet</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00080005</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>NONE</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>RetrieveURL</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00081190</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>NONE</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+                  <p>Types of Matching (see <a href="../part04/sect_C.2.html#sect_C.2.2.2" class="olink" shape="rect">Section C.2.2.2 “Attribute Matching” in <span class="olinkdocname">PS3.4</span>
+                     </a>) :</p>
+                  <p>"S" indicates the identifier attribute uses Single Value Matching</p>
+                  <p>"L" indicates UID List Matching</p>
+                  <p>"U" indicates Universal Matching.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>If only Universal Matching is supported for an attribute then that attribute can only be passed as an "includefield" query key</p>
+                  </div>
+                  <p>"*" indicates wild card matching</p>
+                  <p>"R" indicates Range Matching</p>
+                  <p>"SEQUENCE" indicates Sequence Matching</p>
+                  <p>"NONE" indicates that no matching is supported, but that values for this Element requested will be returned with all requests</p>
+                  <p>"UNIQUE" indicates that this is the Unique Key for that query level, in which case Universal Matching or Single Value Matching is used depending on the query level (see <a href="../part04/sect_C.2.html#sect_C.2.2.1.1" class="olink" shape="rect">Section C.2.2.1.1 “Unique Keys” in <span class="olinkdocname">PS3.4</span>
+                     </a>).</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_K.4.2.1.2" shape="rect"></a>K.4.2.1.2 QIDO-RS Search for Series</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="table">
+                     <a id="table_K.4.2-2" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table K.4.2-2. QIDO-RS Search for Series Specification</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Parameter</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Restrictions</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Media Types</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Restricted to "multipart/related; type=application/dicom+xml" or "application/json"</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Matching Attributes</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>See <a class="xref" href="sect_K.4.html#table_K.4.2-2a" title="Table K.4.2-2a. QIDO-RS Series Attribute Matching" shape="rect">Table K.4.2-2a</a>
+                                    </p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Return Attributes</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>See <a class="xref" href="sect_K.4.html#table_K.4.2-2a" title="Table K.4.2-2a. QIDO-RS Series Attribute Matching" shape="rect">Table K.4.2-2a</a>
+                                    </p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Limit and Offset supported</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Yes</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Relational Queries Supported</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>No</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+                  <div class="table">
+                     <a id="table_K.4.2-2a" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table K.4.2-2a. QIDO-RS Series Attribute Matching</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>Key Word</p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>Tag</p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>Types of Matching</p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>SERIES Level</strong>
+                                       </span>
+                                    </p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Modality</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00080060</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>S,*,U</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>SeriesDescription</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>0008103E</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>NONE</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>SeriesInstanceUID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>0020000E</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>UNIQUE</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>SeriesNumber</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00200011</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>S,*,U</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>NumberOfSeriesRelatedInstances</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00201209</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>NONE</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>PerformedProcedureStepStartDate</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00400244</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>S,*,U,R</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>PerformedProcedureStepStartTime</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00400245</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>S,*,U,R</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>RequestAttributeSequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00400275</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>SEQUENCE</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;ScheduledProcedureStepID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00400009</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>S,*,U</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;RequestedProcedureID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00401001</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>S,*,U</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Common to all query levels</strong>
+                                       </span>
+                                    </p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>InstanceAvailability</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00080056</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>S,*,U</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>SpecificCharacterSet</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00080005</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>NONE</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>RetrieveURL</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00081190</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>NONE</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+                  <p>Types of matching: Section <a class="xref" href="sect_K.4.html#sect_K.4.2.1.1" title="K.4.2.1.1 QIDO-RS Search for Studies" shape="rect">Section K.4.2.1.1 “QIDO-RS Search for Studies”</a>.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_K.4.2.1.3" shape="rect"></a>K.4.2.1.3 QIDO-RS Search for Instances</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="table">
+                     <a id="table_K.4.2-3" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table K.4.2-3. QIDO-RS Search for Instances Specification</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Parameter</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Restrictions</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Media Types</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Restricted to "multipart/related; type=application/dicom+xml" or "application/json"</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Matching Attributes</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>See <a class="xref" href="sect_K.4.html#table_K.4.2-3a" title="Table K.4.2-3a. QIDO-RS Instance Attribute Matching" shape="rect">Table K.4.2-3a</a>
+                                    </p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Return Attributes</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>See <a class="xref" href="sect_K.4.html#table_K.4.2-3a" title="Table K.4.2-3a. QIDO-RS Instance Attribute Matching" shape="rect">Table K.4.2-3a</a>
+                                    </p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Limit and Offset supported</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Yes</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Relational Queries Supported</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Series-level, only</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+                  <div class="table">
+                     <a id="table_K.4.2-3a" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table K.4.2-3a. QIDO-RS Instance Attribute Matching</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>Key Word</p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>Tag</p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>Types of Matching</p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>SERIES Level</strong>
+                                       </span>
+                                    </p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Modality</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00080060</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>S,*,U</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>SeriesDescription</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>0008103E</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>NONE</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>SeriesInstanceUID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>0020000E</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>UNIQUE</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>SeriesNumber</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00200011</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>S,*,U</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>NumberOfSeriesRelatedInstances</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00201209</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>NONE</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>PerformedProcedureStepStartDate</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00400244</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>S,*,U,R</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>PerformedProcedureStepStartTime</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00400245</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>S,*,U,R</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>RequestAttributeSequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00400275</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>SEQUENCE</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;ScheduledProcedureStepID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00400009</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>S,*,U</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;RequestedProcedureID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00401001</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>S,*,U</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>COMPOSITE INSTANCE Level</strong>
+                                       </span>
+                                    </p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>SOPClassUID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00080016</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>L</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>SOPInstanceUID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00080018</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>UNIQUE</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>InstanceNumber</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00200013</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>S,*,U</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Rows</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00280010</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>NONE</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Columns</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00280011</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>NONE</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>BitsAllocated</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00280100</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>NONE</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>NumberOfFrames</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00280008</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>NONE</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Common to all query levels</strong>
+                                       </span>
+                                    </p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>InstanceAvailability</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00080056</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>S,*,U</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>SpecificCharacterSet</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00080005</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>NONE</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>RetrieveURL</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>00081190</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>NONE</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+                  <p>Types of matching: Section <a class="xref" href="sect_K.4.html#sect_K.4.2.1.1" title="K.4.2.1.1 QIDO-RS Search for Studies" shape="rect">Section K.4.2.1.1 “QIDO-RS Search for Studies”</a>.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_K.4.2.1.4" shape="rect"></a>K.4.2.1.4 Connection Policies</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_K.4.2.1.4.1" shape="rect"></a>K.4.2.1.4.1 General</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>All standard RS connection policies apply. There are no extensions for RS options.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_K.4.2.1.4.2" shape="rect"></a>K.4.2.1.4.2 Number of Connections</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>EXAMPLE-QIDO-SERVICE limits the number of simultaneous RS requests. Additional requests will be queued after the HTTP/1.1 connection is accepted. When an earlier request completes, a pending request will proceed.</p>
+                     <div class="table">
+                        <a id="table_K.4.2-4" shape="rect"></a>
+                        <p class="title">
+                           <strong>Table K.4.2-4. Number of HTTP/1.1 Requests Supported</strong>
+                        </p>
+                        <div class="table-contents">
+                           <table frame="box" rules="all">
+                              <tbody>
+                                 <tr valign="top">
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Maximum number of simultaneous RS requests</p>
+                                    </td>
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>100 (configurable)</p>
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                     <br class="table-break" clear="none" />
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_K.4.2.1.4.3" shape="rect"></a>K.4.2.1.4.3 Asynchronous Nature</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>EXAMPLE-QIDO-SERVICE does not support RS asynchronous response.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_K.4.2.1.4.4" shape="rect"></a>K.4.2.1.4.4 Response Status</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>The EXAMPLE-QIDO-SERVICE shall provide a response message header containing the appropriate status code indicating success, warning, or failure as shown in <a class="xref" href="sect_K.4.html#table_K.4.2-5" title="Table K.4.2-5. HTTP/1.1 Standard Response Codes" shape="rect">Table K.4.2-5</a>.</p>
+                     <div class="table">
+                        <a id="table_K.4.2-5" shape="rect"></a>
+                        <p class="title">
+                           <strong>Table K.4.2-5. HTTP/1.1 Standard Response Codes</strong>
+                        </p>
+                        <div class="table-contents">
+                           <table frame="box" rules="all">
+                              <thead>
+                                 <tr valign="top">
+                                    <th align="center" rowspan="1" colspan="1">
+                                       <p>
+                                          <span class="bold">
+                                             <strong>Code</strong>
+                                          </span>
+                                       </p>
+                                    </th>
+                                    <th align="center" rowspan="1" colspan="1">
+                                       <p>
+                                          <span class="bold">
+                                             <strong>Name</strong>
+                                          </span>
+                                       </p>
+                                    </th>
+                                    <th align="center" rowspan="1" colspan="1">
+                                       <p>
+                                          <span class="bold">
+                                             <strong>Description</strong>
+                                          </span>
+                                       </p>
+                                    </th>
+                                 </tr>
+                              </thead>
+                              <tbody>
+                                 <tr valign="top">
+                                    <td align="left" colspan="3" rowspan="1">
+                                       <p>Success</p>
+                                    </td>
+                                 </tr>
+                                 <tr valign="top">
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>200</p>
+                                    </td>
+                                    <td align="center" rowspan="1" colspan="1">
+                                       <p>OK</p>
+                                    </td>
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>The query completed and any matching results are returned in the message body.</p>
+                                    </td>
+                                 </tr>
+                                 <tr valign="top">
+                                    <td align="left" colspan="3" rowspan="1">
+                                       <p>Failure</p>
+                                    </td>
+                                 </tr>
+                                 <tr valign="top">
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>400</p>
+                                    </td>
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Bad Request</p>
+                                    </td>
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>This indicates that the QIDO-RS Provider was unable to fulfill it because it cannot understand the query component.</p>
+                                    </td>
+                                 </tr>
+                                 <tr valign="top">
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>401</p>
+                                    </td>
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Unauthorized</p>
+                                    </td>
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>This indicates that the QIDO-RS Provider refused to fulfill it because the client is not authorized.</p>
+                                    </td>
+                                 </tr>
+                                 <tr valign="top">
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>403</p>
+                                    </td>
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Forbidden</p>
+                                    </td>
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>This indicates that the QIDO-RS Provider understood the request, but is refusing to fulfill it (e.g., no single patient specified, an authorized user with insufficient privileges, etc.).</p>
+                                    </td>
+                                 </tr>
+                                 <tr valign="top">
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>413</p>
+                                    </td>
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Request entity too large</p>
+                                    </td>
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>This indicates that the query was too broad and a narrower query or paging should be requested. This code will be returned for queries that do not specify PatientID.</p>
+                                    </td>
+                                 </tr>
+                                 <tr valign="top">
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>503</p>
+                                    </td>
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Busy</p>
+                                    </td>
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Service is unavailable.</p>
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                     <br class="table-break" clear="none" />
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_K.4.2.2" shape="rect"></a>K.4.2.2 Extended Negotiation</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>EXAMPLE-QIDO-SERVICE does not support the "fuzzymatching" query key.</p>
+               <p>EXAMPLE-QIDO-SERVICE will perform case insensitive matching for PN VR attributes but will not perform other forms of fuzzy matching. This applies to the following attributes:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>Referring Physician's Name (0008,0090)</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Physician(s) of Record (0008,1048)</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Patient's Name (0010,0010)</p>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_K.4.3" shape="rect"></a>K.4.3 Network Interfaces</h3>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_K.4.3.1" shape="rect"></a>K.4.3.1 Physical Network Interface</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>EXAMPLE-QIDO-SERVICE uses the network interface from the hosting EXAMPLE-PACS-ARCHIVE. See its conformance claim for details.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_K.4.3.2" shape="rect"></a>K.4.3.2 Additional Protocols</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>EXAMPLE-QIDO-SERVICE uses the network services from the hosting EXAMPLE-PACS-ARCHIVE. See its conformance claim for details.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_K.4.3.3" shape="rect"></a>K.4.3.3 IPv4 and IPv6 Support</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>This product supports both IPv4 and IPv6 connections.</p>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_K.4.4" shape="rect"></a>K.4.4 Configuration</h3>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_K.4.4.1" shape="rect"></a>K.4.4.1 QIDO-RS Interface</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The EXAMPLE-QIDO-SERVICE can be configured to respond on one port for TLS protected traffic. The TLS port will refuse any connection from a system that is not recognized as authenticated by a known authority.</p>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_K.3.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_K.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_K.5.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">K.3 Introduction </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.2.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> K.5 Media Interchange</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

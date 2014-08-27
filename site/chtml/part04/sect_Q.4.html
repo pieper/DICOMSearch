@@ -1,0 +1,948 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Q.4 DIMSE-C C-FIND Service</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.4.html" title="PS3.4" />
+      <link rel="up" href="chapter_Q.html" title="Q Relevant Patient Information Query Service Class (Normative)" />
+      <link rel="prev" href="sect_Q.3.html" title="Q.3 Association Negotiation" />
+      <link rel="next" href="sect_Q.5.html" title="Q.5 Relevant Patient Information Query Example (Informative)" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">Q.4 DIMSE-C C-FIND Service</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_Q.3.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">Q Relevant Patient Information Query Service Class (Normative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_Q.5.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_Q.4" shape="rect"></a>Q.4 DIMSE-C C-FIND Service</h2>
+               </div>
+            </div>
+         </div>
+         <p>The DIMSE-C C-FIND service is the operation by which relevant patient information is queried and provided.</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_Q.4.1" shape="rect"></a>Q.4.1 Conventions</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Key Attributes in the Request Identifier serve two purposes. They may be used as Matching Key Attributes and Return Key Attributes. Matching Key Attributes may be used for matching (criteria to be used in the C-FIND request to determine whether an entity matches the query). Return Key Attributes may be used to specify desired return Attributes (what elements in addition to the Matching Key Attributes have to be returned in the C-FIND response).</p>
+            <p>Matching Key Attributes may be of Type "required" (R) or "optional" (O). Return Key Attributes may be of Type 1, 1C, 2, 2C, 3 as defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_Q.4.2" shape="rect"></a>Q.4.2 Service Definition</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Two peer DICOM AEs implement this Relevant Patient Information Query Service Class with one serving in the SCU role and one serving in the SCP role. The SOP Class is implemented using the DIMSE-C C-FIND service as defined in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>.</p>
+            <p>Only a baseline behavior of the DIMSE-C C-FIND is used in this Service Class.</p>
+            <p>A C-FIND service conveys the following semantics:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>The SCU requests that the SCP perform a match for the Matching Keys and return values for the Return Keys that have been specified in the Identifier of the request, against the Relevant Patient Information that the SCP possesses.</p>
+                     <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                        <h3 class="title">Note</h3>
+                        <p>In this Annex, the term "Identifier" refers to the Identifier service parameter of the C-FIND service as defined in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>.</p>
+                     </div>
+                  </li>
+                  <li class="listitem">
+                     <p>The SCP generates a C-FIND response for at most one match with an Identifier containing the values of all Matching Key Attributes and all known Return Key Attributes requested. The response contains one relevant patient information instance in the form that matches the Template that was requested. This response shall contain a status of Pending.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>When the process of matching is complete, with zero or one match, a C-FIND response is sent with a status of Success and no Identifier.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>A Failed response to a C-FIND request indicates that the SCP is unable to process the request. This shall be used to indicate that the requested template is not supported by the SCP, or that more than one match was found by the SCP.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>The SCU may cancel the C-FIND service by issuing a C-FIND-CANCEL request at any time during the processing of the C-FIND service. The SCP will interrupt all matching and return a status of Canceled.</p>
+                     <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                        <h3 class="title">Note</h3>
+                        <p>The SCU needs to be prepared to receive C-FIND responses sent by the SCP until the SCP finally processes the C-FIND-CANCEL request.</p>
+                     </div>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_Q.4.3" shape="rect"></a>Q.4.3 Relevant Patient Information Model SOP Classes</h3>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_Q.4.3.1" shape="rect"></a>Q.4.3.1 Relevant Patient Information Model</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>In order to serve as a Service Class Provider (SCP) of one or more Relevant Patient Information Model SOP Classes, a DICOM Application Entity (AE) possesses relevant information about patients. This information is organized into a Relevant Patient Information Model.</p>
+               <p>The SOP Classes are composed of both the Information Model and a DIMSE-C Service Group.</p>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_Q.4.3.1.1" shape="rect"></a>Q.4.3.1.1 E/R Model</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The E/R Model consists of Patient and Structured Information, with no relationship to other Information Entities in the DICOM Information model.</p>
+                  <p>
+              </p>
+                  <div class="figure">
+                     <a id="figure_Q.4-1" shape="rect"></a>
+                     <div class="figure-contents">
+                        <div class="mediaobject">
+                           <img src="figures/PS3.4_Q.4-1.svg" alt="Relevant Patient Information E/R Model" />
+                        </div>
+                     </div>
+                     <p class="title">
+                        <strong>Figure Q.4-1. Relevant Patient Information E/R Model</strong>
+                     </p>
+                  </div>
+                  <p>
+                     <br class="figure-break" clear="none" />
+                  </p>
+                  <p>The Patient IE includes the Attributes of the Patient Identification and Patient Demographics Modules.</p>
+                  <p>The Structured Information IE includes Attributes that are not inherently related to a real-world entity, but are interpreted through their coded content. This includes the Attributes of the Structured Document Content Module, which in the case of the Relevant Patient Information Query Service has its content constrained by specified templates to convey patient related information. Also included in the Structured Information IE are Attributes of the SOP Common and Common Instance Reference Modules that support the interpretation of coded data, or support access to referenced information objects identified in the coded data.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_Q.4.3.1.2" shape="rect"></a>Q.4.3.1.2 Relevant Patient Information Attributes</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>
+                     <a class="xref" href="sect_Q.4.html#table_Q.4-1" title="Table Q.4-1. Attributes for the Relevant Patient Information Model" shape="rect">Table Q.4-1</a> defines the Attributes of the Relevant Patient Information Model:</p>
+                  <div class="table">
+                     <a id="table_Q.4-1" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table Q.4-1. Attributes for the Relevant Patient Information Model</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Description / Module</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Tag</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Matching Key Type</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Return Key Type</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Remark / Matching Type</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" colspan="5" rowspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Patient</strong>
+                                       </span>
+                                    </p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Patient's Name</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0010,0010)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Patient ID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0010,0020)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>R</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Shall be present in the Request Identifier.</p>
+                                    <p>Shall be retrieved with Single Value Matching.</p>
+                                    <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                                       <h3 class="title">Note</h3>
+                                       <p>Since only one response is expected, this is a unique key.</p>
+                                    </div>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Issuer of Patient ID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0010,0021)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>R</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Shall be retrieved with Single Value Matching.</p>
+                                    <p>In situations where there are multiple issuers, this key constrains matching of Patient ID (0010,0020) to a domain in which the Patient ID (0010,0020) is unique.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Patient's Birth Date</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0010,0030)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Patient's Sex</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0010,0040)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="italic">All other Attributes of the Patient Identification Module</span>
+                                    </p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="italic">All other Attributes of the Patient Demographic Module</span>
+                                    </p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" colspan="5" rowspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Structured Information (SR Document Content Module)</strong>
+                                       </span>
+                                    </p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Observation DateTime</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,A032)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Value Type</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,A040)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>See <a class="xref" href="sect_Q.4.html#sect_Q.4.3.1.2.1" title="Q.4.3.1.2.1 Relevant Patient Information Attribute Descriptions" shape="rect">Section Q.4.3.1.2.1</a>.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Concept Name Code Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,A043)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>See <a class="xref" href="sect_Q.4.html#sect_Q.4.3.1.2.1" title="Q.4.3.1.2.1 Relevant Patient Information Attribute Descriptions" shape="rect">Section Q.4.3.1.2.1</a>.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Code Value</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0100)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Coding Scheme Designator</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0102)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Coding Scheme Version</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0103)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1C</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Required if the value of Coding Scheme Designator (0008,0102) is not sufficient to identify the Code Value (0008,0100) unambiguously.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Code Meaning</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0104)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="italic">&gt;All other Attributes of the Concept Name Code Sequence</span>
+                                    </p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p></p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p></p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p></p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p></p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Content Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,A730)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>See <a class="xref" href="sect_Q.4.html#sect_Q.4.3.1.2.1" title="Q.4.3.1.2.1 Relevant Patient Information Attribute Descriptions" shape="rect">Section Q.4.3.1.2.1</a>.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;All Attributes of the Content Sequence</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Content Items as provided by the SCP. Requirements on Content Item Attribute Types shall be in accordance with the definitions in the SR Document Content Module.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>HL7 Structured Document Reference Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,A390)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1C</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Referenced SOP Class UID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,1150)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Referenced SOP Instance UID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,1155)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;HL7 Instance Identifier</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,E001)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Retrieve URI</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,E010)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" colspan="5" rowspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Structured Information (Common Instance Reference Module)</strong>
+                                       </span>
+                                    </p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Studies Containing Other Referenced Instances Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,1200)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1C</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Required if Content Sequence (0040,A390) includes Content Items that reference SOP Instances that use the Patient/Study/Series/Instance information model.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Referenced Series Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,1115)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Series Instance UID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0020,000E)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Referenced Instance Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,114A)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;&gt;Referenced SOP Class UID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,1150)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;&gt;Referenced SOP Instance UID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,1155)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+                  <p>The Attributes in <a class="xref" href="sect_Q.4.html#table_Q.4-2" title="Table Q.4-2. Additional C-FIND Identifier Attributes" shape="rect">Table Q.4-2</a> are not part of the Information Model; their inclusion in the C-FIND request and response identifier are governed by rules in sections <a class="xref" href="sect_Q.2.html#sect_Q.2.1.1.3.1" title="Q.2.1.1.3.1 Request Identifier Structure" shape="rect">Section Q.2.1.1.3.1</a> and <a class="xref" href="sect_Q.2.html#sect_Q.2.1.1.3.2" title="Q.2.1.1.3.2 Response Identifier Structure" shape="rect">Section Q.2.1.1.3.2</a>, respectively.</p>
+                  <div class="table">
+                     <a id="table_Q.4-2" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table Q.4-2. Additional C-FIND Identifier Attributes</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Attribute</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Tag</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>Type in Request Identifier</p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>Type in Response Identifier</p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Remark</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Content Template Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,A504)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Mapping Resource</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0105)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Template Identifier</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,DB00)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Specific Character Set</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0005)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1C</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1C</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Required if expanded or replacement character sets are used. See <a class="xref" href="sect_Q.2.html#sect_Q.2.1.1.3" title="Q.2.1.1.3 Identifier" shape="rect">Section Q.2.1.1.3</a>,</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_Q.4.3.1.2.1" shape="rect"></a>Q.4.3.1.2.1 Relevant Patient Information Attribute Descriptions</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Concept Name Code Sequence (0040,A043) in a C-FIND Response shall have one sequence item that identifies the Root node concept of the returned structure. This shall be the same as the Concept Name of the first row of the template identified in the Content Template Sequence (0040,A504) in the Identifier. The Concept Name Code Sequence (0040,A043) shall always be sent zero length in the Request Identifier.</p>
+                  <p>The Value Type (0040,A040) applies to the Concept Name Code Sequence (0040,A043), and shall be the same as the Value Type (0040,A040) of the first row of the template identified in the Content Template Sequence (0040,A504) in the Identifier.</p>
+                  <p>The Content Sequence (0040,A730) is a potentially recursively nested Sequence of Items, as described in <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>, SR Document Content Module. The Content Sequence shall always be sent zero length in the Request Identifier. The Content Sequence in the data set of the Response shall contain the content items of the requested template.</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_Q.4.3.2" shape="rect"></a>Q.4.3.2 Conformance Requirements</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>An implementation may conform to the Relevant Patient Information Model SOP Classes as an SCU and/or as an SCP.</p>
+               <p>The Conformance Statement shall be in the format defined in <a href="../part02/PS3.2.html" class="olink" shape="rect">PS3.2</a>.</p>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_Q.4.3.2.1" shape="rect"></a>Q.4.3.2.1 SCU Conformance</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>An implementation that conforms to one or more of the Relevant Patient Information Model SOP Classes shall support queries against the Relevant Patient Information Model described in <a class="xref" href="sect_Q.4.html#sect_Q.4.3.1" title="Q.4.3.1 Relevant Patient Information Model" shape="rect">Section Q.4.3.1</a> using the baseline C-FIND SCU Behavior described in <a class="xref" href="sect_Q.4.html#sect_Q.4.2" title="Q.4.2 Service Definition" shape="rect">Section Q.4.2</a>.</p>
+                  <p>An implementation that conforms to one or more of the Relevant Patient Information Model SOP Classes as an SCU shall state in its Conformance Statement which SOP Class(es) it supports, and which Root template(s) it may request in a query if not specified by the SOP Class. The Conformance Statement shall also state the definition of any supported template extensions.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_Q.4.3.2.2" shape="rect"></a>Q.4.3.2.2 SCP Conformance</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>An implementation that conforms to one or more of the Relevant Patient Information Model SOP Classes shall support queries against the Relevant Patient Information Model described in <a class="xref" href="sect_Q.4.html#sect_Q.4.3.1" title="Q.4.3.1 Relevant Patient Information Model" shape="rect">Section Q.4.3.1</a> using the baseline C-FIND SCP Behavior described in <a class="xref" href="sect_Q.4.html#sect_Q.4.2" title="Q.4.2 Service Definition" shape="rect">Section Q.4.2</a>.</p>
+                  <p>An implementation that conforms to one or more of the Relevant Patient Information Model SOP Classes as an SCP shall state in its Conformance Statement which SOP Class(es) it supports, and which Root template(s) it will support in a query response if not specified by the SOP Class. The Conformance Statement shall also state the definition of any supported template extensions.</p>
+                  <p>An implementation that conforms to one or more of the Relevant Patient Information Model SOP Classes as an SCP shall state in its Conformance Statement how it makes use of Specific Character Set (0008,0005) when interpreting queries, performing matching, and encoding responses.</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_Q.4.3.3" shape="rect"></a>Q.4.3.3 SOP Classes</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The Relevant Patient Information Model SOP Classes in the Relevant Patient Information Query Service Class identify the Relevant Patient Information Model, and the DIMSE-C operation supported. In some instances a Root template is specified. The Standard SOP Classes are defined in <a class="xref" href="sect_Q.4.html#table_Q.4-3" title="Table Q.4-3. SOP Classes for the Relevant Patient Information Model" shape="rect">Table Q.4-3</a>:</p>
+               <div class="table">
+                  <a id="table_Q.4-3" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table Q.4-3. SOP Classes for the Relevant Patient Information Model</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>SOP Class Name</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>SOP Class UID</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Root Template</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>General Relevant Patient Information Query</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>1.2.840.10008.5.1.4.37.1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>TID 9007 General Relevant Patient Information, or from the list in <a href="../part16/PS3.16.html" class="olink" shape="rect">PS3.16</a>
+                                 </p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Breast Imaging Relevant Patient Information Query</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>1.2.840.10008.5.1.4.37.2</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>TID 9000 Relevant Patient Information for Breast Imaging</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Cardiac Relevant Patient Information Query</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>1.2.840.10008.5.1.4.37.3</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>TID 3802 Cardiovascular Patient History</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>The list of Root templates for the General Relevant Patient Information Query is extensible.</p>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_Q.3.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_Q.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_Q.5.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">Q.3 Association Negotiation </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.4.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> Q.5 Relevant Patient Information Query Example (Informative)</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

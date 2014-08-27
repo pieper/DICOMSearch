@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>7.3 Big Endian Versus Little Endian Byte Ordering</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.5.html" title="PS3.5" />
+      <link rel="up" href="chapter_7.html" title="7 The Data Set" />
+      <link rel="prev" href="sect_7.2.html" title="7.2 Group Length" />
+      <link rel="next" href="sect_7.4.html" title="7.4 Data Element Type" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">7.3 Big Endian Versus Little Endian Byte Ordering</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_7.2.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">7 The Data Set</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_7.4.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_7.3" shape="rect"></a>7.3 Big Endian Versus Little Endian Byte Ordering</h2>
+               </div>
+            </div>
+         </div>
+         <p>Another component of the encoding of a Data Set that shall be agreed upon by communicating Application Entities is the Byte Ordering.</p>
+         <p>Little Endian byte ordering is defined as follows:</p>
+         <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+               <li class="listitem">
+                  <p>In a binary number consisting of multiple bytes (e.g., a 32-bit unsigned integer value, the Group Number, the Element Number, etc.), the least significant byte shall be encoded first; with the remaining bytes encoded in increasing order of significance.</p>
+               </li>
+               <li class="listitem">
+                  <p>In a character string consisting of multiple 8-bit single byte codes, the characters will be encoded in the order of occurrence in the string (left to right).</p>
+               </li>
+            </ul>
+         </div>
+         <p>Big Endian byte ordering is defined as follows:</p>
+         <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+               <li class="listitem">
+                  <p>In a binary number consisting of multiple bytes, the most significant byte shall be encoded first; with the remaining bytes encoded in decreasing order of significance.</p>
+               </li>
+               <li class="listitem">
+                  <p>In a character string consisting of multiple 8-bit single byte codes, the characters will be encoded in the order of occurrence in the string (left to right).</p>
+               </li>
+            </ul>
+         </div>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <p>The packing of bits within values of OB or OW Value representation for Pixel Data and Overlay Data is described in <a class="xref" href="chapter_8.html" title="8 Encoding of Pixel, Overlay and Waveform Data" shape="rect"> Section 8</a>.</p>
+         </div>
+         <p>Byte ordering is a component of an agreed upon Transfer Syntax (see <a class="xref" href="chapter_10.html" title="10 Transfer Syntax" shape="rect"> Section 10</a>). The default DICOM Transfer Syntax, which shall be supported by all AEs, uses Little Endian encoding and is specified in <a class="xref" href="chapter_A.html#sect_A.1" title="A.1 DICOM Implicit VR Little Endian Transfer Syntax" shape="rect">Section A.1</a>. Alternate Transfer Syntaxes, some of which use Big Endian encoding, are also specified in <a class="xref" href="chapter_A.html" title="A Transfer Syntax Specifications (Normative)" shape="rect"> Annex A</a>.</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <p>The Command Set structure as specified in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a> is encoded using the Little Endian Implicit VR Transfer Syntax.</p>
+         </div>
+         <p>In the default case of Little Endian encoding, Big Endian Machines interpreting Data Sets shall do 'byte swapping' before interpreting or operating on certain Data Elements. The Data Elements affected are all those having VRs that are multiple byte Values and that are not a character string of 8-bit single byte codes. VRs constructed of a string of characters of 8-bit single byte codes are really constructed of a string of individual bytes, and are therefore not affected by byte ordering. The VRs that are not a string of characters and consist of multiple bytes are:</p>
+         <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+               <li class="listitem">
+                  <p>2-byte US, SS, OW and each component of AT</p>
+               </li>
+               <li class="listitem">
+                  <p>4-byte OF, UL, SL, and FL</p>
+               </li>
+               <li class="listitem">
+                  <p>8 byte OD, FD</p>
+               </li>
+            </ul>
+         </div>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <p>For the above VRs, the multiple bytes are presented in increasing order of significance when in Little Endian format. For example, an 8-byte Data Element with VR of FD, might be written in hexadecimal as 68AF4B2CH, but encoded in Little Endian would be 2C4BAF68H.</p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_7.2.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_7.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_7.4.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">7.2 Group Length </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.5.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 7.4 Data Element Type</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

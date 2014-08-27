@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>KKK.4 Compatibility With Modality Association Negotiation</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="chapter_KKK.html" title="KKK Use-cases For Conversion of Classic Single Frame Images to Legacy Converted Enhanced Multi-frame Images (Informative)" />
+      <link rel="prev" href="sect_KKK.3.html" title="KKK.3 Heterogeneous Environment" />
+      <link rel="next" href="sect_KKK.5.html" title="KKK.5 Query and Retrieval" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">KKK.4 Compatibility With Modality Association Negotiation</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_KKK.3.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">KKK Use-cases For Conversion of Classic Single Frame Images to Legacy Converted Enhanced Multi-frame Images (Informative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_KKK.5.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_KKK.4" shape="rect"></a>KKK.4 Compatibility With Modality Association Negotiation</h2>
+               </div>
+            </div>
+         </div>
+         <p>This strategy is compatible with an approach commonly implemented on acquisition modalities when deciding which SOP Class to use to encode images.</p>
+         <p>Normally a modality will propose in the Association that images be transferred using the SOP Class for which the IOD provides the richest set of information (i.e., the True Enhanced Image Storage SOP Class), and will choose the corresponding Abstract Syntax for C-STORE Operations if the Association Acceptor accepts multiple choices of SOP Class.</p>
+         <p>Consider a modality that supports the appropriate modality-specific Enhanced Image Storage SOP Class, but which is faced with the dilemma of a PACS that does not. In this case, it will commonly "fall back" to sending images the "old" way as single-frame SOP Class Instances, either because it has been pre-configured that way by service personnel, or because it discovers this limitation during Association Negotiation. This strategy is also common amongst modalities for which there are different choices of single frame SOP Class (e.g., DX versus CR versus Secondary Capture, for Digital X-Rays). In some cases, this may be implemented formally using the ability during Association Negotiation to specify a Related General SOP Class (<a href="../part04/sect_B.4.html#sect_B.4.2.1" class="olink" shape="rect">Section B.4.2.1 “SCU Fall-Back Behavior” in <span class="olinkdocname">PS3.4</span>
+            </a>).</p>
+         <p>If the PACS is upgraded to include multi-frame conversion capability, and no change is made in the configuration of the modality, or in the SOP Classes accepted by the PACS, then in this scenario, the PACS can potentially convert the single-frame instances into Legacy Converted Enhanced instances. The net result is continuing sacrifice of information compared to what the modality is actually capable of.</p>
+         <p>A better choice, since the PACS is now capable of handling multi-frame images, is to also reconfigure it to also accept the "true" Enhanced Image rather than just "transitional" Legacy Converted Enhanced Storage SOP Classes. Since the two SOP Class families use the same structure and common important Functional Groups, in all likelihood the PACS will be able to use either class of objects, and in a future upgrade take advantage of the additional information in the superior object (perhaps for more complex processing or annotation or rendering). In any case, storing the modality's best output in the archive will benefit future re-use as priors and may enable greater functionality in external workstations.</p>
+         <p>A special consideration is when prior images need to be displayed on the modality before starting a new study (perhaps to setup a comparable protocol or better understand the request). In this case, care needs to be taken with respect to which images are accessible to the modality (either pushed to it or retrieved by it), and the question of "round trip fidelity" of conversion arises.</p>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_KKK.3.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_KKK.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_KKK.5.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">KKK.3 Heterogeneous Environment </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> KKK.5 Query and Retrieval</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>R Instance Availability Notification Service Class (Normative)</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.4.html" title="PS3.4" />
+      <link rel="up" href="PS3.4.html" title="PS3.4" />
+      <link rel="prev" href="sect_Q.5.html" title="Q.5 Relevant Patient Information Query Example (Informative)" />
+      <link rel="next" href="sect_R.2.html" title="R.2 Conformance Overview" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">R Instance Availability Notification Service Class (Normative)</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_Q.5.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_R.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_R" shape="rect"></a>R Instance Availability Notification Service Class (Normative)</h1>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_R.1" shape="rect"></a>R.1 Overview</h2>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_R.1.1" shape="rect"></a>R.1.1 Scope</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>The Instance Availability Notification Service Class defines an application-level class-of-service that allows one DICOM AE to notify another DICOM AE of the presence and availability of SOP instances that may be retrieved. The AE from which such SOP Instances can later be retrieved may or may not be the SCU performing the notification.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>An example of usage of this Service Class is for the receiver of the instances to provide notification of their arrival and availability for subsequent workflow steps to a different entity, such as a separate workflow manager.</p>
+               </div>
+               <p>The SCU implementation defines the conditions under which it provides the notification. Certain SCUs may provide notification for arbitrary sets of SOP Instances, while other SCUs may provide notification when they determine that the instances associated with a Procedure Step or a Requested Procedure are available. The SCU is required to document in its Conformance Statement the nature of its notification decisions (e.g., frequency of notifications, retrieve capabilities and latency, etc.).</p>
+               <p>Once the SCU has provided notification about availability of the SOP Instances, the SCP may use that information in directing further workflow, such as in populating the Input Information Sequence when forming a Unified Procedure Step. These types of policies are outside the scope of this Standard, however, the SCP is required to document these policies in its Conformance Statement.</p>
+               <p>The SCU of this Service Class is not required to assure that the study, procedure step or any workflow-related entity is "complete"; indeed no semantics other than the concept of "availability" is expressed or implied by the use of this service.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="1">
+                        <li class="listitem">
+                           <p>The Performed Workitem Code Sequence (0040,4019) Attribute of a referenced GP-PPS instance may provide the specific description of the work item that triggered the Instance Availability Notification.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The Instance Availability Notification is typically a service of the composite instance Storage SCP, since that application is responsible for making the instances available. The Instance Availability Notification allows that application to report the specific Retrieve AE Title, which may differ from the Storage Service AE Title, and may vary with different instance SOP Classes, or may vary over time.</p>
+                        </li>
+                     </ol>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_Q.5.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_R.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">Q.5 Relevant Patient Information Query Example (Informative) </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.4.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> R.2 Conformance Overview</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

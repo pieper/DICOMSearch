@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>8.2.1 Annotation On The Object</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.18.html" title="PS3.18" />
+      <link rel="up" href="chapter_8.html" title="8 Parameters of the Request" />
+      <link rel="prev" href="sect_8.2.html" title="8.2 Parameters for DICOM Image Persistent Objects" />
+      <link rel="next" href="chapter_A.html" title="A URL/URI Transfer Syntax (Informative)" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">8.2.1 Annotation On The Object</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_8.2.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">8 Parameters of the Request</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_A.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_8.2.1" shape="rect"></a>8.2.1 Annotation On The Object</h2>
+               </div>
+            </div>
+         </div>
+         <p>Annotation of objects retrieved and displayed as an image. This parameter is OPTIONAL for the URI based mode and the WS mode "Rendered Requester" transaction. It shall not be present if contentType is application/dicom, or is a non-image MIME type (e.g., text/*). When it is not present for image objects, no additional annotation may be burnt in.</p>
+         <p>When used in conjunction with a presentation state object, it shall be applied after the presentation on the images. When used in conjunction with the region parameter, it shall be applied after the selection of the region.</p>
+         <p>The parameter name shall be "annotation" for URI based mode, and "Annotation" for the WS mode. Its value is a non-empty list of one or more of the following items, separated by a "," character:</p>
+         <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+               <li class="listitem">
+                  <p>"patient", for displaying patient information on the image (e.g., patient name, birth date,…)</p>
+               </li>
+               <li class="listitem">
+                  <p>"technique", for displaying technique information of the image (e.g., image number, study date, image position,…).</p>
+               </li>
+            </ul>
+         </div>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <p>The exact nature and presentation of the annotation is determined by the Server. The annotation is burned into the returned image pixels.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_8.2.2" shape="rect"></a>8.2.2 Number of Pixel Rows</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The parameter name shall be "rows" for URI based mode, and "Rows" for the WS mode.</p>
+            <p>The value shall be expressed as an integer, representing the image height to be returned. It is OPTIONAL for the URI based mode and the WS mode "Rendered Requester" transaction. It shall not be present for other WS mode transactions. It shall not be present if contentType is application/dicom.</p>
+            <p>If both "rows" and "columns" are specified, then each shall be interpreted as a maximum, and a size will be chosen for the images within these constraints, maintaining the correct aspect ratio. If the number of rows is absent and the number of columns is present, the number of rows shall be chosen in order to maintain the correct aspect ratio. If both are absent, the images (or selected region) are sent in their original size (or the size of the presentation state applied on the images), resulting as one pixel of screen image for each value in the images data matrix.</p>
+            <p>The value shall be encoded as an integer string (IS), as specified in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_8.2.3" shape="rect"></a>8.2.3 Number of Pixel Columns</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The parameter name shall be "columns" for URI based mode, and "Columns" for the WS mode.</p>
+            <p>The value shall be expressed as an integer, representing the image width to be returned. It is OPTIONAL for the URI based mode and the WS mode "Rendered Requester" transaction. It shall not be present if contentType is application/dicom.</p>
+            <p>If both "rows" and "columns" are specified, then each shall be interpreted as a maximum, and a size will be chosen for the images within these constraints, maintaining the correct aspect ratio. If the number of columns is absent and the number of rows is present, the number of columns shall be chosen in order to maintain the correct aspect ratio. If both are absent, the images (or selected region) is sent in its original size (or the size of the presentation state applied on the images), resulting as one pixel of screen for one pixel of the images.</p>
+            <p>The value shall be encoded as an integer string (IS), as specified in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_8.2.4" shape="rect"></a>8.2.4 Region of the Image</h3>
+                  </div>
+               </div>
+            </div>
+            <p>This parameter allows selection of a rectangular region of an image matrix to be retrieved. The purpose of this parameter is to allow a user to view a selected area of the image matrix, for example at higher magnification.</p>
+            <p>The parameter is OPTIONAL for the URI based mode and the WS mode "Rendered Requester" transaction. It shall not be present for other WS mode transactions.</p>
+            <p>The parameter name shall be "region" for URI based mode, and "Region" for the WS mode.</p>
+            <p>It shall not be present if contentType is application/dicom.</p>
+            <p>The value shall be expressed as a list of four positive decimal strings, separated by the ',' character, representing the region of the source images to be returned. These decimal values shall be values in a normalized coordinate system relative to the size of the original image matrix measured in rows and columns, with values ranging from 0.0 to 1.0, and representing in the following order:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>the x position of the top left hand corner of the region to be retrieved, 0.0 corresponding to the first column of the image matrix. In the WS mode, this value is encoded into an XML element "XMin".</p>
+                  </li>
+                  <li class="listitem">
+                     <p>the y position of the top left hand corner of the region to be retrieved, 0.0 corresponding to the top row of the image matrix. In the WS mode, this value is encoded into an XML element "YMin".</p>
+                  </li>
+                  <li class="listitem">
+                     <p>the x position of the bottom right hand extent of the region, 1.0 corresponding to the last column of the image matrix, 0.0 being forbidden. In the WS mode, this value is encoded into an XML element "XMax".</p>
+                  </li>
+                  <li class="listitem">
+                     <p>the y position of the bottom right hand extent of the region, 1.0 corresponding to the last row of the image matrix, 0.0 being forbidden. In the WS mode, this value is encoded into an XML element "YMax".</p>
+                  </li>
+               </ul>
+            </div>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>The Server may or may not support this parameter.</p>
+            </div>
+            <p>If this parameter is supported, an image matrix corresponding to the specified region shall be returned with size corresponding to the specified normalized coordinate values otherwise the complete image matrix shall be returned. If the presentationUID parameter is present, the region shall be selected after the corresponding presentation state has been applied on the images.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_8.2.5" shape="rect"></a>8.2.5 Window Center of the Image</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The parameter name shall be "windowCenter" for URI based mode, and "WindowCenter" for the WS mode.</p>
+            <p>Controls the luminosity of the images as defined in <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>. This parameter is OPTIONAL for the URI based mode and the WS mode "Rendered Requester" transaction. It shall not be present for other WS mode transactions. This parameter is REQUIRED if "windowWidth" or "WindowWidth" is present. This parameter shall not be present if there is a presentationUID parameter. It shall not be present if contentType is application/dicom.</p>
+            <p>The value shall be encoded as a decimal string (DS), as specified in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_8.2.6" shape="rect"></a>8.2.6 Window Width of the Image</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The parameter name shall be "windowWidth" for URI based mode, and "WindowWidth" for the WS mode.</p>
+            <p>Controls the contrast of the images as defined in <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>. This parameter is OPTIONAL for the URI based mode and the WS mode "Rendered Requester" transaction. It shall not be present for other WS mode transactions. It is REQUIRED if "windowCenter" or "WindowCenter" is present. This parameter shall not be present if there is a presentationUID parameter. It shall not be present if contentType is application/dicom.</p>
+            <p>The value shall be encoded as a decimal string (DS), as specified in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_8.2.7" shape="rect"></a>8.2.7 Frame Number</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The parameter name shall be "frameNumber" for URI based mode, and "FrameNumber" for the WS mode.</p>
+            <p>Specifies that the single frame with that number within a multi-frame image object, as defined in <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a> that shall be returned. It is OPTIONAL and shall be ignored in the case of all objects other than multi-frame objects. It shall not be present if contentType is application/dicom.</p>
+            <p>The value shall be encoded as an integer string (IS), as specified in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_8.2.8" shape="rect"></a>8.2.8 Image Quality</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The parameter name shall be "imageQuality" for URI based mode, and "ImageQuality" for the WS mode. It is OPTIONAL for the URI based mode and the WS mode "DICOM requester" and "Rendered Requester" transactions. It shall not be present if contentType is application/dicom, except if the transferSyntax parameter is present and corresponds to a lossy compression.</p>
+            <p>If the requested MIME type is for a lossy compressed image (e.g., image/jpeg), this parameter indicates the required quality of the image to be returned within the range 1 to 100, 100 being the best quality.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>Decompression and re-compression may degrade the image quality if the original image was already irreversibly compressed. In case the image has been already lossy compressed using the same format as required (e.g., jpeg), it may be sent as it is without decompressing and re-compressing it.</p>
+            </div>
+            <p>The value shall be encoded as an integer string (IS), as specified in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>The specific interpretation of the meaning of this parameter is left to the interpretation of the implementers of the standard.</p>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_8.2.9" shape="rect"></a>8.2.9 Unique Identifier of the Presentation Object</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The parameter name shall be "presentationUID" for URI based mode, and "PresentationUID" for the WS mode.</p>
+            <p>SOP Instance UID of the presentation state storage object to be applied to the images. This parameter is OPTIONAL for the URI based mode and the WS mode "Rendered Requester" transaction. It shall not be present if contentType is application/dicom.</p>
+            <p>The value shall be encoded as a unique identifier (UID) string, as specified in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>, except that it shall not be padded to an even length with a NULL character.</p>
+            <p>If this parameter is combined with region and/or annotation parameter(s), the presentation state shall be applied to the images prior to selecting a region and burning in annotations.</p>
+            <p>If the Presentation Size Mode in the presentation state is SCALE TO FIT or TRUE SIZE, then the displayed area specified in the presentation shall be scaled to fit the size specified by the rows and columns parameters if present, otherwise the displayed area selected in the presentation state will be returned without scaling.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>The intent of the TRUE SIZE mode in the presentation state cannot be satisfied, since the physical size of the pixels displayed by the web browser is unlikely to be known. If the Presentation Size Mode in the presentation state is MAGNIFY, then the displayed area specified in the presentation shall be magnified (scaled) as specified in the presentation state. It will then be cropped to fit the size specified by the rows and columns parameters, if present.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Any Displayed Area relative annotations specified in the presentation state are rendered relative to the Specified Displayed Area within the presentation state, not the size of the returned image.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <p>Though the output of the presentation state is defined in DICOM to be in P-Values (grayscale values intended for display on a device calibrated to the DICOM Grayscale Standard Display Function <a href="../part14/PS3.14.html" class="olink" shape="rect">PS3.14</a>), the grayscale or color space for the images returned by the request is not defined by this standard.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_8.2.10" shape="rect"></a>8.2.10 Unique Identifier of the Series Containing The Presentation Object</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The parameter name shall be "presentationSeriesUID" for URI based mode, and "PresentationSeriesUID" for the WS mode.</p>
+            <p>Series Instance UID of the series containing the presentation state storage object to be applied on the images. This parameter is REQUIRED and shall only be present if "presentationUID" is present.</p>
+            <p>The value shall be encoded as a unique identifier (UID) string, as specified in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>, except that it shall not be padded to an even length with a NULL character.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>As specified in DICOM, the Presentation State will be in the same study as the images it applies to.</p>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_8.2.11" shape="rect"></a>8.2.11 Transfer Syntax UID</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The parameter name shall be "transferSyntax" for URI based mode, and "TransferSyntaxUIDList" containing one or more "TransferSyntaxUID" elements for the WS mode.</p>
+            <p>The Transfer Syntax to be used within the DICOM image objects, as specified in <a href="../part06/PS3.6.html" class="olink" shape="rect">PS3.6</a>. This parameter is OPTIONAL for the URI based mode and the WS mode "DICOM Requester" transaction. It shall not be present if contentType is other than application/dicom.</p>
+            <p>By default the DICOM object(s) returned shall be encoded in Explicit VR Little Endian. Neither Implicit VR, nor Big Endian shall be used. The response shall be the Transfer Syntax requested if possible. If it is not possible for the response to be sent using the requested transfer syntax then the Explicit VR Little Endian Uncompressed Transfer Syntax shall be used.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>The transfer syntax can be chosen as one of the values of TransferSyntaxUID corresponding to JPIP, in case of which the returned objects will contain the URL of the JPIP session to launch for retrieving the corresponding image.</p>
+            </div>
+            <p>The value shall be encoded as an unique identifier (UID) string, as specified in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>, except that it shall not be padded to an even length with a NULL character.</p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_8.2.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_8.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_A.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">8.2 Parameters for DICOM Image Persistent Objects </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.18.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> A URL/URI Transfer Syntax (Informative)</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

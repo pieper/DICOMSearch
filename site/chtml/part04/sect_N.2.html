@@ -1,0 +1,669 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>N.2 Pixel Transformation Sequence</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.4.html" title="PS3.4" />
+      <link rel="up" href="chapter_N.html" title="N Softcopy Presentation State Storage SOP Classes (Normative)" />
+      <link rel="prev" href="chapter_N.html" title="N Softcopy Presentation State Storage SOP Classes (Normative)" />
+      <link rel="next" href="sect_N.3.html" title="N.3 Behavior of an SCP" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">N.2 Pixel Transformation Sequence</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_N.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">N Softcopy Presentation State Storage SOP Classes (Normative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_N.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_N.2" shape="rect"></a>N.2 Pixel Transformation Sequence</h2>
+               </div>
+            </div>
+         </div>
+         <p>The Softcopy Presentation State Storage SOP Classes support a sequence of transformations that completely define the conversion of a stored image into a displayed image.</p>
+         <p>The sequence of transformations from stored pixel values into P-Values or PCS-Values is explicitly defined in a conceptual model. The actual sequence implemented may differ but must result in the same appearance. <a class="xref" href="sect_N.2.html#figure_N.2-1" title="Figure N.2-1. Grayscale and Color Image Transformation Models" shape="rect">Figure N.2-1</a> describes this sequence of transformations.</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="1">
+                  <li class="listitem">
+                     <p>Even though a Composite Image Storage SOP Class may not include some Modules that are part of the described transformations, the Softcopy Presentation State Storage SOP Classes do include them. For example, the CT Image Storage SOP Class includes Rescale Slope and Intercept in the CT Image Module, but does not include the Modality LUT Module, and hence is restricted to the description of linear transformations. A saved presentation state that refers to a CT Image Storage SOP Instance may include a Modality LUT, and hence may apply a non-linear transformation.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>For the shutter, annotation and spatial transformations, the order in which they are applied relative to the other transformations should not result in a different appearance. The one exception is when a spatial transformation is applied that involves magnification implemented with interpolation. In this case, whether the interpolation is performed before or after the contrast transformations (such as VOI LUT) may result in a slightly different appearance. It is not considered necessary to constrain this sequence more precisely.</p>
+                  </li>
+               </ol>
+            </div>
+         </div>
+         <p>The transformations defined in the Softcopy Presentation State Storage SOP Classes replace those that may be defined in the Referenced Image SOP Instance. If a particular transformation is absent in the Softcopy Presentation State Storage SOP Class, then it shall be assumed to be an identity transformation, and any equivalent transformation, if present, in the Referenced Image SOP Instance shall NOT be used instead.</p>
+         <p>Values of MONOCHROME1 and MONOCHROME2 for Photometric Interpretation (0028,0004) in the Referenced Image SOP Instance shall be ignored, since their effect is defined by the application of the grayscale presentation state transformations.</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <p>These requirements are in order to achieve complete definition of the entire transformation in the Softcopy Presentation State Storage SOP Classes, and not to depend on the content of the Referenced Image SOP Instance, which may change.</p>
+         </div>
+         <p>The Referenced Image Storage SOP Instance may also contain bit-mapped overlays. The Softcopy Presentation State Storage SOP Classes specify a mechanism for turning these on or off (i.e., displaying them or not).</p>
+         <p>The presentation related Attributes of the Softcopy Presentation State Storage SOP Classes are immutable. They shall never be modified or updated; only a derived SOP Instance with a new SOP Instance UID may be created to represent a different presentation.</p>
+         <p>When a Supplemental Palette Color LUT is present in a grayscale Referenced Image Storage SOP Instance:</p>
+         <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+               <li class="listitem">
+                  <p>The grayscale pipeline in any applicable Grayscale Softcopy Presentation State Storage SOP Instance or Blended Softcopy Presentation State Storage SOP Instance shall be applied only to the range of grayscale stored pixel values, and the presentation state shall not affect the rendering of the indexed color values.</p>
+               </li>
+            </ul>
+         </div>
+         <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+               <li class="listitem">
+                  <p>A Color Softcopy Presentation State Storage SOP Instance shall not be applied.</p>
+               </li>
+               <li class="listitem">
+                  <p>A Pseudo-color Softcopy Presentation State Storage SOP Instance may be applied, in which case the Supplemental Palette Color LUT information shall be ignored.</p>
+               </li>
+               <li class="listitem">
+                  <p>No mechanism for separately specifying color consistency of the colors in the Supplemental Palette Color LUT is presently defined, only the optional inclusion of an ICC profile in the image instance.</p>
+               </li>
+            </ul>
+         </div>
+         <p>
+        </p>
+         <div class="figure">
+            <a id="figure_N.2-1" shape="rect"></a>
+            <div class="figure-contents">
+               <div class="mediaobject">
+                  <img src="figures/PS3.4_N.2-1.svg" alt="Grayscale and Color Image Transformation Models" />
+               </div>
+            </div>
+            <p class="title">
+               <strong>Figure N.2-1. Grayscale and Color Image Transformation Models</strong>
+            </p>
+         </div>
+         <p>
+            <br class="figure-break" clear="none" />
+         </p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_N.2.1" shape="rect"></a>N.2.1 Grayscale Transformations</h3>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_N.2.1.1" shape="rect"></a>N.2.1.1 Modality LUT</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The Modality LUT operation applies only to grayscale values.</p>
+               <p>The Modality LUT transformation transforms the manufacturer dependent pixel values into pixel values that are meaningful for the modality and are manufacturer independent (e.g., Hounsfield number for CT modalities, Optical Density for film digitizers). These may represent physical units or be dimensionless. The Modality LUT in the Presentation State is modality dependent and is analogous to the same Module in an Image.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="1">
+                        <li class="listitem">
+                           <p>In some cases, such as the CT Image Storage SOP Class, the same conceptual step as the Modality LUT is specified in another form, for example as Rescale Slope and Rescale Intercept Attributes in the CT Image Module, though the Modality LUT Module is not part of the CT Image IOD.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Image pixel values with a value of Pixel Padding Value (0028,0120) in the referenced image, or within the range specified by Pixel Padding Value (0028,0120) and Pixel Padding Range Limit (0028,0121) (if present in the referenced image) shall be accounted for prior to entry to the Modality LUT stage. See the definition of Pixel Padding Value in <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>. Neither Pixel Padding Value (0028,0120) nor Pixel Padding Range Limit (0028,0121) are encoded in the Presentation State Instance.</p>
+                        </li>
+                     </ol>
+                  </div>
+               </div>
+               <p>In the case of a linear transformation, the Modality LUT is described by the Rescale Slope (0028,1053) and Rescale Intercept (0028,1052). In the case of a non-linear transformation, the Modality LUT is described by the Modality LUT Sequence. The rules for application of the Modality LUT are defined in <a href="../part03/sect_C.11.html#sect_C.11.1" class="olink" shape="rect">Section C.11.1 “Modality LUT Module” in <span class="olinkdocname">PS3.3</span>
+                  </a>.</p>
+               <p>If the Modality LUT or equivalent Attributes are part of both the Image and the Presentation State, then the Presentation State Modality LUT shall be used instead of the Image Modality LUT or equivalent Attributes in the Image. If the Modality LUT is not present in the Presentation State it shall be assumed to be an identity transformation. Any Modality LUT or equivalent Attributes in the Image shall not be used.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_N.2.1.2" shape="rect"></a>N.2.1.2 Mask</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The Mask operation applies only to grayscale values.</p>
+               <p>The mask transformation may be applied in the case of multi-frame images for which other frames at a fixed frame position or time interval relative to the current frame may be subtracted from the current frame. Multiple mask frames may be averaged, and sub-pixel shifted before subtraction.</p>
+               <p>This transformation uses the Mask Module as used in the X-Ray Angiography Image Storage SOP Class, though it may be applied to any Image Storage SOP Instance that contains a multi-frame image.</p>
+               <p>In the case of X-Ray images, the subtraction is specified to take place in a space logarithmic to X-Ray intensity. If the stored pixel values are not already in such a space, an implementation defined transformation to such a space must be performed prior to subtraction. If a Modality LUT Module is present as well as a Mask Module, then the Modality LUT shall specify a transformation into such a logarithmic space, otherwise it shall not be present (even though a Modality LUT may be present in the referenced image(s), which shall be ignored).</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="1">
+                        <li class="listitem">
+                           <p>In the case of an XA or XRF image, if the Pixel Intensity Relationship (0028,1040) in the image is LOG, then even though a Modality LUT would be present in the image (to map pixel values back to linear to X-Ray intensity), no Modality LUT would be present in the presentation state (i.e., the Modality LUT would be an identity transformation) since log values are required for subtraction. See <a href="../part03/sect_C.8.html#sect_C.8.7.1.1.2" class="olink" shape="rect">Section C.8.7.1.1.2 “Pixel Intensity Relationship” in <span class="olinkdocname">PS3.3</span>
+                              </a>.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>In the case of an XA or XRF image, if the Pixel Intensity Relationship (0028,1040) is LIN, then no Modality LUT would be present in the image, but a Modality LUT would need to be present in the presentation state since log values are required for subtraction.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>In the case of an XA or XRF image, if the Pixel Intensity Relationship (0028,1040) in the image is DISP, then even though a Modality LUT may or may not be present in the image (to map pixel values back to linear to X-Ray intensity), a different Modality LUT would be present in the presentation state if the creator of the presentation state could create a transformation from DISP pixel values to a logarithmic space for subtraction, or the Modality LUT in the presentation state would be an identity transformation if the DISP pixel values were known to already be log values required for subtraction.</p>
+                        </li>
+                     </ol>
+                  </div>
+               </div>
+               <p>The result will be a signed value with a bit length one longer than the source frames.</p>
+               <p>When there is no difference between corresponding pixel values, the subtracted image pixel will have a value of 0.</p>
+               <p>If a pixel in the current frame has a greater value than in the mask frame, then the resulting frame shall have a positive value. If it has a lesser value, then the resulting frame shall have a negative value.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_N.2.1.3" shape="rect"></a>N.2.1.3 VOI LUT</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The VOI LUT operation applies only to grayscale values.</p>
+               <p>The value of interest (VOI) LUT transformation transforms the modality pixel values into pixel values that are meaningful for the user or the application.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>Photometric Interpretation (0028,0004) is ignored, since its effect is defined by the application of the grayscale transformations.</p>
+               </div>
+               <p>The Softcopy VOI LUT Module in the Presentation State is analogous to the VOI LUT Module in an Image.</p>
+               <p>In the case of a linear transformation, the VOI LUT is described by the Window Center (0028,1050) and Window Width (0028,1051). In the case of a non-linear transformation, the VOI LUT is described by the VOI LUT Sequence. A VOI LUT Function (0028,1056) may be present to define a potentially non-linear interpretation (e.g., SIGMOID) of the values of Window Center (0028,1050) and Window Width (0028,1051). The rules for application of the VOI LUT are defined in <a href="../part03/sect_C.11.html#sect_C.11.8" class="olink" shape="rect">Section C.11.8 “Softcopy VOI LUT Module” in <span class="olinkdocname">PS3.3</span>
+                  </a>.</p>
+               <p>The VOI LUT may have sections with negative slope.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>In the Basic Print Service Class a VOI LUT may not have negative slope.</p>
+               </div>
+               <p>If a VOI LUT is part of both the Image and the Presentation State then the Presentation State VOI LUT shall be used instead of the Image VOI LUT. If a VOI LUT (that applies to the Image) is not present in the Presentation State, it shall be assumed to be an identity transformation. Any VOI LUT or equivalent values in the Image shall not be used.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_N.2.1.4" shape="rect"></a>N.2.1.4 Presentation LUT</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The Presentation LUT operation applies only to grayscale values.</p>
+               <p>The Presentation LUT transformation transforms the pixel values into P-Values, a device independent perceptually linear space as defined in <a href="../part14/PS3.14.html" class="olink" shape="rect"> PS3.14 Grayscale Standard Display Function</a>. It may be an identity function if the output of the VOI LUT transformation is in P-Values.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>If the Presentation LUT and VOI LUT step are identity transformations, and the Mask Module is absent, then the output of the Modality LUT must be, by definition, P-Values.</p>
+               </div>
+               <p>No output space other than P-Values is defined for the Grayscale Softcopy Presentation State Storage SOP Classes.</p>
+               <p>In the case of a linear transformation, the Presentation LUT is described by the Presentation LUT Shape (2050,0020). In the case of a non-linear transformation, the Presentation LUT is described by the Presentation LUT Sequence. The rules for application of the Presentation LUT are defined in <a href="../part03/sect_C.11.html#sect_C.11.6" class="olink" shape="rect">Section C.11.6 “Softcopy Presentation LUT Module” in <span class="olinkdocname">PS3.3</span>
+                  </a>.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="1">
+                        <li class="listitem">
+                           <p>Since the grayscale transformation pipeline fully defines all transformations applied to the stored pixel values in the referenced image object, the value of Photometric Interpretation (0028,0004) in the referenced image object is ignored and overridden. This implies that either the creator of the presentation state chose a pipeline that reflects the Photometric Interpretation (0028,0004), or chose to ignore or override the Photometric Interpretation, and invert the image relative to what is specified by Photometric Interpretation. If the Modality LUT and VOI LUT do not have a negative slope, one can achieve the effect of inversion of the polarity of an image by choosing Presentation LUT Shape of IDENTITY or INVERSE that displays the minimum pixel value as white rather than black in the case of a Photometric Interpretation of MONOCHROME2, or black rather than white in the case of a Photometric Interpretation of MONOCHROME1. If Presentation LUT Data is sent, then one can invert the value of the entries in the LUT table to achieve inversion of polarity.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The minimum P-Value (zero) always commands that the lowest intensity be displayed.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>No separate Polarity transformation is defined.</p>
+                        </li>
+                     </ol>
+                  </div>
+               </div>
+               <p>A Softcopy Presentation LUT Module is always present in a Presentation State. If a Presentation LUT is present in the Image then the Presentation State Presentation LUT shall be used instead of the Image Presentation LUT.</p>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_N.2.2" shape="rect"></a>N.2.2 Color Transformations</h3>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_N.2.2.1" shape="rect"></a>N.2.2.1 Profile Connection Space Transformation</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The Profile Connection Space Transformation operation applies only to color images, including true color (e.g., RGB) and pseudo-color (e.g., PALETTE COLOR) images, grayscale images for which a Palette Color LUT has been specified in the Presentation State, and the RGB output values of a blending operation.</p>
+               <p>The ICC Profile is an Input Profile. That is, it describes the color characteristics of a (possibly hypothetical) device that was used to generate the input color values.</p>
+               <p>The intent is that a rendering device will use this information to achieve color consistency. Typically this will be performed by calibration of the output device to create an ICC Display or Output Profile, the conversion of pixel values using the ICC Input Profile into Profile Connection Space, followed by conversion using the ICC Display or Output Profile into values suitable for rendering on the output device. However, the exact mechanisms used are beyond the scope of the standard to define.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="1">
+                        <li class="listitem">
+                           <p>The means of achieving color consistency depends to a large extent on the nature of the material and the intent of the application. The process is more complicated than simply achieving colorimetric accuracy, which is trivial but does not produce satisfactory results. The transformations may take into account such matters as</p>
+                           <div class="itemizedlist">
+                              <ul class="itemizedlist" style="list-style-type: disc; ">
+                                 <li class="listitem">
+                                    <p>physical factors such as the ambient light of the viewing environment (viewing flare) and the nature of different illuminants</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>psychovisual factors in the observer</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>the preferences of the observer</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>the consistency intent, whether it be to reproduce the colors perceived by an observer of</p>
+                                    <div class="itemizedlist">
+                                       <ul class="itemizedlist" style="list-style-type: circle; ">
+                                          <li class="listitem">
+                                             <p>the original scene,</p>
+                                          </li>
+                                          <li class="listitem">
+                                             <p>the media being reproduced, such as a print or transparency, as viewed under specified conditions.</p>
+                                          </li>
+                                       </ul>
+                                    </div>
+                                 </li>
+                              </ul>
+                           </div>
+                        </li>
+                        <li class="listitem">
+                           <p>Implementations of color management schemes are typically provided in operating systems, libraries and tool kits, and the exact details are usually beyond the control of the DICOM application developer. Accordingly, it is normally sufficient to define a source of pixel values, and a corresponding ICC Input Profile for the device that captured or generated them.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>When a color image is rendered on grayscale display, the behavior is not defined. Since the L* value of a CIELab representation of the PCS is not dissimilar to the Barten model used in the GSDF, a reasonable approach would be to interpret it as a P-Value.</p>
+                        </li>
+                     </ol>
+                  </div>
+               </div>
+               <p>An ICC Profile is always present in a Color, Pseudo-Color or Blended Presentation State. If an ICC Profile is present in the Image then the Presentation State ICC Profile shall be used instead of the Image ICC Profile.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_N.2.2.2" shape="rect"></a>N.2.2.2 White Point (Informative)</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>D50 means black body radiation of an object at 5000 degrees K, and includes lots of red, which looks "natural". D65 is bluer, more like "cloudy days", but human eyes are more sensitive to blue. While monitors seem to be in the D50-D100 range, light boxes are about D110 (11000K).</p>
+               <p>The ICC PCS always uses a white point of D50.</p>
+               <p>In an ICC Input Profile, the chromaticAdaptationTag encodes a conversion of an XYZ color from the actual illumination source to the PCS illuminant (D50), and may be useful if the actual illumination source is not D50. The actual illumination source may also be defined in the mediaWhitePointTag. However, with a perceptual rendering intent, neither of these tags are required to be used by the color management system, nor do they have any specified rendering behavior (as opposed to their use with absolute and relative colorimetric rendering intents).</p>
+               <p>It is beyond the scope of DICOM to define a required or suggested white point for rendering, since an appropriate choice depends on a knowledge of the display device or media characteristics and the viewing environment.</p>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_N.2.3" shape="rect"></a>N.2.3 Common Spatial and Annotation Transformations</h3>
+                  </div>
+               </div>
+            </div>
+            <p>
+          </p>
+            <div class="figure">
+               <a id="figure_N.2-2" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.4_N.2-2.svg" alt="Common Spatial and Annotation Transformation Model" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure N.2-2. Common Spatial and Annotation Transformation Model</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+            <p>The common spatial and annotation transformations apply to any device-independent values, whether they be grayscale P-Values or color PCS-Values, for any type of presentation state.</p>
+            <p>The values with which to render annotations are encoded as device-independent values, either as grayscale P-Values or as color PCS-Values. In the case of PCS-Values, CIELab values are encoded, and defined by reference to a D50 illuminant.</p>
+            <p>Grayscale presentation states may specify annotations in color for rendering on a color output device.</p>
+            <p>The mechanism for mapping grayscale P-Values and color PCS-values to the same display is implementation-dependent and not defined by the standard.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_N.2.3.1" shape="rect"></a>N.2.3.1 Shutter</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The Shutter transformation provides the ability to exclude the perimeter outside a region of an image. A gray level may be specified to replace the area under the shutter.</p>
+               <p>One form of this transformation uses the Display Shutter Module as used in the X-Ray Angiography Image Storage SOP Class, though it may be applied to any Image Storage SOP Instance, including single frame images.</p>
+               <p>Another form uses a bit-mapped overlay to indicate arbitrary areas of the image that should be excluded from display by replacement with a specified gray level, as described in the Bitmap Display Shutter Module.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="1">
+                        <li class="listitem">
+                           <p>Since annotations follow the shutter operation in the pipeline, annotations in shuttered regions are not obscured and are visible.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Any shutter present in the referenced image object is ignored (i.e., not applied).</p>
+                        </li>
+                     </ol>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_N.2.3.2" shape="rect"></a>N.2.3.2 Pre-Spatial Transformation Annotation</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The Pre-Spatial Transformation Annotation transformation includes the application of bit-mapped overlays as defined in the Overlay Plane Module, and free unformatted text or vector graphics as described in the Graphic Annotation Module that are defined in the image pixel space (as opposed to the displayed area space).</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_N.2.3.3" shape="rect"></a>N.2.3.3 Spatial Transformation</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>Some modalities may not deliver the image in the desired rotation and need to specify a rotation into the desired position for presentation. This transformation, specified in the Spatial Transformation Module, includes a rotation of 90, 180, 270 degrees clockwise followed by a horizontal flip (L &lt;--&gt; R). Rotation by an arbitrary angle is not supported.</p>
+               <p>In addition, selection of a region of the image pixel space to be displayed is specified in the Displayed Area Module. This may have the effect of magnifying (or minifying) that region depending on what physical size the display is instructed to render the selected region. If so, the method of interpolation (or sub-sampling) is implementation dependent.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>In particular the number of displayed pixels may be different from the number of image pixels as a result of:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>minification (e.g., 1 display pixel for 4 image pixels),</p>
+                        </li>
+                        <li class="listitem">
+                           <p>magnification (4 display pixels for each image pixel),</p>
+                        </li>
+                        <li class="listitem">
+                           <p>interpolation (display pixels derived from values other than those in the image pixels), and</p>
+                        </li>
+                        <li class="listitem">
+                           <p>sub-sampling.</p>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_N.2.3.4" shape="rect"></a>N.2.3.4 Post-Spatial Transformation Annotation</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The Post-Spatial Transformation Annotation transformation includes the application of free unformatted text or vector graphics as described in the Graphic Annotation Module that are defined in the displayed area space (as opposed to the image pixel space).</p>
+               <p>This implies that the displayed area space is defined as being the image after all Spatial Transformations have been applied.</p>
+               <p>These annotations are rendered in the displayed space, though they may be anchored to points in either the displayed area or image pixel space.</p>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_N.2.4" shape="rect"></a>N.2.4 Blending Transformations</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The grayscale to color blending transformation model applies only to a pair of grayscale values, one of which is first mapped to color and then superimposed upon the other. The resulting values are device independent color PCS-Values. This process is illustrated in <a class="xref" href="sect_N.2.html#figure_N.2-3" title="Figure N.2-3. Grayscale to Color Blending Transformation Model" shape="rect">Figure N.2-3</a>.</p>
+            <p>For the purpose of this section, pixels are referred to as stored pixel values and transformations are defined as point operations on these values. However, it is likely that pixels from either or both the superimposed and underlying image sets will have been spatially resampled and hence interpolated or replicated. Such operations do not affect the conceptual pipeline.</p>
+            <p>
+          </p>
+            <div class="figure">
+               <a id="figure_N.2-3" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.4_N.2-3.svg" alt="Grayscale to Color Blending Transformation Model" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure N.2-3. Grayscale to Color Blending Transformation Model</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_N.2.4.1" shape="rect"></a>N.2.4.1 Underlying Image Pixels</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The Modality LUT and VOI LUT transformations are applied to the stored pixel values of the underlying image.</p>
+               <p>The output range of the VOI LUT transformation depends either on the width of the linear window or the range of output values of the LUT defined by the LUT Descriptor. Conceptually, for the purpose of describing the succeeding blending operation, the smallest pixel value from the range is mapped to 0.0 and the largest pixel value is mapped to 1.0 and all intermediate values are linearly mapped to the [0.0..1.0] interval.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_N.2.4.2" shape="rect"></a>N.2.4.2 Superimposed Image Pixels</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The Modality LUT and VOI LUT transformations are applied to the stored pixel values of the superimposed image.</p>
+               <p>The full output range of the preceding VOI LUT transformation is implicitly scaled to the entire input range of the Palette Color LUT Transformation.</p>
+               <p>The output range of the RGB values in the Palette Color LUT Transformation depends on the range of output values of the LUT defined by the LUT Descriptors. Conceptually, for the purpose of describing the succeeding blending operation, a LUT entry of 0 is mapped to 0.0 and the largest LUT entry possible is mapped to 1.0 and all intermediate values are linearly mapped to the [0.0..1.0] interval.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>In practice, the Palette Color LUT output for the superimposed images is encoded in 8 or 16 bits and hence will have a range of 0 to 0xFF or 0xFFFF.</p>
+               </div>
+               <p>The Palette Color LUT used is that encoded in the Blending Presentation State; any Palette Color LUTs or Supplemental Palette Color LUTs in the image instances are ignored.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_N.2.4.3" shape="rect"></a>N.2.4.3 Blending Operation</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The inputs to the blending operation are grayscale values from 0.0 to 1.0 from the underlying image (Y<sub>u</sub>) and RGB values from 0.0 to 1.0 from the superimposed image (RGB<sub>s</sub>), and an opacity value from 0.0 to 1.0 (A).</p>
+               <p>The output is a single image containing RGB values (RGB<sub>o</sub>) blended as:</p>
+               <p>R<sub>o</sub> = R<sub>s</sub> * A + Y<sub>u</sub> * (1-A)</p>
+               <p>G<sub>o</sub> = G<sub>s</sub> * A + Y<sub>u</sub> * (1-A)</p>
+               <p>B<sub>o</sub> = B<sub>s</sub> * A + Y<sub>u</sub> * (1-A)</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_N.2.4.4" shape="rect"></a>N.2.4.4 Conversion to Profile Connection Space</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The output of the blending operation is implicitly scaled to the gamut of the hypothetical device described by the ICC Input Profile, resulting in PCS-Values.</p>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_N.2.5" shape="rect"></a>N.2.5 Angiography Grayscale Transformations</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The XA/XRF Grayscale Softcopy Presentation State Storage SOP Class supports a sequence of transformations that completely define the conversion of a stored image into a displayed image.</p>
+            <p>The sequence of transformations from stored pixel values into P-Values is explicitly defined in a conceptual model. The actual sequence implemented may differ but must result in the same appearance. <a class="xref" href="sect_N.2.html#figure_N.2.5-1" title="Figure N.2.5-1. XA/XRF Grayscale Image Transformation Model" shape="rect">Figure N.2.5-1</a> describes this sequence of transformations.</p>
+            <p>
+          </p>
+            <div class="figure">
+               <a id="figure_N.2.5-1" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.4_N.2.5-1.svg" alt="XA/XRF Grayscale Image Transformation Model" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure N.2.5-1. XA/XRF Grayscale Image Transformation Model</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_N.2.5.1" shape="rect"></a>N.2.5.1 Mask</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The Mask transformation consists of mask subtraction operations as specified by the Attributes of the XA/XRF Presentation State Mask Module and the Attribute Mask Visibility Percentage of the XA/XRF Presentation State Presentation Module.</p>
+               <p>The mask transformation may be applied in the case of multi-frame images for which other frames at a fixed frame position or time interval relative to the current frame may be subtracted from the current frame. Multiple mask frames may be averaged, and sub-pixel shifted before subtraction. Sub-pixel shift may be specified on a frame-by-frame base. Different pixel-shifts may be applied to more than one region of a contrast frame.</p>
+               <p>In the case of X-Ray images, the subtraction is specified to take place in a space logarithmic to X-Ray intensity. If the stored pixel values are not in a logarithmic space then a Pixel Intensity Relationship LUT shall be present in the XA/XRF Presentation Mask Module specifying a transformation into such a logarithmic space, otherwise it shall not be present. If a Modality LUT or Pixel Intensity Relationship LUT is present in the referenced image(s) it shall be ignored. The Pixel Intensity Relationship LUT can be specified on a frame-by frame base that can be different for mask and contrast frames.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="1">
+                        <li class="listitem">
+                           <p>For images of the X-Ray Angiographic Image Storage SOP Class or X-Ray RF Image Storage SOP Class the XA/XRF Grayscale Softcopy Presentation State allows a Pixel Intensity Relationship LUT to be specified on a frame-by-frame base. This is an enhancement of the image Modality LUT that is only applicable for all frames of an image.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>In the case of an XA or XRF image, if the Pixel Intensity Relationship (0028,1040) in the image is LOG, then even though a Modality LUT would be present in the image (to map pixel values back to linear X-Ray intensity), no Pixel Intensity Relationship LUT would be present in the presentation state for any frame since log values are required for subtraction. See <a href="../part03/sect_C.8.html#sect_C.8.7.1.1.2" class="olink" shape="rect">Section C.8.7.1.1.2 “Pixel Intensity Relationship” in <span class="olinkdocname">PS3.3</span>
+                              </a>.</p>
+                           <p>In the case of Enhanced XA or XRF image, if the Pixel Intensity Relationship (0028,1040) in the frame is LOG, then even though a Pixel Intensity Relationship LUT would be present in the frame (to map pixel values back to linear X-Ray intensity, LUT Function (0028,9474) equals TO_LINEAR), no Pixel Intensity Relationship LUT would be present in the presentation state for that frame since log values are required for subtraction. See <a href="../part03/sect_C.7.html#sect_C.7.6.16.2.13" class="olink" shape="rect">Section C.7.6.16.2.13 “Pixel Intensity Relationship LUT Macro” in <span class="olinkdocname">PS3.3</span>
+                              </a>.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>In the case of an XA or XRF image if the Pixel Intensity Relationship (0028,1040) in the image is LIN, then no Modality LUT would be present in the image, but a Pixel Intensity Relationship LUT would need to be present (to map pixel values to log values, LUT Function (0028,9474) equals TO_LOG) in the presentation state for all the frames since log values are required for subtraction.</p>
+                           <p>In the case of an Enhanced XA or XRF image, if the Pixel Intensity Relationship (0028,1040) in the frame is LIN, then no Pixel Intensity Relationship LUT for the purpose to map pixel values back to linear X-Ray intensity (LUT Function (0028,9474) equals TO_LINEAR) would be present in the image, but a Pixel Intensity Relationship LUT would need to be present (to map pixel values to log values) in the presentation state for that frame since log values are required for subtraction.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>In the case of an XA or XRF image, if the Pixel Intensity Relationship (0028,1040) in the image is DISP, then even though a Modality LUT may or may not be present in the image (to map pixel values back to linear to X-Ray intensity), a different Pixel Intensity Relationship LUT would be present in the presentation state if the creator of the presentation state could create a transformation from DISP pixel values to a logarithmic space for subtraction, or the Pixel Intensity Relationship LUT in the presentation state would be an identity transformation if the DISP pixel values were known to already be log values required for subtraction.</p>
+                           <p>In the case of an Enhanced XA or XRF image, if the Pixel Intensity Relationship (0028,1040) in the image is OTHER, then even though a Pixel Intensity Relationship LUT may or may not be present for that frame (to map pixel values back to linear to X-Ray intensity), a different Pixel Intensity Relationship LUT would be present in the presentation state for that frame if the creator of the presentation state could create a transformation from OTHER pixel values to a logarithmic space for subtraction, or the Pixel Intensity Relationship LUT in the presentation state would be an identity transformation if the OTHER pixel values were known to already be log values required for subtraction.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Notes 2, 3 and 4 are summarized in <a class="xref" href="sect_N.2.html#table_N.2.5.1-1" title="Table N.2.5.1-1. Summary of Providing a LUT Function for Subtraction" shape="rect">Table N.2.5.1-1</a>
+                           </p>
+                        </li>
+                     </ol>
+                  </div>
+                  <div class="table">
+                     <a id="table_N.2.5.1-1" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table N.2.5.1-1. Summary of Providing a LUT Function for Subtraction</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Pixel Intensity Relationship (0028,1040) Attribute of the referenced SOP Instance</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>The contents of Pixel Intensity Relationship LUT Sequence (0028,9422) in XA/XRF Presentation State Mask Module</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>LIN</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>TO_LOG LUT provided</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>LOG</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>absent</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>DISP or OTHER</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>TO_LOG LUT provided, may be an identity</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_N.2.5.2" shape="rect"></a>N.2.5.2 Edge Enhancement</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The Edge Enhancement transformation consists of filter operations to enhance the display of the pixel data as specified by the Attribute Display Filter Percentage of the XA/XRF Presentation State Presentation Module.</p>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_N.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_N.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_N.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">N Softcopy Presentation State Storage SOP Classes (Normative) </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.4.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> N.3 Behavior of an SCP</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

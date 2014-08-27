@@ -1,0 +1,902 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>X.3 Transcribed Diagnostic Imaging CDA Instance Content</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="chapter_X.html" title="X Dictation-based Reporting With Image References (Informative)" />
+      <link rel="prev" href="sect_X.2.html" title="X.2 Transcribed Diagnostic Imaging SR Instance Content" />
+      <link rel="next" href="sect_X.4.html" title="X.4 Simultaneous SR and CDA Instance Creation" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">X.3 Transcribed Diagnostic Imaging CDA Instance Content</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_X.2.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">X Dictation-based Reporting With Image References (Informative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_X.4.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_X.3" shape="rect"></a>X.3 Transcribed Diagnostic Imaging CDA Instance Content</h2>
+               </div>
+            </div>
+         </div>
+         <p>This section describes the use of transcribed dictation and Key Object Selection (KO) documents to produce an HL7 Clinical Document Architecture (CDA) Release 2 document.</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <p>While this section describes encoding as CDA Release 2, notes are provided about encoding issues for CDA Release 1.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_X.3.1" shape="rect"></a>X.3.1 CDA Header Content</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The header of the CDA instance includes:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>Identity of the patient ("recordTarget" participation)</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Identity of the requested procedure ("documentationOf" act relationship)</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Identity of the dictating physician ("author" participation)</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Identity of the transcriptionist ("dataEnterer" participation)</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Identity of the report signing physician ("legalAuthenticator" participation)</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Identity of the institution owning the report ("custodian" participation)</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Identity of the request/order ("inFulfillmentOf" act relationship)</p>
+                  </li>
+               </ul>
+            </div>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>The markup components in CDA Release 1 use different names.</p>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_X.3.2" shape="rect"></a>X.3.2 Transcribed Text Content</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Each transcription section can be encoded in a Section in the CDA document. The Section.Code and/or Section.Title can be derived from the corresponding transcription section title, if any. Although the transcription text can be encoded in the Section.Text without further markup, it is recommended that it be enclosed in &lt;paragraph&gt; tags.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_X.3.3" shape="rect"></a>X.3.3 Image References</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Images are referenced using hypertext links in the narrative text. These links in CDA are not considered part of the attested content.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>The primary use case for this Annex is the dictation/transcription reporting model. In the historical context of that model, the images (film sheets) are usually not considered part of the attested content of the report, although they are part of the complete exam record. I.e., the report is clinically complete without the images, and the referenced images are not formally part of the report. Therefore, this Annex discusses only the use of image references, not images embedded in the report.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Being part of the attested content would require the images to be displayed every time the report is displayed - i.e., they are integral to understanding the report. If the images are attested, they must also be encapsulated with the CDA package. I.e., the CDA document itself is only one part of the interchanged package; the referenced images must also always be sent with the CDA document. If the images are for reference only and not attested, the Image Content Item may be transformed to a simple hypertext link; it is then the responsibility of CDA document receiver to follow or not follow the hyperlink. Moreover, as the industry moves toward ubiquitous network access to a distributed electronic healthcare record, there will be less need to prepackage the referenced images with the report.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <p>In the current use case, there will be one or more KO instances with image references. Each KO instance can be transformed to a Section in the CDA document with a Section.Title "Key Images", and a Section.Code of 121180 from the DICOM Controlled Terminology (see <a href="../part16/PS3.16.html" class="olink" shape="rect">PS3.16</a>). If the KO includes a TEXT content item, it can be transformed to &lt;paragraph&gt; data in that Section.Text of the CDA document. Each IMAGE content item can be transformed to a link item using the &lt;linkHtml&gt; markup.</p>
+            <p>Within the &lt;linkHtml&gt; markup, the value of the href attribute is the DICOM object reference as a Web Access to Persistent DICOM Objects (WADO) specified URI (see <a class="xref" href="sect_X.3.html#table_X.3-1" title="Table X.3-1. WADO Reference in an HL7 CDA &lt;linkHtml&gt;" shape="rect">Table X.3-1</a>).</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>When a DICOM object reference is included in an HL7 CDA document, it is presumed the recipient would not be a DICOM application; it would have access only to general Internet network protocols (and not the DICOM upper layer protocol), and would not be configured with the means to display a native DICOM image. Therefore, the recommended encoding of a DICOM Object Reference in the CDA narrative block &lt;linkHtml&gt; uses WADO for access by the HTTP/HTTPS network protocol (see <a href="../part18/PS3.18.html" class="olink" shape="rect">PS3.18</a>), using one of the formats broadly supported in Web browsers (image/jpeg or video/mpeg) as the requested content type.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>In CDA Release 1, the markup tag for hyperlinks is &lt;link_html&gt; within the scope of a &lt;link&gt; tag.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <div class="table">
+               <a id="table_X.3-1" shape="rect"></a>
+               <p class="title">
+                  <strong>Table X.3-1. WADO Reference in an HL7 CDA &lt;linkHtml&gt;</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>WADO Component</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Source</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="italic">&lt;scheme&gt;</span>:// 
+                <span class="italic">&lt;authority&gt;</span> / 
+                <span class="italic">&lt;path&gt;</span>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Configuration setting, used by the conversion process, identifying the WADO server</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>?requestType=WADO</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Fixed</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&amp;studyUID 
+                <span class="italic">=&lt;uid&gt;</span>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Study Instance UID for referenced image obtained from the Current Requested Procedure Evidence Sequence or the Pertinent Other Evidence Sequence in the KO Instance</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&amp;seriesUID= 
+                <span class="italic">&lt;uid&gt;</span>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Series Instance UID for referenced image obtained from the Current Requested Procedure Evidence Sequence or the Pertinent Other Evidence Sequence in the KO Instance</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&amp;objectUID= 
+                <span class="italic">&lt;uid&gt;</span>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Referenced SOP Instance UID from IMAGE content item</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&amp;frameNumber= 
+                <span class="italic">&lt;list&gt;</span>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Referenced Frame Number from IMAGE content item (if present)</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&amp;presentationUID= 
+                <span class="italic">&lt;uid&gt;</span>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Referenced SOP Instance UID from Referenced SOP Sequence within IMAGE content item</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&amp;presentationSeriesUID= 
+                <span class="italic">&lt;uid&gt;</span>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Series Instance UID for referenced presentation state obtained from the Current Requested Procedure Evidence Sequence or the Pertinent Other Evidence Sequence in the KO Instance</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&amp;contentType=video/mpeg</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Present if Referenced SOP Class UID from IMAGE content item is for a multi-frame image IOD</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>Literal strings are in normal typeface, while 
+              <span class="italic">&lt;italic typeface within angle brackets&gt;</span> indicates values to be copied from the identified source.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The default contentType for single frame images is image/jpeg, which does not need to be specified as a WADO component. However, the default contentType for multiple frame images is application/dicom, which needs to be overridden with the specific request for video/mpeg.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>There is not yet a standard mechanism for minimizing the potential for staleness of the 
+              <span class="italic">&lt;scheme&gt;://&lt;authority&gt;/&lt;path&gt;component</span>.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_X.3.4" shape="rect"></a>X.3.4 Icons</h3>
+                  </div>
+               </div>
+            </div>
+            <p>If the IMAGE content item includes an Icon Image Sequence, the report creation process may embed the icon in the Section.Text narrative. The Icon Image Sequence Pixel Data is converted into an image file, e.g., in JPEG or GIF format, and base64 encoded. The file is encoded in an ObservationMedia entry in the CDA instance, and a &lt;renderMultimedia&gt; tag reference to the entry is encoded in the Section.Text adjacent to the &lt;linkHtml&gt; of the image reference.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_X.3.5" shape="rect"></a>X.3.5 Structured Entries</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The Current Requested Procedure Evidence Sequence (0040,A375) of the KO instance lists all the SOP Instances referenced in the IMAGE content items in their hierarchical Study/Series/Instance context. It is recommended that this list be transcoded to CDA Entries in a Section with Section.Title "DICOM Object Catalog" and a Section.Code of 121181 from the DICOM Controlled Terminology (see <a href="../part16/PS3.16.html" class="olink" shape="rect">PS3.16</a>).</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>Structured Entries are not defined in CDA Release 1.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Since the image hypertext links in the Section narrative may refer to both an image and a softcopy presentation state, as well as possibly being constrained to specific frame numbers, in general there is not a simple mapping from the &lt;linkHtml&gt; to an entry. Therefore it is not expected that there would be ID reference links between the &lt;linkHtml&gt; and related entries.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <p>The purpose of the Structured Entries is to allow DICOM-aware applications to access the referenced images in their hierarchical context.</p>
+            <p>The encoding of the DICOM Object References in CDA Entries is shown in <a class="xref" href="sect_X.3.html#figure_X.3-1" title="Figure X.3-1. CDA Section with DICOM Object References" shape="rect">Figure X.3-1</a> and Tables X.3-2 through X.3-6. All of the mandatory data elements for the Entries are available in the Current Requested Procedure Evidence Sequence; optional elements (e.g., instance DateTimes) may also be included if known by the encoding application.</p>
+            <p>
+          </p>
+            <div class="figure">
+               <a id="figure_X.3-1" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.17_X.3-1.svg" alt="CDA Section with DICOM Object References" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure X.3-1. CDA Section with DICOM Object References</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>The format of <a class="xref" href="sect_X.3.html#figure_X.3-1" title="Figure X.3-1. CDA Section with DICOM Object References" shape="rect">Figure X.3-1</a> follows the conventions of HL7 v3 Reference Information Model diagrams.</p>
+            </div>
+            <div class="table">
+               <a id="table_X.3-2" shape="rect"></a>
+               <p class="title">
+                  <strong>Table X.3-2. DICOM Study Reference in an HL7 V3 Act (CDA Act Entry)</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Attribute</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Data Type</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Multiplicity</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Value</p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>classCode</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>CS</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>1..1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>ACT</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>moodCode</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>CS</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>1..1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>EVN</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>id</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>II</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>1..1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="italic">&lt;Study Instance UID (0020,000D)</span> as root property with no extension property 
+                <span class="italic">&gt;</span>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>code</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>CD</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>1..1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&lt;113014 as code property,</p>
+                              <p>1.2.840.10008.2.16.4 as codeSystem property,</p>
+                              <p>DCM as codeSystemName property,</p>
+                              <p>"DICOM Study" as displayName property&gt;</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>text</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>ST</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>0..1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="italic">&lt;Study Description (0008,1030) &gt;</span>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>effectiveTime</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>TS</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>0..1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&lt; 
+                <span class="italic">Study Date (0008,0020)</span> and 
+                <span class="italic">Study Time (0008,0030) &gt;</span>
+                              </p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <div class="table">
+               <a id="table_X.3-3" shape="rect"></a>
+               <p class="title">
+                  <strong>Table X.3-3. DICOM Series Reference in an HL7 V3 Act (CDA Act Entry)</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Attribute</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Data Type</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Multiplicity</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Value</p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>classCode</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>CS</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>1..1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>ACT</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>moodCode</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>CS</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>1..1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>EVN</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>id</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>II</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>1..1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="italic">&lt;Series Instance UID (0020,000E)</span> as root property with no extension property 
+                <span class="italic">&gt;</span>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>code</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>CD</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>0..1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&lt;113015 as code property,</p>
+                              <p>1.2.840.10008.2.16.4 as codeSystem property,</p>
+                              <p>DCM as codeSystemName property,</p>
+                              <p>"DICOM Series" as displayName property,</p>
+                              <p>
+                                 <span class="italic">Modality</span> as qualifier property (see text and <a class="xref" href="sect_X.3.html#table_X.3-4" title="Table X.3-4. Modality Qualifier for The Series Act.Code" shape="rect">Table X.3-4</a>) &gt;</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>text</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>ST</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>0..1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&lt; 
+                <span class="italic">Series Description (0008,103E)</span> &gt;</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>effectiveTime</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>TS</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>0..1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&lt; 
+                <span class="italic">Series Date (0008,0021)</span> and 
+                <span class="italic">Series Time (0008,0031) &gt;</span>
+                              </p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <p>The code for the Act representing a Series uses a qualifier property to indicate the modality. The qualifier property is a list of coded name/value pairs. For this use, only a single list entry is used, as described in <a class="xref" href="sect_X.3.html#table_X.3-4" title="Table X.3-4. Modality Qualifier for The Series Act.Code" shape="rect">Table X.3-4</a>.</p>
+            <div class="table">
+               <a id="table_X.3-4" shape="rect"></a>
+               <p class="title">
+                  <strong>Table X.3-4. Modality Qualifier for The Series Act.Code</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Property</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Data Type</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Value</p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>name</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>CV</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&lt;121139 as code property,</p>
+                              <p>1.2.840.10008.2.16.4 as codeSystem property,</p>
+                              <p>DCM as codeSystemName property,</p>
+                              <p>"Modality" as displayName property&gt;</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>value</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>CD</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&lt; 
+                <span class="italic">Modality (0008,0060)</span> as code property,</p>
+                              <p>1.2.840.10008.2.16.4 as codeSystem property,</p>
+                              <p>DCM as codeSystemName property,</p>
+                              <p>
+                                 <span class="italic">Modality code meaning (from <a href="../part16/PS3.16.html" class="olink" shape="rect">PS3.16</a>)</span> as displayName property&gt;</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <div class="table">
+               <a id="table_X.3-5" shape="rect"></a>
+               <p class="title">
+                  <strong>Table X.3-5. DICOM Composite Object Reference in an HL7 V3 Act (CDA Observation Entry)</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Attribute</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Data Type</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Multiplicity</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Value</p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>classCode</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>CS</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>1..1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>DGIMG</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>moodCode</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>CS</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>1..1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>EVN</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>id</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>II</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>1..1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&lt; 
+                <span class="italic">SOP Instance UID (0008,0018)</span> as root property with no extension property&gt;</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>code</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>CD</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>1..1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&lt; 
+                <span class="italic">SOP Class UID (0008,0016)</span> as code property,</p>
+                              <p>1.2.840.10008.2.6.1 as codeSystem property,</p>
+                              <p>DCMUID as codeSystemName property,</p>
+                              <p>
+                                 <span class="italic">SOP Class UID Name (from <a href="../part06/PS3.6.html" class="olink" shape="rect">PS3.6</a>)</span> as displayName property&gt;</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>text</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>ED</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>0..1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&lt;application/DICOM as mediaType property,</p>
+                              <p>
+                                 <span class="italic">WADO reference</span> (see <a class="xref" href="sect_X.3.html#table_X.3-6" title="Table X.3-6. WADO Reference in an HL7 DGIMG Observation.Text" shape="rect">Table X.3-6</a>) as reference property&gt;</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>effectiveTime</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>TS</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>0..1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&lt; 
+                <span class="italic">Content Date (0008,0023)</span> and 
+                <span class="italic">Content Time (0008,0033) &gt;</span>
+                              </p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>The DGIMG class is used to reference all DICOM Composite Instances, not just diagnostic images.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The Observation.Text reference property may alternatively use a DICOM protocol based URI, rather than WADO, should such a URI be defined.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <div class="table">
+               <a id="table_X.3-6" shape="rect"></a>
+               <p class="title">
+                  <strong>Table X.3-6. WADO Reference in an HL7 DGIMG Observation.Text</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>WADO Component</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Source</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="italic">&lt;scheme&gt;</span>:// 
+                <span class="italic">&lt;authority&gt;</span> / 
+                <span class="italic">&lt;path&gt;</span>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Configuration setting, used by the conversion process, identifying the WADO server</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>?requestType=WADO</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Fixed</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&amp;studyUID 
+                <span class="italic">=&lt;uid&gt;</span>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Study Instance UID for referenced instance</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&amp;seriesUID= 
+                <span class="italic">&lt;uid&gt;</span>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Series Instance UID for referenced instance</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&amp;objectUID= 
+                <span class="italic">&lt;uid&gt;</span>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>SOP Instance UID for referenced instance</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>&amp;contentType=application/DICOM</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Fixed</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_X.4.3" shape="rect"></a>X.4.3 Using The WADO Reference For DICOM Network Protocol Retrievals</h3>
+                  </div>
+               </div>
+            </div>
+            <p>An application that receives a CDA with image references, and is capable of using the full services of DICOM upper layer protocol directly, can use the WADO parameters in either the linkHtml or in the DGIMG Observation.Text to retrieve the object using the DICOM network services. Such an application would need to be pre-configured with the hostname/IP address, TCP port, and AE Title of the DICOM object server (C-MOVE or C-GET SCP); this network address is not part of the WADO string. (Note that pre-configuration of this network address is typical for DICOM applications, and is facilitated by the LDAP-based DICOM Application Configuration Management Profile; see <a href="../part15/PS3.15.html" class="olink" shape="rect">PS3.15</a>.)</p>
+            <p>The application would open a Query/Retrieve Service Association with the configured server, and send a C-MOVE or C-GET command using the study, series, and object instance UIDs identified in the WADO query parameters. Such an application might also reasonably query the server for related objects, such as Grayscale Softcopy Presentation State.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>When using the C-GET service, the retrieving application needs to specify and negotiate the SOP Class of the retrieved objects when it opens the Association. This information is not available in the linkHtml WADO reference; however, it is available in the DGIMG Observation.Code. It may also be obtained from the configured server using a C-FIND query on a prior Association.</p>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_X.2.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_X.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_X.4.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">X.2 Transcribed Diagnostic Imaging SR Instance Content </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> X.4 Simultaneous SR and CDA Instance Creation</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

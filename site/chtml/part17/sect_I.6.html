@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>I.6 Ob Patterns</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="chapter_I.html" title="I Ultrasound Templates (Informative)" />
+      <link rel="prev" href="sect_I.5.html" title="I.5 Linking Measurements to Images, Coordinates" />
+      <link rel="next" href="sect_I.7.html" title="I.7 Selected Value" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">I.6 Ob Patterns</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_I.5.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">I Ultrasound Templates (Informative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_I.7.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_I.6" shape="rect"></a>I.6 Ob Patterns</h2>
+               </div>
+            </div>
+         </div>
+         <p>A common OB-GYN pattern is that of several instances of one measurement type (e.g., BPD), the calculated average of those values, and derived values such as a gestational age calculated according to an equation or table. The measurements and calculations are all siblings in the measurement group. A child content item specifies the equation or table used to calculate the gestational age. All measurement types must relate to the same biometric type. For example, it is not allowed to mix a BPD and a Nuchal Fold Thickness measurement in the same biometry group.</p>
+         <p>
+        </p>
+         <div class="figure">
+            <a id="figure_I.6-1" shape="rect"></a>
+            <div class="figure-contents">
+               <div class="mediaobject">
+                  <img src="figures/PS3.17_I.6-1.svg" alt="OB Numeric Biometry Measurement group Example" />
+               </div>
+            </div>
+            <p class="title">
+               <strong>Figure I.6-1. OB Numeric Biometry Measurement group Example</strong>
+            </p>
+         </div>
+         <p>
+            <br class="figure-break" clear="none" />
+         </p>
+         <p>The example above is a gestational age calculated from the measured value. The relationship is to an equation or table. The inferred from relationship identifies equation or table in the Concept Name. Codes from <a href="../part16/sect_CID_12013.html" class="olink" shape="rect">CID 12013 “Gestational Age Equations and Tables”</a> identify the specific equation or table.</p>
+         <p>Another use case is the calculation of a growth parameter's relationship to that of a referenced distribution and a known or assumed gestational age. <a href="../part16/sect_CID_12015.html" class="olink" shape="rect">CID 12015 “Fetal Growth Equations and Tables”</a> identify the growth table. <a class="xref" href="sect_I.6.html#figure_I.6-2" title="Figure I.6-2. Percentile Rank or Z-score Example" shape="rect">Figure I.6-2</a> shows the assignment of a percentile for the measured BPD, against the growth of a referenced population. The dependency relationship to the gestational age is a by-reference relationship to the established gestational age. Though the percentile rank is derived from the BPD measurement, a by-reference relationship is not essential if one BPD has a concept modifier indicating that it is the mean or has selection status (see <a href="../part16/chapter_A.html#sect_TID_300" class="olink" shape="rect">TID 300 “Measurement”</a>). A variation of this pattern is the use of Z-score instead of percentile rank. Not shown is the expression of the normal distribution mean, standard deviation, or confidence limits.</p>
+         <p>
+        </p>
+         <div class="figure">
+            <a id="figure_I.6-2" shape="rect"></a>
+            <div class="figure-contents">
+               <div class="mediaobject">
+                  <img src="figures/PS3.17_I.6-2.svg" alt="Percentile Rank or Z-score Example" />
+               </div>
+            </div>
+            <p class="title">
+               <strong>Figure I.6-2. Percentile Rank or Z-score Example</strong>
+            </p>
+         </div>
+         <p>
+            <br class="figure-break" clear="none" />
+         </p>
+         <p>Estimated fetal weight (EFW) is a fetus summary item as shown below. It is calculated from one or more growth parameters (the inferred from relationships are not shown). <a href="../part16/chapter_A.html#sect_TID_315" class="olink" shape="rect">TID 315 “Equation or Table”</a> allows specifying how the value was derived. Terms from <a href="../part16/sect_CID_12014.html" class="olink" shape="rect">CID 12014 “OB Fetal Body Weight Equations and Tables”</a> specify the table or equation that yields the EFW from growth parameters.</p>
+         <p>"EFW percentile rank" is another summary term. By definition, this term depends upon the EFW and the population distribution of the ranking. A Reference Authority content item identifies the distribution. <a href="../part16/sect_CID_12016.html" class="olink" shape="rect">CID 12016 “Estimated Fetal Weight Percentile Equations and Tables”</a> is list of established reference authorities.</p>
+         <p>
+        </p>
+         <div class="figure">
+            <a id="figure_I.6-3" shape="rect"></a>
+            <div class="figure-contents">
+               <div class="mediaobject">
+                  <img src="figures/PS3.17_I.6-3.svg" alt="Estimated Fetal Weight" />
+               </div>
+            </div>
+            <p class="title">
+               <strong>Figure I.6-3. Estimated Fetal Weight</strong>
+            </p>
+         </div>
+         <p>
+            <br class="figure-break" clear="none" />
+         </p>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_I.5.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_I.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_I.7.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">I.5 Linking Measurements to Images, Coordinates </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> I.7 Selected Value</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

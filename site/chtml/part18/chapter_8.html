@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>8 Parameters of the Request</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.18.html" title="PS3.18" />
+      <link rel="up" href="PS3.18.html" title="PS3.18" />
+      <link rel="prev" href="sect_7.4.html" title="7.4 Other Objects" />
+      <link rel="next" href="sect_8.2.html" title="8.2 Parameters for DICOM Image Persistent Objects" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">8 Parameters of the Request</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_7.4.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_8.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_8" shape="rect"></a>8 Parameters of the Request</h1>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_8.1" shape="rect"></a>8.1 Parameters Available for all DICOM Persistent Objects</h2>
+                  </div>
+               </div>
+            </div>
+            <p>Parameters specified in this section are applicable to all supported DICOM SOP Classes.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>To identify a DICOM Object, only one UID is required, because any UID is globally unique. However, the standard requires that the UID of the higher levels in the DICOM Information Model are specified (i.e., series and study), in order to support the use of DICOM devices that support only the baseline hierarchical (rather than extended relational) Query/Retrieve model, which requires the Study Instance UID and Series Instance UID to be defined when retrieving an SOP Instance, as defined in <a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a>.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_8.1.1" shape="rect"></a>8.1.1 Request Type</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>Type of request performed. This parameter is REQUIRED for URI based mode.</p>
+               <p>The parameter name shall be "requestType".</p>
+               <p>The value shall be "WADO".</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>This parameter allows other types of requests to be introduced in the future, using a similar syntax.</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_8.1.2" shape="rect"></a>8.1.2 Unique Identifier of the Study</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>Study Instance UID as defined in <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>. This parameter is REQUIRED.</p>
+               <p>The parameter name shall be "studyUID" for URI based mode, and "StudyRequest" that contains a required "studyInstanceUID" attribute for the WS mode.</p>
+               <p>The value shall be encoded as a Unique Identifier (UID) string, as specified in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>, except that it shall not be padded to an even length with a NULL character.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_8.1.3" shape="rect"></a>8.1.3 Unique Identifier of the Series</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>Series Instance UID as defined in the <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>. This parameter is REQUIRED.</p>
+               <p>The parameter name shall be "seriesUID" for URI based mode, and, for the WS mode, one or multiple "SeriesRequest" that is included into the above described "StudyRequest" and that contains a required "seriesInstanceUID" attribute.</p>
+               <p>The value shall be encoded as a Unique Identifier (UID) string, as specified in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>, except that it shall not be padded to an even length with a NULL character.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_8.1.4" shape="rect"></a>8.1.4 Unique Identifier of the Object</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>SOP Instance UID as defined in the <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>. This parameter is REQUIRED.</p>
+               <p>The parameter name shall be "objectUID" for URI based mode, and for the WS mode one or multiple "DocumentRequest" that is included into the above described "SeriesRequest" and that include each one:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>a required "DocumentUniqueId" that contains the Instance UID,</p>
+                     </li>
+                     <li class="listitem">
+                        <p>an optional "RepositoryUniqueId" that contains the UID of the DICOM server, and</p>
+                     </li>
+                     <li class="listitem">
+                        <p>an optional "HomeCommunityId" that contains the UID of the "clinical affinity domain".</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>The value shall be encoded as a unique identifier (UID) string, as specified in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>, except that it shall not be padded to an even length with a NULL character.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_8.1.5" shape="rect"></a>8.1.5 MIME Type of the Response</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>MIME type(s) desired by the Web Client for the response from the Server, as defined in the IETF RFC2616. This parameter is OPTIONAL for URI based mode, it shall be present for the WS mode "Rendered Requester" and shall not be present in the other WS mode transactions.</p>
+               <p>The parameter name shall be "contentType" for URI based mode, and, for the WS mode, "ContentTypeList" that contains one or multiple "ContentType".</p>
+               <p>In URI based mode, the value shall be a list of MIME types, separated by a "," character, and potentially associated with relative degree of preference, as specified in IETF RFC2616. In WS mode, it contains one or more "ContentType" elements containing each one MIME type.</p>
+               <p>In URI based mode, the Web Client shall provide list of content types it supports in the "Accept" field of the GET method. The value of the contentType parameter of the request shall be one of the values specified in that field.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="1">
+                        <li class="listitem">
+                           <p>Typically the Accept field will be sent by a Web Client as "*/*", which is compatible with any MIME types.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>When this parameter is absent, the default content type of the response is dictated by the "MIME type constraints" sub-sections of Section 7 (i.e., 7.1.2, 7.2.2, 7.3.2, 7.4.2).</p>
+                        </li>
+                     </ol>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_8.1.6" shape="rect"></a>8.1.6 Charset of the Response</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>Character set with which the returned objects are to be encoded, as defined in the IETF RFC2616. This parameter is OPTIONAL for URI based mode, and for the WS mode "Rendered Requester" and shall not be present in the other WS mode transactions.</p>
+               <p>The parameter name shall be "charset" for URI based mode, and "CharsetList" containing one or more elements "Charset" for the WS mode.</p>
+               <p>For the URI mode, the value shall be a list of character sets, separated by a "," character, and potentially associated with relative degree of preference, as specified in IETF RFC2616.</p>
+               <p>In URI based mode, the Web Client may provide a list of character sets it supports in the "Accept-charset" field of the GET method. If this field is present, the value of the charset parameter of the request shall be one of the values specified in it.</p>
+               <p>The Web Server may or may not support character set conversion. If character set conversion is supported:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>text based DICOM objects retrieved other than as application/dicom MIME type (e.g., text/plain) may be returned in the requested character set (converted if necessary)</p>
+                     </li>
+                     <li class="listitem">
+                        <p>DICOM objects retrieved as application/dicom MIME type have all contained strings returned in the requested character set (converted if necessary) and the Specific Character Set (0008,0005) updated (if necessary)</p>
+                     </li>
+                  </ul>
+               </div>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="1">
+                        <li class="listitem">
+                           <p>The IANA Character Set registrations specify names and multiple aliases for most character sets. The standard value for use in WADO is the one marked by IANA as "preferred for MIME." If IANA has not marked one of the aliases as "preferred for MIME", the name used in DICOM shall be the value used for WADO.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The table in Annex D provides an informative mapping of some IANA values to DICOM Specific Character Set Defined Terms.</p>
+                        </li>
+                     </ol>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_8.1.7" shape="rect"></a>8.1.7 Anonymize Object</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>Removal of all patient identification information from within the DICOM objects, if not already done, as defined in <a href="../part15/PS3.15.html" class="olink" shape="rect">PS3.15</a>. This parameter is OPTIONAL. In the URI based mode, it shall only be present if contentType is application/dicom.</p>
+               <p>This parameter is Optional</p>
+               <p>The parameter name shall be "anonymize" for URI based mode, and "Anonymize" for the WS mode.</p>
+               <p>The value shall be "yes".</p>
+               <p>The Server may return an error if it either cannot or refuses to anonymize these objects.</p>
+               <p>In WS mode, the metadata describing the objects or information extracted from them in the response shall be anonymized if requested.</p>
+               <p>The Server shall return a new SOP Instance UID if the content of the object has not already been anonymized.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="1">
+                        <li class="listitem">
+                           <p>This standard does not introduce any security-related requirements. It is likely that the information contained within DICOM objects identifies the patient. The protocol used (that is HTTP) can be replaced by HTTPs, which is its secure extension, to protect the information in transit. The underlying DICOM implementation decides whether or not to grant access to a particular DICOM object based on whatever security policy or mechanism it has in place. A server is unlikely to fulfill a request from an unknown user (e.g., accessed via the HTTP protocol) unless it is certain that the data requested has no patient identifying information within it and has been approved for public viewing.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The Anonymize object enables, for example, teaching files systems or clinical trial applications to offer an access to original images stored in a PACS, without disclosing the patients identity, and requiring storage of a (de-identified) copy of the original image. Anonymization is the responsibility of the Server. In order to preserve patient confidentiality, the Server likely will refuse to deliver an anonymized SOP instance to an unknown or unauthorized person unless the Server is certain that the SOP instance holds no patient identifying information. This would include "blanking out" any annotation area(s) containing nominative information burned into the pixels or in the overlays.</p>
+                        </li>
+                     </ol>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_8.1.9" shape="rect"></a>8.1.9 Retrieve Partial Information From Objects</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>Retrieval of additional information from the DICOM objects, using a filtering mechanism based on the XML mapping of DICOM IODs, as described in the Native DICOM Model defined in <a href="../part19/PS3.19.html" class="olink" shape="rect">PS3.19</a>. This parameter is defined only for the WS mode "Information Requester" transaction.</p>
+               <p>The parameter name shall be "XPath".</p>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_7.4.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_8.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">7.4 Other Objects </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.18.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 8.2 Parameters for DICOM Image Persistent Objects</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

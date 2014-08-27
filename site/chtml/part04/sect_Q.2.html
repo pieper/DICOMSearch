@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Q.2 DIMSE-C Service Group</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.4.html" title="PS3.4" />
+      <link rel="up" href="chapter_Q.html" title="Q Relevant Patient Information Query Service Class (Normative)" />
+      <link rel="prev" href="chapter_Q.html" title="Q Relevant Patient Information Query Service Class (Normative)" />
+      <link rel="next" href="sect_Q.3.html" title="Q.3 Association Negotiation" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">Q.2 DIMSE-C Service Group</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_Q.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">Q Relevant Patient Information Query Service Class (Normative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_Q.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_Q.2" shape="rect"></a>Q.2 DIMSE-C Service Group</h2>
+               </div>
+            </div>
+         </div>
+         <p>One DIMSE-C Service is used in the construction of SOP Classes of the Relevant Patient Information Query Service Class. The following DIMSE-C operation is used.</p>
+         <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+               <li class="listitem">
+                  <p>C-FIND</p>
+               </li>
+            </ul>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_Q.2.1" shape="rect"></a>Q.2.1 C-FIND Operation</h3>
+                  </div>
+               </div>
+            </div>
+            <p>SCPs of the Relevant Patient Information Query Service Class are capable of processing queries using the C-FIND operation as described in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>. The C-FIND operation is the mechanism by which queries are performed. The SCP shall provide Relevant Patient Information for at most one matching patient in the C-FIND response.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_Q.2.1.1" shape="rect"></a>Q.2.1.1 C-FIND Service Parameters</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_Q.2.1.1.1" shape="rect"></a>Q.2.1.1.1 SOP Class UID</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The SOP Class UID identifies the Relevant Patient Information Model and Template against which the C-FIND is to be performed. Support for the SOP Class UID is implied by the Abstract Syntax UID of the Presentation Context used by this C-FIND operation.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_Q.2.1.1.2" shape="rect"></a>Q.2.1.1.2 Priority</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The Priority Attribute defines the requested priority of the C-FIND operation with respect to other DIMSE operations being performed by the same SCP.</p>
+                  <p>Processing of priority requests is not required of SCPs. Whether or not an SCP supports priority processing and the meaning of the different priority levels shall be stated in the Conformance Statement of the SCP.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_Q.2.1.1.3" shape="rect"></a>Q.2.1.1.3 Identifier</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Both the C-FIND request and response contain an Identifier encoded as a Data Set (see <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>).</p>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_Q.2.1.1.3.1" shape="rect"></a>Q.2.1.1.3.1 Request Identifier Structure</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>An Identifier in a C-FIND request shall contain:</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: disc; ">
+                           <li class="listitem">
+                              <p>Key Attributes with values to be matched against the values of Attributes specified in the SOP Class.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Content Template Sequence (0040,A504), which shall include a single sequence item containing the Template Identifier (0040,DB00) and Mapping Resource (0008,0105) Attributes, to identify the template structure to use in the matching C-FIND responses.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Conditionally, the Attribute Specific Character Set (0008,0005). This Attribute shall be included if expanded or replacement character sets may be used in any of the Attributes in the Request Identifier. It shall not be included otherwise.</p>
+                           </li>
+                        </ul>
+                     </div>
+                     <p>The Key Attributes and values allowable for the query are defined in the SOP Class definition for the Relevant Patient Information Model.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_Q.2.1.1.3.2" shape="rect"></a>Q.2.1.1.3.2 Response Identifier Structure</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>The C-FIND response shall not contain Attributes that were not in the request or specified in this section.</p>
+                     <p>An Identifier in a C-FIND response shall contain:</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: disc; ">
+                           <li class="listitem">
+                              <p>Key Attributes with values corresponding to Key Attributes contained in the Identifier of the request.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Content Template Sequence (0040,A504), which shall include a single sequence item containing the Template Identifier (0040,DB00) and Mapping Resource (0008,0105) Attributes, to identify the template structure used in the C-FIND response. The values shall be the same as specified in the Request Identifier.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Conditionally, the Attribute Specific Character Set (0008,0005). This Attribute shall be included if expanded or replacement character sets may be used in any of the Attributes in the Response Identifier. It shall not be included otherwise. The C-FIND SCP is not required to return responses in the Specific Character Set requested by the SCU if that character set is not supported by the SCP. The SCP may return responses with a different Specific Character Set.</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_Q.2.1.1.3.3" shape="rect"></a>Q.2.1.1.3.3 Relevant Patient Information Templates</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>Templates used in the Relevant Patient Information query are defined in <a href="../part16/PS3.16.html" class="olink" shape="rect">PS3.16</a>.</p>
+                     <p>The template specified in the Request Identifier shall not use by-reference relationships.</p>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_Q.2.1.1.4" shape="rect"></a>Q.2.1.1.4 Status</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>
+                     <a class="xref" href="sect_Q.2.html#table_Q.2-1" title="Table Q.2-1. C-FIND Response Status Values" shape="rect">Table Q.2-1</a> defines the status code values that might be returned in a C-FIND response. Fields related to status code values are defined in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>.</p>
+                  <div class="table">
+                     <a id="table_Q.2-1" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table Q.2-1. C-FIND Response Status Values</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Service Status</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Further Meaning</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Status Codes</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Related Fields</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" rowspan="5" colspan="1">
+                                    <p>Failure</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Out of Resources</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>A700</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,0902)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Identifier Does Not Match SOP Class</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>A900</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,0901)</p>
+                                    <p>(0000,0902)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Unable to process</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>C000</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,0901)</p>
+                                    <p>(0000,0902)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>More than one match found</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>C100</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,0901)</p>
+                                    <p>(0000,0902)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Unable to support requested template</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>C200</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0000,0901)</p>
+                                    <p>(0000,0902)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Cancel</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Matching terminated due to Cancel request</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>FE00</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>None</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Success</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Success. Matching is complete - No final Identifier is supplied.</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>0000</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>None</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Pending</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Current Match is supplied.</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>FF00</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Identifier</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>Status Codes are returned in DIMSE response messages (see <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>). The code values stated in column "Status Codes" are returned in Status Command Element (0000,0900).</p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_Q.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_Q.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_Q.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">Q Relevant Patient Information Query Service Class (Normative) </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.4.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> Q.3 Association Negotiation</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

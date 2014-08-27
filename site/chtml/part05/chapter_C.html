@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>C DICOM Unique Identifier Registration Process (Informative)</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.5.html" title="PS3.5" />
+      <link rel="up" href="PS3.5.html" title="PS3.5" />
+      <link rel="prev" href="sect_B.2.html" title="B.2 UUID Derived UID" />
+      <link rel="next" href="chapter_D.html" title="D Examples of Various Pixel Data and Overlay Encoding Schemes (Informative)" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">C DICOM Unique Identifier Registration Process (Informative)</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_B.2.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_D.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_C" shape="rect"></a>C DICOM Unique Identifier Registration Process (Informative)</h1>
+               </div>
+            </div>
+         </div>
+         <p>This registration process applies to a number of unique identifiers that share the same properties, structure and registration process. It applies to the following identifiers:</p>
+         <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+               <li class="listitem">
+                  <p>The Values assigned to DICOM Data Elements of Value Representation VR = UID (see <a class="xref" href="sect_6.2.html#table_6.2-1" title="Table 6.2-1. DICOM Value Representations" shape="rect">Table 6.2-1</a>). Such Data Elements are defined in <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>, <a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a>, <a href="../part06/PS3.6.html" class="olink" shape="rect">PS3.6</a>, and <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>.</p>
+               </li>
+               <li class="listitem">
+                  <p>The DICOM Abstract Syntaxes Names. Abstract Syntax Names are defined in <a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a>.</p>
+               </li>
+               <li class="listitem">
+                  <p>The DICOM Transfer Syntax Names. Transfer Syntax Names are defined in <a class="xref" href="chapter_A.html" title="A Transfer Syntax Specifications (Normative)" shape="rect"> Annex A</a>.</p>
+               </li>
+               <li class="listitem">
+                  <p>The DICOM Application Context Names. Application Context Names are defined in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>
+                  </p>
+               </li>
+            </ul>
+         </div>
+         <p>UID structure is based on the numeric form of the OSI Object Identifier as defined by ISO 8824. Values shall be registered as defined by ISO 9834-1 to ensure global uniqueness.</p>
+         <p>The DICOM Standard assigns Values to a number of such unique identifiers. The organization responsible for their registration is NEMA, which guarantees uniqueness.</p>
+         <p>For privately registered identifiers, NEMA will not act as registration authority. Related organizations shall obtain their proper registration as defined for OSI Object Identifiers by ISO 9834-1 to ensure global uniqueness. National Standards Organizations representing a number of countries (e.g., UK, France, Japan, USA, etc.) for the International Standards Organization act as a registration authority by delegation from ISO, as defined by ISO 9834-1.</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="1">
+                  <li class="listitem">
+                     <p>For example, in the USA ANSI assigns, for a fee, Organization Identifiers to any requesting organization. Such an identifier may be used by the identified organization as a root to which it may add a suffix made of one or more components. The identified organization accepts the responsibility to properly register these suffixes to ensure uniqueness.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Following are two typical examples of obtaining a UID &lt;org root&gt;. These examples are not intended to illustrate all the possible methods for obtaining a UID &lt;org root&gt;, see ISO 8824 and ISO 9834-1 for complete specifications. Organization identifiers may be obtained from various ISO member bodies (e.g., IBN in Belgium, ANSI in the United States, AFNOR in France, BSI in Great Britain, DIN in Germany, COSIRA in Canada).</p>
+                     <p>The first example shows the case of an &lt;org root&gt; issued by an ISO Member Body (ANSI in the USA in this example). The &lt;org root&gt; is composed of an identifier for ISO, a member body branch identifier, a country code and an organization ID. Note that there is no requirement that an implementation using an ANSI issued &lt;org root&gt; be made or located in the USA. The &lt;org root&gt; is made up of the following components: 1.2.840.xxxxx</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: disc; ">
+                           <li class="listitem">
+                              <p>1 identifies ISO</p>
+                           </li>
+                           <li class="listitem">
+                              <p>2 identifies the ISO member body branch</p>
+                           </li>
+                           <li class="listitem">
+                              <p>840 identifies the country code of a specific ISO member body (U.S. for ANSI)</p>
+                           </li>
+                           <li class="listitem">
+                              <p>xxxxx identifies a specific organization as registered by the ISO member body ANSI.</p>
+                           </li>
+                        </ul>
+                     </div>
+                     <p>The second example shows the case of an &lt;org root&gt; issued by ISO (is delegated to BSI) to an international organization. It is composed of an identifier for ISO, an international organization branch identifier, and an International Code Designator. The value of the&lt;org root&gt; is assigned by an international registration authority that may be used by many different UIDs defined by the same international organization. The &lt;org root&gt; is made up of the following components: 1.3.yyyy</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: disc; ">
+                           <li class="listitem">
+                              <p>1 identifies ISO</p>
+                           </li>
+                           <li class="listitem">
+                              <p>3 identifies the international organization branch</p>
+                           </li>
+                           <li class="listitem">
+                              <p>yyyy identifies a specific organization as registered by an International Code Designator registration authority (see ISO 6523).</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li class="listitem">
+                     <p>Example components of a &lt;suffix&gt; for unique identification of an image could include:</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: disc; ">
+                           <li class="listitem">
+                              <p>product</p>
+                           </li>
+                           <li class="listitem">
+                              <p>system identifier</p>
+                           </li>
+                           <li class="listitem">
+                              <p>study, series and image numbers</p>
+                           </li>
+                           <li class="listitem">
+                              <p>study, series and image date &amp; times.</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+               </ol>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_B.2.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_D.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">B.2 UUID Derived UID </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.5.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> D Examples of Various Pixel Data and Overlay Encoding Schemes (Informative)</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

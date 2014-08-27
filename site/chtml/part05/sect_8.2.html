@@ -1,0 +1,1479 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>8.2 Native or Encapsulated Format Encoding</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.5.html" title="PS3.5" />
+      <link rel="up" href="chapter_8.html" title="8 Encoding of Pixel, Overlay and Waveform Data" />
+      <link rel="prev" href="chapter_8.html" title="8 Encoding of Pixel, Overlay and Waveform Data" />
+      <link rel="next" href="sect_8.3.html" title="8.3 Waveform Data and Related Data Elements" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">8.2 Native or Encapsulated Format Encoding</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_8.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">8 Encoding of Pixel, Overlay and Waveform Data</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_8.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_8.2" shape="rect"></a>8.2 Native or Encapsulated Format Encoding</h2>
+               </div>
+            </div>
+         </div>
+         <p>Pixel data conveyed in the Pixel Data Element (7FE0,0010) may be sent either in a Native (uncompressed) Format or in an Encapsulated Format (e.g., compressed) defined outside the DICOM standard.</p>
+         <p>If Pixel Data is sent in a Native Format, the Value Representation OW is most often required. The Value Representation OB may also be used for Pixel Data in cases where Bits Allocated has a value less than or equal to 8, but only with Transfer Syntaxes where the Value Representation is explicitly conveyed (see <a class="xref" href="chapter_A.html" title="A Transfer Syntax Specifications (Normative)" shape="rect"> Annex A</a>).</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <p>The DICOM default Transfer Syntax (Implicit VR Little Endian) does not explicitly convey Value Representation and therefore the VR of OB may not be used for Pixel Data when using the default Transfer Syntax.</p>
+         </div>
+         <p>Native format Pixel Cells are encoded as the direct concatenation of the bits of each Pixel Cell, the least significant bit of each Pixel Cell is encoded in the least significant bit of the encoded word or byte, immediately followed by the next most significant bit of each Pixel Cell in the next most significant bit of the encoded word or byte, successively until all bits of the Pixel Cell have been encoded, then immediately followed by the least significant bit of the next Pixel Cell in the next most significant bit of the encoded word or byte. The number of bits of each Pixel Cell is defined by the Bits Allocated (0028,0100) Data Element Value. When a Pixel Cell crosses a word boundary in the OW case, or a byte boundary in the OB case, it shall continue to be encoded, least significant bit to most significant bit, in the next word, or byte, respectively (see <a class="xref" href="chapter_D.html" title="D Examples of Various Pixel Data and Overlay Encoding Schemes (Informative)" shape="rect"> Annex D</a>). For Pixel Data encoded with the Value Representation OW, the byte ordering of the resulting 2-byte words is
+  defined by the Little Endian or Big Endian Transfer Syntaxes negotiated at the Association Establishment (see <a class="xref" href="chapter_A.html" title="A Transfer Syntax Specifications (Normative)" shape="rect"> Annex A</a>).</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="1">
+                  <li class="listitem">
+                     <p>For Pixel Data encoded with the Value Representation OB, the Pixel Data encoding is unaffected by Little Endian or Big Endian byte ordering.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>If encoding Pixel Data with a Value for Bits Allocated (0028,0100) not equal to 16 be sure to read and understand <a class="xref" href="chapter_D.html" title="D Examples of Various Pixel Data and Overlay Encoding Schemes (Informative)" shape="rect"> Annex D</a>.</p>
+                  </li>
+               </ol>
+            </div>
+         </div>
+         <p>If sent in an Encapsulated Format (i.e., other than the Native Format) the Value Representation OB is used. The Pixel Cells are encoded according to the encoding process defined by one of the negotiated Transfer Syntaxes (see <a class="xref" href="chapter_A.html" title="A Transfer Syntax Specifications (Normative)" shape="rect"> Annex A</a>). The encapsulated pixel stream of encoded pixel data is segmented into one or more Fragments, each of which conveys its own explicit length. The sequence of Fragments of the encapsulated pixel stream is terminated by a delimiter, thus allowing the support of encoding processes where the resulting length of the entire pixel stream is not known until it is entirely encoded. This Encapsulated Format supports both Single-Frame and Multi-Frame images (as defined in <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>).</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <p>Depending on the transfer syntax, a frame may be entirely contained within a single fragment, or may span multiple fragments to support buffering during compression or to avoid exceeding the maximum size of a fixed length fragment. A recipient can detect fragmentation of frames by comparing the number of fragments (the number of Items minus one for the Frame Offset Table) with the number of frames. Some performance optimizations may be available to a recipient in the absence of fragmentation of frames, but an implementation that fails to support such fragmentation does not conform to the Standard.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_8.2.1" shape="rect"></a>8.2.1 JPEG Image Compression</h3>
+                  </div>
+               </div>
+            </div>
+            <p>DICOM provides a mechanism for supporting the use of JPEG Image Compression through the Encapsulated Format (see <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>). <a class="xref" href="chapter_A.html" title="A Transfer Syntax Specifications (Normative)" shape="rect"> Annex A</a> defines a number of Transfer Syntaxes that reference the JPEG Standard and provide a number of lossless (bit preserving) and lossy compression schemes.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>The context where the usage of lossy compression of medical images is clinically acceptable is beyond the scope of the DICOM Standard. The policies associated with the selection of appropriate compression parameters (e.g., compression ratio) for JPEG lossy compression is also beyond the scope of this standard.</p>
+            </div>
+            <p>In order to facilitate interoperability of implementations conforming to the DICOM Standard that elect to use one or more of the Transfer Syntaxes for JPEG Image Compression, the following policy is specified:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>Any implementation that conforms to the DICOM Standard and has elected to support any one of the Transfer Syntaxes for lossless JPEG Image Compression, shall support the following lossless compression: The subset (first-order horizontal prediction [Selection Value 1) of JPEG Process 14 (DPCM, non-hierarchical with Huffman coding) (see <a class="xref" href="chapter_F.html" title="F Encapsulated Images As Part of A DICOM Message (Informative)" shape="rect"> Annex F</a>).</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Any implementation that conforms to the DICOM Standard and has elected to support any one of the Transfer Syntaxes for 8-bit lossy JPEG Image Compression, shall support the JPEG Baseline Compression (coding Process 1).</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Any implementation that conforms to the DICOM Standard and has elected to support any one of the Transfer Syntaxes for 12-bit lossy JPEG Image Compression, shall support the JPEG Compression Process 4.</p>
+                  </li>
+               </ul>
+            </div>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>The DICOM conformance statement shall differentiate whether or not the implementation is capable of simply receiving or receiving and processing JPEG encoded images (see <a href="../part02/PS3.2.html" class="olink" shape="rect">PS3.2</a>).</p>
+            </div>
+            <p>The use of the DICOM Encapsulated Format to support JPEG Compressed Pixel Data requires that the Data Elements that are related to the Pixel Data encoding (e.g., Photometric Interpretation, Samples per Pixel, Planar Configuration, Bits Allocated, Bits Stored, High Bit, Pixel Representation, Rows, Columns, etc.) shall contain values that are consistent with the characteristics of the compressed data stream. The Pixel Data characteristics included in the JPEG Interchange Format shall be used to decode the compressed data stream.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>These requirements were formerly specified in terms of the "uncompressed pixel data from which the compressed data stream was derived". However, since the form of the "original" uncompressed data stream could vary between different implementations, this requirement is now specified in terms of consistency with what is encapsulated.</p>
+                        <p>When decompressing, should the characteristics explicitly specified in the compressed data stream (e.g., spatial subsampling or number of components or planar configuration) be inconsistent with those specified in the DICOM Data Elements, those explicitly specified in the compressed data stream should be used to control the decompression. The DICOM data elements, if inconsistent, can be regarded as suggestions as to the form in which an uncompressed Data Set might be encoded.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Those characteristics not explicitly specified in the compressed data stream (e.g., the color space of the compressed components, which is not specified in the JPEG Interchange Format), or implied by the definition of the compression scheme (e.g., always unsigned in JPEG), can therefore be determined from the DICOM Data Element in the enclosing Data Set. For example a Photometric Interpretation of "YBR_FULL_422" would describe the color space that is commonly used to lossy compress images using JPEG. It is unusual to use an RGB color space for lossy compression, since no advantage is taken of correlation between the red, green and blue components (e.g., of luminance), and poor compression is achieved.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The JPEG Interchange Format is distinct from the JPEG File Interchange Format (JFIF). The JPEG Interchange Format is defined in <a class="xref" href="chapter_2.html#biblio_ISOIEC10918-1" title="JPEG Standard for digital compression and encoding of continuous-tone still images. Part 1 - Requirements and implementation guidelines" shape="rect">[<abbr class="abbrev">ISO/IEC 10918-1</abbr>]</a> section 4.9.1, and refers to the inclusion of decoding tables, as distinct from the "abbreviated format" in which these tables are not sent (and the decoder is assumed to already have them). The JPEG Interchange Format does NOT specify the color space. The JPEG File Interchange Format, not part of the original JPEG standard, but defined in ECMA TR-098, and under development as ISO 101918-5, is often used to store JPEG bit streams in consumer format files, and does include the ability to specify the color space of the components. THE JFIF APP0 marker segment is NOT required to be present in DICOM encapsulated JPEG bit streams, and should not be relied upon to recognize the color space. Its presence is not forbidden (unlike the JP2 information for JPEG 2000 Transfer Syntaxes), but it is recommended that it be absent.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Should the compression process be incapable of encoding a particular form of pixel data representation (e.g., JPEG cannot encode signed integers, only unsigned integers), then ideally only the appropriate form should be "fed" into the compression process. However, for certain characteristics described in DICOM Data Elements but not explicitly described in the compressed data stream (such as Pixel Representation), then the DICOM Data Element should be considered to describe what has been compressed (e.g., the pixel data really is to be interpreted as signed if Pixel Representation so specifies).</p>
+                     </li>
+                     <li class="listitem">
+                        <p>DICOM Data Elements should not describe characteristics that are beyond the capability of the compression scheme used. For example, JPEG lossy processes are limited to 12 bits, hence the value of Bits Stored should be 12 or less. Bits Allocated is irrelevant, and is likely to be constrained by the Information Object Definition in <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a> to values of 8 or 16. Also, JPEG compressed data streams are always color-by-pixel and should be specified as such (a decoder can essentially ignore this element however as the value for JPEG compressed data is already known).</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_8.2.2" shape="rect"></a>8.2.2 Run Length Encoding Compression</h3>
+                  </div>
+               </div>
+            </div>
+            <p>DICOM provides a mechanism for supporting the use of Run Length Encoding (RLE) Compression, which is a byte oriented lossless compression scheme through the encapsulated Format (see <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a> of this Standard). <a class="xref" href="chapter_G.html" title="G Encapsulated RLE Compressed Images (Normative)" shape="rect"> Annex G</a> defines RLE Compression and its Transfer Syntax.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>The RLE Compression algorithm described in <a class="xref" href="chapter_G.html" title="G Encapsulated RLE Compressed Images (Normative)" shape="rect"> Annex G</a> is the compression used in the TIFF 6.0 specification known as the "PackBits" scheme.</p>
+            </div>
+            <p>The use of the DICOM Encapsulated Format to support RLE Compressed Pixel Data requires that the Data Elements that are related to the Pixel Data encoding (e.g., Photometric Interpretation, Samples per Pixel, Planar Configuration, Bits Allocated, Bits Stored, High Bit, Pixel Representation, Rows, Columns, etc.) shall contain values that are consistent with the compressed data.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>These requirements were formerly specified in terms of the "uncompressed pixel data from which the compressed data was derived". However, since the form of the "original" uncompressed data stream could vary between different implementations, this requirement is now specified in terms of consistency with what is encapsulated.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Those characteristics not implied by the definition of the compression scheme (e.g., always color-by-plane in RLE), can therefore be determined from the DICOM Data Element in the enclosing Data Set. For example a Photometric Interpretation of "YBR FULL" would describe the color space that is commonly used to losslessly compress images using RLE. It is unusual to use an RGB color space for RLE compression, since no advantage is taken of correlation between the red, green and blue components (e.g., of luminance), and poor compression is achieved (note however that the conversion from RGB to YBR FULL is itself lossy. A new photometric interpretation may be proposed in the future that allows lossless conversion from RGB and also results in better RLE compression ratios).</p>
+                     </li>
+                     <li class="listitem">
+                        <p>DICOM Data Elements should not describe characteristics that are beyond the capability of the compression scheme used. For example, RLE compressed data streams (using the algorithm mandated in the DICOM Standard) are always color-by-plane.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_8.2.3" shape="rect"></a>8.2.3 JPEG-LS Image Compression</h3>
+                  </div>
+               </div>
+            </div>
+            <p>DICOM provides a mechanism for supporting the use of JPEG-LS Image Compression through the Encapsulated Format (see <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>). <a class="xref" href="chapter_A.html" title="A Transfer Syntax Specifications (Normative)" shape="rect"> Annex A</a> defines a number of Transfer Syntaxes that reference the JPEG-LS Standard and provide a number of lossless (bit preserving) and lossy (near-lossless) compression schemes.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>The context where the usage of lossy (near-lossless) compression of medical images is clinically acceptable is beyond the scope of the DICOM Standard. The policies associated with the selection of appropriate compression parameters (e.g., compression ratio) for JPEG-LS lossy (near-lossless) compression is also beyond the scope of this standard.</p>
+            </div>
+            <p>The use of the DICOM Encapsulated Format to support JPEG-LS Compressed Pixel Data requires that the Data Elements that are related to the Pixel Data encoding (e.g., Photometric Interpretation, Samples per Pixel, Planar Configuration, Bits Allocated, Bits Stored, High Bit, Pixel Representation, Rows, Columns, etc.) shall contain values that are consistent with the characteristics of the compressed data stream. The Pixel Data characteristics included in the JPEG-LS Interchange Format shall be used to decode the compressed data stream.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>See also the notes in <a class="xref" href="sect_8.2.html#sect_8.2.1" title="8.2.1 JPEG Image Compression" shape="rect">Section 8.2.1</a>.</p>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_8.2.4" shape="rect"></a>8.2.4 JPEG 2000 Image Compression</h3>
+                  </div>
+               </div>
+            </div>
+            <p>DICOM provides a mechanism for supporting the use of JPEG 2000 Image Compression through the Encapsulated Format (see <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>). <a class="xref" href="chapter_A.html" title="A Transfer Syntax Specifications (Normative)" shape="rect"> Annex A</a> defines a number of Transfer Syntaxes that reference the JPEG 2000 Standard and provide lossless (bit preserving) and lossy compression schemes.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>The context where the usage of lossy compression of medical images is clinically acceptable is beyond the scope of the DICOM Standard. The policies associated with the selection of appropriate compression parameters (e.g., compression ratio) for JPEG 2000 lossy compression are also beyond the scope of this standard.</p>
+            </div>
+            <p>The use of the DICOM Encapsulated Format to support JPEG 2000 Compressed Pixel Data requires that the Data Elements that are related to the Pixel Data encoding (e.g., Photometric Interpretation, Samples per Pixel, Planar Configuration, Bits Allocated, Bits Stored, High Bit, Pixel Representation, Rows, Columns, etc.) shall contain values that are consistent with the characteristics of the compressed data stream. The Pixel Data characteristics included in the JPEG 2000 bit stream shall be used to decode the compressed data stream.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>These requirements are specified in terms of consistency with what is encapsulated, rather than in terms of the uncompressed pixel data from which the compressed data stream may have been derived.</p>
+            </div>
+            <p>When decompressing, should the characteristics explicitly specified in the compressed data stream be inconsistent with those specified in the DICOM Data Elements, those explicitly specified in the compressed data stream should be used to control the decompression. The DICOM data elements, if inconsistent, can be regarded as suggestions as to the form in which an uncompressed Data Set might be encoded.</p>
+            <p>The JPEG 2000 bit stream specifies whether or not a reversible or irreversible multi-component (color) transformation, if any, has been applied. If no multi-component transformation has been applied, then the components shall correspond to those specified by the DICOM Attribute Photometric Interpretation (0028,0004). If the JPEG 2000 Part 1 reversible multi-component transformation has been applied then the DICOM Attribute Photometric Interpretation (0028,0004) shall be YBR_RCT. If the JPEG 2000 Part 1 irreversible multi-component transformation has been applied then the DICOM Attribute Photometric Interpretation (0028,0004) shall be YBR_ICT.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>For example, single component may be present, and the Photometric Interpretation (0028,0004) may be MONOCHROME2.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Though it would be unusual, would not take advantage of correlation between the red, green and blue components, and would not achieve effective compression, a Photometric Interpretation of RGB could be specified as long as no multi-component transformation was specified by the JPEG 2000 bit stream.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Despite the application of a multi-component color transformation and its reflection in the Photometric Interpretation attribute, the "color space" remains undefined. There is currently no means of conveying "standard color spaces" either by fixed values (such as sRGB) or by ICC profiles. Note in particular that the JP2 file header is not sent in the JPEG 2000 bitstream that is encapsulated in DICOM.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <p>The JPEG 2000 bitstream is capable of encoding both signed and unsigned pixel values, hence the value of Pixel Representation (0028,0103) may be either 0 or 1 depending on what has been encoded (as specified in the SIZ marker segment in the precision and sign of component parameter).</p>
+            <p>The value of Planar Configuration (0028,0006) is irrelevant since the manner of encoding components is specified in the JPEG 2000 standard, hence it shall be set to 0.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_8.2.5" shape="rect"></a>8.2.5 MPEG2 MP@ML Image Compression</h3>
+                  </div>
+               </div>
+            </div>
+            <p>DICOM provides a mechanism for supporting the use of MPEG2 MP@ML Image Compression through the Encapsulated Format (see <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>). <a class="xref" href="chapter_A.html" title="A Transfer Syntax Specifications (Normative)" shape="rect"> Annex A</a> defines a Transfer Syntax that references the MPEG2 MP@ML Standard.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>MPEG2 compression is inherently lossy. The context where the usage of lossy compression of medical images is clinically acceptable is beyond the scope of the DICOM Standard. The policies associated with the selection of appropriate compression parameters (e.g., compression ratio) for MPEG2 MP@ML are also beyond the scope of this standard.</p>
+            </div>
+            <p>The use of the DICOM Encapsulated Format to support MPEG2 MP@ML compressed pixel data requires that the Data Elements that are related to the Pixel Data encoding (e.g., Photometric Interpretation, Samples per Pixel, Planar Configuration, Bits Allocated, Bits Stored, High Bit, Pixel Representation, Rows, Columns, etc.) shall contain values that are consistent with the characteristics of the compressed data stream, with some specific exceptions noted here. The Pixel Data characteristics included in the MPEG2 MP@ML bit stream shall be used to decode the compressed data stream.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>These requirements are specified in terms of consistency with what is encapsulated, rather than in terms of the uncompressed pixel data from which the compressed data stream may have been derived.</p>
+            </div>
+            <p>When decompressing, should the characteristics explicitly specified in the compressed data stream be inconsistent with those specified in the DICOM Data Elements, those explicitly specified in the compressed data stream should be used to control the decompression. The DICOM data elements, if inconsistent, can be regarded as suggestions as to the form in which an uncompressed Data Set might be encoded.</p>
+            <p>The MPEG2 MP@ML bit stream specifies whether or not a reversible or irreversible multi-component (color) transformation, if any, has been applied. If no multi-component transformation has been applied, then the components shall correspond to those specified by the DICOM Attribute Photometric Interpretation (0028,0004). MPEG2 MP@ML applies an irreversible multi-component transformation, so DICOM Attribute Photometric Interpretation (0028,0004) shall be YBR_PARTIAL_420 in the case of multi-component data, and MONOCHROME2 in the case of single component data (even though the MPEG2 bit stream itself is always encoded as three components, one luminance and two chrominance).</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>MPEG2 proposes some video formats. Each of the standards specified is used in a different market, including: ITU-R BT.470-2 System M for SD NTSC and ITU-R BT.470-2 System B/G for SD PAL/SECAM. A PAL based system should therefore be based on ITU-BT.470 System B for each of Color Primaries, Transfer Characteristic (gamma) and matrix coefficients and should take a value of 5 as defined on in ISO/IEC 13818-2: 1995 (E).</p>
+            </div>
+            <p>The value of Planar Configuration (0028,0006) is irrelevant since the manner of encoding components is specified in the MPEG2 MP@ML standard, hence it shall be set to 0.</p>
+            <p>In summary:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>Samples per Pixel (0028,0002) shall be 3</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Photometric Interpretation (0028,0004) shall be YBR_PARTIAL_420</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Bits Allocated (0028,0100) shall be 8</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Bits Stored (0028,0101) shall be 8</p>
+                  </li>
+                  <li class="listitem">
+                     <p>High Bit (0028,0102) shall be 7</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Pixel Representation (0028,0103) shall be 0</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Planar Configuration (0028,0006) shall be 0</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Rows (0028,0010), Columns (0028,0011), Cine Rate (0018,0040) and Frame Time (0018,1063) or Frame Time Vector (0018,1065) shall be consistent with the limitations of MP@ML, as specified in <a class="xref" href="sect_8.2.html#table_8-1" title="Table 8-1. MPEG2 MP@ML Image Transfer Syntax Rows and Columns Attributes" shape="rect">Table 8-1</a>.</p>
+                  </li>
+               </ul>
+            </div>
+            <div class="table">
+               <a id="table_8-1" shape="rect"></a>
+               <p class="title">
+                  <strong>Table 8-1. MPEG2 MP@ML Image Transfer Syntax Rows and Columns Attributes</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Video Type</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Spatial resolution</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Frame Rate</p>
+                              <p>(see Note 4)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Frame Time</p>
+                              <p>(see Note 5)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Maximum Rows</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Maximum Columns</p>
+                           </td>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>525-line NTSC</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Full</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>30</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>33.33 ms</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>480</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>720</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>625-line PAL</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Full</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>25</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>40.0 ms</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>576</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>720</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>Although different combinations of values for Rows and Columns values are possible while respecting the maximum values listed above, it is recommended that the typical 4:3 ratio of image width to height be maintained in order to avoid image deformation by MPEG2 decoders. A common way to maintain the ratio of width to height is to pad the image with black areas on either side.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>"Half" definition of pictures (240x352 and 288x352 for NTSC and PAL, respectively) are always supported by decoders.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>MP@ML allows for various different display and pixel aspect ratios, including the use of square pixels, and the use of non-square pixels with display aspect ratios of 4:3 and 16:9. DICOM specifies no additional restrictions beyond what is provided for in MP@ML. All permutations allowed by MP@ML are valid and are require to be supported by all DICOM decoders.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The actual frame rate for NTSC MPEG2 is approximately 29.97 frames/sec.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The nominal Frame Time is supplied for the purpose of inclusion on the DICOM Cine Module Attributes, and should be calculated from the actual frame rate.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <p>One fragment shall contain the whole MPEG2 stream.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>If a video stream exceeds the maximum length of one fragment, it may be sent as multiple SOP Instances, but each SOP Instance will contain an independent and playable bit stream, and not depend on the encoded bit stream in other (previous) instances. The manner in which such separate instances are related is not specified in the standard, but mechanisms such as grouping into the same Series, and references to earlier instances using Referenced Image Sequence may be used.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>This constraint limits the length of the compressed bit stream to no longer than 2<sup>32</sup>-2 bytes.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <p>The Basic Offset Table shall be empty (present but zero length).</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>The Basic Offset Table is not used because MPEG2 contains its own mechanism for describing navigation of frames. To enable decoding of only a part of the sequence, MPEG2 manages a header in any group of pictures (GOP) containing a time_code - a 25-bit integer containing the following: drop_frame_flag, time_code_hours, time_code_minutes, marker_bit, time_code_seconds and time_code_pictures.</p>
+            </div>
+            <p>The container format for the video bitstream shall be MPEG-2 Transport Stream, a.k.a. MPEG-TS (see <a class="xref" href="chapter_2.html#biblio_ISOIEC13818-1" title="Information technology -- Generic coding of moving pictures and associated audio information - Part 1: Systems" shape="rect">[<abbr class="abbrev">ISO/IEC 13818-1</abbr>]</a>) or MPEG-4, a.k.a. MP4 container (see <a class="xref" href="chapter_2.html#biblio_ISOIEC14496-12" title="Information technology - Coding of audio-visual objects - Part 12: ISO base media file format" shape="rect">[<abbr class="abbrev">ISO/IEC 14496-12</abbr>]</a>  and <a class="xref" href="chapter_2.html#biblio_ISOIEC14496-14" title="Information technology - Coding of audio-visual objects - Part 14: MP4 file format" shape="rect">[<abbr class="abbrev">ISO/IEC 14496-14</abbr>]</a>).</p>
+            <p>Any audio components present within the MPEG bit stream shall comply with the following restrictions:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>CBR MPEG-1 LAYER III (MP3) Audio Standard</p>
+                  </li>
+                  <li class="listitem">
+                     <p>up to 24 bits</p>
+                  </li>
+                  <li class="listitem">
+                     <p>32 kHz, 44.1 kHz or 48 kHz for the main channel (the complementary channels can be sampled at the half rate, as defined in the Standard)</p>
+                  </li>
+                  <li class="listitem">
+                     <p>one main mono or stereo channel, and optionally one or more complementary channel(s)</p>
+                  </li>
+               </ul>
+            </div>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>MPEG-1 Layer III is standardized in Part 3 of the MPEG-1 standard (see <a class="xref" href="chapter_2.html#biblio_ISOIEC11172-3" title="Information technology -- Coding of moving pictures and associated audio for digital storage media at up to about 1,5 Mbit/s -- Part 3: Audio" shape="rect">[<abbr class="abbrev">ISO/IEC 11172-3</abbr>]</a>).</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Although MPEG describes each channel as including up to 5 signals (e.g., for surround effects), it is recommended to limit each of the two channels to 2 signals each one (stereo).</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_8.2.6" shape="rect"></a>8.2.6 MPEG2 MP@HL Image Compression</h3>
+                  </div>
+               </div>
+            </div>
+            <p>MPEG2 Main Profile at High Level (MP@HL) corresponds to what is commonly known as HDTV ('High Definition Television'). DICOM provides a mechanism for supporting the use of MPEG2 MP@HL Image Compression through the Encapsulated Format (see <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>). <a class="xref" href="chapter_A.html" title="A Transfer Syntax Specifications (Normative)" shape="rect"> Annex A</a> defines a Transfer Syntax that references the MPEG2 MP@HL Standard.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>MPEG2 compression is inherently lossy. The context where the usage of lossy compression of medical images is clinically acceptable is beyond the scope of the DICOM Standard. The policies associated with the selection of appropriate compression parameters (e.g., compression ratio) for MPEG2 MP@HL are also beyond the scope of this standard.</p>
+            </div>
+            <p>The use of the DICOM Encapsulated Format to support MPEG2 MP@HL compressed pixel data requires that the Data Elements that are related to the Pixel Data encoding (e.g., Photometric Interpretation, Samples per Pixel, Planar Configuration, Bits Allocated, Bits Stored, High Bit, Pixel Representation, Rows, Columns, etc.) shall contain values that are consistent with the characteristics of the compressed data stream, with some specific exceptions noted here. The Pixel Data characteristics included in the MPEG2 MP@HL bit stream shall be used to decode the compressed data stream.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>These requirements are specified in terms of consistency with what is encapsulated, rather than in terms of the uncompressed pixel data from which the compressed data stream may have been derived.</p>
+            </div>
+            <p>When decompressing, should the characteristics explicitly specified in the compressed data stream be inconsistent with those specified in the DICOM Data Elements, those explicitly specified in the compressed data stream should be used to control the decompression. The DICOM data elements, if inconsistent, can be regarded as suggestions as to the form in which an uncompressed Data Set might be encoded.</p>
+            <p>The requirements are:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>Planar Configuration (0028,0006) shall be 0</p>
+                     <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                        <h3 class="title">Note</h3>
+                        <p>The value of Planar Configuration (0028,0006) is irrelevant since the manner of encoding components is specified in the MPEG2 standard, hence it is set to 0.</p>
+                     </div>
+                  </li>
+                  <li class="listitem">
+                     <p>Samples per Pixel (0028,0002) shall be 3</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Photometric Interpretation (0028,0004) shall be YBR_PARTIAL_420 or MONOCHROME2</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Bits Allocated (0028,0100) shall be 8</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Bits Stored (0028,0101) shall be 8</p>
+                  </li>
+                  <li class="listitem">
+                     <p>High Bit (0028,0102) shall be 7</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Pixel Representation (0028,0103) shall be 0</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Rows (0028,0010) shall be either 720 or 1080</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Columns (0028,0011) shall be 1280 if Rows is 720, or shall be 1920 if Rows is 1080.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>The value of MPEG2 aspect_ratio_information shall be 0011 in the encapsulated MPEG2 data stream corresponding to a 'Display Aspect Ratio' (DAR) of 16:9.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>The DICOM attribute Pixel Aspect Ratio (0028,0034) shall be absent. This corresponds to a 'Sampling Aspect Ratio' (SAR) of 1:1.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Cine Rate (0018,0040) and Frame Time (0018,1063) or Frame Time Vector (0018,1065) shall be consistent with the limitations of MP@HL, as specified in <a class="xref" href="sect_8.2.html#table_8-2" title="Table 8-2. MPEG2 MP@HL Image Transfer Syntax Frame Rate Attributes" shape="rect">Table 8-2</a>.</p>
+                  </li>
+               </ul>
+            </div>
+            <div class="table">
+               <a id="table_8-2" shape="rect"></a>
+               <p class="title">
+                  <strong>Table 8-2. MPEG2 MP@HL Image Transfer Syntax Frame Rate Attributes</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Video Type</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Spatial resolution layer</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Frame Rate (see Note 2)</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Frame Time (see Note 3)</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>30 Hz HD</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Single level, Enhancement</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>30</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>33.33 ms</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>25 Hz HD</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Single level, Enhancement</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>25</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>40.0 ms</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>60 Hz HD</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Single level, Enhancement</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>60</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>16.17 ms</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>50 Hz HD</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Single level, Enhancement</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>50</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>20.00 ms</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>The requirements on rows and columns are to maximize interoperability between software environments and commonly available hardware MPEG2 encoder/decoder implementations. Should the source picture have a lower value, it should be re-formatted accordingly by scaling and/or pixel padding prior to MPEG2 encoding.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The frame rate of the acquiring camera for '30 Hz HD' MPEG2 may be either 30 or 30/1.001 (approximately 29.97) frames/sec. Similarly, the frame rate in the case of 60 Hz may be either 60 or 60/1.001 (approximately 59.94) frames/sec This may lead to small inconsistencies between the video timebase and real time.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The Frame Time (0018,1063) may be calculated from the frame rate of the acquiring camera. A frame time of 33.367 ms corresponds to 29.97 frames per second.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The value of chroma_format for this profile and level is defined by MPEG as 4:2:0.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Examples of screen resolutions supported by MPEG2 MP@HL are shown in Table 8-y. Frame rates of 50 Hz and 60 Hz (progressive) at the maximum resolution of 1080 by 1920 are not supported by MP@HL. Interlace at the maximum resolution is supported at a field rate of 50 Hz or 60 Hz, which corresponds to a frame rate of 25 Hz or 30 Hz respectively as described in Table 8-y.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>An MPEG2 MP@HL decoder is able to decode bit streams conforming to lower levels. These include the 1080 by 1440 bit streams of MP@H-14, and the Main Level bit streams used in the existing MPEG2 MP@ML transfer syntax in the Visible Light IOD.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>MP@H-14 is not supported by this transfer syntax.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The restriction of DAR to 16:9 is required to ensure interoperability because of limitations in commonly available hardware chip set implementations for MPEG2 MP@HL.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <div class="table">
+               <a id="table_8-3" shape="rect"></a>
+               <p class="title">
+                  <strong>Table 8-3. Examples of MPEG2 MP@HL Screen Resolution</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <tr valign="top">
+                        <th align="center" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Rows</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="center" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Columns</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="center" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Frame rate</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="center" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Video Type</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="center" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Progressive or Interlace</strong>
+                              </span>
+                           </p>
+                        </th>
+                     </tr>
+                     <tr valign="top">
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>1080</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>1920</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>25</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>25 Hz HD</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>P</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>1080</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>1920</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>29.97, 30</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>30 Hz HD</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>P</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>1080</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>1920</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>25</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>25 Hz HD</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>I</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>1080</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>1920</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>29.97, 30</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>30 Hz HD</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>I</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>720</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>1280</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>25</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>25 Hz HD</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>P</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>720</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>1280</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>29.97, 30,</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>30 Hz HD</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>P</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>720</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>1280</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>50</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>50 Hz HD</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>P</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>720</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>1280</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>59.94, 60</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>60 Hz HD</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>P</p>
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <p>One fragment shall contain the whole MPEG2 bit stream.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>If a video stream exceeds the maximum length of one fragment (approximately 4 GB), it may be sent as multiple SOP Instances, but each SOP Instance will contain an independent and playable bit stream, and not depend on the encoded bit stream in other (previous) instances. The manner in which such separate instances are related is not specified in the standard, but mechanisms such as grouping into the same Series, and references to earlier instances using Referenced Image Sequence may be used.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>This constraint limits the length of the compressed bit stream to no longer than 2<sup>32</sup>-2 bytes.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <p>The Basic Offset Table in the Pixel Data (7FE0,0010) shall be empty (present but zero length).</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>The Basic Offset Table is not used because MPEG2 contains its own mechanism for describing navigation of frames. To enable decoding of only a part of the sequence, MPEG2 manages a header in any group of pictures (GOP) containing a time_code - a 25-bit integer containing the following: drop_frame_flag, time_code_hours, time_code_minutes, marker_bit, time_code_seconds and time_code_pictures.</p>
+            </div>
+            <p>The container format for the video bitstream shall be MPEG-2 Transport Stream, a.k.a. MPEG-TS (see <a class="xref" href="chapter_2.html#biblio_ISOIEC13818-1" title="Information technology -- Generic coding of moving pictures and associated audio information - Part 1: Systems" shape="rect">[<abbr class="abbrev">ISO/IEC 13818-1</abbr>]</a>) or MPEG-4, a.k.a. MP4 container (see <a class="xref" href="chapter_2.html#biblio_ISOIEC14496-12" title="Information technology - Coding of audio-visual objects - Part 12: ISO base media file format" shape="rect">[<abbr class="abbrev">ISO/IEC 14496-12</abbr>]</a>  and <a class="xref" href="chapter_2.html#biblio_ISOIEC14496-14" title="Information technology - Coding of audio-visual objects - Part 14: MP4 file format" shape="rect">[<abbr class="abbrev">ISO/IEC 14496-14</abbr>]</a>).</p>
+            <p>Any audio components present within the MPEG2 MP@HL bit stream shall comply with the restrictions as for MPEG2 MP@ML as stated in <a class="xref" href="sect_8.2.html#sect_8.2.5" title="8.2.5 MPEG2 MP@ML Image Compression" shape="rect">Section 8.2.5</a>.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_8.2.7" shape="rect"></a>8.2.7 MPEG-4 AVC/H.264 High Profile / Level 4.1 Video Compression</h3>
+                  </div>
+               </div>
+            </div>
+            <p>MPEG-4 AVC/H.264 High Profile / Level 4.1 corresponds to what is commonly known as HDTV ('High Definition Television'). DICOM provides a mechanism for supporting the use of MPEG-4 AVC/H.264 Image Compression through the Encapsulated Format (see <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>). <a class="xref" href="chapter_A.html" title="A Transfer Syntax Specifications (Normative)" shape="rect"> Annex A</a> defines a Transfer Syntax that references the MPEG-4 AVC/H.264 Standard.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>MPEG-4 AVC/H.264 compression @ High Profile compression is inherently lossy. The context where the usage of lossy compression of medical images is clinically acceptable is beyond the scope of the DICOM Standard. The policies associated with the selection of appropriate compression parameters (e.g., compression ratio) for MPEG-4 AVC/H.264 HiP@Level4.1 are also beyond the scope of this standard.</p>
+            </div>
+            <p>The use of the DICOM Encapsulated Format to support MPEG-4 AVC/H.264 compressed pixel data requires that the Data Elements that are related to the Pixel Data encoding (e.g., Photometric Interpretation, Samples per Pixel, Planar Configuration, Bits Allocated, Bits Stored, High Bit, Pixel Representation, Rows, Columns, etc.) shall contain values that are consistent with the characteristics of the compressed data stream, with some specific exceptions noted here. The Pixel Data characteristics included in the MPEG-4 AVC/H.264 bit stream shall be used to decode the compressed data stream.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>These requirements are specified in terms of consistency with what is encapsulated, rather than in terms of the uncompressed pixel data from which the compressed data stream may have been derived.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>When decompressing, should the characteristics explicitly specified in the compressed data stream be inconsistent with those specified in the DICOM Data Elements, those explicitly specified in the compressed data stream should be used to control the decompression. The DICOM data elements, if inconsistent, can be regarded as suggestions as to the form in which an uncompressed Data Set might be encoded.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <p>The requirements are:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>Planar Configuration (0028,0006) shall be 0</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Samples per Pixel (0028,0002) shall be 3</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Photometric Interpretation (0028,0004) shall be YBR_PARTIAL_420</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Bits Allocated (0028,0100) shall be 8</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Bits Stored (0028,0101) shall be 8</p>
+                  </li>
+                  <li class="listitem">
+                     <p>High Bit (0028,0102) shall be 7</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Pixel Representation (0028,0103) shall be 0</p>
+                  </li>
+                  <li class="listitem">
+                     <p>The value of MPEG-4 AVC/H.264 sample aspect_ratio_idc shall be 1 in the encapsulated MPEG-4 AVC/H.264 bit stream if aspect_ratio_info_present_flag is 1.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Pixel Aspect Ratio (0028,0034) shall be absent. This corresponds to a 'Sampling Aspect Ratio' (SAR) of 1:1.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>The possible values for Rows (0028,0010), Columns (0028,0011), Cine Rate (0018,0040), and Frame Time (0018,1063) or Frame Time Vector (0018,1065) depend on the used transfer syntax.</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: circle; ">
+                           <li class="listitem">
+                              <p>For MPEG-4 AVC/H.264 High Profile / Level 4.1 transfer syntax, the values for these data elements shall be compliant with the High Profile / Level 4.1 of the MPEG-4 AVC/H.264 standard (ISO/IEC 1449-10:2009) and restricted to a square pixel aspect ratio.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>For MPEG-4 AVC/H.264 BD-compatible High Profile / Level 4.1 transfer syntax, the values for these data elements shall be as specified in <a class="xref" href="sect_8.2.html#table_8-4" title="Table 8-4. Values Permitted for MPEG-4 AVC/H.264 BD-compatible High Profile / Level 4.1" shape="rect">Table 8-4</a>.</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+               </ul>
+            </div>
+            <div class="table">
+               <a id="table_8-4" shape="rect"></a>
+               <p class="title">
+                  <strong>Table 8-4. Values Permitted for MPEG-4 AVC/H.264 BD-compatible High Profile / Level 4.1</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Rows</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Columns</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Frame rate</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Video Type</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Progressive or Interlace</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1080</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1920</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>25</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>25 Hz HD</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>I</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1080</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1920</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>29.97</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>30 Hz HD</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>I</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1080</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1920</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>24</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>24 Hz HD</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>P</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1080</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1920</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>23.976</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>24 Hz HD</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>P</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>720</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1280</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>50</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>50 Hz HD</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>P</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>720</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1280</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>59.94,</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>60 Hz HD</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>P</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>720</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1280</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>24</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>24 Hz HD</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>P</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>720</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1280</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>23.976</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>24 Hz HD</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>P</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>The value of Planar Configuration (0028,0006) is irrelevant since the manner of encoding components is specified in the MPEG-4 AVC/H.264 standard, hence it is set to 0.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The limitation on rows and columns are to maximize interoperability between software environments and commonly available hardware MPEG-4 AVC/H.264 encoder/decoder implementations. Source pictures that have a lower value should be re-formatted by scaling and/or pixel padding prior to MPEG-4 AVC/H.264 encoding.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The frame rate of the acquiring camera for '30 Hz HD' MPEG-4 AVC/H.264 may be either 30 or 30/1.001 (approximately 29.97) frames/sec. Similarly, the frame rate in the case of 60 Hz may be either 60 or 60/1.001 (approximately 59.94) frames/sec. This may lead to small inconsistencies between the video timebase and real time. The relationship between frame rate and frame time is shown in Table 8-5.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The Frame Time (0018,1063) may be calculated from the frame rate of the acquiring camera. A frame rate of 29.97 frames per second corresponds to a frame time of 33.367 ms.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The value of chroma_format for this profile and level is defined by MPEG as 4:2:0.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Example screen resolutions supported by MPEG-4 AVC/H.264 High Profile / Level 4.1 can be taken from Table 8-4. Frame rates of 50 Hz and 60 Hz (progressive) at the maximum resolution of 1080 by 1920 are not supported by MPEG-4 AVC/H.264 High Profile / Level 4.1. Interlace at the maximum resolution is supported at a field rate of 50 Hz or 60 Hz, which corresponds to a frame rate of 25 Hz or 30 Hz respectively. Smaller resolutions may be used as long as they comply with the square pixel aspect ratio. An example is XGA resolution with an image resolution of 768 by 1024 pixels. For smaller resolutions there are higher frame rates possible. For example it may be up to 80 Hz for XGA.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The display aspect ratio is defined implicitly by the pixel resolution of the video picture. Only square pixel aspect ratio is allowed. MPEG-4 AVC/H.264 BD-compatible High Profile / Level 4.1 will only support resolutions that result in a 16:9 display aspect ratio</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The permitted screen resolutions for the MPEG-4 AVC/H.264 BD-compatible High Profile / Level 4.1 are listed in Table 8-4. Only HD resolutions and no progressive frame rates for 25 or 29.97 frames per seconds are supported. Frame rates of 50 Hz and 60 Hz (progressive) at the maximum resolution of 1080 by 1920 are not supported.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <div class="table">
+               <a id="table_8-5" shape="rect"></a>
+               <p class="title">
+                  <strong>Table 8-5. MPEG-4 AVC/H.264 High Profile / Level 4.1 Image Transfer Syntax Frame Rate Attributes</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Video Type</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Spatial resolution layer</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Frame Rate (see Note 2)</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Frame Time (see Note 3)</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>30 Hz HD</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Single level, Enhancement</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>30</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>33.33 ms</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>25 Hz HD</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Single level, Enhancement</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>25</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>40.0 ms</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>60 Hz HD</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Single level, Enhancement</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>60</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>16.17 ms</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>50 Hz HD</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Single level, Enhancement</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>50</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>20.00 ms</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <p>One fragment shall contain the whole MPEG-4 AVC/H.264 bit stream.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>If a video stream exceeds the maximum length of one fragment (approximately 4 GB), it may be sent as multiple SOP Instances, but each SOP Instance will contain an independent and playable bit stream, and not depend on the encoded bit stream in other (previous) instances. The manner in which such separate instances are related is not specified in the standard, but mechanisms such as grouping into the same Series, and references to earlier instances using Referenced Image Sequence may be used.</p>
+            </div>
+            <p>The container format for the video bitstream shall be MPEG-2 Transport Stream, a.k.a. MPEG-TS (see <a class="xref" href="chapter_2.html#biblio_ISOIEC13818-1" title="Information technology -- Generic coding of moving pictures and associated audio information - Part 1: Systems" shape="rect">[<abbr class="abbrev">ISO/IEC 13818-1</abbr>]</a>) or MPEG-4, a.k.a. MP4 container (see <a class="xref" href="chapter_2.html#biblio_ISOIEC14496-12" title="Information technology - Coding of audio-visual objects - Part 12: ISO base media file format" shape="rect">[<abbr class="abbrev">ISO/IEC 14496-12</abbr>]</a>  and <a class="xref" href="chapter_2.html#biblio_ISOIEC14496-14" title="Information technology - Coding of audio-visual objects - Part 14: MP4 file format" shape="rect">[<abbr class="abbrev">ISO/IEC 14496-14</abbr>]</a>). The PTS/DTS of the transport stream shall be used in the MPEG coding. Any audio components present within the bit stream shall be interleaved in either LPCM, AC-3, AAC, MP3 or MPEG-1 Layer II audio format and shall comply with the following restrictions:</p>
+            <div class="table">
+               <a id="table_8-6" shape="rect"></a>
+               <p class="title">
+                  <strong>Table 8-6. Allowed Audio Formats</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Audio Format</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>MPEG-2 TS Container</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>MP4 Container</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>LPCM</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Allowed</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>-</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AC3</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Allowed</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>-</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AAC</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Allowed</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Allowed</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>MP3</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Allowed</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Allowed</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>MPEG-1 Audio Layer II</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Allowed</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Allowed</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>LPCM</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: circle; ">
+                           <li class="listitem">
+                              <p>Maximum bit rate: 4.608 Mbps</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Sampling frequency: 48, 96 kHz</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Bits per sample: 16, 20 or 24 bits</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Number of channels: 2 channels</p>
+                           </li>
+                        </ul>
+                     </div>
+                     <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                        <h3 class="title">Note</h3>
+                        <p>If LPCM is used for Audio components, the container format shall be MPEG-2 TS.</p>
+                     </div>
+                  </li>
+                  <li class="listitem">
+                     <p>AC-3</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: circle; ">
+                           <li class="listitem">
+                              <p>Maximum bit rate: 640kbps</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Sampling frequency: 48kHz</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Bits per sample: 16 bits</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Number of channels: 2 or 5.1 channels</p>
+                           </li>
+                        </ul>
+                     </div>
+                     <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                        <h3 class="title">Note</h3>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>AC-3 is standardized in <a class="xref" href="chapter_2.html#biblio_ETSI_TS_102_366" title="Audio Compression (AC-3, Enhanced AC-3) Standard" shape="rect">[<abbr class="abbrev">ETSI TS 102 366</abbr>]</a>
+                                 </p>
+                              </li>
+                              <li class="listitem">
+                                 <p>If AC-3 is used for Audio components, the container format shall be MPEG-2 TS.</p>
+                              </li>
+                           </ol>
+                        </div>
+                     </div>
+                  </li>
+                  <li class="listitem">
+                     <p>AAC</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: circle; ">
+                           <li class="listitem">
+                              <p>Maximum bit rate: 640kbps</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Sampling frequency: 48kHz</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Bits per sample: 16, 20 or 24 bits</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Number of channels: 2 or 5.1 channels</p>
+                           </li>
+                        </ul>
+                     </div>
+                     <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                        <h3 class="title">Note</h3>
+                        <p>AAC is standardized in Part 7 of the MPEG-2 standard (see <a class="xref" href="chapter_2.html#biblio_ISOIEC13818-7" title="Information technology -- Generic coding of moving pictures and associated audio information - Part 7: Advanced Audio Coding (AAC)" shape="rect">[<abbr class="abbrev">ISO/IEC 13818-7</abbr>]</a>, and Subpart 4 in Part 3 of the MPEG-4 standard (see <a class="xref" href="chapter_2.html#biblio_ISOIEC14496-3" title="Information technology - Coding of audio-visual objects - Part 3: Audio" shape="rect">[<abbr class="abbrev">ISO/IEC 14496-3</abbr>]</a>).</p>
+                     </div>
+                  </li>
+                  <li class="listitem">
+                     <p>CBR MPEG-1 LAYER III (MP3) Audio Standard</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: circle; ">
+                           <li class="listitem">
+                              <p>Maximum bit rate: 320kbps</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Sampling frequency: 32 kHz, 44.1 kHz or 48 kHz for the main channel (the complementary channels can be sampled at the half rate, as defined in the Standard)</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Bits per sample: up to 24 bits</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Number of channels: one main mono or stereo channel, and optionally one or more complementary channel(s)</p>
+                           </li>
+                        </ul>
+                     </div>
+                     <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                        <h3 class="title">Note</h3>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>MPEG-1 Layer III is standardized in Part 3 of the MPEG-1 standard (see <a class="xref" href="chapter_2.html#biblio_ISOIEC11172-3" title="Information technology -- Coding of moving pictures and associated audio for digital storage media at up to about 1,5 Mbit/s -- Part 3: Audio" shape="rect">[<abbr class="abbrev">ISO/IEC 11172-3</abbr>]</a>).</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>Although MPEG describes each channel as including up to 5 signals (e.g. for surround effects), it is recommended to limit each of the two channels to 2 signals each one (stereo).</p>
+                              </li>
+                           </ol>
+                        </div>
+                     </div>
+                  </li>
+                  <li class="listitem">
+                     <p>MPEG-1 LAYER II (MP2)</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: circle; ">
+                           <li class="listitem">
+                              <p>Maximum bit rate: 384kbps</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Sampling frequency: 32 kHz, 44.1 kHz or 48 kHz</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Bits per sample: up to 24 bits</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Number of channels: 2</p>
+                           </li>
+                        </ul>
+                     </div>
+                     <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                        <h3 class="title">Note</h3>
+                        <p>MPEG-1 Layer II is standardized in Part 3 of the MPEG-1 standard (see <a class="xref" href="chapter_2.html#biblio_ISOIEC11172-3" title="Information technology -- Coding of moving pictures and associated audio for digital storage media at up to about 1,5 Mbit/s -- Part 3: Audio" shape="rect">[<abbr class="abbrev">ISO/IEC 11172-3</abbr>]</a>).</p>
+                     </div>
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_8.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_8.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_8.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">8 Encoding of Pixel, Overlay and Waveform Data </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.5.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 8.3 Waveform Data and Related Data Elements</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>F.2 Basic Directory IOD Overview</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.3.html" title="PS3.3" />
+      <link rel="up" href="chapter_F.html" title="F Basic Directory Information Object Definition (Normative)" />
+      <link rel="prev" href="chapter_F.html" title="F Basic Directory Information Object Definition (Normative)" />
+      <link rel="next" href="sect_F.3.html" title="F.3 Basic Directory IOD" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">F.2 Basic Directory IOD Overview</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_F.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">F Basic Directory Information Object Definition (Normative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_F.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_F.2" shape="rect"></a>F.2 Basic Directory IOD Overview</h2>
+               </div>
+            </div>
+         </div>
+         <p>The general organization of the Basic Directory IOD is introduced in this Section. A simple example is also provided to illustrate the application of this organization.</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_F.2.1" shape="rect"></a>F.2.1 Basic Directory IOD Organization</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The Basic Directory IOD organization is based on a hierarchy of Directory Entities. At the origin of this inverted tree is a root Directory Entity. Each Directory Entity includes one or more Directory Records, which in turn may each reference a lower level Directory Entity.</p>
+            <p>Directory Records serve to reference objects stored in the Files of the File-set. The organization of the Directory is depicted by the Basic Directory IOD entity/relationship model presented in <a class="xref" href="sect_F.2.html#figure_F.2-1" title="Figure F.2-1. Basic Directory Information Object E-R Model" shape="rect">Figure F.2-1</a>.</p>
+            <p>Each Directory Record, irrespective of the Directory Entity it is included in, contains four types of information:</p>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="a">
+                  <li class="listitem">
+                     <p>A reference to a lower level Directory Entity or Referenced Directory Entity. This reference may be absent if such a lower level Directory Entity does not exist for an instance of a directory record;</p>
+                  </li>
+                  <li class="listitem">
+                     <p>A reference to a File of the File-set in which is stored a "Referenced Object" (formally called in DICOM a Referenced SOP Instance). This reference may be absent if no File is referenced. Files may be referenced directly by their File ID;</p>
+                  </li>
+                  <li class="listitem">
+                     <p>A set of "selection keys," specific to a Referenced Object, which will allow its selection among all the records included in a given Directory Entity;</p>
+                  </li>
+                  <li class="listitem">
+                     <p>A mechanism to chain the various Directory Records that belong to the same Directory Entity.</p>
+                  </li>
+               </ol>
+            </div>
+            <p>This generic content of a Directory Record is further specialized based on its specific type in the context the Basic Directory IOD Information Model specified in <a class="xref" href="sect_F.4.html" title="F.4 Basic Directory IOD Information Model" shape="rect">Section F.4</a> (e.g., a Study Record, a Series Record, etc.). A Directory Entity may include Directory Records of different Types. By standardizing a number of specific Directory Records (see <a class="xref" href="sect_F.5.html" title="F.5 Definition of Specific Directory Records" shape="rect">Section F.5</a>) in the context of the Basic Directory IOD Information Model, one allows the definition of a variety of directory contents while maintaining a framework for interoperability.</p>
+            <p>
+          </p>
+            <div class="figure">
+               <a id="figure_F.2-1" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.3_F.2-1.svg" alt="Basic Directory Information Object E-R Model" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure F.2-1. Basic Directory Information Object E-R Model</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+            <p>To facilitate the management and update of the Directory Information a number of rules are defined:</p>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="a">
+                  <li class="listitem">
+                     <p>Any Lower-Level Directory Entity shall be referenced by at most one higher-level Directory Record. Not allowing multiple higher-level Directory Records to reference the same Lower-Level Directory Entity simplifies the management of the deletion (or inactivation) of Directory Records and Lower-Level Directory Entities and associated Directory Records</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Any Directory Record shall belong to a single Directory Entity. This rule and the above rule, makes the Basic Directory IOD itself strictly hierarchical</p>
+                  </li>
+                  <li class="listitem">
+                     <p>All files referenced by a Directory shall be present in the same File-Set to which the directory belongs</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Non-DICOM files that are not referenced by the Directory may be included in the File-set space. The means of access to such Files and the semantics associated with their absence from the Directory is beyond the scope of the DICOM Standard</p>
+                  </li>
+                  <li class="listitem">
+                     <p>If a DICOMDIR contains a Directory Information Module, all DICOM Files of the File-set shall be referenced by a Directory Record</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Any File of the File-set shall be directly referenced by at most one Directory Record of the Directory.</p>
+                  </li>
+               </ol>
+            </div>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>Referenced Files may contain SOP Instances of SOP Classes that provide the means to reference by UIDs other SOP Instances that may not be stored in files of the same File-set.</p>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_F.2.2" shape="rect"></a>F.2.2 Example of A Directory</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The example provided in this Section is only one simple example of a possible directory content and organization. This Section is not normative in nature. Therefore, this example is not meant to specify a conformant directory nor to restrict the range of possible directory organizations supported by this Part of the DICOM Standard.</p>
+            <p>The overall organization is illustrated at a logical level in <a class="xref" href="sect_F.2.html#sect_F.2.2.1" title="F.2.2.1 Illustration of the Overall Directory Organization" shape="rect">Section F.2.2.1</a>. The actual structure of the content is discussed in <a class="xref" href="sect_F.2.html#sect_F.2.2.2" title="F.2.2.2 Example of a DICOMDIR File Structure" shape="rect">Section F.2.2.2</a>. <a href="../part10/chapter_A.html" class="olink" shape="rect"> Annex A “Example of DICOMDIR File Content (Informative)” in PS3.10</a> depicts further details of the encoding of the file content.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_F.2.2.1" shape="rect"></a>F.2.2.1 Illustration of the Overall Directory Organization</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>A simple directory content is used as an example of Directory organization. It is depicted by <a class="xref" href="sect_F.2.html#figure_F.2-2" title="Figure F.2-2. Example of a Directory Organization and Content" shape="rect">Figure F.2-2</a>. The left hand side part of <a class="xref" href="sect_F.2.html#figure_F.2-2" title="Figure F.2-2. Example of a Directory Organization and Content" shape="rect">Figure F.2-2</a> depicts the various Objects stored in Files of the File-set. The right hand side presents an example of organization of the directory that facilitates access to the Files of the File-set.</p>
+               <p>This example shows how stored Files are referenced by Directory Records that are grouped into Directory Entities. The two Study Directory Records (Study 1 and Study 2) are part of the Directory Entity relative to the Patient A.</p>
+               <p>Thin curved lines depict the referencing mechanism based on File IDs that allow reference to Files containing stored objects. Thick curved lines depict the internal referencing mechanisms that support the reference to a lower-level Directory Entity by a Directory Record,.</p>
+               <p>Keys that are used to select a specific Directory Record from among the Directory Records of a Directory Entity are not shown on <a class="xref" href="sect_F.2.html#figure_F.2-2" title="Figure F.2-2. Example of a Directory Organization and Content" shape="rect">Figure F.2-2</a>.</p>
+               <p>One may note in this example that certain Directory Records such as the Series Directory Records do not reference Files containing stored objects. Other Directory Records such as the Image Directory Records do not reference lower level Directory Entities. However, a number of Directory Records reference both one lower level Directory Entity and one File containing a stored object. This flexibility allows the definition of a variety of directories.</p>
+               <p>
+            </p>
+               <div class="figure">
+                  <a id="figure_F.2-2" shape="rect"></a>
+                  <div class="figure-contents">
+                     <div class="mediaobject">
+                        <img src="figures/PS3.3_F.2-2.svg" alt="Example of a Directory Organization and Content" />
+                     </div>
+                  </div>
+                  <p class="title">
+                     <strong>Figure F.2-2. Example of a Directory Organization and Content</strong>
+                  </p>
+               </div>
+               <p>
+                  <br class="figure-break" clear="none" />
+               </p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_F.2.2.2" shape="rect"></a>F.2.2.2 Example of a DICOMDIR File Structure</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>Based on the example discussed in <a class="xref" href="sect_F.2.html#sect_F.2.2.1" title="F.2.2.1 Illustration of the Overall Directory Organization" shape="rect">Section F.2.2.1</a>, the internal data structure used by the Basic Directory IOD is depicted in <a class="xref" href="sect_F.2.html#figure_F.2-3" title="Figure F.2-3. Example of Data Structure for the DICOM Directory Information" shape="rect">Figure F.2-3</a>. It shows a set of Directory Records where each Directory Record is linked by three different types of "referencing" mechanisms:</p>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="a">
+                     <li class="listitem">
+                        <p>The chaining of Directory Records to form a Directory Entity. In particular, this facilitates the addition of new Directory Records at the level of any Directory Entity by placing them at the end of the DICOMDIR File. On <a class="xref" href="sect_F.2.html#figure_F.2-3" title="Figure F.2-3. Example of Data Structure for the DICOM Directory Information" shape="rect">Figure F.2-3</a>, this chaining is shown by yellow lines:</p>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>#1 shows the chaining of the Directory Records forming the root Directory Entity</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>#2 shows the chaining of the Directory Records for the Directory Entity related to Patient A</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>#3 shows the chaining of the Directory Records for the Directory Entity related to Study 1</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>#4 shows the chaining of the Directory Records for the Directory Entity related to Series 1</p>
+                              </li>
+                           </ol>
+                        </div>
+                     </li>
+                     <li class="listitem">
+                        <p>Green lines depict the reference by a Directory Record to a lower level Directory Entity</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Blue lines depict the reference by a Directory Record to a stored file containing a SOP Class</p>
+                     </li>
+                  </ol>
+               </div>
+               <p>This example of a DICOMDIR File structure shows one example of a specific order of the Directory Records. Other orderings of Directory Records could result in a functionally equivalent directory.</p>
+               <p>
+            </p>
+               <div class="figure">
+                  <a id="figure_F.2-3" shape="rect"></a>
+                  <div class="figure-contents">
+                     <div class="mediaobject">
+                        <img src="figures/PS3.3_F.2-3.svg" alt="Example of Data Structure for the DICOM Directory Information" />
+                     </div>
+                  </div>
+                  <p class="title">
+                     <strong>Figure F.2-3. Example of Data Structure for the DICOM Directory Information</strong>
+                  </p>
+               </div>
+               <p>
+                  <br class="figure-break" clear="none" />
+               </p>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_F.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_F.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_F.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">F Basic Directory Information Object Definition (Normative) </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.3.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> F.3 Basic Directory IOD</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

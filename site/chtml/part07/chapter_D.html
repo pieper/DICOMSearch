@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>D Association Negotiation (Normative)</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.7.html" title="PS3.7" />
+      <link rel="up" href="PS3.7.html" title="PS3.7" />
+      <link rel="prev" href="sect_C.5.html" title="C.5 Failure Status Class" />
+      <link rel="next" href="sect_D.2.html" title="D.2 Transfer Syntaxes" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">D Association Negotiation (Normative)</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_C.5.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_D.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_D" shape="rect"></a>D Association Negotiation (Normative)</h1>
+               </div>
+            </div>
+         </div>
+         <p>Association establishment is the first phase of any instance of communication between peer DICOM AEs. The AEs use the Association establishment to negotiate how data will be encoded and the type of data to be exchanged. This Annex provides an overview of the negotiation mechanisms plus a discussion of each concept, its objectives, relationships, usage principles and specifications.</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_D.1" shape="rect"></a>D.1 Abstract Syntax</h2>
+                  </div>
+               </div>
+            </div>
+            <p>Abstract Syntaxes specify the Application Layer Data Elements and Application Layer protocol control information (with associated semantics) that are independent of the encoding technique used to represent them.</p>
+            <p>Each Abstract Syntax shall be identified by an Abstract Syntax Name in the form of a UID. DICOM AEs use the Abstract Syntax Name to identify and negotiate which SOP Classes and related options are supported on a specific Association. Abstract Syntax Names shall be defined in the Service Class Definitions specified in <a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a>. Each Abstract Syntax Name defined shall have a value of either</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>a Service-Object Pair Class UID</p>
+                  </li>
+                  <li class="listitem">
+                     <p>a Meta Service-Object Pair Group UID</p>
+                  </li>
+               </ul>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_D.1.1" shape="rect"></a>D.1.1 Service-Object Pair Class UID</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>Each Service Class Definition defines one or more functionally-related Service-Object Pair (SOP) Class definitions that specify well-defined operations and/or notifications that may be performed between peer DICOM Application Entities to provide an application-level service. Each SOP Class, identified by a SOP Class UID, is defined by the union of one Information Object Definition (IOD) and a specific set of one or more DIMSE Services called the DIMSE Service Group (DSG) in that</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>The IOD defines the data structures</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The DSG defines the operations and/or notifications that can be performed on this data structure.</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>Two SOP Classes defined by a single Service Class Definition may differ by the IOD, the DSG or both. Two different IODs shall not, however, be part of the same SOP Class. <a class="xref" href="chapter_D.html#figure_D.1-1" title="Figure D.1-1. Service Class, IOD, DSG and SOP Class Relationships" shape="rect">Figure D.1-1</a> shows the relationships between Service Classes, IODs, DSGs and SOP Classes.</p>
+               <p>
+  </p>
+               <div class="figure">
+                  <a id="figure_D.1-1" shape="rect"></a>
+                  <div class="figure-contents">
+                     <div class="mediaobject">
+                        <img src="figures/PS3.7_D.1-1.svg" alt="Service Class, IOD, DSG and SOP Class Relationships" />
+                     </div>
+                  </div>
+                  <p class="title">
+                     <strong>Figure D.1-1. Service Class, IOD, DSG and SOP Class Relationships</strong>
+                  </p>
+               </div>
+               <p>
+                  <br class="figure-break" clear="none" />
+               </p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="1">
+                        <li class="listitem">
+                           <p>Two examples of Service Classes are the Storage and Study Management Service Classes. The Storage Service Class relates to image Information Object Definitions such as CT, MR etc. and the Study Management Service Class relates to the Study Information Object Definition.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>For readers familiar with OSI terminology, the concept of the Managed Object Class is the equivalent to the DICOM Service-Object Pair Class. The SOP Class specifies both the data (Attributes defined in the Information Object Definition) and the methods (Operations and Notifications (DSG) defined in the Service Class).</p>
+                        </li>
+                     </ol>
+                  </div>
+               </div>
+               <p>By setting the Abstract Syntax Name to a specific SOP Class UID value, DICOM Application Entities may negotiate Service Class operations and/or notifications for each defined SOP Class individually.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_D.1.2" shape="rect"></a>D.1.2 Meta Service-Object Pair Group UID</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>Each Service Class Definition may optionally define one or more Meta Service-Object Pair Classes each being identified by a Meta SOP Class UID. Each Meta SOP Class represents the union of a set of SOP Classes defined in the Service Class.</p>
+               <p>By setting the Abstract Syntax Name to a specific Meta SOP Class UID value, DICOM Application Entities may negotiate Service Class operations and/or notifications for a set of defined SOP Classes using a single Abstract Syntax. <a class="xref" href="chapter_D.html#figure_D.1-2" title="Figure D.1-2. SOP Class UIDs and Meta SOP Class UIDs and Abstract Syntax Names" shape="rect">Figure D.1-2</a> depicts this.</p>
+               <p>
+</p>
+               <div class="figure">
+                  <a id="figure_D.1-2" shape="rect"></a>
+                  <div class="figure-contents">
+                     <div class="mediaobject">
+                        <img src="figures/PS3.7_D.1-2.svg" alt="SOP Class UIDs and Meta SOP Class UIDs and Abstract Syntax Names" />
+                     </div>
+                  </div>
+                  <p class="title">
+                     <strong>Figure D.1-2. SOP Class UIDs and Meta SOP Class UIDs and Abstract Syntax Names</strong>
+                  </p>
+               </div>
+               <p>
+                  <br class="figure-break" clear="none" />
+               </p>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_C.5.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_D.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">C.5 Failure Status Class </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.7.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> D.2 Transfer Syntaxes</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

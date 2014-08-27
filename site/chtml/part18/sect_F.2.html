@@ -1,0 +1,728 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>F.2 DICOM JSON Model</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.18.html" title="PS3.18" />
+      <link rel="up" href="chapter_F.html" title="F DICOM JSON Model" />
+      <link rel="prev" href="chapter_F.html" title="F DICOM JSON Model" />
+      <link rel="next" href="sect_F.3.html" title="F.3 Transformation with other DICOM Formats" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">F.2 DICOM JSON Model</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_F.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">F DICOM JSON Model</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_F.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_F.2" shape="rect"></a>F.2 DICOM JSON Model</h2>
+               </div>
+            </div>
+         </div>
+         <p>The DICOM JSON Model follows the Native DICOM Model for XML very closely, so that systems can take advantage of both formats without much retooling. The Media Type for DICOM JSON is application/json. The default character repertoire shall be UTF-8 / ISO_IR 192.</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_F.2.1" shape="rect"></a>F.2.1 Multiple Results Structure</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Multiple results returned in JSON are organized as a single top-level array of JSON objects. This differs from the Native DICOM Model, which returns multiple results as a multi-part collection of singular XML documents.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_F.2.1.1" shape="rect"></a>F.2.1.1 Examples</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_F.2.1.1.1" shape="rect"></a>F.2.1.1.1 Native DICOM Model</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <pre class="programlisting" xml:space="preserve">
+&lt;?xml version="1.0" encoding="UTF-8" xml:space="preserve" ?&gt;
+&lt;NativeDicomModel&gt;
+  &lt;DicomAttribute tag="0020000D" vr="UI" keyword="StudyInstanceUID"&gt;
+    &lt;Value number="1"&gt;1.2.392.200036.9116.2.2.2.1762893313.1029997326.945873&lt;/Value&gt;
+  &lt;/DicomAttribute&gt;
+&lt;/NativeDicomModel&gt;
+…
+&lt;?xml version="1.0" encoding="UTF-8" xml:space="preserve" ?&gt;
+&lt;NativeDicomModel&gt;
+  &lt;DicomAttribute tag="0020000D" vr="UI" keyword="StudyInstanceUID"&gt;
+    &lt;Value number="1"&gt;1.2.444.200036.9116.2.2.2.1762893313.1029997326.945876&lt;/Value&gt;
+  &lt;/DicomAttribute&gt;
+&lt;/NativeDicomModel&gt;
+</pre>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_F.2.1.1.2" shape="rect"></a>F.2.1.1.2 DICOM JSON Model</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <pre class="programlisting" xml:space="preserve">
+[
+  {
+     "0020000D": {
+      "vr": "UI",
+      "Value": [ "1.2.392.200036.9116.2.2.2.1762893313.1029997326.945873" ]
+    }
+  }
+  {
+    "0020000D" : {
+      "vr": "UI",
+      "Value": [ "1.2.392.200036.9116.2.2.2.2162893313.1029997326.945876" ]
+    }
+  }
+]
+</pre>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_F.2.2" shape="rect"></a>F.2.2 DICOM JSON Model Object Structure</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The DICOM JSON Model object is a representation of a DICOM Data Set.</p>
+            <p>The internal structure of the DICOM JSON Model object is a sequence of objects representing attributes within the DICOM Data Set.</p>
+            <p>Attribute objects within a DICOM JSON Model object must be ordered by their property name in ascending order.</p>
+            <p>Group Length (gggg,0000) attributes shall not be included in a DICOM JSON Model object.</p>
+            <p>The name of each attribute object is:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>The eight character uppercase hexadecimal representation of a DICOM Tag</p>
+                  </li>
+               </ul>
+            </div>
+            <p>Each attribute object contains the following named child objects:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>vr: A string encoding the DICOM Value Representation. The mapping between DICOM Value Representations and JSON Value Representations is described in <a class="xref" href="sect_F.2.html#sect_F.2.3" title="F.2.3 DICOM JSON Value Representation" shape="rect">Section F.2.3</a>.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>At most one of:</p>
+                     <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: circle; ">
+                           <li class="listitem">
+                              <p>Value: An array containing one of:</p>
+                              <div class="itemizedlist">
+                                 <ul class="itemizedlist" style="list-style-type: square; ">
+                                    <li class="listitem">
+                                       <p>The Value Field elements of a DICOM attribute with a VR other than PN, SQ, OB, OD, OF, OW, or UN (described in <a class="xref" href="sect_F.2.html#sect_F.2.4" title="F.2.4 DICOM JSON Value Multiplicity" shape="rect">Section F.2.4</a>)</p>
+                                       <p>The encoding of empty Value Field elements is described in <a class="xref" href="sect_F.2.html#sect_F.2.5" title="F.2.5 DICOM JSON Model Null Values" shape="rect">Section F.2.5</a>
+                                       </p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>The Value Field elements of a DICOM attribute with a VR of PN. The non-empty name components of each element are encoded as a JSON strings with the following names:</p>
+                                       <div class="itemizedlist">
+                                          <ul class="itemizedlist" style="list-style-type: disc; ">
+                                             <li class="listitem">
+                                                <p>Alphabetic</p>
+                                             </li>
+                                             <li class="listitem">
+                                                <p>Ideographic</p>
+                                             </li>
+                                             <li class="listitem">
+                                                <p>Phonetic</p>
+                                             </li>
+                                          </ul>
+                                       </div>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>JSON DICOM Model objects corresponding to the sequence items of an attribute with a VR of SQ</p>
+                                       <p>Empty sequence items are represented by empty objects</p>
+                                    </li>
+                                 </ul>
+                              </div>
+                           </li>
+                           <li class="listitem">
+                              <p>BulkDataURI: A string encoding the WADO-RS URL of a bulk data item describing the Value Field of an enclosing Attribute with a VR of FL, FD, IS, LT, OB, OD, OF, OW, SL, SS, ST, UL, UN, US, or UT (described in <a class="xref" href="sect_F.2.html#sect_F.2.6" title="F.2.6 BulkDataURI" shape="rect">Section F.2.6</a>)</p>
+                           </li>
+                           <li class="listitem">
+                              <p>InlineBinary: A base64 string encoding the Value Field of an enclosing Attribute with a VR of OB, OD, OF, OW, or UN (described in <a class="xref" href="sect_F.2.html#sect_F.2.7" title="F.2.7 InlineBinary" shape="rect">Section F.2.7</a>)</p>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+               </ul>
+            </div>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>For Private Data Elements, the group and element numbers will follow the rules specified in <a href="../part05/sect_7.8.html#sect_7.8.1" class="olink" shape="rect">Section 7.8.1 in <span class="olinkdocname">PS3.5</span>
+                           </a>
+                        </p>
+                     </li>
+                     <li class="listitem">
+                        <p>The person name representation is more closely aligned with the DICOM Data Element representation than the DICOM <a href="../part19/PS3.19.html" class="olink" shape="rect">PS3.19</a> XML representation.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_F.2.3" shape="rect"></a>F.2.3 DICOM JSON Value Representation</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The value representation (VR) is included in each DICOM JSON Model attribute object and named "vr". For example:</p>
+            <pre class="programlisting" xml:space="preserve">
+"vr": "CS"
+</pre>
+            <p>All DICOM Value Representations are mapped to specified JSON Data Types (see <a class="xref" href="sect_F.2.html#table_F.2.3-1" title="Table F.2.3-1. DICOM VR to JSON Data Type Mapping" shape="rect">Table F.2.3-1</a>). The JSON encodings shall conform to the Definition, Character Repertoire (if applicable) and Length of Value specified for that Value Representation (see <a href="../part05/sect_6.2.html" class="olink" shape="rect">Section 6.2 “Value Representation (VR)” in <span class="olinkdocname">PS3.5</span>
+               </a>) with the following exceptions:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>Attributes with a Value Representation of AT shall be restricted to eight character uppercase hexadecimal representation of a DICOM Tag</p>
+                  </li>
+               </ul>
+            </div>
+            <div class="table">
+               <a id="table_F.2.3-1" shape="rect"></a>
+               <p class="title">
+                  <strong>Table F.2.3-1. DICOM VR to JSON Data Type Mapping</strong>
+               </p>
+               <div class="table-contents">
+                  <table rules="all" frame="box">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>VR Name</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Type</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>JSON Data Type</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AE</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Application Entity</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="italic">String</span>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AS</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Age String</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="italic">String</span>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AT</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Attribute Tag</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="italic">String</span>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>CS</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Code String</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="italic">String</span>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>DA</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Date</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="italic">String</span>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>DS</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Decimal</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="italic">Number</span>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>DT</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Date Time</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="italic">String</span>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>FL</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Floating Point Single</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="italic">Number</span>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>FD</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Floating Point Double</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="italic">Number</span>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>IS</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Integer String</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="italic">Number</span>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>LO</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Long String</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="italic">String</span>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>LT</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Long Text</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="italic">String</span>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>OB</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Other Byte String</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="italic">Base64</span> encoded
+        <span class="italic">string</span>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>OD</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Other Double String</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="italic">Base64</span> encoded
+        <span class="italic">string</span>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>OF</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Other Float String</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="italic">Base64</span> encoded
+        <span class="italic">string</span>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>OW</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Other Word String</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="italic">Base64</span> encoded
+        <span class="italic">string</span>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>PN</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Person Name</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="italic">Object</span> containing Person Name component groups as
+        <span class="italic">strings (see <a class="xref" href="sect_F.2.html#sect_F.2.2" title="F.2.2 DICOM JSON Model Object Structure" shape="rect">Section F.2.2</a>)</span>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>SH</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Short String</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="italic">String</span>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>SL</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Signed Long</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="italic">Number</span>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>SQ</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Sequence</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="italic">Array</span> containing DICOM JSON Objects</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>SS</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Signed Short</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="italic">Number</span>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>ST</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Short Text</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="italic">String</span>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>TM</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Time</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="italic">String</span>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>UI</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>UID</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="italic">String</span>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>UL</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Unsigned Long</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="italic">Number</span>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>UN</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Unknown</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="italic">Base64</span> encoded
+        <span class="italic">string</span>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>US</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Unsigned Short</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="italic">Number</span>
+                              </p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>UT</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Unlimited Text</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="italic">String</span>
+                              </p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <p>Although data, such as dates, are represented in the DICOM JSON model as strings, it is expected that they will be treated in the same manner as the original attribute as defined by <a href="../part06/chapter_6.html" class="olink" shape="rect">Chapter 6 in <span class="olinkdocname">PS3.6</span>
+               </a>.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_F.2.4" shape="rect"></a>F.2.4 DICOM JSON Value Multiplicity</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The value or values of a given DICOM attribute are given in the "Value" array. The value multiplicity (VM) is not contained in the DICOM JSON object.</p>
+            <p>For example:</p>
+            <pre class="programlisting" xml:space="preserve">
+"Value": [ "bar", "foo" ]
+</pre>
+            <p>or:</p>
+            <pre class="programlisting" xml:space="preserve">
+"Value": [ "bar" ]
+</pre>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_F.2.5" shape="rect"></a>F.2.5 DICOM JSON Model Null Values</h3>
+                  </div>
+               </div>
+            </div>
+            <p>If an attribute is present in DICOM but empty (i.e., Value Length is 0), it shall be preserved in the DICOM JSON attribute object containing no "Value", "BulkDataURI" or "InlineBinary".</p>
+            <p>If a multi-valued attribute has one or more empty values these are represented as "null" array elements. For example:</p>
+            <pre class="programlisting" xml:space="preserve">
+"Value": [ "bar", null, "foo" ]
+</pre>
+            <p>If a sequence contains empty items these are represented as empty JSON object in the array.</p>
+            <pre class="programlisting" xml:space="preserve">
+"Value": [ { … }, { }, { … } ]
+</pre>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_F.2.6" shape="rect"></a>F.2.6 BulkDataURI</h3>
+                  </div>
+               </div>
+            </div>
+            <p>If an attribute contains a "BulkDataURI"
+          <span class="italic">,</span> this contains the URI of a bulk data element as defined in <a href="../part19/chapter_A.html#table_A.1.5-2" class="olink" shape="rect">Table A.1.5-2 in <span class="olinkdocname">PS3.19</span>
+               </a>.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_F.2.7" shape="rect"></a>F.2.7 InlineBinary</h3>
+                  </div>
+               </div>
+            </div>
+            <p>If an attribute contains an "InlineBinary", this contains the base64 encoding of the enclosing attribute's Value Field.</p>
+            <p>There is a single InlineBinary value representing the entire Value Field, and not one per Value in the case where the Value Multiplicity is greater than one. E.g., a LUT with 4096 16 bit entries that may be encoded in DICOM with a Value Representation of OW, with a VL of 8192 and a VM of 1, or a US VR with a VL of 8192 and a VM of 4096 would both be represented as a single InlineBinary string.</p>
+            <p>All rules (e.g., byte ordering and swapping) in DICOM <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a> apply.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>Implementers should in particular pay attention the <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a> rules regarding the value representations of OD, OF and OW.</p>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_F.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_F.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_F.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">F DICOM JSON Model </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.18.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> F.3 Transformation with other DICOM Formats</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,1978 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>9.3 DICOM Upper Layer Protocol for TCP/IP Data Units Structure</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.8.html" title="PS3.8" />
+      <link rel="up" href="chapter_9.html" title="9 DICOM Upper Layer Protocol for TCP/IP" />
+      <link rel="prev" href="sect_9.2.html" title="9.2 DICOM Upper Layer Protocol for TCP/IP State Machine" />
+      <link rel="next" href="chapter_10.html" title="10 Conformance" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">9.3 DICOM Upper Layer Protocol for TCP/IP Data Units Structure</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_9.2.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">9 DICOM Upper Layer Protocol for TCP/IP</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_10.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_9.3" shape="rect"></a>9.3 DICOM Upper Layer Protocol for TCP/IP Data Units Structure</h2>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_9.3.1" shape="rect"></a>9.3.1 General</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The Protocol Data Units (PDUs) are the message formats exchanged between peer entities within a layer. A PDU shall consist of protocol control information and user data. PDUs are constructed by mandatory fixed fields followed by optional variable fields that contain one or more items and/or sub-items.</p>
+            <p>Items of unrecognized types shall be ignored and skipped. Items shall appear in an increasing order of their item types. Several instances of the same item shall be acceptable or shall not as specified by each item.</p>
+            <p>The DICOM UL protocol consists of seven Protocol Data Units:</p>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="a">
+                  <li class="listitem">
+                     <p>A-ASSOCIATE-RQ PDU</p>
+                  </li>
+                  <li class="listitem">
+                     <p>A-ASSOCIATE-AC PDU</p>
+                  </li>
+                  <li class="listitem">
+                     <p>A-ASSOCIATE-RJ PDU</p>
+                  </li>
+                  <li class="listitem">
+                     <p>P-DATA-TF PDU</p>
+                  </li>
+                  <li class="listitem">
+                     <p>A-RELEASE-RQ PDU</p>
+                  </li>
+                  <li class="listitem">
+                     <p>A-RELEASE-RP PDU</p>
+                  </li>
+                  <li class="listitem">
+                     <p>A-ABORT PDU</p>
+                  </li>
+               </ol>
+            </div>
+            <p>The encoding of the DICOM UL PDUs is defined as follows (Big Endian byte ordering) :</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>The Big Endian byte ordering has been chosen for consistency with the OSI and TCP/IP environment. This pertains to the DICOM UL PDU headers only. The encoding of the PDV message fragments is defined by the Transfer Syntax negotiated at association establishment.</p>
+            </div>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="a">
+                  <li class="listitem">
+                     <p>Each PDU type shall consist of one or more bytes that when represented, are numbered sequentially, with byte 1 being the lowest byte number.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Each byte within the PDU shall consist of eight bits that, when represented, are numbered 7 to 0, where bit 0 is the low order bit.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>When consecutive bytes are used to represent a string of characters, the lowest byte numbers represent the first character.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>When consecutive bytes are used to represent a binary number, the lower byte number has the most significant value.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>The lowest byte number is placed first in the transport service data flow.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>An overview of the PDUs is shown in <a class="xref" href="sect_9.3.html#figure_9-1" title="Figure 9-1. Protocol Data Units Structure and Encoding" shape="rect">Figure 9-1</a> and <a class="xref" href="sect_9.3.html#figure_9-2" title="Figure 9-2. Protocol Data Units Structure and Encoding" shape="rect">Figure 9-2</a>. The detailed structure of each PDU is specified in the following sections.</p>
+                  </li>
+               </ol>
+            </div>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>A number of parameters defined in the UL Service are not reflected in these PDUs (e.g., service parameters, fixed values, values not used by DICOM Application Entities.)</p>
+            </div>
+            <p>
+  </p>
+            <div class="figure">
+               <a id="figure_9-1" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.8_9-1.svg" alt="Protocol Data Units Structure and Encoding" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure 9-1. Protocol Data Units Structure and Encoding</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+            <p>
+  </p>
+            <div class="figure">
+               <a id="figure_9-2" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.8_9-2.svg" alt="Protocol Data Units Structure and Encoding" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure 9-2. Protocol Data Units Structure and Encoding</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_9.3.2" shape="rect"></a>9.3.2 A-ASSOCIATE-RQ PDU Structure</h3>
+                  </div>
+               </div>
+            </div>
+            <p>An A-ASSOCIATE-RQ PDU shall be made of a sequence of mandatory fields followed by a variable length field. <a class="xref" href="sect_9.3.html#table_9-11" title="Table 9-11. ASSOCIATE-RQ PDU Fields" shape="rect">Table 9-11</a> shows the sequence of the mandatory fields.</p>
+            <p>The variable field shall consist of one Application Context Item, one or more Presentation Context Items, and one User Information Item. Sub-Items shall exist for the Presentation Context and User Information Items.</p>
+            <div class="table">
+               <a id="table_9-11" shape="rect"></a>
+               <p class="title">
+                  <strong>Table 9-11. ASSOCIATE-RQ PDU Fields</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>PDU bytes</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Field name</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Description of field</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>PDU-type</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>01H</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>2</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Reserved</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This reserved field shall be sent with a value 00H but not tested to this value when received.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>3-6</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>PDU-length</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This PDU-length shall be the number of bytes from the first byte of the following field to the last byte of the variable field. It shall be encoded as an unsigned binary number</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>7-8</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Protocol-version</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This two byte field shall use one bit to identify each version of the DICOM UL protocol supported by the calling end-system. This is Version 1 and shall be identified with bit 0 set. A receiver of this PDU implementing only this version of the DICOM UL protocol shall only test that bit 0 is set.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>9-10</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Reserved</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This reserved field shall be sent with a value 0000H but not tested to this value when received.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>11-26</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Called-AE-title</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Destination DICOM Application Name. It shall be encoded as 16 characters as defined by the ISO 646:1990-Basic G0 Set with leading and trailing spaces (20H) being non-significant. The value made of 16 spaces (20H) meaning "no Application Name specified" shall not be used. For a complete description of the use of this field, see <a class="xref" href="chapter_7.html#sect_7.1.1.4" title="7.1.1.4 Called AE Title" shape="rect">Section 7.1.1.4</a>.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>27-42</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Calling-AE-title</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Source DICOM Application Name. It shall be encoded as 16 characters as defined by the ISO 646:1990-Basic G0 Set with leading and trailing spaces (20H) being non-significant. The value made of 16 spaces (20H) meaning "no Application Name specified" shall not be used. For a complete description of the use of this field, see <a class="xref" href="chapter_7.html#sect_7.1.1.3" title="7.1.1.3 Calling AE Title" shape="rect">Section 7.1.1.3</a>.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>43-74</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Reserved</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This reserved field shall be sent with a value 00H for all bytes but not tested to this value when received</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>75-xxx</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Variable items</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This variable field shall contain the following items: one Application Context Item, one or more Presentation Context Items and one User Information Item. For a complete description of the use of these items see <a class="xref" href="chapter_7.html#sect_7.1.1.2" title="7.1.1.2 Application Context Name" shape="rect">Section 7.1.1.2</a>, <a class="xref" href="chapter_7.html#sect_7.1.1.13" title="7.1.1.13 Presentation Context Definition List" shape="rect">Section 7.1.1.13</a>, and <a class="xref" href="chapter_7.html#sect_7.1.1.6" title="7.1.1.6 User Information" shape="rect">Section 7.1.1.6</a>.</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_9.3.2.1" shape="rect"></a>9.3.2.1 Application Context Item Structure</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>An Application Context Item shall be made of a sequence of mandatory fields followed by a variable length field. <a class="xref" href="sect_9.3.html#table_9-12" title="Table 9-12. Application Context Item Fields" shape="rect">Table 9-12</a> shows the sequence of the mandatory fields.</p>
+               <div class="table">
+                  <a id="table_9-12" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table 9-12. Application Context Item Fields</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Item bytes</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Field name</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Description of field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Item-type</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>10H</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>2</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Reserved</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This reserved field shall be sent with a value 00H but not tested to this value when received.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>3-4</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Item-length</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This Item-length shall be the number of bytes from the first byte of the following field to the last byte of the Application-context-name field. It shall be encoded as an unsigned binary number.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>5-xxx</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Application-context-name</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>A valid Application-context-name shall be encoded as defined in <a class="xref" href="chapter_F.html" title="F DICOM UL Encoding Rules for Application Contexts, Abstract Syntaxes, Transfer Syntaxes (Normative)" shape="rect"> Annex F</a>. For a description of the use of this field see <a class="xref" href="chapter_7.html#sect_7.1.1.2" title="7.1.1.2 Application Context Name" shape="rect">Section 7.1.1.2</a>. Application-context-names are structured as UIDs as defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a> (see <a class="xref" href="chapter_A.html" title="A Application Context Names (Informative)" shape="rect"> Annex A</a> for an overview of this concept). DICOM Application-context-names are registered in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>.</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_9.3.2.2" shape="rect"></a>9.3.2.2 Presentation Context Item Structure</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The Presentation Context Item shall be made of a sequence of mandatory fixed length fields followed by a variable field. <a class="xref" href="sect_9.3.html#table_9-13" title="Table 9-13. Presentation Context Item Fields" shape="rect">Table 9-13</a> shows the sequence of the mandatory fields.</p>
+               <p>The variable field shall consist of one Abstract Syntax Sub-Item followed by one or more Transfer Syntax Sub-Items.</p>
+               <div class="table">
+                  <a id="table_9-13" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table 9-13. Presentation Context Item Fields</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Item bytes</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Field name</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Description of field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Item-type</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>20H</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>2</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Reserved</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This reserved field shall be sent with a value 00H but not tested to this value when received.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>3-4</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Item-length</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This Item-length shall be the number of bytes from the first byte of the following field to the last byte of the last Transfer Syntax Item. It shall be encoded as an unsigned binary number.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>5</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Presentation-context-ID</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Presentation-context-ID values shall be odd integers between 1 and 255, encoded as an unsigned binary number. For a complete description of the use of this field see <a class="xref" href="chapter_7.html#sect_7.1.1.13" title="7.1.1.13 Presentation Context Definition List" shape="rect">Section 7.1.1.13</a>.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>6</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Reserved</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This reserved field shall be sent with a value 00H but not tested to this value when received.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>7</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Reserved</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This reserved field shall be sent with a value 00H but not tested to this value when received.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>8</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Reserved</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This reserved field shall be sent with a value 00H but not tested to this value when received.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>9-xxx</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Abstract/Transfer Syntax Sub-Items</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This variable field shall contain the following sub-items: one Abstract Syntax and one or more Transfer Syntax(es). For a complete description of the use and encoding of these sub-items see <a class="xref" href="sect_9.3.html#sect_9.3.2.2.1" title="9.3.2.2.1 Abstract Syntax Sub-Item Structure" shape="rect">Section 9.3.2.2.1</a> and <a class="xref" href="sect_9.3.html#sect_9.3.2.2.2" title="9.3.2.2.2 Transfer Syntax Sub-Item Structure" shape="rect">Section 9.3.2.2.2</a>.</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_9.3.2.2.1" shape="rect"></a>9.3.2.2.1 Abstract Syntax Sub-Item Structure</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The Abstract Syntax Sub-Item shall be made of a sequence of mandatory fixed length fields followed by a variable field. <a class="xref" href="sect_9.3.html#table_9-14" title="Table 9-14. Abstract Syntax Sub-Item Fields" shape="rect">Table 9-14</a> shows the sequence of the mandatory fields.</p>
+                  <div class="table">
+                     <a id="table_9-14" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table 9-14. Abstract Syntax Sub-Item Fields</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Item bytes</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Field name</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Description of field</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Item-type</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>30H</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Reserved</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This reserved field shall be sent with a value 00H but not tested to this value when received.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3-4</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Item-length</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This Item-length shall be the number of bytes from the first byte of the following field to the last byte of the Abstract-syntax-name field. It shall be encoded as an unsigned binary number.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>5-xxx</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Abstract-syntax-name</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This variable field shall contain the Abstract-syntax-name related to the proposed presentation context. A valid Abstract-syntax-name shall be encoded as defined in <a class="xref" href="chapter_F.html" title="F DICOM UL Encoding Rules for Application Contexts, Abstract Syntaxes, Transfer Syntaxes (Normative)" shape="rect"> Annex F</a>. For a description of the use of this field see <a class="xref" href="chapter_7.html#sect_7.1.1.13" title="7.1.1.13 Presentation Context Definition List" shape="rect">Section 7.1.1.13</a>. Abstract-syntax-names are structured as UIDs as defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a> (see <a class="xref" href="chapter_B.html" title="B Abstract and Transfer Syntaxes (Informative)" shape="rect"> Annex B</a> for an overview of this concept). DICOM Abstract-syntax-names are registered in <a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a>.</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_9.3.2.2.2" shape="rect"></a>9.3.2.2.2 Transfer Syntax Sub-Item Structure</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The Transfer Syntax Sub-Item shall be made of a sequence of mandatory fixed length fields followed by a variable field. <a class="xref" href="sect_9.3.html#table_9-15" title="Table 9-15. Transfer Syntax Sub-Item Fields" shape="rect">Table 9-15</a> shows the sequence of the mandatory fields.</p>
+                  <div class="table">
+                     <a id="table_9-15" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table 9-15. Transfer Syntax Sub-Item Fields</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Item bytes</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Field name</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Description of field</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Item-type</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>40H</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Reserved</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This reserved field shall be sent with a value 00H but not tested to this value when received.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3-4</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Item-length</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This Item-length shall be the number of bytes from the first byte of the following field to the last byte of the Transfer-syntax-name field(s). It shall be encoded as an unsigned binary numbers</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>5-xxx</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Transfer-syntax-name(s)</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This variable field shall contain the Transfer-syntax-name proposed for this presentation context. A valid Transfer-syntax-name shall be encoded as defined in <a class="xref" href="chapter_F.html" title="F DICOM UL Encoding Rules for Application Contexts, Abstract Syntaxes, Transfer Syntaxes (Normative)" shape="rect"> Annex F</a>. For a description of the use of this field see <a class="xref" href="chapter_7.html#sect_7.1.1.13" title="7.1.1.13 Presentation Context Definition List" shape="rect">Section 7.1.1.13</a>. Transfer-syntax-names are structured as UIDs as defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a> (see <a class="xref" href="chapter_B.html" title="B Abstract and Transfer Syntaxes (Informative)" shape="rect"> Annex B</a> for an overview of this concept). DICOM Transfer-syntax-names are registered in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>.</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_9.3.2.3" shape="rect"></a>9.3.2.3 User Information Item Structure</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The User Information Item shall be made of a sequence of mandatory fixed length fields followed by a variable field. <a class="xref" href="sect_9.3.html#table_9-16" title="Table 9-16. User Information Item Fields" shape="rect">Table 9-16</a> shows the sequence of the mandatory fields.</p>
+               <p>The variable field shall consist of one or more User-Data Sub-Items.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>The User-Data Sub-Items may be present in any order within the User-Information Item. No significance should be placed on the order of User-Data Sub-Items within the User Information Item. Sending applications should be aware that some older applications might expect Sub-Items to be encoded in ascending order of Item-type within the enclosing Item.</p>
+               </div>
+               <div class="table">
+                  <a id="table_9-16" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table 9-16. User Information Item Fields</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Item bytes</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Field name</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Description of field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Item-type</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>50H</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>2</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Reserved</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This reserved field shall be sent with a value 00H but not tested to this value when received.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>3-4</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Item-length</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This Item-length shall be the number of bytes from the first byte of the following field to the last byte of the User-data field(s). It shall be encoded as an unsigned binary number.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>5-xxx</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>User-data</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This variable field shall contain User-data sub-items as defined by the DICOM Application Entity. The structure and content of these sub-items is defined in <a class="xref" href="chapter_D.html" title="D Use and Format of the A-ASSOCIATE User Information Parameter (Normative)" shape="rect"> Annex D</a>.</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_9.3.3" shape="rect"></a>9.3.3 A-ASSOCIATE-AC PDU Structure</h3>
+                  </div>
+               </div>
+            </div>
+            <p>An A-ASSOCIATE-AC PDU shall be made of a sequence of mandatory fields followed by a variable length field. <a class="xref" href="sect_9.3.html#table_9-17" title="Table 9-17. ASSOCIATE-AC PDU Fields" shape="rect">Table 9-17</a> shows the sequence of the mandatory fields.</p>
+            <p>The variable field consist of one Application Context Item, one or more Presentation Context Items, and one User Information Item. Sub-Items shall exist for the Presentation Context and User Information Items.</p>
+            <div class="table">
+               <a id="table_9-17" shape="rect"></a>
+               <p class="title">
+                  <strong>Table 9-17. ASSOCIATE-AC PDU Fields</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>PDU bytes</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Field name</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Description of field</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>PDU-type</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>02H</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>2</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Reserved</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This reserved field shall be sent with a value 00H but not tested to this value when received.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>3-6</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>PDU-length</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This PDU-length shall be the number of bytes from the first byte of the following field to the last byte of the variable field. It shall be encoded as an unsigned binary number.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>7-8</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Protocol-version</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This two byte field shall use one bit to identify each version of the DICOM UL protocol supported by the calling end-system. This is Version 1 and shall be identified with bit 0 set. A receiver of this PDU implementing only this version of the DICOM UL protocol shall only test that bit 0 is set.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>9-10</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Reserved</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This reserved field shall be sent with a value 0000H but not tested to this value when received.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>11-26</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Reserved</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This reserved field shall be sent with a value identical to the value received in the same field of the A-ASSOCIATE-RQ PDU, but its value shall not be tested when received.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>27-42</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Reserved</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This reserved field shall be sent with a value identical to the value received in the same field of the A-ASSOCIATE-RQ PDU, but its value shall not be tested when received.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>43-74</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Reserved</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This reserved field shall be sent with a value identical to the value received in the same field of the A-ASSOCIATE-RQ PDU, but its value shall not be tested when received.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>75-xxx</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Variable items</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This variable field shall contain the following items: one Application Context Item, one or more Presentation Context Item(s) and one User Information Item. For a complete description of these items see <a class="xref" href="chapter_7.html#sect_7.1.1.2" title="7.1.1.2 Application Context Name" shape="rect">Section 7.1.1.2</a>, <a class="xref" href="chapter_7.html#sect_7.1.1.14" title="7.1.1.14 Presentation Context Definition Result List" shape="rect">Section 7.1.1.14</a>, and <a class="xref" href="chapter_7.html#sect_7.1.1.6" title="7.1.1.6 User Information" shape="rect">Section 7.1.1.6</a>.</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_9.3.3.1" shape="rect"></a>9.3.3.1 Application Context Item Structure</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>An Application Context Item shall be made of a sequence of mandatory fields followed by a variable length field. <a class="xref" href="sect_9.3.html#table_9-12" title="Table 9-12. Application Context Item Fields" shape="rect">Table 9-12</a> shows the sequence of mandatory fields.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_9.3.3.2" shape="rect"></a>9.3.3.2 Presentation Context Item Structure</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The Presentation Context Item shall be made of a sequence of mandatory fixed length fields followed by a variable field. <a class="xref" href="sect_9.3.html#table_9-18" title="Table 9-18. Presentation Context Item Fields" shape="rect">Table 9-18</a> shows the sequence of the mandatory fields.</p>
+               <p>The variable field shall consist of one Transfer Syntax Sub-Item.</p>
+               <div class="table">
+                  <a id="table_9-18" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table 9-18. Presentation Context Item Fields</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Item bytes</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Field name</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Description of field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Item-type</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>21H</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>2</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Reserved</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This reserved field shall be sent with a value 00H but not tested to this value when received.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>3-4</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Item-length</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This Item-length shall be the number of bytes from the first byte of the following field to the last byte of the Transfer Syntax Sub-Item. It shall be encoded as an unsigned binary number.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>5</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Presentation-context-ID</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Presentation-context-ID values shall be odd integers between 1 and 255, encoded as an unsigned binary number. For a complete description of the use of this field see <a class="xref" href="chapter_7.html#sect_7.1.1.13" title="7.1.1.13 Presentation Context Definition List" shape="rect">Section 7.1.1.13</a>.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>6</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Reserved</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This reserved field shall be sent with a value 00H but not tested to this value when received.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>7</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Result/Reason</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This Result/Reason field shall contain an integer value encoded as an unsigned binary number. One of the following values shall be used:</p>
+                                 <p>0 - acceptance</p>
+                                 <p>1 - user-rejection</p>
+                                 <p>2 - no-reason (provider rejection)</p>
+                                 <p>3 - abstract-syntax-not-supported (provider rejection)</p>
+                                 <p>4 - transfer-syntaxes-not-supported (provider rejection)</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>8</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Reserved</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This reserved field shall be sent with a value 00H but not tested to this value when received.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>9-xxx</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Transfer syntax sub-item</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This variable field shall contain one Transfer Syntax Sub-Item. When the Result/Reason field has a value other than acceptance (0), this field shall not be significant and its value shall not be tested when received. For a complete description of the use and encoding of this item see <a class="xref" href="sect_9.3.html#sect_9.3.3.2.1" title="9.3.3.2.1 Transfer Syntax Sub-Item Structure" shape="rect">Section 9.3.3.2.1</a>.</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_9.3.3.2.1" shape="rect"></a>9.3.3.2.1 Transfer Syntax Sub-Item Structure</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The Transfer Syntax Sub-Item shall be made of a sequence of mandatory fixed length fields followed by a variable field. <a class="xref" href="sect_9.3.html#table_9-19" title="Table 9-19. Transfer Syntax Sub-Item Fields" shape="rect">Table 9-19</a> shows the sequence of the mandatory fields.</p>
+                  <div class="table">
+                     <a id="table_9-19" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table 9-19. Transfer Syntax Sub-Item Fields</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Item bytes</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Field name</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Description of field</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Item-type</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>40H</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Reserved</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This reserved field shall be sent with a value 00H but not tested to this value when received.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3-4</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Item-length</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This Item-length shall be the number of bytes from the first byte of the following field to the last byte of the Transfer-syntax-name field. It shall be encoded as an unsigned binary number.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>5-xxx</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Transfer-syntax-name</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This variable field shall contain the Transfer-syntax-name proposed for this presentation context. A valid Transfer-syntax-name shall be encoded as defined in <a class="xref" href="chapter_F.html" title="F DICOM UL Encoding Rules for Application Contexts, Abstract Syntaxes, Transfer Syntaxes (Normative)" shape="rect"> Annex F</a>. For a description of the use of this field see <a class="xref" href="chapter_7.html#sect_7.1.1.14" title="7.1.1.14 Presentation Context Definition Result List" shape="rect">Section 7.1.1.14</a>. Transfer-syntax-names are structured as UIDs as defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a> (see <a class="xref" href="chapter_B.html" title="B Abstract and Transfer Syntaxes (Informative)" shape="rect"> Annex B</a> for an overview of this concept). DICOM Transfer-syntax-names are registered in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>.</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_9.3.3.3" shape="rect"></a>9.3.3.3 User Information Item Structure</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The User Information Item shall be made of a sequence of mandatory length fields followed by a variable field. <a class="xref" href="sect_9.3.html#table_9-20" title="Table 9-20. User Information Item Fields" shape="rect">Table 9-20</a> shows the sequence of the mandatory fields.</p>
+               <p>The variable field shall consist of one or more User-Data Sub-Items.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>The User-Data Sub-Items may be present in any order within the User-Information Item. No significance should be placed on the order of User-Data Sub-Items within the User Information Item. Sending applications should be aware that some older applications might expect Sub-Items to be encoded in ascending order of Item-type within the enclosing Item.</p>
+               </div>
+               <div class="table">
+                  <a id="table_9-20" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table 9-20. User Information Item Fields</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Item bytes</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Field name</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Description of field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Item-type</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>50H</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>2</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Reserved</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This reserved field shall be sent with a value 00H but not tested to this value when received.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>3-4</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Item-length</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This Item-length shall be the number of bytes from the first byte of the following field to the last byte of the User-data-information field(s). It shall be encoded as an unsigned binary number.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>5-xxx</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>User-data</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This variable field shall contain User-data sub-items as defined by the DICOM Application Entity. The structure and content of these sub-items is defined in <a class="xref" href="chapter_D.html" title="D Use and Format of the A-ASSOCIATE User Information Parameter (Normative)" shape="rect"> Annex D</a>.</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_9.3.4" shape="rect"></a>9.3.4 A-ASSOCIATE-RJ PDU Structure</h3>
+                  </div>
+               </div>
+            </div>
+            <p>An A-ASSOCIATE-RJ PDU shall be made of a sequence of mandatory fields. <a class="xref" href="sect_9.3.html#table_9-21" title="Table 9-21. ASSOCIATE-RJ PDU Fields" shape="rect">Table 9-21</a> shows the sequence of the mandatory fields.</p>
+            <div class="table">
+               <a id="table_9-21" shape="rect"></a>
+               <p class="title">
+                  <strong>Table 9-21. ASSOCIATE-RJ PDU Fields</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>PDU bytes</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Field name</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Description of field</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>PDU-type</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>03H</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>2</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Reserved</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This reserved field shall be sent with a value 00H but not tested to this value when received.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>3-6</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>PDU-length</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This PDU-length shall be the number of bytes from the first byte of the following field to the last byte of the Reason/Diag. field. In the case of this PDU, it shall have the fixed value of 00000004H encoded as an unsigned binary number.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>7</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Reserved</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This reserved field shall be sent with a value 00H but not tested to this value when received.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>8</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Result</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This Result field shall contain an integer value encoded as an unsigned binary number. One of the following values shall be used:</p>
+                              <p>1 - rejected-permanent</p>
+                              <p>2 - rejected-transient</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>9</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Source</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This Source field shall contain an integer value encoded as an unsigned binary number. One of the following values shall be used:</p>
+                              <p>1 - DICOM UL service-user</p>
+                              <p>2 - DICOM UL service-provider (ACSE related function)</p>
+                              <p>3 - DICOM UL service-provider (Presentation related function)</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>10</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Reason/Diag.</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This field shall contain an integer value encoded as an unsigned binary number. If the Source field has the value (1) "DICOM UL service-user", it shall take one of the following:</p>
+                              <p>1 - no-reason-given</p>
+                              <p>2 - application-context-name-not-supported</p>
+                              <p>3 - calling-AE-title-not-recognized</p>
+                              <p>4-6 - reserved</p>
+                              <p>7 - called-AE-title-not-recognized</p>
+                              <p>8-10 - reserved</p>
+                              <p>If the Source field has the value (2) "DICOM UL service provided (ACSE related function)", it shall take one of the following:</p>
+                              <p>1 - no-reason-given</p>
+                              <p>2 - protocol-version-not-supported</p>
+                              <p>If the Source field has the value (3) "DICOM UL service provided (Presentation related function)", it shall take one of the following:</p>
+                              <p>0 - reserved</p>
+                              <p>1 - temporary-congestio</p>
+                              <p>2 - local-limit-exceeded</p>
+                              <p>3-7 - reserved</p>
+                              <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                                 <h3 class="title">Note</h3>
+                                 <p>The reserved fields are used to preserve symmetry with OSI ACSE/Presentation Services and Protocols.</p>
+                              </div>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_9.3.5" shape="rect"></a>9.3.5 P-DATA-TF PDU Structure</h3>
+                  </div>
+               </div>
+            </div>
+            <p>A P-DATA-TF PDU shall be made of a sequence of mandatory fixed length fields followed by a variable length field. <a class="xref" href="sect_9.3.html#table_9-22" title="Table 9-22. P-DATA-TF PDU Fields" shape="rect">Table 9-22</a> shows the sequence of the mandatory fields.</p>
+            <p>The variable data field shall contain one or more Presentation-Data-Value Items.</p>
+            <div class="table">
+               <a id="table_9-22" shape="rect"></a>
+               <p class="title">
+                  <strong>Table 9-22. P-DATA-TF PDU Fields</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>PDU bytes</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Field name</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Description of field</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>PDU-type</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>04H</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>2</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Reserved</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This reserved field shall be sent with a value 00H but not tested to this value when received.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>3-6</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>PDU-length</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This PDU-length shall be the number of bytes from the first byte of the following field to the last byte of the variable field. It shall be encoded as an unsigned binary number.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>7-xxx</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Presentation-data-value Item(s)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This variable data field shall contain one or more Presentation-data-value Items(s). For a complete description of the use of this field see <a class="xref" href="sect_9.3.html#sect_9.3.5.1" title="9.3.5.1 Presentation Data Value Item Structure" shape="rect">Section 9.3.5.1</a>
+                              </p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_9.3.5.1" shape="rect"></a>9.3.5.1 Presentation Data Value Item Structure</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The Presentation Data Value Item shall be made of a sequence of mandatory fixed length fields followed by one variable length field. <a class="xref" href="sect_9.3.html#table_9-23" title="Table 9-23. Presentation-Data-Value Item Fields" shape="rect">Table 9-23</a> shows the sequence of the fields.</p>
+               <p>The variable field shall consist of one Presentation-Data-Value.</p>
+               <div class="table">
+                  <a id="table_9-23" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table 9-23. Presentation-Data-Value Item Fields</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Item bytes</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Field name</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Description of field</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1-4</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Item-length</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This Item-length shall be the number of bytes from the first byte of the following field to the last byte of the Presentation-data-value field. It shall be encoded as an unsigned binary number.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>5</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Presentation-context-ID</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Presentation-context-ID values shall be odd integers between 1 and 255, encoded as an unsigned binary number. For a complete description of the use of this field see <a class="xref" href="chapter_7.html#sect_7.1.1.13" title="7.1.1.13 Presentation Context Definition List" shape="rect">Section 7.1.1.13</a>.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>6-xxx</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Presentation-data-value</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>This Presentation-data-value field shall contain DICOM message information (command and/or data set) with a message control header. For a complete description of the use of this field see <a class="xref" href="chapter_E.html" title="E Usage of the P-DATA Service By the DICOM Application Entity (Normative)" shape="rect"> Annex E</a>.</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_9.3.6" shape="rect"></a>9.3.6 A-RELEASE-RQ PDU Structure</h3>
+                  </div>
+               </div>
+            </div>
+            <p>An A-RELEASE-RQ PDU shall be made of a sequence of mandatory fields. <a class="xref" href="sect_9.3.html#table_9-24" title="Table 9-24. A-RELEASE-RQ PDU Fields" shape="rect">Table 9-24</a> shows the sequence of the fields.</p>
+            <div class="table">
+               <a id="table_9-24" shape="rect"></a>
+               <p class="title">
+                  <strong>Table 9-24. A-RELEASE-RQ PDU Fields</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>PDU bytes</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Field name</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Description of field</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>PDU-type</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>05H</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>2</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Reserved</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This reserved field shall be sent with a value 00H but not tested to this value when received.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>3-6</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>PDU-length</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This PDU-length shall be the number of bytes from the first byte of the following field to the last byte of the Reserved field. In the case of this PDU, it shall have the fixed value of 00000004H encoded as an unsigned binary number.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>7-10</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Reserved</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This reserved field shall be sent with a value 00000000H but not tested to this value when received.</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_9.3.7" shape="rect"></a>9.3.7 A-RELEASE-RP PDU Structure</h3>
+                  </div>
+               </div>
+            </div>
+            <p>An A-RELEASE-RP PDU shall be made of a sequence of mandatory fields. <a class="xref" href="sect_9.3.html#table_9-25" title="Table 9-25. A-RELEASE-RP PDU Fields" shape="rect">Table 9-25</a> shows the sequence of the fields.</p>
+            <div class="table">
+               <a id="table_9-25" shape="rect"></a>
+               <p class="title">
+                  <strong>Table 9-25. A-RELEASE-RP PDU Fields</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>PDU bytes</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Field name</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Description of field</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>PDU-type</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>06H</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>2</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Reserved</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This reserved field shall be sent with a value 00H but not tested to this value when received.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>3-6</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>PDU-length</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This PDU-length shall be the number of bytes from the first byte of the following field to the last byte of the Reserved field. In the case of this PDU, it shall have the fixed value of 00000004H encoded as an unsigned binary number.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>7-10</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Reserved</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This reserved field shall be sent with a value 00000000H but not tested to this value when received.</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_9.3.8" shape="rect"></a>9.3.8 A-ABORT PDU Structure</h3>
+                  </div>
+               </div>
+            </div>
+            <p>An A-ABORT PDU shall be made of a sequence of mandatory fields. <a class="xref" href="sect_9.3.html#table_9-26" title="Table 9-26. A-ABORT PDU Fields" shape="rect">Table 9-26</a> shows the sequence of the fields.</p>
+            <p>The A-ABORT PDU shall support both the A-ABORT Service (user initiated) and the A-P-ABORT Service (provider initiated).</p>
+            <div class="table">
+               <a id="table_9-26" shape="rect"></a>
+               <p class="title">
+                  <strong>Table 9-26. A-ABORT PDU Fields</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>PDU bytes</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Field name</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Description of field</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>PDU-type</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>07H</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>2</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Reserved</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This reserved field shall be sent with a value 00H but not tested to this value when received.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>3-6</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>PDU-length</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This PDU-length shall be the number of bytes from the first byte of the following field to the last byte of the Reserved field. In the case of this PDU, it shall have the fixed value of 00000004H encoded as an unsigned binary number.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>7</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Reserved</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This reserved field shall be sent with a value 00H but not tested to this value when received.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>8</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Reserved</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This reserved field shall be sent with a value 00H but not tested to this value when received.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>9</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Source</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This Source field shall contain an integer value encoded as an unsigned binary number. One of the following values shall be used:</p>
+                              <p>0 - DICOM UL service-user (initiated abort)</p>
+                              <p>1 - reserved</p>
+                              <p>2 - DICOM UL service-provider (initiated abort)</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>10</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Reason/Diag.,</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>This field shall contain an integer value encoded as an unsigned binary number. If the Source field has the value (2) "DICOM UL service-provider", it shall take one of the following:</p>
+                              <p>0 - reason-not-specified1 - unrecognized-PDU</p>
+                              <p>2 - unexpected-PDU</p>
+                              <p>3 - reserved</p>
+                              <p>4 - unrecognized-PDU parameter</p>
+                              <p>5 - unexpected-PDU parameter</p>
+                              <p>6 - invalid-PDU-parameter value</p>
+                              <p>If the Source field has the value (0) "DICOM UL service-user", this reason field shall not be significant. It shall be sent with a value 00H but not tested to this value when received.</p>
+                              <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                                 <h3 class="title">Note</h3>
+                                 <p>The reserved fields are used to preserve symmetry with OSI ACSE/Presentation Services and Protocol.</p>
+                              </div>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_9.2.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_9.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_10.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">9.2 DICOM Upper Layer Protocol for TCP/IP State Machine </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.8.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 10 Conformance</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

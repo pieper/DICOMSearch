@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>J.5 Person Name Value Representation in Other Languages Using Unicode</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.5.html" title="PS3.5" />
+      <link rel="up" href="chapter_J.html" title="J Character Sets and Person Name Value Representationusing Unicode UTF-8, GB18030 and GBK (Informative)" />
+      <link rel="prev" href="sect_J.4.html" title="J.4 Example of Long Text Value Representation in the Chinese Language Using GB18030" />
+      <link rel="next" href="chapter_K.html" title="K Character Sets and Person Name Value Representation in the Chinese Language with Code Extensions (Informative)" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">J.5 Person Name Value Representation in Other Languages Using Unicode</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_J.4.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">J Character Sets and Person Name Value Representationusing Unicode UTF-8, GB18030 and GBK (Informative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_K.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_J.5" shape="rect"></a>J.5 Person Name Value Representation in Other Languages Using Unicode</h2>
+               </div>
+            </div>
+         </div>
+         <p>Person names in many languages may be written in a local (non-Latin) script, as well as in a transliteration to a Latin script (Romanization). Healthcare information systems in those environments may support one or both name formats. Local scripts may be encoded using Unicode in UTF-8.</p>
+         <p>For the purpose of exchange in DICOM, there are three typical uses of name component groups using Unicode in UTF-8:</p>
+         <div class="orderedlist">
+            <ol class="orderedlist" type="1">
+               <li class="listitem">
+                  <p>Names in a Latin script may be encoded in the first (alphabetic) component group, and names in a local script (alphabet, abugida, or syllabary) in the third (phonetic) component group (see <a class="xref" href="sect_6.2.html#table_6.2-1" title="Table 6.2-1. DICOM Value Representations" shape="rect">Table 6.2-1</a>). The second (ideographic) component group is null. This is the preferred use for cross-enterprise or international communication.</p>
+               </li>
+               <li class="listitem">
+                  <p>Where the local script historically has a single byte character set defined for Specific Character Set (0008,0005), i.e., Cyrillic, Arabic, Greek, Hebrew, Thai, and the various versions of Latin, only the first name component group might be used. Encoding may be in Unicode in UTF-8, as described in this Annex, as an equivalent for use of that defined single byte character set in the first name component group (see note 1).</p>
+               </li>
+               <li class="listitem">
+                  <p>Names in the local script may be encoded in the first component group, and names in a Latin script in the third component group, both encoded in Unicode in UTF-8.</p>
+               </li>
+            </ol>
+         </div>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="1">
+                  <li class="listitem">
+                     <p>A previous edition of DICOM required the first name component group to use a single byte character set (see PS3.5-2008). Unicode in UTF-8 may now be used in that component group simply as a matter of a different character set encoding, but with the same application use of that component group.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Healthcare information systems will use specific scripts in one, two, or three of the Person Name component groups in accordance with local policy. Conformant DICOM Application Entities that receive name attributes must accept multiple name component groups. An Application Entity that is configurable to allow the use of local script for names in either the first or the third component group, and a transliteration script in the other, would support all these typical representations.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>The transliteration (from a local script) may be a non-Latin script, e.g., Cyrillic. The same principles apply, and the Cyrillized name might be encoded in the first component group and the local script (which may in fact be a Latin-derived script) in the third component group.</p>
+                  </li>
+               </ol>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_J.4.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_J.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_K.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">J.4 Example of Long Text Value Representation in the Chinese Language Using GB18030 </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.5.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> K Character Sets and Person Name Value Representation in the Chinese Language with Code Extensions (Informative)</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>W.4 Color Palette Storage SOP Class</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.4.html" title="PS3.4" />
+      <link rel="up" href="chapter_W.html" title="W Color Palette Storage Service Class" />
+      <link rel="prev" href="sect_W.3.html" title="W.3 Conformance Overview" />
+      <link rel="next" href="chapter_X.html" title="X Color Palette Query/Retrieve Service Class" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">W.4 Color Palette Storage SOP Class</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_W.3.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">W Color Palette Storage Service Class</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_X.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_W.4" shape="rect"></a>W.4 Color Palette Storage SOP Class</h2>
+               </div>
+            </div>
+         </div>
+         <p>This Section defines the SCU and SCP behavior for the Color Palette Storage SOP Class. The C-STORE DIMSE-C Service shall be the mechanism used to transfer Color Palette SOP Instances between peer DICOM AEs as described in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>.</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_W.4.1" shape="rect"></a>W.4.1 Service Class User</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The DICOM AE that claims conformance to this SOP Class as an SCU shall be capable of sending a Color Palette SOP Instance that meets the requirements of the Color Palette IOD. It shall be invoked by the SCU through the use of the DIMSE C-STORE request used in conjunction with this SOP Class.</p>
+            <p>The SCU shall include a Data Set with the Attributes as defined in the Color Palette IOD in <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>.</p>
+            <p>The SCU shall recognize the status of the C-STORE service and take appropriate action based on the success or failure of the service. This SOP Class places no further requirements on what the SCU shall do other than that it shall distinguish between successful and failed C-STORE responses. This behavior shall be documented as part of the SOP Class Conformance Statement.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_W.4.2" shape="rect"></a>W.4.2 Service Class Provider</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The DICOM AE that claims conformance to this SOP Class as an SCP shall receive a Color Palette SOP Instance through the use of the DIMSE C-STORE service used in conjunction with this SOP Class.</p>
+            <p>The SCP shall store and provide access to all Type 1, Type 2, and Type 3 Attributes defined in the Color Palette IOD, as well as any Standard Extended Attributes (including Private Attributes) included in the SOP Instance. The SCP may, but is not required to validate that the Attributes of the Color Palette SOP Instance meet the requirements of the Color Palette IOD. The SCP shall not modify the values of any Attributes in the Color Palette SOP Instance without assigning a new SOP Instance UID, except that the SCP may modify values of, or add, Type 3 and Private Attributes that do not change the semantics or interpretation of the Palette.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>E.g., an SCP may add values to Alternate Content Description Sequence (0070,0087), to provide an additional description in another language.</p>
+            </div>
+            <p>If a display device acting as an SCP applies a Color Palette to a set of images, all mandatory Color Palette and presentation intent Attributes shall be applied.</p>
+            <p>The SCP shall return, via the C-STORE response primitive, the Response Status Code applicable to the associated request. By performing this service successfully, the SCP indicates that the Color Palette SOP Instance has been successfully stored. <a class="xref" href="sect_W.4.html#table_W.4-1" title="Table W.4-1. C-STORE Response Status Values" shape="rect">Table W.4-1</a> shows the response status values. General status code values and fields related to status code values are defined in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>.</p>
+            <div class="table">
+               <a id="table_W.4-1" shape="rect"></a>
+               <p class="title">
+                  <strong>Table W.4-1. C-STORE Response Status Values</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Service Status</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Further Meaning</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Status Codes</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Related Fields</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="3" colspan="1">
+                              <p>Failure</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Refused: Out of Resources</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>A700</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0000,0902)</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Error: Data Set Does Not Match SOP Class</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>A900</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0000,0901)</p>
+                              <p>(0000,0902)</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Error: Cannot Understand</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>C000</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0000,0901)</p>
+                              <p>(0000,0902)</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Success</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>0000</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>None</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>Status Codes are returned in DIMSE response messages (see <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>). The code values stated in column "Status Codes" are returned in Status Command Element (0000,0900).</p>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_W.4.3" shape="rect"></a>W.4.3 Color Palette Storage SOP Class UID</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The Color Palette Storage SOP Class shall be uniquely identified by the Color Palette Storage SOP Class UID, which shall have a value "1.2.840.10008.5.1.4.39.1".</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_W.4.4" shape="rect"></a>W.4.4 Conformance Statement Requirements</h3>
+                  </div>
+               </div>
+            </div>
+            <p>An implementation may conform to the Color Palette Storage SOP Class as an SCU, SCP or both. The Conformance Statement shall be in the format defined in <a href="../part02/PS3.2.html" class="olink" shape="rect">PS3.2</a>.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_W.4.4.1" shape="rect"></a>W.4.4.1 SCU Conformance Requirements</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>An implementation that conforms to the Color Palette Storage SOP Class as an SCU that is a creator of Color Palette SOP Instances shall state in its Conformance Statement:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>The optional Attributes that may be included in a Color Palette SOP Instance.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The behavior of the SCU in the case of a successful C-STORE response status.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The behavior of the SCU in each case of a failure C-STORE response status.</p>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_W.4.4.2" shape="rect"></a>W.4.4.2 SCP Conformance Requirements</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>An implementation that conforms to the Color Palette Storage SOP Class as an SCP that interprets Color Palette SOP Instances for display shall state in its Conformance Statement:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>The optional Attributes of the Color Palette IOD that it is capable of interpreting and those that are not supported.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The Image Storage SOP Classes for which application of the Color Palette Storage SOP Class is supported</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>An implementation that conforms to the Color Palette Storage SOP Class as an SCP shall state in its Conformance Statement:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>The behavior of the SCP in the case of a successful C-STORE operation, including the access method for a stored Color Palette SOP Instance, and the duration of the storage.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The meaning of each case of a failure C-STORE response status, as well as appropriate recovery action.</p>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_W.3.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_W.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_X.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">W.3 Conformance Overview </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.4.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> X Color Palette Query/Retrieve Service Class</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

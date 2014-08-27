@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>S Media Creation Management Service Class (Normative)</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.4.html" title="PS3.4" />
+      <link rel="up" href="PS3.4.html" title="PS3.4" />
+      <link rel="prev" href="sect_R.3.html" title="R.3 Instance Availability Notification SOP Class" />
+      <link rel="next" href="sect_S.2.html" title="S.2 Conformance Overview" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">S Media Creation Management Service Class (Normative)</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_R.3.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_S.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_S" shape="rect"></a>S Media Creation Management Service Class (Normative)</h1>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_S.1" shape="rect"></a>S.1 Overview</h2>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_S.1.1" shape="rect"></a>S.1.1 Scope</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>The Media Creation Management Service Class defines a mechanism by which an SCU can instruct a device to create Interchange Media containing a set of Composite SOP Instances that have already been transferred to the media creation device using the Storage Service Class.</p>
+               <p>This Service Class does not address archival storage requirements. It is intended only for the management of media creation devices. There is no requirement by the Standard that an SCP of this Service Class will commit to taking responsibility for archival of Composite Instances, such that an SCU may then discard them. Such behavior is entirely outside the scope of the Standard. In other words, Media Creation does not imply Storage Commitment.</p>
+               <p>The application profile(s) for the set of instances, which implies the form of the media created (i.e., CD, DVD or MOD), can either be left to the discretion of the SCP, or explicitly specified in the media creation request. In the latter case, if the device is unable to create the requested profiles, an error shall be returned.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="1">
+                        <li class="listitem">
+                           <p>More than one profile may be requested or used by default, since the requested set of instances may not be compatible with a single profile. DICOM media may always contain instances written by more than one profile. See <a href="../part02/PS3.2.html" class="olink" shape="rect">PS3.2</a>.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>It is the responsibility of the SCU to negotiate and store instances with an appropriate Transfer Syntax should a specific Transfer Syntax be required by a requested profile. The SCP is not required to support compression or decompression of stored instances in order to convert stored instances into a form suitable for a requested profile. It may do so, if so requested, but the level of lossy compression would be at the discretion of the SCP. If the degree of compression is important to the application, then the SCU may compress the images before sending them to the SCP.</p>
+                        </li>
+                     </ol>
+                  </div>
+               </div>
+               <p>The request controls whether or not a label is to be generated on the media, be it from information contained in the instances (such as patient demographics) or from text explicitly specified in the request.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="1">
+                        <li class="listitem">
+                           <p>An SCP may or may not be physically capable of labeling the media. This capability is outside the scope of conformance to the Standard. Inability to create a label is not an error.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>De-identification of instances (and labels), such as for teaching file media or clinical trial media is the responsibility of the SCU and is outside the scope of this service. That is, the SCU must de-identify the composite instances before sending them, prior to the media creation request.</p>
+                        </li>
+                     </ol>
+                  </div>
+               </div>
+               <p>The Service Class contains a limited capability to return status information. A media creation request may initially either fail or be accepted. Subsequently, the SCP may be polled as to the status of the request (idle, pending/creating, successful or failed) by the SCU on the same or on a separate Association. There is no asynchronous notification. There is no dependence on the duration or persistence of an Association.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>There is no requirement to manage the handling of transient failures (such as an empty supply of blank media or labels or ink). Whether or not the SCP queues stored instances and requests in such cases, or fails to accept the request, is outside the scope of the Standard.</p>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_R.3.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_S.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">R.3 Instance Availability Notification SOP Class </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.4.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> S.2 Conformance Overview</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

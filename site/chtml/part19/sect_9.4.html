@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>9.4 ModelSetDescriptor</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.19.html" title="PS3.19" />
+      <link rel="up" href="chapter_9.html" title="9 Data Types and Structures" />
+      <link rel="prev" href="sect_9.3.html" title="9.3 MimeType" />
+      <link rel="next" href="sect_9.5.html" title="9.5 ObjectLocator" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">9.4 ModelSetDescriptor</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_9.3.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">9 Data Types and Structures</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_9.5.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_9.4" shape="rect"></a>9.4 ModelSetDescriptor</h2>
+               </div>
+            </div>
+         </div>
+         <p>A data structure returned from the getAsModels() method with the following fields:</p>
+         <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+               <li class="listitem">
+                  <p>InfosetType : MimeType - the MIME type of the infoset, selected by the source of the data from the list passed to it by the recipient in a getAsModels() call.</p>
+               </li>
+               <li class="listitem">
+                  <p>Models : UUID[] - an array of UUIDs referring to models that have been created from the set of data objects referred to by the array of UUIDs passed into the getAsModels() call.</p>
+               </li>
+               <li class="listitem">
+                  <p>FailedSourceObjects : UUID[] - an array of UUIDs designating data objects referred to the array of UUIDs passed into the getAsModels() call that could not be represented in the requested model class.</p>
+               </li>
+            </ul>
+         </div>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <p>For example, if the array of UUIDs passed into the getAsModels() call includes 100 CT slices from the same frame of reference (i.e., a volume stack), plus 1 GSPS object, and if the caller requested an Abstract Multi-Dimensional Image model, then the ModelSetDescriptor returned by GetAsModels() would include one UUID in the models array, identifying the CT volume image data created from the 100 CT slices, and one UUID in the failedSourceObjects array, specifying the UUID for the GSPS object.</p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_9.3.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_9.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_9.5.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">9.3 MimeType </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.19.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 9.5 ObjectLocator</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

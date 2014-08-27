@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>F.4 Basic Directory IOD Information Model</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.3.html" title="PS3.3" />
+      <link rel="up" href="chapter_F.html" title="F Basic Directory Information Object Definition (Normative)" />
+      <link rel="prev" href="sect_F.3.html" title="F.3 Basic Directory IOD" />
+      <link rel="next" href="sect_F.5.html" title="F.5 Definition of Specific Directory Records" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">F.4 Basic Directory IOD Information Model</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_F.3.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">F Basic Directory Information Object Definition (Normative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_F.5.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_F.4" shape="rect"></a>F.4 Basic Directory IOD Information Model</h2>
+               </div>
+            </div>
+         </div>
+         <p>The Basic Directory IOD Information Model defines the relationship between the various types of Directory Records that may be used in constructing DICOM Directories. This model is based on the DICOM Application Model defined in this part of the DICOM Standard. Entities in this Model correspond to Directory Records (DR). These are shown as rectangular boxes. Each Directory Record in this model is part of a Directory Entity (not shown except for the Root Entity) that is referenced by a Directory Record of a higher-level Directory Entity (e.g., a Study Directory Record references a Directory Entity that includes Directory Records describing the content of the Study).</p>
+         <p>Each Directory Record has a number of mandatory and optional keys that are not shown on this model. They are defined in <a class="xref" href="sect_F.5.html" title="F.5 Definition of Specific Directory Records" shape="rect">Section F.5</a>. Conventions used are those used by this part of the DICOM Standard. The model is depicted as an entity/relationship model in <a class="xref" href="sect_F.5.html#figure_F.4-1" title="Figure F.4-1. Basic Directory IOD Information Model" shape="rect">Figure F.4-1</a>. These Directory Record relationships are fully specified in <a class="xref" href="sect_F.4.html#table_F.4-1" title="Table F.4-1. Relationship Between Directory Records" shape="rect">Table F.4-1</a>.</p>
+         <div class="table">
+            <a id="table_F.4-1" shape="rect"></a>
+            <p class="title">
+               <strong>Table F.4-1. Relationship Between Directory Records</strong>
+            </p>
+            <div class="table-contents">
+               <table frame="box" rules="all">
+                  <thead>
+                     <tr valign="top">
+                        <th align="center" rowspan="1" colspan="1">
+                           <p>Directory Record Type</p>
+                        </th>
+                        <th align="center" rowspan="1" colspan="1">
+                           <p>Section</p>
+                        </th>
+                        <th align="center" rowspan="1" colspan="1">
+                           <p>Directory Record Types that may be included in the next lower-level directory Entity</p>
+                        </th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>(Root Directory Entity)</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p></p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>PATIENT, HANGING PROTOCOL, PALETTE, IMPLANT, IMPLANT ASSY, IMPLANT GROUP, PRIVATE</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>PATIENT</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>
+                              <a class="xref" href="sect_F.5.html#sect_F.5.1" title="F.5.1 Patient Directory Record Definition" shape="rect">F.5.1</a>
+                           </p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>STUDY, HL7 STRUC DOC, PRIVATE</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>STUDY</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>
+                              <a class="xref" href="sect_F.5.html#sect_F.5.2" title="F.5.2 Study Directory Record Definition" shape="rect">F.5.2</a>
+                           </p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>SERIES, PRIVATE</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>SERIES</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>
+                              <a class="xref" href="sect_F.5.html#sect_F.5.3" title="F.5.3 Series Directory Record Definition" shape="rect">F.5.3</a>
+                           </p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>IMAGE, RT DOSE, RT STRUCTURE SET, RT PLAN, RT TREAT RECORD, PRESENTATION, WAVEFORM, SR DOCUMENT, KEY OBJECT DOC, SPECTROSCOPY, RAW DATA, REGISTRATION, FIDUCIAL, ENCAP DOC, VALUE MAP, STEREOMETRIC, PLAN, MEASUREMENT, SURFACE, PRIVATE</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>IMAGE</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>
+                              <a class="xref" href="sect_F.5.html#sect_F.5.4" title="F.5.4 Image Directory Record Definition" shape="rect">F.5.4</a>
+                           </p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>PRIVATE</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>RT DOSE</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>
+                              <a class="xref" href="sect_F.5.html#sect_F.5.19" title="F.5.19 RT Dose Directory Record Definition" shape="rect">F.5.19</a>
+                           </p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>PRIVATE</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>RT STRUCTURE SET</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>
+                              <a class="xref" href="sect_F.5.html#sect_F.5.20" title="F.5.20 RT Structure Set Directory Record Definition" shape="rect">F.5.20</a>
+                           </p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>PRIVATE</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>RT PLAN</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>
+                              <a class="xref" href="sect_F.5.html#sect_F.5.21" title="F.5.21 RT Plan Directory Record Definition" shape="rect">F.5.21</a>
+                           </p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>PRIVATE</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>RT TREAT RECORD</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>
+                              <a class="xref" href="sect_F.5.html#sect_F.5.22" title="F.5.22 RT Treatment Record Directory Record Definition" shape="rect">F.5.22</a>
+                           </p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>PRIVATE</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>PRESENTATION</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>
+                              <a class="xref" href="sect_F.5.html#sect_F.5.23" title="F.5.23 Presentation State Directory Record Definition" shape="rect">F.5.23</a>
+                           </p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>PRIVATE</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>WAVEFORM</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>
+                              <a class="xref" href="sect_F.5.html#sect_F.5.24" title="F.5.24 Waveform Directory Record Definition" shape="rect">F.5.24</a>
+                           </p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>PRIVATE</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>SR DOCUMENT</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>
+                              <a class="xref" href="sect_F.5.html#sect_F.5.25" title="F.5.25 SR Document Directory Record Definition" shape="rect">F.5.25</a>
+                           </p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>PRIVATE</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>KEY OBJECT DOC</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>
+                              <a class="xref" href="sect_F.5.html#sect_F.5.26" title="F.5.26 Key Object Document Directory Record Definition" shape="rect">F.5.26</a>
+                           </p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>PRIVATE</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>SPECTROSCOPY</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>
+                              <a class="xref" href="sect_F.5.html#sect_F.5.27" title="F.5.27 Spectroscopy Directory Record Definition" shape="rect">F.5.27</a>
+                           </p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>PRIVATE</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>RAW DATA</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>
+                              <a class="xref" href="sect_F.5.html#sect_F.5.28" title="F.5.28 Raw Data Directory Record Definition" shape="rect">F.5.28</a>
+                           </p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>PRIVATE</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>REGISTRATION</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>
+                              <a class="xref" href="sect_F.5.html#sect_F.5.29" title="F.5.29 Registration Directory Record Definition" shape="rect">F.5.29</a>
+                           </p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>PRIVATE</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>FIDUCIAL</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>
+                              <a class="xref" href="sect_F.5.html#sect_F.5.30" title="F.5.30 Fiducial Directory Record Definition" shape="rect">F.5.30</a>
+                           </p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>PRIVATE</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>HANGING PROTOCOL</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>
+                              <a class="xref" href="sect_F.5.html#sect_F.5.31" title="F.5.31 Hanging Protocol Directory Record Definition" shape="rect">F.5.31</a>
+                           </p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>PRIVATE</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>ENCAP DOC</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>
+                              <a class="xref" href="sect_F.5.html#sect_F.5.32" title="F.5.32 Encapsulated Document Directory Record Definition" shape="rect">F.5.32</a>
+                           </p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>PRIVATE</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>HL7 STRUC DOC</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>
+                              <a class="xref" href="sect_F.5.html#sect_F.5.33" title="F.5.33 HL7 Structured Document Directory Record Definition" shape="rect">F.5.33</a>
+                           </p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>PRIVATE</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>VALUE MAP</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>
+                              <a class="xref" href="sect_F.5.html#sect_F.5.34" title="F.5.34 Real World Value Mapping Directory Record Definition" shape="rect">F.5.34</a>
+                           </p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>PRIVATE</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>STEREOMETRIC</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>
+                              <a class="xref" href="sect_F.5.html#sect_F.5.35" title="F.5.35 Stereometric Relationship Directory Record Definition" shape="rect">F.5.35</a>
+                           </p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>PRIVATE</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>PALETTE</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>
+                              <a class="xref" href="sect_F.5.html#sect_F.5.36" title="F.5.36 Palette Directory Record Definition" shape="rect">F.5.36</a>
+                           </p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>PRIVATE</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>IMPLANT</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>
+                              <a class="xref" href="sect_F.5.html#sect_F.5.37" title="F.5.37 Implant Directory Record Definition" shape="rect">F.5.37</a>
+                           </p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>PRIVATE</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>IMPLANT ASSY</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>
+                              <a class="xref" href="sect_F.5.html#sect_F.5.38" title="F.5.38 Implant Assembly Directory Record Definition" shape="rect">F.5.38</a>
+                           </p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>PRIVATE</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>IMPLANT GROUP</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>
+                              <a class="xref" href="sect_F.5.html#sect_F.5.39" title="F.5.39 Implant Group Directory Record Definition" shape="rect">F.5.39</a>
+                           </p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>PRIVATE</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>PLAN</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>
+                              <a class="xref" href="sect_F.5.html#sect_F.5.40" title="F.5.40 Plan Directory Record Definition" shape="rect">F.5.40</a>
+                           </p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>PRIVATE</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>MEASUREMENT</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>
+                              <a class="xref" href="sect_F.5.html#sect_F.5.41" title="F.5.41 Measurement Directory Record Definition" shape="rect">F.5.41</a>
+                           </p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>PRIVATE</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>SURFACE</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>
+                              <a class="xref" href="sect_F.5.html#sect_F.5.42" title="F.5.42 Surface Directory Record Definition" shape="rect">F.5.42</a>
+                           </p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>PRIVATE</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>SURFACE SCAN</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>
+                              <a class="xref" href="sect_F.5.html#sect_F.5.43" title="F.5.43 Surface Scan Mesh Directory Record Definition" shape="rect">F.5.43</a>
+                           </p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>PRIVATE</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>PRIVATE</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>
+                              <a class="xref" href="sect_F.6.html#sect_F.6.1" title="F.6.1 Private Directory Record Definition" shape="rect">F.6.1</a>
+                           </p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>PRIVATE, (any of the above as privately defined)</p>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <br class="table-break" clear="none" />
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="1">
+                  <li class="listitem">
+                     <p>Directory Record Types PRINT QUEUE, FILM SESSION, FILM BOX, and IMAGE BOX were previously defined in DICOM. They have been retired. See PS3.3-1998.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>Directory Record Types OVERLAY, MODALITY LUT, VOI LUT, CURVE, TOPIC, VISIT, RESULTS, INTERPRETATION, STUDY COMPONENT, STORED PRINT and MRDR were previously defined in DICOM. They have been retired. See <a class="link" href="ftp://medical.nema.org/MEDICAL/Dicom/2004/printed/04_03pu3.pdf" target="_top" shape="rect">PS3.3-2004</a>.</p>
+                  </li>
+               </ol>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_F.3.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_F.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_F.5.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">F.3 Basic Directory IOD </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.3.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> F.5 Definition of Specific Directory Records</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

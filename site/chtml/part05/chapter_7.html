@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>7 The Data Set</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.5.html" title="PS3.5" />
+      <link rel="up" href="PS3.5.html" title="PS3.5" />
+      <link rel="prev" href="sect_6.4.html" title="6.4 Value Multiplicity (VM) and Delimitation" />
+      <link rel="next" href="sect_7.2.html" title="7.2 Group Length" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">7 The Data Set</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_6.4.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_7.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_7" shape="rect"></a>7 The Data Set</h1>
+               </div>
+            </div>
+         </div>
+         <p>A Data Set represents an instance of a real world Information Object. A Data Set is constructed of Data Elements. Data Elements contain the encoded Values of Attributes of that object. The specific content and semantics of these Attributes are specified in Information Object Definitions (see <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>).</p>
+         <p>The construction, characteristics, and encoding of a Data Set and its Data Elements are discussed in this section. Pixel Data, Overlays, and Curves are Data Elements whose interpretation depends on other related elements.</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_7.1" shape="rect"></a>7.1 Data Elements</h2>
+                  </div>
+               </div>
+            </div>
+            <p>A Data Element is uniquely identified by a Data Element Tag. The Data Elements in a Data Set shall be ordered by increasing Data Element Tag Number and shall occur at most once in a Data Set.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>A Data Element Tag may occur again within Nested Data Sets (see <a class="xref" href="sect_7.5.html" title="7.5 Nesting of Data Sets" shape="rect">Section 7.5</a>).</p>
+            </div>
+            <p>Two types of Data Elements are defined:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                     <p>Standard Data Elements have an even Group Number that is not (0000,eeee), (0002,eeee), (0004,eeee), or (0006,eeee).</p>
+                     <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                        <h3 class="title">Note</h3>
+                        <p>Usage of these groups is reserved for DIMSE Commands (see <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>) and DICOM File Formats.</p>
+                     </div>
+                  </li>
+                  <li class="listitem">
+                     <p>Private Data Elements have an odd Group Number that is not (0001,eeee), (0003,eeee), (0005,eeee), (0007,eeee), or (FFFF,eeee). Private Data Elements are discussed further in <a class="xref" href="sect_7.8.html" title="7.8 Private Data Elements" shape="rect">Section 7.8</a>.</p>
+                  </li>
+               </ul>
+            </div>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>Although similar or related Data Elements often have the same Group Number; a Data Group does not convey any semantic meaning beginning with DICOM Version 3.0.</p>
+            </div>
+            <p>A Data Element shall have one of three structures. Two of these structures contain the VR of the Data Element (Explicit VR) but differ in the way their lengths are expressed, while the other structure does not contain the VR (Implicit VR). All three structures contain the Data Element Tag, Value Length and Value for the Data Element. See <a class="xref" href="chapter_7.html#figure_7.1-1" title="Figure 7.1-1. DICOM Data Set and Data Element Structures" shape="rect">Figure 7.1-1</a>.</p>
+            <p>Implicit and Explicit VR Data Elements shall not coexist in a Data Set and Data Sets nested within it (see <a class="xref" href="sect_7.5.html" title="7.5 Nesting of Data Sets" shape="rect">Section 7.5</a>). Whether a Data Set uses Explicit or Implicit VR, among other characteristics, is determined by the negotiated Transfer Syntax (see <a class="xref" href="chapter_10.html" title="10 Transfer Syntax" shape="rect"> Section 10</a> and <a class="xref" href="chapter_A.html" title="A Transfer Syntax Specifications (Normative)" shape="rect"> Annex A</a>).</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>VRs are not contained in Data Elements when using DICOM Default Transfer Syntax (DICOM Implicit VR Little Endian Transfer Syntax).</p>
+            </div>
+            <p>
+        </p>
+            <div class="figure">
+               <a id="figure_7.1-1" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.5_7.1-1.svg" alt="DICOM Data Set and Data Element Structures" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure 7.1-1. DICOM Data Set and Data Element Structures</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_7.1.1" shape="rect"></a>7.1.1 Data Element Fields</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>A Data Element is made up of fields. Three fields are common to all three Data Element structures; these are the Data Element Tag, Value Length, and Value Field. A fourth field, Value Representation, is only present in the two Explicit VR Data Element structures. The Data Element structures are defined in <a class="xref" href="chapter_7.html#sect_7.1.2" title="7.1.2 Data Element Structure with Explicit VR" shape="rect">Section 7.1.2</a> and <a class="xref" href="chapter_7.html#sect_7.1.3" title="7.1.3 Data Element Structure with Implicit VR" shape="rect">Section 7.1.3</a>. The definitions of the fields are:</p>
+               <div class="variablelist">
+                  <dl class="variablelist">
+                     <dt>
+                        <span class="term">Data Element Tag</span>
+                     </dt>
+                     <dd>
+                        <p>An ordered pair of 16-bit unsigned integers representing the Group Number followed by Element Number.</p>
+                     </dd>
+                     <dt>
+                        <span class="term">Value Representation</span>
+                     </dt>
+                     <dd>
+                        <p>A two-byte character string containing the VR of the Data Element. The VR for a given Data Element Tag shall be as defined by the Data Dictionary as specified in <a href="../part06/PS3.6.html" class="olink" shape="rect">PS3.6</a>. The two character VR shall be encoded using characters from the DICOM default character set.</p>
+                     </dd>
+                     <dt>
+                        <span class="term">Value Length</span>
+                     </dt>
+                     <dd>
+                        <p>Either:</p>
+                        <div class="itemizedlist">
+                           <ul class="itemizedlist" style="list-style-type: disc; ">
+                              <li class="listitem">
+                                 <p>a 16 or 32-bit (dependent on VR and whether VR is explicit or implicit) unsigned integer containing the Explicit Length of the Value Field as the number of bytes (even) that make up the Value. It does not include the length of the Data Element Tag, Value Representation, and Value Length Fields.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>a 32-bit Length Field set to Undefined Length (FFFFFFFFH). Undefined Lengths may be used for Data Elements having the Value Representation (VR) Sequence of Items (SQ) and Unknown (UN). For Data Elements with Value Representation OW or OB Undefined Length may be used depending on the negotiated Transfer Syntax (see <a class="xref" href="chapter_10.html" title="10 Transfer Syntax" shape="rect"> Section 10</a> and <a class="xref" href="chapter_A.html" title="A Transfer Syntax Specifications (Normative)" shape="rect"> Annex A</a>).</p>
+                              </li>
+                           </ul>
+                        </div>
+                        <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                           <h3 class="title">Note</h3>
+                           <p>The decoder of a Data Set should support both Explicit and Undefined Lengths for VRs of SQ and UN and, when applicable, for VRs of OW and OB.</p>
+                        </div>
+                     </dd>
+                     <dt>
+                        <span class="term">Value Field</span>
+                     </dt>
+                     <dd>
+                        <p>An even number of bytes containing the Value(s) of the Data Element.</p>
+                        <p>The data type of Value(s) stored in this field is specified by the Data Element's VR. The VR for a given Data Element Tag can be determined using the Data Dictionary in <a href="../part06/PS3.6.html" class="olink" shape="rect">PS3.6</a>, or using the VR Field if it is contained explicitly within the Data Element. The VR of Standard Data Elements shall agree with those specified in the Data Dictionary.</p>
+                        <p>The Value Multiplicity specifies how many Values with this VR can be placed in the Value Field. If the VM is greater than one, multiple values shall be delimited within the Value Field as defined previously in <a class="xref" href="sect_6.4.html" title="6.4 Value Multiplicity (VM) and Delimitation" shape="rect">Section 6.4</a>. The VMs of Standard Data Elements are specified in the Data Dictionary in <a href="../part06/PS3.6.html" class="olink" shape="rect">PS3.6</a>.</p>
+                        <p>Value Fields with Undefined Length are delimited through the use of Sequence Delimitation Items and Item Delimitation Data Elements, which are described further in <a class="xref" href="sect_7.5.html" title="7.5 Nesting of Data Sets" shape="rect">Section 7.5</a>.</p>
+                     </dd>
+                  </dl>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_7.1.2" shape="rect"></a>7.1.2 Data Element Structure with Explicit VR</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>When using the Explicit VR structures, the Data Element shall be constructed of four consecutive fields: Data Element Tag, VR, Value Length, and Value. Depending on the VR of the Data Element, the Data Element will be structured in one of two ways:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>for VRs of OB, OW, OF, SQ and UN the 16 bits following the two character VR Field are reserved for use by later versions of the DICOM Standard. These reserved bytes shall be set to 0000H and shall not be used or decoded (<a class="xref" href="chapter_7.html#table_7.1-1" title="Table 7.1-1. Data Element with Explicit VR of OB, OW, OF, SQ, UT or UN" shape="rect">Table 7.1-1</a>). The Value Length Field is a 32-bit unsigned integer. If the Value Field has an Explicit Length, then the Value Length Field shall contain a value equal to the length (in bytes) of the Value Field. Otherwise, the Value Field has an Undefined Length and a Sequence Delimitation Item marks the end of the Value Field.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>for VRs of UT the 16 bits following the two character VR Field are reserved for use by later versions of the DICOM Standard. These reserved bytes shall be set to 0000H and shall not be used or decoded. The Value Length Field is a 32-bit unsigned integer. The Value Field is required to have an Explicit Length, that is the Value Length Field shall contain a value equal to the length (in bytes) of the Value Field.</p>
+                        <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                           <h3 class="title">Note</h3>
+                           <p>VRs of UT may not have an Undefined Length, i.e.,a Value Length of FFFFFFFFH.</p>
+                        </div>
+                     </li>
+                     <li class="listitem">
+                        <p>for all other VRs the Value Length Field is the 16-bit unsigned integer following the two character VR Field (<a class="xref" href="chapter_7.html#table_7.1-2" title="Table 7.1-2. Data Element with Explicit VR other than as shown in Table 7.1-1" shape="rect">Table 7.1-2</a>). The value of the Value Length Field shall equal the length of the Value Field.</p>
+                     </li>
+                  </ul>
+               </div>
+               <div class="table">
+                  <a id="table_7.1-1" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table 7.1-1. Data Element with Explicit VR of OB, OW, OF, SQ, UT or UN</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" colspan="2" rowspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Tag</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" colspan="2" rowspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VR</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Value Length</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Value</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Group Number</p>
+                                 <p>(16-bit unsigned integer)</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Element Number</p>
+                                 <p>(16-bit unsigned integer)</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>VR</p>
+                                 <p>(2 byte character string) of "OB", "OW", "OF", "SQ", "UT" or "UN"</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Reserved (2 bytes) set to a value of 0000H</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>32-bit unsigned integer</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Even number of bytes containing the Data Element Value(s) encoded according to the VR and negotiated Transfer Syntax. Delimited with Sequence Delimitation Item if of Undefined Length.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>2 bytes</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>2 bytes</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>2 bytes</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>2 bytes</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>4 bytes</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>'Value Length' bytes if of Explicit Length</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+               <div class="table">
+                  <a id="table_7.1-2" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table 7.1-2. Data Element with Explicit VR other than as shown in <a class="xref" href="chapter_7.html#table_7.1-1" title="Table 7.1-1. Data Element with Explicit VR of OB, OW, OF, SQ, UT or UN" shape="rect">Table 7.1-1</a>
+                     </strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" colspan="2" rowspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Tag</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>VR</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Value Length</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Value</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Group Number</p>
+                                 <p>(16-bit unsigned integer)</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Element Number</p>
+                                 <p>(16-bit unsigned integer)</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>VR</p>
+                                 <p>(2 byte character string)</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>(16-bit unsigned integer)</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Even number of bytes containing the Data Element Value(s) encoded according to the VR and negotiated Transfer Syntax.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>2 bytes</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>2 bytes</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>2 bytes</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>2 bytes</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>'Value Length' bytes</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_7.1.3" shape="rect"></a>7.1.3 Data Element Structure with Implicit VR</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>When using the Implicit VR structure the Data Element shall be constructed of three consecutive fields: Data Element Tag, Value Length, and Value (see <a class="xref" href="chapter_7.html#table_7.1-3" title="Table 7.1-3. Data Element with Implicit VR" shape="rect">Table 7.1-3</a>). If the Value Field has an Explicit Length then the Value Length Field shall contain a value equal to the length (in bytes) of the Value Field. Otherwise, the Value Field has an Undefined Length and a Sequence Delimitation Item marks the end of the Value Field.</p>
+               <div class="table">
+                  <a id="table_7.1-3" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table 7.1-3. Data Element with Implicit VR</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" colspan="2" rowspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Tag</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Value Length</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>Value</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Group Number</p>
+                                 <p>(16-bit unsigned integer)</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Element Number</p>
+                                 <p>(16-bit unsigned integer)</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>32-bit unsigned integer</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Even number of bytes containing the Data Elements Value encoded according to the VR specified in <a href="../part06/PS3.6.html" class="olink" shape="rect">PS3.6</a> and the negotiated Transfer Syntax. Delimited with Sequence Delimitation Item if of Undefined Length.</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>2 bytes</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>2 bytes</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>4 bytes</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>'Value Length' bytes or Undefined Length</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_6.4.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_7.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">6.4 Value Multiplicity (VM) and Delimitation </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.5.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 7.2 Group Length</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

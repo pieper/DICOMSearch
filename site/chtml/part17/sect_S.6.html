@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>S.6 Switching A Node From Unmanaged to Managed in A Mixed Network</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="chapter_S.html" title="S Legacy Transition For Configuration Management (Informative)" />
+      <link rel="prev" href="sect_S.5.html" title="S.5 Adding The First Managed Device to A Legacy Network" />
+      <link rel="next" href="chapter_T.html" title="T Quantitative Analysis References (Informative)" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">S.6 Switching A Node From Unmanaged to Managed in A Mixed Network</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_S.5.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">S Legacy Transition For Configuration Management (Informative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_T.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_S.6" shape="rect"></a>S.6 Switching A Node From Unmanaged to Managed in A Mixed Network</h2>
+               </div>
+            </div>
+         </div>
+         <p>During the transition period devices will be switched from unmanaged to managed. This may be done in stages, with the LDAP client transition being done at a different time than the DHCP, DNS, and NTP client. This section describes a switch that changes a device from completely unmanaged to a fully managed device. The device itself may be completely replaced or simply have a software upgrade. Details of how the device is switched are not important.</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_S.6.1" shape="rect"></a>S.6.1 DHCP and DNS</h3>
+                  </div>
+               </div>
+            </div>
+            <p>If the device was documented as part of an initial full network documentation process, the entries in the DHCP and DNS databases need to be checked. If the entry is missing, wrong, or incomplete, it must be corrected in the DHCP and DNS databases. If the entries are correct, then no changes are needed to those servers. The device can simply start using the servers. The only synchronization requirement is that the DHCP and DNS servers be updated before the device, so these can be scheduled as convenient.</p>
+            <p>If the device is going to be dynamically assigned an IP address by the DHCP server, then the DNS server database should be updated to reflect that DDNS is now going to be used for this device. This update should not be made ahead of time. It should be made when the device is updated.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_S.6.2" shape="rect"></a>S.6.2 NTP</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The NTP server location relative to this device should be reviewed to be sure that it meets the timing requirements of the device. If it is an NTP client with a time accuracy requirement of approximately 1 second, almost any NTP server location will be acceptable. For SNTP clients and devices with high time accuracy requirements, it is possible that an additional NTP server or network topology adjustment may be needed.</p>
+            <p>If the NTP server is using secured time information, certificates or passwords may need to be exchanged.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_S.6.3" shape="rect"></a>S.6.3 Association Acceptors On This Node</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The association acceptors may be able to simply utilize the configuration information from the LDAP database, but it is likely that further configuration will be needed. Unmanaged nodes probably have only a minimal configuration in the database.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_S.6.4" shape="rect"></a>S.6.4 Association Requesters On Legacy Nodes</h3>
+                  </div>
+               </div>
+            </div>
+            <p>These will probably remain unchanged. The IP address must be pre-allocated if there are legacy nodes that cannot support DHCP.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_S.6.5" shape="rect"></a>S.6.5 Association Requesters On Managed Nodes</h3>
+                  </div>
+               </div>
+            </div>
+            <p>If the previous configuration had already been described in the LDAP database, the managed nodes can continue to use the LDAP database. The updated and more detailed entry describing the now managed association acceptor will be used.</p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_S.5.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_S.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="chapter_T.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">S.5 Adding The First Managed Device to A Legacy Network </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> T Quantitative Analysis References (Informative)</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

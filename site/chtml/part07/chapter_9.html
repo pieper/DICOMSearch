@@ -1,0 +1,1871 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>9 DIMSE-C</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.7.html" title="PS3.7" />
+      <link rel="up" href="PS3.7.html" title="PS3.7" />
+      <link rel="prev" href="sect_8.3.html" title="8.3 Conformance" />
+      <link rel="next" href="sect_9.2.html" title="9.2 Sequencing" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">9 DIMSE-C</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_8.3.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_9.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_9" shape="rect"></a>9 DIMSE-C</h1>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_9.1" shape="rect"></a>9.1 Services</h2>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_9.1.1" shape="rect"></a>9.1.1 C-STORE Service</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>The C-STORE service is used by a DIMSE-service-user to store a composite SOP Instance on a peer DIMSE-service-user. It is a confirmed service.</p>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_9.1.1.1" shape="rect"></a>9.1.1.1 C-STORE Parameters</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>
+                     <a class="xref" href="chapter_9.html#table_9.1-1" title="Table 9.1-1. C-STORE Parameters" shape="rect">Table 9.1-1</a> lists the parameters of this service.</p>
+                  <div class="table">
+                     <a id="table_9.1-1" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table 9.1-1. C-STORE Parameters</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>DIMSE-C Parameter Name</strong>
+                                       </span>
+                                    </p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Req/Ind</strong>
+                                       </span>
+                                    </p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Rsp/Conf</strong>
+                                       </span>
+                                    </p>
+                                 </td>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Message ID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>M</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>U</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Message ID Being Responded To</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>M</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Affected SOP Class UID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>M</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>U(=)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Affected SOP Instance UID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>M</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>U(=)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Priority</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>M</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Move Originator Application Entity Title</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>U</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Move Originator Message ID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>U</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Data Set</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>M</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Status</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>M</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h5 class="title">
+                                 <a id="sect_9.1.1.1.1" shape="rect"></a>9.1.1.1.1 Message ID</h5>
+                           </div>
+                        </div>
+                     </div>
+                     <p>This parameter identifies the operation. It is used to distinguish this operation from other notifications or operations that the DIMSE-service-provider may have in progress. No two identical values for the Message ID (0000,0110) shall be used for outstanding operations or notifications.</p>
+                     <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                        <h3 class="title">Note</h3>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>Inclusion of this parameter in the confirmation was permitted in previous versions of this Standard but this mode of use is now retired. This parameter may be included in the confirmation but in such a case the invoking DIMSE-service-user should not attach any semantic significance to this parameter.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The Message ID (0000,0110) is recommended to be unique within the scope of an Association, to support debug procedures.</p>
+                              </li>
+                           </ol>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h5 class="title">
+                                 <a id="sect_9.1.1.1.2" shape="rect"></a>9.1.1.1.2 Message ID Being Responded To</h5>
+                           </div>
+                        </div>
+                     </div>
+                     <p>This parameter specifies the Message ID (0000,0110) of the operation request/indication to which this response/confirmation applies.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h5 class="title">
+                                 <a id="sect_9.1.1.1.3" shape="rect"></a>9.1.1.1.3 Affected SOP Class UID</h5>
+                           </div>
+                        </div>
+                     </div>
+                     <p>For the request/indication, this parameter specifies the SOP Class for the storage. It may be included in the response/confirmation. If included in the response/confirmation, this parameter shall be equal to the value in the request/indication.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h5 class="title">
+                                 <a id="sect_9.1.1.1.4" shape="rect"></a>9.1.1.1.4 Affected SOP Instance UID</h5>
+                           </div>
+                        </div>
+                     </div>
+                     <p>For the request/indication, this parameter specifies the SOP Instance to be stored. It may be included in the response/confirmation. If included in the response/confirmation, this parameter shall be equal to the value in the request/indication.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h5 class="title">
+                                 <a id="sect_9.1.1.1.5" shape="rect"></a>9.1.1.1.5 Priority</h5>
+                           </div>
+                        </div>
+                     </div>
+                     <p>This parameter specifies the priority of the C-STORE operation. It shall be one of LOW, MEDIUM, or HIGH.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h5 class="title">
+                                 <a id="sect_9.1.1.1.6" shape="rect"></a>9.1.1.1.6 Move Originator Application Entity Title</h5>
+                           </div>
+                        </div>
+                     </div>
+                     <p>This parameter specifies the DICOM AE Title of the DICOM AE that invoked the C-MOVE operation from which this C-STORE sub-operation is being performed.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h5 class="title">
+                                 <a id="sect_9.1.1.1.7" shape="rect"></a>9.1.1.1.7 Move Originator Message ID</h5>
+                           </div>
+                        </div>
+                     </div>
+                     <p>This parameter specifies the Message ID (0000,0110) of the C-MOVE request/indication primitive from which this C-STORE sub-operation is being performed.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h5 class="title">
+                                 <a id="sect_9.1.1.1.8" shape="rect"></a>9.1.1.1.8 Data Set</h5>
+                           </div>
+                        </div>
+                     </div>
+                     <p>The Data Set accompanying the C-STORE primitive contains the Attributes of the Composite SOP Instance to be stored.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h5 class="title">
+                                 <a id="sect_9.1.1.1.9" shape="rect"></a>9.1.1.1.9 Status</h5>
+                           </div>
+                        </div>
+                     </div>
+                     <p>This parameter contains the error or success notification for the operation. It shall be included by the performing DIMSE-service-user in the response/confirmation. The following types of status may occur in a response/confirmation:</p>
+                     <div class="orderedlist">
+                        <ol class="orderedlist" type="a">
+                           <li class="listitem">
+                              <p>Refused: Out of Resources - This indicates that the peer DIMSE-service-user was unable to store the composite SOP Instance because it was out of resources.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Refused: SOP Class Not Supported - This indicates that the peer DIMSE-service-user was unable to store the composite SOP Instance because the SOP Class is not supported,</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Error: Cannot Understand - This indicates that the peer DIMSE-service-user was unable to store the composite SOP Instance because it cannot understand certain Data Elements.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Error: Data Set does not match SOP Class - This indicates that the peer DIMSE-service-user was unable to store the composite SOP Instance because the Data Set does not match the SOP Class.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Warning - This indicates that the peer DIMSE-service-user was able to store the composite SOP Instance, but detected a probable error.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Success - This indicates that the composite SOP Instance was successfully stored.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Refused:Duplicate Invocation- Indicates that the Message ID (0000,0110) specified is allocated to another notification or operation.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Refused:Invalid SOP Instance- Indicates that the SOP Instance UID specified implied a violation of the UID construction rules.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Refused:Mistyped argument- Indicates that one of the parameters supplied has not been agreed for use on the Association between the DIMSE-service-users.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Refused:Unrecognized Operation- Indicates that the operation is not one of those agreed between the DIMSE-service-users.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Refused:Not Authorized- Indicates that the peer DIMSE-service-user was not authorized to store the composite SOP Instance.</p>
+                           </li>
+                        </ol>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_9.1.1.2" shape="rect"></a>9.1.1.2 C-STORE Service Procedures</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The following C-STORE procedures apply:</p>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="a">
+                        <li class="listitem">
+                           <p>The invoking DIMSE-service-user requests that the performing DIMSE-service-user store a composite SOP Instance by issuing a C-STORE request primitive to the DIMSE-service-provider.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The DIMSE-service-provider issues a C-STORE indication primitive to the performing DIMSE-service-user.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The performing DIMSE-service-user reports acceptance or rejection of the C-STORE request primitive by issuing a C-STORE response primitive to the DIMSE-service-provider,</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The DIMSE-service-provider issues a C-STORE confirmation primitive to the invoking DIMSE-service-user, completing the C-STORE operation.</p>
+                        </li>
+                     </ol>
+                  </div>
+                  <p>The performing DIMSE-service-user may return a C-STORE response primitive with the status of Failed or Refused before the entire C-STORE indication (Data Set) has been completely transmitted by the invoking DIMSE-service-user. A C-STORE response primitive with the status of Success or Warning shall not be returned until the entire C-STORE indication has been received by the performing DIMSE-service-user.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>Such an occurrence of a "Failed" response is often called an early failed response.</p>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_9.1.2" shape="rect"></a>9.1.2 C-FIND Service</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>The C-FIND service is used by a DIMSE-service-user to match a set of Attributes against the Attributes of a set of composite SOP Instances maintained by a peer DIMSE-service-user. It is a confirmed service.</p>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_9.1.2.1" shape="rect"></a>9.1.2.1 C-FIND Parameters</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>See <a class="xref" href="chapter_9.html#table_9.1-2" title="Table 9.1-2. C-FIND Parameters" shape="rect">Table 9.1-2</a>.</p>
+                  <div class="table">
+                     <a id="table_9.1-2" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table 9.1-2. C-FIND Parameters</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>DIMSE-C Parameter Name</strong>
+                                       </span>
+                                    </p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Req/Ind</strong>
+                                       </span>
+                                    </p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Rsp/Conf</strong>
+                                       </span>
+                                    </p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>CnclReq/CnclInd</strong>
+                                       </span>
+                                    </p>
+                                 </td>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Message ID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>M</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>U</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Message ID Being Responded To</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>M</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>M</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Affected SOP Class UID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>M</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>U(=)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Priority</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>M</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Identifier</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>M</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>C</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Status</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>M</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h5 class="title">
+                                 <a id="sect_9.1.2.1.1" shape="rect"></a>9.1.2.1.1 Message ID</h5>
+                           </div>
+                        </div>
+                     </div>
+                     <p>This parameter identifies the operation. It is used to distinguish this operation from other notifications or operations that the DIMSE-service-provider may have in progress. No two identical values for the Message ID (0000,0110) shall be used for outstanding operations or notifications.</p>
+                     <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                        <h3 class="title">Note</h3>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>Inclusion of this parameter in the confirmation was permitted in previous versions of this Standard but this mode of use is now retired. This parameter may be included in the confirmation but in such a case the invoking DIMSE-service-user should not attach any semantic significance to this parameter.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The Message ID (0000,0110) is recommended to be unique within the scope of an Association, to support debug procedures.</p>
+                              </li>
+                           </ol>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h5 class="title">
+                                 <a id="sect_9.1.2.1.2" shape="rect"></a>9.1.2.1.2 Message ID Being Responded To</h5>
+                           </div>
+                        </div>
+                     </div>
+                     <p>This parameter specifies the Message ID (0000,0110) of the request/indication to which this response/confirmation applies.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h5 class="title">
+                                 <a id="sect_9.1.2.1.3" shape="rect"></a>9.1.2.1.3 Affected SOP Class UID</h5>
+                           </div>
+                        </div>
+                     </div>
+                     <p>For the request/indication, this parameter specifies the SOP Class of the Information Model for the query. It may be included in the response/confirmation. If included in the response/confirmation, this parameter shall be equal to the value in the request/indication.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h5 class="title">
+                                 <a id="sect_9.1.2.1.4" shape="rect"></a>9.1.2.1.4 Priority</h5>
+                           </div>
+                        </div>
+                     </div>
+                     <p>This parameter specifies the priority of the C-FIND operation. It shall be one of LOW, MEDIUM, or HIGH.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h5 class="title">
+                                 <a id="sect_9.1.2.1.5" shape="rect"></a>9.1.2.1.5 Identifier</h5>
+                           </div>
+                        </div>
+                     </div>
+                     <p>In the request/indication, this is a list of Attributes to be matched against the values of the Attributes in the instances of the composite objects known to the performing DIMSE-service-user.</p>
+                     <p>In the response/confirmation, this is the same list of Attributes with values of these Attributes in a particular composite SOP Instance that matched. It shall be sent only when that Status (0000,0900) is equal to Pending (not permitted for other statuses).</p>
+                     <p>The list of Attributes and the rules for construction are specified in <a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a>.</p>
+                     <div class="section">
+                        <div class="titlepage">
+                           <div>
+                              <div>
+                                 <h6 class="title">
+                                    <a id="sect_9.1.2.1.6" shape="rect"></a>9.1.2.1.5 Status</h6>
+                              </div>
+                           </div>
+                        </div>
+                        <p>Indicates the status of the response. It may have any of the following values:</p>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="a">
+                              <li class="listitem">
+                                 <p>Success-This indicates that processing of the matches is complete. It shall not contain a matching Identifier.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>Pending-This indicates that processing of the matches is initiated or continuing. It shall contain a matching Identifier.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>Refused: Out of Resources-Indicates that processing of the C-FIND has been terminated because it was out of resources. This may be the initial response to the C-FIND, or may be sent after a number of pending C-FIND responses. This response shall not contain a matching Identifier.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>Refused: SOP Class Not Supported - Indicates that processing of the C-FIND has been terminated because the SOP Class was not supported. This response shall not contain a matching Identifier.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>Cancel-Indicates that the processing of the C-FIND has been terminated due to a C-FIND Cancel indication primitive. The response shall not contain an Identifier.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>Failed-Indicates that the C-FIND operation failed at the performing DIMSE-service-user.</p>
+                              </li>
+                           </ol>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_9.1.2.2" shape="rect"></a>9.1.2.2 C-FIND Service Procedures</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The following C-FIND service procedures apply to the invoking DIMSE-service user:</p>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="a">
+                        <li class="listitem">
+                           <p>The invoking DIMSE-service-user requests a performing DIMSE-service-user to match an Identifier against the Attributes of all SOP Instances known to the performing DIMSE-service-user by issuing a C-FIND request primitive to the DIMSE-service-provider. If the request is rejected by the DIMSE-service-provider, the following procedures do not apply.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>At any time before receiving a C-FIND confirmation primitive with a status unequal to Pending, the invoking DIMSE-service-user may request the performing DIMSE-service-user to cancel the service by issuing a C-FIND cancel request primitive to the DIMSE-service-provider.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The invoking DIMSE-service-user receives a C-FIND confirmation primitive for each unique match of the Identifier to a set of composite SOP Instance Attributes.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The invoking DIMSE-service-user receives a final C-FIND confirmation primitive.</p>
+                        </li>
+                     </ol>
+                  </div>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>In the above procedures, (c) may precede (b).</p>
+                  </div>
+                  <p>The following C-FIND service procedures apply to the performing DIMSE-service-user:</p>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="a">
+                        <li class="listitem">
+                           <p>When the performing DIMSE-service-user receives a C-FIND indication from the DIMSE-service-provider, it matches the Identifier against the Attributes of known composite SOP Instances.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>At any time following the C-FIND indication, the performing DIMSE-service-user may receive a C-FIND cancel indication.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>If the C-FIND cancel indication is received before the processing of the C-FIND indication has completed, then the C-FIND operation is aborted; otherwise the following procedure does not apply.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The performing DIMSE-service-user issues a C-FIND response with a status of Canceled to the DIMSE-service-provider to indicate that the C-FIND has been canceled. The following procedures do not apply.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>For each match, the performing DIMSE-service-user issues a C-FIND response with the status set to Pending and a matching Identifier.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>When the C-FIND operation completes (either in success or in failure), the performing DIMSE-service-user issues a C-FIND response with the status set to either Refused, Failed, or Success to the DIMSE-service-provider.</p>
+                        </li>
+                     </ol>
+                  </div>
+                  <p>The following C-FIND service procedures apply to the DIMSE-service-provider:</p>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="a">
+                        <li class="listitem">
+                           <p>When the DIMSE-service-provider receives a C-FIND request primitive from the invoking DIMSE-service-user, it issues a C-FIND indication primitive to the performing DIMSE-service-user.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>When the DIMSE-service-provider receives a C-FIND cancel request primitive from the invoking DIMSE-service-user, it issues a C-FIND cancel indication to the performing DIMSE-service-user.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>When the DIMSE-service-provider receives a C-FIND response primitive from the performing DIMSE-service-user, it issues a C-FIND confirmation primitive to the invoking DIMSE-service-user.</p>
+                        </li>
+                     </ol>
+                  </div>
+                  <p>The performing DIMSE-service-user may return a C-FIND response primitive with the status of Failed or Refused before the entire C-FIND indication (Data Set) has been completely transmitted by the invoking DIMSE-service-user. A C-FIND response primitive with the status of Success or Warning shall not be returned until the entire C-FIND indication has been received by the performing DIMSE-service-user.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>Such an occurrence of a "Failed" response is often called an early failed response.</p>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_9.1.3" shape="rect"></a>9.1.3 C-GET Service</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>The C-GET service is used by a DIMSE-service-user to match a set of Attributes against the Attributes of a set of composite SOP Instances maintained by a peer DIMSE-service-user, and retrieve all composite SOP Instances that match. It triggers one or more C-STORE sub-operations on the same Association. It is a confirmed service.</p>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_9.1.3.1" shape="rect"></a>9.1.3.1 C-GET Parameters</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>See <a class="xref" href="chapter_9.html#table_9.1-3" title="Table 9.1-3. C-GET Parameters" shape="rect">Table 9.1-3</a>.</p>
+                  <div class="table">
+                     <a id="table_9.1-3" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table 9.1-3. C-GET Parameters</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>DIMSE-C Parameter Name</strong>
+                                       </span>
+                                    </p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Req/Ind</strong>
+                                       </span>
+                                    </p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Rsp/Conf</strong>
+                                       </span>
+                                    </p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>CnclReq/CnclInd</strong>
+                                       </span>
+                                    </p>
+                                 </td>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Message ID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>M</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>U</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Message ID Being Responded To</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>M</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>M</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Affected SOP Class UID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>M</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>U(=)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Priority</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>M</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Identifier</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>M</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>U</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Status</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>M</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Number of Remaining Sub-operations</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>C</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Number of Completed Sub-operations</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>C</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Number of Failed Sub-operations</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>C</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Number of Warning Sub-operations</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>C</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h5 class="title">
+                                 <a id="sect_9.1.3.1.1" shape="rect"></a>9.1.3.1.1 Message ID</h5>
+                           </div>
+                        </div>
+                     </div>
+                     <p>This parameter identifies the operation. It is used to distinguish this operation from other notifications or operations that the DIMSE-service-provider may have in progress. No two identical values for the Message ID (0000,0110) shall be used for outstanding operations or notifications.</p>
+                     <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                        <h3 class="title">Note</h3>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>Inclusion of this parameter in the confirmation was permitted in previous versions of this Standard but this mode of use is now retired. This parameter may be included in the confirmation but in such a case the invoking DIMSE-service-user should not attach any semantic significance to this parameter.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The Message ID (0000,0110) is recommended to be unique within the scope of an Association, to support debug procedures.</p>
+                              </li>
+                           </ol>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h5 class="title">
+                                 <a id="sect_9.1.3.1.2" shape="rect"></a>9.1.3.1.2 Message ID Being Responded To</h5>
+                           </div>
+                        </div>
+                     </div>
+                     <p>This parameter specifies the Message ID (0000,0110) of the request/indication to which this response/confirmation applies.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h5 class="title">
+                                 <a id="sect_9.1.3.1.3" shape="rect"></a>9.1.3.1.3 Affected SOP Class UID</h5>
+                           </div>
+                        </div>
+                     </div>
+                     <p>For the request/indication, this parameter specifies the SOP Class of the Information Model for the retrieve. It may be included in the response/confirmation. If included in the response/confirmation, this parameter shall be equal to the value in the request/indication.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h5 class="title">
+                                 <a id="sect_9.1.3.1.4" shape="rect"></a>9.1.3.1.4 Priority</h5>
+                           </div>
+                        </div>
+                     </div>
+                     <p>This parameter specifies the priority of the C-GET operation. It shall be one of LOW, MEDIUM or HIGH. This priority shall also be the priority used for all sub-operations.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h5 class="title">
+                                 <a id="sect_9.1.3.1.5" shape="rect"></a>9.1.3.1.5 Identifier</h5>
+                           </div>
+                        </div>
+                     </div>
+                     <p>In the request/indication, this is a list of Attributes to be matched against the values of the Attributes of known composite SOP Instances of the performing DIMSE-service-user. The list of Attributes allowed and the rules for the construction are specified in <a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a>.</p>
+                     <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                        <h3 class="title">Note</h3>
+                        <p>The Identifier is specified as U in the Response/Confirmation, but Services defined in <a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a> that use this primitive may impose mandatory or conditional requirements on its presence.</p>
+                     </div>
+                     <p>In the response/confirmation, this is a list of Attributes that provide status information about the C-GET operation. The list of Attributes allowed and the rules that define the usage of the Identifier are specified in <a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a>.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h5 class="title">
+                                 <a id="sect_9.1.3.1.6" shape="rect"></a>9.1.3.1.6 Status</h5>
+                           </div>
+                        </div>
+                     </div>
+                     <p>Indicates the status of the response. It may have any of the following values:</p>
+                     <div class="orderedlist">
+                        <ol class="orderedlist" type="a">
+                           <li class="listitem">
+                              <p>Success - This indicates that processing of the matches and all sub-operations are complete.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Pending - This indicates that processing of the matches and sub-operations is initiated or continuing.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Refused: Out of Resources - Indicates that processing of the C-GET has been terminated because it was out of resources. This may be the initial response to the C-GET or may be sent after a number of Pending statuses.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Refused: SOP Class Not Supported - Indicates that processing of the C-GET has been terminated because the SOP Class was not supported.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Cancel - Indicates that processing of the C-GET has been terminated due to a C-GET Cancel indication primitive.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Failed- Indicates that the C‑GET operation failed at the performing DIMSE-service-user.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Refused:Duplicate Invocation- Indicates that the Message ID (0000,0110) specified is allocated to another notification or operation.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Refused:Mistyped argument- Indicates that one of the parameters supplied has not been agreed for use on the Association between the DIMSE-service-users.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Refused:Unrecognized Operation- Indicates that the operation is not one of those agreed between the DIMSE-service-users.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Refused:Not Authorized- Indicates that the peer DIMSE-service-user was not authorized to invoke the C-FIND operation.</p>
+                           </li>
+                        </ol>
+                     </div>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h5 class="title">
+                                 <a id="sect_9.1.3.1.7" shape="rect"></a>9.1.3.1.7 Number of Remaining Sub-Operations</h5>
+                           </div>
+                        </div>
+                     </div>
+                     <p>This specifies the number of remaining C-STORE sub-operations to be invoked by this C-GET operation. It may be included in any response/confirmation and shall be included if the status is equal to Pending.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h5 class="title">
+                                 <a id="sect_9.1.3.1.8" shape="rect"></a>9.1.3.1.8 Number of Completed Sub-Operations</h5>
+                           </div>
+                        </div>
+                     </div>
+                     <p>This specifies the number of C-STORE sub-operations invoked by this C-GET operation that have completed successfully. It may be included in any response/confirmation and shall be included if the status is equal to Pending.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h5 class="title">
+                                 <a id="sect_9.1.3.1.9" shape="rect"></a>9.1.3.1.9 Number of Failed Sub-Operations</h5>
+                           </div>
+                        </div>
+                     </div>
+                     <p>This specifies the number of C-STORE sub-operations invoked by this C-GET operation that have failed. It may be included in any response/confirmation and shall be included if the status is equal to Pending.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h5 class="title">
+                                 <a id="sect_9.1.3.1.10" shape="rect"></a>9.1.3.1.10 Number of Warning Sub-Operations</h5>
+                           </div>
+                        </div>
+                     </div>
+                     <p>This specifies the number of C-STORE sub-operation invoked by this C-GET operation that generated Warning responses. It may be included in any response/confirmation and shall be included if the status is equal to Pending.</p>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_9.1.3.2" shape="rect"></a>9.1.3.2 C-GET Service Procedures</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The following C-GET service procedures apply to the invoking DIMSE-service user:</p>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="a">
+                        <li class="listitem">
+                           <p>The invoking DIMSE-service-user requests a performing DIMSE-service-user to match an Identifier against the Attributes of all SOP Instances known to the performing DIMSE-service-user and generate a C-STORE sub-operation for each match. This request is made by issuing a C-GET request primitive to the DIMSE-service-provider. If the request is rejected by the DIMSE-service-provider, the following procedures do not apply.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>At any time before receiving a C-GET confirmation primitive with status unequal to Pending, the invoking DIMSE-service-user may request the performing DIMSE-service-user to cancel the service by issuing a C-GET cancel request primitive to the DIMSE-service-provider.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The invoking DIMSE-service-user may receive C-GET confirmation primitives with status of Pending during the processing of the C-GET operation.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The invoking DIMSE-service-user receives a final C-GET confirmation primitive.</p>
+                        </li>
+                     </ol>
+                  </div>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>In the above procedures, (c) may precede (b).</p>
+                  </div>
+                  <p>The following C-GET service procedures apply to the performing DIMSE-service-user:</p>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="a">
+                        <li class="listitem">
+                           <p>When the performing DIMSE-service-user receives a C-GET indication from the DIMSE-service-provider it matches the Identifier against the Attributes of known composite SOP Instances and generates a C-STORE sub-operation for each match.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>At any time following the C-GET indication, the performing DIMSE-service-user may receive a C-GET cancel indication.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>If the C-GET cancel indication is received before the processing of the C-GET indication has completed, then the C-GET operation is terminated; otherwise the following procedure does not apply.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The performing DIMSE-service-user issues a C-GET response with a status of Canceled to the DIMSE-service-provider to indicate that the C-GET has been canceled. The following procedures do not apply.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>For each match, the performing DIMSE-service-user initiates a C-STORE sub-operation on the same Association as the C-GET. In this sub-operation, the C-GET performing DIMSE-service-user becomes the C-STORE invoking DIMSE-service-user. The C-STORE performing DIMSE-service-user is the C-GET invoking DIMSE-service-user.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>During the processing of the C-GET operation, the performing DIMSE-service-user may issue C-GET response primitives with a status of Pending.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>When the C-GET operation completes (either in success or in failure), the performing DIMSE-service-user issues a C-GET response with the status set to either refused, failed or success to the DIMSE-service-provider.</p>
+                        </li>
+                     </ol>
+                  </div>
+                  <p>The following C-GET service procedures apply to the DIMSE-service-provider:</p>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="a">
+                        <li class="listitem">
+                           <p>When the DIMSE-service-provider receives a C-GET request primitive from the invoking DIMSE-service-user, it issues a C-GET indication primitive to the performing DIMSE-service-user.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>When the DIMSE-service-provider receives a C-GET cancel request primitive from the invoking DIMSE-service-user, it issues a C-GET cancel indication to the performing DIMSE-service-user.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>When the DIMSE-service-provider receives a C-GET response primitive from the performing DIMSE-service-user, it issues a C-GET confirmation primitive to the invoking DIMSE-service-user.</p>
+                        </li>
+                     </ol>
+                  </div>
+                  <p>The performing DIMSE-service-user may return a C-GET response primitive with the status of Failed or Refused before the entire C-GET indication (Data Set) has been completely transmitted by the invoking DIMSE-service-user. A C-GET response primitive with the status of Success or Warning shall not be returned until the entire C-GET indication has been received by the performing DIMSE-service-user.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>Such an occurrence of a "Failed" response is often called an early failed response.</p>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_9.1.4" shape="rect"></a>9.1.4 C-MOVE Service</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>The C-MOVE service is used by a DIMSE-service-user to match a set of Attributes against the Attributes of a set of composite SOP Instances maintained by a peer DIMSE-service-user, and retrieve all composite SOP Instances that match. It triggers one or more C-STORE sub-operations on a separate Association. It is a confirmed service.</p>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_9.1.4.1" shape="rect"></a>9.1.4.1 C-MOVE Parameters</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>See <a class="xref" href="chapter_9.html#table_9.1-4" title="Table 9.1-4. C-MOVE Parameters" shape="rect">Table 9.1-4</a>.</p>
+                  <div class="table">
+                     <a id="table_9.1-4" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table 9.1-4. C-MOVE Parameters</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>DIMSE-C Parameter Name</strong>
+                                       </span>
+                                    </p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Req/Ind</strong>
+                                       </span>
+                                    </p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Rsp/Conf</strong>
+                                       </span>
+                                    </p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>CnclReq/CnclInd</strong>
+                                       </span>
+                                    </p>
+                                 </td>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Message ID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>M</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>U</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Message ID Being Responded To</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>M</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>M</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Affected SOP Class UID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>M</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>U(=)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Priority</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>M</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Move Destination</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>M</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Identifier</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>M</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>U</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Status</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>M</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Number of Remaining Sub-operations</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>C</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Number of Completed Sub-operations</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>C</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Number of Failed Sub-operations</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>C</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Number of Warning Sub-operations</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>C</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h5 class="title">
+                                 <a id="sect_9.1.4.1.1" shape="rect"></a>9.1.4.1.1 Message ID</h5>
+                           </div>
+                        </div>
+                     </div>
+                     <p>This parameter identifies the operation. It is used to distinguish this operation from other notifications or operations that the DIMSE-service-provider may have in progress. No two identical values for the Message ID (0000,0110) shall be used for outstanding operations or notifications.</p>
+                     <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                        <h3 class="title">Note</h3>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>Inclusion of this parameter in the confirmation was permitted in previous versions of this Standard but this mode of use is now retired. This parameter may be included in the confirmation but in such a case the invoking DIMSE-service-user should not attach any semantic significance to this parameter.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The Message ID (0000,0110) is recommended to be unique within the scope of an Association, to support debug procedures.</p>
+                              </li>
+                           </ol>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h5 class="title">
+                                 <a id="sect_9.1.4.1.2" shape="rect"></a>9.1.4.1.2 Message ID Being Responded To</h5>
+                           </div>
+                        </div>
+                     </div>
+                     <p>This parameter specifies the Message ID (0000,0110) of the request/indication to which this response/confirmation applies.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h5 class="title">
+                                 <a id="sect_9.1.4.1.3" shape="rect"></a>9.1.4.1.3 Affected SOP Class UID</h5>
+                           </div>
+                        </div>
+                     </div>
+                     <p>For the request/indication, this parameter specifies the SOP Class of the Information Model for the retrieve. It may be included in the response/confirmation. If included in the response/confirmation, this parameter shall be equal to the value in the request/indication.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h5 class="title">
+                                 <a id="sect_9.1.4.1.4" shape="rect"></a>9.1.4.1.4 Priority</h5>
+                           </div>
+                        </div>
+                     </div>
+                     <p>This parameter specifies the priority of the C-MOVE operation. It shall be one of LOW, MEDIUM or HIGH . This priority shall also be the priority used for all sub-operations.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h5 class="title">
+                                 <a id="sect_9.1.4.1.5" shape="rect"></a>9.1.4.1.5 Move Destination</h5>
+                           </div>
+                        </div>
+                     </div>
+                     <p>This parameter specifies the DICOM AE Title of the destination DICOM AE to which the C-STORE sub-operations are being performed.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h5 class="title">
+                                 <a id="sect_9.1.4.1.6" shape="rect"></a>9.1.4.1.6 Identifier</h5>
+                           </div>
+                        </div>
+                     </div>
+                     <p>In the request/indication, this is a list of Attributes to be matched against the values of the Attributes of known composite SOP Instances of the performing DIMSE-service-user. The list of Attributes allowed and the rules for the construction are in <a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a>.</p>
+                     <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                        <h3 class="title">Note</h3>
+                        <p>The Identifier is specified as U in the Response/Confirmation, but Services defined in <a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a> that use this primitive may impose mandatory or conditional requirements on its presence.</p>
+                     </div>
+                     <p>In the response/confirmation, this is a list of Attributes that provide status information about the C-MOVE operation. The list of Attributes allowed and the rules that define the usage of the Identifier are specified in <a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a>.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h5 class="title">
+                                 <a id="sect_9.1.4.1.7" shape="rect"></a>9.1.4.1.7 Status</h5>
+                           </div>
+                        </div>
+                     </div>
+                     <p>Indicates the status of the response. It may have any of the following values:</p>
+                     <div class="orderedlist">
+                        <ol class="orderedlist" type="a">
+                           <li class="listitem">
+                              <p>Success - This indicates that processing of the matches and all sub-operations are complete.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Pending - This indicates that procession of the matches and sub-operations is initiated or continuing.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Refused: Out of Resources - Indicates that processing of the C-MOVE has been terminated because it was out of resources. This may be the initial response to the C-MOVE or may be sent after a number of Pending statuses.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Refused: SOP Class Not Supported - Indicates that processing of the C-MOVE has been terminated because the SOP Class was not supported.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Refused: Move Destination Unknown - Indicates that processing of the C-MOVE has been terminated because the Move destination was unknown.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Cancel- Indicates that processing of the C-MOVE has been terminated due to a C-MOVE Cancel indication primitive.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Failed - Indicates that the C‑MOVE operation failed at the performing DIMSE-service-user.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Refused:Duplicate Invocation- Indicates that the Message ID (0000,0110) specified is allocated to another notification or operation.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Refused:Mistyped argument- Indicates that one of the parameters supplied has not been agreed for use on the Association between the DIMSE-service-users.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Refused:Unrecognized Operation- Indicates that the operation is not one of those agreed between the DIMSE-service-users.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Refused:Not Authorized- Indicates that the peer DIMSE-service-user was not authorized to invoke the C-MOVE operation.</p>
+                           </li>
+                        </ol>
+                     </div>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h5 class="title">
+                                 <a id="sect_9.1.4.1.8" shape="rect"></a>9.1.4.1.8 Number of Remaining Sub-Operations</h5>
+                           </div>
+                        </div>
+                     </div>
+                     <p>This specifies the number of remaining C-STORE sub-operations to be invoked by this C-MOVE operation. It may be included in any response/confirmation and shall be included if the status is equal to Pending.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h5 class="title">
+                                 <a id="sect_9.1.4.1.9" shape="rect"></a>9.1.4.1.9 Number of Completed Sub-Operations</h5>
+                           </div>
+                        </div>
+                     </div>
+                     <p>This specifies the number of C-STORE sub-operations invoked by this C-MOVE operation that have completed successfully. It may be included in any response/confirmation and shall be included if the status is equal to Pending.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h5 class="title">
+                                 <a id="sect_9.1.4.1.10" shape="rect"></a>9.1.4.1.10 Number of Failed Sub-Operations</h5>
+                           </div>
+                        </div>
+                     </div>
+                     <p>This specifies the number of C-STORE sub-operations invoked by this C-MOVE operation that have failed. It may be included in any response/confirmation and shall be included if the status is equal to Pending.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h5 class="title">
+                                 <a id="sect_9.1.4.1.11" shape="rect"></a>9.1.4.1.11 Number of Warning Sub-Operations</h5>
+                           </div>
+                        </div>
+                     </div>
+                     <p>This specifies the number of C-STORE sub-operation invoked by this C-MOVE operation that generated Warning responses. It may be included in any response/confirmation and shall be included if the status is equal to Pending.</p>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_9.1.4.2" shape="rect"></a>9.1.4.2 C-MOVE Service Procedures</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The following C-MOVE service procedures apply to the invoking DIMSE-service user:</p>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="a">
+                        <li class="listitem">
+                           <p>The invoking DIMSE-service-user requests a performing DIMSE-service-user to match an Identifier against the Attributes of all SOP Instances known to the performing DIMSE-service-user and generate a C-STORE sub-operation for each match. This request is made by issuing a C-MOVE request primitive to the DIMSE-service-provider. If the request is rejected by the DIMSE-service-provider, the following procedures do not apply.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>At any time before receiving a C-MOVE confirmation primitive with status unequal to Pending, the invoking DIMSE-service-user may request the performing DIMSE-service-user to cancel the service by issuing a C-MOVE cancel request primitive to the DIMSE-service-provider.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The invoking DIMSE-service-user may receive C-MOVE confirmation primitives with status of Pending during the processing of the C-MOVE operation.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The invoking DIMSE-service-user receives a final C-MOVE confirmation primitive.</p>
+                        </li>
+                     </ol>
+                  </div>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>in the above procedures, (c) may precede (b).</p>
+                  </div>
+                  <p>The following C-MOVE service procedures apply to the performing DIMSE-service-user:</p>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="a">
+                        <li class="listitem">
+                           <p>When the performing DIMSE-service-user receives a C-MOVE indication from the DIMSE-service-provider it matches the Identifier against the Attributes of known composite SOP Instances and generates a C-STORE sub-operation for each match.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>At any time following the C-MOVE indication, the performing DIMSE-service-user may receive a C-MOVE cancel indication.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>If the C-MOVE cancel indication is received before the processing of the C-MOVE request has completed, then the C-MOVE operation is terminated; otherwise the following procedure does not apply.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The performing DIMSE-service-user issues a C-MOVE response with a status of Canceled to the DIMSE-service-provider to indicate that the C-MOVE has been canceled. The following procedures do not apply.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>For each matching composite SOP Instance, the C-MOVE performing DIMSE-service-user initiates a C-STORE sub-operation on a different Association than the C-MOVE. In this sub-operation, the C-MOVE performing DIMSE-service-user becomes the C-STORE invoking DIMSE-service-user. The C-STORE performing DIMSE-service-user may or may not be the C-MOVE invoking DIMSE-service-user.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>During the processing of the C-MOVE operation, the performing DIMSE-service-user may issue C-MOVE response primitives with a status of Pending.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>When the C-MOVE operation completes (either in success or in failure), the performing DIMSE-service-user issues a C-MOVE response with the status set to either Refused, Failed, or Success to the DIMSE-service-provider.</p>
+                        </li>
+                     </ol>
+                  </div>
+                  <p>The following C-MOVE service procedures apply to the DIMSE-service-provider:</p>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="a">
+                        <li class="listitem">
+                           <p>When the DIMSE-service-provider receives a C-MOVE request primitive from the invoking DIMSE-service-user, it issues a C-MOVE indication primitive to the performing DIMSE-service-user.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>When the DIMSE-service-provider receives a C-MOVE cancel request primitive from the invoking DIMSE-service-user, it issues a C-MOVE cancel indication to the performing DIMSE-service-user.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>When the DIMSE-service-provider receives a C-MOVE response primitive from the performing DIMSE-service-user, it issues a C-MOVE confirmation primitive to the invoking DIMSE-service-user.</p>
+                        </li>
+                     </ol>
+                  </div>
+                  <p>The performing DIMSE-service-user may return a C-MOVE response primitive with the status of Failed or Refused before the entire C-MOVE indication (Data Set) has been completely transmitted by the invoking DIMSE-service-user. A C-MOVE response primitive with the status of Success or Warning shall not be returned until the entire C-MOVE indication has been received by the performing DIMSE-service-user.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <div class="orderedlist">
+                        <ol class="orderedlist" type="1">
+                           <li class="listitem">
+                              <p>Notes: Such an occurrence of a "Failed" response is often called an early failed response.</p>
+                           </li>
+                        </ol>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_9.1.5" shape="rect"></a>9.1.5 C-ECHO Service</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>The C-ECHO service is invoked by a DIMSE-service-user to verify end-to-end communications with a peer DIMSE-service-user. It is a confirmed service.</p>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_9.1.5.1" shape="rect"></a>9.1.5.1 C-ECHO Parameters</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="table">
+                     <a id="table_9.1-5" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table 9.1-5. C-ECHO Parameters</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>DIMSE-C Parameter Name</strong>
+                                       </span>
+                                    </p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Req/Ind</strong>
+                                       </span>
+                                    </p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Rsp/Conf</strong>
+                                       </span>
+                                    </p>
+                                 </td>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Message ID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>M</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>U</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Message ID Being Responded To</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>M</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Affected SOP Class UID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>M</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>U(=)</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Status</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>M</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h5 class="title">
+                                 <a id="sect_9.1.5.1.1" shape="rect"></a>9.1.5.1.1 Message ID</h5>
+                           </div>
+                        </div>
+                     </div>
+                     <p>This parameter identifies the operation. It is used to distinguish this operation from other notifications or operations that the DIMSE-service-provider may have in progress. No two identical values for the Message ID (0000,0110) shall be used for outstanding operations or notifications.</p>
+                     <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                        <h3 class="title">Note</h3>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="1">
+                              <li class="listitem">
+                                 <p>Inclusion of this parameter in the confirmation was permitted in previous versions of this Standard but this mode of use is now retired. This parameter may be included in the confirmation but in such a case the invoking DIMSE-service-user should not attach any semantic significance to this parameter.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The Message ID (0000,0110) is recommended to be unique within the scope of an Association, to support debug procedures.</p>
+                              </li>
+                           </ol>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h5 class="title">
+                                 <a id="sect_9.1.5.1.2" shape="rect"></a>9.1.5.1.2 Message ID Being Responded To</h5>
+                           </div>
+                        </div>
+                     </div>
+                     <p>This parameter specifies the Message ID (0000,0110) of the request/indication to which this response/ confirmation applies.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h5 class="title">
+                                 <a id="sect_9.1.5.1.3" shape="rect"></a>9.1.5.1.3 Affected SOP Class UID</h5>
+                           </div>
+                        </div>
+                     </div>
+                     <p>For the request/indication, this parameter specifies the SOP Class of the SOP Instance for the verification. It may be included in the response/confirmation. If included in the response/confirmation, this parameter shall be equal to the value in the request/indication.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h5 class="title">
+                                 <a id="sect_9.1.5.1.4" shape="rect"></a>9.1.5.1.4 Status</h5>
+                           </div>
+                        </div>
+                     </div>
+                     <p>Indicates the status of the response. It may have any of the following values:</p>
+                     <div class="orderedlist">
+                        <ol class="orderedlist" type="a">
+                           <li class="listitem">
+                              <p>Success</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Refused:SOP Class Not Supported -Indicates that a different SOP Class than the Verification SOP Class was specified, which was not supported.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Refused:Duplicate Invocation - Indicates that the Message ID (0000,0110) specified is allocated to another notification or operation.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Refused:Mistyped argument - Indicates that one of the parameters supplied has not been agreed for use on the Association between the DIMSE-service-users.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Refused:Unrecognized Operation - Indicates that a different SOP Class than the Verification SOP Class was specified, which does not recognize a C-ECHO operation.</p>
+                           </li>
+                        </ol>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h4 class="title">
+                              <a id="sect_9.1.5.2" shape="rect"></a>9.1.5.2 C-ECHO Service Procedures</h4>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The following C-ECHO procedures apply:</p>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="a">
+                        <li class="listitem">
+                           <p>The invoking DIMSE-service-user requests verification of communication to the performing DIMSE-service-user by issuing a C-ECHO request primitive to the DIMSE-service-provider.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The DIMSE-service-provider issues a C-ECHO indication primitive to the performing DIMSE-service-user.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The performing DIMSE-service-user verifies communication by issuing a C-ECHO response primitive to the DIMSE-service-provider.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The DIMSE-service-provider issues a C-ECHO confirmation primitive to the invoking DIMSE-service-user, completing the C-ECHO operation.</p>
+                        </li>
+                     </ol>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_8.3.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_9.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">8.3 Conformance </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.7.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 9.2 Sequencing</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

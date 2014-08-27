@@ -1,0 +1,1558 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>A.4 Networking</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.2.html" title="PS3.2" />
+      <link rel="up" href="chapter_A.html" title="A DICOM Conformance Statement Template (Normative)" />
+      <link rel="prev" href="sect_A.3.html" title="A.3 Introduction" />
+      <link rel="next" href="sect_A.5.html" title="A.5 Media Interchange" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">A.4 Networking</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_A.3.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">A DICOM Conformance Statement Template (Normative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_A.5.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_A.4" shape="rect"></a>A.4 Networking</h2>
+               </div>
+            </div>
+         </div>
+         <p>This section contains the networking related services (vs. the media related ones).</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_A.4.1" shape="rect"></a>A.4.1 Implementation Model</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The Implementation model consists of three sections: the Application Data Flow Diagram, specifying the relationship between the Application Entities and the "external world" or Real-World activities, a functional description of each Application Entity, and the sequencing constraints among them.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_A.4.1.1" shape="rect"></a>A.4.1.1 Application Data Flow</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>As part of the Implementation model, an Application Data Flow Diagram shall be included. This diagram represents all of the Application Entities present in an implementation, and graphically depicts the relationship of the AEs use of DICOM to Real-World Activities as well as any applicable User interaction. <a class="xref" href="sect_A.4.html#figure_A.4.1-1" title="Figure A.4.1-1. Functional Overview" shape="rect">Figure A.4.1-1</a> is a template for such a Data Flow Diagram.</p>
+               <p>In this illustration, according to figure A.4.1-1, an occurrence of local Real-World Activity A will cause local Application Entity &lt;1&gt; to initiate an association for the purpose of causing Real-World Activity X to occur remotely. It also shows that Real-World Activities B and Y are interactively related via Application Entity &lt;2&gt;, with B being local and Y Remote, and that local Application Entity 3 expects to receive an association request when remote Real-World Activity Z occurs so that it can perform Real-World Activity C and/or D. When the performance of Real-World activities relies on interactions within the implementation, one may depict the circles as overlapping as shown in <a class="xref" href="sect_A.4.html#figure_A.4.1-1" title="Figure A.4.1-1. Functional Overview" shape="rect">Figure A.4.1-1</a>. Any such overlap shall be discussed in this section of a Conformance Statement.</p>
+               <p>Typically, there is a one to one relationship between an AE and an AE Title. Devices may be capable of configuring the relationship between AE and AE Title (e.g., by merging Application Entities to use a single AE Title). This is specified in the configuration section.</p>
+               <p>
+            </p>
+               <div class="figure">
+                  <a id="figure_A.4.1-1" shape="rect"></a>
+                  <div class="figure-contents">
+                     <div class="mediaobject">
+                        <img src="figures/PS3.2_A.4.1-1.svg" alt="Functional Overview" />
+                     </div>
+                  </div>
+                  <p class="title">
+                     <strong>Figure A.4.1-1. Functional Overview</strong>
+                  </p>
+               </div>
+               <p>
+                  <br class="figure-break" clear="none" />
+               </p>
+               <p>The Application Data Flow Diagram shall contain overview text with one bullet per AE. Each bullet should provide an overview of each one of the AEs, in relationship to their real-world activities, AE network exchanges and external real-world activities.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>There is no standard definition or guidelines on the number of AEs within a product and what an AE should encompass. Its functionality and scope is purely to the discretion of the vendor and typically depending on the system architecture.</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_A.4.1.2" shape="rect"></a>A.4.1.2 Functional Definition of AEs</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>This part shall contain a functional definition for each individual local Application Entity. This shall describe in general terms the functions to be performed by the AE, and the DICOM services used to accomplish these functions. In this sense, "DICOM services" refers not only to DICOM Service Classes, but also to lower level DICOM services, such as Association Services.</p>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_A.4.1.2.1" shape="rect"></a>A.4.1.2.1 Functional Definition of "Application Entity &lt;1&gt;"</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Functional description of "Application Entity &lt;1&gt;" (substitute actual AE name), i.e., what is it that the AE performs.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_A.4.1.2.2" shape="rect"></a>A.4.1.2.2 Functional Definition of "Application Entity &lt;2&gt;"</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Same for "Application Entity &lt;2&gt;".</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_A.4.1.2.3" shape="rect"></a>A.4.1.2.3 Functional Definition of "Application Entity &lt;3&gt;"</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Same for "Application Entity &lt;3&gt;".</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_A.4.1.3" shape="rect"></a>A.4.1.3 Sequencing of Real World Activities</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>If applicable, this section shall contain a description of sequencing as well as potential constraints, of Real-World Activities, including any applicable user interactions, as performed by all the Application Entities. A UML sequence diagram, which depicts the Real-World Activities as vertical bars and shows the events exchanged between them as arrows, is strongly recommended.</p>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_A.4.2" shape="rect"></a>A.4.2 AE Specifications:</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The next section in the DICOM Conformance Statement is a set of Application Entity Specifications. There shall be one such specification for each Application Entity. Each individual AE Specification has a subsection, A.4.2.x. There are as many of these subsections as there are different AEs in the implementation. That is, if there are two distinct AEs, then there will be two subsections, A.4.2.1, and A.4.2.2.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_A.4.2.1" shape="rect"></a>A.4.2.1 "Application Entity &lt;1&gt;"</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>Every detail of this specific Application Entity shall be completely specified under this section.</p>
+               <p>AEs that utilize the DIMSE services shall have the following sections.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>AEs that utilize other services are described later, and will re-use this section numbering.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_A.4.2.1.1" shape="rect"></a>A.4.2.1.1 SOP Classes</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The specification for an Application Entity shall contain a statement of the form:</p>
+                  <p>"This Application Entity provides Standard Conformance to the following SOP Class(es) :"</p>
+                  <div class="table">
+                     <a id="table_A.4.2-1" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table A.4.2-1. SOP Class(Es) for "Application Entity &lt;1&gt;"</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>SOP Class Name</p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>SOP Class UID</p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>SCU</p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>SCP</p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>SOP Class UID Name as specified in the registry table of DICOM Unique Identifiers (UID) in <a href="../part06/PS3.6.html" class="olink" shape="rect">PS3.6</a>, with phrase "and specializations" as appropriate</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>UID as specified in <a href="../part06/PS3.6.html" class="olink" shape="rect">PS3.6</a>
+                                    </p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Yes/No</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Yes/No</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>Any SOP specific behavior is documented later in the conformance statement in the applicable SOP specific conformance section.</p>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_A.4.2.1.2" shape="rect"></a>A.4.2.1.2 Association Policies</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Each AE Specification shall contain a description of the General Association Establishment and Acceptance policies of the AE.</p>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_A.4.2.1.2.1" shape="rect"></a>A.4.2.1.2.1 General</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>The DICOM standard Application context shall be specified.</p>
+                     <div class="table">
+                        <a id="table_A.4.2-2" shape="rect"></a>
+                        <p class="title">
+                           <strong>Table A.4.2-2. DICOM Application Context</strong>
+                        </p>
+                        <div class="table-contents">
+                           <table frame="box" rules="all">
+                              <tbody>
+                                 <tr valign="top">
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Application Context Name</p>
+                                    </td>
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>1.2.840.10008.3.1.1.1</p>
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                     <br class="table-break" clear="none" />
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_A.4.2.1.2.2" shape="rect"></a>A.4.2.1.2.2 Number of Associations.</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>The number of simultaneous associations, which an Application Entity may support as a SCU or SCP, shall be specified. Any rules governing simultaneity of associations shall be defined here.</p>
+                     <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                        <h3 class="title">Note</h3>
+                        <p>For example an AE may have the capability to have up to 10 simultaneous associations, but may limit itself to have no more than 2 with any particular other AE. There may also be policies based upon combinations of simultaneous Real-World Activities.</p>
+                     </div>
+                     <div class="table">
+                        <a id="table_A.4.2-3" shape="rect"></a>
+                        <p class="title">
+                           <strong>Table A.4.2-3. Number of Associations as an Association Initiator for "Application Entity &lt;1&gt;"</strong>
+                        </p>
+                        <div class="table-contents">
+                           <table frame="box" rules="all">
+                              <tbody>
+                                 <tr valign="top">
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Maximum number of simultaneous associations</p>
+                                    </td>
+                                    <td align="center" rowspan="1" colspan="1">
+                                       <p>x</p>
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                     <br class="table-break" clear="none" />
+                     <div class="table">
+                        <a id="table_A.4.2-4" shape="rect"></a>
+                        <p class="title">
+                           <strong>Table A.4.2-4. Number of Associations as an Association Acceptor for "Application Entity &lt;1&gt;"</strong>
+                        </p>
+                        <div class="table-contents">
+                           <table frame="box" rules="all">
+                              <tbody>
+                                 <tr valign="top">
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Maximum number of simultaneous associations</p>
+                                    </td>
+                                    <td align="center" rowspan="1" colspan="1">
+                                       <p>x</p>
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                     <br class="table-break" clear="none" />
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_A.4.2.1.2.3" shape="rect"></a>A.4.2.1.2.3 Asynchronous Nature</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>If the implementation supports negotiation of multiple outstanding transactions, this shall be stated here, along with the maximum number of outstanding transactions supported.</p>
+                     <div class="table">
+                        <a id="table_A.4.2-5" shape="rect"></a>
+                        <p class="title">
+                           <strong>Table A.4.2-5. Asynchronous Nature as an Association Initiator for "Application Entity &lt;1&gt;"</strong>
+                        </p>
+                        <div class="table-contents">
+                           <table frame="box" rules="all">
+                              <tbody>
+                                 <tr valign="top">
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Maximum number of outstanding asynchronous transactions</p>
+                                    </td>
+                                    <td align="center" rowspan="1" colspan="1">
+                                       <p>x</p>
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                     <br class="table-break" clear="none" />
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_A.4.2.1.2.4" shape="rect"></a>A.4.2.1.2.4 Implementation Identifying Information</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>The value supplied for Implementation Class UID shall be documented here. If a version name is supplied, this fact shall be documented here. Policies defining the values supplied for version name may be stated here.</p>
+                     <div class="table">
+                        <a id="table_A.4.2-6" shape="rect"></a>
+                        <p class="title">
+                           <strong>Table A.4.2-6. DICOM Implementation Class and Version for "Application Entity &lt;1&gt;"</strong>
+                        </p>
+                        <div class="table-contents">
+                           <table frame="box" rules="all">
+                              <tbody>
+                                 <tr valign="top">
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Implementation Class UID</p>
+                                    </td>
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>a.b.c.xxxxxxx.yyy.zz</p>
+                                    </td>
+                                 </tr>
+                                 <tr valign="top">
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Implementation Version Name</p>
+                                    </td>
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>XYZxyz</p>
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                     <br class="table-break" clear="none" />
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_A.4.2.1.3" shape="rect"></a>A.4.2.1.3 Association Initiation Policy</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>This describes the conditions under which the AE will initiate an association.</p>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_A.4.2.1.3.1" shape="rect"></a>A.4.2.1.3.1 "Activity &lt;1&gt;"</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="section">
+                        <div class="titlepage">
+                           <div>
+                              <div>
+                                 <h6 class="title">
+                                    <a id="sect_A.4.2.1.3.1.1" shape="rect"></a>A.4.2.1.3.1.1 Description and Sequencing of Activities</h6>
+                              </div>
+                           </div>
+                        </div>
+                        <p>If applicable, this section shall contain a description of sequencing of the events for "Activity &lt;1&gt;" (substitute actual activity name), including any applicable user interactions, which this specific AE performs. A UML sequence diagram, which depicts the Application Entity and Real-World Activities as vertical bars and shows the events exchanged between them as arrows, is strongly recommended.</p>
+                        <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                           <h3 class="title">Note</h3>
+                           <p>An example of a situation in which such a description is required is an AE, which supports both the Storage Service Class and the Modality Performed Procedure SOP Class. Some implementations might store the images before sending the final MPPS N-SET message while other implementations might send the final MPPS N-SET message before sending the images.</p>
+                        </div>
+                     </div>
+                     <div class="section">
+                        <div class="titlepage">
+                           <div>
+                              <div>
+                                 <h6 class="title">
+                                    <a id="sect_A.4.2.1.3.1.2" shape="rect"></a>A.4.2.1.3.1.2 Proposed Presentation Contexts</h6>
+                              </div>
+                           </div>
+                        </div>
+                        <p>Each time an association is initiated, the Association Initiator proposes a number of Presentation Contexts to be used on that association. In this subsection, the Presentation Contexts proposed by "Application Entity &lt;1&gt;" for "Activity &lt;1&gt;" shall be defined in a table with the following format:</p>
+                        <div class="table">
+                           <a id="table_A.4.2-7" shape="rect"></a>
+                           <p class="title">
+                              <strong>Table A.4.2-7. Proposed Presentation Contexts for "Application Entity &lt;1&gt;"</strong>
+                           </p>
+                           <div class="table-contents">
+                              <table frame="box" rules="all">
+                                 <thead>
+                                    <tr valign="top">
+                                       <th align="center" colspan="6" rowspan="1">
+                                          <p>Presentation Context Table</p>
+                                       </th>
+                                    </tr>
+                                    <tr valign="top">
+                                       <th align="center" colspan="2" rowspan="1">
+                                          <p>Abstract Syntax</p>
+                                       </th>
+                                       <th align="center" colspan="2" rowspan="1">
+                                          <p>Transfer Syntax</p>
+                                       </th>
+                                       <th align="center" rowspan="2" colspan="1">
+                                          <p>Role</p>
+                                       </th>
+                                       <th align="center" rowspan="2" colspan="1">
+                                          <p>Extended Negotiation</p>
+                                       </th>
+                                    </tr>
+                                    <tr valign="top">
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Name</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>UID</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Name List</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>UID List</p>
+                                       </th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>name_a</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>AS_UID_a</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>XS_Name_1, ..., XS_Name_n</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>XS_UID_1, _, XS_UID_n</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>SCP | SCU | BOTH</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>None |See Note &lt;1&gt; | See <a class="xref" href="sect_A.4.html#table_A.4.2-8" title="Table A.4.2-8. Extended Negotiation as a SCU" shape="rect">Table A.4.2-8</a>
+                                          </p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>...</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>...</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>...</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>...</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>...</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>...</p>
+                                       </td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                        <br class="table-break" clear="none" />
+                        <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                           <h3 class="title">Note</h3>
+                           <p>&lt;1&gt;: &lt;Describe the content of any extended negotiation done for the SOP Classes of this Presentation Context. One note may serve multiple Presentation Contexts, as a single Abstract Syntax often corresponds to a single SOP class, which may appear in different Presentation Contexts.&gt;</p>
+                        </div>
+                        <p>In <a class="xref" href="sect_A.4.html#table_A.4.2-7" title="Table A.4.2-7. Proposed Presentation Contexts for &quot;Application Entity &lt;1&gt;&quot;" shape="rect">Table A.4.2-7</a>, the following meanings are assigned to the fields:</p>
+                        <div class="itemizedlist">
+                           <ul class="itemizedlist" style="list-style-type: disc; ">
+                              <li class="listitem">
+                                 <p>&lt;name_a&gt; This is the name of the Abstract Syntax to be used with this Presentation Context.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>&lt;AS_UID_a&gt; This is the UID of the Abstract Syntax to be used for this Presentation Context.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>&lt;XS_Name_n&gt; This is the name of a Transfer Syntax that may be used for this Presentation Context.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>&lt;XS_UID_n&gt; The UID of the corresponding Transfer Syntax.</p>
+                              </li>
+                           </ul>
+                        </div>
+                        <p>If the AE through this Real World Activity might propose any of the SOP Classes of a particular Service Class (e.g., the Storage Service Class), the Abstract Syntax Name and UID shall be those of the Service Class. This section shall describe the conditions under which a SOP Class of that Service Class will be proposed in a Presentation Context.</p>
+                        <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                           <h3 class="title">Note</h3>
+                           <p>For instance, an AE may receive instances of a non-preconfigured SOP Class through support of SOP Class Common Extended Negotiation. These instances may be limited to specializations of a particular SOP Class, or they may be any SOP Class within the Service Class, and any such limits should be described.</p>
+                        </div>
+                        <p>This section shall describe the conditions under which the AE may change the SOP Class UID of SOP Instances sent, due to fall-back mechanisms.</p>
+                        <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                           <h3 class="title">Note</h3>
+                           <p>For instance, if the SCP does not accept the proposed Abstract Syntax (SOP Class) for which there is a Related General SOP Class that was accepted, the AE may modify SOP Instances of the refused SOP Class to use the Related General SOP Class for transmission.</p>
+                        </div>
+                        <p>In the event that the Abstract Syntax of the Presentation Context represents a Meta-SOP Class (that is, it includes many SOP Classes) and extended negotiation is supported for some of these SOP Classes, the following table is required to define this extended negotiation. This table is referenced in <a class="xref" href="sect_A.4.html#table_A.4.2-7" title="Table A.4.2-7. Proposed Presentation Contexts for &quot;Application Entity &lt;1&gt;&quot;" shape="rect">Table A.4.2-7</a>:</p>
+                        <div class="table">
+                           <a id="table_A.4.2-8" shape="rect"></a>
+                           <p class="title">
+                              <strong>Table A.4.2-8. Extended Negotiation as a SCU</strong>
+                           </p>
+                           <div class="table-contents">
+                              <table frame="box" rules="all">
+                                 <thead>
+                                    <tr valign="top">
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>SOP Class Name</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>SOP Class UID</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Extended Negotiation</p>
+                                       </th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Name_i</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>SOP_UID_I</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>None | See Note &lt;1&gt;</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>...</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>...</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>...</p>
+                                       </td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                        <br class="table-break" clear="none" />
+                        <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                           <h3 class="title">Note</h3>
+                           <p>&lt;1&gt;: &lt;Describe the content of any extended negotiation done for this SOP Class. One note may serve multiple Presentation Contexts, as a SOP class that may appear in different Presentation Contexts and/or Meta SOP Classes&gt;</p>
+                        </div>
+                        <p>The implementation of the initiator shall document which Transfer Syntax will be chosen in case multiple Transfer Syntaxes are accepted during the Association Acceptance.</p>
+                     </div>
+                     <div class="section">
+                        <div class="titlepage">
+                           <div>
+                              <div>
+                                 <h6 class="title">
+                                    <a id="sect_A.4.2.1.3.1.3" shape="rect"></a>A.4.2.1.3.1.3 SOP Specific Conformance for SOP Class(Es)</h6>
+                              </div>
+                           </div>
+                        </div>
+                        <p>This section includes the SOP specific behavior, i.e., error codes, error and exception handling, time-outs, etc. The information shall be as described in the SOP specific Conformance Statement section of <a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a> (or relevant private SOP definition). It shall include the content of any extended negotiation. Keys shall be specified including how they are used (Matching, return keys, interactive query, whether they are displayed to the user, universal and/or list matching, etc.).</p>
+                        <p>In particular, the behavior associated with the exchange of images available to the AE only in a lossy compressed form shall be documented. For example, if a lossy compressed transfer syntax is not negotiated, will the AE decompress the image data and send it using one of the negotiated transfer syntaxes.</p>
+                        <p>All details regarding the specific conformance, including response behavior to all status codes, both from an application level and communication errors shall be provided in the form of a table as follows:</p>
+                        <div class="table">
+                           <a id="table_A.4.2-9" shape="rect"></a>
+                           <p class="title">
+                              <strong>Table A.4.2-9. DICOM Command Response Status Handling Behavior</strong>
+                           </p>
+                           <div class="table-contents">
+                              <table frame="box" rules="all">
+                                 <thead>
+                                    <tr valign="top">
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Service Status</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Further Meaning</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Error Code</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Behavior</p>
+                                       </th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>e.g., Success</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>e.g., Matching is complete</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>e.g., 0000</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>e.g., The SCP has successfully returned all matching information.</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Warning</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1"></td>
+                                       <td align="center" rowspan="1" colspan="1"></td>
+                                       <td align="center" rowspan="1" colspan="1"></td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Error</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1"></td>
+                                       <td align="center" rowspan="1" colspan="1"></td>
+                                       <td align="center" rowspan="1" colspan="1"></td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>…..</p>
+                                       </td>
+                                       <td align="center" rowspan="1" colspan="1"></td>
+                                       <td align="center" rowspan="1" colspan="1"></td>
+                                       <td align="center" rowspan="1" colspan="1"></td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                        <br class="table-break" clear="none" />
+                        <p>The behavior of the AE during communication failure is summarized in a table as follows:</p>
+                        <div class="table">
+                           <a id="table_A.4.2-10" shape="rect"></a>
+                           <p class="title">
+                              <strong>Table A.4.2-10. DICOM Command Communication Failure Behavior</strong>
+                           </p>
+                           <div class="table-contents">
+                              <table frame="box" rules="all">
+                                 <thead>
+                                    <tr valign="top">
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Exception</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Behavior</p>
+                                       </th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>e.g., Timeout</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>e.g., The Association is aborted using A-ABORT and command marked as failed. The reason is logged and reported to the user.</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>e.g., Association aborted</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>e.g., The command is marked as failed. The reason is logged and reported to the user.</p>
+                                       </td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                        <br class="table-break" clear="none" />
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_A.4.2.1.4" shape="rect"></a>A.4.2.1.4 Association Acceptance Policy</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Each AE Specification shall contain a description of the Association Acceptance policies of the AE. This describes the conditions under which the AE will accept an association.</p>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_A.4.2.1.4.1" shape="rect"></a>A.4.2.1.4.1 "Activity &lt;2&gt;"</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="section">
+                        <div class="titlepage">
+                           <div>
+                              <div>
+                                 <h6 class="title">
+                                    <a id="sect_A.4.2.1.4.1.1" shape="rect"></a>A.4.2.1.4.1.1 Description and Sequencing of Activities</h6>
+                              </div>
+                           </div>
+                        </div>
+                        <p></p>
+                     </div>
+                     <div class="section">
+                        <div class="titlepage">
+                           <div>
+                              <div>
+                                 <h6 class="title">
+                                    <a id="sect_A.4.2.1.4.1.2" shape="rect"></a>A.4.2.1.4.1.2 Accepted Presentation Contexts</h6>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="table">
+                           <a id="table_A.4.2-11" shape="rect"></a>
+                           <p class="title">
+                              <strong>Table A.4.2-11. Acceptable Presentation Contexts For"Application Entity &lt;1&gt;" and "Activity &lt;2&gt;"</strong>
+                           </p>
+                           <div class="table-contents">
+                              <table frame="box" rules="all">
+                                 <thead>
+                                    <tr valign="top">
+                                       <th align="center" colspan="6" rowspan="1">
+                                          <p>Presentation Context Table</p>
+                                       </th>
+                                    </tr>
+                                    <tr valign="top">
+                                       <th align="center" colspan="2" rowspan="1">
+                                          <p>Abstract Syntax</p>
+                                       </th>
+                                       <th align="center" colspan="2" rowspan="1">
+                                          <p>Transfer Syntax</p>
+                                       </th>
+                                       <th align="center" rowspan="2" colspan="1">
+                                          <p>Role</p>
+                                       </th>
+                                       <th align="center" rowspan="2" colspan="1">
+                                          <p>Extended Negotiation</p>
+                                       </th>
+                                    </tr>
+                                    <tr valign="top">
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Name</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>UID</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Name</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>UID</p>
+                                       </th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>name_a</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>AS_UID_a</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>XS_Name_a</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>XS_UID_a</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>SCP | SCU | Both</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>None |See Note &lt;1&gt;| See <a class="xref" href="sect_A.4.html#table_A.4.2-12" title="Table A.4.2-12. Extended Negotiation as a SCP" shape="rect">Table A.4.2-12</a>
+                                          </p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>...</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>...</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>...</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>...</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>...</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>...</p>
+                                       </td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                        <br class="table-break" clear="none" />
+                        <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                           <h3 class="title">Note</h3>
+                           <p>&lt;1&gt;: &lt;Describe the content of any extended negotiation done for the SOP Classes of this Presentation Context. In particular, acceptance of specialized SOP Classes of the Abstract Syntax specified in this Presentation Context shall be noted. One note may serve multiple Presentation Contexts, as a single Abstract Syntax often corresponds to a single SOP class, which may appear in different Presentation Contexts&gt;</p>
+                        </div>
+                        <p>In <a class="xref" href="sect_A.4.html#table_A.4.2-11" title="Table A.4.2-11. Acceptable Presentation Contexts For&quot;Application Entity &lt;1&gt;&quot; and &quot;Activity &lt;2&gt;&quot;" shape="rect">Table A.4.2-11</a>, the following meanings are assigned to the fields:</p>
+                        <p>&lt;name_a&gt; This is the name of the Abstract Syntax to be used with this Presentation Context.</p>
+                        <p>&lt;AS_UID_a&gt; This is the UID of the Abstract Syntax to be used for this Presentation Context.</p>
+                        <p>&lt;XS_Name_a&gt; This is the name of a Transfer Syntax that may be used for this Presentation Context.</p>
+                        <p>&lt;XS_UID_a&gt; The UID of the corresponding transfer syntax.</p>
+                        <p>If the AE through this Real World Activity supports all SOP Classes of a particular Service Class (e.g., the Storage Service Class) through SOP Class Common Extended Negotiation, the Abstract Syntax Name and UID shall be those of the Service Class, and this shall be noted under Extended Negotiation.</p>
+                        <p>In the event that the Abstract Syntax of the Presentation Context represents a Meta-SOP Class (that is, it includes many SOP Classes) and extended negotiation is supported for some of these SOP Classes, the following table is required to define this extended negotiation. This table is referenced in <a class="xref" href="sect_A.4.html#table_A.4.2-11" title="Table A.4.2-11. Acceptable Presentation Contexts For&quot;Application Entity &lt;1&gt;&quot; and &quot;Activity &lt;2&gt;&quot;" shape="rect">Table A.4.2-11</a>
+                        </p>
+                        <div class="table">
+                           <a id="table_A.4.2-12" shape="rect"></a>
+                           <p class="title">
+                              <strong>Table A.4.2-12. Extended Negotiation as a SCP</strong>
+                           </p>
+                           <div class="table-contents">
+                              <table frame="box" rules="all">
+                                 <thead>
+                                    <tr valign="top">
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>SOP Class name</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>SOP Class UID</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Extended Negotiation</p>
+                                       </th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Name_i</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>SOP_UID_I</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>None | See Note &lt;1&gt;</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>...</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>...</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>...</p>
+                                       </td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                        <br class="table-break" clear="none" />
+                        <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                           <h3 class="title">Note</h3>
+                           <p>&lt;1&gt;: &lt;Describe the content of any extended negotiation done for this SOP Class. One note may serve multiple Presentation Contexts, as a SOP class, which may appear in different Presentation Contexts, and/or Meta SOP Classes&gt;</p>
+                        </div>
+                        <p>Any rules that govern the acceptance of presentation contexts for this AE shall be stated here as well. This includes rules for which combinations of Abstract/Transfer Syntaxes are acceptable, and rules for prioritization of presentation contexts. Rules that govern selection of transfer syntax within a presentation context shall be stated here.</p>
+                     </div>
+                     <div class="section">
+                        <div class="titlepage">
+                           <div>
+                              <div>
+                                 <h6 class="title">
+                                    <a id="sect_A.4.2.1.4.1.3" shape="rect"></a>A.4.2.1.4.1.3 SOP Specific Conformance for SOP Class(Es)</h6>
+                              </div>
+                           </div>
+                        </div>
+                        <p>This section includes the SOP specific behavior, i.e., error codes, error and exception handling, time-outs, etc. The information shall be as described in the SOP specific Conformance Statement section of <a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a> (or relevant private SOP definition).</p>
+                        <p>The behavior of an Application Entity shall be summarized as shown in <a class="xref" href="sect_A.4.html#table_4.2-13" title="Table 4.2-13. Storage C-STORE Response Status" shape="rect">Table 4.2-13</a>. Standard as well as the manufacturer specific status codes and their corresponding behavior shall be specified.</p>
+                        <div class="table">
+                           <a id="table_4.2-13" shape="rect"></a>
+                           <p class="title">
+                              <strong>Table 4.2-13. Storage C-STORE Response Status</strong>
+                           </p>
+                           <div class="table-contents">
+                              <table frame="box" rules="all">
+                                 <thead>
+                                    <tr valign="top">
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Service Status</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Further Meaning</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Error Code</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Reason</p>
+                                       </th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Success</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Success</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>0000</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Explain</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Refused</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Out of Resources</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>A700-A7FF</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Explain</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Error</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Data Set does not match SOP Class</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>A900-A9FF</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Explain</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Error</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Specify</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Specify</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Explain</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Warning</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Specify</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Specify</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Explain</p>
+                                       </td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                        <br class="table-break" clear="none" />
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_A.4.2.2" shape="rect"></a>A.4.2.2 "Application Entity &lt;1&gt;"</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>An Application Entity that supports the WADO transport services shall have the following sections:</p>
+               <p>Details of this specific Application Entity shall be specified under this section.</p>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_A.4.2.2.1" shape="rect"></a>A.4.2.2.1  WADO-WS Specifications</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>All WADO WS services that are supported shall be listed. Other WADO WS services that are not supported may be indicated.</p>
+                  <p>For each supported service, the parameters and restrictions on those parameters shall be described.</p>
+                  <p>Any connection policies such as restrictions on the number of connections, support for asynchronous WS requests, etc. shall be described.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_A.4.2.2.2" shape="rect"></a>A.4.2.2.2 WADO-URI Specifications</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>All WADO-URI services that are supported shall be listed. Other WADO-URI services that are not supported may be indicated.</p>
+                  <p>For each supported service, the parameters and restrictions on those parameters shall be described.</p>
+                  <p>Any connection policies such as restrictions on the number of connections, support for pipeline requests, etc. shall be described.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_A.4.2.2.3" shape="rect"></a>A.4.2.2.3 Restful Services Specifications</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>All RESTful services that are supported shall be listed. Other RESTful services that are not supported may be indicated.</p>
+                  <p>For each supported service, the parameters and restrictions on those parameters shall be described.</p>
+                  <p>Any connection policies such as restrictions on the number of connections, support for pipeline requests, etc. shall be described.</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_A.4.2.3" shape="rect"></a>A.4.2.3 "Application Entity &lt;2&gt;"</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The same info shall be repeated for each additional AE.</p>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_A.4.3" shape="rect"></a>A.4.3 Network Interfaces</h3>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_A.4.3.1" shape="rect"></a>A.4.3.1 Physical Network Interface</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>If applicable, specifies what physical network interface(s) are supported.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_A.4.3.2" shape="rect"></a>A.4.3.2 Additional Protocols</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>Additional protocols such as used for configuration management are listed here. Any conformance to specific System Management Profiles defined in <a href="../part15/PS3.15.html" class="olink" shape="rect">PS3.15</a> shall be listed per the following table.</p>
+               <div class="table">
+                  <a id="table_A.4.3-1" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table A.4.3-1. System Management Profiles Table</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Profile Name</p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Actor</p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Protocols Used</p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Optional Transactions</p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Security Support</p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Profile (1)</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>P Client</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Protocol_1, Protocol_2</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>N/A</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Profile (x)</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>X Client</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Protocol_2, Protocol_3</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Protocol_3 Option_A supported</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+               <p>If the implementation conforms to the Basic Network Address Management Profile as a DHCP Client actor (see <a href="../part15/PS3.15.html" class="olink" shape="rect">PS3.15</a>), the use of DHCP to configure the local IP address and hostname shall be described.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>The hostname is an alias for the IP address, and has no semantic relationship to AE titles. It is solely a convenience for configuration description.</p>
+               </div>
+               <p>If the implementation conforms to the Basic Network Address Management Profile as a DNS Client actor (see <a href="../part15/PS3.15.html" class="olink" shape="rect">PS3.15</a>), the use of DNS to obtain IP addresses from hostname information shall be described.</p>
+               <p>If the implementation conforms to the Basic Time Synchronization profile as an NTP Client or SNTP Client, the available NTP configuration alternatives shall be described. If the implementation conforms to the Basic Time Synchronization Profile as an NTP Server, the available server configuration alternatives shall be described. Any device specific requirements for accuracy or maximum allowable synchronization error shall be described.</p>
+               <p>If there is support for WADO (see <a href="../part18/PS3.18.html" class="olink" shape="rect">PS3.18</a>) the options supported and any restrictions shall be described.</p>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_A.4.3.3" shape="rect"></a>A.4.3.3 IPv4 and IPv6 Support</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The support for specific IPv4 and IPv6 features and associated optional IPv6 security and configuration facilities shall be documented.</p>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_A.4.4" shape="rect"></a>A.4.4 Configuration</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Any implementation's DICOM conformance may be dependent upon configuration, which takes place at the time of installation. Issues concerning configuration shall be addressed in this section.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_A.4.4.1" shape="rect"></a>A.4.4.1 AE Title/Presentation Address Mapping</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>An important installation issue is the translation from AE title to Presentation Address. How this is to be performed shall be described in this section.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>There does not necessarily have to be a one to one relationship between AE titles and Application Entities. If so, this should be made clear in the tables.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_A.4.4.1.1" shape="rect"></a>A.4.4.1.1 Local AE Titles.</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The local AE title mapping and configuration shall be specified. The following table shall be used:</p>
+                  <div class="table">
+                     <a id="table_A.4.4-1" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table A.4.4-1. AE Title Configuration Table</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>Application Entity</p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>Default AE Title</p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>Default TCP/IP Port</p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>AE (1)</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Name</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Specify</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>AE (2)</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Name</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Specify</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>AE (x)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1"></td>
+                                 <td align="center" rowspan="1" colspan="1"></td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+                  <p>If the implementation conforms to the Application Configuration Management Profile as an LDAP Client actor (see <a href="../part15/PS3.15.html" class="olink" shape="rect">PS3.15</a>), any use of LDAP to configure the local AE titles shall be described. Any conformance to the Update LDAP Server option shall be specified, together with the values for all component object attributes in the update sent to the LDAP Server.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_A.4.4.1.2" shape="rect"></a>A.4.4.1.2 Remote AE Title/Presentation Address Mapping</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Configuration of remote host names and port numbers shall be specified here.</p>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_A.4.4.1.2.1" shape="rect"></a>A.4.4.1.2.1 Remote SCP 1</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>Configuration of the remote AET port number, host-names, IP addresses and capabilities shall be specified. If applicable, multiple remote SCPs can be specified.</p>
+                     <p>If the implementation conforms to the Application Configuration Management Profile as an LDAP Client actor (see <a href="../part15/PS3.15.html" class="olink" shape="rect">PS3.15</a>), any use of LDAP to configure the remote device addresses and capabilities shall be described. The LDAP queries used to obtain remote device component object attributes shall be specified.</p>
+                     <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                        <h3 class="title">Note</h3>
+                        <p>In particular, use of LDAP to obtain the AE Title, TCP port, and IP address for specific system actors (e.g., an Image Archive, or a Performed Procedure Step Manager) should be detailed, as well as how the LDAP information for remote devices is selected for operational use.</p>
+                     </div>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_A.4.4.1.2.2" shape="rect"></a>A.4.4.1.2.2 Remote SCP 2</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>Etc.</p>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_A.4.4.2" shape="rect"></a>A.4.4.2 Parameters</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The specification of important operational parameters, and if configurable, their default value and range, shall be specified here. The parameters that apply to all Application Entities should be specified in a "General Parameters" section while those specific to particular Application Entities should be specified in separate sections specific to each AE. The following table, which is shown here with a recommended baseline of parameters, shall be used:</p>
+               <div class="table">
+                  <a id="table_A.4.4-2" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table A.4.4-2. Configuration Parameters Table</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Parameter</p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Configurable (Yes/No)</p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Default Value</p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="center" colspan="3" rowspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>General Parameters</strong>
+                                    </span>
+                                 </p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Time-out waiting for acceptance or rejection Response to an Association Open Request. (Application Level timeout)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>General DIMSE level time-out values</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Time-out waiting for response to TCP/IP connect request. (Low-level timeout)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Time-out waiting for acceptance of a TCP/IP message over the network. (Low-level timeout)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Time-out for waiting for data between TCP/IP packets. (Low-level timeout)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Any changes to default TCP/IP settings, such as configurable stack parameters.</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Definition of arbitrarily chosen origins</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Definition of constant values used in Dose Related Distance Measurements</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Other configurable parameters</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" colspan="3" rowspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>AE Specific Parameters</strong>
+                                    </span>
+                                 </p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Size constraint in maximum object size (see note)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Maximum PDU size the AE can receive</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Maximum PDU size the AE can send</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>AE specific DIMSE level time-out values</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Number of simultaneous Associations by Service and/or SOP Class</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>&lt;SOP Class support&gt; (e.g., Multi-frame vs. single frame vs. SC support), when configurable</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>&lt;Transfer Syntax support&gt;, e.g., JPEG, Explicit VR, when configurable</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Other parameters that are configurable</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                              <td align="center" rowspan="1" colspan="1"></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>In particular when accommodating Multi-frame objects (e.g., Ultrasound Multi-frame, NM, XA, RF), a receiver might have a certain restriction with regard to its maximum length. This restriction should be specified here.</p>
+               </div>
+               <p>Additional configuration parameters such as hardware options for e.g., a printer shall be specified as well.</p>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_A.3.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_A.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_A.5.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">A.3 Introduction </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.2.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> A.5 Media Interchange</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

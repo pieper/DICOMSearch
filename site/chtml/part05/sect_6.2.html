@@ -1,0 +1,805 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>6.2 Value Representation (VR)</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.5.html" title="PS3.5" />
+      <link rel="up" href="chapter_6.html" title="6 Value Encoding" />
+      <link rel="prev" href="chapter_6.html" title="6 Value Encoding" />
+      <link rel="next" href="sect_6.3.html" title="6.3 Enumerated Values and Defined Terms" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">6.2 Value Representation (VR)</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_6.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">6 Value Encoding</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_6.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_6.2" shape="rect"></a>6.2 Value Representation (VR)</h2>
+               </div>
+            </div>
+         </div>
+         <p>The Value Representation of a Data Element describes the data type and format of that Data Element's Value(s). <a href="../part06/PS3.6.html" class="olink" shape="rect">PS3.6</a> lists the VR of each Data Element by Data Element Tag.</p>
+         <p>Values with VRs constructed of character strings, except in the case of the VR UI, shall be padded with SPACE characters (20H, in the Default Character Repertoire) when necessary to achieve even length. Values with a VR of UI shall be padded with a single trailing NULL (00H) character when necessary to achieve even length. Values with a VR of OB shall be padded with a single trailing NULL byte value (00H) when necessary to achieve even length.</p>
+         <p>All new VRs defined in future versions of DICOM shall be of the same Data Element Structure as defined in <a class="xref" href="chapter_7.html#sect_7.1.2" title="7.1.2 Data Element Structure with Explicit VR" shape="rect">Section 7.1.2</a> (i.e., following the format for VRs such as OB, OW, SQ and UN).</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <p>Since all new VRs will be defined as specified in <a class="xref" href="chapter_7.html#sect_7.1.2" title="7.1.2 Data Element Structure with Explicit VR" shape="rect">Section 7.1.2</a>, an implementation may choose to ignore VRs not recognized by applying the rules stated in <a class="xref" href="chapter_7.html#sect_7.1.2" title="7.1.2 Data Element Structure with Explicit VR" shape="rect">Section 7.1.2</a>.</p>
+         </div>
+         <p>An individual Value, including padding, shall not exceed the Length of Value, except in the case of the last Value of a multi-valued field as specified in <a class="xref" href="sect_6.4.html" title="6.4 Value Multiplicity (VM) and Delimitation" shape="rect">Section 6.4</a>.</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">
+               <a id="note_6.1-2-1" shape="rect"></a>Note</h3>
+            <p>The lengths of Value Representations for which the Character Repertoire can be extended or replaced are expressly specified in characters rather than bytes in <a class="xref" href="sect_6.2.html#table_6.2-1" title="Table 6.2-1. DICOM Value Representations" shape="rect">Table 6.2-1</a>. This is because the mapping from a character to the number of bytes used for that character's encoding may be dependent on the character set used.</p>
+         </div>
+         <p>Escape Sequences used for Code Extension shall not be included in the count of characters.</p>
+         <div class="table">
+            <a id="table_6.2-1" shape="rect"></a>
+            <p class="title">
+               <strong>Table 6.2-1. DICOM Value Representations</strong>
+            </p>
+            <div class="table-contents">
+               <table frame="box" rules="all">
+                  <thead>
+                     <tr valign="top">
+                        <th align="center" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>VR Name</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="center" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Definition</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="center" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Character Repertoire</strong>
+                              </span>
+                           </p>
+                        </th>
+                        <th align="center" rowspan="1" colspan="1">
+                           <p>
+                              <span class="bold">
+                                 <strong>Length of Value</strong>
+                              </span>
+                           </p>
+                        </th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>AE</p>
+                           <p>Application Entity</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>A string of characters that identifies an Application Entity with leading and trailing spaces (20H) being non-significant. A value consisting solely of spaces shall not be used.</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Default Character Repertoire excluding character code 5CH (the BACKSLASH "\" in ISO-IR 6), and control characters LF, FF, CR and ESC.</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>16 bytes maximum</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>AS</p>
+                           <p>Age String</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>A string of characters with one of the following formats -- nnnD, nnnW, nnnM, nnnY; where nnn shall contain the number of days for D, weeks for W, months for M, or years for Y.</p>
+                           <p>Example: "018M" would represent an age of 18 months.</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>"0"-"9", "D", "W", "M", "Y" of Default Character Repertoire</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>4 bytes fixed</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>AT</p>
+                           <p>Attribute Tag</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Ordered pair of 16-bit unsigned integers that is the value of a Data Element Tag.</p>
+                           <p>Example: A Data Element Tag of (0018,00FF) would be encoded as a series of 4 bytes in a Little-Endian Transfer Syntax as 18H,00H,FFH,00H and in a Big-Endian Transfer Syntax as 00H,18H,00H,FFH.</p>
+                           <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                              <h3 class="title">Note</h3>
+                              <p>The encoding of an AT value is exactly the same as the encoding of a Data Element Tag as defined in <a class="xref" href="chapter_7.html" title="7 The Data Set" shape="rect"> Section 7</a>.</p>
+                           </div>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>not applicable</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>4 bytes fixed</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>CS</p>
+                           <p>Code String</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>A string of characters with leading or trailing spaces (20H) being non-significant.</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Uppercase characters, "0"-"9", the SPACE character, and underscore "_", of the Default Character Repertoire</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>16 bytes maximum</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>DA</p>
+                           <p>Date</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>A string of characters of the format YYYYMMDD; where YYYY shall contain year, MM shall contain the month, and DD shall contain the day, interpreted as a date of the Gregorian calendar system.</p>
+                           <p>Example:</p>
+                           <div class="itemizedlist">
+                              <ul class="itemizedlist" style="list-style-type: none; ">
+                                 <li class="listitem" style="list-style-type: none">
+                                    <p>"19930822" would represent August 22, 1993.</p>
+                                 </li>
+                              </ul>
+                           </div>
+                           <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                              <h3 class="title">Note</h3>
+                              <div class="orderedlist">
+                                 <ol class="orderedlist" type="1">
+                                    <li class="listitem">
+                                       <p>The ACR-NEMA Standard 300 (predecessor to DICOM) supported a string of characters of the format YYYY.MM.DD for this VR. Use of this format is not compliant.</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>See also DT VR in this table.</p>
+                                    </li>
+                                 </ol>
+                              </div>
+                           </div>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>"0"-"9" of Default Character Repertoire</p>
+                           <p>In the context of a Query with range matching (see <a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a>), the character "-" is allowed, and a trailing SPACE character is allowed for padding.</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>8 bytes fixed</p>
+                           <p>In the context of a Query with range matching (see <a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a>), the length is 18 bytes maximum.</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>DS</p>
+                           <p>Decimal String</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>A string of characters representing either a fixed point number or a floating point number. A fixed point number shall contain only the characters 0-9 with an optional leading "+" or "-" and an optional "." to mark the decimal point. A floating point number shall be conveyed as defined in ANSI X3.9, with an "E" or "e" to indicate the start of the exponent. Decimal Strings may be padded with leading or trailing spaces. Embedded spaces are not allowed.</p>
+                           <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                              <h3 class="title">Note</h3>
+                              <p>Data Elements with multiple values using this VR may not be properly encoded if Explicit-VR transfer syntax is used and the VL of this attribute exceeds 65534 bytes.</p>
+                           </div>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>"0"-"9", "+", "-", "E", "e", "." of Default Character Repertoire</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>16 bytes maximum</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>DT</p>
+                           <p>Date Time</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>A concatenated date-time character string in the format:</p>
+                           <p>YYYYMMDDHHMMSS.FFFFFF&amp;ZZXX</p>
+                           <p>The components of this string, from left to right, are YYYY = Year, MM = Month, DD = Day, HH = Hour (range "00" - "23"), MM = Minute (range "00" - "59"), SS = Second (range "00" - "60").</p>
+                           <p>FFFFFF = Fractional Second contains a fractional part of a second as small as 1 millionth of a second (range "000000" - "999999").</p>
+                           <p>&amp;ZZXX is an optional suffix for offset from Coordinated Universal Time (UTC), where &amp; = "+" or "-", and ZZ = Hours and XX = Minutes of offset.</p>
+                           <p>The year, month, and day shall be interpreted as a date of the Gregorian calendar system.</p>
+                           <p>A 24-hour clock is used. Midnight shall be represented by only "0000" since "2400" would violate the hour range.</p>
+                           <p>The Fractional Second component, if present, shall contain 1 to 6 digits. If Fractional Second is unspecified the preceding "." shall not be included. The offset suffix, if present, shall contain 4 digits. The string may be padded with trailing SPACE characters. Leading and embedded spaces are not allowed.</p>
+                           <p>A component that is omitted from the string is termed a null component. Trailing null components of Date Time indicate that the value is not precise to the precision of those components. The YYYY component shall not be null. Non-trailing null components are prohibited. The optional suffix is not considered as a component.</p>
+                           <p>A Date Time value without the optional suffix is interpreted to be in the local time zone of the application creating the Data Element, unless explicitly specified by the Timezone Offset From UTC (0008,0201).</p>
+                           <p>UTC offsets are calculated as "local time minus UTC". The offset for a Date Time value in UTC shall be +0000.</p>
+                           <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                              <h3 class="title">Note</h3>
+                              <div class="orderedlist">
+                                 <ol class="orderedlist" type="1">
+                                    <li class="listitem">
+                                       <p>The range of the offset is -1200 to +1400. The offset for United States Eastern Standard Time is -0500. The offset for Japan Standard Time is +0900.</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>The RFC 2822 use of -0000 as an offset to indicate local time is not allowed.</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>A Date Time value of 195308 means August 1953, not specific to particular day. A Date Time value of 19530827111300.0 means August 27, 1953, 11;13 a.m. accurate to 1/10th second.</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>The Second component may have a value of 60 only for a leap second.</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>The offset may be included regardless of null components; e.g., 2007-0500 is a legal value.</p>
+                                    </li>
+                                 </ol>
+                              </div>
+                           </div>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>"0"-"9", "+", "-", "." and the SPACE character of Default Character Repertoire</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>26 bytes maximum</p>
+                           <p>In the context of a Query with range matching (see <a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a>), the length is 54 bytes maximum.</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>FL</p>
+                           <p>Floating Point Single</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Single precision binary floating point number represented in IEEE 754:1985 32-bit Floating Point Number Format.</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>not applicable</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>4 bytes fixed</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>FD</p>
+                           <p>Floating Point Double</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Double precision binary floating point number represented in IEEE 754:1985 64-bit Floating Point Number Format.</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>not applicable</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>8 bytes fixed</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>IS</p>
+                           <p>Integer String</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>A string of characters representing an Integer in base-10 (decimal), shall contain only the characters 0 - 9, with an optional leading "+" or "-". It may be padded with leading and/or trailing spaces. Embedded spaces are not allowed.</p>
+                           <p>The integer, n, represented shall be in the range:</p>
+                           <p>-2<sup>31</sup>&lt;= n &lt;= (2<sup>31</sup>-1).</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>"0"-"9", "+", "-" of Default Character Repertoire</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>12 bytes maximum</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>LO</p>
+                           <p>Long String</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>A character string that may be padded with leading and/or trailing spaces. The character code 5CH (the BACKSLASH "\" in ISO-IR 6) shall not be present, as it is used as the delimiter between values in multiple valued data elements. The string shall not have Control Characters except for ESC.</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Default Character Repertoire and/or as defined by (0008,0005).</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>64 chars maximum (see <a class="xref" href="sect_6.2.html#note_6.1-2-1" title="Note" shape="rect"> Note in Section 6.2</a>)</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>LT</p>
+                           <p>Long Text</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>A character string that may contain one or more paragraphs. It may contain the Graphic Character set and the Control Characters, CR, LF, FF, and ESC. It may be padded with trailing spaces, which may be ignored, but leading spaces are considered to be significant. Data Elements with this VR shall not be multi-valued and therefore character code 5CH (the BACKSLASH "\" in ISO-IR 6) may be used.</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Default Character Repertoire and/or as defined by (0008,0005).</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>10240 chars maximum (see <a class="xref" href="sect_6.2.html#note_6.1-2-1" title="Note" shape="rect"> Note in Section 6.2</a>)</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>OB</p>
+                           <p>Other Byte String</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>A string of bytes where the encoding of the contents is specified by the negotiated Transfer Syntax. OB is a VR that is insensitive to Little/Big Endian byte ordering (see <a class="xref" href="sect_7.3.html" title="7.3 Big Endian Versus Little Endian Byte Ordering" shape="rect">Section 7.3</a>). The string of bytes shall be padded with a single trailing NULL byte value (00H) when necessary to achieve even length.</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>not applicable</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>see Transfer Syntax definition</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>OD</p>
+                           <p>Other Double String</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>A string of 64-bit IEEE 754:1985 floating point words. OD is a VR that requires byte swapping within each 64-bit word when changing between Little Endian and Big Endian byte ordering (see <a class="xref" href="sect_7.3.html" title="7.3 Big Endian Versus Little Endian Byte Ordering" shape="rect">Section 7.3</a>).</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>not applicable</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>2<sup>32</sup>-8 bytes maximum</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>OF</p>
+                           <p>Other Float String</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>A string of 32-bit IEEE 754:1985 floating point words. OF is a VR that requires byte swapping within each 32-bit word when changing between Little Endian and Big Endian byte ordering (see <a class="xref" href="sect_7.3.html" title="7.3 Big Endian Versus Little Endian Byte Ordering" shape="rect">Section 7.3</a>).</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>not applicable</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>2<sup>32</sup>-4 bytes maximum</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>OW</p>
+                           <p>Other Word String</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>A string of 16-bit words where the encoding of the contents is specified by the negotiated Transfer Syntax. OW is a VR that requires byte swapping within each word when changing between Little Endian and Big Endian byte ordering (see <a class="xref" href="sect_7.3.html" title="7.3 Big Endian Versus Little Endian Byte Ordering" shape="rect">Section 7.3</a>).</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>not applicable</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>see Transfer Syntax definition</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>PN</p>
+                           <p>Person Name</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>A character string encoded using a 5 component convention. The character code 5CH (the BACKSLASH "\" in ISO-IR 6) shall not be present, as it is used as the delimiter between values in multiple valued data elements. The string may be padded with trailing spaces. For human use, the five components in their order of occurrence are: family name complex, given name complex, middle name, name prefix, name suffix.</p>
+                           <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                              <h3 class="title">Note</h3>
+                              <p>HL7 prohibits leading spaces within a component; DICOM allows leading and trailing spaces and considers them insignificant.</p>
+                           </div>
+                           <p>Any of the five components may be an empty string. The component delimiter shall be the caret "^" character (5EH). Delimiters are required for interior null components. Trailing null components and their delimiters may be omitted. Multiple entries are permitted in each component and are encoded as natural text strings, in the format preferred by the named person.</p>
+                           <p>For veterinary use, the first two of the five components in their order of occurrence are: responsible party family name or responsible organization name, patient name. The remaining components are not used and shall not be present.</p>
+                           <p>This group of five components is referred to as a Person Name component group.</p>
+                           <p>For the purpose of writing names in ideographic characters and in phonetic characters, up to 3 groups of components (see Annexes H, I and J) may be used. The delimiter for component groups shall be the equals character "=" (3DH). The three component groups of components in their order of occurrence are: an alphabetic representation, an ideographic representation, and a phonetic representation.</p>
+                           <p>Any component group may be absent, including the first component group. In this case, the person name may start with one or more "=" delimiters. Delimiters are required for interior null component groups. Trailing null component groups and their delimiters may be omitted.</p>
+                           <p>Precise semantics are defined for each component group. See <a class="xref" href="sect_6.2.html#sect_6.2.1.2" title="6.2.1.2 Ideographic and Phonetic Characters in Data Elements with VR of PN" shape="rect">Section 6.2.1.2</a>.</p>
+                           <p>For examples and notes, see <a class="xref" href="sect_6.2.html#sect_6.2.1.1" title="6.2.1.1 Examples of PN VR and Notes" shape="rect">Section 6.2.1.1</a>.</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Default Character Repertoire and/or as defined by (0008,0005) excluding Control Characters LF, FF, and CR but allowing Control Character ESC.</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>64 chars maximum per component group</p>
+                           <p>(see <a class="xref" href="sect_6.2.html#note_6.1-2-1" title="Note" shape="rect"> Note in Section 6.2</a>)</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>SH</p>
+                           <p>Short String</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>A character string that may be padded with leading and/or trailing spaces. The character code 05CH (the BACKSLASH "\" in ISO-IR 6) shall not be present, as it is used as the delimiter between values for multiple data elements. The string shall not have Control Characters except ESC.</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Default Character Repertoire and/or as defined by (0008,0005).</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>16 chars maximum (see <a class="xref" href="sect_6.2.html#note_6.1-2-1" title="Note" shape="rect"> Note in Section 6.2</a>)</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>SL</p>
+                           <p>Signed Long</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Signed binary integer 32 bits long in 2's complement form.</p>
+                           <p>Represents an integer, n, in the range:</p>
+                           <p>- 2<sup>31</sup>&lt;= n &lt;= 2<sup>31</sup>-1.</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>not applicable</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>4 bytes fixed</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>SQ</p>
+                           <p>Sequence of Items</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Value is a Sequence of zero or more Items, as defined in <a class="xref" href="sect_7.5.html" title="7.5 Nesting of Data Sets" shape="rect">Section 7.5</a>.</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>not applicable (see <a class="xref" href="sect_7.5.html" title="7.5 Nesting of Data Sets" shape="rect">Section 7.5</a>)</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>not applicable (see <a class="xref" href="sect_7.5.html" title="7.5 Nesting of Data Sets" shape="rect">Section 7.5</a>)</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>SS</p>
+                           <p>Signed Short</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Signed binary integer 16 bits long in 2's complement form. Represents an integer n in the range:</p>
+                           <p>-2<sup>15</sup>&lt;= n &lt;= 2<sup>15</sup>-1.</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>not applicable</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>2 bytes fixed</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>ST</p>
+                           <p>Short Text</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>A character string that may contain one or more paragraphs. It may contain the Graphic Character set and the Control Characters, CR, LF, FF, and ESC. It may be padded with trailing spaces, which may be ignored, but leading spaces are considered to be significant. Data Elements with this VR shall not be multi-valued and therefore character code 5CH (the BACKSLASH "\" in ISO-IR 6) may be used.</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Default Character Repertoire and/or as defined by (0008,0005).</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>1024 chars maximum (see <a class="xref" href="sect_6.2.html#note_6.1-2-1" title="Note" shape="rect"> Note in Section 6.2</a>)</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>TM</p>
+                           <p>Time</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>A string of characters of the format HHMMSS.FFFFFF; where HH contains hours (range "00" - "23"), MM contains minutes (range "00" - "59"), SS contains seconds (range "00" - "60"), and FFFFFF contains a fractional part of a second as small as 1 millionth of a second (range "000000" - "999999"). A 24-hour clock is used. Midnight shall be represented by only "0000" since "2400" would violate the hour range.
+        The string may be padded with trailing spaces. Leading and embedded spaces are not allowed.</p>
+                           <p>One or more of the components MM, SS, or FFFFFF may be unspecified as long as every component to the right of an unspecified component is also unspecified, which indicates that the value is not precise to the precision of those unspecified components.</p>
+                           <p>The FFFFFF component, if present, shall contain 1 to 6 digits. If FFFFFF is unspecified the preceding "." shall not be included.</p>
+                           <p>Examples:</p>
+                           <div class="orderedlist">
+                              <ol class="orderedlist" type="1">
+                                 <li class="listitem">
+                                    <p>"070907.0705 " represents a time of 7 hours, 9 minutes and 7.0705 seconds.</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>"1010" represents a time of 10 hours, and 10 minutes.</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>"021 " is an invalid value.</p>
+                                 </li>
+                              </ol>
+                           </div>
+                           <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                              <h3 class="title">Note</h3>
+                              <div class="orderedlist">
+                                 <ol class="orderedlist" type="1">
+                                    <li class="listitem">
+                                       <p>The ACR-NEMA Standard 300 (predecessor to DICOM) supported a string of characters of the format HH:MM:SS.frac for this VR. Use of this format is not compliant.</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>See also DT VR in this table.</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>The SS component may have a value of 60 only for a leap second.</p>
+                                    </li>
+                                 </ol>
+                              </div>
+                           </div>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>"0"-"9", "." and the SPACE character of Default Character Repertoire</p>
+                           <p>In the context of a Query with range matching (see <a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a>), the character "-" is allowed.</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>16 bytes maximum</p>
+                           <p>In the context of a Query with range matching (see <a href="../part04/PS3.4.html" class="olink" shape="rect">PS3.4</a>), the length is 28 bytes maximum.</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>UI</p>
+                           <p>Unique Identifier (UID)</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>A character string containing a UID that is used to uniquely identify a wide variety of items. The UID is a series of numeric components separated by the period "." character. If a Value Field containing one or more UIDs is an odd number of bytes in length, the Value Field shall be padded with a single trailing NULL (00H) character to ensure that the Value Field is an even number of bytes in length. See <a class="xref" href="chapter_9.html" title="9 Unique Identifiers (UIDs)" shape="rect"> Section 9</a> and <a class="xref" href="chapter_B.html" title="B Creating a Privately Defined Unique Identifier (Informative)" shape="rect"> Annex B</a> for a complete specification and examples.</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>"0"-"9", "." of Default Character Repertoire</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>64 bytes maximum</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>UL</p>
+                           <p>Unsigned Long</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Unsigned binary integer 32 bits long. Represents an integer n in the range:</p>
+                           <p>0 &lt;= n &lt; 2<sup>32</sup>.</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>not applicable</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>4 bytes fixed</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>UN</p>
+                           <p>Unknown</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>A string of bytes where the encoding of the contents is unknown (see <a class="xref" href="sect_6.2.html#sect_6.2.2" title="6.2.2 Unknown (UN) Value Representation" shape="rect">Section 6.2.2</a>).</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>not applicable</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Any length valid for any of the other DICOM Value Representations</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>US</p>
+                           <p>Unsigned Short</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Unsigned binary integer 16 bits long. Represents integer n in the range:</p>
+                           <p>0 &lt;= n &lt; 2<sup>16</sup>.</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>not applicable</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>2 bytes fixed</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>UT</p>
+                           <p>Unlimited Text</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>A character string that may contain one or more paragraphs. It may contain the Graphic Character set and the Control Characters, CR, LF, FF, and ESC. It may be padded with trailing spaces, which may be ignored, but leading spaces are considered to be significant. Data Elements with this VR shall not be multi-valued and therefore character code 5CH (the BACKSLASH "\" in ISO-IR 6) may be used.</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Default Character Repertoire and/or as defined by (0008,0005).</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>2<sup>32</sup>-2 bytes maximum</p>
+                           <p>See <a class="xref" href="sect_6.2.html#note_6.2-3-2" shape="rect"> Note 2</a>
+                           </p>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <br class="table-break" clear="none" />
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="1">
+                  <li class="listitem">
+                     <p>For attributes that were present in ACR-NEMA 1.0 and 2.0 and that have been retired, the specifications of Value Representation and Value Multiplicity provided are recommendations for the purpose of interpreting their values in objects created in accordance with earlier versions of this standard. These recommendations are suggested as most appropriate for a particular attribute; however, there is no guarantee that historical objects will not violate some requirements or specified VR and/or VM.</p>
+                  </li>
+                  <li class="listitem">
+                     <p>
+                        <a id="note_6.2-3-2" shape="rect"></a>The length of the value of the UT VR is limited only by the size of the maximum unsigned integer representable in a 32 bit VL field minus one, since FFFFFFFFH is reserved.</p>
+                  </li>
+               </ol>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_6.2.1" shape="rect"></a>6.2.1 Person Name (PN) Value Representation</h3>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_6.2.1.1" shape="rect"></a>6.2.1.1 Examples of PN VR and Notes</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>Examples:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>Rev. John Robert Quincy Adams, B.A. M.Div.</p>
+                        <p>"Adams^John Robert Quincy^^Rev.^B.A. M.Div."</p>
+                        <p>[One family name; three given names; no middle name; one prefix; two suffixes.]</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Susan Morrison-Jones, Ph.D., Chief Executive Officer</p>
+                        <p>"Morrison-Jones^Susan^^^Ph.D., Chief Executive Officer"</p>
+                        <p>[Two family names; one given name; no middle name; no prefix; two suffixes.]</p>
+                     </li>
+                     <li class="listitem">
+                        <p>John Doe</p>
+                        <p>"Doe^John"</p>
+                        <p>[One family name; one given name; no middle name, prefix, or suffix. Delimiters have been omitted for the three trailing null components.]</p>
+                     </li>
+                     <li class="listitem">
+                        <p>(for examples of the encoding of Person Names using multi-byte character sets see <a class="xref" href="chapter_H.html" title="H Character Sets and Person Name Value Representation in the Japanese Language (Informative)" shape="rect"> Annex H</a>)</p>
+                     </li>
+                     <li class="listitem">
+                        <p>"Smith^Fluffy"</p>
+                        <p>[A cat, rather than a human, whose responsible party family name is Smith, and whose own name is Fluffy]</p>
+                     </li>
+                     <li class="listitem">
+                        <p>"ABC Farms^Running on Water"</p>
+                        <p>[A horse whose responsible organization is named ABC Farms, and whose name is "Running On Water"]</p>
+                     </li>
+                  </ul>
+               </div>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="1">
+                        <li class="listitem">
+                           <p>A similar multiple component convention is also used by the HL7 v2 XPN data type. However, the XPN data type places the suffix component before the prefix, and has a sixth component "degree" that DICOM subsumes in the name suffix. There are also differences in the manner in which name representation is identified.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>In typical American and European usage the first occurrence of "given name" would represent the "first name". The second and subsequent occurrences of the "given name" would typically be treated as a middle name(s). The "middle name" component is retained for the purpose of backward compatibility with existing standards.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The implementer should remain mindful of earlier usage forms that represented "given names" as "first" and "middle" and that translations to and from this previous typical usage may be required.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>For reasons of backward compatibility with versions of this standard prior to V3.0, person names might be considered a single family name complex (single component without "^" delimiters).</p>
+                        </li>
+                     </ol>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_6.2.1.2" shape="rect"></a>6.2.1.2 Ideographic and Phonetic Characters in Data Elements with VR of PN</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>Character strings representing person names are encoded using a convention for PN value representations based on component groups with 5 components.</p>
+               <p>For the purpose of writing names in ideographic characters and in phonetic characters, up to 3 component groups may be used. The delimiter of the component group shall be the equals character "=" (3DH). The three component groups in their order of occurrence are: an alphabetic representation, an ideographic representation, and a phonetic representation.</p>
+               <p>Any component group may be absent, including the first component group. In this case, the person name may start with one or more "=" delimiters. Delimiters are also required for interior null component groups. Trailing null component groups and their delimiters may be omitted.</p>
+               <p>The first component group (identified by DICOM as "alphabetic") shall be encoded using the character set specified by the Attribute Specific Character Set (0008,0005), value 1. If Attribute Specific Character Set (0008,0005) is not present, the default Character Repertoire ISO-IR 6 shall be used. ISO 2022 escapes for Code Extension shall not be used in this component group. When Specific Character Set (0008,0005) value 1 specifies a multi-byte character set without Code Extension (i.e., Unicode in UTF-8, GB18030 or GBK), the characters of this component group may be encoded with multiple bytes, but shall be drawn from the code points U+0000 through U+1FFF of ISO/IEC 10646.</p>
+               <p>The second group shall be used for ideographic characters. The character sets used will usually be those from Attribute Specific Character Set (0008,0005), value 2 through n, and may use ISO 2022 escapes.</p>
+               <p>The third group shall be used for phonetic characters. The character sets used shall be those from Attribute Specific Character Set (0008,0005), value 1 through n, and may use ISO 2022 escapes.</p>
+               <p>Delimiter characters "^" and "=" are taken from the character set specified by value 1 of the Attribute Specific Character Set (0008,0005). If Attribute Specific Character Set (0008,0005), value 1 is not present, the default Character Repertoire ISO-IR 6 shall be used.</p>
+               <p>At the beginning of the value of the Person Name data element, the following initial condition is assumed: if Attribute Specific Character Set (0008,0005), value 1 is not present, the default Character Repertoire ISO-IR 6 is invoked, and if the Attribute Specific Character Set (0008,0005), value 1 is present, the character set specified by value 1 of the Attribute is invoked.</p>
+               <p>At the end of the value of the Person Name data element, and before the component delimiters "^" and "=", the character set shall be switched to the default character repertoire ISO-IR 6, if value 1 of the Attribute Specific Character Set (0008,0005) is not present. If value 1 of the Attribute Specific Character Set (0008,0005) is present, the character set shall be switched to that specified by value 1 of the Attribute.</p>
+               <p>The value length of each component group is 64 characters maximum, including the delimiter for the component group. Each combining character (e.g., diacritics or vowel marks) shall be considered a separate character for this maximum length, regardless of how an application may display such combining characters (i.e., combined into the glyph for the base character, or rendered separately).</p>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_6.2.2" shape="rect"></a>6.2.2 Unknown (UN) Value Representation</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The Unknown (UN) VR shall only be used for Private Attribute Data Elements and Standard Data Elements previously encoded as some DICOM VR other than UN using the DICOM Default Transfer Syntax (Implicit VR Little Endian), and whose Value Representation is currently unknown. As long as the VR is unknown the Value Field is insensitive to Little/Big Endian byte ordering and shall not be 'byte-swapped' (see <a class="xref" href="sect_7.3.html" title="7.3 Big Endian Versus Little Endian Byte Ordering" shape="rect">Section 7.3</a>). In the case of undefined length sequences, the value shall remain in implicit VR form. See <a class="xref" href="sect_7.8.html" title="7.8 Private Data Elements" shape="rect">Section 7.8</a> for a description of Private Data Attribute Elements and section 10 and <a class="xref" href="chapter_A.html" title="A Transfer Syntax Specifications (Normative)" shape="rect"> Annex A</a> for a discussion of Transfer Syntaxes.</p>
+            <p>The UN VR shall not be used for Private Creator Data Elements (i.e., the VR is equal to LO, see <a class="xref" href="sect_7.8.html#sect_7.8.1" title="7.8.1 Private Data Element Tags" shape="rect">Section 7.8.1</a>).</p>
+            <p>The UN VR shall not be used for File Meta Information Data Elements (any Tag (0002,xxxx), see <a href="../part10/PS3.10.html" class="olink" shape="rect">PS3.10</a>).</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>All other (non-default) DICOM Transfer Syntaxes employ explicit VR in their encoding, and therefore any Private and/or Standard Data Element Value Field Attribute value encoded and decoded using any Transfer Syntax other than the default, and not having been translated to the DICOM Default Transfer Syntax default in the interim, will have a known VR.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>If at some point an application knows the actual VR for an Attribute of VR UN (e.g., has its own applicable data dictionary), it can assume that the Value Field of the Attribute is encoded in Little Endian byte ordering with implicit VR encoding, irrespective of the current Transfer Syntax.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>This VR of UN is needed when an explicit VR must be given to a Data Element whose Value Representation is unknown (e.g., store and forward). UN is a means to explicitly indicate that the Value Representation of a Data Element is unknown.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The length field of the Value Representation of UN may contain the value of "unknown length", in which case the contents can be assumed to be encoded with implicit VR. See <a class="xref" href="sect_7.5.html#sect_7.5.1" title="7.5.1 Item Encoding Rules" shape="rect">Section 7.5.1</a> to determine how to parse Data Elements with an unknown length.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>An example of a Standard Data Element using a UN VR is a Type 3 or Type U Standard Attribute added to an SOP Class definition. An existing application that does not support that new Attribute (and encounters it) could convert the VR to UN.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_6.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_6.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_6.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">6 Value Encoding </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.5.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 6.3 Enumerated Values and Defined Terms</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

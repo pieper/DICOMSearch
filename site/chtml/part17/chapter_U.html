@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>U Ophthalmology Use Cases (Informative)</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="PS3.17.html" title="PS3.17" />
+      <link rel="prev" href="sect_T.5.html" title="T.5 Positions in Diameter Graphic" />
+      <link rel="next" href="sect_U.2.html" title="U.2 Typical Sequence of Events" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">U Ophthalmology Use Cases (Informative)</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_T.5.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_U.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_U" shape="rect"></a>U Ophthalmology Use Cases (Informative)</h1>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_U.1" shape="rect"></a>U.1 Ophthalmic Photography Use Cases</h2>
+                  </div>
+               </div>
+            </div>
+            <p>The following use cases are examples of how the DICOM Ophthalmology Photography objects may be used. These use cases utilize the term "picture" or "pictures" to avoid using the DICOM terminology of frame, instance or image. In the use cases, the series means DICOM Series.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_U.1.1" shape="rect"></a>U.1.1 Routine N-spot Exam</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>An N-spot retinal photography exam means that "N" predefined locations on the retina are examined.</p>
+               <p>A routine N-spot retinal photography exam is ordered for both eyes. There is nothing unusual observed during the exam, so N pictures are taken of each retina. This healthcare facility also specifies that in an N-spot exam a routine external picture is captured of both eyes, that the current intraocular pressure (IOP) is measured, and that the current refractive state is measured.</p>
+               <p>The resulting study contains:</p>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="a">
+                     <li class="listitem">
+                        <p>2N pictures of the retina and one external picture. Each retinal picture is labeled in the acquisition information to indicate its position in the local N-spot definition. The series is not labeled, each picture is labeled OS or OD as appropriate.</p>
+                        <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                           <h3 class="title">Note</h3>
+                           <p>DICOM uses L, R, and B in the Image Laterality Attribute (0020,0062). The actual encodings will be L, R, or B. Ophthalmic equipment can convert this to OS, OD, and OU before display.</p>
+                        </div>
+                     </li>
+                     <li class="listitem">
+                        <p>In the acquisition information of every picture, the IOP and refractive state information is replicated.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Since there are no stereo pictures taken, there is no Stereometric Relationship IOD instance created.</p>
+                     </li>
+                  </ol>
+               </div>
+               <p>The pictures may or may not be in the same Series.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_U.1.2" shape="rect"></a>U.1.2 Routine N-spot Exam With Exceptions</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>A routine N-spot retinal photography exam is ordered for both eyes. During the exam a lesion is observed in the right eye. The lesion spans several spots, so an additional wide angle view is taken that captures the complete lesion. Additional narrow angle views of the lesion are captured in stereo. After completing the N-spot exam, several slit lamp pictures are taken to further detail the lesion outline.</p>
+               <p>The resulting study contains:</p>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="a">
+                     <li class="listitem">
+                        <p>2N pictures of the retina and one external picture, one additional wide angle picture of the abnormal retina, 2M additional pictures for the stereo detail of the abnormal retina, and several slit lamp pictures of the abnormal eye. The different lenses and lighting parameters are documented in the acquisition information for each picture.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>One instance of a Stereometric Relationship IOD, indicating which of the stereo detail pictures above should be used as stereo pairs.</p>
+                     </li>
+                  </ol>
+               </div>
+               <p>The pictures may or may not be in the same Series.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_U.1.3" shape="rect"></a>U.1.3 Routine Flourescein Exam</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>A routine fluorescein exam is ordered for one eye. The procedure includes:</p>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="a">
+                     <li class="listitem">
+                        <p>Routine stereo N-spot pictures of both eyes, routine external picture, and current IOP.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Reference stereo picture of each eye using filtered lighting</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Fluorescein injection</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Capture of 20 stereo pairs with about 0.7 seconds between pictures in a pair and 3-5 seconds between pairs.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Stereo pair capture of each eye at increasing intervals for the next 10 minutes, taking a total of 8 pairs for each eye.</p>
+                     </li>
+                  </ol>
+               </div>
+               <p>The result is a study with:</p>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="a">
+                     <li class="listitem">
+                        <p>The usual 2N+1 pictures from the N-spot exam</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Four pictures taken with filtered lighting (documented in acquisition information) that constitute a stereo pair for each eye.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>40 pictures (20 pairs) for one eye of near term fluorescein. These include the acquisition information, lighting context, and time stamp.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>32 pictures (8 pairs for each eye) of long term fluorescein. These include acquisition information, lighting context, and time stamp.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>One Stereometric Relationship IOD, indicating which of the above OP instances should be used as stereo pairs.</p>
+                     </li>
+                  </ol>
+               </div>
+               <p>The pictures of a) through d) may or may not be in the same series.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_U.1.4" shape="rect"></a>U.1.4 External Examination</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>The patient presents with a generic eye complaint. Visual examination reveals a possible abrasion. The general appearance of the eyes is documented with a wide angle shot, followed by several detailed pictures of the ocular surface. A topical stain is applied to reveal details of the surface lesion, followed by several additional pictures. Due to the nature of the examination, no basic ophthalmic measurements were taken.</p>
+               <p>The result is a study with one or more series that contains:</p>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="a">
+                     <li class="listitem">
+                        <p>One overall external picture of both eyes</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Several close-up pictures of the injured eye</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Several close-up pictures of the injured eye after topical stain. These pictures have the additional stain information conveyed in the acquisition information for these pictures.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_U.1.5" shape="rect"></a>U.1.5 External Examination With Intention</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>The patient is suspected of a nervous system injury. A series of external pictures are taken with the patient given instructions to follow a light with his eyes. For each picture the location of the light is indicated by the patient intent information, (e.g., above, below, patient left, patient right).</p>
+               <p>The result is a study with one or more series that contains:</p>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="a">
+                     <li class="listitem">
+                        <p>Individual pictures with each picture using the patient intent field to indicate the intended direction.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_U.1.6" shape="rect"></a>U.1.6 External Examination With Drug Application</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>Patient is suspected of myaesthenia gravis. Both eyes are imaged in normal situation. Then after Tensilon® (edrophonium chloride) injection a series of pictures is taken. The time, amount, and method of Tensilon® (edrophonium chloride) administration is captured in the acquisition information. The time stamps of the pictures are used in conjunction with the behavior of the eyelids to assess the state of the disease.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>Tensilon® is a registered trademark of Roche Laboratories.</p>
+               </div>
+               <p>The result is a study with one or more series that contains:</p>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="a">
+                     <li class="listitem">
+                        <p>Multiple reference pictures prior to test</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Pictures with acquisition information to document drug administration time.</p>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_U.1.7" shape="rect"></a>U.1.7 Routine Stereo Camera Examination</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>A stereo optic disk examination is ordered for a patient with glaucoma. For this examination, the IOP does not need to be measured. The procedure includes:</p>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                     <li class="listitem">
+                        <p>Mydriasis using agent at time 
+            <span class="italic">t</span>
+                        </p>
+                     </li>
+                     <li class="listitem">
+                        <p>N stereo pictures (camera pictures right and left stereo picture simultaneously) of the optic disk region at the time 
+            <span class="italic">t+s</span>
+                        </p>
+                     </li>
+                  </ol>
+               </div>
+               <p>The result is a study with:</p>
+               <div class="orderedlist">
+                  <ol class="orderedlist" type="a">
+                     <li class="listitem">
+                        <p>N right and N left stereo pictures. These include acquisition information, lighting context, agent and time stamps.</p>
+                        <div class="orderedlist">
+                           <ol class="orderedlist" type="i">
+                              <li class="listitem">
+                                 <p>One Stereometric Relationship SOP Instance, indicating that the above OP images should be used as stereo pairs.</p>
+                              </li>
+                           </ol>
+                        </div>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_U.1.8" shape="rect"></a>U.1.8 Relative Image Position Definitions</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>Ophthalmic mapping usually occurs in the posterior region of the fundus, typically in the macula or the optic disc. However, this or other imaging may occur anywhere in the fundus. The mapping data has clinical relevance only in the context of its location in the fundus, so this must be appropriately defined. <a href="../part16/sect_CID_4207.html" class="olink" shape="rect">CID 4207 “Ophthalmic Image Position”</a> codes and the ocular fundus locations they represent are defined by anatomical landmarks and are described using conventional anatomic references, e.g., superior, inferior, temporal, and nasal. <a class="xref" href="chapter_U.html#figure_U.1.8-1" title="Figure U.1.8-1. Anatomical Landmarks and References of the Left Ocular Fundus" shape="rect">Figure U.1.8-1</a> is a schematic representation of the fundus of the left eye, and provides additional clarification of the anatomic references used in the image location definitions. A schematic of the right eye is omitted since it is identical to the left eye, except horizontally reversed (Temporal→Nasal, Nasal→Temporal).</p>
+               <p>The spatial precision of the following location definitions vary depending upon their specific reference. Any location that is described as "centered" is assumed to be positioned in the center of the referenced anatomy. However, the center of the macula can be defined visually with more precision than that of the disc or a lesion. The locations without a "center" reference are approximations of the general quadrant in which the image resides.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>An image &lt; 15° angular subtend in the same position should be considered Lesion Centered.</p>
+               </div>
+               <p>Following are general definitions used to understand the terminology used in the code definitions.</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>Central zone - a circular region centered vertically on the macula and extending one disc diameter nasal to the nasal margin of the disc and four disc diameters temporal to the temporal margin of the disc.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Equator - the border between the mid-periphery and periphery of the retinal and corresponding to a circle approximately coincident with the ampulae of the vortex veins</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Superior - any region that is located superiorly to a horizontal line bisecting the macula</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Inferior - any region that is located inferiorly to a horizontal line bisecting the macula</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Temporal - any region that is located temporally to a vertical line bisecting the macula</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Nasal - any region that is located nasally to a vertical line bisecting the macula</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Mid-periphery - A circular zone of the retina extending from the central zone to the equator</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Periphery - A zone of the retinal extending from the equator to the ora serrata.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Ora Serrata - the most anterior extent and termination of the retina</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Lesion - any pathologic object of regard</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>
+                  <a class="xref" href="chapter_U.html#figure_U.1.8-1" title="Figure U.1.8-1. Anatomical Landmarks and References of the Left Ocular Fundus" shape="rect">Figure U.1.8-1</a> illustrates anatomical representation of defined regions of the fundus of the left eye according to anatomical markers. The right eye has the same representations but reversed horizontally so that temporal and nasal are reversed with the macula remaining temporal to the disc.</p>
+               <p>Modified after Welch Allyn: <a class="link" href="http://www.welchallyn.com/wafor/students/Optometry-Students/BIO-Tutorial/BIO-Observation.htm" target="_top" shape="rect">http://www.welchallyn.com/wafor/students/Optometry-Students/BIO-Tutorial/BIO-Observation.htm</a>.</p>
+               <p>
+          </p>
+               <div class="figure">
+                  <a id="figure_U.1.8-1" shape="rect"></a>
+                  <div class="figure-contents">
+                     <div class="mediaobject">
+                        <img src="figures/PS3.17_U.1.8-1.svg" alt="Anatomical Landmarks and References of the Left Ocular Fundus" />
+                     </div>
+                  </div>
+                  <p class="title">
+                     <strong>Figure U.1.8-1. Anatomical Landmarks and References of the Left Ocular Fundus</strong>
+                  </p>
+               </div>
+               <p>
+                  <br class="figure-break" clear="none" />
+               </p>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_T.5.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_U.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">T.5 Positions in Diameter Graphic </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> U.2 Typical Sequence of Events</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

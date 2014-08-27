@@ -1,0 +1,2442 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>K.6 SOP Class Definitions</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.4.html" title="PS3.4" />
+      <link rel="up" href="chapter_K.html" title="K Basic Worklist Management Service (Normative)" />
+      <link rel="prev" href="sect_K.5.html" title="K.5 Association Negotiation" />
+      <link rel="next" href="sect_K.7.html" title="K.7 Examples for the Usage of the Modality Worklist (Informative)" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">K.6 SOP Class Definitions</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_K.5.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">K Basic Worklist Management Service (Normative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_K.7.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_K.6" shape="rect"></a>K.6 SOP Class Definitions</h2>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_K.6.1" shape="rect"></a>K.6.1 Modality Worklist SOP Class</h3>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_K.6.1.1" shape="rect"></a>K.6.1.1 Modality Worklist SOP Class Overview</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The Modality Worklist SOP class defined within the Basic Worklist Management Service Class defines an application-level class of service that facilitates the communication of information to the imaging modality about Scheduled Procedure Steps, and entities related to the Scheduled Procedure Steps. As will be detailed below, part of the information carried by the worklist mechanism is intended to be used by the imaging modality itself, but much of the information is intended to be presented to the modality operator.</p>
+               <p>This worklist is structured according to Scheduled Procedure Steps. A procedure step is a unit of service in the context of a requested imaging procedure.</p>
+               <p>The Modality Worklist SOP class supports the following requirements:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>Verify patient (e.g., download patient demographic information from IS to Modality, to verify that the person to be examined is the intended subject).</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Select a Scheduled Procedure Step from the IS (e.g., download procedure step information from the IS to the Modality). The Modality Worklist SOP Class supports two alternatives for the realization of this requirement, supporting different organization methods of the department:</p>
+                        <div class="itemizedlist">
+                           <ul class="itemizedlist" style="list-style-type: circle; ">
+                              <li class="listitem">
+                                 <p>The Modality may obtain the list of Scheduled Procedure Steps from the IS. Display of the list and selection from the list is done at the Modality.</p>
+                              </li>
+                              <li class="listitem">
+                                 <p>The list is displayed and selection is performed on the IS. This implies, that the information is obtained by the Modality just before the Scheduled Procedure Step starts.</p>
+                              </li>
+                           </ul>
+                        </div>
+                     </li>
+                     <li class="listitem">
+                        <p>Prepare the performance of a Scheduled Procedure Step.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Couple DICOM images unambiguously with related information from the IS (e.g., patient demographics, procedure description, ID data structure from the IS, contextual IS information).</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Capture all the Attributes from the IS, that are mandatory to be inserted into the DICOM Image Object</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>The Modality Worklist SOP Class is not intended to provide access to all IS information and services that may be of interest to a Modality operator or attending physician. Its primary focus is the efficient operation of the image acquisition equipment. DICOM SOP Classes such as the Relevant Patient Information Query SOP Class and non-DICOM Services that fall beyond the scope of the Modality Worklist SOP Class may be needed.</p>
+               <p>The Modality Worklist SOP Class does not support the transmission of information from the Modality to the information system.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_K.6.1.2" shape="rect"></a>K.6.1.2 Modality Worklist Information Model</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_K.6.1.2.1" shape="rect"></a>K.6.1.2.1 E/R Model</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>In response to a given C-FIND request, the SCP might have to send several C-FIND responses, (i.e., one C-FIND response per matching worklist item). Each worklist item focuses on one Scheduled Procedure Step and the related information. The E-R diagram presented in <a class="xref" href="sect_K.6.html#figure_K.6-1" title="Figure K.6-1. Modality Worklist Information Model E/R Diagram" shape="rect">Figure K.6-1</a> depicts the content of one C-FIND request, that is:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>the matching Scheduled Procedure Step, the Requested Procedure to which the Scheduled Procedure Step contributes, the Imaging Service Request in which the associated Requested Procedure is ordered, any associated Visit, and the Patient who is to be the subject of the Procedure.</p>
+                        </li>
+                     </ul>
+                  </div>
+                  <p>Therefore, for a given C-FIND request, a given Scheduled Procedure Step will appear in only one of the resulting C-FIND responses. Obviously, information about the Requested Procedure, Imaging Service Request, Visit and Patient may be mentioned in several of these C-FIND responses.</p>
+                  <p>The Modality Worklist Information Model is represented by the Entity Relationship diagram shown in figure <a class="xref" href="sect_K.6.html" title="K.6 SOP Class Definitions" shape="rect">Section K.6</a> -1.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>The entities appearing in messages related to the Modality Worklist SOP Class are required to comply to the Modality Worklist model. However, DICOM does not define the internal structure of the database.</p>
+                  </div>
+                  <p>The entry point of the Modality Worklist is the Scheduled Procedure Step entity.</p>
+                  <p>The Attributes of a Scheduled Procedure Step Worklist can be found in the following Modules in <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>.</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>Patient Relationship Module</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Patient Identification Module</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Patient Demographic Module</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Patient Medical Module</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Visit Relationship Module</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Visit Identification Module</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Visit Status Module</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Visit Admission Module</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Scheduled Procedure Step Module</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Requested Procedure Module</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Imaging Service Request Module</p>
+                        </li>
+                     </ul>
+                  </div>
+                  <p>
+              </p>
+                  <div class="figure">
+                     <a id="figure_K.6-1" shape="rect"></a>
+                     <div class="figure-contents">
+                        <div class="mediaobject">
+                           <img src="figures/PS3.4_K.6-1.svg" alt="Modality Worklist Information Model E/R Diagram" />
+                        </div>
+                     </div>
+                     <p class="title">
+                        <strong>Figure K.6-1. Modality Worklist Information Model E/R Diagram</strong>
+                     </p>
+                  </div>
+                  <p>
+                     <br class="figure-break" clear="none" />
+                  </p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_K.6.1.2.2" shape="rect"></a>K.6.1.2.2 Modality Worklist Attributes</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>
+                     <a class="xref" href="sect_K.6.html#table_K.6-1" title="Table K.6-1. Attributes for the Modality Worklist Information Model" shape="rect">Table K.6-1</a> defines the Attributes of the Modality Worklist Information Model:</p>
+                  <div class="table">
+                     <a id="table_K.6-1" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table K.6-1. Attributes for the Modality Worklist Information Model</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Description / Module</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Tag</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Matching Key Type</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Return Key Type</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Remark / Matching Type</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" colspan="5" rowspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Scheduled Procedure Step</strong>
+                                       </span>
+                                    </p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Scheduled Procedure Step Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0100)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>R</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>The Attributes of the Scheduled Procedure Step shall only be retrieved with Sequence Matching.</p>
+                                    <p>The Scheduled Procedure Step Sequence shall contain only a single Item.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Scheduled Station AE Title</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0001)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>R</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>The Scheduled station AE title shall be retrieved with Single Value Matching only.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Scheduled Procedure Step Start Date</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0002)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>R</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Scheduled Step Start Date shall be retrieved with Single Value Matching or Range Matching.</p>
+                                    <p>See remark under Scheduled Procedure Step Start Time (0040,0003).</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Scheduled Procedure Step Start Time</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0003)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>R</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Scheduled Step Start Time shall be retrieved with Single Value Matching or Range Matching. Scheduled Step Start Date and Scheduled Step Start Time are subject to Range Matching. If both keys are specified for Range Matching, e.g., the date range July 5 to July 7 and the time range 10am to 6pm specifies the time period starting on July 5, 10am until July 7, 6pm.</p>
+                                    <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                                       <h3 class="title">Note</h3>
+                                       <p>If the Information System does not provide scheduling for individual Procedure Steps, it may use the closest scheduling information it possesses (e.g., Procedures are subject to scheduling instead of Procedure Steps).</p>
+                                    </div>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Modality</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0060)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>R</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>The Modality shall be retrieved with Single Value Matching.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Scheduled Performing Physician's Name</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0006)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>R</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Scheduled Performing Physician's Name shall be retrieved with Single Value Matching or Wild Card Matching.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Scheduled Procedure Step Description</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0007)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1C</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Either the Scheduled Procedure Step Description (0040,0007) or the Scheduled Protocol Code Sequence (0040,0008) or both shall be supported by the SCP.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Scheduled Station Name</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0010)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Scheduled Procedure Step Location</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0011)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Scheduled Protocol Code Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0008)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1C</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Either the Scheduled Procedure Step Description (0040,0007) or the Scheduled Protocol Code Sequence (0040,0008) or both shall be supported by the SCP.</p>
+                                    <p>The Scheduled Protocol Code Sequence contains one or more Items.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Code Value</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0100)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Coding Scheme Version</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0103)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Coding Scheme Designator</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0102)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Code Meaning</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0104)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Protocol Context Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0440)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>The Protocol Context Sequence and its Items shall not be used for matching</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;&gt;Value Type</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,A040)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;&gt;Concept Name Code Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,A043)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;&gt;&gt;Code Value</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0100)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;&gt;&gt;Coding Scheme Designator</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0102)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;&gt;&gt;Coding Scheme Version</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0103)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;&gt;&gt;Code Meaning</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0104)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;&gt;DateTime</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,A120)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1C</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Required if Value Type (0040,A040) is DATETIME.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;&gt;Person Name</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,A123)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1C</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Required if Value Type (0040,A040) is PNAME.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;&gt;Text Value</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,A160)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1C</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Required if Value Type (0040,A040) is TEXT.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;&gt;Concept Code Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,A168)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1C</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Required if Value Type (0040,A040) is CODE.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;&gt;&gt;Code Value</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0100)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;&gt;&gt;Coding Scheme Designator</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0102)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;&gt;&gt;Coding Scheme Version</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0103)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;&gt;&gt;Code Meaning</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0104)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;&gt;Numeric Value</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,A30A)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1C</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Required if Value Type (0040,A040) is NUMERIC.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;&gt;Measurement Units Code Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,08EA)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1C</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Required if Value Type (0040,A040) is NUMERIC.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;&gt;&gt;Code Value</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0100)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;&gt;&gt;Coding Scheme Designator</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0102)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;&gt;&gt;Coding Scheme Version</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0103)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;&gt;&gt;Code Meaning</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0104)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="italic">&gt;&gt;&gt;All other Attributes from Protocol Context Sequence</span>
+                                    </p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Pre-Medication</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0012)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2C</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Required if Pre-Medication is to be applied to that Scheduled Procedure Step.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Scheduled Procedure Step ID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0009)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Requested Contrast Agent</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0032,1070)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2C</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Required if Contrast Media is to be applied to that Scheduled Procedure Step.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Scheduled Procedure Step Status</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0020)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="italic">&gt;All other Attributes from the Scheduled Procedure Step Sequence</span>
+                                    </p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Scheduled Specimen Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0500)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>One or more Items may be returned in this Sequence.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Container Identifier</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0512)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Container Type Code Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0518)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Zero or one Item shall be returned in this Sequence.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Code Value</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0100)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Coding Scheme Designator</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0102)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Coding Scheme Version</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0103)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Code Meaning</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0104)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Specimen Description Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0560)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>One or more Items shall be returned in this Sequence.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Specimen Identifier</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0551)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Specimen UID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,0554)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="italic">&gt;&gt;All other Attributes from the Specimen Description Sequence</span>
+                                    </p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Specimen Preparation Sequence (0040,0610), if present, describes preparation steps already performed, not scheduled procedure steps</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="italic">&gt;All other Attributes from the Scheduled Specimen Sequence</span>
+                                    </p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" colspan="5" rowspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Requested Procedure</strong>
+                                       </span>
+                                    </p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Requested Procedure ID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,1001)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Requested Procedure Description</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0032,1060)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1C</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>The Requested Procedure Description (0032,1060) or the Requested Procedure Code Sequence (0032,1064) or both shall be supported by the SCP.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Requested Procedure Code Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0032,1064)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1C</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>The Requested Procedure Description (0032,1060) or the Requested Procedure Code Sequence (0032,1064) or both shall be supported by the SCP.</p>
+                                    <p>The Requested Procedure Code Sequence shall contain only a single Item.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Code Value</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0100)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Coding Scheme Designator</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0102)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Coding Scheme Version</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0103)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Code Meaning</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0104)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Study Instance UID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0020,000D)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Study Date</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0020)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>See note 5.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Study Time</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0030)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>See note 5.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Referenced Study Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,1110)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Referenced SOP Class UID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,1150)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Referenced SOP Instance UID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,1155)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Requested Procedure Priority</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,1003)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Patient Transport Arrangements</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,1004)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="italic">All other Attributes from the Requested Procedure Module</span>
+                                    </p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" colspan="5" rowspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Imaging Service Request</strong>
+                                       </span>
+                                    </p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Accession Number</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0050)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Requesting Physician</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0032,1032)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Referring Physician's Name</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0090)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="italic">All other Attributes from the Imaging Service Request Module</span>
+                                    </p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" colspan="5" rowspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Visit Identification</strong>
+                                       </span>
+                                    </p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Admission ID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0038,0010)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="italic">All other Attributes from the Visit Identification Module</span>
+                                    </p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" colspan="5" rowspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Visit Status</strong>
+                                       </span>
+                                    </p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Current Patient Location</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0038,0300)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="italic">All other Attributes from the Visit Status Module</span>
+                                    </p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" colspan="5" rowspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Visit Relationship</strong>
+                                       </span>
+                                    </p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Referenced Patient Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,1120)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Referenced SOP Class UID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,1150)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Referenced SOP Instance UID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,1155)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="italic">All other Attributes from the Visit Relationship Module except those explicitly included in this table (see Note 3)</span>
+                                    </p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" colspan="5" rowspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Visit Admission</strong>
+                                       </span>
+                                    </p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>All Attributes from the Visit Admission Module</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" colspan="5" rowspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Patient Relationship</strong>
+                                       </span>
+                                    </p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>All Attributes from the Patient Relationship Module except those explicitly included in this table (see Note 3)</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" colspan="5" rowspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Patient Identification</strong>
+                                       </span>
+                                    </p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Patient's Name</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0010,0010)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>R</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Patient Name shall be retrieved with Single Value Matching or Wild Card Matching.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Patient ID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0010,0020)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>R</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Patient ID shall be retrieved with Single Value Matching.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="italic">All other Attributes from the Patient Identification Module</span>
+                                    </p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" colspan="5" rowspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Patient Demographic</strong>
+                                       </span>
+                                    </p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Patients Birth Date</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0010,0030)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Patient's Sex</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0010,0040)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Patient's Primary Language Code Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0010,0101)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>The languages that can be used to communicate with the patient.</p>
+                                    <p>If returned, the Patient's Primary Language Code Sequence shall contain one or more Items. The items are ordered by preference (most preferred language to least preferred language).</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Code Value</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0100)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Coding Scheme Designator</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0102)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Code Meaning</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0104)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Code Meaning shall not be used as Matching Key.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Patient's Primary Language Modifier Code Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0010,0102)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>A modifier for a Patient's Primary Language. Can be used to specify a national language variant.</p>
+                                    <p>If returned, the Patient's Primary Language Modifier Code Sequence shall contain only a single Item.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Code Value</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0100)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Coding Scheme Designator</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0102)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Code Meaning</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0104)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Code Meaning shall not be used as Matching Key.</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Patient's Weight</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0010,1030)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Patient's Size</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0010,1020)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Confidentiality constraint on patient data</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,3001)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="italic">All other Attributes from the Patient Demographic Module</span>
+                                    </p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" colspan="5" rowspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Patient Medical</strong>
+                                       </span>
+                                    </p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Patient State</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0038,0500)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Pregnancy Status</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0010,21C0)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Medical Alerts</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0010,2000)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Allergies</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0010,2110)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Special Needs</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0038,0050)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Pertinent Documents Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0038,0100)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Pertinent Documents Sequence shall be retrieved with Universal Matching only</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Referenced SOP Class UID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,1150)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Referenced SOP Instance UID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,1155)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Purpose of Reference Code Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,A170)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Code Value</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0100)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Coding Scheme Designator</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0102)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;&gt;Code Meaning</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0104)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Document Title</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0042,0010)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>2</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="italic">All other Attributes from the Patient Medical Module</span>
+                                    </p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>O</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <div class="orderedlist">
+                        <ol class="orderedlist" type="1">
+                           <li class="listitem">
+                              <p>Just like Series and Image Entities specified in the Query/Retrieve Service Class either an SCU or an SCP may support optional Matching Key Attributes and/or Type 3 Return Key Attributes that are not included in the Worklist Information Model (i.e., standard or private Attributes). This is considered a Standard Extended SOP Class (see <a href="../part02/PS3.2.html" class="olink" shape="rect">PS3.2</a>).</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Each Module contains a Comment Attribute. This may be used to transmit non-structured information, which may be displayed to the operator of the Modality.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>The reason for this exclusion is to assure that the Attributes that may be present in multiple Modules are included only once with the meaning pertaining to only one Module (for example, Referenced Study Sequence (0008,1110) shall be included once with the meaning as defined in the Requested Procedure Module).</p>
+                           </li>
+                           <li class="listitem">
+                              <p>The use of Specific Character Set is discussed in section <a class="xref" href="sect_K.4.html#sect_K.4.1.1.3.1" title="K.4.1.1.3.1 Request Identifier Structure" shape="rect">Section K.4.1.1.3.1</a> and <a class="xref" href="sect_K.4.html#sect_K.4.1.1.3.2" title="K.4.1.1.3.2 Response Identifier Structure" shape="rect">Section K.4.1.1.3.2</a>.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>The values of Study Date (0008,0020) and Study Time (0008,0030) may be provided in order to achieve consistency of Study level Attributes in composite instances generated in multiple performed procedure steps on different devices, and the worklist values may be updated by the SCP based on information received from Modality Performed Procedure Steps or by examining the composite instances generated.</p>
+                           </li>
+                        </ol>
+                     </div>
+                  </div>
+                  <p>The Attributes in <a class="xref" href="sect_K.6.html#table_K.6-1a" title="Table K.6-1a. Attributes for the Modality Worklist C-FIND Identifier" shape="rect">Table K.6-1a</a> are not part of the Worklist Information Model; their inclusion in the C-FIND request and response identifier are governed by rules in sections <a class="xref" href="sect_K.4.html#sect_K.4.1.1.3.1" title="K.4.1.1.3.1 Request Identifier Structure" shape="rect">Section K.4.1.1.3.1</a> and <a class="xref" href="sect_K.4.html#sect_K.4.1.1.3.2" title="K.4.1.1.3.2 Response Identifier Structure" shape="rect">Section K.4.1.1.3.2</a>, respectively.</p>
+                  <div class="table">
+                     <a id="table_K.6-1a" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table K.6-1a. Attributes for the Modality Worklist C-FIND Identifier</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Description</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Tag</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Request Identifier</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Response Identifier</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>
+                                       <span class="bold">
+                                          <strong>Remark Type</strong>
+                                       </span>
+                                    </p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Specific Character Set</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0005)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1C</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1C</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This Attribute is required if expanded or replacement character sets are used. See <a class="xref" href="sect_C.2.html#sect_C.2.2.2" title="C.2.2.2 Attribute Matching" shape="rect">Section C.2.2.2</a> and <a class="xref" href="sect_K.4.html#sect_K.4.1.1.3" title="K.4.1.1.3 Identifier" shape="rect">Section K.4.1.1.3</a>
+                                    </p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Timezone Offset From UTC</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,0201)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1C</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1C</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>This Attribute is required if times are to be interpreted explicitly in the designated local timezone. See <a class="xref" href="sect_C.2.html#sect_C.2.2.2" title="C.2.2.2 Attribute Matching" shape="rect">Section C.2.2.2</a> and <a class="xref" href="sect_K.4.html#sect_K.4.1.1.3" title="K.4.1.1.3 Identifier" shape="rect">Section K.4.1.1.3</a>
+                                    </p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>HL7 Structured Document Reference Sequence</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,A390)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1C</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>One or more Items may be included in this sequence.</p>
+                                    <p>Required if HL7 Structured Documents are referenced within the Identifier. See <a class="xref" href="sect_K.4.html#sect_K.4.1.1.3" title="K.4.1.1.3 Identifier" shape="rect">Section K.4.1.1.3</a>
+                                    </p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Referenced SOP Class UID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,1150)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Referenced SOP Instance UID</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0008,1155)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;HL7 Instance Identifier</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,E001)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>1</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>&gt;Retrieve URI</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>(0040,E010)</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>-</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>3</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1"></td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_K.6.1.3" shape="rect"></a>K.6.1.3 Conformance Requirements</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>An implementation may conform to the Modality Worklist SOP Class as an SCU or an SCP. The Conformance Statement shall be in the format defined in <a href="../part02/PS3.2.html" class="olink" shape="rect">PS3.2</a>.</p>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_K.6.1.3.1" shape="rect"></a>K.6.1.3.1 SCU Conformance</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>An implementation that conforms to the Modality Worklist SOP Class shall support queries against the Worklist Information Model described in <a class="xref" href="sect_K.6.html#sect_K.6.1.2" title="K.6.1.2 Modality Worklist Information Model" shape="rect">Section K.6.1.2</a> of this Annex using the baseline C-FIND SCU Behavior described in <a class="xref" href="sect_K.4.html#sect_K.4.1.2" title="K.4.1.2 C-FIND SCU Behavior" shape="rect">Section K.4.1.2</a> of this Part.</p>
+                  <p>An implementation that conforms to the Modality Worklist SOP Class as an SCU shall state in its Conformance Statement whether it requests matching on Optional Matching Key Attributes. If it requests Type 3 Return Key Attributes, then it shall list these Optional Return Key Attributes. It shall identify any Templates it supports for the Protocol Context Sequence.</p>
+                  <p>An implementation that conforms to the Modality Worklist SOP Class as an SCU shall state in its Conformance Statement whether or not it supports extended negotiation of fuzzy semantic matching of person names.</p>
+                  <p>An implementation that conforms to the Modality Worklist SOP Class as an SCU shall state in its Conformance Statement how it makes use of Specific Character Set (0008,0005) and Timezone Offset From UTC (0008,0201) when encoding queries and interpreting responses.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_K.6.1.3.2" shape="rect"></a>K.6.1.3.2 SCP Conformance</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>An implementation that conforms to the Modality Worklist SOP Class shall support queries against the Worklist Information Model described in <a class="xref" href="sect_K.6.html#sect_K.6.1.2" title="K.6.1.2 Modality Worklist Information Model" shape="rect">Section K.6.1.2</a> of this Annex using the C-FIND SCP Behavior described in <a class="xref" href="sect_K.4.html#sect_K.4.1.3" title="K.4.1.3 C-FIND SCP Behavior" shape="rect">Section K.4.1.3</a> of this Part.</p>
+                  <p>An implementation that conforms to the Modality Worklist SOP Class as an SCP shall state in its Conformance Statement whether it supports matching on Optional Matching Key Attributes. If it supports Type 3 Return Key Attributes, then it shall list the Optional Return Key Attributes that it supports. It shall identify any Templates it supports for the Protocol Context Sequence.</p>
+                  <p>An implementation that conforms to the Modality Worklist SOP Class as an SCP shall state in its Conformance Statement whether it supports case-insensitive matching for PN VR Attributes and list Attributes for which this applies.</p>
+                  <p>An implementation that conforms to the Modality Worklist SOP Class as an SCP shall state in its Conformance Statement whether or not it supports extended negotiation of fuzzy semantic matching of person names. If fuzzy semantic matching of person names is supported, then the mechanism for fuzzy semantic matching shall be specified.</p>
+                  <p>An implementation that conforms to the Modality Worklist SOP Class as an SCP shall state in its Conformance Statement how it makes use of Specific Character Set (0008,0005) and Timezone Offset From UTC (0008,0201) when interpreting queries, performing matching and encoding responses.</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_K.6.1.4" shape="rect"></a>K.6.1.4 SOP Class</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The Modality Worklist SOP Class in the Basic Worklist Service Class identifies the Modality Worklist Information Model, and the DIMSE-C operations supported. The following Standard SOP Class is identified:</p>
+               <div class="table">
+                  <a id="table_K.6.1.4-1" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table K.6.1.4-1. Modality Worklist SOP Class</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>SOP Class Name</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>SOP Class UID</strong>
+                                    </span>
+                                 </p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Modality Worklist Information Model - FIND</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>1.2.840.10008.5.1.4.31</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_K.6.2" shape="rect"></a>K.6.2 General Purpose Worklist SOP Class (Retired)</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Retired. See PS 3.4-2011.</p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_K.5.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_K.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_K.7.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">K.5 Association Negotiation </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.4.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> K.7 Examples for the Usage of the Modality Worklist (Informative)</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

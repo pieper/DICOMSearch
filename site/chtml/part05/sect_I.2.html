@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>I.2 Example of Person Name Value Representation in the Korean Language</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.5.html" title="PS3.5" />
+      <link rel="up" href="chapter_I.html" title="I Character Sets and Person Name Value Representation in the Korean Language (Informative)" />
+      <link rel="prev" href="chapter_I.html" title="I Character Sets and Person Name Value Representation in the Korean Language (Informative)" />
+      <link rel="next" href="sect_I.3.html" title="I.3 Example of Long Text Value Representation in the Korean Language Without Explicit Escape Sequences Between Character Sets" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">I.2 Example of Person Name Value Representation in the Korean Language</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_I.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">I Character Sets and Person Name Value Representation in the Korean Language (Informative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_I.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_I.2" shape="rect"></a>I.2 Example of Person Name Value Representation in the Korean Language</h2>
+               </div>
+            </div>
+         </div>
+         <div class="example">
+            <a id="sect_I.2-1" shape="rect"></a>
+            <p class="title">
+               <strong>Example I.2-1. Example of Person Name Value Representation in the Korean Language</strong>
+            </p>
+            <div class="example-contents">
+               <p>Person names in the Korean language may be written in Hangul (phonetic characters), Hanja (ideographic characters), or Latin (alphabetic characters). The three component groups should be written in the order of alphabetic, ideographic, and phonetic (see <a class="xref" href="sect_6.2.html#table_6.2-1" title="Table 6.2-1. DICOM Value Representations" shape="rect">Table 6.2-1</a>).</p>
+               <p>Specific Character Set:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: none; ">
+                     <li class="listitem" style="list-style-type: none">
+                        <p>(0008,0005) \ISO 2022 IR 149</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>Character String:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: none; ">
+                     <li class="listitem" style="list-style-type: none">
+                        <p>Hong^Gildong=洪^吉洞=홍^길동</p>
+                     </li>
+                     <li class="listitem" style="list-style-type: none">
+                        <p>Hong^Gildong= ESC 02/04 02/09 04/03 洪 ^ ESC 02/04 02/09 04/03 吉洞 = ESC 02/04 02/09 04/03 홍 ^ ESC 02/04 02/09 04/03 길동</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>Encoded representation:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: none; ">
+                     <li class="listitem" style="list-style-type: none">
+                        <p>
+                           <code class="computeroutput">04/08 06/15 06/14 06/07 05/14 04/07 06/09 06/12 06/04 06/15 06/14 06/07 03/13 01/11 02/04 02/09 04/03 15/11 15/03 05/14 01/11 02/04 02/09 04/03 13/01 12/14 13/04 13/07 03/13 01/11 02/04 02/09 04/03 12/08 10/11 05/14 01/11 02/04 02/09 04/03 11/01 14/06 11/05 11/15</code>
+                        </p>
+                     </li>
+                  </ul>
+               </div>
+               <p>An example of what might be displayed or printed by an ASCII based machine that displays or prints the Control Character ESC (01/11) using \033:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: none; ">
+                     <li class="listitem" style="list-style-type: none">
+                        <p>
+                           <code class="computeroutput">Hong^Gildong=\033$) C\373\363^\033$)C\321\316\324\327=\033$)C\310\253^\033$)C\261\346\265\277</code>
+                        </p>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+         <br class="example-break" clear="none" />
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="1">
+                  <li class="listitem">
+                     <p>The multi-byte character set (ISO-IR 149) and single-byte character set (ISO 646) can be used intermixed without any explicit escape sequence after the initial escape sequence. Once ISO 646 has been designated to the GL area and ISO-IR 149 to the GR area, each character set has different code area, thus can be used intermixed. The decoder will check the most significant bit of a character to know whether it is a two byte character in the GR area (high bit one) or a one byte character in the GL area (high bit zero).</p>
+                  </li>
+                  <li class="listitem">
+                     <p>In the above example of person name representation, explicit escape sequences precede each Hangul and Hanja string. These escape sequences are to meet the requirements of the code extension technique that specifies a switch to the default character repertoire before delimiters. In the previous example, it is assumed that the default character repertoire (ISO-646) is invoked to G0 code area and no character set to G1 area after delimiters ("^" and "=" signs). See <a class="xref" href="chapter_6.html#sect_6.1.2.5.3" title="6.1.2.5.3 Requirements" shape="rect">Section 6.1.2.5.3</a>.</p>
+                  </li>
+               </ol>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_I.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_I.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_I.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">I Character Sets and Person Name Value Representation in the Korean Language (Informative) </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.5.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> I.3 Example of Long Text Value Representation in the Korean Language Without Explicit Escape Sequences Between Character Sets</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

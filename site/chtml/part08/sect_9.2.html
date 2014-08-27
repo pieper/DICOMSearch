@@ -1,0 +1,1511 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>9.2 DICOM Upper Layer Protocol for TCP/IP State Machine</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.8.html" title="PS3.8" />
+      <link rel="up" href="chapter_9.html" title="9 DICOM Upper Layer Protocol for TCP/IP" />
+      <link rel="prev" href="chapter_9.html" title="9 DICOM Upper Layer Protocol for TCP/IP" />
+      <link rel="next" href="sect_9.3.html" title="9.3 DICOM Upper Layer Protocol for TCP/IP Data Units Structure" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">9.2 DICOM Upper Layer Protocol for TCP/IP State Machine</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_9.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">9 DICOM Upper Layer Protocol for TCP/IP</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_9.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_9.2" shape="rect"></a>9.2 DICOM Upper Layer Protocol for TCP/IP State Machine</h2>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_9.2.1" shape="rect"></a>9.2.1 Machine States Definition</h3>
+                  </div>
+               </div>
+            </div>
+            <div class="table">
+               <a id="table_9-1" shape="rect"></a>
+               <p class="title">
+                  <strong>Table 9-1. No Association</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>State</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Definition</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Sta 1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Idle</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <div class="table">
+               <a id="table_9-2" shape="rect"></a>
+               <p class="title">
+                  <strong>Table 9-2. Association Establishment</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>State</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Definition</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Sta 2</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Transport connection open (Awaiting A-ASSOCIATE-RQ PDU)</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Sta 3</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Awaiting local A-ASSOCIATE response primitive (from local user)</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Sta 4</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Awaiting transport connection opening to complete (from local transport service)</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Sta 5</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Awaiting A-ASSOCIATE-AC or A-ASSOCIATE-RJ PDU</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <div class="table">
+               <a id="table_9-3" shape="rect"></a>
+               <p class="title">
+                  <strong>Table 9-3. Data Transfer</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>State</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Definition</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Sta 6</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Association established and ready for data transfer</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <div class="table">
+               <a id="table_9-4" shape="rect"></a>
+               <p class="title">
+                  <strong>Table 9-4. Association Release</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>State</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Definition</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Sta 7</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Awaiting A-RELEASE-RP PDU</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Sta 8</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Awaiting local A-RELEASE response primitive (from local user)</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Sta 9</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Release collision requestor side; awaiting A-RELEASE response (from local user)</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Sta 10</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Release collision acceptor side; awaiting A-RELEASE-RP PDU</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Sta 11</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Release collision requestor side; awaiting A-RELEASE-RP PDU</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Sta 12</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Release collision acceptor side; awaiting A-RELEASE response primitive (from local user)</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <div class="table">
+               <a id="table_9-5" shape="rect"></a>
+               <p class="title">
+                  <strong>Table 9-5. Waiting for Transport Connection Close</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>State</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Definition</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Sta 13</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Awaiting Transport Connection Close Indication (Association no longer exists)</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_9.2.2" shape="rect"></a>9.2.2 State Machine Actions Definition</h3>
+                  </div>
+               </div>
+            </div>
+            <div class="table">
+               <a id="table_9-6" shape="rect"></a>
+               <p class="title">
+                  <strong>Table 9-6. Association Establishment Related Actions</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Action</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Definition</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>AE-1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Issue TRANSPORT CONNECT request primitive to local transport serviceNext state is Sta4</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>AE-2</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Send A-ASSOCIATE-RQ-PDUNext state is Sta5</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>AE-3</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Issue A-ASSOCIATE confirmation (accept) primitiveNext state is Sta6</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>AE-4</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Issue A-ASSOCIATE confirmation (reject) primitive and close transport connectionNext state is Sta1</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>AE-5</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Issue Transport connection response primitive; start ARTIM timerNext state is Sta2</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>AE-6</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Stop ARTIM timer and if A-ASSOCIATE-RQ acceptable by service-provider:- issue A-ASSOCIATE indication primitiveNext state is Sta3</p>
+                              <p>otherwise:-issue A-ASSOCIATE-RJ-PDU and start ARTIM timerNext state is Sta13</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>AE-7</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Send A-ASSOCIATE-AC PDUNext state is Sta6</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>AE-8</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Send A-ASSOCIATE-RJ PDU and start ARTIM timerNext state is STA13</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <div class="table">
+               <a id="table_9-7" shape="rect"></a>
+               <p class="title">
+                  <strong>Table 9-7. Data Transfer Related Actions</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>State</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Definition</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>DT-1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Send P-DATA-TF PDUNext state is Sta6</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>DT-2</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Send P-DATA indication primitiveNext state is Sta6</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <div class="table">
+               <a id="table_9-8" shape="rect"></a>
+               <p class="title">
+                  <strong>Table 9-8. Association Release Related Actions</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Action</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Definition</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>AR-1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Send A-RELEASE-RQ PDUNext state is Sta7</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>AR-2</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Issue A-RELEASE indication primitiveNext state is Sta8</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>AR-3</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Issue A-RELEASE confirmation primitive, and close transport connectionNext state is Sta1</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>AR-4</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Issue A-RELEASE-RP PDU and start ARTIM timerNext state is Sta13</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>AR-5</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Stop ARTIM timerNext state is Sta1</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>AR-6</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Issue P-DATA indicationNext state is Sta7</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>AR-7</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Issue P-DATA-TF PDUNext state is Sta8</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>AR-8</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Issue A-RELEASE indication (release collision) :- if association-requestor, next state is Sta9- if not, next state is Sta10</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>AR-9</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Send A-RELEASE-RP PDUNext state is Sta11</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>AR-10</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Issue A-RELEASE confirmation primitiveNext state is Sta12</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <div class="table">
+               <a id="table_9-9" shape="rect"></a>
+               <p class="title">
+                  <strong>Table 9-9. Association Abort Related Actions</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Action</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Definition</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>AA-1</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Send A-ABORT PDU (service-user source) and start (or restart if already started) ARTIM timer;Next state is Sta13</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>AA-2</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Stop ARTIM timer if running. Close transport connectionNext state is Sta1</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>AA-3</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>If (service-user inititated abort)- issue A-ABORT indication and close transport connectionotherwise (service-provider inititated abort) :- issue A-P-ABORT indication and close transport connectionNext state is Sta1</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>AA-4</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Issue A-P-ABORT indication primitive, Next state is Sta1</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>AA-5</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Stop ARTIM timer, Next state is Sta1</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>AA-6</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Ignore PDU, Next state is Sta13</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>AA-7</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Send A-ABORT PDU, Next state is Sta13</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Send A-ABORT PDU (service-provider source-), issue an A-P-ABORT indication, and start ARTIM timer;Nest state is Sta13</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_9.2.3" shape="rect"></a>9.2.3 DICOM Upper Layer Protocol for TCP/IP State Transition Table</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The DICOM Upper Layer Protocol State transitions are specified in <a class="xref" href="sect_9.2.html#table_9-10" title="Table 9-10. DICOM Upper Layer Protocol State Transition Table" shape="rect">Table 9-10</a>. This table addresses both the normal and error cases for the protocol operation. Both the called and the calling aspects of an association are described in this table.</p>
+            <div class="table">
+               <a id="table_9-10" shape="rect"></a>
+               <p class="title">
+                  <strong>Table 9-10. DICOM Upper Layer Protocol State Transition Table</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>STATES</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>No assoc<sup>n</sup>
+                              </p>
+                           </th>
+                           <th align="center" colspan="4" rowspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Association establishment</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Data transfer</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" colspan="6" rowspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Association release (normal &amp; collision)</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Wait for Tp Close</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>EVENTS</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Sta1</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Sta2</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Sta3</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Sta4</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Sta5</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Sta6</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Sta7</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Sta8</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Sta9</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Sta10</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Sta11</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Sta12</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Sta13</p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>A-ASSOCIATE Request (local user)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AE-1</p>
+                              <p>Sta4</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Transport Conn. Confirm<sup>n</sup> (local transport service)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AE-2</p>
+                              <p>Sta5</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>A-ASSOCIATE-AC PDU (received on transport connection)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-1</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AE-3</p>
+                              <p>Sta6</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-6</p>
+                              <p>Sta13</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>A-ASSOCIATE-RJ PDU (received on transport connection)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-1</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AE-4</p>
+                              <p>Sta1</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-6</p>
+                              <p>Sta13</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Transport Connection Indication (local transport service)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AE-5</p>
+                              <p>Sta2</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>A-ASSOCIATE-RQ PDU (received on transport connection)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AE-6</p>
+                              <p>Sta3 or 13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-7</p>
+                              <p>Sta13</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>A-ASSOCIATE response primitive (accept)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AE-7</p>
+                              <p>Sta6</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>A-ASSOCIATE response primitive (reject)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AE-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>P-DATA request primitive</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>DT-1</p>
+                              <p>Sta6</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AR-7</p>
+                              <p>Sta8</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>P-DATA-TF PDU</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-1</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>DT-2</p>
+                              <p>Sta6</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AR-6</p>
+                              <p>Sta7</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-6</p>
+                              <p>Sta13</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>A-RELEASE Request primitive</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AR-1</p>
+                              <p>Sta7</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>A-RELEASE-RQ PDU (received on open transport connection)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-1</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AR-2</p>
+                              <p>Sta8</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AR-8</p>
+                              <p>Sta9 or 10</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-6</p>
+                              <p>Sta13</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>A-RELEASE-RP PDU (received on transport connection)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-1</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AR-3</p>
+                              <p>Sta1</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AR-10</p>
+                              <p>Sta12</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AR-3</p>
+                              <p>Sta1</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-6</p>
+                              <p>Sta13</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>A-RELEASE Response primitive</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AR-4</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AR-9</p>
+                              <p>Sta11</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AR-4</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>A-ABORT Request primitive</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-1</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-2</p>
+                              <p>Sta1</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-1</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-1</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-1</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-1</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-1</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-1</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-1</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-1</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>A-ABORT PDU (received on open transport connection)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-2</p>
+                              <p>Sta1</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-3</p>
+                              <p>Sta1</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-3</p>
+                              <p>Sta1</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-3</p>
+                              <p>Sta1</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-3</p>
+                              <p>Sta1</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-3</p>
+                              <p>Sta1</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-3</p>
+                              <p>Sta1</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-3</p>
+                              <p>Sta1</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-3</p>
+                              <p>Sta1</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-3</p>
+                              <p>Sta1</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-2</p>
+                              <p>Sta1</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Transport connection closed indication (local transport service)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-5</p>
+                              <p>Sta1</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-4</p>
+                              <p>Sta1</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-4</p>
+                              <p>Sta1</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-4</p>
+                              <p>Sta1</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-4</p>
+                              <p>Sta1</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-4</p>
+                              <p>Sta1</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-4</p>
+                              <p>Sta1</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-4</p>
+                              <p>Sta1</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-4</p>
+                              <p>Sta1</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-4</p>
+                              <p>Sta1</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-4</p>
+                              <p>Sta1</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AR-5</p>
+                              <p>Sta1</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>ARTIM timer expired (Association reject/release timer)</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-2</p>
+                              <p>Sta1</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-2</p>
+                              <p>Sta1</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Unrecognized or invalid PDU received</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-1</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-8</p>
+                              <p>Sta13</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>AA-7</p>
+                              <p>Sta13</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_9.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_9.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_9.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">9 DICOM Upper Layer Protocol for TCP/IP </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.8.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 9.3 DICOM Upper Layer Protocol for TCP/IP Data Units Structure</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

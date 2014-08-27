@@ -1,0 +1,914 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>A.59 Enhanced US Volume IOD</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.3.html" title="PS3.3" />
+      <link rel="up" href="chapter_A.html" title="A Composite Information Object Definitions (Normative)" />
+      <link rel="prev" href="sect_A.58.html" title="A.58 Color Palette IOD" />
+      <link rel="next" href="sect_A.60.html" title="A.60 Ophthalmic Refractive Measurements Information Object Definitions" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">A.59 Enhanced US Volume IOD</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_A.58.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">A Composite Information Object Definitions (Normative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_A.60.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_A.59" shape="rect"></a>A.59 Enhanced US Volume IOD</h2>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_A.59.1" shape="rect"></a>A.59.1 Enhanced US Volume IOD Description</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Image objects of different types may be created from a 3D Ultrasound image acquisition, illustrated in <a class="xref" href="sect_A.59.html#figure_A.59-1" title="Figure A.59-1. Types of 3D Ultrasound Source and Derived Images (Informative)" shape="rect">Figure A.59-1</a>. It can be seen that there are two different types of data related to 3D image acquisition: 3D volume data sets and several kinds of 2D image derived from the volume data set.</p>
+            <p>
+          </p>
+            <div class="figure">
+               <a id="figure_A.59-1" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.3_A.59-1.svg" alt="Types of 3D Ultrasound Source and Derived Images (Informative)" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure A.59-1. Types of 3D Ultrasound Source and Derived Images (Informative)</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+            <p>The 3D volume data set (the diagonally shaded box in <a class="xref" href="sect_A.59.html#figure_A.59-1" title="Figure A.59-1. Types of 3D Ultrasound Source and Derived Images (Informative)" shape="rect">Figure A.59-1</a>) contains a Cartesian volume or two or more temporally related Cartesian volumes. 3D volume data sets are exchanged using the Enhanced US Volume SOP Class, and are suitable for subsequent Multi-Planar Reconstruction and rendering operations. Within each Enhanced US Volume instance, each Cartesian volume consists of a set of parallel planes, and each plane consists of one or more frames each of a single data type. All Cartesian volumes have the same spacing between adjacent planes.</p>
+            <p>Most acquisition devices construct the Cartesian volume by resampling data from a different acquisition geometry. The method of generation of the Cartesian volume, its relationship to spatially-related 2D frames (whether the volume was created from spatially-related frames, or spatially-related frames extracted from the Cartesian volume), and the algorithms used for Multi-Planar Reconstruction and rendering operations are outside the scope of this standard.</p>
+            <p>The 2D image types represent collections of frames that are derived from the volume data set, namely 3D rendered views (projections), separate Multi-Planar Reconstructed (MPR) views, or sets of spatially-related source frames, either parallel or oblique (the cross-hatched boxes in <a class="xref" href="sect_A.59.html#figure_A.59-1" title="Figure A.59-1. Types of 3D Ultrasound Source and Derived Images (Informative)" shape="rect">Figure A.59-1</a>). The Ultrasound Image and Ultrasound Multi-frame Image IODs are used to represent these derived images. See <a class="xref" href="sect_A.6.html" title="A.6 Ultrasound Image IOD" shape="rect">Section A.6</a> for the Ultrasound Image IOD description or  <a class="xref" href="sect_A.7.html" title="A.7 Ultrasound Multi-frame Image IOD" shape="rect">Section A.7</a> for the Ultrasound Multi-frame Image IOD description.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>See <a href="../part17/chapter_PP.html" class="olink" shape="rect">Chapter PP “3D Ultrasound Volumes (Informative)” in <span class="olinkdocname">PS3.17</span>
+                  </a> for an informative discussion on the use of these objects for the exchange of 3D ultrasound volume data.</p>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_A.59.2" shape="rect"></a>A.59.2 Enhanced US Volume IOD Entity-Relationship Model</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The E-R Model in  <a class="xref" href="chapter_A.html#sect_A.1.2" title="A.1.2 IOD Entity-Relationship Model" shape="rect">Section A.1.2</a> depicts those components of the DICOM Information Model that comprise the Enhanced US Volume IOD.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_A.59.3" shape="rect"></a>A.59.3 Enhanced US Volume IOD Module Table</h3>
+                  </div>
+               </div>
+            </div>
+            <div class="table">
+               <a id="table_A.59-1" shape="rect"></a>
+               <p class="title">
+                  <strong>Table A.59-1. Enhanced US Volume IOD Modules</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>IE</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Module</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Reference</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Usage</p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="2" colspan="1">
+                              <p>Patient</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Patient</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.1.1" title="C.7.1.1 Patient Module" shape="rect">C.7.1.1</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>M</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Clinical Trial Subject</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.1.3" title="C.7.1.3 Clinical Trial Subject Module" shape="rect">C.7.1.3</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>U</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="3" colspan="1">
+                              <p>Study</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>General Study</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.2.1" title="C.7.2.1 General Study Module" shape="rect">C.7.2.1</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>M</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Patient Study</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.2.2" title="C.7.2.2 Patient Study Module" shape="rect">C.7.2.2</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>U</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Clinical Trial Study</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.2.3" title="C.7.2.3 Clinical Trial Study Module" shape="rect">C.7.2.3</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>U</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="3" colspan="1">
+                              <p>Series</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>General Series</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.3.1" title="C.7.3.1 General Series Module" shape="rect">C.7.3.1</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>M</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Enhanced US Series</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.8.html#sect_C.8.24.1" title="C.8.24.1 Enhanced US Series Module" shape="rect">C.8.24.1</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>M</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Clinical Trial Series</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.3.2" title="C.7.3.2 Clinical Trial Series Module" shape="rect">C.7.3.2</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>U</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="3" colspan="1">
+                              <p>Frame of Reference</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Frame of Reference</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.4.1" title="C.7.4.1 Frame of Reference Module" shape="rect">C.7.4.1</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>M</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Ultrasound Frame of Reference</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.8.html#sect_C.8.24.2" title="C.8.24.2 Ultrasound Frame of Reference Module" shape="rect">C.8.24.2</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>M</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Synchronization</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.4.2" title="C.7.4.2 Synchronization Module" shape="rect">C.7.4.2</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>M</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="2" colspan="1">
+                              <p>Equipment</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>General Equipment</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.5.1" title="C.7.5.1 General Equipment Module" shape="rect">C.7.5.1</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>M</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Enhanced General Equipment</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.5.2" title="C.7.5.2 Enhanced General Equipment Module" shape="rect">C.7.5.2</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>M</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="18" colspan="1">
+                              <p>Image</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>General Image</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.6.1" title="C.7.6.1 General Image Module" shape="rect">C.7.6.1</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>M</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Image Pixel</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.6.3" title="C.7.6.3 Image Pixel Module" shape="rect">C.7.6.3</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>M</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Enhanced Contrast/Bolus</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.6.4b" title="C.7.6.4b Enhanced Contrast/Bolus Module" shape="rect">C.7.6.4b</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>C - Required if contrast media was applied. See <a class="xref" href="sect_A.59.html#sect_A.59.3.1.2" title="A.59.3.1.2 Contrast" shape="rect">Section A.59.3.1.2</a> for baseline context group ID.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Multi-frame Functional Groups</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.6.16" title="C.7.6.16 Multi-frame Functional Groups Module" shape="rect">C.7.6.16</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>M</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Multi-frame Dimension</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.6.17" title="C.7.6.17 Multi-frame Dimension Module" shape="rect">C.7.6.17</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>M</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Cardiac Synchronization</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.6.18.1" title="C.7.6.18.1 Cardiac Synchronization Module" shape="rect">C.7.6.18.1</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>C - Required if cardiac synchronization was applied.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Respiratory Synchronization</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.6.18.2" title="C.7.6.18.2 Respiratory Synchronization Module" shape="rect">C.7.6.18.2</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>C - Required if respiratory synchronization was applied.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Device</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.6.12" title="C.7.6.12 Device Module" shape="rect">C.7.6.12</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>U</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Acquisition Context</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.6.14" title="C.7.6.14 Acquisition Context Module" shape="rect">C.7.6.14</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>M</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Specimen</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.6.22" title="C.7.6.22 Specimen Module" shape="rect">C.7.6.22</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>U</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Enhanced Palette Color Lookup Table</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.6.23" title="C.7.6.23 Enhanced Palette Color Lookup Table Module" shape="rect">C.7.6.23</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>U</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Enhanced US Image</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.8.html#sect_C.8.24.3" title="C.8.24.3 Enhanced US Image Module" shape="rect">C.8.24.3</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>M</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>IVUS Image</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.8.html#sect_C.8.24.4" title="C.8.24.4 IVUS Image Module" shape="rect">C.8.24.4</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>C - Required if Modality = IVUS</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Excluded Intervals</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.8.html#sect_C.8.24.5" title="C.8.24.5 Excluded Intervals Module" shape="rect">C.8.24.5</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>U</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>ICC Profile</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.11.html#sect_C.11.15" title="C.11.15 ICC Profile Module" shape="rect">C.11.15</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>U</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>SOP Common</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.12.html#sect_C.12.1" title="C.12.1 SOP Common Module" shape="rect">C.12.1</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>M</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Common Instance Reference</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.12.html#sect_C.12.2" title="C.12.2 Common Instance Reference Module" shape="rect">C.12.2</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>U</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Frame Extraction</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.12.html#sect_C.12.3" title="C.12.3 Frame Extraction Module" shape="rect">C.12.3</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>C - Required if the SOP Instance was created in response to a Frame-Level retrieve request</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_A.59.3.1" shape="rect"></a>A.59.3.1 Enhanced US Volume IOD Content Constraints</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_A.59.3.1.1" shape="rect"></a>A.59.3.1.1 Associated Physiological Waveforms</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The Acquisition Time Synchronized attribute (0018,1800) shall have a value of 'Y' if associated physiological waveforms are linked to the Enhanced US Volume. As described in the Synchronization Module, the same value of Synchronization Frame of Reference UID (0020,0200) is shared between the Waveform and Enhanced US instances to indicate a common temporal frame of reference for Acquisition DateTime (0008,002A) values in the waveform and Enhanced US instances. Further, Frame Reference DateTime (0018,9151) may be used in optimizing alignment between the displayed image and displayed physiological waveforms.</p>
+                  <p>In the case of gated acquisition in which information from multiple events (such as ECG beats) are used to create sub-volumes that are "spliced" or "interleaved" together to form the volume data set, the Excluded Intervals Module describes the timing of each of the constituent sub-volumes for correlation with the physio waveform.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>It is recommended that the Waveform Annotation Module in the General ECG Waveform IOD be used to indicate the times of the R-wave events within the acquisition duration. This allows the viewing application to be able to mark those R-R intervals that contributed to the acquisition of the Enhanced US Volume.</p>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_A.59.3.1.2" shape="rect"></a>A.59.3.1.2 Contrast</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Baseline CID for the Contrast/Bolus Agent Sequence (0018,0012) in the Enhanced Contrast/Bolus Module is <a href="../part16/sect_CID_12030.html" class="olink" shape="rect">CID 12030 “Ultrasound Contrast/Bolus Agents”</a>.</p>
+                  <p></p>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_A.59.4" shape="rect"></a>A.59.4 Enhanced US Volume Functional Group Macros</h3>
+                  </div>
+               </div>
+            </div>
+            <p>
+               <a class="xref" href="sect_A.59.html#table_A.59-2" title="Table A.59-2. Enhanced US Volume Functional Group Macros" shape="rect">Table A.59-2</a> specifies the use of the Functional Group Macros used in the Multi-frame Functional Groups Module for the Enhanced US Volume IOD.</p>
+            <div class="table">
+               <a id="table_A.59-2" shape="rect"></a>
+               <p class="title">
+                  <strong>Table A.59-2. Enhanced US Volume Functional Group Macros</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Functional Group Macro</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Section</p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>Usage</p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Frame Content</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.6.16.2.2" title="C.7.6.16.2.2 Frame Content Macro" shape="rect">C.7.6.16.2.2</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>M - May not be used as a Shared Functional Group.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Plane Position (Patient)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.6.16.2.3" title="C.7.6.16.2.3 Plane Position (Patient) Macro" shape="rect">C.7.6.16.2.3</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>U</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Plane Orientation (Patient)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.6.16.2.4" title="C.7.6.16.2.4 Plane Orientation (Patient) Macro" shape="rect">C.7.6.16.2.4</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>U</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Referenced Image</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.6.16.2.5" title="C.7.6.16.2.5 Referenced Image Macro" shape="rect">C.7.6.16.2.5</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>U</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Derivation Image</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.6.16.2.6" title="C.7.6.16.2.6 Derivation Image Macro" shape="rect">C.7.6.16.2.6</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>C - Required if the image or frame has been derived from another SOP Instance.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Cardiac Synchronization</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.6.16.2.7" title="C.7.6.16.2.7 Cardiac Synchronization Macro" shape="rect">C.7.6.16.2.7</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>C - Required if Cardiac Synchronization is used</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Frame VOI LUT</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.6.16.2.10" title="C.7.6.16.2.10 Frame VOI LUT Macro" shape="rect">C.7.6.16.2.10</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>M</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Real World Value Mapping</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.6.16.2.11" title="C.7.6.16.2.11 Real World Value Mapping Macro" shape="rect">C.7.6.16.2.11</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>U</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Contrast/Bolus Usage</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.6.16.2.12" title="C.7.6.16.2.12 Contrast/Bolus Usage Macro" shape="rect">C.7.6.16.2.12</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>C - Required if the Enhanced Contrast/Bolus Module is present</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Patient Orientation in Frame</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.6.16.2.15" title="C.7.6.16.2.15 Patient Orientation in Frame Macro" shape="rect">C.7.6.16.2.15</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>U</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Frame Display Shutter</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.6.16.2.16" title="C.7.6.16.2.16 Frame Display Shutter" shape="rect">C.7.6.16.2.16</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>U</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Respiratory Synchronization</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.6.16.2.17" title="C.7.6.16.2.17 Respiratory Synchronization Macro" shape="rect">C.7.6.16.2.17</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>C - Required if Respiratory Synchronization is used</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Plane Position (Volume)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.6.16.2.21" title="C.7.6.16.2.21 Plane Position (Volume) Macro" shape="rect">C.7.6.16.2.21</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>M - May not be used as a Shared Functional Group. See <a class="xref" href="sect_A.59.html#sect_A.59.4.1.2" title="A.59.4.1.2 Plane Position (Volume) and Plane Orientation (Volume) Macros" shape="rect">Section A.59.4.1.2</a>.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Plane Orientation (Volume)</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.6.16.2.22" title="C.7.6.16.2.22 Plane Orientation (Volume) Macro" shape="rect">C.7.6.16.2.22</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>M - May not be used as a Per-Frame Functional Group. See <a class="xref" href="sect_A.59.html#sect_A.59.4.1.2" title="A.59.4.1.2 Plane Position (Volume) and Plane Orientation (Volume) Macros" shape="rect">Section A.59.4.1.2</a>.</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Temporal Position</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.6.16.2.23" title="C.7.6.16.2.23 Temporal Position Macro" shape="rect">C.7.6.16.2.23</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>C - Required if frames are temporally related and not temporally referenced to a Cardiac or Respiratory event</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Image Data Type</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.7.html#sect_C.7.6.16.2.24" title="C.7.6.16.2.24 Image Data Type Macro" shape="rect">C.7.6.16.2.24</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>M</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>US Image Description</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>
+                                 <a class="xref" href="sect_C.8.html#sect_C.8.24.6.1" title="C.8.24.6.1 US Image Description Macro" shape="rect">C.8.24.6.1</a>
+                              </p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>M - May not be used as a Per-Frame Functional Group</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_A.59.4.1" shape="rect"></a>A.59.4.1 Enhanced US Volume Functional Group Macros Content Constraints</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_A.59.4.1.1" shape="rect"></a>A.59.4.1.1 US Image Description Macro</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>The value of Volumetric Properties (0008,9206) shall be VOLUME. The value of Volume Based Calculation Technique (0008,9207) shall be NONE.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_A.59.4.1.2" shape="rect"></a>A.59.4.1.2 Plane Position (Volume) and Plane Orientation (Volume) Macros</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>Image Position (Volume) (0020,9301) first value (X) shall be zero and second value (Y) shall be zero. Image Orientation (Volume) (0020,9302) values shall be 1\0\0\0\1\0. This ensures that the origins of each frame lies on the Volume Frame of Reference Z<sub>V</sub> axis, the rows of each frame are parallel to the Volume Frame of Reference X<sub>V</sub> axis, and the columns of each frame are parallel to the Volume Frame of Reference Y<sub>V</sub> axis.</p>
+                  <p>Adjacent planes in the volume shall be equally spaced in the Z direction.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <div class="orderedlist">
+                        <ol class="orderedlist" type="1">
+                           <li class="listitem">
+                              <p>More than one frame may be encoded for the same plane, for example, with a different temporal or cardiac cycle position.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Frames with the same value of Image Position (Volume) (0020,9301) will also have the same second value of Dimension Index Value (the spatial position Dimension); See <a class="xref" href="sect_C.8.html#sect_C.8.24.3.3" title="C.8.24.3.3 Dimension Organization Type" shape="rect">Section C.8.24.3.3</a>.</p>
+                           </li>
+                        </ol>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_A.58.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_A.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_A.60.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">A.58 Color Palette IOD </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.3.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> A.60 Ophthalmic Refractive Measurements Information Object Definitions</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

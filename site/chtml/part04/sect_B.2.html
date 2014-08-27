@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>B.2 Behavior</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.4.html" title="PS3.4" />
+      <link rel="up" href="chapter_B.html" title="B Storage Service Class (Normative)" />
+      <link rel="prev" href="chapter_B.html" title="B Storage Service Class (Normative)" />
+      <link rel="next" href="sect_B.3.html" title="B.3 Association Negotiation" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">B.2 Behavior</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_B.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">B Storage Service Class (Normative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_B.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_B.2" shape="rect"></a>B.2 Behavior</h2>
+               </div>
+            </div>
+         </div>
+         <p>This Section discusses the SCU and SCP behavior for SOP Classes of the Storage Service Class. The C-STORE DIMSE-C Service shall be the mechanism used to transfer SOP Instances between peer DICOM AEs as described in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>.</p>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_B.2.1" shape="rect"></a>B.2.1 Behavior of an SCU</h3>
+                  </div>
+               </div>
+            </div>
+            <p>The SCU invokes a C-STORE DIMSE Service with a SOP Instance that meets the requirements of the corresponding IOD. The SCU shall recognize the status of the C-STORE service and take appropriate action upon the success or failure of the service.</p>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>The appropriate action is implementation dependent. It is required that the SCU distinguish between successful and failed C-STORE responses. Appropriate action may differ according to application, but are described in the Conformance Statement of the SCU.</p>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_B.2.2" shape="rect"></a>B.2.2 Behavior of an SCP</h3>
+                  </div>
+               </div>
+            </div>
+            <p>An SCP of a Storage SOP Class acts as a performing DIMSE-service-user for the C-STORE Service. By performing this service successfully, the SCP indicates that the SOP Instance has been successfully stored.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_B.2.3" shape="rect"></a>B.2.3 Statuses</h3>
+                  </div>
+               </div>
+            </div>
+            <p>
+               <a class="xref" href="sect_B.2.html#table_B.2-1" title="Table B.2-1. C-STORE Status" shape="rect">Table B.2-1</a> defines the specific status code values that might be returned in a C-STORE response. General status code values and fields related to status code values are defined in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>.</p>
+            <div class="table">
+               <a id="table_B.2-1" shape="rect"></a>
+               <p class="title">
+                  <strong>Table B.2-1. C-STORE Status</strong>
+               </p>
+               <div class="table-contents">
+                  <table frame="box" rules="all">
+                     <thead>
+                        <tr valign="top">
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Service Status</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Further Meaning</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Status Codes</strong>
+                                 </span>
+                              </p>
+                           </th>
+                           <th align="center" rowspan="1" colspan="1">
+                              <p>
+                                 <span class="bold">
+                                    <strong>Related Fields</strong>
+                                 </span>
+                              </p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Failure</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Refused: Out of Resources</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>A7xx</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0000,0902)</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Error: Data Set does not match SOP Class</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>A9xx</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0000,0901)</p>
+                              <p>(0000,0902)</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Error: Cannot understand</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>Cxxx</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0000,0901)</p>
+                              <p>(0000,0902)</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Warning</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Coercion of Data Elements</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>B000</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0000,0901)</p>
+                              <p>(0000,0902)</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Data Set does not match SOP Class</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>B007</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0000,0901)</p>
+                              <p>(0000,0902)</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Elements Discarded</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>B006</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>(0000,0901)</p>
+                              <p>(0000,0902)</p>
+                           </td>
+                        </tr>
+                        <tr valign="top">
+                           <td align="left" rowspan="1" colspan="1">
+                              <p>Success</p>
+                           </td>
+                           <td align="left" rowspan="1" colspan="1"></td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>0000</p>
+                           </td>
+                           <td align="center" rowspan="1" colspan="1">
+                              <p>None</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <br class="table-break" clear="none" />
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_B.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_B.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_B.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">B Storage Service Class (Normative) </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.4.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> B.3 Association Negotiation</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

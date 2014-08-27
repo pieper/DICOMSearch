@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>NN.4 Specimen Identification Examples</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.17.html" title="PS3.17" />
+      <link rel="up" href="chapter_NN.html" title="NN Specimen Identification and Management" />
+      <link rel="prev" href="sect_NN.3.html" title="NN.3 Specimen Module" />
+      <link rel="next" href="sect_NN.5.html" title="NN.5 Structure of The Specimen Module" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">NN.4 Specimen Identification Examples</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_NN.3.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">NN Specimen Identification and Management</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_NN.5.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_NN.4" shape="rect"></a>NN.4 Specimen Identification Examples</h2>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_NN.4.1" shape="rect"></a>NN.4.1 One Specimen Per Container</h3>
+                  </div>
+               </div>
+            </div>
+            <p>In normal clinical practice, when there is one specimen per container, the value of the specimen identifier and the value of the container identifier will be the same. In <a class="xref" href="sect_NN.4.html#figure_NN.4-1" title="Figure NN.4-1. Sampling for one specimen per container" shape="rect">Figure NN.4-1</a>, each slide is prepared from a single tissue sample from a single block (cassette).</p>
+            <p>
+          </p>
+            <div class="figure">
+               <a id="figure_NN.4-1" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.17_NN.4-1.svg" alt="Sampling for one specimen per container" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure NN.4-1. Sampling for one specimen per container</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_NN.4.2" shape="rect"></a>NN.4.2 Multiple Items From Same Block</h3>
+                  </div>
+               </div>
+            </div>
+            <p>
+               <a class="xref" href="sect_NN.4.html#figure_NN.4-2" title="Figure NN.4-2. Container with two specimens from same parent" shape="rect">Figure NN.4-2</a> shows more than one tissue item on the same slide coming from the same block (but cut from different levels). The laboratory information system considers two tissue sections (on the same slide) to be separate specimens.</p>
+            <p>Two Specimen IDs will be assigned, different from the Container (Slide) ID. The specimens may be localized, for example, by descriptive text "Left" and "Right".</p>
+            <p>If the slide is imaged, a single image with more than one specimen may be created. In this case, both specimens must be identified in the Specimen Sequence of the Specimen Module. If only one specimen is imaged, only its Specimen ID must be included in the Specimen Sequence; however, both IDs may be included (e.g., if the image acquisition system cannot determine which specimens in/on the container are in the field of view).</p>
+            <p>
+          </p>
+            <div class="figure">
+               <a id="figure_NN.4-2" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.17_NN.4-2.svg" alt="Container with two specimens from same parent" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure NN.4-2. Container with two specimens from same parent</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_NN.4.3" shape="rect"></a>NN.4.3 Items From Different Parts in The Same Block</h3>
+                  </div>
+               </div>
+            </div>
+            <p>
+               <a class="xref" href="sect_NN.4.html#figure_NN.4-3" title="Figure NN.4-3. Sampling for two specimens from different ancestors" shape="rect">Figure NN.4-3</a> shows processing where more than one tissue item is embedded in the same block within the same Cassette, but coming from different clinical specimens (parts). This may represent different lymph nodes embedded into one cassette, or different tissue dice coming from different parts in a frozen section examination, or tissue from the proximal margin and from the distal margin, and both were placed in the same cassette. Because the laboratory wanted to maintain the sample as separate specimens (to maintain their identity), the LIS gave them different IDs and the tissue from Part A was inked blue and the tissue from Part B was inked red.</p>
+            <p>The specimen IDs must be different from each other and from the container (cassette) ID. The specimens may be localized, for example, by descriptive text "Red" and "Blue" for Visual Coding of Specimen.</p>
+            <p>If a section is made from the block, each tissue section will include fragments from two specimens (red and blue). The slide (container) ID will be different from the section id (which will be different form each other).</p>
+            <p>If the slide is imaged, a single image with more than one specimen may be created but the different specimens must be identified and unambiguously localized within the container.</p>
+            <p>
+          </p>
+            <div class="figure">
+               <a id="figure_NN.4-3" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.17_NN.4-3.svg" alt="Sampling for two specimens from different ancestors" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure NN.4-3. Sampling for two specimens from different ancestors</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_NN.4.4" shape="rect"></a>NN.4.4 Items From Different Parts On The Same Slide</h3>
+                  </div>
+               </div>
+            </div>
+            <p>
+               <a class="xref" href="sect_NN.4.html#figure_NN.4-4" title="Figure NN.4-4. Two specimens smears on one slide" shape="rect">Figure NN.4-4</a> shows the result of two tissue collections placed on the same slide by the surgeon. E.g., in gynecological smears the different directions of smears might represent different parts (portio, cervix).</p>
+            <p>The specimen IDs must be different from each other and from the container (slide) ID. The specimens may be localized, for example, by descriptive text "Short direction smear" and "Long direction smear".</p>
+            <p>
+          </p>
+            <div class="figure">
+               <a id="figure_NN.4-4" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.17_NN.4-4.svg" alt="Two specimens smears on one slide" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure NN.4-4. Two specimens smears on one slide</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_NN.4.5" shape="rect"></a>NN.4.5 Tissue Micro Array</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Slides created from a TMA block have small fragments of many different tissues coming from different patients, all of which may be processed at the same time, under the same conditions by a desired technique. These are typically utilized in research. See <a class="xref" href="sect_NN.4.html#figure_NN.4-5" title="Figure NN.4-5. Sampling for TMA Slide" shape="rect">Figure NN.4-5</a>. Tissue items (spots) on the TMA slide come from different tissue items (cores) in TMA blocks (from different donor blocks, different parts and different patients).</p>
+            <p>Each Specimen (spot) must have its own ID. The specimens may be localized, for example, by X-Y coordinates, or by a textual column-row identifier for the spot (e.g., "E3" for fifth column, third row).</p>
+            <p>If the TMA slide is imaged as a whole, e.g., at low resolution as an index, it must be given a "pseudo-patient" identifier (since it does not relate to a single patient). Images created for each spot should be assigned to the real patients.</p>
+            <p>
+          </p>
+            <div class="figure">
+               <a id="figure_NN.4-5" shape="rect"></a>
+               <div class="figure-contents">
+                  <div class="mediaobject">
+                     <img src="figures/PS3.17_NN.4-5.svg" alt="Sampling for TMA Slide" />
+                  </div>
+               </div>
+               <p class="title">
+                  <strong>Figure NN.4-5. Sampling for TMA Slide</strong>
+               </p>
+            </div>
+            <p>
+               <br class="figure-break" clear="none" />
+            </p>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_NN.3.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_NN.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_NN.5.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">NN.3 Specimen Module </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.17.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> NN.5 Structure of The Specimen Module</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>A.4 Operation/Notification for DICOM Application Entity</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.7.html" title="PS3.7" />
+      <link rel="up" href="chapter_A.html" title="A Application Context Usage (Normative)" />
+      <link rel="prev" href="sect_A.3.html" title="A.3 Association Initialization for DICOM Application Entity" />
+      <link rel="next" href="sect_A.5.html" title="A.5 Association Release for DICOM AE" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">A.4 Operation/Notification for DICOM Application Entity</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_A.3.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">A Application Context Usage (Normative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_A.5.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_A.4" shape="rect"></a>A.4 Operation/Notification for DICOM Application Entity</h2>
+               </div>
+            </div>
+         </div>
+         <p>Operations and notifications are only used on an Association. They result in Messages exchanged by using the P-DATA request service defined in <a href="../part08/PS3.8.html" class="olink" shape="rect">PS3.8</a>.</p>
+         <p>All operations and notifications invoked over an Association shall be confirmed. The performing DICOM AE shall report the response of each operation or notification over the same Association by means of which the operation or notification was invoked. No recovery shall be performed using multiple Associations.</p>
+         <p>Operations and notifications, on an Association, shall use one of the following two modes:</p>
+         <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+               <li class="listitem">
+                  <p>synchronous, where the invoking DICOM AE, on a established Association, requires a response from the performing DICOM AE before invoking another operation or notification</p>
+               </li>
+               <li class="listitem">
+                  <p>asynchronous, where the invoking DICOM AE, on a established Association, may continue to invoke further operations or notifications to the performing DICOM AE without awaiting a response</p>
+               </li>
+            </ul>
+         </div>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <p>The synchronous/asynchronous mode is defined within the scope of one Application Entity and not within the scope of the association between two Application Entities. The communication mode on the association may be bi-directional if agreed upon during association negotiation (i.e., both operation and notifications are simultaneously supported, etc.). Following is an example of synchronous mode, DICOM AE A may send an operation request to DICOM AE B and DICOM AE B may send a notification request to DICOM AE A before responding to the operation request from AE A. This is considered as synchronous mode because each AE has only one outstanding operation or notification.</p>
+         </div>
+         <p>The mode selected (synchronous or asynchronous) is determined at Association establishment time. The synchronous mode serves as the default mode and shall be supported by all DICOM AEs. The asynchronous mode is optional and the maximum number of outstanding operations or notifications is negotiated during Association establishment. This negotiation is accomplished by the Asynchronous Operations Window sub-item structure as defined in <a class="xref" href="chapter_D.html" title="D Association Negotiation (Normative)" shape="rect"> Annex D</a>.</p>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_A.3.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_A.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_A.5.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">A.3 Association Initialization for DICOM Application Entity </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.7.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> A.5 Association Release for DICOM AE</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

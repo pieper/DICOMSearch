@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>V Substance Administration Query Service Class (Normative)</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.4.html" title="PS3.4" />
+      <link rel="up" href="PS3.4.html" title="PS3.4" />
+      <link rel="prev" href="sect_U.6.html" title="U.6 SOP Class Definitions" />
+      <link rel="next" href="sect_V.2.html" title="V.2 Substance Administration Query Information Model Definition" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">V Substance Administration Query Service Class (Normative)</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_U.6.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1"> </th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_V.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="chapter">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h1 class="title">
+                     <a id="chapter_V" shape="rect"></a>V Substance Administration Query Service Class (Normative)</h1>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title" style="clear: both">
+                        <a id="sect_V.1" shape="rect"></a>V.1 Overview</h2>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_V.1.1" shape="rect"></a>V.1.1 Scope</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>The Substance Administration Query Service Class defines an application-level class-of-service that facilitates obtaining detailed information about substances or devices used in imaging, image-guided treatment, and related procedures. It also facilitates obtaining approval for the administration of a specific contrast agent or drug to a specific patient.</p>
+               <p>This Service Class is intended as part of a larger workflow that addresses patient safety in the imaging environment. This Service addresses only the communication protocol that allows a point of care device (imaging modality) to interrogate an SCP Application for information about an administered substance, or for verification of appropriateness of the substance for the patient. The SCP Application uses patient safety related data, such as allergies, current medications, appropriate dosages, patient condition indicated by lab results, etc., to respond to the queries; however, the mechanism of such use is beyond the scope of this Standard. How the point of care device uses the responses to the queries, e.g., by display to a user, or by locking of certain device functions, is also beyond the scope of this Standard.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="1">
+                        <li class="listitem">
+                           <p>The SCP of this Service Class is not necessarily a clinical decision support (CDS) system, but may be a gateway system between this DICOM Service and an HL7 or proprietary interface of a CDS system. Such implementation design is beyond the scope of the DICOM standard.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The Service will result in a Query response containing zero or one items. However, to facilitate implementation, the Service uses the general query mechanism supporting multiple item responses, as used in other DICOM query service classes.</p>
+                        </li>
+                     </ol>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_V.1.2" shape="rect"></a>V.1.2 Conventions</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>Key Attributes serve two purposes; they may be used as Matching Key Attributes and Return Key Attributes. Matching Key Attributes may be used for matching (criteria to be used in the C-FIND request to determine whether an entity matches the query). Return Key Attributes may be used to specify desired return Attributes (what elements in addition to the Matching Key Attributes have to be returned in the C-FIND response).</p>
+               <p>Matching Key Attributes may be of Type "required" (R) or "optional" (O). Return Key Attributes may be of Type 1, 1C, 2, 2C, 3 as defined in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_V.1.3" shape="rect"></a>V.1.3 Substance Administration Query Information Model</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>In order to serve as a Service Class Provider (SCP) of the Substance Administration Query Service Class, a DICOM Application Entity (AE) must be able to return information about the Attributes of a substance, device, or a substance administration act. This information is organized into well defined Substance Administration Query Information Models.</p>
+               <p>A specific SOP Class of the Substance Administration Query Service Class consists of an informative Overview, an Information Model Definition and a DIMSE-C Service Group. In this Service Class, the Information Model plays a role similar to an Information Object Definition (IOD) of other DICOM Service Classes.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title">
+                           <a id="sect_V.1.4" shape="rect"></a>V.1.4 Service Definition</h3>
+                     </div>
+                  </div>
+               </div>
+               <p>Two peer DICOM AEs implement a SOP Class of the Substance Administration Query Service Class with one serving in the SCU role and one serving in the SCP role. SOP Classes of the Substance Administration Query Service Class are implemented using the DIMSE-C C-FIND service as defined in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>.</p>
+               <p>Only a baseline behavior of the DIMSE-C C-FIND is used in the Service Class. Extended negotiation is not used.</p>
+               <p>The following description of the DIMSE-C C-FIND service provides a brief overview of the SCU/SCP semantics.</p>
+               <p>A C-FIND service conveys the following semantics:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>The SCU requests that the SCP perform a match for the Matching Keys and return values for the Return Keys that have been specified in the Identifier of the request, against the information that the SCP possesses relating to the Information Model specified in the SOP Class.</p>
+                     </li>
+                  </ul>
+               </div>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>In this Annex, the term "Identifier" refers to the Identifier service parameter of the C-FIND service as defined in <a href="../part07/PS3.7.html" class="olink" shape="rect">PS3.7</a>.</p>
+               </div>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>The SCP generates at most one C-FIND response for a match with an Identifier containing the values of all Matching Key Attributes and all known Return Key Attributes requested. This response shall contain a status of Pending.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>When the process of matching is complete, with zero or one match, a C-FIND response is sent with a status of Success and no Identifier.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>A Failure response to a C-FIND request indicates that the SCP is unable to process the request.</p>
+                     </li>
+                     <li class="listitem">
+                        <p>The SCU may cancel the C-FIND service by issuing a C-CANCEL-FIND request at any time during the processing of the C-FIND service. The SCP will interrupt all matching and return a status of Canceled.</p>
+                     </li>
+                  </ul>
+               </div>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>The SCU needs to be prepared to receive C-FIND responses sent by the SCP until the SCP finally processed the C-CANCEL-FIND request.</p>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_U.6.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1"> </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_V.2.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">U.6 SOP Class Definitions </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.4.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> V.2 Substance Administration Query Information Model Definition</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

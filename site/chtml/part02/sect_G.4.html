@@ -1,0 +1,3160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>G.4 Networking</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.2.html" title="PS3.2" />
+      <link rel="up" href="chapter_G.html" title="G Conformance Statement Sample ImageViewer with Hanging Protocol Support (Informative)" />
+      <link rel="prev" href="sect_G.3.3.html" title="G.3.3 Additional Remarks for This Example" />
+      <link rel="next" href="sect_G.5.html" title="G.5 Media Interchange" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">G.4 Networking</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_G.3.3.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">G Conformance Statement Sample ImageViewer with Hanging Protocol Support (Informative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_G.5.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_G.4" shape="rect"></a>G.4 Networking</h2>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_G.4.1" shape="rect"></a>G.4.1 Implementation Model</h3>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_G.4.1.1" shape="rect"></a>G.4.1.1 Application Data Flow</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>
+            </p>
+               <div class="figure">
+                  <a id="figure_G.4.1-1" shape="rect"></a>
+                  <div class="figure-contents">
+                     <div class="mediaobject">
+                        <img src="figures/PS3.2_G.4.1-1.svg" alt="Implementation Model" />
+                     </div>
+                  </div>
+                  <p class="title">
+                     <strong>Figure G.4.1-1. Implementation Model</strong>
+                  </p>
+               </div>
+               <p>
+                  <br class="figure-break" clear="none" />
+               </p>
+               <p>The application provides both a user interface, internal database and network listener that spawns additional threads as necessary to handle incoming connections.</p>
+               <p>Conceptually the network services may be modeled as the following separate AEs, though in fact all the AEs share a single (configurable) AE Title:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>STORAGE-SCP, which receives incoming Image, Presentation State, and Hanging Protocol Instances</p>
+                     </li>
+                     <li class="listitem">
+                        <p>STORAGE-SCU, which sends outbound Image, Presentation State, and Hanging Protocol Instances</p>
+                     </li>
+                     <li class="listitem">
+                        <p>FIND-SCU, which queries remote AEs for Hanging Protocol Instances</p>
+                     </li>
+                     <li class="listitem">
+                        <p>MOVE-SCU, which retrieves Hanging Protocol Instances</p>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_G.4.1.2" shape="rect"></a>G.4.1.2 Functional Definitions of AEs</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_G.4.1.2.1" shape="rect"></a>G.4.1.2.1 STORAGE-SCP</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>STORAGE-SCP waits in the background for connections, will accept associations with Presentation Contexts for SOP Classes of the Storage Service Class and Hanging Protocol Storage Service Class, and will store the received instances to the local database where they may subsequently be listed and viewed through the user interface.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_G.4.1.2.2" shape="rect"></a>G.4.1.2.2 STORAGE-SCU</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>STORAGE-SCU is activated through the user interface when a user selects instances from the local database, or the currently displayed instance, and requests that they be sent to a remote AE (selected from a pre-configured list).</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_G.4.1.2.3" shape="rect"></a>G.4.1.2.3 FIND-SCU</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>FIND-SCU is activated in the background when images for a study are received, to query for matching Hanging Protocols if an appropriate Hanging Protocol Instance is not available in the local database.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_G.4.1.2.4" shape="rect"></a>G.4.1.2.4 MOVE-SCU</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>MOVE-SCU is activated in the background, to retrieve Hanging Protocol Instances identified in the query results returned to the FIND-SCU. A connection to the remote AE is established to initiate and monitor the retrieval, and the STORAGE-SCP AE receives the retrieved instances.</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_G.4.1.3" shape="rect"></a>G.4.1.3 Sequencing of Real-World Activities</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>All SCP activities are performed asynchronously in the background and not dependent on any sequencing.</p>
+               <p>Storage SCU activities are sequentially initiated in the user interface, and another activity may not be initiated until the prior activity has completed. Find and Move SCU activities are performed asynchronously in the background, where Move activities are triggered by the results of Find activities.</p>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_G.4.2" shape="rect"></a>G.4.2 AE Specifications</h3>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_G.4.2.1" shape="rect"></a>G.4.2.1 STORAGE-SCP</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_G.4.2.1.1" shape="rect"></a>G.4.2.1.1 SOP Classes</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>STORAGE-SCP provide Standard Conformance to the following SOP Class(es) :</p>
+                  <div class="table">
+                     <a id="table_G.4.2-1" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table G.4.2-1. SOP Classes Supported By STORAGE-SCP</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>SOP Class Name</p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>SOP Class UID</p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>SCU</p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>SCP</p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Ultrasound Image Storage</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>1.2.840.10008.5.1.4.1.1.6.1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>No</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Yes</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Ultrasound Multi-frame Image Storage</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>1.2.840.10008.5.1.4.1.1.3.1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>No</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Yes</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>MR Image Storage</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>1.2.840.10008.5.1.4.1.1.4</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>No</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Yes</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Digital Mammography X-Ray Image Storage - For Presentation</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>1.2.840.10008.5.1.4.1.1.1.2</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>No</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Yes</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Grayscale Softcopy Presentation State Storage</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>1.2.840.10008.5.1.4.1.1.11.1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>No</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Yes</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Hanging Protocol Storage</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>1.2.840.10008.5.1.4.38.1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>No</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Yes</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_G.4.2.1.2" shape="rect"></a>G.4.2.1.2 Association Policies</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_G.4.2.1.2.1" shape="rect"></a>G.4.2.1.2.1 General</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>STORAGE-SCP accepts but never initiates associations.</p>
+                     <div class="table">
+                        <a id="table_G.4.2-2" shape="rect"></a>
+                        <p class="title">
+                           <strong>Table G.4.2-2. Maximum PDU Size Received as a SCP for STORAGE-SCP</strong>
+                        </p>
+                        <div class="table-contents">
+                           <table frame="box" rules="all">
+                              <tbody>
+                                 <tr valign="top">
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Maximum PDU size received</p>
+                                    </td>
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Unlimited</p>
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                     <br class="table-break" clear="none" />
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_G.4.2.1.2.2" shape="rect"></a>G.4.2.1.2.2 Number of Associations</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="table">
+                        <a id="table_G.4.2-3" shape="rect"></a>
+                        <p class="title">
+                           <strong>Table G.4.2-3. Number of Associations as a SCP for STORAGE-SCP</strong>
+                        </p>
+                        <div class="table-contents">
+                           <table frame="box" rules="all">
+                              <tbody>
+                                 <tr valign="top">
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Maximum number of simultaneous associations</p>
+                                    </td>
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Unlimited</p>
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                     <br class="table-break" clear="none" />
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_G.4.2.1.2.3" shape="rect"></a>G.4.2.1.2.3 Asynchronous Nature</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>STORAGE-SCP will only allow a single outstanding operation on an Association. Therefore, STORAGE-SCP will not perform asynchronous operations window negotiation.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_G.4.2.1.2.4" shape="rect"></a>G.4.2.1.2.4 Implementation Identifying Information</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="table">
+                        <a id="table_G.4.2-4" shape="rect"></a>
+                        <p class="title">
+                           <strong>Table G.4.2-4. DICOM Implementation Class and Version for STORAGE-SCP</strong>
+                        </p>
+                        <div class="table-contents">
+                           <table frame="box" rules="all">
+                              <tbody>
+                                 <tr valign="top">
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Implementation Class UID</p>
+                                    </td>
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>1.2.840.999999.3.6</p>
+                                    </td>
+                                 </tr>
+                                 <tr valign="top">
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Implementation Version Name</p>
+                                    </td>
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Viewer1.0</p>
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                     <br class="table-break" clear="none" />
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_G.4.2.1.3" shape="rect"></a>G.4.2.1.3 Association Initiation Policy</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>STORAGE-SCP does not initiate associations.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_G.4.2.1.4" shape="rect"></a>G.4.2.1.4 Association Acceptance Policy</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>When STORAGE-SCP accepts an association, it will respond to storage requests. If the Called AE Title does not match the pre-configured AE Title shared by all the SCPs of the application, the association will be rejected.</p>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_G.4.2.1.4.1" shape="rect"></a>G.4.2.1.4.1 Activity - Receive Storage Request</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="section">
+                        <div class="titlepage">
+                           <div>
+                              <div>
+                                 <h6 class="title">
+                                    <a id="sect_G.4.2.1.4.1.1" shape="rect"></a>G.4.2.1.4.1.1 Description and Sequencing of Activities</h6>
+                              </div>
+                           </div>
+                        </div>
+                        <p>As instances are received they are copied to the local file system and a record inserted into the local database. If the received instance is a duplicate of a previously received instance, the old file and database record will be overwritten with the new one.</p>
+                     </div>
+                     <div class="section">
+                        <div class="titlepage">
+                           <div>
+                              <div>
+                                 <h6 class="title">
+                                    <a id="sect_G.4.2.1.4.1.2" shape="rect"></a>G.4.2.1.4.1.2 Accepted Presentation Contexts</h6>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="table">
+                           <a id="table_G.4.2-5" shape="rect"></a>
+                           <p class="title">
+                              <strong>Table G.4.2-5. Accepted Presentation Contexts for STORAGE-SCP and Receive Storage Request</strong>
+                           </p>
+                           <div class="table-contents">
+                              <table frame="box" rules="all">
+                                 <thead>
+                                    <tr valign="top">
+                                       <th align="center" colspan="6" rowspan="1">
+                                          <p>Presentation Context Table</p>
+                                       </th>
+                                    </tr>
+                                    <tr valign="top">
+                                       <th align="center" colspan="2" rowspan="1">
+                                          <p>Abstract Syntax</p>
+                                       </th>
+                                       <th align="center" colspan="2" rowspan="1">
+                                          <p>Transfer Syntax</p>
+                                       </th>
+                                       <th align="center" rowspan="2" colspan="1">
+                                          <p>Role</p>
+                                       </th>
+                                       <th align="center" rowspan="2" colspan="1">
+                                          <p>Extended Negotiation</p>
+                                       </th>
+                                    </tr>
+                                    <tr valign="top">
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Name</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>UID</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Name List</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>UID List</p>
+                                       </th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="2" colspan="1">
+                                          <p>See <a class="xref" href="sect_G.4.html#table_G.4.2-1" title="Table G.4.2-1. SOP Classes Supported By STORAGE-SCP" shape="rect">Table G.4.2-1</a>
+                                          </p>
+                                       </td>
+                                       <td align="left" rowspan="2" colspan="1">
+                                          <p>See <a class="xref" href="sect_G.4.html#table_G.4.2-1" title="Table G.4.2-1. SOP Classes Supported By STORAGE-SCP" shape="rect">Table G.4.2-1</a>
+                                          </p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Implicit VR Little Endian</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>1.2.840.10008.1.2</p>
+                                       </td>
+                                       <td align="left" rowspan="2" colspan="1">
+                                          <p>SCP</p>
+                                       </td>
+                                       <td align="left" rowspan="2" colspan="1">
+                                          <p>None</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Explicit VR Little Endian</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>1.2.840.10008.1.2.1</p>
+                                       </td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                        <br class="table-break" clear="none" />
+                        <div class="section">
+                           <div class="titlepage">
+                              <div>
+                                 <div>
+                                    <h6 class="title">
+                                       <a id="sect_G.4.2.1.4.1.2.1" shape="rect"></a>G.4.2.1.4.1.2.1 Extended Negotiation</h6>
+                                 </div>
+                              </div>
+                           </div>
+                           <p>No extended negotiation is performed, though STORAGE-SCP:</p>
+                           <div class="itemizedlist">
+                              <ul class="itemizedlist" style="list-style-type: disc; ">
+                                 <li class="listitem">
+                                    <p>is a Level 2 Storage SCP (Full - does not discard any data elements)</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>does not support digital signatures</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>does not coerce any received data elements</p>
+                                 </li>
+                              </ul>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="section">
+                        <div class="titlepage">
+                           <div>
+                              <div>
+                                 <h6 class="title">
+                                    <a id="sect_G.4.2.1.4.1.3" shape="rect"></a>G.4.2.1.4.1.3 SOP Specific Conformance</h6>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="section">
+                           <div class="titlepage">
+                              <div>
+                                 <div>
+                                    <h6 class="title">
+                                       <a id="sect_G.4.2.1.4.1.3.1" shape="rect"></a>G.4.2.1.4.1.3.1 SOP Specific Conformance to Storage Service Class</h6>
+                                 </div>
+                              </div>
+                           </div>
+                           <p>STORAGE-SCP provides standard conformance to the Storage Service Class.</p>
+                           <p>When displaying an image in the viewing application, if a Hanging Protocol Instance is not being applied or the instance being applied does not contain presentation intent attributes, the newest Grayscale Softcopy Presentation State containing references to the image will be automatically applied, and the GSPS Presentation Label and Presentation Description will be displayed. The user has the option to select any other Presentation States that also reference the image. If no Presentation State references the image then no Presentation State will be applied by default. If a Hanging Protocol Instance is being applied, the presentation intent attributes, if present, are used to select the closest matching GSPS instance to apply. If there is no GSPS instance, then the Hanging Protocol Instance presentation intent attributes are applied, if present.</p>
+                           <p>All of the Image Storage SOP Classes listed in <a class="xref" href="sect_G.4.html#table_G.4.2-1" title="Table G.4.2-1. SOP Classes Supported By STORAGE-SCP" shape="rect">Table G.4.2-1</a> are supported as references from instances of the Grayscale Softcopy Presentation State Storage SOP Class.</p>
+                        </div>
+                        <div class="section">
+                           <div class="titlepage">
+                              <div>
+                                 <div>
+                                    <h6 class="title">
+                                       <a id="sect_G.4.2.1.4.1.3.2" shape="rect"></a>G.4.2.1.4.1.3.2 SOP Specific Conformance to Hanging Protocol Storage Service Class</h6>
+                                 </div>
+                              </div>
+                           </div>
+                           <p>STORAGE-SCP provides standard conformance to the Hanging Protocol Storage Service Class.</p>
+                           <p>If Partial Data Display Handling (0072,0208) is zero length, then MAINTAIN_LAYOUT behavior is applied. If the value is ADAPT_LAYOUT, then Image Boxes are proportionally resized to occupy all available display space.</p>
+                           <p>If the display environment of a Hanging Protocol Instance differs from the display environment of the ImageViewer, then the layout is maintained.</p>
+                           <p>The Hanging Protocol SOP instances are stored to a local database until explicitly deleted. When a study is selected for display, the application automatically applies a Hanging Protocol Instance to the study.</p>
+                        </div>
+                        <div class="section">
+                           <div class="titlepage">
+                              <div>
+                                 <div>
+                                    <h6 class="title">
+                                       <a id="sect_G.4.2.1.4.1.3.3" shape="rect"></a>G.4.2.1.4.1.3.3 Presentation Context Acceptance Criterion</h6>
+                                 </div>
+                              </div>
+                           </div>
+                           <p>STORAGE-SCP will always accept any Presentation Context for the supported SOP Classes with the supported Transfer Syntaxes. More than one proposed Presentation Context will be accepted for the same Abstract Syntax if the Transfer Syntax is supported, whether or not it is the same as another Presentation Context.</p>
+                        </div>
+                        <div class="section">
+                           <div class="titlepage">
+                              <div>
+                                 <div>
+                                    <h6 class="title">
+                                       <a id="sect_G.4.2.1.4.1.3.4" shape="rect"></a>G.4.2.1.4.1.3.4 Transfer Syntax Selection Policies</h6>
+                                 </div>
+                              </div>
+                           </div>
+                           <p>STORAGE-SCP prefers explicit Transfer Syntaxes. If offered a choice of Transfer Syntaxes in a Presentation Context, it will apply the following priority to the choice of Transfer Syntax:</p>
+                           <div class="orderedlist">
+                              <ol class="orderedlist" type="a">
+                                 <li class="listitem">
+                                    <p>first encountered explicit Transfer Syntax,</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>default Transfer Syntax.</p>
+                                 </li>
+                              </ol>
+                           </div>
+                           <p>STORAGE-SCP will accept duplicate Presentation Contexts, that is, if it is offered multiple Presentation Contexts, each of which offers acceptable Transfer Syntaxes, it will accept all Presentation Contexts, applying the same priority for selecting a Transfer Syntax for each.</p>
+                        </div>
+                        <div class="section">
+                           <div class="titlepage">
+                              <div>
+                                 <div>
+                                    <h6 class="title">
+                                       <a id="sect_G.4.2.1.4.1.3.5" shape="rect"></a>G.4.2.1.4.1.3.5 Response Status</h6>
+                                 </div>
+                              </div>
+                           </div>
+                           <p>STORAGE-SCP will behave as described in the Table below when generating the C-STORE response command message.</p>
+                           <div class="table">
+                              <a id="table_G.4.2-6" shape="rect"></a>
+                              <p class="title">
+                                 <strong>Table G.4.2-6. Response Status for STORAGE-SCP and Receive Storage Request</strong>
+                              </p>
+                              <div class="table-contents">
+                                 <table frame="box" rules="all">
+                                    <thead>
+                                       <tr valign="top">
+                                          <th align="center" rowspan="1" colspan="1">
+                                             <p>Service Status</p>
+                                          </th>
+                                          <th align="center" rowspan="1" colspan="1">
+                                             <p>Further Meaning</p>
+                                          </th>
+                                          <th align="center" rowspan="1" colspan="1">
+                                             <p>Status Codes</p>
+                                          </th>
+                                          <th align="center" rowspan="1" colspan="1">
+                                             <p>Reason</p>
+                                          </th>
+                                       </tr>
+                                    </thead>
+                                    <tbody>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Failure</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Refused: Out of Resources</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>A700</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Never sent</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="center" rowspan="1" colspan="1"></td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Error: Data Set does not match SOP Class</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>A900</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Never sent - data set is not checked prior to storage</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="center" rowspan="1" colspan="1"></td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Error: Cannot understand</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>C000</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Never sent</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Warning</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Coercion of Data Elements</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>B000</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Never sent - no coercion is ever performed</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="center" rowspan="1" colspan="1"></td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Data Set does not match SOP Class</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>B007</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Never sent - data set is not checked prior to storage</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="center" rowspan="1" colspan="1"></td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Elements Discarded</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>B006</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Never sent - all elements are always stored</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Success</p>
+                                          </td>
+                                          <td align="center" rowspan="1" colspan="1"></td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>0000</p>
+                                          </td>
+                                          <td align="center" rowspan="1" colspan="1"></td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </div>
+                           </div>
+                           <br class="table-break" clear="none" />
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_G.4.2.2" shape="rect"></a>G.4.2.2 STORAGE-SCU</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_G.4.2.2.1" shape="rect"></a>G.4.2.2.1 SOP Classes</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>STORAGE-SCU provides Standard Conformance to the following SOP Class(es) :</p>
+                  <div class="table">
+                     <a id="table_G.4.2-7" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table G.4.2-7. SOP Classes Supported By STORAGE-SCU</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>SOP Class Name</p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>SOP Class UID</p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>SCU</p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>SCP</p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Ultrasound Image Storage</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>1.2.840.10008.5.1.4.1.1.6.1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Yes</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>No</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Ultrasound Multi-frame Image Storage</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>1.2.840.10008.5.1.4.1.1.3.1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Yes</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>No</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>MR Image Storage</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>1.2.840.10008.5.1.4.1.1.4</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Yes</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>No</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Digital Mammography X-Ray Image Storage - For Presentation</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>1.2.840.10008.5.1.4.1.1.1.2</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Yes</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>No</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Grayscale Softcopy Presentation State Storage</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>1.2.840.10008.5.1.4.1.1.11.1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Yes</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>No</p>
+                                 </td>
+                              </tr>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Hanging Protocol Storage</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>1.2.840.10008.5.1.4.38.1</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Yes</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>No</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_G.4.2.2.2" shape="rect"></a>G.4.2.2.2 Association Policies</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_G.4.2.2.2.1" shape="rect"></a>G.4.2.2.2.1 General</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>STORAGE-SCU initiates but never accepts associations.</p>
+                     <div class="table">
+                        <a id="table_G.4.2-8" shape="rect"></a>
+                        <p class="title">
+                           <strong>Table G.4.2-8. Maximum PDU Size Received as a SCP for STORAGE-SCU</strong>
+                        </p>
+                        <div class="table-contents">
+                           <table frame="box" rules="all">
+                              <tbody>
+                                 <tr valign="top">
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Maximum PDU size received</p>
+                                    </td>
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Unlimited</p>
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                     <br class="table-break" clear="none" />
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_G.4.2.2.2.2" shape="rect"></a>G.4.2.2.2.2 Number of Associations</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="table">
+                        <a id="table_G.4.2-9" shape="rect"></a>
+                        <p class="title">
+                           <strong>Table G.4.2-9. Number of Associations as a SCP for STORAGE-SCU</strong>
+                        </p>
+                        <div class="table-contents">
+                           <table frame="box" rules="all">
+                              <tbody>
+                                 <tr valign="top">
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Maximum number of simultaneous associations</p>
+                                    </td>
+                                    <td align="center" rowspan="1" colspan="1">
+                                       <p>1</p>
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                     <br class="table-break" clear="none" />
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_G.4.2.2.2.3" shape="rect"></a>G.4.2.2.2.3 Asynchronous Nature</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>STORAGE-SCU will only allow a single outstanding operation on an Association. Therefore, STORAGE-SCU will not perform asynchronous operations window negotiation.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_G.4.2.2.2.4" shape="rect"></a>G.4.2.2.2.4 Implementation Identifying Information</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="table">
+                        <a id="table_G.4.2-10" shape="rect"></a>
+                        <p class="title">
+                           <strong>Table G.4.2-10. DICOM Implementation Class and Version for STORAGE-SCU</strong>
+                        </p>
+                        <div class="table-contents">
+                           <table frame="box" rules="all">
+                              <tbody>
+                                 <tr valign="top">
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Implementation Class UID</p>
+                                    </td>
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>1.2.840.999999.3.6</p>
+                                    </td>
+                                 </tr>
+                                 <tr valign="top">
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Implementation Version Name</p>
+                                    </td>
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Viewer1.0</p>
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                     <br class="table-break" clear="none" />
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_G.4.2.2.3" shape="rect"></a>G.4.2.2.3 Association Initiation Policy</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>STORAGE-SCU attempts to initiate a new association for each instance it attempts to transfer.</p>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_G.4.2.2.3.1" shape="rect"></a>G.4.2.2.3.1 Activity - Send Storage Request</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="section">
+                        <div class="titlepage">
+                           <div>
+                              <div>
+                                 <h6 class="title">
+                                    <a id="sect_G.4.2.2.3.1.1" shape="rect"></a>G.4.2.2.3.1.1 Description and Sequencing of Activities</h6>
+                              </div>
+                           </div>
+                        </div>
+                        <p>For each Image, Presentation State, or Hanging Protocol Instance selected from the user interface to be transferred, a single attempt will be made to transmit it to the selected remote AE. If the send fails, for whatever reason, no retry will be performed, and an attempt will be made to send the next instance.</p>
+                     </div>
+                     <div class="section">
+                        <div class="titlepage">
+                           <div>
+                              <div>
+                                 <h6 class="title">
+                                    <a id="sect_G.4.2.2.3.1.2" shape="rect"></a>G.4.2.2.3.1.2  Proposed Presentation Contexts</h6>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="table">
+                           <a id="table_G.4.2-11" shape="rect"></a>
+                           <p class="title">
+                              <strong>Table G.4.2-11. Proposed Presentation Contexts for STORAGE-SCU and Receive Storage Request</strong>
+                           </p>
+                           <div class="table-contents">
+                              <table frame="box" rules="all">
+                                 <thead>
+                                    <tr valign="top">
+                                       <th align="center" colspan="6" rowspan="1">
+                                          <p>Presentation Context Table</p>
+                                       </th>
+                                    </tr>
+                                    <tr valign="top">
+                                       <th align="center" colspan="2" rowspan="1">
+                                          <p>Abstract Syntax</p>
+                                       </th>
+                                       <th align="center" colspan="2" rowspan="1">
+                                          <p>Transfer Syntax</p>
+                                       </th>
+                                       <th align="center" rowspan="2" colspan="1">
+                                          <p>Role</p>
+                                       </th>
+                                       <th align="center" rowspan="2" colspan="1">
+                                          <p>Extended Negotiation</p>
+                                       </th>
+                                    </tr>
+                                    <tr valign="top">
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Name</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>UID</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Name List</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>UID List</p>
+                                       </th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="2" colspan="1">
+                                          <p>See <a class="xref" href="sect_G.4.html#table_G.4.2-7" title="Table G.4.2-7. SOP Classes Supported By STORAGE-SCU" shape="rect">Table G.4.2-7</a>
+                                          </p>
+                                       </td>
+                                       <td align="left" rowspan="2" colspan="1">
+                                          <p>See <a class="xref" href="sect_G.4.html#table_G.4.2-7" title="Table G.4.2-7. SOP Classes Supported By STORAGE-SCU" shape="rect">Table G.4.2-7</a>
+                                          </p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Implicit VR Little Endian</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>1.2.840.10008.1.2</p>
+                                       </td>
+                                       <td align="left" rowspan="2" colspan="1">
+                                          <p>SCU</p>
+                                       </td>
+                                       <td align="left" rowspan="2" colspan="1">
+                                          <p>None</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Explicit VR Little Endian</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>1.2.840.10008.1.2.1</p>
+                                       </td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                        <br class="table-break" clear="none" />
+                        <p>STORAGE-SCU will propose Presentation Contexts only for the SOP Class of the instance that is to be transferred.</p>
+                        <p>For that SOP Class, STORAGE-SCU will propose multiple Presentation Contexts, one for each of the supported Transfer Syntaxes, and an additional Presentation Context with all of the supported Transfer Syntaxes, in order to determine which Transfer Syntaxes the remote SCP supports, and which it prefers.</p>
+                        <div class="section">
+                           <div class="titlepage">
+                              <div>
+                                 <div>
+                                    <h6 class="title">
+                                       <a id="sect_G.4.2.2.3.1.2.1" shape="rect"></a>G.4.2.2.3.1.2.1 Extended Negotiation</h6>
+                                 </div>
+                              </div>
+                           </div>
+                           <p>No extended negotiation is performed.</p>
+                        </div>
+                     </div>
+                     <div class="section">
+                        <div class="titlepage">
+                           <div>
+                              <div>
+                                 <h6 class="title">
+                                    <a id="sect_G.4.2.2.3.1.3" shape="rect"></a>G.4.2.2.3.1.3 SOP Specific Conformance</h6>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="section">
+                           <div class="titlepage">
+                              <div>
+                                 <div>
+                                    <h6 class="title">
+                                       <a id="sect_G.4.2.2.3.1.3.1" shape="rect"></a>G.4.2.2.3.1.3.1 SOP Specific Conformance to Storage Service Class</h6>
+                                 </div>
+                              </div>
+                           </div>
+                           <p>STORAGE-SCU provides standard conformance to the Storage Service Class.</p>
+                        </div>
+                        <div class="section">
+                           <div class="titlepage">
+                              <div>
+                                 <div>
+                                    <h6 class="title">
+                                       <a id="sect_G.4.2.2.3.1.3.2" shape="rect"></a>G.4.2.2.3.1.3.2 SOP Specific Conformance to Hanging Protocol Storage Service Class</h6>
+                                 </div>
+                              </div>
+                           </div>
+                           <p>STORAGE-SCU provides standard conformance to the Hanging Protocol Storage Service Class.</p>
+                           <p>In Hanging Protocol Instances created on the Viewer, no Private Attributes are used as the value of Selector Attribute (0072,0026) in any of the Sequence Attributes to which it applies.</p>
+                        </div>
+                        <div class="section">
+                           <div class="titlepage">
+                              <div>
+                                 <div>
+                                    <h6 class="title">
+                                       <a id="sect_G.4.2.2.3.1.3.3" shape="rect"></a>G.4.2.2.3.1.3.3 Presentation Context Acceptance Criterion</h6>
+                                 </div>
+                              </div>
+                           </div>
+                           <p>STORAGE-SCU does not accept associations.</p>
+                        </div>
+                        <div class="section">
+                           <div class="titlepage">
+                              <div>
+                                 <div>
+                                    <h6 class="title">
+                                       <a id="sect_G.4.2.2.3.1.3.4" shape="rect"></a>G.4.2.2.3.1.3.4 Transfer Syntax Selection Policies</h6>
+                                 </div>
+                              </div>
+                           </div>
+                           <p>STORAGE-SCU prefers explicit Transfer Syntaxes. If offered a choice of Transfer Syntaxes in the accepted Presentation Contexts, it will apply the following priority to the choice of Presentation Context to use for the C-STORE operation:</p>
+                           <div class="orderedlist">
+                              <ol class="orderedlist" type="a">
+                                 <li class="listitem">
+                                    <p>first encountered explicit Transfer Syntax,</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>default Transfer Syntax.</p>
+                                 </li>
+                              </ol>
+                           </div>
+                        </div>
+                        <div class="section">
+                           <div class="titlepage">
+                              <div>
+                                 <div>
+                                    <h6 class="title">
+                                       <a id="sect_G.4.2.2.3.1.3.5" shape="rect"></a>G.4.2.2.3.1.3.5 Response Status</h6>
+                                 </div>
+                              </div>
+                           </div>
+                           <p>STORAGE-SCU will behave as described in the Table below in response to the status returned in the C-STORE response command message.</p>
+                           <div class="table">
+                              <a id="table_G.4.2-12" shape="rect"></a>
+                              <p class="title">
+                                 <strong>Table G.4.2-12. Response Behavior for STORAGE-SCU and Send Storage Request</strong>
+                              </p>
+                              <div class="table-contents">
+                                 <table frame="box" rules="all">
+                                    <thead>
+                                       <tr valign="top">
+                                          <th align="center" rowspan="1" colspan="1">
+                                             <p>Service Status</p>
+                                          </th>
+                                          <th align="center" rowspan="1" colspan="1">
+                                             <p>Further Meaning</p>
+                                          </th>
+                                          <th align="center" rowspan="1" colspan="1">
+                                             <p>Status Codes</p>
+                                          </th>
+                                          <th align="center" rowspan="1" colspan="1">
+                                             <p>Behavior</p>
+                                          </th>
+                                       </tr>
+                                    </thead>
+                                    <tbody>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Failure</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Refused: Out of Resources</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>A7xx</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>The user is notified and the failure is logged</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="center" rowspan="1" colspan="1"></td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Error: Data Set does not match SOP Class</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>A9xx</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>The user is notified and the failure is logged</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="center" rowspan="1" colspan="1"></td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Error: Cannot understand</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Cxxx</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>The user is notified and the failure is logged</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Warning</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Coercion of Data Elements</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>B000</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Ignored</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="center" rowspan="1" colspan="1"></td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Data Set does not match SOP Class</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>B007</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Ignored</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="center" rowspan="1" colspan="1"></td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Elements Discarded</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>B006</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Ignored</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Success</p>
+                                          </td>
+                                          <td align="center" rowspan="1" colspan="1"></td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>0000</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Ignored</p>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </div>
+                           </div>
+                           <br class="table-break" clear="none" />
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_G.4.2.2.4" shape="rect"></a>G.4.2.2.4 Association Acceptance Policy</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>STORAGE-SCU does not accept associations.</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_G.4.2.3" shape="rect"></a>G.4.2.3 FIND-SCU</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_G.4.2.3.1" shape="rect"></a>G.4.2.3.1 SOP Classes</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>FIND-SCU provide Standard Conformance to the following SOP Class(es) :</p>
+                  <div class="table">
+                     <a id="table_G.4.2-13" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table G.4.2-13. SOP Classes Supported By FIND-SCU</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>SOP Class Name</p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>SOP Class UID</p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>SCU</p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>SCP</p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Hanging Protocol Information Model - FIND</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>1.2.840.10008.5.1.4.38.2</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Yes</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>No</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_G.4.2.3.2" shape="rect"></a>G.4.2.3.2 Association Policies</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_G.4.2.3.2.1" shape="rect"></a>G.4.2.3.2.1 General</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>FIND-SCU initiates but never accepts associations.</p>
+                     <div class="table">
+                        <a id="table_G.4.2-14" shape="rect"></a>
+                        <p class="title">
+                           <strong>Table G.4.2-14. Maximum PDU Size Received as a SCP for FIND-SCU</strong>
+                        </p>
+                        <div class="table-contents">
+                           <table frame="box" rules="all">
+                              <tbody>
+                                 <tr valign="top">
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Maximum PDU size received</p>
+                                    </td>
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Unlimited</p>
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                     <br class="table-break" clear="none" />
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_G.4.2.3.2.2" shape="rect"></a>G.4.2.3.2.2 Number of Associations</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="table">
+                        <a id="table_G.4.2-15" shape="rect"></a>
+                        <p class="title">
+                           <strong>Table G.4.2-15. Number of Associations as a SCP for FIND-SCU</strong>
+                        </p>
+                        <div class="table-contents">
+                           <table frame="box" rules="all">
+                              <tbody>
+                                 <tr valign="top">
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Maximum number of simultaneous associations</p>
+                                    </td>
+                                    <td align="center" rowspan="1" colspan="1">
+                                       <p>1</p>
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                     <br class="table-break" clear="none" />
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_G.4.2.3.2.3" shape="rect"></a>G.4.2.3.2.3 Asynchronous Nature</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>FIND-SCU will only allow a single outstanding operation on an Association. Therefore, FIND-SCU will not perform asynchronous operations window negotiation.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_G.4.2.3.2.4" shape="rect"></a>G.4.2.3.2.4 Implementation Identifying Information</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="table">
+                        <a id="table_G.4.2-16" shape="rect"></a>
+                        <p class="title">
+                           <strong>Table G.4.2-16. DICOM Implementation Class and Version for FIND-SCU</strong>
+                        </p>
+                        <div class="table-contents">
+                           <table frame="box" rules="all">
+                              <tbody>
+                                 <tr valign="top">
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Implementation Class UID</p>
+                                    </td>
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>1.2.840.999999.3.6</p>
+                                    </td>
+                                 </tr>
+                                 <tr valign="top">
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Implementation Version Name</p>
+                                    </td>
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Viewer1.0</p>
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                     <br class="table-break" clear="none" />
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_G.4.2.3.3" shape="rect"></a>G.4.2.3.3 Association Initiation Policy</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>FIND-SCU attempts to initiate a new association when a study is received for which an appropriate Hanging Protocol Instance is not already stored in the local database.</p>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_G.4.2.3.3.1" shape="rect"></a>G.4.2.3.3.1 Activity - Query Remote AE</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="section">
+                        <div class="titlepage">
+                           <div>
+                              <div>
+                                 <h6 class="title">
+                                    <a id="sect_G.4.2.3.3.1.1" shape="rect"></a>G.4.2.3.3.1.1 Description and Sequencing of Activities</h6>
+                              </div>
+                           </div>
+                        </div>
+                        <p>A single attempt will be made to query the remote AE. If the query fails, for whatever reason, no retry will be performed.</p>
+                     </div>
+                     <div class="section">
+                        <div class="titlepage">
+                           <div>
+                              <div>
+                                 <h6 class="title">
+                                    <a id="sect_G.4.2.3.3.1.2" shape="rect"></a>G.4.2.3.3.1.2 Proposed Presentation Contexts</h6>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="table">
+                           <a id="table_G.4.2-17" shape="rect"></a>
+                           <p class="title">
+                              <strong>Table G.4.2-17. Proposed Presentation Contexts for FIND-SCU and Query Remote AE</strong>
+                           </p>
+                           <div class="table-contents">
+                              <table frame="box" rules="all">
+                                 <thead>
+                                    <tr valign="top">
+                                       <th align="center" colspan="6" rowspan="1">
+                                          <p>Presentation Context Table</p>
+                                       </th>
+                                    </tr>
+                                    <tr valign="top">
+                                       <th align="center" colspan="2" rowspan="1">
+                                          <p>Abstract Syntax</p>
+                                       </th>
+                                       <th align="center" colspan="2" rowspan="1">
+                                          <p>Transfer Syntax</p>
+                                       </th>
+                                       <th align="center" rowspan="2" colspan="1">
+                                          <p>Role</p>
+                                       </th>
+                                       <th align="center" rowspan="2" colspan="1">
+                                          <p>Extended Negotiation</p>
+                                       </th>
+                                    </tr>
+                                    <tr valign="top">
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Name</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>UID</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Name</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>UID</p>
+                                       </th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="2" colspan="1">
+                                          <p>See <a class="xref" href="sect_G.4.html#table_G.4.2-13" title="Table G.4.2-13. SOP Classes Supported By FIND-SCU" shape="rect">Table G.4.2-13</a>
+                                          </p>
+                                       </td>
+                                       <td align="left" rowspan="2" colspan="1">
+                                          <p>See <a class="xref" href="sect_G.4.html#table_G.4.2-13" title="Table G.4.2-13. SOP Classes Supported By FIND-SCU" shape="rect">Table G.4.2-13</a>
+                                          </p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Implicit VR Little Endian</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>1.2.840.10008.1.2</p>
+                                       </td>
+                                       <td align="left" rowspan="2" colspan="1">
+                                          <p>SCU</p>
+                                       </td>
+                                       <td align="left" rowspan="2" colspan="1">
+                                          <p>None</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Explicit VR Little Endian</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>1.2.840.10008.1.2.1</p>
+                                       </td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                        <br class="table-break" clear="none" />
+                        <p>FIND-SCU will propose multiple Presentation Contexts, one for each of the supported Transfer Syntaxes, and an additional Presentation Context with all of the supported Transfer Syntaxes, in order to determine which Transfer Syntaxes the remote SCP supports, and which it prefers.</p>
+                        <div class="section">
+                           <div class="titlepage">
+                              <div>
+                                 <div>
+                                    <h6 class="title">
+                                       <a id="sect_G.4.2.3.3.1.2.1" shape="rect"></a>G.4.2.3.3.1.2.1 Extended Negotiation</h6>
+                                 </div>
+                              </div>
+                           </div>
+                           <p>No extended negotiation is performed.</p>
+                        </div>
+                     </div>
+                     <div class="section">
+                        <div class="titlepage">
+                           <div>
+                              <div>
+                                 <h6 class="title">
+                                    <a id="sect_G.4.2.3.3.1.3" shape="rect"></a>G.4.2.3.3.1.3 SOP Specific Conformance</h6>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="section">
+                           <div class="titlepage">
+                              <div>
+                                 <div>
+                                    <h6 class="title">
+                                       <a id="sect_G.4.2.3.3.1.3.1" shape="rect"></a>G.4.2.3.3.1.3.1 SOP Specific Conformance to C-FIND SOP Classes</h6>
+                                 </div>
+                              </div>
+                           </div>
+                           <p>FIND-SCU provides standard conformance to the supported C-FIND SOP Class.</p>
+                           <p>The following applies to Hanging Protocol Information Model C-FIND.</p>
+                           <p>If present in the response, Specific Character Set will be used to identify character sets other than the default character set for matching between Hanging Protocol and Image Instances.</p>
+                           <div class="table">
+                              <a id="table_G.4.2.3.3.1.3.1-1" shape="rect"></a>
+                              <p class="title">
+                                 <strong>Table G.4.2.3.3.1.3.1-1. Hanging Protocol Information Model C-FIND SOP Specific Conformance</strong>
+                              </p>
+                              <div class="table-contents">
+                                 <table frame="box" rules="all">
+                                    <thead>
+                                       <tr valign="top">
+                                          <th align="center" rowspan="1" colspan="1">
+                                             <p>Name</p>
+                                          </th>
+                                          <th align="center" rowspan="1" colspan="1">
+                                             <p>Tag</p>
+                                          </th>
+                                          <th align="center" rowspan="1" colspan="1">
+                                             <p>Types of Matching</p>
+                                          </th>
+                                       </tr>
+                                    </thead>
+                                    <tbody>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>SOP Class UID</p>
+                                          </td>
+                                          <td align="center" rowspan="1" colspan="1">
+                                             <p>(0008,0016)</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>zero length</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>SOP Instance UID</p>
+                                          </td>
+                                          <td align="center" rowspan="1" colspan="1">
+                                             <p>(0008,0018)</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>zero length</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Hanging Protocol Name</p>
+                                          </td>
+                                          <td align="center" rowspan="1" colspan="1">
+                                             <p>(0072,0002)</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>S, *, U</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Hanging Protocol Description</p>
+                                          </td>
+                                          <td align="center" rowspan="1" colspan="1">
+                                             <p>(0072,0004)</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>zero length</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Hanging Protocol Level</p>
+                                          </td>
+                                          <td align="center" rowspan="1" colspan="1">
+                                             <p>(0072,0006)</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>S, U</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Hanging Protocol Creator</p>
+                                          </td>
+                                          <td align="center" rowspan="1" colspan="1">
+                                             <p>(0072,0008)</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>zero length</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Hanging Protocol Creation Datetime</p>
+                                          </td>
+                                          <td align="center" rowspan="1" colspan="1">
+                                             <p>(0072,000A)</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>zero length</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Hanging Protocol Definition Sequence</p>
+                                          </td>
+                                          <td align="center" rowspan="1" colspan="1">
+                                             <p>(0072,000C)</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>SQ, U</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>&gt;Modality</p>
+                                          </td>
+                                          <td align="center" rowspan="1" colspan="1">
+                                             <p>(0008,0060)</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>From list (US, MR, MG) or zero length</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>&gt;Anatomic Region Sequence</p>
+                                          </td>
+                                          <td align="center" rowspan="1" colspan="1">
+                                             <p>(0008,2218)</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>From <a href="../part16/sect_CID_4.html" class="olink" shape="rect">CID 4 “Anatomic Region”</a> or zero length</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>&gt;&gt; Code Value</p>
+                                          </td>
+                                          <td align="center" rowspan="1" colspan="1">
+                                             <p>(0008,0100)</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>S, U</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>&gt;&gt; Coding Scheme Designator</p>
+                                          </td>
+                                          <td align="center" rowspan="1" colspan="1">
+                                             <p>(0008,0102)</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>S, U</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>&gt;&gt;Coding Scheme Version</p>
+                                          </td>
+                                          <td align="center" rowspan="1" colspan="1">
+                                             <p>(0008,0103)</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>zero length</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>&gt;&gt;Code Meaning</p>
+                                          </td>
+                                          <td align="center" rowspan="1" colspan="1">
+                                             <p>(0008,0104)</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>zero length</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>&gt;Laterality</p>
+                                          </td>
+                                          <td align="center" rowspan="1" colspan="1">
+                                             <p>(0020,0060)</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>From list (R, L, U, B) or zero length</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>&gt; Procedure Code Sequence</p>
+                                          </td>
+                                          <td align="center" rowspan="1" colspan="1">
+                                             <p>(0008,1032)</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>zero length</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>&gt;Reason for Requested Procedure Code Sequence</p>
+                                          </td>
+                                          <td align="center" rowspan="1" colspan="1">
+                                             <p>(0040,100A)</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>zero length</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Number of Priors Referenced</p>
+                                          </td>
+                                          <td align="center" rowspan="1" colspan="1">
+                                             <p>(0072,0014)</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>zero length</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Hanging Protocol User Identification Code Sequence</p>
+                                          </td>
+                                          <td align="center" rowspan="1" colspan="1">
+                                             <p>(0072,000E)</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>From list of local coded terms or zero length</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>&gt;Code Value</p>
+                                          </td>
+                                          <td align="center" rowspan="1" colspan="1">
+                                             <p>(0008,0100)</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>S, U</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>&gt;Coding Scheme Designator</p>
+                                          </td>
+                                          <td align="center" rowspan="1" colspan="1">
+                                             <p>(0008,0102)</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>S, U</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>&gt;Coding Scheme Version</p>
+                                          </td>
+                                          <td align="center" rowspan="1" colspan="1">
+                                             <p>(0008,0103)</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>zero length</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>&gt;Code Meaning</p>
+                                          </td>
+                                          <td align="center" rowspan="1" colspan="1">
+                                             <p>(0008,0104)</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>zero length</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Hanging Protocol User Group Name</p>
+                                          </td>
+                                          <td align="center" rowspan="1" colspan="1">
+                                             <p>(0072,0010)</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>zero length</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Number of Screens</p>
+                                          </td>
+                                          <td align="center" rowspan="1" colspan="1">
+                                             <p>(0072,0100)</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>zero length</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Nominal Screen Definition Sequence</p>
+                                          </td>
+                                          <td align="center" rowspan="1" colspan="1">
+                                             <p>(0072,0102)</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>zero length</p>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </div>
+                           </div>
+                           <br class="table-break" clear="none" />
+                        </div>
+                        <div class="section">
+                           <div class="titlepage">
+                              <div>
+                                 <div>
+                                    <h6 class="title">
+                                       <a id="sect_G.4.2.3.3.1.3.2" shape="rect"></a>G.4.2.3.3.1.3.2 Presentation Context Acceptance Criterion</h6>
+                                 </div>
+                              </div>
+                           </div>
+                           <p>FIND-SCU does not accept associations.</p>
+                        </div>
+                        <div class="section">
+                           <div class="titlepage">
+                              <div>
+                                 <div>
+                                    <h6 class="title">
+                                       <a id="sect_G.4.2.3.3.1.3.3" shape="rect"></a>G.4.2.3.3.1.3.3 Transfer Syntax Selection Policies</h6>
+                                 </div>
+                              </div>
+                           </div>
+                           <p>FIND-SCU prefers explicit Transfer Syntaxes. If offered a choice of Transfer Syntaxes in the accepted Presentation Contexts, it will apply the following priority to the choice of Presentation Context to use for the C-FIND operation:</p>
+                           <div class="orderedlist">
+                              <ol class="orderedlist" type="a">
+                                 <li class="listitem">
+                                    <p>first encountered explicit Transfer Syntax,</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>default Transfer Syntax.</p>
+                                 </li>
+                              </ol>
+                           </div>
+                        </div>
+                        <div class="section">
+                           <div class="titlepage">
+                              <div>
+                                 <div>
+                                    <h6 class="title">
+                                       <a id="sect_G.4.2.3.3.1.3.4" shape="rect"></a>G.4.2.3.3.1.3.4 Response Status</h6>
+                                 </div>
+                              </div>
+                           </div>
+                           <p>FIND-SCU will behave as described in <a class="xref" href="sect_G.4.html#table_G.4.2-19" title="Table G.4.2-19. Response Status for FIND-SCU and Query Remote AE Request" shape="rect">Table G.4.2-19</a> in response to the status returned in the C-FIND response command message(s).</p>
+                           <div class="table">
+                              <a id="table_G.4.2-19" shape="rect"></a>
+                              <p class="title">
+                                 <strong>Table G.4.2-19. Response Status for FIND-SCU and Query Remote AE Request</strong>
+                              </p>
+                              <div class="table-contents">
+                                 <table frame="box" rules="all">
+                                    <thead>
+                                       <tr valign="top">
+                                          <th align="center" rowspan="1" colspan="1">
+                                             <p>Service Status</p>
+                                          </th>
+                                          <th align="center" rowspan="1" colspan="1">
+                                             <p>Further Meaning</p>
+                                          </th>
+                                          <th align="center" rowspan="1" colspan="1">
+                                             <p>Status Codes</p>
+                                          </th>
+                                          <th align="center" rowspan="1" colspan="1">
+                                             <p>Behavior</p>
+                                          </th>
+                                       </tr>
+                                    </thead>
+                                    <tbody>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Refused</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Out of Resources</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>A700</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Current query is terminated; remaining queries continue</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Error</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Identifier does not match SOP Class</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>A900</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Current query is terminated; remaining queries continue</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="center" rowspan="1" colspan="1"></td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Unable to process</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Cxxx</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Current query is terminated; remaining queries continue</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Cancel</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Matching terminated due to Cancel request</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>FE00</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Ignored (should never occur, since cancels never issued)</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Success</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Matching is complete - No final Identifier is supplied</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>0000</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Current query is terminated. If one or more Pending responses were received, logic is applied to trigger Retrieve of best suited Hanging Protocol Instances; remaining queries continue</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Pending</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Matches are continuing - Current Match is supplied and any Optional Keys were supported in the same manner as Required Keys</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>FF00</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Identifier stored temporarily for use in setting up Retrieve.</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1"></td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Matches are continuing - Warning that one or more Optional Keys were not supported for existence and/or matching for this Identifier</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>FF01</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Identifier stored temporarily for use in setting up Retrieve</p>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </div>
+                           </div>
+                           <br class="table-break" clear="none" />
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_G.4.2.3.4" shape="rect"></a>G.4.2.3.4 Association Acceptance Policy</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>FIND-SCU does not accept associations.</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_G.4.2.4" shape="rect"></a>G.4.2.4 MOVE-SCU</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_G.4.2.4.1" shape="rect"></a>G.4.2.4.1 SOP Classes</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>MOVE-SCU provide Standard Conformance to the following SOP Class(es) :</p>
+                  <div class="table">
+                     <a id="table_G.4.2-20" shape="rect"></a>
+                     <p class="title">
+                        <strong>Table G.4.2-20. SOP Classes Supported By MOVE-SCU</strong>
+                     </p>
+                     <div class="table-contents">
+                        <table frame="box" rules="all">
+                           <thead>
+                              <tr valign="top">
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>SOP Class Name</p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>SOP Class UID</p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>SCU</p>
+                                 </th>
+                                 <th align="center" rowspan="1" colspan="1">
+                                    <p>SCP</p>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr valign="top">
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>Hanging Protocol Information Model - MOVE</p>
+                                 </td>
+                                 <td align="left" rowspan="1" colspan="1">
+                                    <p>1.2.840.10008.5.1.4.38.3</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>Yes</p>
+                                 </td>
+                                 <td align="center" rowspan="1" colspan="1">
+                                    <p>No</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <br class="table-break" clear="none" />
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_G.4.2.4.2" shape="rect"></a>G.4.2.4.2 Association Policies</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_G.4.2.4.2.1" shape="rect"></a>G.4.2.4.2.1 General</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>MOVE-SCU initiates but never accepts associations.</p>
+                     <div class="table">
+                        <a id="table_G.4.2-21" shape="rect"></a>
+                        <p class="title">
+                           <strong>Table G.4.2-21. Maximum PDU Size Received as a SCP for MOVE-SCU</strong>
+                        </p>
+                        <div class="table-contents">
+                           <table frame="box" rules="all">
+                              <tbody>
+                                 <tr valign="top">
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Maximum PDU size received</p>
+                                    </td>
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Unlimited</p>
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                     <br class="table-break" clear="none" />
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_G.4.2.4.2.2" shape="rect"></a>G.4.2.4.2.2 Number of Associations</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="table">
+                        <a id="table_G.4.2-27" shape="rect"></a>
+                        <p class="title">
+                           <strong>Table G.4.2-27. Number of Associations as a SCP for MOVE-SCU</strong>
+                        </p>
+                        <div class="table-contents">
+                           <table frame="box" rules="all">
+                              <tbody>
+                                 <tr valign="top">
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Maximum number of simultaneous associations</p>
+                                    </td>
+                                    <td align="center" rowspan="1" colspan="1">
+                                       <p>1</p>
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                     <br class="table-break" clear="none" />
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_G.4.2.4.2.3" shape="rect"></a>G.4.2.4.2.3 Asynchronous Nature</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <p>MOVE-SCU will only allow a single outstanding operation on an Association. Therefore, MOVE-SCU will not perform asynchronous operations window negotiation.</p>
+                  </div>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_G.4.2.4.2.4" shape="rect"></a>G.4.2.4.2.4 Implementation Identifying Information</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="table">
+                        <a id="table_G.4.2-23" shape="rect"></a>
+                        <p class="title">
+                           <strong>Table G.4.2-23. DICOM Implementation Class and Version for MOVE-SCU</strong>
+                        </p>
+                        <div class="table-contents">
+                           <table frame="box" rules="all">
+                              <tbody>
+                                 <tr valign="top">
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Implementation Class UID</p>
+                                    </td>
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>1.2.840.999999.3.6</p>
+                                    </td>
+                                 </tr>
+                                 <tr valign="top">
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Implementation Version Name</p>
+                                    </td>
+                                    <td align="left" rowspan="1" colspan="1">
+                                       <p>Viewer1.0</p>
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                     <br class="table-break" clear="none" />
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_G.4.2.4.3" shape="rect"></a>G.4.2.4.3 Association Initiation Policy</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>MOVE-SCU attempts to initiate a new association when the results of the FIND-SCU indicate matching Hanging Protocol Instances to retrieve.</p>
+                  <div class="section">
+                     <div class="titlepage">
+                        <div>
+                           <div>
+                              <h6 class="title">
+                                 <a id="sect_G.4.2.4.3.1" shape="rect"></a>G.4.2.4.3.1 Activity - Retrieve From Remote AE</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="section">
+                        <div class="titlepage">
+                           <div>
+                              <div>
+                                 <h6 class="title">
+                                    <a id="sect_G.4.2.4.3.1.1" shape="rect"></a>G.4.2.4.3.1.1 Description and Sequencing of Activities</h6>
+                              </div>
+                           </div>
+                        </div>
+                        <p>A single attempt will be made to retrieve Hanging Protocol Instances from the remote AE. If the retrieve fails, for whatever reason, no retry will be performed.</p>
+                     </div>
+                     <div class="section">
+                        <div class="titlepage">
+                           <div>
+                              <div>
+                                 <h6 class="title">
+                                    <a id="sect_G.4.2.4.3.1.2" shape="rect"></a>G.4.2.4.3.1.2 Proposed Presentation Contexts</h6>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="table">
+                           <a id="table_G.4.2-24" shape="rect"></a>
+                           <p class="title">
+                              <strong>Table G.4.2-24. Proposed Presentation Contexts for MOVE-SCU and Retrieve From Remote AE</strong>
+                           </p>
+                           <div class="table-contents">
+                              <table frame="box" rules="all">
+                                 <thead>
+                                    <tr valign="top">
+                                       <th align="center" colspan="6" rowspan="1">
+                                          <p>Presentation Context Table</p>
+                                       </th>
+                                    </tr>
+                                    <tr valign="top">
+                                       <th align="center" colspan="2" rowspan="1">
+                                          <p>Abstract Syntax</p>
+                                       </th>
+                                       <th align="center" colspan="2" rowspan="1">
+                                          <p>Transfer Syntax</p>
+                                       </th>
+                                       <th align="center" rowspan="2" colspan="1">
+                                          <p>Role</p>
+                                       </th>
+                                       <th align="center" rowspan="2" colspan="1">
+                                          <p>Extended Negotiation</p>
+                                       </th>
+                                    </tr>
+                                    <tr valign="top">
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Name</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>UID</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>Name List</p>
+                                       </th>
+                                       <th align="center" rowspan="1" colspan="1">
+                                          <p>UID List</p>
+                                       </th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="2" colspan="1">
+                                          <p>See <a class="xref" href="sect_G.4.html#table_G.4.2-20" title="Table G.4.2-20. SOP Classes Supported By MOVE-SCU" shape="rect">Table G.4.2-20</a>
+                                          </p>
+                                       </td>
+                                       <td align="left" rowspan="2" colspan="1">
+                                          <p>See <a class="xref" href="sect_G.4.html#table_G.4.2-20" title="Table G.4.2-20. SOP Classes Supported By MOVE-SCU" shape="rect">Table G.4.2-20</a>
+                                          </p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Implicit VR Little Endian</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>1.2.840.10008.1.2</p>
+                                       </td>
+                                       <td align="left" rowspan="2" colspan="1">
+                                          <p>SCP</p>
+                                       </td>
+                                       <td align="left" rowspan="2" colspan="1">
+                                          <p>None</p>
+                                       </td>
+                                    </tr>
+                                    <tr valign="top">
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>Explicit VR Little Endian</p>
+                                       </td>
+                                       <td align="left" rowspan="1" colspan="1">
+                                          <p>1.2.840.10008.1.2.1</p>
+                                       </td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                        <br class="table-break" clear="none" />
+                        <p>MOVE-SCU will propose multiple Presentation Contexts, one for each of the supported Transfer Syntaxes, and an additional Presentation Context with all of the supported Transfer Syntaxes, in order to determine which Transfer Syntaxes the remote SCP supports, and which it prefers.</p>
+                        <div class="section">
+                           <div class="titlepage">
+                              <div>
+                                 <div>
+                                    <h6 class="title">
+                                       <a id="sect_G.4.2.4.3.1.2.1" shape="rect"></a>G.4.2.4.3.1.2.1 Extended Negotiation</h6>
+                                 </div>
+                              </div>
+                           </div>
+                           <p>No extended negotiation is performed.</p>
+                        </div>
+                     </div>
+                     <div class="section">
+                        <div class="titlepage">
+                           <div>
+                              <div>
+                                 <h6 class="title">
+                                    <a id="sect_G.4.2.4.3.1.3" shape="rect"></a>G.4.2.4.3.1.3 SOP Specific Conformance</h6>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="section">
+                           <div class="titlepage">
+                              <div>
+                                 <div>
+                                    <h6 class="title">
+                                       <a id="sect_G.4.2.4.3.1.3.1" shape="rect"></a>G.4.2.4.3.1.3.1 SOP Specific Conformance to C-FIND SOP Classes</h6>
+                                 </div>
+                              </div>
+                           </div>
+                           <p>MOVE-SCU provides standard conformance to the supported C-MOVE SOP Class.</p>
+                           <p>No CANCEL requests are ever issued.</p>
+                           <p>The retrieval is performed from the AE that was specified in the Retrieve AE attribute returned from the query performed by FIND-SCU. The instances are retrieved to the current application's local database by specifying the destination as the AE Title of the STORE-SCP AE of the local application. This implies that the remote C-MOVE SCP must be preconfigured to determine the presentation address corresponding to the STORE-SCP AE. The STORE-SCP AE will accept storage requests addressed to it from anywhere, so no pre-configuration of the local application to accept from the remote AE is necessary (except in so far as it was necessary to configure FIND-SCU).</p>
+                           <div class="table">
+                              <a id="table_G.4.2-25" shape="rect"></a>
+                              <p class="title">
+                                 <strong>Table G.4.2-25. Request Identifier for MOVE-SCU</strong>
+                              </p>
+                              <div class="table-contents">
+                                 <table frame="box" rules="all">
+                                    <thead>
+                                       <tr valign="top">
+                                          <th align="center" rowspan="1" colspan="1">
+                                             <p>Name</p>
+                                          </th>
+                                          <th align="center" rowspan="1" colspan="1">
+                                             <p>Tag</p>
+                                          </th>
+                                          <th align="center" rowspan="1" colspan="1">
+                                             <p>Request Key</p>
+                                          </th>
+                                       </tr>
+                                    </thead>
+                                    <tbody>
+                                       <tr valign="top">
+                                          <td align="left" colspan="3" rowspan="1">
+                                             <p>Hanging Protocol</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>SOP Instance UID</p>
+                                          </td>
+                                          <td align="center" rowspan="1" colspan="1">
+                                             <p>(0008,0018)</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>List of UIDs</p>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </div>
+                           </div>
+                           <br class="table-break" clear="none" />
+                        </div>
+                        <div class="section">
+                           <div class="titlepage">
+                              <div>
+                                 <div>
+                                    <h6 class="title">
+                                       <a id="sect_G.4.2.4.3.1.3.2" shape="rect"></a>G.4.2.4.3.1.3.2 Presentation Context Acceptance Criterion</h6>
+                                 </div>
+                              </div>
+                           </div>
+                           <p>MOVE-SCU does not accept associations.</p>
+                        </div>
+                        <div class="section">
+                           <div class="titlepage">
+                              <div>
+                                 <div>
+                                    <h6 class="title">
+                                       <a id="sect_G.4.2.4.3.1.3.3" shape="rect"></a>G.4.2.4.3.1.3.3 Transfer Syntax Selection Policies</h6>
+                                 </div>
+                              </div>
+                           </div>
+                           <p>MOVE-SCU prefers explicit Transfer Syntaxes. If offered a choice of Transfer Syntaxes in the accepted Presentation Contexts, it will apply the following priority to the choice of Presentation Context to use for the C-MOVE operation:</p>
+                           <div class="orderedlist">
+                              <ol class="orderedlist" type="a">
+                                 <li class="listitem">
+                                    <p>first encountered explicit Transfer Syntax,</p>
+                                 </li>
+                                 <li class="listitem">
+                                    <p>default Transfer Syntax.</p>
+                                 </li>
+                              </ol>
+                           </div>
+                        </div>
+                        <div class="section">
+                           <div class="titlepage">
+                              <div>
+                                 <div>
+                                    <h6 class="title">
+                                       <a id="sect_G.4.2.4.3.1.3.4" shape="rect"></a>G.4.2.4.3.1.3.4 Response Status</h6>
+                                 </div>
+                              </div>
+                           </div>
+                           <p>MOVE-SCU will behave as described in the Table below in response to the status returned in the C-MOVE response command message(s).</p>
+                           <div class="table">
+                              <a id="table_G.4.2-26" shape="rect"></a>
+                              <p class="title">
+                                 <strong>Table G.4.2-26. Response Status for MOVE-SCU and Retrieve From Remote AE Request</strong>
+                              </p>
+                              <div class="table-contents">
+                                 <table frame="box" rules="all">
+                                    <thead>
+                                       <tr valign="top">
+                                          <th align="center" rowspan="1" colspan="1">
+                                             <p>Service Status</p>
+                                          </th>
+                                          <th align="center" rowspan="1" colspan="1">
+                                             <p>Further Meaning</p>
+                                          </th>
+                                          <th align="center" rowspan="1" colspan="1">
+                                             <p>Status Codes</p>
+                                          </th>
+                                          <th align="center" rowspan="1" colspan="1">
+                                             <p>Related Fields</p>
+                                          </th>
+                                          <th align="center" rowspan="1" colspan="1">
+                                             <p>Behavior</p>
+                                          </th>
+                                       </tr>
+                                    </thead>
+                                    <tbody>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Refused</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Out of Resources - Unable to calculate number of matches</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>A701</p>
+                                          </td>
+                                          <td align="center" rowspan="1" colspan="1">
+                                             <p>(0000,0902)</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Retrieval is terminated</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="center" rowspan="1" colspan="1"></td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Out of Resources - Unable to perform sub-operations</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>A702</p>
+                                          </td>
+                                          <td align="center" rowspan="1" colspan="1">
+                                             <p>(0000,1020)</p>
+                                             <p>(0000,1021)</p>
+                                             <p>(0000,1022)</p>
+                                             <p>(0000,1023)</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Retrieval is terminated</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="center" rowspan="1" colspan="1"></td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Move Destination unknown</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>A801</p>
+                                          </td>
+                                          <td align="center" rowspan="1" colspan="1">
+                                             <p>(0000,0902)</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Retrieval is terminated</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Failed</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Identifier does not match SOP Class</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>A900</p>
+                                          </td>
+                                          <td align="center" rowspan="1" colspan="1">
+                                             <p>(0000,0901)</p>
+                                             <p>(0000,0902)</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Retrieval is terminated</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="center" rowspan="1" colspan="1"></td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Unable to process</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Cxxx</p>
+                                          </td>
+                                          <td align="center" rowspan="1" colspan="1">
+                                             <p>(0000,0901)</p>
+                                             <p>(0000,0902)</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Retrieval is terminated</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Cancel</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Sub-operations terminated due to Cancel Indication</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>FE00</p>
+                                          </td>
+                                          <td align="center" rowspan="1" colspan="1">
+                                             <p>(0000,1020)</p>
+                                             <p>(0000,1021)</p>
+                                             <p>(0000,1022)</p>
+                                             <p>(0000,1023)</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Retrieval is terminated (should never occur, since cancels never issued)</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Warning</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Sub-operations Complete - One or more Failures</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>B000</p>
+                                          </td>
+                                          <td align="center" rowspan="1" colspan="1">
+                                             <p>(0000,1020)</p>
+                                             <p>(0000,1022)</p>
+                                             <p>(0000,1023)</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Retrieval is terminated</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Success</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Sub-operations Complete - No Failures</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>0000</p>
+                                          </td>
+                                          <td align="center" rowspan="1" colspan="1">
+                                             <p>(0000,1020)</p>
+                                             <p>(0000,1021)</p>
+                                             <p>(0000,1022)</p>
+                                             <p>(0000,1023)</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Retrieval is terminated</p>
+                                          </td>
+                                       </tr>
+                                       <tr valign="top">
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Pending</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Sub-operations are continuing</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>FF00</p>
+                                          </td>
+                                          <td align="center" rowspan="1" colspan="1">
+                                             <p>(0000,1020)</p>
+                                             <p>(0000,1021)</p>
+                                             <p>(0000,1022)</p>
+                                             <p>(0000,1023)</p>
+                                          </td>
+                                          <td align="left" rowspan="1" colspan="1">
+                                             <p>Retrieval continues</p>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </div>
+                           </div>
+                           <br class="table-break" clear="none" />
+                        </div>
+                        <div class="section">
+                           <div class="titlepage">
+                              <div>
+                                 <div>
+                                    <h6 class="title">
+                                       <a id="sect_G.4.2.4.3.1.3.5" shape="rect"></a>G.4.2.4.3.1.3.5 Sub-Operation Dependent Behavior</h6>
+                                 </div>
+                              </div>
+                           </div>
+                           <p>Since the C-MOVE operation is dependent on completion of C-STORE sub-operations that are occurring on a separate association, the question of failure of operations on the other association(s) must be considered.</p>
+                           <p>MOVE-SCU completely ignores whatever activities are taking place in relation to the STORAGE-SCP AE that is receiving the retrieved instances. Once the C-MOVE has been initiated it runs to completion (or failure) as described in the C-MOVE response command message(s). There is no attempt by MOVE-SCU to confirm that instances have actually been successfully received or locally stored.</p>
+                           <p>Whether or not completely or partially successfully retrievals are made available in the local database to the user is purely dependent on the success or failure of the C-STORE sub-operations, not on any explicit action by MOVE-SCU.</p>
+                           <p>Whether or not the remote AE attempts to retry any failed C-STORE sub-operations is beyond the control of MOVE-SCU.</p>
+                           <p>If the association on which the C-MOVE was issued is aborted for any reason, whether or not the C-STORE sub-operations continue is dependent on the remote AE; the local STORAGE-SCP will continue to accept associations and storage operations regardless.</p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_G.4.2.4.4" shape="rect"></a>G.4.2.4.4 Association Acceptance Policy</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>MOVE-SCU does not accept associations.</p>
+               </div>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_G.4.3" shape="rect"></a>G.4.3 Network Interfaces</h3>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_G.4.3.1" shape="rect"></a>G.4.3.1 Physical Network Interface</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The application is indifferent to the physical medium over which TCP/IP executes, which is dependent on the underlying operating system and hardware.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_G.4.3.2" shape="rect"></a>G.4.3.2 Additional Protocols</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>When host names rather than IP addresses are used in the configuration properties to specify presentation addresses for remote AEs, the application is dependent on the name resolution mechanism of the underlying operating system.</p>
+            </div>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_G.4.3.3" shape="rect"></a>G.4.3.3 IPv4 and IPv6 Support</h3>
+                  </div>
+               </div>
+            </div>
+            <p>This product supports both IPv4 and IPv6. It does not utilize any of the optional configuration identification or security features of IPv6.</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_G.4.4" shape="rect"></a>G.4.4 Configuration</h3>
+                  </div>
+               </div>
+            </div>
+            <p>All configuration is performed through the use of Java properties file(s) stored in pre-defined locations that are specific to the underlying operating system. Refer to the Release Notes for specific details.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_G.4.4.1" shape="rect"></a>G.4.4.1 AE Title/Presentation Address Mapping</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The Calling AE Titles of the local application are configurable in the preferences file. The mapping of the logical name by which remote AEs are described in the user interface to Called AE Titles as well as presentation address (hostname or IP address and port number) is configurable in the preferences file.</p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_G.4.4.2" shape="rect"></a>G.4.4.2 Parameters</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="table">
+                  <a id="table_G.4.4-1" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table G.4.4-1. Configuration Parameters Table</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Parameter</p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Configurable</p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Default Value</p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <th align="center" colspan="3" rowspan="1">
+                                 <p>General Parameters</p>
+                              </th>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>PDU Size</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>No</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>16kB</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Time-out waiting for acceptance or rejection Response to an Association Open Request. (Application Level timeout)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>No</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>None</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>General DIMSE level time-out values</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>No</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>None</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Time-out waiting for response to TCP/IP connect() request. (Low-level timeout)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>No</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>None</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Time-out waiting for acceptance of a TCP/IP message over the network. (Low-level timeout)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>No</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>None</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Time-out for waiting for data between TCP/IP packets. (Low-level timeout)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>No</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>None</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Any changes to default TCP/IP settings, such as configurable stack parameters.</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>No</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>None</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="center" colspan="3" rowspan="1">
+                                 <p>
+                                    <span class="bold">
+                                       <strong>AE Specific Parameters (all AEs)</strong>
+                                    </span>
+                                 </p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Size constraint in maximum object size</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>No</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>None</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Maximum PDU size the AE can receive (see note 1)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>No</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Unlimited</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Maximum PDU size the AE can send</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>No</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Unlimited</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>AE specific DIMSE level time-out values</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>No</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>None</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Number of simultaneous Associations by Service and/or SOP Class</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>No</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Unlimited</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>SOP Class support</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>No</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>All supported SOP Classes always proposed and accepted</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Transfer Syntax support</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>No</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>All supported Transfer Syntaxes always proposed and accepted</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Other parameters that are configurable</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>No</p>
+                              </td>
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>None</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <p>Though the application can support unlimited PDU sizes, it will never offer a Maximum Received PDU Length of zero (unlimited) since this triggers a bug in some older systems.</p>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_G.3.3.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_G.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_G.5.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">G.3.3 Additional Remarks for This Example </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.2.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> G.5 Media Interchange</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

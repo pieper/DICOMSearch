@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>10.17 Selector Attribute Macro</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.3.html" title="PS3.3" />
+      <link rel="up" href="chapter_10.html" title="10 Miscellaneous Macros" />
+      <link rel="prev" href="sect_10.16.html" title="10.16 Algorithm Identification Macro" />
+      <link rel="next" href="sect_10.18.html" title="10.18 Data Set Identification Macro" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">10.17 Selector Attribute Macro</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_10.16.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">10 Miscellaneous Macros</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_10.18.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_10.17" shape="rect"></a>10.17 Selector Attribute Macro</h2>
+               </div>
+            </div>
+         </div>
+         <p>
+            <a class="xref" href="sect_10.17.html#table_10-20" title="Table 10-20. Selector Attribute Macro Attributes" shape="rect">Table 10-20</a> specifies the Attributes that identify the context for a Data Element Tag that is used as a Selector Attribute (0072,0026). The attribute may be an attribute nested within one or more Sequences, and/or a Private Attribute.</p>
+         <div class="table">
+            <a id="table_10-20" shape="rect"></a>
+            <p class="title">
+               <strong>Table 10-20. Selector Attribute Macro Attributes</strong>
+            </p>
+            <div class="table-contents">
+               <table frame="box" rules="all">
+                  <thead>
+                     <tr valign="top">
+                        <th align="center" rowspan="1" colspan="1">
+                           <p>Attribute Name</p>
+                        </th>
+                        <th align="center" rowspan="1" colspan="1">
+                           <p>Tag</p>
+                        </th>
+                        <th align="center" rowspan="1" colspan="1">
+                           <p>Type</p>
+                        </th>
+                        <th align="center" rowspan="1" colspan="1">
+                           <p>Attribute Description</p>
+                        </th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Selector Attribute</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>(0072,0026)</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>1</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Data Element Tag of the attribute to be referenced.</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Selector Value Number</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>(0072,0028)</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>1</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Positive integer identifying which value of a multi-valued attribute identified by Selector Attribute (0072,0026) is to be referenced. The value 1 identifies the first value. The value zero identifies any value.</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Selector Sequence Pointer</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>(0072,0052)</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>1C</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Contains the Data Element Tags of the path to the Sequence that contains the Attribute that is identified by Selector Attribute (0072,0026).</p>
+                           <p>This attribute shall have the same number of items as the level of nesting of Selector Attribute (0072,0026).</p>
+                           <p>Required if Selector Attribute (0072,0026) is nested in one or more Sequences.</p>
+                           <p>See <a class="xref" href="sect_10.17.html#sect_10.17.1.1" title="10.17.1.1 Referencing Nested Elements" shape="rect">Section 10.17.1.1</a>.</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Selector Sequence Pointer Private Creator</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>(0072,0054)</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>1C</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Identification of the creator of a group of private data elements used to encode attributes in the Selector Sequence Pointer (0072,0052).</p>
+                           <p>This attribute shall have the same number of items as the level of nesting of Selector Attribute (0072,0026).</p>
+                           <p>For values of the Selector Sequence Pointer (0072,0052) that are not the Data Element Tag of a Private Attribute, the corresponding value in Selector Sequence Pointer Private Creator (0072,0054) shall be empty.</p>
+                           <p>Required if Selector Sequence Pointer (0072,0052) is present and one or more of the values of Selector Sequence Pointer (0072,0052) is the Data Element Tag of a Private Attribute.</p>
+                           <p>See <a class="xref" href="sect_10.17.html#sect_10.17.1.2" title="10.17.1.2 Private Attribute References" shape="rect">Section 10.17.1.2</a>.</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Selector Sequence Pointer Items</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>(0074,1057)</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>1C</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Identification of the Item indices in the Selector Sequence Pointer (0072,0052).</p>
+                           <p>This attribute shall have the same number of items as the level of nesting of Selector Attribute (0072,0026).</p>
+                           <p>Required if Selector Sequence Pointer (0072,0052) is present.</p>
+                           <p>See <a class="xref" href="sect_10.17.html#sect_10.17.1.1" title="10.17.1.1 Referencing Nested Elements" shape="rect">Section 10.17.1.1</a>.</p>
+                        </td>
+                     </tr>
+                     <tr valign="top">
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Selector Attribute Private Creator</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>(0072,0056)</p>
+                        </td>
+                        <td align="center" rowspan="1" colspan="1">
+                           <p>1C</p>
+                        </td>
+                        <td align="left" rowspan="1" colspan="1">
+                           <p>Identification of the creator of a group of private data elements.</p>
+                           <p>Required if the Selector Attribute (0072,0026) value is the Data Element Tag of a Private Attribute.</p>
+                           <p>See <a class="xref" href="sect_10.17.html#sect_10.17.1.2" title="10.17.1.2 Private Attribute References" shape="rect">Section 10.17.1.2</a>.</p>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <br class="table-break" clear="none" />
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_10.17.1" shape="rect"></a>10.17.1 Selector Attribute Macro Attribute Descriptions</h3>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_10.17.1.1" shape="rect"></a>10.17.1.1 Referencing Nested Elements</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>Examples of use are shown in <a class="xref" href="sect_10.17.html#table_10-21" title="Table 10-21. Selector Attribute Macro Example" shape="rect">Table 10-21</a>.</p>
+               <div class="table">
+                  <a id="table_10-21" shape="rect"></a>
+                  <p class="title">
+                     <strong>Table 10-21. Selector Attribute Macro Example</strong>
+                  </p>
+                  <div class="table-contents">
+                     <table frame="box" rules="all">
+                        <thead>
+                           <tr valign="top">
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Example</p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Selector Attribute (0072,0026)</p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Selector Value Number (0072,0028)</p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Selector Sequence Pointer (0072,0052)</p>
+                              </th>
+                              <th align="center" rowspan="1" colspan="1">
+                                 <p>Selector Sequence Pointer Items (0074,1057)</p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Entire Patient's Name</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0010,0010)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>0</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>absent</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>absent</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Second value (e.g., PRIMARY or SECONDARY) in Image Type Attribute</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0008,0008)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>2</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>absent</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>absent</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Entire RT Beam Limiting Device Sequence attribute for the third Beam in an RT Plan</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(300A,00B6)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>0</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(300A,00B0)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>3</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>RT Beam Limiting Device Type attribute for the second jaw specified for the first Beam in an RT Plan</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(300A,00B8)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>0</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(300A,00B0),</p>
+                                 <p>(300A,00B6)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1\2</p>
+                              </td>
+                           </tr>
+                           <tr valign="top">
+                              <td align="left" rowspan="1" colspan="1">
+                                 <p>Code value attribute for the first item in View Code Sequence</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0008,0100)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>(0054,0220)</p>
+                              </td>
+                              <td align="center" rowspan="1" colspan="1">
+                                 <p>1</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <br class="table-break" clear="none" />
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_10.17.1.2" shape="rect"></a>10.17.1.2 Private Attribute References</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The Selector Sequence Pointer Private Creator (0072,0054) and the Selector Attribute Private Creator (0072,0056) each have a value that corresponds to the Private Creator Data Element numbers (gggg,00pp), where gggg is odd and pp ranges from 10 to FF. These identify a block of Private Data Elements within the block (gggg,ppxx). When Selector Attribute (0072,0026) or Selector Sequence Pointer (0072,0052) points to a Private Data Element (gggg,ppxx), it shall have the value (gggg,00xx).</p>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="sect_10.16.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_10.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_10.18.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">10.16 Algorithm Identification Macro </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.3.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> 10.18 Data Set Identification Macro</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

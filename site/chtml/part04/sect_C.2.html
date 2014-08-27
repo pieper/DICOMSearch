@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>C.2 Query/Retrieve Information Model Definition</title>
+      <link rel="stylesheet" type="text/css" href="dicom.css" />
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="PS3.4.html" title="PS3.4" />
+      <link rel="up" href="chapter_C.html" title="C Query/Retrieve Service Class (Normative)" />
+      <link rel="prev" href="chapter_C.html" title="C Query/Retrieve Service Class (Normative)" />
+      <link rel="next" href="sect_C.3.html" title="C.3 Standard Query/Retrieve Information Models" />
+      <style type="text/css"><![CDATA[
+	p { font-size: 15px; }
+      ]]></style>
+   </head>
+   <body>
+      <div class="navheader">
+         <table width="100%" summary="Navigation header">
+            <tr>
+               <th colspan="3" align="center" rowspan="1">C.2 Query/Retrieve Information Model Definition</th>
+            </tr>
+            <tr>
+               <td width="20%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_C.html" shape="rect">Prev</a> </td>
+               <th width="60%" align="center" rowspan="1" colspan="1">C Query/Retrieve Service Class (Normative)</th>
+               <td width="20%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_C.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+         </table>
+         <hr />
+      </div>
+      <div class="section">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title" style="clear: both">
+                     <a id="sect_C.2" shape="rect"></a>C.2 Query/Retrieve Information Model Definition</h2>
+               </div>
+            </div>
+         </div>
+         <p>The Query/Retrieve Information Model is identified by the SOP Class negotiated at Association establishment time. The SOP Class is composed of both an Information Model and a DIMSE-C Service Group.</p>
+         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <p>This SOP Class identifies the class of the Query/Retrieve Information Model (i.e., not the SOP Class of the stored SOP Instances for which the SCP has information).</p>
+         </div>
+         <p>Information Model Definitions for standard SOP Classes of the Query/Retrieve Service Class are defined in this Annex. A Query/Retrieve Information Model Definition contains:</p>
+         <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+               <li class="listitem">
+                  <p>Entity-Relationship Model Definition</p>
+               </li>
+               <li class="listitem">
+                  <p>Key Attributes Definition</p>
+               </li>
+            </ul>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_C.2.1" shape="rect"></a>C.2.1 Entity-Relationship Model Definition</h3>
+                  </div>
+               </div>
+            </div>
+            <p>For any Query/Retrieve Information Model, an Entity-Relationship Model defines a hierarchy of entities, with Attributes defined for each level in the hierarchy (e.g., Patient, Study, Series, Composite Object Instance).</p>
+         </div>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h3 class="title">
+                        <a id="sect_C.2.2" shape="rect"></a>C.2.2 Attributes Definition</h3>
+                  </div>
+               </div>
+            </div>
+            <p>Attributes shall be defined at each level in the Entity-Relationship Model. An Identifier in a C-FIND, C-MOVE, or C-GET command shall contain values to be matched against the Attributes of the Entities in a Query/Retrieve Information Model. For any query, the set of entities for which Attributes are returned, shall be determined by the set of Key Attributes specified in the Identifier that have corresponding matches on entities managed by the SCP associated with the query.</p>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_C.2.2.1" shape="rect"></a>C.2.2.1 Attribute Types</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>All Attributes of entities in a Query/Retrieve Information Model shall be either a Unique Key, Required Key, or Optional Key. The term Key Attributes refers to Unique, Required, and Optional Key Attributes.</p>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.2.2.1.1" shape="rect"></a>C.2.2.1.1 Unique Keys</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>At each level in the Entity-Relationship Model, one Attribute shall be defined as a Unique Key. A single value in a Unique Key Attribute shall uniquely identify a single entity at a given level. That is, two entities at the same level may not have the same Unique Key value.</p>
+                  <p>C-FIND, C-MOVE, and C-GET SCPs shall support existence and matching of all Unique Keys defined by a Query/Retrieve Information Model. All entities managed by C-FIND, C-MOVE, and C-GET SCPs shall have a specific non-zero length Unique Key value.</p>
+                  <p>Unique Keys may be contained in the Identifier of a C-FIND request. Unique Keys shall be contained in the Identifier of C-MOVE and C-GET requests.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.2.2.1.2" shape="rect"></a>C.2.2.1.2 Required Keys</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>At each level in the Entity-Relationship Model, a set of Attributes shall be defined as Required Keys. Required Keys imply the SCP of a C-FIND shall support matching based on a value contained in a Required Key of the C-FIND request. Multiple entities may have the same value for Required Keys. That is, a distinct value in a Required Key shall not necessarily identify a single entity at the level of the key.</p>
+                  <p>C-FIND SCPs shall support existence and matching of all Required Keys defined by a Query/Retrieve Information Model. If a C-FIND SCP manages an entity with a Required Key of zero length, the value is considered unknown and all matching against the zero length Required Key shall be considered a successful match.</p>
+                  <p>Required Keys may be contained in the Identifier of a C-FIND request. Required Keys shall not be contained in the Identifier of C-MOVE and C-GET requests.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.2.2.1.3" shape="rect"></a>C.2.2.1.3 Optional Keys</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>At each level in the Entity-Relationship Model, a set of Attributes shall be defined as Optional Keys.</p>
+                  <p>Optional Keys contained in the Identifier of a C-FIND request may have three different types of behavior depending on support for existence and/or matching by the C-FIND SCP. If the C-FIND SCP:</p>
+                  <div class="itemizedlist">
+                     <ul class="itemizedlist" style="list-style-type: disc; ">
+                        <li class="listitem">
+                           <p>does not support the existence of the Optional Key, then the Attribute shall not be returned in C-FIND responses</p>
+                        </li>
+                        <li class="listitem">
+                           <p>supports the existence of the Optional Key but does not support matching on the Optional Key, then the Optional Key shall be processed in the same manner as a zero length Required Key. That is, the value specified to be matched for the Optional Key is ignored but a value may be returned by the SCP for this Optional Key.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>supports the existence and matching of the Optional Key, then the Optional Key shall be processed in the same manner as a Required Key.</p>
+                        </li>
+                     </ul>
+                  </div>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <div class="orderedlist">
+                        <ol class="orderedlist" type="1">
+                           <li class="listitem">
+                              <p>C-FIND SCU may not assume an Optional Key with non-zero length will be processed in the same manner as a Required Key. The Conformance Statement of the C-FIND SCP shall list the Optional Keys that are supported.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Optional Keys are differentiated from Required Keys in that Optional Keys may or may not be supported for existence and/or matching by C-FIND SCPs. Whereas, Required Keys must always be supported by C-FIND SCPs.</p>
+                           </li>
+                        </ol>
+                     </div>
+                  </div>
+                  <p>Optional Keys may be contained in the Identifier of a C-FIND request. Optional Keys shall not be contained in the Identifier of C-MOVE and C-GET requests.</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_C.2.2.2" shape="rect"></a>C.2.2.2 Attribute Matching</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>The following types of matching may be performed on Key Attributes in the Query/Retrieve Service Class:</p>
+               <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: disc; ">
+                     <li class="listitem">
+                        <p>Single Value Matching</p>
+                     </li>
+                     <li class="listitem">
+                        <p>List of UID Matching</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Universal Matching</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Wild Card Matching</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Range Matching</p>
+                     </li>
+                     <li class="listitem">
+                        <p>Sequence Matching</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>Matching requires special characters (i.e., "*","?","-", "=" and "\"), which need not be part of the character repertoire for the VR of the Key Attributes.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="1">
+                        <li class="listitem">
+                           <p>For example, the "-" character is not valid for the DA, DT and TM VRs but is used for range matching.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>When character sets other than the default character repertoire are used, then the rules in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a> apply, such as with respect to the use of the 05/12 "\" (BACKSLASH) (in ISO IR 6) or 05/12 "¥" (YEN SIGN) (in ISO IR 14).</p>
+                        </li>
+                     </ol>
+                  </div>
+               </div>
+               <p>The total length of the Key Attribute may exceed the length as specified in the VR in <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>. The Value Multiplicity (VM) may be larger than the VM specified in <a href="../part06/PS3.6.html" class="olink" shape="rect">PS3.6</a> for the Key Attribute, as defined for particular Matching Type.</p>
+               <p>The Specific Character Set (0008,0005) Attribute may be present in the Identifier but is never matched. Rather, it specifies how other Attributes are encoded in the Request and Response Identifiers.</p>
+               <p>It may influence how matching of other Attributes is performed. If Specific Character Set (0008,0005) is absent, then the default character repertoire shall be used. Specific Character Set (0008,0005) shall not have a zero length value.</p>
+               <p>Specific Character Set (0008,0005) may have multiple values if escape sequences are used to switch between character repertoires within values.</p>
+               <p>If the SCP does not support the value(s) of Specific Character Set (0008,0005) in the Request Identifier, then the manner in which matching is performed is undefined and shall be specified in the conformance statement.</p>
+               <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                  <h3 class="title">Note</h3>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="1">
+                        <li class="listitem">
+                           <p>If an SCU sends a Request Identifier with a single byte character set not supported by the SCP, then it is likely, but not required, that the SCP will treat unrecognized characters as wild cards and match only on characters in the default repertoire, and return a response in the default repertoire.</p>
+                        </li>
+                        <li class="listitem">
+                           <p>Some Specific Character Set values are used with multi-component group person names (e.g., single-byte, ideographic and phonetic and phonetic component groups separated by an "=" (3DH) character), which may also affect the behavior of literal string matching.</p>
+                        </li>
+                     </ol>
+                  </div>
+               </div>
+               <p>The Timezone Offset From UTC (0008,0201) Attribute may be present in the Identifier but is not matched if Timezone query adjustment is negotiated. If Timezone query adjustment is negotiated, it specifies how date and time Attribute values are interpreted in the Request and Response Identifiers if those values lack a specific time zone offset specification.</p>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.2.2.2.1" shape="rect"></a>C.2.2.2.1 Single Value Matching</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>If the value specified for a Key Attribute in a request is non-zero length and if it is:</p>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="a">
+                        <li class="listitem">
+                           <p>not a date or time or datetime, contains no wild card characters</p>
+                        </li>
+                        <li class="listitem">
+                           <p>a date or time or datetime, contains a single date or time or datetime with no "-"</p>
+                        </li>
+                     </ol>
+                  </div>
+                  <p>then single value matching shall be performed. Except for Attributes with a PN Value Representation, only entities with values that match exactly the value specified in the request shall match. This matching is case-sensitive, i.e., sensitive to the exact encoding of the key Attribute value in character sets where a letter may have multiple encodings (e.g., based on its case, its position in a word, or whether it is accented).</p>
+                  <p>For Attributes with a PN Value Representation (e.g., Patient Name (0010,0010)), an application may perform literal matching that is either case-sensitive, or that is insensitive to some or all aspects of case, position, accent, or other character encoding variants.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <div class="orderedlist">
+                        <ol class="orderedlist" type="1">
+                           <li class="listitem">
+                              <p>For multi-component names, the component group delimiter "=" (3DH) may be present in the Key Attribute value, but may give unexpected results if the SCP does not support matching on separate components but interprets the entire value literally as a single string. E.g., "Wang^XiaoDong=王^小東" may or may not match "Wang^XiaoDong" or "王^小東"; wild card matching without the component group delimiter, such as "*Wang^XiaoDong*" or "*王^小東 *" may be necessary.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Using attributes with VR of AE, LO, PN and SH as matching keys will not allow single value matching on values that contain characters "*" and "?" - such queries will always be treated as queries with wildcard matching.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Attributes with VR of ST, LT and UT are intended for conveying narrative text and may contain wildcard characters "*" and "?". Attempts to match on a string explicitly containing "*" or "?" will be treated as wildcard matching and thus may return multiple results rather than a single one. </p>
+                           </li>
+                        </ol>
+                     </div>
+                  </div>
+                  <p>If extended negotiation of fuzzy semantic matching rather than literal matching of PN Value Representation is successful, not only may matching be insensitive to case, position, accent, and character encoding, but in addition other techniques such as phonetic matching may be applied.</p>
+                  <p>If the Timezone Offset From UTC (0008,0201) Attribute is present in the Identifier and Timezone query adjustment was negotiated, it shall be used to adjust values of time Attributes (and associated date Attributes, if present) from the local timezone to UTC. It shall also adjust values of datetime Attributes that do not specify a timezone offset. The encoding and semantics of the Timezone Offset From UTC (0008,0201) Attribute shall be as defined in the SOP Common Module in <a href="../part03/PS3.3.html" class="olink" shape="rect">PS3.3</a>.</p>
+                  <p>The manner in which matching is performed is implementation dependent and shall be specified in the conformance statement.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <div class="orderedlist">
+                        <ol class="orderedlist" type="1">
+                           <li class="listitem">
+                              <p>This definition implies that dates or times or datetimes are matched by their meaning, not as literal strings. For example:</p>
+                              <div class="itemizedlist">
+                                 <ul class="itemizedlist" style="list-style-type: disc; ">
+                                    <li class="listitem">
+                                       <p>the DT "19980128103000.0000" matches "19980128103000"</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>the DT "19980128103000" with no timezone offset matches "19980128073000" with timezone offset "-0300"</p>
+                                    </li>
+                                    <li class="listitem">
+                                       <p>the TM "2230" matches "223000"</p>
+                                    </li>
+                                 </ul>
+                              </div>
+                           </li>
+                           <li class="listitem">
+                              <p>If an application is concerned about how single value matching of dates and times is performed by another application, it may consider using range matching instead, which is always performed by meaning, with both values in the range the same.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Exclusion of the "-" character for single value matching implies that a Key Attribute with DT Value Representation may not contain a negative offset from Universal Coordinated Time (UTC) if single value matching is intended. Use of the "-" character in date, time or datetime indicates range matching.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>If an application is in a local time zone that has a negative offset then it cannot perform single value matching using a local time notation. Instead, it can convert the Key Attribute value to UTC and use an explicit suffix of "+0000".</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Matching of PN Attributes may be accent-insensitive, as specified in the conformance statement. Accent-insensitive matching would successfully match, for instance, a query character "SMALL LETTER a" (06/01 in the default ISO-IR 6) with</p>
+                              <div class="itemizedlist">
+                                 <ul class="itemizedlist" style="list-style-type: none; ">
+                                    <li class="listitem" style="list-style-type: none">
+                                       <p>"SMALL LETTER a WITH GRAVE ACCENT" (14/00 in ISO-IR 100),</p>
+                                    </li>
+                                    <li class="listitem" style="list-style-type: none">
+                                       <p>"SMALL LETTER a WITH TILDE" (14/03 in ISO-IR 100),</p>
+                                    </li>
+                                    <li class="listitem" style="list-style-type: none">
+                                       <p>"SMALL LETTER a WITH BREVE" (14/03 in ISO-IR 101), and</p>
+                                    </li>
+                                    <li class="listitem" style="list-style-type: none">
+                                       <p>"CAPITAL LETTER a WITH ACUTE ACCENT" (12/01 in ISO-IR 100) (if matching is also case-insensitive),</p>
+                                    </li>
+                                 </ul>
+                              </div>
+                              <p>but would not match 14/00 in ISO-IR 101, which is "SMALL LETTER r WITH ACUTE ACCENT". Matching to particular bit-combinations is specific to each supported character set (note the difference in meaning of 14/00), and should be described in the conformance statement.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>An SCU application may elect to perform additional filtering of the responses by applying the matching rules itself. In the event that both the SCU and SCP are applying the matching rules, this process will be successful as long as literal matching is performed by both, and any additional SCU filtering is insensitive to case, position, accent, or other character encoding variants.</p>
+                           </li>
+                        </ol>
+                     </div>
+                  </div>
+                  <p>However if fuzzy semantic matching of PN Attributes has been negotiated, matching by the SCP may result in responses that are not obviously related to the request, hence care should be taken if any additional filtering of responses is performed by the SCU. For example, if phonetic matching is performed, a query for "Swain" might well return "Swayne", or if name component order insensitive matching is performed, a query for "Smith^Mary" might well return "Mary^Smith" or "Mary Smith" or "Smith, Mary". Fuzzy semantic matching may also take into account separate single-byte, ideographic and phonetic name component groups.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.2.2.2.2" shape="rect"></a>C.2.2.2.2 List of UID Matching</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>A List of UIDs is encoded by using the value multiplicity operator, backslash ("\"), as a delimiter between UIDs. Each item in the list shall contain a single UID value. Each UID in the list contained in the Identifier of the request may generate a match.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>A list of single values is encoded exactly as a VR of UI and a VM of Multiple (see <a href="../part05/PS3.5.html" class="olink" shape="rect">PS3.5</a>).</p>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.2.2.2.3" shape="rect"></a>C.2.2.2.3 Universal Matching</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>If the value specified for a Key Attribute in a request is zero length, then all entities shall match this Attribute. An Attribute that contains a Universal Match specification in a C-FIND request provides a mechanism to request the selected Attribute value be returned in corresponding C-FIND responses.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.2.2.2.4" shape="rect"></a>C.2.2.2.4 Wild Card Matching</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>If the Attribute is not a date, time, signed long, signed short, unsigned short, unsigned long, floating point single, floating point double, other byte string, other word string, unknown, Attribute tag, decimal string, integer string, age string or UID and the value specified in the request contains any occurrence of an "*" or a "?", then "*" shall match any sequence of characters (including a zero length value) and "?" shall match any single character. This matching is case sensitive, except for Attributes with an PN Value Representation (e.g., Patient Name (0010,0010)).</p>
+                  <p>For Attributes with a PN value representation, including the case of extended negotiation of fuzzy semantic matching, wild card matching is implementation dependent and shall be specified in the conformance statement.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <div class="orderedlist">
+                        <ol class="orderedlist" type="1">
+                           <li class="listitem">
+                              <p>Wild card matching on a value of "*" is equivalent to universal matching.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>The wild card matching method specified by DICOM might not be supported by some non-DICOM multi-byte character text processors.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>For multi-component group names, the component group delimiter "=" (3DH) may be present in the Key Attribute value, but may give unexpected results if the SCP does not support matching on separate components but interprets the entire value literally. E.g., "*=*" or "*=*=*" may or may not return all strings, and hence is not equivalent to "*", nor to universal matching.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Using attributes with VR of AE, LO, PN and SH as matching keys will not allow single value matching on values that contain characters "*" and "?" - such queries will always be treated as queries with wildcard matching.</p>
+                           </li>
+                           <li class="listitem">
+                              <p>Attributes with VR of ST, LT and UT are intended for conveying narrative text and may contain wildcard characters "*" and "?". Attempts to match on a string explicitly containing "*" or "?" will be treated as wildcard matching and thus may return multiple results rather than a single one.</p>
+                           </li>
+                        </ol>
+                     </div>
+                  </div>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.2.2.2.5" shape="rect"></a>C.2.2.2.5 Range Matching</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>In the absence of extended negotiation, if the Attribute is a date, then:</p>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="a">
+                        <li class="listitem">
+                           <p>A string of the form "&lt;date1&gt; - &lt;date2&gt;", where &lt;date1&gt; is less or equal to &lt;date2&gt;, shall match all occurrences of dates that fall between &lt;date1&gt; and &lt;date2&gt; inclusive</p>
+                        </li>
+                        <li class="listitem">
+                           <p>A string of the form "- &lt;date1&gt;" shall match all occurrences of dates prior to and including &lt;date1&gt;</p>
+                        </li>
+                        <li class="listitem">
+                           <p>A string of the form "&lt;date1&gt; -" shall match all occurrences of &lt;date1&gt; and subsequent dates</p>
+                        </li>
+                     </ol>
+                  </div>
+                  <p>In the absence of extended negotiation, if the Attribute is a time, then:</p>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="a">
+                        <li class="listitem">
+                           <p>A string of the form "&lt;time1&gt; - &lt;time2&gt;", where &lt;time1&gt; is less or equal to &lt;time2&gt;, shall match all occurrences of times that fall between &lt;time1&gt; and &lt;time2&gt; inclusive</p>
+                        </li>
+                        <li class="listitem">
+                           <p>A string of the form "- &lt;time1&gt;" shall match all occurrences of times prior to and including &lt;time1&gt;</p>
+                        </li>
+                        <li class="listitem">
+                           <p>A string of the form "&lt;time1&gt; -" shall match all occurrences of &lt;time1&gt; and subsequent times</p>
+                        </li>
+                     </ol>
+                  </div>
+                  <p>If the Attribute is a datetime, then:</p>
+                  <div class="orderedlist">
+                     <ol class="orderedlist" type="a">
+                        <li class="listitem">
+                           <p>A string of the form "&lt;datetime1&gt; - &lt;datetime2&gt;", where &lt;datetime1&gt; is less or equal to &lt;datetime2&gt;, shall match all moments in time that fall between &lt;datetime1&gt; and &lt;datetime2&gt; inclusive</p>
+                        </li>
+                        <li class="listitem">
+                           <p>A string of the form "- &lt;datetime1&gt;" shall match all moments in time prior to and including &lt;datetime1&gt;</p>
+                        </li>
+                        <li class="listitem">
+                           <p>A string of the form "&lt;datetime1&gt; -" shall match all moments in time subsequent to and including &lt;datetime1&gt;</p>
+                        </li>
+                        <li class="listitem">
+                           <p>The offset from Universal Coordinated Time, if present in the Value of the Attribute, shall be taken into account for the purposes of the match.</p>
+                        </li>
+                     </ol>
+                  </div>
+                  <p>If extended negotiation of combined datetime matching is successful, then a pair of Attributes that are a date and a time, both of which specify the same form of range matching, shall have the concatenated string values of each range matching component matched as if they were a single datetime Attribute.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>For example, a Study Date of "20060705-20060707" and a Study Time of "1000-1800" will match the time period of July 5, 10am until July 7, 6pm, rather than the three time periods of 10am until 6pm on each of July 5, July 6 and July 7, as would be the case without extended negotiation.</p>
+                  </div>
+                  <p>Regardless of other extended negotiation, an application may use the value of Timezone Offset From UTC (0008,0201) to adjust values of time and datetime Attributes from the local timezone to UTC for matching. See <a class="xref" href="sect_C.2.html#sect_C.2.2.2.1" title="C.2.2.2.1 Single Value Matching" shape="rect">Section C.2.2.2.1</a>.</p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                     <h3 class="title">Note</h3>
+                     <p>If extended negotiation of combined datetime matching is successful, the timezone offset may effect a change in date if the local time and UTC are on different sides of midnight.</p>
+                  </div>
+                  <p>Range matching is not defined for types of Attributes other than dates and times.</p>
+               </div>
+               <div class="section">
+                  <div class="titlepage">
+                     <div>
+                        <div>
+                           <h5 class="title">
+                              <a id="sect_C.2.2.2.6" shape="rect"></a>C.2.2.2.6 Sequence Matching</h5>
+                        </div>
+                     </div>
+                  </div>
+                  <p>If a Key Attribute in the Identifier of a C-FIND request needs to be matched against an Attribute structured as a Sequence of Items (Value Representation of Type SQ), the Key Attribute shall be structured as a Sequence of Items with a single Item. This Item may contain zero or more Item Key Attributes. Each Item Key Attribute matching shall be performed on an Item by Item basis. The types of matching defined in <a class="xref" href="sect_C.2.html#sect_C.2.2.2" title="C.2.2.2 Attribute Matching" shape="rect">Section C.2.2.2</a> shall be used: Single Value Matching, List of UID Matching, Universal Matching, Wild Card Matching, Range Matching and Sequence Matching (recursive Sequence matching).</p>
+                  <p>If all the Item Key Attributes match, for at least one of the Items of the Attribute against which the match is performed, a successful match is generated. A sequence of matching Items containing only the requested Attributes is returned in the corresponding C-FIND responses.</p>
+                  <p>If the Key Attribute in the Identifier of a C-FIND request contains no Key Item Attribute (zero-length Item Tag), then all entities shall match this Attribute. This provides a universal matching like mechanism to request that the selected Key Attribute value (the entire Sequence of Items) be returned in corresponding C-FIND responses.</p>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h4 class="title">
+                           <a id="sect_C.2.2.3" shape="rect"></a>C.2.2.3 Matching Multiple Values</h4>
+                     </div>
+                  </div>
+               </div>
+               <p>When matching an Attribute that has a value multiplicity of greater than one, if any of the values match, then all values shall be returned.</p>
+            </div>
+         </div>
+      </div>
+      <div class="navfooter">
+         <hr />
+         <table width="100%" summary="Navigation footer">
+            <tr>
+               <td width="40%" align="left" rowspan="1" colspan="1">
+                  <a accesskey="p" href="chapter_C.html" shape="rect">Prev</a> </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="u" href="chapter_C.html" shape="rect">Up</a>
+               </td>
+               <td width="40%" align="right" rowspan="1" colspan="1"> <a accesskey="n" href="sect_C.3.html" shape="rect">Next</a>
+               </td>
+            </tr>
+            <tr>
+               <td width="40%" align="left" valign="top" rowspan="1" colspan="1">C Query/Retrieve Service Class (Normative) </td>
+               <td width="20%" align="center" rowspan="1" colspan="1">
+                  <a accesskey="h" href="PS3.4.html" shape="rect">Home</a>
+               </td>
+               <td width="40%" align="right" valign="top" rowspan="1" colspan="1"> C.3 Standard Query/Retrieve Information Models</td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>
