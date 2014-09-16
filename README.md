@@ -1,3 +1,14 @@
+NOTE:
+=====
+
+This project has moved to the QIICR/DICOMSearch project.
+
+A live version is hosted here:
+
+https://fedorov.cloudant.com/dicom_search/.site/index.html
+
+The improved version supports better search, so this repo can be considered legacy.
+
 DICOMSearch
 ===========
 
